@@ -69,7 +69,6 @@ import net.minecraft.world.WorldServerMulti;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.storage.AnvilSaveConverter;
-import net.minecraft.world.demo.DemoWorldServer;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
@@ -114,7 +113,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private String serverOwner;
     private String folderName;
     private String worldName;
-    private boolean isDemo;
     private boolean enableBonusChest;
     private boolean worldIsBeingDeleted;
     private String resourcePackUrl = "";
@@ -224,19 +222,12 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
         if (worldinfo == null)
         {
-            if (this.isDemo())
-            {
-                worldsettings = DemoWorldServer.demoWorldSettings;
-            }
-            else
-            {
-                worldsettings = new WorldSettings(seed, this.getGameType(), this.canStructuresSpawn(), this.isHardcore(), type);
-                worldsettings.setWorldName(worldNameIn2);
+            worldsettings = new WorldSettings(seed, this.getGameType(), this.canStructuresSpawn(), this.isHardcore(), type);
+            worldsettings.setWorldName(worldNameIn2);
 
-                if (this.enableBonusChest)
-                {
-                    worldsettings.enableBonusChest();
-                }
+            if (this.enableBonusChest)
+            {
+                worldsettings.enableBonusChest();
             }
 
             worldinfo = new WorldInfo(worldsettings, worldNameIn);
@@ -263,15 +254,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
             if (i == 0)
             {
-                if (this.isDemo())
-                {
-                    this.worldServers[i] = (WorldServer)(new DemoWorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
-                }
-                else
-                {
-                    this.worldServers[i] = (WorldServer)(new WorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
-                }
-
+                this.worldServers[i] = (WorldServer)(new WorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
                 this.worldServers[i].initialize(worldsettings);
             }
             else
@@ -948,16 +931,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     protected boolean allowSpawnMonsters()
     {
         return true;
-    }
-
-    public boolean isDemo()
-    {
-        return this.isDemo;
-    }
-
-    public void setDemo(boolean demo)
-    {
-        this.isDemo = demo;
     }
 
     public void canCreateBonusChest(boolean enable)
