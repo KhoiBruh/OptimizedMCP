@@ -39,7 +39,7 @@ public class ResUtils
             set.addAll(Arrays.<String>asList(astring));
         }
 
-        String[] astring1 = set.toArray(new String[set.size()]);
+        String[] astring1 = set.toArray(new String[0]);
         return astring1;
     }
 
@@ -150,11 +150,7 @@ public class ResUtils
                     String s1 = basePath + file1.getName() + "/";
                     String[] astring = collectFilesFolder(file1, s1, prefixes, suffixes);
 
-                    for (int j = 0; j < astring.length; ++j)
-                    {
-                        String s2 = astring[j];
-                        list.add(s2);
-                    }
+                    list.addAll(Arrays.asList(astring));
                 }
             }
 

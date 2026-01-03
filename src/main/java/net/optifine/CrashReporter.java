@@ -72,8 +72,8 @@ public class CrashReporter
     private static String makeReport(CrashReport crashReport)
     {
         StringBuffer stringbuffer = new StringBuffer();
-        stringbuffer.append("OptiFineVersion: " + Config.getVersion() + "\n");
-        stringbuffer.append("Summary: " + makeSummary(crashReport) + "\n");
+        stringbuffer.append("OptiFineVersion: ").append(Config.getVersion()).append("\n");
+        stringbuffer.append("Summary: ").append(makeSummary(crashReport)).append("\n");
         stringbuffer.append("\n");
         stringbuffer.append(crashReport.getCompleteReport());
         stringbuffer.append("\n");

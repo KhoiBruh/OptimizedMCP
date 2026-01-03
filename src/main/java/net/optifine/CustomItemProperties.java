@@ -984,7 +984,7 @@ public class CustomItemProperties
                 stringbuffer.append(", ");
             }
 
-            stringbuffer.append("\"layer" + i + "\": \"" + s + "\"");
+            stringbuffer.append("\"layer").append(i).append("\": \"").append(s).append("\"");
         }
 
         stringbuffer.append("}}");

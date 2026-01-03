@@ -459,9 +459,9 @@ public class PlayerItemParser
 
         for (int i = 0; i < aint.length; ++i)
         {
-            if (aint[i] != null)
-            {
+            if (aint[i] != null) {
                 flag = true;
+                break;
             }
         }
 

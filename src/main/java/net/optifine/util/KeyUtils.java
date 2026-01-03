@@ -18,7 +18,7 @@ public class KeyUtils
         }
 
         Set<KeyBinding> set1 = new HashSet(Arrays.asList(keys));
-        set1.removeAll(Arrays.asList(keysPrio));
+        Arrays.asList(keysPrio).forEach(set1::remove);
 
         for (KeyBinding keybinding1 : set1)
         {

@@ -49,7 +49,7 @@ public class BlockAlias
             set.add(Integer.valueOf(j));
         }
 
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         int[] aint = Config.toPrimitive(ainteger);
         return aint;
     }

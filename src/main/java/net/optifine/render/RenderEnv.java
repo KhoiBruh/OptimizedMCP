@@ -1,6 +1,7 @@
 package net.optifine.render;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 import net.minecraft.block.Block;
@@ -280,11 +281,7 @@ public class RenderEnv
 
         if (quads != null)
         {
-            for (int i = 0; i < quads.length; ++i)
-            {
-                BakedQuad bakedquad = quads[i];
-                this.listQuadsCtmMultipass.add(bakedquad);
-            }
+            this.listQuadsCtmMultipass.addAll(Arrays.asList(quads));
         }
 
         return this.listQuadsCtmMultipass;

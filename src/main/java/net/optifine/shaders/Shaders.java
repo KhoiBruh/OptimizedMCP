@@ -1920,7 +1920,7 @@ public class Shaders
             s2 = "none";
         }
 
-        stringbuilder.append(", program: " + s2);
+        stringbuilder.append(", program: ").append(s2);
         Program program = getProgramById(activeProgramID);
 
         if (program != activeProgram)
@@ -1932,12 +1932,12 @@ public class Shaders
                 s3 = "none";
             }
 
-            stringbuilder.append(" (" + s3 + ")");
+            stringbuilder.append(" (").append(s3).append(")");
         }
 
         if (location.equals("setDrawBuffers"))
         {
-            stringbuilder.append(", drawBuffers: " + activeProgram.getDrawBufSettings());
+            stringbuilder.append(", drawBuffers: ").append(activeProgram.getDrawBufSettings());
         }
 
         return stringbuilder.toString();

@@ -22,8 +22,7 @@ public class FieldLocatorTypes implements IFieldLocator
             list.add(field.getType());
         }
 
-        List<Class> list1 = new ArrayList();
-        list1.addAll(Arrays.<Class>asList(preTypes));
+        List<Class> list1 = new ArrayList(Arrays.<Class>asList(preTypes));
         list1.add(type);
         list1.addAll(Arrays.<Class>asList(postTypes));
         int l = Collections.indexOfSubList(list, list1);

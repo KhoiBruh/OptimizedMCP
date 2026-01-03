@@ -314,7 +314,7 @@ public class CustomColors
         }
 
         Set<Integer> set = map.keySet();
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         Arrays.sort(ainteger);
 
         if (ainteger.length <= 0)
