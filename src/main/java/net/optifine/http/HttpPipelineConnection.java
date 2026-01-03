@@ -157,11 +157,11 @@ public class HttpPipelineConnection
 
         if (remove)
         {
-            return (HttpPipelineRequest)list.remove(0);
+            return list.remove(0);
         }
         else
         {
-            return (HttpPipelineRequest)list.get(0);
+            return list.get(0);
         }
     }
 
@@ -301,7 +301,7 @@ public class HttpPipelineConnection
 
                         if (j > 0)
                         {
-                            this.keepaliveTimeoutMs = (long)(j * 1000);
+                            this.keepaliveTimeoutMs = j * 1000;
                         }
                     }
 
@@ -386,14 +386,14 @@ public class HttpPipelineConnection
         {
             if (!this.responseReceived)
             {
-                HttpPipelineRequest httppipelinerequest = (HttpPipelineRequest)this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest = this.listRequests.remove(0);
                 httppipelinerequest.getHttpListener().failed(httppipelinerequest.getHttpRequest(), e);
                 httppipelinerequest.setClosed(true);
             }
 
             while (this.listRequests.size() > 0)
             {
-                HttpPipelineRequest httppipelinerequest1 = (HttpPipelineRequest)this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest1 = this.listRequests.remove(0);
                 HttpPipeline.addRequest(httppipelinerequest1);
             }
         }

@@ -54,7 +54,7 @@ public class StrUtils
                     {
                         int i = 0;
 
-                        for (int j = 0; j < ((List)list).size(); ++j)
+                        for (int j = 0; j < list.size(); ++j)
                         {
                             String s3 = (String)list.get(j);
 
@@ -250,7 +250,7 @@ public class StrUtils
                     {
                         int i = 0;
 
-                        for (int j = 0; j < ((List)list).size(); ++j)
+                        for (int j = 0; j < list.size(); ++j)
                         {
                             String s3 = (String)list.get(j);
 
@@ -303,7 +303,7 @@ public class StrUtils
                 }
 
                 list.add(str.substring(i, str.length()));
-                return (String[])((String[])list.toArray(new String[list.size()]));
+                return (String[]) list.toArray(new String[list.size()]);
             }
         }
         else
@@ -658,7 +658,7 @@ public class StrUtils
                     }
                 }
 
-                String[] astring = (String[])list.toArray(new String[list.size()]);
+                String[] astring = list.toArray(new String[list.size()]);
                 return astring;
             }
         }

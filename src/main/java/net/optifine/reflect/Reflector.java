@@ -415,7 +415,7 @@ public class Reflector
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
         }
     }
 
@@ -437,7 +437,7 @@ public class Reflector
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return false;
         }
     }
@@ -460,7 +460,7 @@ public class Reflector
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0;
         }
     }
@@ -483,7 +483,7 @@ public class Reflector
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0.0F;
         }
     }
@@ -506,7 +506,7 @@ public class Reflector
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0.0D;
         }
     }
@@ -529,7 +529,7 @@ public class Reflector
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return null;
         }
     }
@@ -546,13 +546,13 @@ public class Reflector
             }
             else
             {
-                Object object = method.invoke((Object)null, params);
+                Object object = method.invoke(null, params);
                 return object;
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return null;
         }
     }
@@ -721,7 +721,7 @@ public class Reflector
 
     public static Object getFieldValue(ReflectorField refField)
     {
-        return getFieldValue((Object)null, refField);
+        return getFieldValue(null, refField);
     }
 
     public static Object getFieldValue(Object obj, ReflectorField refField)
@@ -759,7 +759,7 @@ public class Reflector
             }
             else
             {
-                boolean flag = field.getBoolean((Object)null);
+                boolean flag = field.getBoolean(null);
                 return flag;
             }
         }
@@ -876,7 +876,7 @@ public class Reflector
 
     public static boolean setFieldValue(ReflectorField refField, Object value)
     {
-        return setFieldValue((Object)null, refField, value);
+        return setFieldValue(null, refField, value);
     }
 
     public static boolean setFieldValue(Object obj, ReflectorField refField, Object value)
@@ -904,7 +904,7 @@ public class Reflector
 
     public static boolean setFieldValueInt(ReflectorField refField, int value)
     {
-        return setFieldValueInt((Object)null, refField, value);
+        return setFieldValueInt(null, refField, value);
     }
 
     public static boolean setFieldValueInt(Object obj, ReflectorField refField, int value)

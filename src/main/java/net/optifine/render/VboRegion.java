@@ -41,7 +41,7 @@ public class VboRegion
     {
         int i = range.getPosition();
         int j = range.getSize();
-        int k = this.toVertex((long)data.limit());
+        int k = this.toVertex(data.limit());
 
         if (k <= 0)
         {
@@ -92,7 +92,7 @@ public class VboRegion
 
             if (vborange == null || !this.rangeList.contains(vborange.getNode()))
             {
-                vborange = (VboRange)this.rangeList.getFirst().getItem();
+                vborange = this.rangeList.getFirst().getItem();
             }
 
             int i = vborange.getPosition();
@@ -145,7 +145,7 @@ public class VboRegion
 
             if (vborange == null)
             {
-                this.positionTop = ((VboRange)this.rangeList.getLast().getItem()).getPositionNext();
+                this.positionTop = this.rangeList.getLast().getItem().getPositionNext();
             }
 
             this.compactRangeLast = vborange;
@@ -157,7 +157,7 @@ public class VboRegion
         int i = 0;
         int j = 0;
 
-        for (VboRange vborange = (VboRange)this.rangeList.getFirst().getItem(); vborange != null; vborange = vborange.getNext())
+        for (VboRange vborange = this.rangeList.getFirst().getItem(); vborange != null; vborange = vborange.getNext())
         {
             ++i;
             j += vborange.getSize();

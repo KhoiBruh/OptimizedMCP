@@ -69,7 +69,7 @@ public class EntityAliases
 
                 loadModEntityAliases(list);
 
-                if (((List)list).size() > 0)
+                if (list.size() > 0)
                 {
                     entityAliases = toArray(list);
                 }
@@ -173,7 +173,7 @@ public class EntityAliases
 
         for (int i = 0; i < aint.length; ++i)
         {
-            aint[i] = ((Integer)list.get(i)).intValue();
+            aint[i] = list.get(i).intValue();
         }
 
         return aint;

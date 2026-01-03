@@ -13,7 +13,7 @@ public class IteratorCache
     {
         synchronized (dequeIterators)
         {
-            IteratorCache.IteratorReusable<Object> iteratorreusable = (IteratorCache.IteratorReusable)dequeIterators.pollFirst();
+            IteratorCache.IteratorReusable<Object> iteratorreusable = dequeIterators.pollFirst();
 
             if (iteratorreusable == null)
             {

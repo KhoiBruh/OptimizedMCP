@@ -25,7 +25,7 @@ public class ProgramStack
         }
         else
         {
-            Program program = (Program)this.stack.pollLast();
+            Program program = this.stack.pollLast();
             return program;
         }
     }

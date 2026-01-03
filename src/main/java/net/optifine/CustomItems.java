@@ -43,8 +43,8 @@ import net.optifine.util.StrUtils;
 
 public class CustomItems
 {
-    private static CustomItemProperties[][] itemProperties = (CustomItemProperties[][])null;
-    private static CustomItemProperties[][] enchantmentProperties = (CustomItemProperties[][])null;
+    private static CustomItemProperties[][] itemProperties = null;
+    private static CustomItemProperties[][] enchantmentProperties = null;
     private static Map mapPotionIds = null;
     private static ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
     private static boolean useGlint = true;
@@ -65,8 +65,8 @@ public class CustomItems
 
     public static void update()
     {
-        itemProperties = (CustomItemProperties[][])null;
-        enchantmentProperties = (CustomItemProperties[][])null;
+        itemProperties = null;
+        enchantmentProperties = null;
         useGlint = true;
 
         if (Config.isCustomItems())
@@ -84,12 +84,12 @@ public class CustomItems
 
             if (itemProperties.length <= 0)
             {
-                itemProperties = (CustomItemProperties[][])null;
+                itemProperties = null;
             }
 
             if (enchantmentProperties.length <= 0)
             {
-                enchantmentProperties = (CustomItemProperties[][])null;
+                enchantmentProperties = null;
             }
         }
     }
@@ -124,17 +124,17 @@ public class CustomItems
 
     private static void update(IResourcePack rp)
     {
-        String[] astring = ResUtils.collectFiles(rp, (String)"mcpatcher/cit/", (String)".properties", (String[])null);
+        String[] astring = ResUtils.collectFiles(rp, "mcpatcher/cit/", ".properties", null);
         Map map = makeAutoImageProperties(rp);
 
         if (map.size() > 0)
         {
             Set set = map.keySet();
-            String[] astring1 = (String[])((String[])set.toArray(new String[set.size()]));
-            astring = (String[])((String[])Config.addObjectsToArray(astring, astring1));
+            String[] astring1 = (String[]) set.toArray(new String[set.size()]);
+            astring = (String[]) Config.addObjectsToArray(astring, astring1);
         }
 
-        Arrays.sort((Object[])astring);
+        Arrays.sort(astring);
         List list = makePropertyList(itemProperties);
         List list1 = makePropertyList(enchantmentProperties);
 
@@ -335,7 +335,7 @@ public class CustomItems
         }
         else
         {
-            int[] aint = (int[])((int[])getMapPotionIds().get(name));
+            int[] aint = (int[]) getMapPotionIds().get(name);
 
             if (aint == null)
             {
@@ -500,7 +500,7 @@ public class CustomItems
 
             if (list != null)
             {
-                CustomItemProperties[] acustomitemproperties1 = (CustomItemProperties[])((CustomItemProperties[])list.toArray(new CustomItemProperties[list.size()]));
+                CustomItemProperties[] acustomitemproperties1 = (CustomItemProperties[]) list.toArray(new CustomItemProperties[list.size()]);
                 Arrays.sort(acustomitemproperties1, new CustomItemsComparator());
                 acustomitemproperties[i] = acustomitemproperties1;
             }
@@ -680,7 +680,7 @@ public class CustomItems
                     {
                         CustomItemProperties customitemproperties = acustomitemproperties[j];
 
-                        if (customitemproperties.type == type && matchesProperties(customitemproperties, itemStack, (int[][])null))
+                        if (customitemproperties.type == type && matchesProperties(customitemproperties, itemStack, null))
                         {
                             return customitemproperties;
                         }
