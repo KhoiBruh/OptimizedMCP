@@ -165,7 +165,7 @@ public class RandomEntities {
         }
 
         ResourceLocation[] aresourcelocation = getLocationsVariants(loc, mcpatcher);
-        return aresourcelocation == null ? null : new RandomEntityProperties(s, aresourcelocation);
+        return aresourcelocation == null ? null : new RandomEntityProperties();
     }
 
     private static RandomEntityProperties parseProperties(ResourceLocation propLoc, ResourceLocation resLoc) {
@@ -181,7 +181,7 @@ public class RandomEntities {
                 Properties properties = new PropertiesOrdered();
                 properties.load(inputstream);
                 inputstream.close();
-                RandomEntityProperties randomentityproperties = new RandomEntityProperties(properties, s, resLoc);
+                RandomEntityProperties randomentityproperties = new RandomEntityProperties();
                 return !randomentityproperties.isValid(s) ? null : randomentityproperties;
             }
         } catch (FileNotFoundException var6) {

@@ -125,23 +125,6 @@ public class TextureUtils {
         TextureMap texturemap = getTextureMapBlocks();
 
         if (texturemap != null) {
-            String s = "minecraft:blocks/";
-            iconGrassTop = texturemap.getSpriteSafe(s + "grass_top");
-            iconGrassSide = texturemap.getSpriteSafe(s + "grass_side");
-            iconGrassSideOverlay = texturemap.getSpriteSafe(s + "grass_side_overlay");
-            iconSnow = texturemap.getSpriteSafe(s + "snow");
-            iconGrassSideSnowed = texturemap.getSpriteSafe(s + "grass_side_snowed");
-            iconMyceliumSide = texturemap.getSpriteSafe(s + "mycelium_side");
-            iconMyceliumTop = texturemap.getSpriteSafe(s + "mycelium_top");
-            iconWaterStill = texturemap.getSpriteSafe(s + "water_still");
-            iconWaterFlow = texturemap.getSpriteSafe(s + "water_flow");
-            iconLavaStill = texturemap.getSpriteSafe(s + "lava_still");
-            iconLavaFlow = texturemap.getSpriteSafe(s + "lava_flow");
-            iconFireLayer0 = texturemap.getSpriteSafe(s + "fire_layer_0");
-            iconFireLayer1 = texturemap.getSpriteSafe(s + "fire_layer_1");
-            iconPortal = texturemap.getSpriteSafe(s + "portal");
-            iconGlass = texturemap.getSpriteSafe(s + "glass");
-            iconGlassPaneTop = texturemap.getSpriteSafe(s + "glass_pane_top");
             String s1 = "minecraft:items/";
             iconCompass = texturemap.getSpriteSafe(s1 + "compass");
             iconClock = texturemap.getSpriteSafe(s1 + "clock");

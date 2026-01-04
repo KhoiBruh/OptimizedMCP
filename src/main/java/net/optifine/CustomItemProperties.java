@@ -93,7 +93,6 @@ public class CustomItemProperties {
         this.rotation = this.parseFloat(props.getProperty("rotation"), 0.0F);
         this.layer = this.parseInt(props.getProperty("layer"), 0);
         this.weight = this.parseInt(props.getProperty("weight"), 0);
-        this.duration = this.parseFloat(props.getProperty("duration"), 1.0F);
     }
 
     private static String parseName(String path) {
@@ -681,7 +680,6 @@ public class CustomItemProperties {
 
             if (this.type == 1) {
                 ResourceLocation resourcelocation = this.getSpriteLocation(this.textureLocation);
-                this.sprite = textureMap.registerSprite(resourcelocation);
             }
         }
 

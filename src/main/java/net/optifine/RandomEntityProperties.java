@@ -14,20 +14,6 @@ public class RandomEntityProperties {
     public ResourceLocation[] resourceLocations = null;
     public RandomEntityRule[] rules = null;
 
-    public RandomEntityProperties(String path, ResourceLocation[] variants) {
-        ConnectedParser connectedparser = new ConnectedParser("RandomEntities");
-        this.name = connectedparser.parseName(path);
-        this.basePath = connectedparser.parseBasePath(path);
-        this.resourceLocations = variants;
-    }
-
-    public RandomEntityProperties(Properties props, String path, ResourceLocation baseResLoc) {
-        ConnectedParser connectedparser = new ConnectedParser("RandomEntities");
-        this.name = connectedparser.parseName(path);
-        this.basePath = connectedparser.parseBasePath(path);
-        this.rules = this.parseRules(props, path, baseResLoc, connectedparser);
-    }
-
     public ResourceLocation getTextureLocation(ResourceLocation loc, IRandomEntity randomEntity) {
         if (this.rules != null) {
             for (RandomEntityRule randomentityrule : this.rules) {

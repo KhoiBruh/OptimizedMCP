@@ -1951,9 +1951,7 @@ public class Shaders {
     private static int getDrawBuffer(Program p, String str, int ic) {
         int i = 0;
 
-        if (ic >= str.length()) {
-            return i;
-        } else {
+        if (ic < str.length()) {
             int j = str.charAt(ic) - 48;
 
             if (p == ProgramShadow) {
@@ -1971,8 +1969,8 @@ public class Shaders {
                 }
 
             }
-            return i;
         }
+        return i;
     }
 
     private static void updateToggleBuffers(Program p) {
@@ -3286,7 +3284,6 @@ public class Shaders {
         Entity entity = mc.getRenderViewEntity();
 
         if (entity != null) {
-            isSleeping = entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPlayerSleeping();
             eyePosY = (float) entity.posY * partialTicks + (float) entity.lastTickPosY * (1.0F - partialTicks);
             eyeBrightness = entity.getBrightnessForRender(partialTicks);
             f1 = (float) diffSystemTime * 0.01F;

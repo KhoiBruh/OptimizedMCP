@@ -29,12 +29,11 @@ public class CrashReporter {
     }
 
     private static String makeReport(CrashReport crashReport) {
-        String stringbuffer = "OptiFineVersion: " + Config.getVersion() + "\n" +
+        return "OptiFineVersion: " + Config.getVersion() + "\n" +
                 "Summary: " + makeSummary(crashReport) + "\n" +
                 "\n" +
                 crashReport.getCompleteReport() +
                 "\n";
-        return stringbuffer;
     }
 
     private static String makeSummary(CrashReport crashReport) {
