@@ -86,7 +86,7 @@ public abstract class TileEntity
 
             if (oclass != null)
             {
-                tileentity = (TileEntity)oclass.newInstance();
+                tileentity = oclass.getDeclaredConstructor().newInstance();
             }
         }
         catch (Exception exception)

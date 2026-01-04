@@ -172,7 +172,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         if (this.isChannelOpen())
         {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener));
+            this.dispatchPacket(packetIn, ArrayUtils.add(listeners, listener));
         }
         else
         {
@@ -180,7 +180,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
 
             try
             {
-                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener)));
+                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.add(listeners, listener)));
             }
             finally
             {

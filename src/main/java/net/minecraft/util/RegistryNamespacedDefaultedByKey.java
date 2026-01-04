@@ -2,6 +2,8 @@ package net.minecraft.util;
 
 import org.apache.commons.lang3.Validate;
 
+import java.util.Objects;
+
 public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K, V>
 {
     private final K defaultValueKey;
@@ -24,7 +26,7 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 
     public void validateKey()
     {
-        Validate.notNull(this.defaultValueKey);
+        Objects.requireNonNull(this.defaultValueKey);
     }
 
     public V getObject(K name)

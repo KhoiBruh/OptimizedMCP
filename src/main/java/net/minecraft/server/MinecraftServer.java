@@ -23,13 +23,7 @@ import java.net.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -1289,7 +1283,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public <V> ListenableFuture<V> callFromMainThread(Callable<V> callable)
     {
-        Validate.notNull(callable);
+        Objects.requireNonNull(callable);
 
         if (!this.isCallingFromMinecraftThread() && !this.isServerStopped())
         {
@@ -1316,7 +1310,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule)
     {
-        Validate.notNull(runnableToSchedule);
+        Objects.requireNonNull(runnableToSchedule);
         return this.<Object>callFromMainThread(Executors.callable(runnableToSchedule));
     }
 

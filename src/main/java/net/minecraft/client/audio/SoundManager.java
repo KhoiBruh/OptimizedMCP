@@ -438,7 +438,7 @@ public class SoundManager
 
         try
         {
-            return new URL((URL)null, s, urlstreamhandler);
+            return new URL(null, s, urlstreamhandler);
         }
         catch (MalformedURLException var4)
         {
