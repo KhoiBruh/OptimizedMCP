@@ -30,7 +30,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.optifine.reflect.Reflector;
 
 public class EffectRenderer
 {
@@ -389,15 +388,7 @@ public class EffectRenderer
     {
         boolean flag;
 
-        if (Reflector.ForgeBlock_addDestroyEffects.exists() && Reflector.ForgeBlock_isAir.exists())
-        {
-            Block block = state.getBlock();
-            flag = !Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, new Object[] {this.worldObj, pos}) && !Reflector.callBoolean(block, Reflector.ForgeBlock_addDestroyEffects, new Object[] {this.worldObj, pos, this});
-        }
-        else
-        {
-            flag = state.getBlock().getMaterial() != Material.air;
-        }
+        flag = state.getBlock().getMaterial() != Material.air;
 
         if (flag)
         {
@@ -512,12 +503,7 @@ public class EffectRenderer
 
         if (iblockstate != null)
         {
-            boolean flag = Reflector.callBoolean(iblockstate.getBlock(), Reflector.ForgeBlock_addHitEffects, new Object[] {this.worldObj, p_addBlockHitEffects_2_, this});
-
-            if (iblockstate != null && !flag)
-            {
-                this.addBlockHitEffects(p_addBlockHitEffects_1_, p_addBlockHitEffects_2_.sideHit);
-            }
+            this.addBlockHitEffects(p_addBlockHitEffects_1_, p_addBlockHitEffects_2_.sideHit);
         }
     }
 }

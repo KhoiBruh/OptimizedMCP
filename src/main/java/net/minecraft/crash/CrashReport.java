@@ -15,7 +15,6 @@ import java.util.concurrent.Callable;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.gen.layer.IntCache;
 import net.optifine.CrashReporter;
-import net.optifine.reflect.Reflector;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -116,12 +115,6 @@ public class CrashReport
                 return IntCache.getCacheSizes();
             }
         });
-
-        if (Reflector.FMLCommonHandler_enhanceCrashReport.exists())
-        {
-            Object object = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
-            Reflector.callString(object, Reflector.FMLCommonHandler_enhanceCrashReport, new Object[] {this, this.theReportCategory});
-        }
     }
 
     public String getDescription()
@@ -216,8 +209,6 @@ public class CrashReport
 
         StringBuilder stringbuilder = new StringBuilder();
         stringbuilder.append("---- Minecraft Crash Report ----\n");
-        Reflector.call(Reflector.BlamingTransformer_onCrash, new Object[] {stringbuilder});
-        Reflector.call(Reflector.CoreModManager_onCrash, new Object[] {stringbuilder});
         stringbuilder.append("// ");
         stringbuilder.append(getWittyComment());
         stringbuilder.append("\n\n");

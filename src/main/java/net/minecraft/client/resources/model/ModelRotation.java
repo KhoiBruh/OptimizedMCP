@@ -1,11 +1,9 @@
 package net.minecraft.client.resources.model;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import java.util.Map;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
-import net.optifine.reflect.Reflector;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 

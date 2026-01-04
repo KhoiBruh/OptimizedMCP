@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomItems;
-import net.optifine.reflect.Reflector;
 
 public class ItemModelMesher
 {

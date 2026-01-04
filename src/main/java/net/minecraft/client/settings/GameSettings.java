@@ -41,7 +41,6 @@ import net.optifine.DynamicLights;
 import net.optifine.Lang;
 import net.optifine.NaturalTextures;
 import net.optifine.RandomEntities;
-import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.KeyUtils;
 import org.apache.commons.io.IOUtils;
@@ -1057,16 +1056,6 @@ public class GameSettings
 
     public void saveOptions()
     {
-        if (Reflector.FMLClientHandler.exists())
-        {
-            Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
-
-            if (object != null && Reflector.callBoolean(object, Reflector.FMLClientHandler_isLoading, new Object[0]))
-            {
-                return;
-            }
-        }
-
         try
         {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.optionsFile));

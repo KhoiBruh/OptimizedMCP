@@ -9,58 +9,62 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.optifine.reflect.Reflector;
 
-public class ModelAdapterOcelot extends ModelAdapter
-{
+public class ModelAdapterOcelot extends ModelAdapter {
     private static Map<String, Integer> mapPartFields = null;
 
-    public ModelAdapterOcelot()
-    {
+    public ModelAdapterOcelot() {
         super(EntityOcelot.class, "ocelot", 0.4F);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelOcelot();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelOcelot))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelOcelot)) {
             return null;
-        }
-        else
-        {
-            ModelOcelot modelocelot = (ModelOcelot)model;
+        } else {
+            ModelOcelot modelocelot = (ModelOcelot) model;
             Map<String, Integer> map = getMapPartFields();
 
-            if (map.containsKey(modelPart))
-            {
+            if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart).intValue();
-                return (ModelRenderer)Reflector.getFieldValue(modelocelot, Reflector.ModelOcelot_ModelRenderers, i);
-            }
-            else
-            {
+                switch (i) {
+                    case 0:
+                        return modelocelot.ocelotBackLeftLeg;
+                    case 1:
+                        return modelocelot.ocelotBackRightLeg;
+                    case 2:
+                        return modelocelot.ocelotFrontLeftLeg;
+                    case 3:
+                        return modelocelot.ocelotFrontRightLeg;
+                    case 4:
+                        return modelocelot.ocelotTail;
+                    case 5:
+                        return modelocelot.ocelotTail2;
+                    case 6:
+                        return modelocelot.ocelotHead;
+                    case 7:
+                        return modelocelot.ocelotBody;
+                    default:
+                        return null;
+                }
+            } else {
                 return null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"back_left_leg", "back_right_leg", "front_left_leg", "front_right_leg", "tail", "tail2", "head", "body"};
+    public String[] getModelRendererNames() {
+        return new String[] { "back_left_leg", "back_right_leg", "front_left_leg", "front_right_leg", "tail", "tail2",
+                "head", "body" };
     }
 
-    private static Map<String, Integer> getMapPartFields()
-    {
-        if (mapPartFields != null)
-        {
+    private static Map<String, Integer> getMapPartFields() {
+        if (mapPartFields != null) {
             return mapPartFields;
-        }
-        else
-        {
+        } else {
             mapPartFields = new HashMap();
             mapPartFields.put("back_left_leg", Integer.valueOf(0));
             mapPartFields.put("back_right_leg", Integer.valueOf(1));
@@ -74,8 +78,7 @@ public class ModelAdapterOcelot extends ModelAdapter
         }
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderOcelot renderocelot = new RenderOcelot(rendermanager, modelBase, shadowSize);
         return renderocelot;

@@ -9,63 +9,134 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityHorse;
-import net.optifine.reflect.Reflector;
 
-public class ModelAdapterHorse extends ModelAdapter
-{
+public class ModelAdapterHorse extends ModelAdapter {
     private static Map<String, Integer> mapPartFields = null;
 
-    public ModelAdapterHorse()
-    {
+    public ModelAdapterHorse() {
         super(EntityHorse.class, "horse", 0.75F);
     }
 
-    protected ModelAdapterHorse(Class entityClass, String name, float shadowSize)
-    {
+    protected ModelAdapterHorse(Class entityClass, String name, float shadowSize) {
         super(entityClass, name, shadowSize);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelHorse();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelHorse))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelHorse)) {
             return null;
-        }
-        else
-        {
-            ModelHorse modelhorse = (ModelHorse)model;
+        } else {
+            ModelHorse modelhorse = (ModelHorse) model;
             Map<String, Integer> map = getMapPartFields();
 
-            if (map.containsKey(modelPart))
-            {
+            if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart).intValue();
-                return (ModelRenderer)Reflector.getFieldValue(modelhorse, Reflector.ModelHorse_ModelRenderers, i);
-            }
-            else
-            {
+                switch (i) {
+                    case 0:
+                        return modelhorse.head;
+                    case 1:
+                        return modelhorse.field_178711_b;
+                    case 2:
+                        return modelhorse.field_178712_c;
+                    case 3:
+                        return modelhorse.horseLeftEar;
+                    case 4:
+                        return modelhorse.horseRightEar;
+                    case 5:
+                        return modelhorse.muleLeftEar;
+                    case 6:
+                        return modelhorse.muleRightEar;
+                    case 7:
+                        return modelhorse.neck;
+                    case 8:
+                        return modelhorse.horseFaceRopes;
+                    case 9:
+                        return modelhorse.mane;
+                    case 10:
+                        return modelhorse.body;
+                    case 11:
+                        return modelhorse.tailBase;
+                    case 12:
+                        return modelhorse.tailMiddle;
+                    case 13:
+                        return modelhorse.tailTip;
+                    case 14:
+                        return modelhorse.backLeftLeg;
+                    case 15:
+                        return modelhorse.backLeftShin;
+                    case 16:
+                        return modelhorse.backLeftHoof;
+                    case 17:
+                        return modelhorse.backRightLeg;
+                    case 18:
+                        return modelhorse.backRightShin;
+                    case 19:
+                        return modelhorse.backRightHoof;
+                    case 20:
+                        return modelhorse.frontLeftLeg;
+                    case 21:
+                        return modelhorse.frontLeftShin;
+                    case 22:
+                        return modelhorse.frontLeftHoof;
+                    case 23:
+                        return modelhorse.frontRightLeg;
+                    case 24:
+                        return modelhorse.frontRightShin;
+                    case 25:
+                        return modelhorse.frontRightHoof;
+                    case 26:
+                        return modelhorse.muleLeftChest;
+                    case 27:
+                        return modelhorse.muleRightChest;
+                    case 28:
+                        return modelhorse.horseSaddleBottom;
+                    case 29:
+                        return modelhorse.horseSaddleFront;
+                    case 30:
+                        return modelhorse.horseSaddleBack;
+                    case 31:
+                        return modelhorse.horseLeftSaddleRope;
+                    case 32:
+                        return modelhorse.horseLeftSaddleMetal;
+                    case 33:
+                        return modelhorse.horseRightSaddleRope;
+                    case 34:
+                        return modelhorse.horseRightSaddleMetal;
+                    case 35:
+                        return modelhorse.horseLeftFaceMetal;
+                    case 36:
+                        return modelhorse.horseRightFaceMetal;
+                    case 37:
+                        return modelhorse.horseLeftRein;
+                    case 38:
+                        return modelhorse.horseRightRein;
+                    default:
+                        return null;
+                }
+            } else {
                 return null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"head", "upper_mouth", "lower_mouth", "horse_left_ear", "horse_right_ear", "mule_left_ear", "mule_right_ear", "neck", "horse_face_ropes", "mane", "body", "tail_base", "tail_middle", "tail_tip", "back_left_leg", "back_left_shin", "back_left_hoof", "back_right_leg", "back_right_shin", "back_right_hoof", "front_left_leg", "front_left_shin", "front_left_hoof", "front_right_leg", "front_right_shin", "front_right_hoof", "mule_left_chest", "mule_right_chest", "horse_saddle_bottom", "horse_saddle_front", "horse_saddle_back", "horse_left_saddle_rope", "horse_left_saddle_metal", "horse_right_saddle_rope", "horse_right_saddle_metal", "horse_left_face_metal", "horse_right_face_metal", "horse_left_rein", "horse_right_rein"};
+    public String[] getModelRendererNames() {
+        return new String[] { "head", "upper_mouth", "lower_mouth", "horse_left_ear", "horse_right_ear",
+                "mule_left_ear", "mule_right_ear", "neck", "horse_face_ropes", "mane", "body", "tail_base",
+                "tail_middle", "tail_tip", "back_left_leg", "back_left_shin", "back_left_hoof", "back_right_leg",
+                "back_right_shin", "back_right_hoof", "front_left_leg", "front_left_shin", "front_left_hoof",
+                "front_right_leg", "front_right_shin", "front_right_hoof", "mule_left_chest", "mule_right_chest",
+                "horse_saddle_bottom", "horse_saddle_front", "horse_saddle_back", "horse_left_saddle_rope",
+                "horse_left_saddle_metal", "horse_right_saddle_rope", "horse_right_saddle_metal",
+                "horse_left_face_metal", "horse_right_face_metal", "horse_left_rein", "horse_right_rein" };
     }
 
-    private static Map<String, Integer> getMapPartFields()
-    {
-        if (mapPartFields != null)
-        {
+    private static Map<String, Integer> getMapPartFields() {
+        if (mapPartFields != null) {
             return mapPartFields;
-        }
-        else
-        {
+        } else {
             mapPartFields = new HashMap();
             mapPartFields.put("head", Integer.valueOf(0));
             mapPartFields.put("upper_mouth", Integer.valueOf(1));
@@ -110,10 +181,9 @@ public class ModelAdapterHorse extends ModelAdapter
         }
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderHorse renderhorse = new RenderHorse(rendermanager, (ModelHorse)modelBase, shadowSize);
+        RenderHorse renderhorse = new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
         return renderhorse;
     }
 }

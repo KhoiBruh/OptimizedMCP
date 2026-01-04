@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.src.Config;
 import net.minecraft.util.EnumFacing;
 import net.optifine.model.QuadBounds;
-import net.optifine.reflect.Reflector;
 
 public class BakedQuad
 {

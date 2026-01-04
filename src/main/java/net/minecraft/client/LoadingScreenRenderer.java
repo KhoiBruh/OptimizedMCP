@@ -12,7 +12,6 @@ import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MinecraftError;
 import net.optifine.CustomLoadingScreen;
 import net.optifine.CustomLoadingScreens;
-import net.optifine.reflect.Reflector;
 
 public class LoadingScreenRenderer implements IProgressUpdate
 {
@@ -140,16 +139,6 @@ public class LoadingScreenRenderer implements IProgressUpdate
                 }
 
                 boolean flag = true;
-
-                if (Reflector.FMLClientHandler_handleLoadingScreen.exists())
-                {
-                    Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
-
-                    if (object != null)
-                    {
-                        flag = !Reflector.callBoolean(object, Reflector.FMLClientHandler_handleLoadingScreen, new Object[] {scaledresolution});
-                    }
-                }
 
                 if (flag)
                 {

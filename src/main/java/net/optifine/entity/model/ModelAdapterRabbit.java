@@ -9,58 +9,70 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderRabbit;
 import net.minecraft.entity.passive.EntityRabbit;
-import net.optifine.reflect.Reflector;
 
-public class ModelAdapterRabbit extends ModelAdapter
-{
+public class ModelAdapterRabbit extends ModelAdapter {
     private static Map<String, Integer> mapPartFields = null;
 
-    public ModelAdapterRabbit()
-    {
+    public ModelAdapterRabbit() {
         super(EntityRabbit.class, "rabbit", 0.3F);
     }
 
-    public ModelBase makeModel()
-    {
+    public ModelBase makeModel() {
         return new ModelRabbit();
     }
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelRabbit))
-        {
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+        if (!(model instanceof ModelRabbit)) {
             return null;
-        }
-        else
-        {
-            ModelRabbit modelrabbit = (ModelRabbit)model;
+        } else {
+            ModelRabbit modelrabbit = (ModelRabbit) model;
             Map<String, Integer> map = getMapPartFields();
 
-            if (map.containsKey(modelPart))
-            {
+            if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart).intValue();
-                return (ModelRenderer)Reflector.getFieldValue(modelrabbit, Reflector.ModelRabbit_renderers, i);
-            }
-            else
-            {
+                switch (i) {
+                    case 0:
+                        return modelrabbit.rabbitLeftFoot;
+                    case 1:
+                        return modelrabbit.rabbitRightFoot;
+                    case 2:
+                        return modelrabbit.rabbitLeftThigh;
+                    case 3:
+                        return modelrabbit.rabbitRightThigh;
+                    case 4:
+                        return modelrabbit.rabbitBody;
+                    case 5:
+                        return modelrabbit.rabbitLeftArm;
+                    case 6:
+                        return modelrabbit.rabbitRightArm;
+                    case 7:
+                        return modelrabbit.rabbitHead;
+                    case 8:
+                        return modelrabbit.rabbitRightEar;
+                    case 9:
+                        return modelrabbit.rabbitLeftEar;
+                    case 10:
+                        return modelrabbit.rabbitTail;
+                    case 11:
+                        return modelrabbit.rabbitNose;
+                    default:
+                        return null;
+                }
+            } else {
                 return null;
             }
         }
     }
 
-    public String[] getModelRendererNames()
-    {
-        return new String[] {"left_foot", "right_foot", "left_thigh", "right_thigh", "body", "left_arm", "right_arm", "head", "right_ear", "left_ear", "tail", "nose"};
+    public String[] getModelRendererNames() {
+        return new String[] { "left_foot", "right_foot", "left_thigh", "right_thigh", "body", "left_arm", "right_arm",
+                "head", "right_ear", "left_ear", "tail", "nose" };
     }
 
-    private static Map<String, Integer> getMapPartFields()
-    {
-        if (mapPartFields != null)
-        {
+    private static Map<String, Integer> getMapPartFields() {
+        if (mapPartFields != null) {
             return mapPartFields;
-        }
-        else
-        {
+        } else {
             mapPartFields = new HashMap();
             mapPartFields.put("left_foot", Integer.valueOf(0));
             mapPartFields.put("right_foot", Integer.valueOf(1));
@@ -78,8 +90,7 @@ public class ModelAdapterRabbit extends ModelAdapter
         }
     }
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderRabbit renderrabbit = new RenderRabbit(rendermanager, modelBase, shadowSize);
         return renderrabbit;

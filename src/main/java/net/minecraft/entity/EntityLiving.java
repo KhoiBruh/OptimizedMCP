@@ -38,7 +38,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.optifine.reflect.Reflector;
 
 public abstract class EntityLiving extends EntityLivingBase
 {
@@ -125,7 +124,6 @@ public abstract class EntityLiving extends EntityLivingBase
     public void setAttackTarget(EntityLivingBase entitylivingbaseIn)
     {
         this.attackTarget = entitylivingbaseIn;
-        Reflector.callVoid(Reflector.ForgeHooks_onLivingSetAttackTarget, new Object[] {this, entitylivingbaseIn});
     }
 
     public boolean canAttackClass(Class <? extends EntityLivingBase > cls)
@@ -509,24 +507,13 @@ public abstract class EntityLiving extends EntityLivingBase
 
     protected void despawnEntity()
     {
-        Object object = null;
-        Object object1 = Reflector.getFieldValue(Reflector.Event_Result_DEFAULT);
-        Object object2 = Reflector.getFieldValue(Reflector.Event_Result_DENY);
-
         if (this.persistenceRequired)
         {
             this.entityAge = 0;
         }
-        else if ((this.entityAge & 31) == 31 && (object = Reflector.call(Reflector.ForgeEventFactory_canEntityDespawn, new Object[] {this})) != object1)
+        else if ((this.entityAge & 31) == 31)
         {
-            if (object == object2)
-            {
-                this.entityAge = 0;
-            }
-            else
-            {
-                this.setDead();
-            }
+            this.setDead();
         }
         else
         {
