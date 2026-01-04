@@ -19,7 +19,7 @@ public class IteratorAxis implements Iterator<BlockPos> {
     private double yNext;
     private double zNext;
     private final BlockPosM pos = new BlockPosM(0, 0, 0);
-    private boolean hasNext = false;
+    private boolean hasNext;
 
     public IteratorAxis(BlockPos posStart, BlockPos posEnd, double yDelta, double zDelta) {
         this.yDelta = yDelta;
@@ -34,20 +34,6 @@ public class IteratorAxis implements Iterator<BlockPos> {
         this.yNext = this.yStart;
         this.zNext = this.zStart;
         this.hasNext = this.xNext < this.xEnd && this.yNext < this.yEnd && this.zNext < this.zEnd;
-    }
-
-    public static void main(String[] args) {
-        BlockPos blockpos = new BlockPos(-2, 10, 20);
-        BlockPos blockpos1 = new BlockPos(2, 12, 22);
-        double d0 = -0.5D;
-        double d1 = 0.5D;
-        IteratorAxis iteratoraxis = new IteratorAxis(blockpos, blockpos1, d0, d1);
-        System.out.println("Start: " + blockpos + ", end: " + blockpos1 + ", yDelta: " + d0 + ", zDelta: " + d1);
-
-        while (iteratoraxis.hasNext()) {
-            BlockPos blockpos2 = iteratoraxis.next();
-            System.out.println("" + blockpos2);
-        }
     }
 
     public boolean hasNext() {

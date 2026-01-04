@@ -56,21 +56,21 @@ public class CustomGuiProperties {
             "textures/gui/container/shulker_box.png");
     private static final ResourceLocation VILLAGER_GUI_TEXTURE = new ResourceLocation(
             "textures/gui/container/villager.png");
-    private String fileName = null;
-    private String basePath = null;
-    private CustomGuiProperties.EnumContainer container = null;
-    private Map<ResourceLocation, ResourceLocation> textureLocations = null;
-    private NbtTagValue nbtName = null;
-    private BiomeGenBase[] biomes = null;
-    private RangeListInt heights = null;
-    private Boolean large = null;
-    private Boolean trapped = null;
-    private Boolean christmas = null;
-    private Boolean ender = null;
-    private RangeListInt levels = null;
-    private VillagerProfession[] professions = null;
-    private CustomGuiProperties.EnumVariant[] variants = null;
-    private EnumDyeColor[] colors = null;
+    private String fileName;
+    private String basePath;
+    private CustomGuiProperties.EnumContainer container;
+    private Map<ResourceLocation, ResourceLocation> textureLocations;
+    private NbtTagValue nbtName;
+    private BiomeGenBase[] biomes;
+    private RangeListInt heights;
+    private Boolean large;
+    private Boolean trapped;
+    private Boolean christmas;
+    private Boolean ender;
+    private RangeListInt levels;
+    private VillagerProfession[] professions;
+    private CustomGuiProperties.EnumVariant[] variants;
+    private EnumDyeColor[] colors;
 
     public CustomGuiProperties(Properties props, String path) {
         ConnectedParser connectedparser = new ConnectedParser("CustomGuis");
@@ -209,7 +209,6 @@ public class CustomGuiProperties {
                 case INVENTORY -> INVENTORY_GUI_TEXTURE;
                 case SHULKER_BOX -> SHULKER_BOX_GUI_TEXTURE;
                 case VILLAGER -> VILLAGER_GUI_TEXTURE;
-                default -> null;
             };
         }
     }

@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PlayerItemsLayer implements LayerRenderer {
-    private RenderPlayer renderPlayer = null;
+    private RenderPlayer renderPlayer;
 
     public PlayerItemsLayer(RenderPlayer renderPlayer) {
         this.renderPlayer = renderPlayer;

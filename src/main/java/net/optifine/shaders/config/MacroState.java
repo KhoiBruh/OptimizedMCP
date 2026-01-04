@@ -106,7 +106,7 @@ public class MacroState {
         str = matcher.replaceAll("defined_$1");
         Matcher matcher1 = PATTERN_DEFINED_FUNC.matcher(str);
         str = matcher1.replaceAll("defined_$1");
-        boolean flag = false;
+        boolean flag;
         int i = 0;
 
         do {
@@ -138,7 +138,7 @@ public class MacroState {
 
         } while (flag && i < 100);
 
-        if (i >= 100) {
+        if (i == 100) {
             Config.warn("Too many iterations: " + i + ", when resolving: " + str);
             return true;
         } else {

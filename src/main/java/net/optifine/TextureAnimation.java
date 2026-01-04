@@ -12,19 +12,19 @@ import java.nio.ByteBuffer;
 import java.util.Properties;
 
 public class TextureAnimation {
-    ResourceLocation dstTexLoc = null;
-    byte[] srcData = null;
-    private String srcTex = null;
-    private String dstTex = null;
+    ResourceLocation dstTexLoc;
+    byte[] srcData;
+    private String srcTex;
+    private String dstTex;
     private int dstTextId = -1;
-    private int dstX = 0;
-    private int dstY = 0;
-    private int frameWidth = 0;
-    private int frameHeight = 0;
-    private TextureAnimationFrame[] frames = null;
+    private int dstX;
+    private int dstY;
+    private int frameWidth;
+    private int frameHeight;
+    private TextureAnimationFrame[] frames;
     private int currentFrameIndex = 0;
-    private boolean interpolate = false;
-    private int interpolateSkip = 0;
+    private boolean interpolate;
+    private int interpolateSkip;
     private ByteBuffer interpolateData = null;
     private ByteBuffer imageData = null;
     private boolean active = true;
@@ -102,7 +102,7 @@ public class TextureAnimation {
     }
 
     public TextureAnimationFrame getFrame(int index) {
-        if (this.frames.length <= 0) {
+        if (this.frames.length == 0) {
             return null;
         } else {
             if (index < 0 || index >= this.frames.length) {

@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class ShaderOptionVariableConst extends ShaderOptionVariable {
     private static final Pattern PATTERN_CONST = Pattern.compile("^\\s*const\\s*(float|int)\\s*([A-Za-z0-9_]+)\\s*=\\s*(-?[0-9\\.]+f?F?)\\s*;\\s*(//.*)?$");
-    private String type = null;
+    private String type;
 
     public ShaderOptionVariableConst(String name, String type, String description, String value, String[] values, String path) {
         super(name, description, value, values, path);

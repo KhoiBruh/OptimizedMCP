@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class HttpPipelineReceiver extends Thread {
     private static final Charset ASCII = StandardCharsets.US_ASCII;
-    private HttpPipelineConnection httpPipelineConnection = null;
+    private HttpPipelineConnection httpPipelineConnection;
 
     public HttpPipelineReceiver(HttpPipelineConnection httpPipelineConnection) {
         super("HttpPipelineReceiver");
@@ -52,7 +52,7 @@ public class HttpPipelineReceiver extends Thread {
             while (true) {
                 String s3 = this.readLine(in);
 
-                if (s3.length() <= 0) {
+                if (s3.length() == 0) {
                     byte[] abyte = null;
                     String s6 = map.get("Content-Length");
 

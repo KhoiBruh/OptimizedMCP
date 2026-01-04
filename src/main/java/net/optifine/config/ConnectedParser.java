@@ -22,9 +22,9 @@ import java.util.*;
 public class ConnectedParser {
     public static final VillagerProfession[] PROFESSIONS_INVALID = new VillagerProfession[0];
     public static final EnumDyeColor[] DYE_COLORS_INVALID = new EnumDyeColor[0];
-    private static final INameGetter<Enum> NAME_GETTER_ENUM = en -> en.name();
-    private static final INameGetter<EnumDyeColor> NAME_GETTER_DYE_COLOR = col -> col.getName();
-    private String context = null;
+    private static final INameGetter<Enum> NAME_GETTER_ENUM = Enum::name;
+    private static final INameGetter<EnumDyeColor> NAME_GETTER_DYE_COLOR = EnumDyeColor::getName;
+    private String context;
 
     public ConnectedParser(String context) {
         this.context = context;
@@ -147,21 +147,13 @@ public class ConnectedParser {
             return i;
         } else {
             if (prof == 0) {
-                switch (str) {
-                    case "farmer" -> {
-                        return 1;
-                    }
-                    case "fisherman" -> {
-                        return 2;
-                    }
-                    case "shepherd" -> {
-                        return 3;
-                    }
-                    case "fletcher" -> {
-                        return 4;
-                    }
-                }
-
+                return switch (str) {
+                    case "farmer" -> 1;
+                    case "fisherman" -> 2;
+                    case "shepherd" -> 3;
+                    case "fletcher" -> 4;
+                    default -> 0;
+                };
             }
 
             if (prof == 1) {
@@ -178,17 +170,12 @@ public class ConnectedParser {
                 return 1;
             } else {
                 if (prof == 3) {
-                    switch (str) {
-                        case "armor" -> {
-                            return 1;
-                        }
-                        case "weapon" -> {
-                            return 2;
-                        }
-                        case "tool" -> {
-                            return 3;
-                        }
-                    }
+                    return switch (str) {
+                        case "armor" -> 1;
+                        case "weapon" -> 2;
+                        case "tool" -> 3;
+                        default -> 0;
+                    };
 
                 }
 
@@ -244,7 +231,7 @@ public class ConnectedParser {
                 }
             }
 
-            return (MatchBlock[]) list.toArray(new MatchBlock[list.size()]);
+            return (MatchBlock[]) list.toArray(new MatchBlock[0]);
         }
     }
 
@@ -269,12 +256,12 @@ public class ConnectedParser {
         } else {
             blockStr = blockStr.trim();
 
-            if (blockStr.length() <= 0) {
+            if (blockStr.length() == 0) {
                 return null;
             } else {
                 String[] astring = Config.tokenize(blockStr, ":");
-                String s = "minecraft";
-                int i = 0;
+                String s;
+                int i;
 
                 if (astring.length > 1 && this.isFullBlockName(astring)) {
                     s = astring[0];
@@ -373,7 +360,7 @@ public class ConnectedParser {
     }
 
     public int[] parseBlockMetadatas(Block block, String[] params) {
-        if (params.length <= 0) {
+        if (params.length == 0) {
             return null;
         } else {
             String s = params[0];
@@ -521,7 +508,7 @@ public class ConnectedParser {
                 list = list1;
             }
 
-            return (BiomeGenBase[]) list.toArray(new BiomeGenBase[list.size()]);
+            return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
         }
     }
 
@@ -614,24 +601,16 @@ public class ConnectedParser {
 
         if (!str.equals("bottom") && !str.equals("down")) {
             if (!str.equals("top") && !str.equals("up")) {
-                switch (str) {
-                    case "north" -> {
-                        return EnumFacing.NORTH;
-                    }
-                    case "south" -> {
-                        return EnumFacing.SOUTH;
-                    }
-                    case "east" -> {
-                        return EnumFacing.EAST;
-                    }
-                    case "west" -> {
-                        return EnumFacing.WEST;
-                    }
+               return switch (str) {
+                    case "north" -> EnumFacing.NORTH;
+                    case "south" -> EnumFacing.SOUTH;
+                    case "east" -> EnumFacing.EAST;
+                    case "west" -> EnumFacing.WEST;
                     default -> {
                         Config.warn("Unknown face: " + str);
-                        return null;
+                        yield  null;
                     }
-                }
+                };
             } else {
                 return EnumFacing.UP;
             }
@@ -827,7 +806,7 @@ public class ConnectedParser {
             if (list.isEmpty()) {
                 return null;
             } else {
-                return list.toArray(new VillagerProfession[list.size()]);
+                return list.toArray(new VillagerProfession[0]);
             }
         }
     }

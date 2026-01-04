@@ -25,7 +25,7 @@ public class ShadersTex {
     public static ByteBuffer byteBuffer = BufferUtils.createByteBuffer(4194304);
     public static IntBuffer intBuffer = byteBuffer.asIntBuffer();
     public static int[] intArray = new int[1048576];
-    public static Map<Integer, MultiTexID> multiTexMap = new HashMap<>();
+    public static final Map<Integer, MultiTexID> multiTexMap = new HashMap<>();
 
     public static IntBuffer getIntBuffer(int size) {
         if (intBuffer.capacity() < size) {

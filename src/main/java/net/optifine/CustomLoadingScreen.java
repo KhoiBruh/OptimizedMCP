@@ -11,8 +11,8 @@ import java.util.Properties;
 
 public class CustomLoadingScreen {
     private final ResourceLocation locationTexture;
-    private int scaleMode = 0;
-    private int scale = 2;
+    private int scaleMode;
+    private int scale;
     private final boolean center;
 
     public CustomLoadingScreen(ResourceLocation locationTexture, int scaleMode, int scale, boolean center) {
@@ -50,21 +50,15 @@ public class CustomLoadingScreen {
         } else {
             str = str.toLowerCase().trim();
 
-            switch (str) {
-                case "fixed" -> {
-                    return 0;
-                }
-                case "full" -> {
-                    return 1;
-                }
-                case "stretch" -> {
-                    return 2;
-                }
+            return switch (str) {
+                case "fixed" -> 0;
+                case "full" -> 1;
+                case "stretch" -> 2;
                 default -> {
                     CustomLoadingScreens.warn("Invalid scale mode: " + str);
-                    return 0;
+                    yield 0;
                 }
-            }
+            };
         }
     }
 

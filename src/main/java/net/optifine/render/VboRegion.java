@@ -81,7 +81,7 @@ public class VboRegion {
                 vborange = this.rangeList.getFirst().getItem();
             }
 
-            int i = vborange.getPosition();
+            int i;
             VboRange vborange1 = vborange.getPrev();
 
             if (vborange1 == null) {

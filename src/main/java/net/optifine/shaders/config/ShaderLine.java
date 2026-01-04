@@ -174,7 +174,7 @@ public class ShaderLine {
         if (!s.equals("true") && !s.equals("false")) {
             throw new RuntimeException("Invalid boolean: " + this.value + ", line: " + this.line);
         } else {
-            return Boolean.valueOf(this.value);
+            return Boolean.parseBoolean(this.value);
         }
     }
 }

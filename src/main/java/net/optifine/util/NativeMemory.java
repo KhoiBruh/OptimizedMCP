@@ -3,12 +3,10 @@ package net.optifine.util;
 import net.minecraft.src.Config;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 public class NativeMemory {
-    private static final LongSupplier bufferAllocatedSupplier = makeLongSupplier(new String[][]{{"sun.misc.SharedSecrets", "getJavaNioAccess", "getDirectBufferPool", "getMemoryUsed"}, {"jdk.internal.misc.SharedSecrets", "getJavaNioAccess", "getDirectBufferPool", "getMemoryUsed"}});
-    private static final LongSupplier bufferMaximumSupplier = makeLongSupplier(new String[][]{{"sun.misc.VM", "maxDirectMemory"}, {"jdk.internal.misc.VM", "maxDirectMemory"}});
+    private static final LongSupplier bufferAllocatedSupplier = makeLongSupplier(new String[][]{{"getDirectBufferPool", "getMemoryUsed"}, {"getDirectBufferPool", "getMemoryUsed"}});
+    private static final LongSupplier bufferMaximumSupplier = makeLongSupplier(new String[][]{{"maxDirectMemory"}, {"jdk.internal.misc.VM", "maxDirectMemory"}});
 
     public static long getBufferAllocated() {
         return bufferAllocatedSupplier == null ? -1L : bufferAllocatedSupplier.getAsLong();
@@ -19,18 +17,12 @@ public class NativeMemory {
     }
 
     private static LongSupplier makeLongSupplier(String[][] paths) {
-        List<Throwable> list = new ArrayList<>();
-
         for (String[] astring : paths) {
             try {
                 return makeLongSupplier(astring);
             } catch (Throwable throwable) {
-                list.add(throwable);
+                Config.warn(throwable.getClass().getName() + ": " + throwable.getMessage());
             }
-        }
-
-        for (Throwable throwable1 : list) {
-            Config.warn(throwable1.getClass().getName() + ": " + throwable1.getMessage());
         }
 
         return null;
@@ -40,7 +32,7 @@ public class NativeMemory {
         if (path.length < 2) {
             return null;
         } else {
-            Class oclass = Class.forName(path[0]);
+            Class<?> oclass = Class.forName(path[0]);
             Method method = oclass.getMethod(path[1]);
             method.setAccessible(true);
             Object object = null;

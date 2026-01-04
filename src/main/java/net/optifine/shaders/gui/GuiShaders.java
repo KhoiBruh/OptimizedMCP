@@ -26,7 +26,7 @@ public class GuiShaders extends GuiScreenOF {
     private static final float[] HAND_DEPTH_VALUES = new float[]{0.0625F, 0.125F, 0.25F};
     private static final String[] HAND_DEPTH_NAMES = new String[]{"0.5x", "1x", "2x"};
     private static final float HAND_DEPTH_DEFAULT = 0.125F;
-    protected GuiScreen parentGui;
+    protected final GuiScreen parentGui;
     protected String screenTitle = "Shaders";
     private final TooltipManager tooltipManager = new TooltipManager(this, new TooltipProviderEnumShaderOptions());
     private int updateTimer = -1;

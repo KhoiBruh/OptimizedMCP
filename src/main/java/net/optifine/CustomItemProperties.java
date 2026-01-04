@@ -22,8 +22,8 @@ import org.lwjgl.opengl.GL11;
 import java.util.*;
 
 public class CustomItemProperties {
-    public String name = null;
-    public String basePath = null;
+    public String name;
+    public String basePath;
     public int type = 1;
     public int[] items = null;
     public String texture = null;
@@ -163,7 +163,7 @@ public class CustomItemProperties {
         String s = "texture.";
         Map map = getMatchingProperties(props, s);
 
-        if (map.size() <= 0) {
+        if (map.size() == 0) {
             return null;
         } else {
             Set set = map.keySet();
@@ -228,7 +228,7 @@ public class CustomItemProperties {
         String s = "model.";
         Map map = getMatchingProperties(props, s);
 
-        if (map.size() <= 0) {
+        if (map.size() == 0) {
             return null;
         } else {
             Set set = map.keySet();
@@ -570,7 +570,7 @@ public class CustomItemProperties {
         String s = "nbt.";
         Map map = getMatchingProperties(props, s);
 
-        if (map.size() <= 0) {
+        if (map.size() == 0) {
             return null;
         } else {
             List list = new ArrayList();
@@ -583,7 +583,7 @@ public class CustomItemProperties {
                 list.add(nbttagvalue);
             }
 
-            return (NbtTagValue[]) list.toArray(new NbtTagValue[list.size()]);
+            return (NbtTagValue[]) list.toArray(new NbtTagValue[0]);
         }
     }
 
@@ -593,21 +593,15 @@ public class CustomItemProperties {
         } else {
             str = str.toLowerCase();
 
-            switch (str) {
-                case "any" -> {
-                    return 0;
-                }
-                case "main" -> {
-                    return 1;
-                }
-                case "off" -> {
-                    return 2;
-                }
+            return switch (str) {
+                case "any" -> 0;
+                case "main" -> 1;
+                case "off" -> 2;
                 default -> {
                     Config.warn("Invalid hand: " + str);
-                    return 0;
+                    yield 0;
                 }
-            }
+            };
         }
     }
 
@@ -751,7 +745,7 @@ public class CustomItemProperties {
                 int i = rangeint.getMin();
                 boolean flag = (i & 16384) != 0;
                 String s5 = this.getMapTexture(this.mapTextures, "texture.potion_overlay", "items/potion_overlay");
-                String s6 = null;
+                String s6;
 
                 if (flag) {
                     s6 = this.getMapTexture(this.mapTextures, "texture.potion_bottle_splash",

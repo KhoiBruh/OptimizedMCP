@@ -17,10 +17,10 @@ import net.optifine.util.TextureUtils;
 import java.util.*;
 
 public class ConnectedProperties {
-    public String name = null;
-    public String basePath = null;
-    public MatchBlock[] matchBlocks = null;
-    public int[] metadatas = null;
+    public String name;
+    public String basePath;
+    public MatchBlock[] matchBlocks;
+    public int[] metadatas;
     public String[] matchTiles = null;
     public int method = 0;
     public String[] tiles = null;
@@ -127,30 +127,18 @@ public class ConnectedProperties {
 
         if (!str.equals("bottom") && !str.equals("down")) {
             if (!str.equals("top") && !str.equals("up")) {
-                switch (str) {
-                    case "north" -> {
-                        return 4;
-                    }
-                    case "south" -> {
-                        return 8;
-                    }
-                    case "east" -> {
-                        return 32;
-                    }
-                    case "west" -> {
-                        return 16;
-                    }
-                    case "sides" -> {
-                        return 60;
-                    }
-                    case "all" -> {
-                        return 63;
-                    }
+                return switch (str) {
+                    case "north" -> 4;
+                    case "south" -> 8;
+                    case "east" -> 32;
+                    case "west" -> 16;
+                    case "sides" -> 60;
+                    case "all" -> 63;
                     default -> {
                         Config.warn("Unknown face: " + str);
-                        return 128;
+                        yield 128;
                     }
-                }
+                };
             } else {
                 return 2;
             }
@@ -165,21 +153,15 @@ public class ConnectedProperties {
         } else {
             str = str.trim();
 
-            switch (str) {
-                case "block" -> {
-                    return 1;
-                }
-                case "tile" -> {
-                    return 2;
-                }
-                case "material" -> {
-                    return 3;
-                }
+            return switch (str) {
+                case "block" -> 1;
+                case "tile" -> 2;
+                case "material" -> 3;
                 default -> {
                     Config.warn("Unknown connect: " + str);
-                    return 128;
+                    yield 128;
                 }
-            }
+            };
         }
     }
 
@@ -216,27 +198,17 @@ public class ConnectedProperties {
                         return 7;
                     } else if (!str.equals("horizontal+vertical") && !str.equals("h+v")) {
                         if (!str.equals("vertical+horizontal") && !str.equals("v+h")) {
-                            switch (str) {
-                                case "overlay" -> {
-                                    return 11;
-                                }
-                                case "overlay_fixed" -> {
-                                    return 12;
-                                }
-                                case "overlay_random" -> {
-                                    return 13;
-                                }
-                                case "overlay_repeat" -> {
-                                    return 14;
-                                }
-                                case "overlay_ctm" -> {
-                                    return 15;
-                                }
+                            return switch (str) {
+                                case "overlay" -> 11;
+                                case "overlay_fixed" -> 12;
+                                case "overlay_random" -> 13;
+                                case "overlay_repeat" -> 14;
+                                case "overlay_ctm" -> 15;
                                 default -> {
                                     Config.warn("Unknown method: " + str);
-                                    return 0;
+                                    yield 0;
                                 }
-                            }
+                            };
                         } else {
                             return 9;
                         }
@@ -311,7 +283,7 @@ public class ConnectedProperties {
                 }
             }
 
-            return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[list.size()]);
+            return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[0]);
         }
     }
 

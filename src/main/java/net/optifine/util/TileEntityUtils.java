@@ -38,65 +38,55 @@ public class TileEntityUtils {
     }
 
     public static String getTileEntityRawName(TileEntity te) {
-        switch (te) {
-            case TileEntityBeacon tileEntityBeacon -> {
-                return tileEntityBeacon.customName;
-            }
-            case TileEntityBrewingStand tileEntityBrewingStand -> {
-                return tileEntityBrewingStand.customName;
-            }
-            case TileEntityEnchantmentTable tileEntityEnchantmentTable -> {
-                return tileEntityEnchantmentTable.customName;
-            }
-            case TileEntityFurnace tileEntityFurnace -> {
-                return tileEntityFurnace.furnaceCustomName;
-            }
+        return switch (te) {
+            case TileEntityBeacon tileEntityBeacon -> tileEntityBeacon.customName;
+            case TileEntityBrewingStand tileEntityBrewingStand -> tileEntityBrewingStand.customName;
+            case TileEntityEnchantmentTable tileEntityEnchantmentTable -> tileEntityEnchantmentTable.customName;
+            case TileEntityFurnace tileEntityFurnace -> tileEntityFurnace.furnaceCustomName;
             case null, default -> {
                 if (te instanceof IWorldNameable iworldnameable) {
 
                     if (iworldnameable.hasCustomName()) {
-                        return iworldnameable.getName();
+                        yield iworldnameable.getName();
                     }
                 }
 
-                return null;
+                yield null;
             }
-        }
+        };
     }
 
     public static boolean setTileEntityRawName(TileEntity te, String name) {
-        switch (te) {
+        return switch (te) {
             case TileEntityBeacon tileEntityBeacon -> {
                 tileEntityBeacon.customName = name;
-                return true;
+                yield true;
             }
             case TileEntityBrewingStand tileEntityBrewingStand -> {
                 tileEntityBrewingStand.customName = name;
-                return true;
+                yield true;
             }
             case TileEntityEnchantmentTable tileEntityEnchantmentTable -> {
                 tileEntityEnchantmentTable.customName = name;
-                return true;
+                yield true;
             }
             case TileEntityFurnace tileEntityFurnace -> {
                 tileEntityFurnace.furnaceCustomName = name;
-                return true;
+                yield true;
             }
             case TileEntityChest tileEntityChest -> {
                 tileEntityChest.setCustomName(name);
-                return true;
+                yield true;
             }
             case TileEntityDispenser tileEntityDispenser -> {
                 tileEntityDispenser.setCustomName(name);
-                return true;
+                yield true;
             }
             case TileEntityHopper tileEntityHopper -> {
                 tileEntityHopper.setCustomName(name);
-                return true;
+                yield true;
             }
-            case null, default -> {
-                return false;
-            }
-        }
+            case null, default -> false;
+        };
     }
 }

@@ -75,7 +75,7 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[list.size()]);
+            return (String[]) list.toArray(new String[0]);
         }
     }
 
@@ -106,7 +106,7 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[list.size()]);
+            return (String[]) list.toArray(new String[0]);
         }
     }
 
@@ -132,7 +132,7 @@ public class ResUtils {
             }
 
             zipfile.close();
-            return (String[]) list.toArray(new String[list.size()]);
+            return (String[]) list.toArray(new String[0]);
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
             return new String[0];

@@ -3,7 +3,7 @@ package net.optifine.shaders.config;
 import java.util.*;
 
 public class ShaderProfile {
-    private String name = null;
+    private String name;
     private final Map<String, String> mapOptionValues = new LinkedHashMap<>();
     private final Set<String> disabledPrograms = new LinkedHashSet<>();
 
@@ -27,7 +27,7 @@ public class ShaderProfile {
 
     public String[] getOptions() {
         Set<String> set = this.mapOptionValues.keySet();
-        return set.toArray(new String[set.size()]);
+        return set.toArray(new String[0]);
     }
 
     public String getValue(String key) {

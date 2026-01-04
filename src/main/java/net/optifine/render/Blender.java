@@ -11,39 +11,21 @@ public class Blender {
         } else {
             str = str.toLowerCase().trim();
 
-            switch (str) {
-                case "alpha" -> {
-                    return 0;
-                }
-                case "add" -> {
-                    return 1;
-                }
-                case "subtract" -> {
-                    return 2;
-                }
-                case "multiply" -> {
-                    return 3;
-                }
-                case "dodge" -> {
-                    return 4;
-                }
-                case "burn" -> {
-                    return 5;
-                }
-                case "screen" -> {
-                    return 6;
-                }
-                case "overlay" -> {
-                    return 7;
-                }
-                case "replace" -> {
-                    return 8;
-                }
+            return switch (str) {
+                case "alpha" -> 0;
+                case "add" -> 1;
+                case "subtract" -> 2;
+                case "multiply" -> 3;
+                case "dodge" -> 4;
+                case "burn" -> 5;
+                case "screen" -> 6;
+                case "overlay" -> 7;
+                case "replace" -> 8;
                 default -> {
                     Config.warn("Unknown blend: " + str);
-                    return 1;
+                    yield 1;
                 }
-            }
+            };
         }
     }
 

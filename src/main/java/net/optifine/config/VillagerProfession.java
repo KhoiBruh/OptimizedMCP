@@ -4,7 +4,7 @@ import net.minecraft.src.Config;
 
 public class VillagerProfession {
     private final int profession;
-    private int[] careers;
+    private final int[] careers;
 
     public VillagerProfession(int profession, int[] careers) {
         this.profession = profession;

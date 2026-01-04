@@ -93,16 +93,16 @@ public class Shaders {
     public static boolean isCompositeRendered = false;
     public static boolean isRenderingDfb = false;
     public static boolean isShadowPass = false;
-    public static boolean isEntitiesGlowing = false;
+    public static final boolean isEntitiesGlowing = false;
     public static boolean renderItemKeepDepthMask = false;
     public static boolean itemToRenderMainTranslucent = false;
-    public static boolean itemToRenderOffTranslucent = false;
+    public static final boolean itemToRenderOffTranslucent = false;
     public static float wetnessHalfLife = 600.0F;
     public static float drynessHalfLife = 200.0F;
     public static float eyeBrightnessHalflife = 10.0F;
-    public static int entityAttrib = 10;
-    public static int midTexCoordAttrib = 11;
-    public static int tangentAttrib = 12;
+    public static final int entityAttrib = 10;
+    public static final int midTexCoordAttrib = 11;
+    public static final int tangentAttrib = 12;
     public static boolean progUseEntityAttrib = false;
     public static boolean progUseMidTexCoordAttrib = false;
     public static boolean progUseTangentAttrib = false;
@@ -110,16 +110,16 @@ public class Shaders {
     public static int atlasSizeY = 0;
     public static boolean needResizeShadow = false;
     public static boolean shouldSkipDefaultShadow = false;
-    public static boolean[] gbuffersClear = new boolean[8];
-    public static Vector4f[] gbuffersClearColor = new Vector4f[8];
+    public static final boolean[] gbuffersClear = new boolean[8];
+    public static final Vector4f[] gbuffersClearColor = new Vector4f[8];
     public static int activeProgramID = 0;
     public static Properties shadersConfig = null;
     public static ITextureObject defaultTexture = null;
-    public static boolean[] shadowHardwareFilteringEnabled = new boolean[2];
-    public static boolean[] shadowMipmapEnabled = new boolean[2];
-    public static boolean[] shadowFilterNearest = new boolean[2];
-    public static boolean[] shadowColorMipmapEnabled = new boolean[8];
-    public static boolean[] shadowColorFilterNearest = new boolean[8];
+    public static final boolean[] shadowHardwareFilteringEnabled = new boolean[2];
+    public static final boolean[] shadowMipmapEnabled = new boolean[2];
+    public static final boolean[] shadowFilterNearest = new boolean[2];
+    public static final boolean[] shadowColorMipmapEnabled = new boolean[8];
+    public static final boolean[] shadowColorFilterNearest = new boolean[8];
     public static boolean configTweakBlockDamage = false;
     public static boolean configCloudShadow = false;
     public static float configHandDepthMul = 0.125F;
@@ -134,69 +134,69 @@ public class Shaders {
     public static boolean configShadowClipFrustrum = true;
     public static boolean configNormalMap = true;
     public static boolean configSpecularMap = true;
-    public static PropertyDefaultTrueFalse configOldLighting = new PropertyDefaultTrueFalse("oldLighting",
+    public static final PropertyDefaultTrueFalse configOldLighting = new PropertyDefaultTrueFalse("oldLighting",
             "Classic Lighting", 0);
-    public static PropertyDefaultTrueFalse configOldHandLight = new PropertyDefaultTrueFalse("oldHandLight",
+    public static final PropertyDefaultTrueFalse configOldHandLight = new PropertyDefaultTrueFalse("oldHandLight",
             "Old Hand Light", 0);
     public static int configAntialiasingLevel = 0;
     public static boolean shaderPackLoaded = false;
     public static String currentShaderName;
-    public static PropertyDefaultFastFancyOff shaderPackClouds = new PropertyDefaultFastFancyOff("clouds", "Clouds", 0);
-    public static PropertyDefaultTrueFalse shaderPackOldLighting = new PropertyDefaultTrueFalse("oldLighting",
+    public static final PropertyDefaultFastFancyOff shaderPackClouds = new PropertyDefaultFastFancyOff("clouds", "Clouds", 0);
+    public static final PropertyDefaultTrueFalse shaderPackOldLighting = new PropertyDefaultTrueFalse("oldLighting",
             "Classic Lighting", 0);
-    public static PropertyDefaultTrueFalse shaderPackOldHandLight = new PropertyDefaultTrueFalse("oldHandLight",
+    public static final PropertyDefaultTrueFalse shaderPackOldHandLight = new PropertyDefaultTrueFalse("oldHandLight",
             "Old Hand Light", 0);
-    public static PropertyDefaultTrueFalse shaderPackDynamicHandLight = new PropertyDefaultTrueFalse("dynamicHandLight",
+    public static final PropertyDefaultTrueFalse shaderPackDynamicHandLight = new PropertyDefaultTrueFalse("dynamicHandLight",
             "Dynamic Hand Light", 0);
-    public static PropertyDefaultTrueFalse shaderPackShadowTranslucent = new PropertyDefaultTrueFalse(
+    public static final PropertyDefaultTrueFalse shaderPackShadowTranslucent = new PropertyDefaultTrueFalse(
             "shadowTranslucent", "Shadow Translucent", 0);
-    public static PropertyDefaultTrueFalse shaderPackUnderwaterOverlay = new PropertyDefaultTrueFalse(
+    public static final PropertyDefaultTrueFalse shaderPackUnderwaterOverlay = new PropertyDefaultTrueFalse(
             "underwaterOverlay", "Underwater Overlay", 0);
-    public static PropertyDefaultTrueFalse shaderPackSun = new PropertyDefaultTrueFalse("sun", "Sun", 0);
-    public static PropertyDefaultTrueFalse shaderPackMoon = new PropertyDefaultTrueFalse("moon", "Moon", 0);
-    public static PropertyDefaultTrueFalse shaderPackVignette = new PropertyDefaultTrueFalse("vignette", "Vignette", 0);
-    public static PropertyDefaultTrueFalse shaderPackBackFaceSolid = new PropertyDefaultTrueFalse("backFace.solid",
+    public static final PropertyDefaultTrueFalse shaderPackSun = new PropertyDefaultTrueFalse("sun", "Sun", 0);
+    public static final PropertyDefaultTrueFalse shaderPackMoon = new PropertyDefaultTrueFalse("moon", "Moon", 0);
+    public static final PropertyDefaultTrueFalse shaderPackVignette = new PropertyDefaultTrueFalse("vignette", "Vignette", 0);
+    public static final PropertyDefaultTrueFalse shaderPackBackFaceSolid = new PropertyDefaultTrueFalse("backFace.solid",
             "Back-face Solid", 0);
-    public static PropertyDefaultTrueFalse shaderPackBackFaceCutout = new PropertyDefaultTrueFalse("backFace.cutout",
+    public static final PropertyDefaultTrueFalse shaderPackBackFaceCutout = new PropertyDefaultTrueFalse("backFace.cutout",
             "Back-face Cutout", 0);
-    public static PropertyDefaultTrueFalse shaderPackBackFaceCutoutMipped = new PropertyDefaultTrueFalse(
+    public static final PropertyDefaultTrueFalse shaderPackBackFaceCutoutMipped = new PropertyDefaultTrueFalse(
             "backFace.cutoutMipped", "Back-face Cutout Mipped", 0);
-    public static PropertyDefaultTrueFalse shaderPackBackFaceTranslucent = new PropertyDefaultTrueFalse(
+    public static final PropertyDefaultTrueFalse shaderPackBackFaceTranslucent = new PropertyDefaultTrueFalse(
             "backFace.translucent", "Back-face Translucent", 0);
-    public static PropertyDefaultTrueFalse shaderPackRainDepth = new PropertyDefaultTrueFalse("rain.depth",
+    public static final PropertyDefaultTrueFalse shaderPackRainDepth = new PropertyDefaultTrueFalse("rain.depth",
             "Rain Depth", 0);
-    public static PropertyDefaultTrueFalse shaderPackBeaconBeamDepth = new PropertyDefaultTrueFalse("beacon.beam.depth",
+    public static final PropertyDefaultTrueFalse shaderPackBeaconBeamDepth = new PropertyDefaultTrueFalse("beacon.beam.depth",
             "Rain Depth", 0);
-    public static PropertyDefaultTrueFalse shaderPackSeparateAo = new PropertyDefaultTrueFalse("separateAo",
+    public static final PropertyDefaultTrueFalse shaderPackSeparateAo = new PropertyDefaultTrueFalse("separateAo",
             "Separate AO", 0);
-    public static PropertyDefaultTrueFalse shaderPackFrustumCulling = new PropertyDefaultTrueFalse("frustum.culling",
+    public static final PropertyDefaultTrueFalse shaderPackFrustumCulling = new PropertyDefaultTrueFalse("frustum.culling",
             "Frustum Culling", 0);
     public static float blockLightLevel05 = 0.5F;
     public static float blockLightLevel06 = 0.6F;
     public static float blockLightLevel08 = 0.8F;
     public static float aoLevel = -1.0F;
     public static float sunPathRotation = 0.0F;
-    public static float shadowAngleInterval = 0.0F;
+    public static final float shadowAngleInterval = 0.0F;
     public static int fogMode = 0;
     public static float fogDensity = 0.0F;
     public static float fogColorR;
     public static float fogColorG;
     public static float fogColorB;
     public static float shadowIntervalSize = 2.0F;
-    public static int terrainIconSize = 16;
-    public static int[] terrainTextureSize = new int[2];
-    public static int[] entityData = new int[32];
+    public static final int terrainIconSize = 16;
+    public static final int[] terrainTextureSize = new int[2];
+    public static final int[] entityData = new int[32];
     public static int entityDataIndex = 0;
     static Minecraft mc = Minecraft.getMinecraft();
     static EntityRenderer entityRenderer;
-    static float[] sunPosition = new float[4];
-    static float[] moonPosition = new float[4];
-    static float[] shadowLightPosition = new float[4];
-    static float[] upPosition = new float[4];
-    static float[] shadowLightPositionVector = new float[4];
-    static float[] upPosModelView = new float[]{0.0F, 100.0F, 0.0F, 0.0F};
-    static float[] sunPosModelView = new float[]{0.0F, 100.0F, 0.0F, 0.0F};
-    static float[] moonPosModelView = new float[]{0.0F, -100.0F, 0.0F, 0.0F};
+    static final float[] sunPosition = new float[4];
+    static final float[] moonPosition = new float[4];
+    static final float[] shadowLightPosition = new float[4];
+    static final float[] upPosition = new float[4];
+    static final float[] shadowLightPositionVector = new float[4];
+    static final float[] upPosModelView = new float[]{0.0F, 100.0F, 0.0F, 0.0F};
+    static final float[] sunPosModelView = new float[]{0.0F, 100.0F, 0.0F, 0.0F};
+    static final float[] moonPosModelView = new float[]{0.0F, -100.0F, 0.0F, 0.0F};
     static float clearColorR;
     static float clearColorG;
     static float clearColorB;
@@ -260,7 +260,7 @@ public class Shaders {
     static int dfb = 0;
     static int sfb = 0;
     static IntBuffer activeDrawBuffers = null;
-    static File configFile;
+    static final File configFile;
     static ShaderProfile[] shaderPackProfiles = null;
     static Map<String, ScreenShaderOptions> shaderPackGuiScreens = null;
     static Map<String, IExpressionBool> shaderPackProgramConditions = new HashMap<>();
@@ -277,96 +277,96 @@ public class Shaders {
     private static int progMaxVerticesOut = 3;
     private static boolean hasGeometryShaders = false;
     private static final ShaderUniforms shaderUniforms = new ShaderUniforms();
-    public static ShaderUniform4f uniform_entityColor = shaderUniforms.make4f("entityColor");
-    public static ShaderUniform1i uniform_entityId = shaderUniforms.make1i("entityId");
-    public static ShaderUniform1i uniform_blockEntityId = shaderUniforms.make1i("blockEntityId");
-    public static ShaderUniform1i uniform_texture = shaderUniforms.make1i("texture");
-    public static ShaderUniform1i uniform_lightmap = shaderUniforms.make1i("lightmap");
-    public static ShaderUniform1i uniform_normals = shaderUniforms.make1i("normals");
-    public static ShaderUniform1i uniform_specular = shaderUniforms.make1i("specular");
-    public static ShaderUniform1i uniform_shadow = shaderUniforms.make1i("shadow");
-    public static ShaderUniform1i uniform_watershadow = shaderUniforms.make1i("watershadow");
-    public static ShaderUniform1i uniform_shadowtex0 = shaderUniforms.make1i("shadowtex0");
-    public static ShaderUniform1i uniform_shadowtex1 = shaderUniforms.make1i("shadowtex1");
-    public static ShaderUniform1i uniform_depthtex0 = shaderUniforms.make1i("depthtex0");
-    public static ShaderUniform1i uniform_depthtex1 = shaderUniforms.make1i("depthtex1");
-    public static ShaderUniform1i uniform_shadowcolor = shaderUniforms.make1i("shadowcolor");
-    public static ShaderUniform1i uniform_shadowcolor0 = shaderUniforms.make1i("shadowcolor0");
-    public static ShaderUniform1i uniform_shadowcolor1 = shaderUniforms.make1i("shadowcolor1");
-    public static ShaderUniform1i uniform_noisetex = shaderUniforms.make1i("noisetex");
-    public static ShaderUniform1i uniform_gcolor = shaderUniforms.make1i("gcolor");
-    public static ShaderUniform1i uniform_gdepth = shaderUniforms.make1i("gdepth");
-    public static ShaderUniform1i uniform_gnormal = shaderUniforms.make1i("gnormal");
-    public static ShaderUniform1i uniform_composite = shaderUniforms.make1i("composite");
-    public static ShaderUniform1i uniform_gaux1 = shaderUniforms.make1i("gaux1");
-    public static ShaderUniform1i uniform_gaux2 = shaderUniforms.make1i("gaux2");
-    public static ShaderUniform1i uniform_gaux3 = shaderUniforms.make1i("gaux3");
-    public static ShaderUniform1i uniform_gaux4 = shaderUniforms.make1i("gaux4");
-    public static ShaderUniform1i uniform_colortex0 = shaderUniforms.make1i("colortex0");
-    public static ShaderUniform1i uniform_colortex1 = shaderUniforms.make1i("colortex1");
-    public static ShaderUniform1i uniform_colortex2 = shaderUniforms.make1i("colortex2");
-    public static ShaderUniform1i uniform_colortex3 = shaderUniforms.make1i("colortex3");
-    public static ShaderUniform1i uniform_colortex4 = shaderUniforms.make1i("colortex4");
-    public static ShaderUniform1i uniform_colortex5 = shaderUniforms.make1i("colortex5");
-    public static ShaderUniform1i uniform_colortex6 = shaderUniforms.make1i("colortex6");
-    public static ShaderUniform1i uniform_colortex7 = shaderUniforms.make1i("colortex7");
-    public static ShaderUniform1i uniform_gdepthtex = shaderUniforms.make1i("gdepthtex");
-    public static ShaderUniform1i uniform_depthtex2 = shaderUniforms.make1i("depthtex2");
-    public static ShaderUniform1i uniform_tex = shaderUniforms.make1i("tex");
-    public static ShaderUniform1i uniform_heldItemId = shaderUniforms.make1i("heldItemId");
-    public static ShaderUniform1i uniform_heldBlockLightValue = shaderUniforms.make1i("heldBlockLightValue");
-    public static ShaderUniform1i uniform_heldItemId2 = shaderUniforms.make1i("heldItemId2");
-    public static ShaderUniform1i uniform_heldBlockLightValue2 = shaderUniforms.make1i("heldBlockLightValue2");
-    public static ShaderUniform1i uniform_fogMode = shaderUniforms.make1i("fogMode");
-    public static ShaderUniform1f uniform_fogDensity = shaderUniforms.make1f("fogDensity");
-    public static ShaderUniform3f uniform_fogColor = shaderUniforms.make3f("fogColor");
-    public static ShaderUniform3f uniform_skyColor = shaderUniforms.make3f("skyColor");
-    public static ShaderUniform1i uniform_worldTime = shaderUniforms.make1i("worldTime");
-    public static ShaderUniform1i uniform_worldDay = shaderUniforms.make1i("worldDay");
-    public static ShaderUniform1i uniform_moonPhase = shaderUniforms.make1i("moonPhase");
-    public static ShaderUniform1i uniform_frameCounter = shaderUniforms.make1i("frameCounter");
-    public static ShaderUniform1f uniform_frameTime = shaderUniforms.make1f("frameTime");
-    public static ShaderUniform1f uniform_frameTimeCounter = shaderUniforms.make1f("frameTimeCounter");
-    public static ShaderUniform1f uniform_sunAngle = shaderUniforms.make1f("sunAngle");
-    public static ShaderUniform1f uniform_shadowAngle = shaderUniforms.make1f("shadowAngle");
-    public static ShaderUniform1f uniform_rainStrength = shaderUniforms.make1f("rainStrength");
-    public static ShaderUniform1f uniform_aspectRatio = shaderUniforms.make1f("aspectRatio");
-    public static ShaderUniform1f uniform_viewWidth = shaderUniforms.make1f("viewWidth");
-    public static ShaderUniform1f uniform_viewHeight = shaderUniforms.make1f("viewHeight");
-    public static ShaderUniform1f uniform_near = shaderUniforms.make1f("near");
-    public static ShaderUniform1f uniform_far = shaderUniforms.make1f("far");
-    public static ShaderUniform3f uniform_sunPosition = shaderUniforms.make3f("sunPosition");
-    public static ShaderUniform3f uniform_moonPosition = shaderUniforms.make3f("moonPosition");
-    public static ShaderUniform3f uniform_shadowLightPosition = shaderUniforms.make3f("shadowLightPosition");
-    public static ShaderUniform3f uniform_upPosition = shaderUniforms.make3f("upPosition");
-    public static ShaderUniform3f uniform_previousCameraPosition = shaderUniforms.make3f("previousCameraPosition");
-    public static ShaderUniform3f uniform_cameraPosition = shaderUniforms.make3f("cameraPosition");
-    public static ShaderUniformM4 uniform_gbufferModelView = shaderUniforms.makeM4("gbufferModelView");
-    public static ShaderUniformM4 uniform_gbufferModelViewInverse = shaderUniforms.makeM4("gbufferModelViewInverse");
-    public static ShaderUniformM4 uniform_gbufferPreviousProjection = shaderUniforms
+    public static final ShaderUniform4f uniform_entityColor = shaderUniforms.make4f("entityColor");
+    public static final ShaderUniform1i uniform_entityId = shaderUniforms.make1i("entityId");
+    public static final ShaderUniform1i uniform_blockEntityId = shaderUniforms.make1i("blockEntityId");
+    public static final ShaderUniform1i uniform_texture = shaderUniforms.make1i("texture");
+    public static final ShaderUniform1i uniform_lightmap = shaderUniforms.make1i("lightmap");
+    public static final ShaderUniform1i uniform_normals = shaderUniforms.make1i("normals");
+    public static final ShaderUniform1i uniform_specular = shaderUniforms.make1i("specular");
+    public static final ShaderUniform1i uniform_shadow = shaderUniforms.make1i("shadow");
+    public static final ShaderUniform1i uniform_watershadow = shaderUniforms.make1i("watershadow");
+    public static final ShaderUniform1i uniform_shadowtex0 = shaderUniforms.make1i("shadowtex0");
+    public static final ShaderUniform1i uniform_shadowtex1 = shaderUniforms.make1i("shadowtex1");
+    public static final ShaderUniform1i uniform_depthtex0 = shaderUniforms.make1i("depthtex0");
+    public static final ShaderUniform1i uniform_depthtex1 = shaderUniforms.make1i("depthtex1");
+    public static final ShaderUniform1i uniform_shadowcolor = shaderUniforms.make1i("shadowcolor");
+    public static final ShaderUniform1i uniform_shadowcolor0 = shaderUniforms.make1i("shadowcolor0");
+    public static final ShaderUniform1i uniform_shadowcolor1 = shaderUniforms.make1i("shadowcolor1");
+    public static final ShaderUniform1i uniform_noisetex = shaderUniforms.make1i("noisetex");
+    public static final ShaderUniform1i uniform_gcolor = shaderUniforms.make1i("gcolor");
+    public static final ShaderUniform1i uniform_gdepth = shaderUniforms.make1i("gdepth");
+    public static final ShaderUniform1i uniform_gnormal = shaderUniforms.make1i("gnormal");
+    public static final ShaderUniform1i uniform_composite = shaderUniforms.make1i("composite");
+    public static final ShaderUniform1i uniform_gaux1 = shaderUniforms.make1i("gaux1");
+    public static final ShaderUniform1i uniform_gaux2 = shaderUniforms.make1i("gaux2");
+    public static final ShaderUniform1i uniform_gaux3 = shaderUniforms.make1i("gaux3");
+    public static final ShaderUniform1i uniform_gaux4 = shaderUniforms.make1i("gaux4");
+    public static final ShaderUniform1i uniform_colortex0 = shaderUniforms.make1i("colortex0");
+    public static final ShaderUniform1i uniform_colortex1 = shaderUniforms.make1i("colortex1");
+    public static final ShaderUniform1i uniform_colortex2 = shaderUniforms.make1i("colortex2");
+    public static final ShaderUniform1i uniform_colortex3 = shaderUniforms.make1i("colortex3");
+    public static final ShaderUniform1i uniform_colortex4 = shaderUniforms.make1i("colortex4");
+    public static final ShaderUniform1i uniform_colortex5 = shaderUniforms.make1i("colortex5");
+    public static final ShaderUniform1i uniform_colortex6 = shaderUniforms.make1i("colortex6");
+    public static final ShaderUniform1i uniform_colortex7 = shaderUniforms.make1i("colortex7");
+    public static final ShaderUniform1i uniform_gdepthtex = shaderUniforms.make1i("gdepthtex");
+    public static final ShaderUniform1i uniform_depthtex2 = shaderUniforms.make1i("depthtex2");
+    public static final ShaderUniform1i uniform_tex = shaderUniforms.make1i("tex");
+    public static final ShaderUniform1i uniform_heldItemId = shaderUniforms.make1i("heldItemId");
+    public static final ShaderUniform1i uniform_heldBlockLightValue = shaderUniforms.make1i("heldBlockLightValue");
+    public static final ShaderUniform1i uniform_heldItemId2 = shaderUniforms.make1i("heldItemId2");
+    public static final ShaderUniform1i uniform_heldBlockLightValue2 = shaderUniforms.make1i("heldBlockLightValue2");
+    public static final ShaderUniform1i uniform_fogMode = shaderUniforms.make1i("fogMode");
+    public static final ShaderUniform1f uniform_fogDensity = shaderUniforms.make1f("fogDensity");
+    public static final ShaderUniform3f uniform_fogColor = shaderUniforms.make3f("fogColor");
+    public static final ShaderUniform3f uniform_skyColor = shaderUniforms.make3f("skyColor");
+    public static final ShaderUniform1i uniform_worldTime = shaderUniforms.make1i("worldTime");
+    public static final ShaderUniform1i uniform_worldDay = shaderUniforms.make1i("worldDay");
+    public static final ShaderUniform1i uniform_moonPhase = shaderUniforms.make1i("moonPhase");
+    public static final ShaderUniform1i uniform_frameCounter = shaderUniforms.make1i("frameCounter");
+    public static final ShaderUniform1f uniform_frameTime = shaderUniforms.make1f("frameTime");
+    public static final ShaderUniform1f uniform_frameTimeCounter = shaderUniforms.make1f("frameTimeCounter");
+    public static final ShaderUniform1f uniform_sunAngle = shaderUniforms.make1f("sunAngle");
+    public static final ShaderUniform1f uniform_shadowAngle = shaderUniforms.make1f("shadowAngle");
+    public static final ShaderUniform1f uniform_rainStrength = shaderUniforms.make1f("rainStrength");
+    public static final ShaderUniform1f uniform_aspectRatio = shaderUniforms.make1f("aspectRatio");
+    public static final ShaderUniform1f uniform_viewWidth = shaderUniforms.make1f("viewWidth");
+    public static final ShaderUniform1f uniform_viewHeight = shaderUniforms.make1f("viewHeight");
+    public static final ShaderUniform1f uniform_near = shaderUniforms.make1f("near");
+    public static final ShaderUniform1f uniform_far = shaderUniforms.make1f("far");
+    public static final ShaderUniform3f uniform_sunPosition = shaderUniforms.make3f("sunPosition");
+    public static final ShaderUniform3f uniform_moonPosition = shaderUniforms.make3f("moonPosition");
+    public static final ShaderUniform3f uniform_shadowLightPosition = shaderUniforms.make3f("shadowLightPosition");
+    public static final ShaderUniform3f uniform_upPosition = shaderUniforms.make3f("upPosition");
+    public static final ShaderUniform3f uniform_previousCameraPosition = shaderUniforms.make3f("previousCameraPosition");
+    public static final ShaderUniform3f uniform_cameraPosition = shaderUniforms.make3f("cameraPosition");
+    public static final ShaderUniformM4 uniform_gbufferModelView = shaderUniforms.makeM4("gbufferModelView");
+    public static final ShaderUniformM4 uniform_gbufferModelViewInverse = shaderUniforms.makeM4("gbufferModelViewInverse");
+    public static final ShaderUniformM4 uniform_gbufferPreviousProjection = shaderUniforms
             .makeM4("gbufferPreviousProjection");
-    public static ShaderUniformM4 uniform_gbufferProjection = shaderUniforms.makeM4("gbufferProjection");
-    public static ShaderUniformM4 uniform_gbufferProjectionInverse = shaderUniforms.makeM4("gbufferProjectionInverse");
-    public static ShaderUniformM4 uniform_gbufferPreviousModelView = shaderUniforms.makeM4("gbufferPreviousModelView");
-    public static ShaderUniformM4 uniform_shadowProjection = shaderUniforms.makeM4("shadowProjection");
-    public static ShaderUniformM4 uniform_shadowProjectionInverse = shaderUniforms.makeM4("shadowProjectionInverse");
-    public static ShaderUniformM4 uniform_shadowModelView = shaderUniforms.makeM4("shadowModelView");
-    public static ShaderUniformM4 uniform_shadowModelViewInverse = shaderUniforms.makeM4("shadowModelViewInverse");
-    public static ShaderUniform1f uniform_wetness = shaderUniforms.make1f("wetness");
-    public static ShaderUniform1f uniform_eyeAltitude = shaderUniforms.make1f("eyeAltitude");
-    public static ShaderUniform2i uniform_eyeBrightness = shaderUniforms.make2i("eyeBrightness");
-    public static ShaderUniform2i uniform_eyeBrightnessSmooth = shaderUniforms.make2i("eyeBrightnessSmooth");
-    public static ShaderUniform2i uniform_terrainTextureSize = shaderUniforms.make2i("terrainTextureSize");
-    public static ShaderUniform1i uniform_terrainIconSize = shaderUniforms.make1i("terrainIconSize");
-    public static ShaderUniform1i uniform_isEyeInWater = shaderUniforms.make1i("isEyeInWater");
-    public static ShaderUniform1f uniform_nightVision = shaderUniforms.make1f("nightVision");
-    public static ShaderUniform1f uniform_blindness = shaderUniforms.make1f("blindness");
-    public static ShaderUniform1f uniform_screenBrightness = shaderUniforms.make1f("screenBrightness");
-    public static ShaderUniform1i uniform_hideGUI = shaderUniforms.make1i("hideGUI");
-    public static ShaderUniform1f uniform_centerDepthSmooth = shaderUniforms.make1f("centerDepthSmooth");
-    public static ShaderUniform2i uniform_atlasSize = shaderUniforms.make2i("atlasSize");
+    public static final ShaderUniformM4 uniform_gbufferProjection = shaderUniforms.makeM4("gbufferProjection");
+    public static final ShaderUniformM4 uniform_gbufferProjectionInverse = shaderUniforms.makeM4("gbufferProjectionInverse");
+    public static final ShaderUniformM4 uniform_gbufferPreviousModelView = shaderUniforms.makeM4("gbufferPreviousModelView");
+    public static final ShaderUniformM4 uniform_shadowProjection = shaderUniforms.makeM4("shadowProjection");
+    public static final ShaderUniformM4 uniform_shadowProjectionInverse = shaderUniforms.makeM4("shadowProjectionInverse");
+    public static final ShaderUniformM4 uniform_shadowModelView = shaderUniforms.makeM4("shadowModelView");
+    public static final ShaderUniformM4 uniform_shadowModelViewInverse = shaderUniforms.makeM4("shadowModelViewInverse");
+    public static final ShaderUniform1f uniform_wetness = shaderUniforms.make1f("wetness");
+    public static final ShaderUniform1f uniform_eyeAltitude = shaderUniforms.make1f("eyeAltitude");
+    public static final ShaderUniform2i uniform_eyeBrightness = shaderUniforms.make2i("eyeBrightness");
+    public static final ShaderUniform2i uniform_eyeBrightnessSmooth = shaderUniforms.make2i("eyeBrightnessSmooth");
+    public static final ShaderUniform2i uniform_terrainTextureSize = shaderUniforms.make2i("terrainTextureSize");
+    public static final ShaderUniform1i uniform_terrainIconSize = shaderUniforms.make1i("terrainIconSize");
+    public static final ShaderUniform1i uniform_isEyeInWater = shaderUniforms.make1i("isEyeInWater");
+    public static final ShaderUniform1f uniform_nightVision = shaderUniforms.make1f("nightVision");
+    public static final ShaderUniform1f uniform_blindness = shaderUniforms.make1f("blindness");
+    public static final ShaderUniform1f uniform_screenBrightness = shaderUniforms.make1f("screenBrightness");
+    public static final ShaderUniform1i uniform_hideGUI = shaderUniforms.make1i("hideGUI");
+    public static final ShaderUniform1f uniform_centerDepthSmooth = shaderUniforms.make1f("centerDepthSmooth");
+    public static final ShaderUniform2i uniform_atlasSize = shaderUniforms.make2i("atlasSize");
     public static ShaderUniform4i uniform_blendFunc = shaderUniforms.make4i("blendFunc");
-    public static ShaderUniform1i uniform_instanceId = shaderUniforms.make1i("instanceId");
+    public static final ShaderUniform1i uniform_instanceId = shaderUniforms.make1i("instanceId");
     private static final int[] gbuffersFormat = new int[8];
     private static final Programs programs = new Programs();
     public static final Program ProgramNone = programs.getProgramNone();
@@ -568,15 +568,7 @@ public class Shaders {
                 configTexMinFilS = Config.parseInt(str, 0);
                 break;
 
-            case TEX_MAG_FIL_B:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MAG_FIL_N:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MAG_FIL_S:
+            case TEX_MAG_FIL_B, TEX_MAG_FIL_S, TEX_MAG_FIL_N:
                 configTexMagFilB = Config.parseInt(str, 0);
                 break;
 
@@ -627,10 +619,7 @@ public class Shaders {
             case TEX_MIN_FIL_B -> Integer.toString(configTexMinFilB);
             case TEX_MIN_FIL_N -> Integer.toString(configTexMinFilN);
             case TEX_MIN_FIL_S -> Integer.toString(configTexMinFilS);
-            case TEX_MAG_FIL_B -> Integer.toString(configTexMagFilB);
-            case TEX_MAG_FIL_N -> Integer.toString(configTexMagFilB);
-            case TEX_MAG_FIL_S -> Integer.toString(configTexMagFilB);
-            default -> throw new IllegalArgumentException("Unknown option: " + eso);
+            case TEX_MAG_FIL_B, TEX_MAG_FIL_S, TEX_MAG_FIL_N -> Integer.toString(configTexMagFilB);
         };
     }
 
@@ -891,10 +880,10 @@ public class Shaders {
             }
         }
 
-        if (list.size() <= 0) {
+        if (list.size() == 0) {
             return null;
         } else {
-            return list.toArray(new ICustomTexture[list.size()]);
+            return list.toArray(new ICustomTexture[0]);
         }
     }
 
@@ -948,7 +937,7 @@ public class Shaders {
                 SMCLog.warning("Invalid raw texture internal format: " + line);
                 return null;
             } else {
-                int i = 0;
+                int i;
                 int j = 0;
                 int k = 0;
 
@@ -957,7 +946,7 @@ public class Shaders {
                         i = connectedparser.parseInt(deque.poll(), -1);
                         break;
 
-                    case TEXTURE_2D:
+                    case TEXTURE_2D, TEXTURE_RECTANGLE:
                         i = connectedparser.parseInt(deque.poll(), -1);
                         j = connectedparser.parseInt(deque.poll(), -1);
                         break;
@@ -966,11 +955,6 @@ public class Shaders {
                         i = connectedparser.parseInt(deque.poll(), -1);
                         j = connectedparser.parseInt(deque.poll(), -1);
                         k = connectedparser.parseInt(deque.poll(), -1);
-                        break;
-
-                    case TEXTURE_RECTANGLE:
-                        i = connectedparser.parseInt(deque.poll(), -1);
-                        j = connectedparser.parseInt(deque.poll(), -1);
                         break;
 
                     default:
@@ -1120,7 +1104,7 @@ public class Shaders {
         }
 
         if (stage == 1 || stage == 2) {
-            if (name.equals("colortex0") || name.equals("colortex0")) {
+            if (name.equals("colortex0")) {
                 return 0;
             }
 
@@ -1245,7 +1229,7 @@ public class Shaders {
                     }
                 }
 
-                return list.toArray(new ShaderOption[list.size()]);
+                return list.toArray(new ShaderOption[0]);
             }
         }
     }
@@ -1288,7 +1272,7 @@ public class Shaders {
             }
         }
 
-        return list.toArray(new ShaderOption[list.size()]);
+        return list.toArray(new ShaderOption[0]);
     }
 
     public static ShaderOption[] getShaderPackOptions() {
@@ -1308,7 +1292,7 @@ public class Shaders {
             }
         }
 
-        return list.toArray(new ShaderOption[list.size()]);
+        return list.toArray(new ShaderOption[0]);
     }
 
     public static void saveShaderPackOptions() {
@@ -1399,7 +1383,7 @@ public class Shaders {
             }
         }
 
-        return list.toArray(new ShaderOption[list.size()]);
+        return list.toArray(new ShaderOption[0]);
     }
 
     private static String applyOptions(String line, ShaderOption[] ops) {
@@ -1552,7 +1536,6 @@ public class Shaders {
 
     public static void startup(Minecraft mc) {
         checkShadersModInstalled();
-        mc = Minecraft.getMinecraft();
         capabilities = GLContext.getCapabilities();
         glVersionString = GL11.glGetString(GL11.GL_VERSION);
         glVendorString = GL11.glGetString(GL11.GL_VENDOR);
@@ -1622,7 +1605,6 @@ public class Shaders {
             case CUTOUT -> shaderPackBackFaceCutout.isTrue();
             case CUTOUT_MIPPED -> shaderPackBackFaceCutoutMipped.isTrue();
             case TRANSLUCENT -> shaderPackBackFaceTranslucent.isTrue();
-            default -> false;
         };
     }
 
@@ -1933,7 +1915,6 @@ public class Shaders {
 
             if (j == 0 && k == 0 && l == 0) {
                 ARBShaderObjects.glDeleteObjectARB(i);
-                i = 0;
                 program.resetId();
             } else {
                 if (j != 0) {
@@ -2010,7 +1991,6 @@ public class Shaders {
                     String s = "\"";
                     printChatAndLogError("[Shaders] Error: Invalid program " + s + program.getName() + s);
                     ARBShaderObjects.glDeleteObjectARB(i);
-                    i = 0;
                     program.resetId();
                 }
             }
@@ -2024,7 +2004,7 @@ public class Shaders {
             return 0;
         } else {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
@@ -2102,7 +2082,7 @@ public class Shaders {
             return 0;
         } else {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
@@ -2181,7 +2161,7 @@ public class Shaders {
             return 0;
         } else {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
@@ -4456,7 +4436,7 @@ public class Shaders {
     public static boolean isProgramPath(String path) {
         if (path == null) {
             return false;
-        } else if (path.length() <= 0) {
+        } else if (path.length() == 0) {
             return false;
         } else {
             int i = path.lastIndexOf("/");

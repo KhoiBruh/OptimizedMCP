@@ -67,7 +67,7 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
     }
 
     private String[] splitDescription(String desc) {
-        if (desc.length() <= 0) {
+        if (desc.length() == 0) {
             return new String[0];
         } else {
             desc = StrUtils.removePrefix(desc, "//");
@@ -92,6 +92,6 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
             }
         }
 
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 }

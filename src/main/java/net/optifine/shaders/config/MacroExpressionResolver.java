@@ -6,7 +6,7 @@ import net.optifine.expr.*;
 import java.util.Map;
 
 public class MacroExpressionResolver implements IExpressionResolver {
-    private Map<String, String> mapMacroValues = null;
+    private Map<String, String> mapMacroValues;
 
     public MacroExpressionResolver(Map<String, String> mapMacroValues) {
         this.mapMacroValues = mapMacroValues;

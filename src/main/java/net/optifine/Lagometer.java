@@ -14,13 +14,13 @@ import org.lwjgl.opengl.GL11;
 
 public class Lagometer {
     public static boolean active = false;
-    public static Lagometer.TimerNano timerTick = new Lagometer.TimerNano();
-    public static Lagometer.TimerNano timerScheduledExecutables = new Lagometer.TimerNano();
-    public static Lagometer.TimerNano timerChunkUpload = new Lagometer.TimerNano();
-    public static Lagometer.TimerNano timerChunkUpdate = new Lagometer.TimerNano();
-    public static Lagometer.TimerNano timerVisibility = new Lagometer.TimerNano();
-    public static Lagometer.TimerNano timerTerrain = new Lagometer.TimerNano();
-    public static Lagometer.TimerNano timerServer = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerTick = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerScheduledExecutables = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerChunkUpload = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerChunkUpdate = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerVisibility = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerTerrain = new Lagometer.TimerNano();
+    public static final Lagometer.TimerNano timerServer = new Lagometer.TimerNano();
     private static Minecraft mc;
     private static GameSettings gameSettings;
     private static final long[] timesFrame = new long[512];

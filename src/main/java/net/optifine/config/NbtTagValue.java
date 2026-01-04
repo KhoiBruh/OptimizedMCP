@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
 
 public class NbtTagValue {
     private static final Pattern PATTERN_HEX_COLOR = Pattern.compile("^#[0-9a-f]{6}+$");
-    private String[] parents = null;
-    private String name = null;
+    private String[] parents;
+    private String name;
     private boolean negative = false;
-    private int type = 0;
-    private String value = null;
+    private int type;
+    private String value;
     private int valueFormat = 0;
 
     public NbtTagValue(String tag, String value) {

@@ -24,10 +24,10 @@ public class TooltipProviderOptions implements TooltipProvider {
             list.add(s1);
         }
 
-        if (list.size() <= 0) {
+        if (list.size() == 0) {
             return null;
         } else {
-            return list.toArray(new String[list.size()]);
+            return list.toArray(new String[0]);
         }
     }
 

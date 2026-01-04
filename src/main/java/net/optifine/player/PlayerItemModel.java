@@ -14,8 +14,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PlayerItemModel {
-    private boolean usePlayerTexture = false;
-    private PlayerItemRenderer[] modelRenderers = new PlayerItemRenderer[0];
+    private boolean usePlayerTexture;
+    private PlayerItemRenderer[] modelRenderers;
     private ResourceLocation textureLocation = null;
     private BufferedImage textureImage = null;
     private DynamicTexture texture = null;

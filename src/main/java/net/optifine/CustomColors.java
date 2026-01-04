@@ -41,7 +41,7 @@ import java.util.*;
 public class CustomColors {
     private static final IBlockState BLOCK_STATE_DIRT = Blocks.dirt.getDefaultState();
     private static final IBlockState BLOCK_STATE_WATER = Blocks.water.getDefaultState();
-    public static Random random = new Random();
+    public static final Random random = new Random();
     private static String paletteFormatDefault = "vanilla";
     private static CustomColormap waterColors = null;
     private static final CustomColors.IColorizer COLORIZER_WATER = new CustomColors.IColorizer() {
@@ -281,7 +281,7 @@ public class CustomColors {
         Integer[] ainteger = set.toArray(new Integer[0]);
         Arrays.sort(ainteger);
 
-        if (ainteger.length <= 0) {
+        if (ainteger.length == 0) {
             return new ImmutablePair<>(null, 0);
         } else {
             int j1 = ainteger[0];
@@ -413,10 +413,10 @@ public class CustomColors {
             }
         }
 
-        if (list.size() <= 0) {
+        if (list.size() == 0) {
             return null;
         } else {
-            return (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
+            return (CustomColormap[]) list.toArray(new CustomColormap[0]);
         }
     }
 
@@ -459,7 +459,7 @@ public class CustomColors {
             }
         }
 
-        if (list.size() <= 0) {
+        if (list.size() == 0) {
             return null;
         } else {
             return blockListToArray(list);
@@ -680,7 +680,6 @@ public class CustomColors {
                     }
                 } else if (block == Blocks.leaves) {
                     customcolors$icolorizer = switch (i & 3) {
-                        case 0 -> COLORIZER_FOLIAGE;
                         case 1 -> COLORIZER_FOLIAGE_PINE;
                         case 2 -> COLORIZER_FOLIAGE_BIRCH;
                         default -> COLORIZER_FOLIAGE;

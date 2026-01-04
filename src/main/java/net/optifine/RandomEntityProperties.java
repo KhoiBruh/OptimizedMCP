@@ -4,8 +4,8 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 
 public class RandomEntityProperties {
-    public ResourceLocation[] resourceLocations = null;
-    public RandomEntityRule[] rules = null;
+    public final ResourceLocation[] resourceLocations = null;
+    public final RandomEntityRule[] rules = null;
 
     public ResourceLocation getTextureLocation(ResourceLocation loc, IRandomEntity randomEntity) {
         if (this.rules != null) {

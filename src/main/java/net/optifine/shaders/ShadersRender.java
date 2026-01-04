@@ -191,7 +191,7 @@ public class ShadersRender {
             minecraft.mcProfiler.endStartSection("shadow prepareterrain");
             minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
             minecraft.mcProfiler.endStartSection("shadow setupterrain");
-            int i = 0;
+            int i;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
             renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.thePlayer.isSpectator());

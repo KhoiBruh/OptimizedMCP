@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShaderOptionProfile extends ShaderOption {
-    private ShaderProfile[] profiles = null;
-    private ShaderOption[] options = null;
+    private ShaderProfile[] profiles;
+    private ShaderOption[] options;
 
     public ShaderOptionProfile(ShaderProfile[] profiles, ShaderOption[] options) {
         super("<profile>", "", detectProfileName(profiles, options), getProfileNames(profiles), detectProfileName(profiles, options, true), null);
@@ -34,7 +34,7 @@ public class ShaderOptionProfile extends ShaderOption {
         }
 
         list.add("<custom>");
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     public void nextValue() {

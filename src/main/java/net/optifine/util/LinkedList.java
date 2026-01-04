@@ -117,9 +117,6 @@ public class LinkedList<T> {
                 return node;
             }
 
-            public void remove() {
-                throw new UnsupportedOperationException("remove");
-            }
         };
     }
 

@@ -37,7 +37,7 @@ public class ShaderOptionSwitch extends ShaderOption {
     }
 
     public static boolean isTrue(String val) {
-        return Boolean.valueOf(val);
+        return Boolean.parseBoolean(val);
     }
 
     public String getSourceLine() {

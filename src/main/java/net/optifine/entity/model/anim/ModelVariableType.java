@@ -17,7 +17,7 @@ public enum ModelVariableType {
     SCALE_Y("sy"),
     SCALE_Z("sz");
 
-    public static ModelVariableType[] VALUES = values();
+    public static final ModelVariableType[] VALUES = values();
     private final String name;
 
     ModelVariableType(String name) {
@@ -52,10 +52,6 @@ public enum ModelVariableType {
             case SCALE_X -> mr.scaleX;
             case SCALE_Y -> mr.scaleY;
             case SCALE_Z -> mr.scaleZ;
-            default -> {
-                Config.warn("GetFloat not supported for: " + this);
-                yield 0.0F;
-            }
         };
     }
 

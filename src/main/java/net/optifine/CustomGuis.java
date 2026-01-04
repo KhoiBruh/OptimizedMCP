@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class CustomGuis {
-    public static boolean isChristmas = isChristmas();
+    public static final boolean isChristmas = isChristmas();
     private static final Minecraft mc = Config.getMinecraft();
     private static final PlayerControllerOF playerControllerOF = null;
     private static CustomGuiProperties[][] guiProperties = null;

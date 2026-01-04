@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class PlayerConfigurationParser {
-    private String player = null;
+    private String player;
 
     public PlayerConfigurationParser(String player) {
         this.player = player;

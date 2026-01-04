@@ -24,13 +24,11 @@ public enum UniformType {
 
     public ShaderUniformBase makeShaderUniform(String name) {
         return switch (this) {
-            case BOOL -> new ShaderUniform1i(name);
-            case INT -> new ShaderUniform1i(name);
+            case BOOL, INT -> new ShaderUniform1i(name);
             case FLOAT -> new ShaderUniform1f(name);
             case VEC2 -> new ShaderUniform2f(name);
             case VEC3 -> new ShaderUniform3f(name);
             case VEC4 -> new ShaderUniform4f(name);
-            default -> throw new RuntimeException("Unknown uniform type: " + this);
         };
     }
 
@@ -114,10 +112,7 @@ public enum UniformType {
     public boolean matchesExpressionType(ExpressionType expressionType) {
         return switch (this) {
             case BOOL -> expressionType == ExpressionType.BOOL;
-            case INT -> expressionType == ExpressionType.FLOAT;
-            case FLOAT -> expressionType == ExpressionType.FLOAT;
-            case VEC2, VEC3, VEC4 -> expressionType == ExpressionType.FLOAT_ARRAY;
-            default -> throw new RuntimeException("Unknown uniform type: " + this);
+            case INT, FLOAT, VEC2, VEC3, VEC4 -> expressionType == ExpressionType.FLOAT;
         };
     }
 }

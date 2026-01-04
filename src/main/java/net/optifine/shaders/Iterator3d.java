@@ -62,17 +62,6 @@ public class Iterator3d implements Iterator<BlockPos> {
         }
     }
 
-    public static void main(String[] args) {
-        BlockPos blockpos = new BlockPos(10, 20, 30);
-        BlockPos blockpos1 = new BlockPos(30, 40, 20);
-        Iterator3d iterator3d = new Iterator3d(blockpos, blockpos1, 1, 1);
-
-        while (iterator3d.hasNext()) {
-            BlockPos blockpos2 = iterator3d.next();
-            System.out.println("" + blockpos2);
-        }
-    }
-
     private BlockPos reverseCoord(BlockPos pos, boolean revX, boolean revY, boolean revZ) {
         if (revX) {
             pos = new BlockPos(-pos.getX(), pos.getY(), pos.getZ());
@@ -97,10 +86,6 @@ public class Iterator3d implements Iterator<BlockPos> {
         BlockPos blockpos = this.iteratorAxis.next();
 
         return switch (this.axis) {
-            case 0 -> {
-                this.blockPos.setXyz(blockpos.getX() * this.kX, blockpos.getY() * this.kY, blockpos.getZ() * this.kZ);
-                yield this.blockPos;
-            }
             case 1 -> {
                 this.blockPos.setXyz(blockpos.getY() * this.kX, blockpos.getX() * this.kY, blockpos.getZ() * this.kZ);
                 yield this.blockPos;

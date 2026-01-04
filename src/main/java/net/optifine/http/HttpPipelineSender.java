@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class HttpPipelineSender extends Thread {
     private static final Charset ASCII = StandardCharsets.US_ASCII;
-    private HttpPipelineConnection httpPipelineConnection = null;
+    private HttpPipelineConnection httpPipelineConnection;
 
     public HttpPipelineSender(HttpPipelineConnection httpPipelineConnection) {
         super("HttpPipelineSender");

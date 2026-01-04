@@ -16,7 +16,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class ShaderPackZip implements IShaderPack {
-    protected File packFile;
+    protected final File packFile;
     protected ZipFile packZipFile;
     protected String baseFolder;
 

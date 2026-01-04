@@ -21,7 +21,7 @@ public class SVertexBuilder {
     int offsetUV;
     boolean hasNormal;
     boolean hasUV;
-    long[] entityData = new long[10];
+    final long[] entityData = new long[10];
     int entityDataIndex = 0;
 
     public SVertexBuilder() {

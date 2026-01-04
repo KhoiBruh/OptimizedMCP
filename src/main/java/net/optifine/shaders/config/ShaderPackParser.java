@@ -73,7 +73,7 @@ public class ShaderPackParser {
                         shaderoption1.setEnabled(false);
                     }
 
-                    if (shaderoption1.getDescription() == null || shaderoption1.getDescription().length() <= 0) {
+                    if (shaderoption1.getDescription() == null || shaderoption1.getDescription().length() == 0) {
                         shaderoption1.setDescription(shaderoption.getDescription());
                     }
 
@@ -197,10 +197,10 @@ public class ShaderPackParser {
             }
         }
 
-        if (list.size() <= 0) {
+        if (list.size() == 0) {
             return null;
         } else {
-            return list.toArray(new ShaderProfile[list.size()]);
+            return list.toArray(new ShaderProfile[0]);
         }
     }
 
@@ -580,7 +580,7 @@ public class ShaderPackParser {
             }
         }
 
-        if (list.size() <= 0) {
+        if (list.size() == 0) {
             return null;
         } else {
             CustomUniform[] acustomuniform = list.toArray(new CustomUniform[0]);

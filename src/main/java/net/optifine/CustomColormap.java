@@ -26,8 +26,8 @@ import java.util.regex.Pattern;
 
 public class CustomColormap implements CustomColors.IColorizer {
     public static final String[] FORMAT_STRINGS = new String[]{"vanilla", "grid", "fixed"};
-    public String name = null;
-    public String basePath = null;
+    public String name;
+    public String basePath;
     private int format = -1;
     private MatchBlock[] matchBlocks = null;
     private String source = null;
@@ -138,21 +138,15 @@ public class CustomColormap implements CustomColors.IColorizer {
         } else {
             str = str.trim();
 
-            switch (str) {
-                case "vanilla" -> {
-                    return 0;
-                }
-                case "grid" -> {
-                    return 1;
-                }
-                case "fixed" -> {
-                    return 2;
-                }
+            return switch (str) {
+                case "vanilla" -> 0;
+                case "grid" -> 1;
+                case "fixed" -> 2;
                 default -> {
                     warn("Unknown format: " + str);
-                    return -1;
+                    yield -1;
                 }
-            }
+            };
         }
     }
 

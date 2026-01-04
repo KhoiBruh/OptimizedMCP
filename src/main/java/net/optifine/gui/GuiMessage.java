@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GuiMessage extends GuiScreen {
     private final List listLines2 = Lists.newArrayList();
-    protected String confirmButtonText;
+    protected final String confirmButtonText;
     private final GuiScreen parentScreen;
     private final String messageLine1;
     private final String messageLine2;

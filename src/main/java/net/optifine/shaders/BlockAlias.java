@@ -52,7 +52,7 @@ public class BlockAlias {
             }
         }
 
-        return list.toArray(new MatchBlock[list.size()]);
+        return list.toArray(new MatchBlock[0]);
     }
 
     public String toString() {
