@@ -4,13 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelSilverfish extends ModelBase {
+    private static final int[][] silverfishBoxLength = new int[][]{{3, 2, 2}, {4, 3, 2}, {6, 4, 3}, {3, 3, 3},
+            {2, 2, 3}, {2, 1, 2}, {1, 1, 2}};
+    private static final int[][] silverfishTexturePositions = new int[][]{{0, 0}, {0, 4}, {0, 9}, {0, 16},
+            {0, 22}, {11, 0}, {13, 4}};
     public ModelRenderer[] silverfishBodyParts = new ModelRenderer[7];
     public ModelRenderer[] silverfishWings;
-    private float[] field_78170_c = new float[7];
-    private static final int[][] silverfishBoxLength = new int[][] { { 3, 2, 2 }, { 4, 3, 2 }, { 6, 4, 3 }, { 3, 3, 3 },
-            { 2, 2, 3 }, { 2, 1, 2 }, { 1, 1, 2 } };
-    private static final int[][] silverfishTexturePositions = new int[][] { { 0, 0 }, { 0, 4 }, { 0, 9 }, { 0, 16 },
-            { 0, 22 }, { 11, 0 }, { 13, 4 } };
+    private final float[] field_78170_c = new float[7];
 
     public ModelSilverfish() {
         float f = -3.5F;
@@ -45,7 +45,7 @@ public class ModelSilverfish extends ModelBase {
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
-            float p_78088_6_, float scale) {
+                       float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
         for (int i = 0; i < this.silverfishBodyParts.length; ++i) {
@@ -58,7 +58,7 @@ public class ModelSilverfish extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-            float headPitch, float scaleFactor, Entity entityIn) {
+                                  float headPitch, float scaleFactor, Entity entityIn) {
         for (int i = 0; i < this.silverfishBodyParts.length; ++i) {
             this.silverfishBodyParts[i].rotateAngleY = MathHelper
                     .cos(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.05F

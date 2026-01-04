@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import java.util.Calendar;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.client.model.ModelChest;
@@ -8,6 +7,8 @@ import net.minecraft.client.model.ModelLargeChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Calendar;
 
 public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntityChest> {
     private static final ResourceLocation textureTrappedDouble = new ResourceLocation(
@@ -33,7 +34,7 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
     }
 
     public void renderTileEntityAt(TileEntityChest te, double x, double y, double z, float partialTicks,
-            int destroyStage) {
+                                   int destroyStage) {
         GlStateManager.enableDepth();
         GlStateManager.depthFunc(515);
         GlStateManager.depthMask(true);

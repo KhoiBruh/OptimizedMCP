@@ -50,23 +50,23 @@ public class ModelGuardian extends ModelBase {
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
-            float p_78088_6_, float scale) {
+                       float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         this.guardianBody.render(scale);
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-            float headPitch, float scaleFactor, Entity entityIn) {
+                                  float headPitch, float scaleFactor, Entity entityIn) {
         EntityGuardian entityguardian = (EntityGuardian) entityIn;
         float f = ageInTicks - (float) entityguardian.ticksExisted;
         this.guardianBody.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
         this.guardianBody.rotateAngleX = headPitch / (180F / (float) Math.PI);
-        float[] afloat = new float[] { 1.75F, 0.25F, 0.0F, 0.0F, 0.5F, 0.5F, 0.5F, 0.5F, 1.25F, 0.75F, 0.0F, 0.0F };
-        float[] afloat1 = new float[] { 0.0F, 0.0F, 0.0F, 0.0F, 0.25F, 1.75F, 1.25F, 0.75F, 0.0F, 0.0F, 0.0F, 0.0F };
-        float[] afloat2 = new float[] { 0.0F, 0.0F, 0.25F, 1.75F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.75F, 1.25F };
-        float[] afloat3 = new float[] { 0.0F, 0.0F, 8.0F, -8.0F, -8.0F, 8.0F, 8.0F, -8.0F, 0.0F, 0.0F, 8.0F, -8.0F };
-        float[] afloat4 = new float[] { -8.0F, -8.0F, -8.0F, -8.0F, 0.0F, 0.0F, 0.0F, 0.0F, 8.0F, 8.0F, 8.0F, 8.0F };
-        float[] afloat5 = new float[] { 8.0F, -8.0F, 0.0F, 0.0F, -8.0F, -8.0F, 8.0F, 8.0F, 8.0F, -8.0F, 0.0F, 0.0F };
+        float[] afloat = new float[]{1.75F, 0.25F, 0.0F, 0.0F, 0.5F, 0.5F, 0.5F, 0.5F, 1.25F, 0.75F, 0.0F, 0.0F};
+        float[] afloat1 = new float[]{0.0F, 0.0F, 0.0F, 0.0F, 0.25F, 1.75F, 1.25F, 0.75F, 0.0F, 0.0F, 0.0F, 0.0F};
+        float[] afloat2 = new float[]{0.0F, 0.0F, 0.25F, 1.75F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.75F, 1.25F};
+        float[] afloat3 = new float[]{0.0F, 0.0F, 8.0F, -8.0F, -8.0F, 8.0F, 8.0F, -8.0F, 0.0F, 0.0F, 8.0F, -8.0F};
+        float[] afloat4 = new float[]{-8.0F, -8.0F, -8.0F, -8.0F, 0.0F, 0.0F, 0.0F, 0.0F, 8.0F, 8.0F, 8.0F, 8.0F};
+        float[] afloat5 = new float[]{8.0F, -8.0F, 0.0F, 0.0F, -8.0F, -8.0F, 8.0F, 8.0F, 8.0F, -8.0F, 0.0F, 0.0F};
         float f1 = (1.0F - entityguardian.func_175469_o(f)) * 0.55F;
 
         for (int i = 0; i < 12; ++i) {
@@ -91,7 +91,7 @@ public class ModelGuardian extends ModelBase {
         if (entity != null) {
             Vec3 vec3 = entity.getPositionEyes(0.0F);
             Vec3 vec31 = entityIn.getPositionEyes(0.0F);
-            double d0 = vec3.yCoord - vec31.yCoord;
+            double d0 = vec3.yCoord() - vec31.yCoord();
 
             if (d0 > 0.0D) {
                 this.guardianEye.rotationPointY = 0.0F;
@@ -100,8 +100,8 @@ public class ModelGuardian extends ModelBase {
             }
 
             Vec3 vec32 = entityIn.getLook(0.0F);
-            vec32 = new Vec3(vec32.xCoord, 0.0D, vec32.zCoord);
-            Vec3 vec33 = (new Vec3(vec31.xCoord - vec3.xCoord, 0.0D, vec31.zCoord - vec3.zCoord)).normalize()
+            vec32 = new Vec3(vec32.xCoord(), 0.0D, vec32.zCoord());
+            Vec3 vec33 = (new Vec3(vec31.xCoord() - vec3.xCoord(), 0.0D, vec31.zCoord() - vec3.zCoord())).normalize()
                     .rotateYaw(((float) Math.PI / 2F));
             double d1 = vec32.dotProduct(vec33);
             this.guardianEye.rotationPointX = MathHelper.sqrt_float((float) Math.abs(d1)) * 2.0F

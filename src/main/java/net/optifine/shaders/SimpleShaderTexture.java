@@ -73,7 +73,7 @@ public class SimpleShaderTexture extends AbstractTexture {
             try {
                 BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
                 TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(this.texturePath, new TextureMetadataSection(false, false, new ArrayList<>()));
-                TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
+                TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, texturemetadatasection.textureBlur(), texturemetadatasection.textureClamp());
             } finally {
                 IOUtils.closeQuietly(inputstream);
             }

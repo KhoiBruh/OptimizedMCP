@@ -1,7 +1,5 @@
 package net.minecraft.tileentity;
 
-import java.util.Arrays;
-import java.util.List;
 import net.minecraft.block.BlockBrewingStand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,25 +18,28 @@ import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class TileEntityBrewingStand extends TileEntityLockable implements ITickable, ISidedInventory {
-    private static final int[] inputSlots = new int[] { 3 };
-    private static final int[] outputSlots = new int[] { 0, 1, 2 };
+    private static final int[] inputSlots = new int[]{3};
+    private static final int[] outputSlots = new int[]{0, 1, 2};
+    public String customName;
     private ItemStack[] brewingItemStacks = new ItemStack[4];
     private int brewTime;
     private boolean[] filledSlots;
     private Item ingredientID;
-    public String customName;
 
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.brewing";
     }
 
-    public boolean hasCustomName() {
-        return this.customName != null && this.customName.length() > 0;
-    }
-
     public void setName(String name) {
         this.customName = name;
+    }
+
+    public boolean hasCustomName() {
+        return this.customName != null && this.customName.length() > 0;
     }
 
     public int getSizeInventory() {
@@ -158,8 +159,8 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     private int getPotionResult(int meta, ItemStack stack) {
         return stack == null ? meta
                 : (stack.getItem().isPotionIngredient(stack)
-                        ? PotionHelper.applyIngredient(meta, stack.getItem().getPotionEffect(stack))
-                        : meta);
+                ? PotionHelper.applyIngredient(meta, stack.getItem().getPotionEffect(stack))
+                : meta);
     }
 
     public void readFromNBT(NBTTagCompound compound) {
@@ -239,9 +240,8 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false
-                : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-                        (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+                (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {

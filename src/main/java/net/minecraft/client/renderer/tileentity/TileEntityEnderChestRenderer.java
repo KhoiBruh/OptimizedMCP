@@ -10,7 +10,7 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
     public ModelChest field_147521_c = new ModelChest();
 
     public void renderTileEntityAt(TileEntityEnderChest te, double x, double y, double z, float partialTicks,
-            int destroyStage) {
+                                   int destroyStage) {
         int i = 0;
 
         if (te.hasWorldObj()) {

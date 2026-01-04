@@ -2,9 +2,6 @@ package net.minecraft.enchantment;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -13,11 +10,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public abstract class Enchantment
-{
-    private static final Enchantment[] enchantmentsList = new Enchantment[256];
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public abstract class Enchantment {
     public static final Enchantment[] enchantmentsBookList;
-    private static final Map<ResourceLocation, Enchantment> locationEnchantments = Maps.<ResourceLocation, Enchantment>newHashMap();
+    private static final Map<ResourceLocation, Enchantment> locationEnchantments = Maps.newHashMap();
+    private static final Enchantment[] enchantmentsList = new Enchantment[256];
     public static final Enchantment protection = new EnchantmentProtection(0, new ResourceLocation("protection"), 10, 0);
     public static final Enchantment fireProtection = new EnchantmentProtection(1, new ResourceLocation("fire_protection"), 5, 1);
     public static final Enchantment featherFalling = new EnchantmentProtection(2, new ResourceLocation("feather_falling"), 5, 2);
@@ -43,125 +43,102 @@ public abstract class Enchantment
     public static final Enchantment infinity = new EnchantmentArrowInfinite(51, new ResourceLocation("infinity"), 1);
     public static final Enchantment luckOfTheSea = new EnchantmentLootBonus(61, new ResourceLocation("luck_of_the_sea"), 2, EnumEnchantmentType.FISHING_ROD);
     public static final Enchantment lure = new EnchantmentFishingSpeed(62, new ResourceLocation("lure"), 2, EnumEnchantmentType.FISHING_ROD);
+
+    static {
+        List<Enchantment> list = Lists.newArrayList();
+
+        for (Enchantment enchantment : enchantmentsList) {
+            if (enchantment != null) {
+                list.add(enchantment);
+            }
+        }
+
+        enchantmentsBookList = list.toArray(new Enchantment[list.size()]);
+    }
+
     public final int effectId;
     private final int weight;
     public EnumEnchantmentType type;
     protected String name;
 
-    public static Enchantment getEnchantmentById(int enchID)
-    {
-        return enchID >= 0 && enchID < enchantmentsList.length ? enchantmentsList[enchID] : null;
-    }
-
-    protected Enchantment(int enchID, ResourceLocation enchName, int enchWeight, EnumEnchantmentType enchType)
-    {
+    protected Enchantment(int enchID, ResourceLocation enchName, int enchWeight, EnumEnchantmentType enchType) {
         this.effectId = enchID;
         this.weight = enchWeight;
         this.type = enchType;
 
-        if (enchantmentsList[enchID] != null)
-        {
+        if (enchantmentsList[enchID] != null) {
             throw new IllegalArgumentException("Duplicate enchantment id!");
-        }
-        else
-        {
+        } else {
             enchantmentsList[enchID] = this;
             locationEnchantments.put(enchName, this);
         }
     }
 
-    public static Enchantment getEnchantmentByLocation(String location)
-    {
-        return (Enchantment)locationEnchantments.get(new ResourceLocation(location));
+    public static Enchantment getEnchantmentById(int enchID) {
+        return enchID >= 0 && enchID < enchantmentsList.length ? enchantmentsList[enchID] : null;
     }
 
-    public static Set<ResourceLocation> func_181077_c()
-    {
+    public static Enchantment getEnchantmentByLocation(String location) {
+        return locationEnchantments.get(new ResourceLocation(location));
+    }
+
+    public static Set<ResourceLocation> func_181077_c() {
         return locationEnchantments.keySet();
     }
 
-    public int getWeight()
-    {
+    public int getWeight() {
         return this.weight;
     }
 
-    public int getMinLevel()
-    {
+    public int getMinLevel() {
         return 1;
     }
 
-    public int getMaxLevel()
-    {
+    public int getMaxLevel() {
         return 1;
     }
 
-    public int getMinEnchantability(int enchantmentLevel)
-    {
+    public int getMinEnchantability(int enchantmentLevel) {
         return 1 + enchantmentLevel * 10;
     }
 
-    public int getMaxEnchantability(int enchantmentLevel)
-    {
+    public int getMaxEnchantability(int enchantmentLevel) {
         return this.getMinEnchantability(enchantmentLevel) + 5;
     }
 
-    public int calcModifierDamage(int level, DamageSource source)
-    {
+    public int calcModifierDamage(int level, DamageSource source) {
         return 0;
     }
 
-    public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType)
-    {
+    public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
         return 0.0F;
     }
 
-    public boolean canApplyTogether(Enchantment ench)
-    {
+    public boolean canApplyTogether(Enchantment ench) {
         return this != ench;
     }
 
-    public Enchantment setName(String enchName)
-    {
+    public String getName() {
+        return "enchantment." + this.name;
+    }
+
+    public Enchantment setName(String enchName) {
         this.name = enchName;
         return this;
     }
 
-    public String getName()
-    {
-        return "enchantment." + this.name;
-    }
-
-    public String getTranslatedName(int level)
-    {
+    public String getTranslatedName(int level) {
         String s = StatCollector.translateToLocal(this.getName());
         return s + " " + StatCollector.translateToLocal("enchantment.level." + level);
     }
 
-    public boolean canApply(ItemStack stack)
-    {
+    public boolean canApply(ItemStack stack) {
         return this.type.canEnchantItem(stack.getItem());
     }
 
-    public void onEntityDamaged(EntityLivingBase user, Entity target, int level)
-    {
+    public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
     }
 
-    public void onUserHurt(EntityLivingBase user, Entity attacker, int level)
-    {
-    }
-
-    static
-    {
-        List<Enchantment> list = Lists.<Enchantment>newArrayList();
-
-        for (Enchantment enchantment : enchantmentsList)
-        {
-            if (enchantment != null)
-            {
-                list.add(enchantment);
-            }
-        }
-
-        enchantmentsBookList = (Enchantment[])list.toArray(new Enchantment[list.size()]);
+    public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
     }
 }

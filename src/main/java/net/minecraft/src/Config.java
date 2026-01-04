@@ -1,31 +1,5 @@
 package net.minecraft.src;
 
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.URI;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
 import net.minecraft.client.LoadingScreenRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -36,25 +10,15 @@ import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.DefaultResourcePack;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.IResource;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.client.resources.ResourcePackRepository;
+import net.minecraft.client.resources.*;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.FrameTimer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.Util;
 import net.optifine.DynamicLights;
 import net.optifine.GlErrors;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
-
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
@@ -65,13 +29,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
-import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.*;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
-import org.lwjgl.opengl.GLContext;
-import org.lwjgl.opengl.PixelFormat;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Config {
     public static final String OF_NAME = "OptiFine";
@@ -79,9 +52,9 @@ public class Config {
     public static final String OF_EDITION = "HD_U";
     public static final String OF_RELEASE = "M6_pre2";
     public static final String VERSION = "OptiFine_1.8.9_HD_U_M6_pre2";
-    private static String build = null;
-    private static String newRelease = null;
-    private static boolean notify64BitJava = false;
+    public static final Float DEF_ALPHA_FUNC_LEVEL = Float.valueOf(0.1F);
+    public static final boolean logDetail = System.getProperty("log.detail", "false").equals("true");
+    private static final Logger LOGGER = LogManager.getLogger();
     public static String openGlVersion = null;
     public static String openGlRenderer = null;
     public static String openGlVendor = null;
@@ -91,27 +64,27 @@ public class Config {
     public static int minecraftVersionInt = -1;
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
+    public static boolean zoomMode = false;
+    public static boolean zoomSmoothCamera = false;
+    public static boolean waterOpacityChanged = false;
+    public static float renderPartialTicks;
+    private static String build = null;
+    private static String newRelease = null;
+    private static boolean notify64BitJava = false;
     private static GameSettings gameSettings = null;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
     private static DisplayMode desktopDisplayMode = null;
     private static DisplayMode[] displayModes = null;
     private static int antialiasingLevel = 0;
     private static int availableProcessors = 0;
-    public static boolean zoomMode = false;
-    public static boolean zoomSmoothCamera = false;
     private static int texturePackClouds = 0;
-    public static boolean waterOpacityChanged = false;
     private static boolean fullscreenModeChecked = false;
     private static boolean desktopModeChecked = false;
     private static DefaultResourcePack defaultResourcePackLazy = null;
-    public static final Float DEF_ALPHA_FUNC_LEVEL = Float.valueOf(0.1F);
-    private static final Logger LOGGER = LogManager.getLogger();
-    public static final boolean logDetail = System.getProperty("log.detail", "false").equals("true");
     private static String mcDebugLast = null;
     private static int fpsMinLast = 0;
-    public static float renderPartialTicks;
 
     public static String getVersion() {
         return "OptiFine_1.8.9_HD_U_M6_pre2";
@@ -122,7 +95,7 @@ public class Config {
 
         if (isDynamicLights()) {
             stringbuffer.append("DL: ");
-            stringbuffer.append(String.valueOf(DynamicLights.getCount()));
+            stringbuffer.append(DynamicLights.getCount());
             stringbuffer.append(", ");
         }
 
@@ -212,7 +185,7 @@ public class Config {
 
                 build = readLines(inputstream)[0];
             } catch (Exception exception) {
-                warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+                warn(exception.getClass().getName() + ": " + exception.getMessage());
                 build = "";
             }
         }
@@ -242,7 +215,7 @@ public class Config {
             }
 
             if (astring.length > 2) {
-                i += 1 * parseInt(astring[2], 0);
+                i += parseInt(astring[2], 0);
             }
 
             minecraftVersionInt = i;
@@ -253,62 +226,62 @@ public class Config {
 
     public static String getOpenGlVersionString() {
         GlVersion glversion = getGlVersion();
-        String s = "" + glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
+        String s = glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
         return s;
     }
 
     private static GlVersion getGlVersionLwjgl() {
         return GLContext.getCapabilities().OpenGL44 ? new GlVersion(4, 4)
                 : (GLContext.getCapabilities().OpenGL43 ? new GlVersion(4, 3)
-                        : (GLContext.getCapabilities().OpenGL42 ? new GlVersion(4, 2)
-                                : (GLContext.getCapabilities().OpenGL41 ? new GlVersion(4, 1)
-                                        : (GLContext.getCapabilities().OpenGL40 ? new GlVersion(4, 0)
-                                                : (GLContext.getCapabilities().OpenGL33 ? new GlVersion(3, 3)
-                                                        : (GLContext.getCapabilities().OpenGL32 ? new GlVersion(3, 2)
-                                                                : (GLContext.getCapabilities().OpenGL31
-                                                                        ? new GlVersion(3, 1)
-                                                                        : (GLContext.getCapabilities().OpenGL30
-                                                                                ? new GlVersion(3, 0)
-                                                                                : (GLContext.getCapabilities().OpenGL21
-                                                                                        ? new GlVersion(2, 1)
-                                                                                        : (GLContext
-                                                                                                .getCapabilities().OpenGL20
-                                                                                                        ? new GlVersion(
-                                                                                                                2, 0)
-                                                                                                        : (GLContext
-                                                                                                                .getCapabilities().OpenGL15
-                                                                                                                        ? new GlVersion(
-                                                                                                                                1,
-                                                                                                                                5)
-                                                                                                                        : (GLContext
-                                                                                                                                .getCapabilities().OpenGL14
-                                                                                                                                        ? new GlVersion(
-                                                                                                                                                1,
-                                                                                                                                                4)
-                                                                                                                                        : (GLContext
-                                                                                                                                                .getCapabilities().OpenGL13
-                                                                                                                                                        ? new GlVersion(
-                                                                                                                                                                1,
-                                                                                                                                                                3)
-                                                                                                                                                        : (GLContext
-                                                                                                                                                                .getCapabilities().OpenGL12
-                                                                                                                                                                        ? new GlVersion(
-                                                                                                                                                                                1,
-                                                                                                                                                                                2)
-                                                                                                                                                                        : (GLContext
-                                                                                                                                                                                .getCapabilities().OpenGL11
-                                                                                                                                                                                        ? new GlVersion(
-                                                                                                                                                                                                1,
-                                                                                                                                                                                                1)
-                                                                                                                                                                                        : new GlVersion(
-                                                                                                                                                                                                1,
-                                                                                                                                                                                                0))))))))))))))));
+                : (GLContext.getCapabilities().OpenGL42 ? new GlVersion(4, 2)
+                : (GLContext.getCapabilities().OpenGL41 ? new GlVersion(4, 1)
+                : (GLContext.getCapabilities().OpenGL40 ? new GlVersion(4, 0)
+                : (GLContext.getCapabilities().OpenGL33 ? new GlVersion(3, 3)
+                : (GLContext.getCapabilities().OpenGL32 ? new GlVersion(3, 2)
+                : (GLContext.getCapabilities().OpenGL31
+                ? new GlVersion(3, 1)
+                : (GLContext.getCapabilities().OpenGL30
+                ? new GlVersion(3, 0)
+                : (GLContext.getCapabilities().OpenGL21
+                ? new GlVersion(2, 1)
+                : (GLContext
+                .getCapabilities().OpenGL20
+                ? new GlVersion(
+                2, 0)
+                : (GLContext
+                .getCapabilities().OpenGL15
+                ? new GlVersion(
+                1,
+                5)
+                : (GLContext
+                .getCapabilities().OpenGL14
+                ? new GlVersion(
+                1,
+                4)
+                : (GLContext
+                .getCapabilities().OpenGL13
+                ? new GlVersion(
+                1,
+                3)
+                : (GLContext
+                .getCapabilities().OpenGL12
+                ? new GlVersion(
+                1,
+                2)
+                : (GLContext
+                .getCapabilities().OpenGL11
+                ? new GlVersion(
+                1,
+                1)
+                : new GlVersion(
+                1,
+                0))))))))))))))));
     }
 
     public static GlVersion getGlVersion() {
         if (glVersion == null) {
             String s = GL11.glGetString(GL11.GL_VERSION);
-            glVersion = parseGlVersion(s, (GlVersion) null);
+            glVersion = parseGlVersion(s, null);
 
             if (glVersion == null) {
                 glVersion = getGlVersionLwjgl();
@@ -325,7 +298,7 @@ public class Config {
     public static GlVersion getGlslVersion() {
         if (glslVersion == null) {
             String s = GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
-            glslVersion = parseGlVersion(s, (GlVersion) null);
+            glslVersion = parseGlVersion(s, null);
 
             if (glslVersion == null) {
                 glslVersion = new GlVersion(1, 10);
@@ -489,7 +462,7 @@ public class Config {
     }
 
     public static boolean isFogFancy() {
-        return !isFancyFogAvailable() ? false : gameSettings.ofFogType == 2;
+        return isFancyFogAvailable() && gameSettings.ofFogType == 2;
     }
 
     public static boolean isFogFast() {
@@ -549,13 +522,13 @@ public class Config {
     public static boolean isCloudsFancy() {
         return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 2
                 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isFancy()
-                        : (texturePackClouds != 0 ? texturePackClouds == 2 : gameSettings.fancyGraphics));
+                : (texturePackClouds != 0 ? texturePackClouds == 2 : gameSettings.fancyGraphics));
     }
 
     public static boolean isCloudsOff() {
         return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 3
                 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isOff()
-                        : (texturePackClouds != 0 ? texturePackClouds == 3 : false));
+                : (texturePackClouds != 0 && texturePackClouds == 3));
     }
 
     public static void updateTexturePackClouds() {
@@ -595,7 +568,6 @@ public class Config {
                     texturePackClouds = 3;
                 }
             } catch (Exception var4) {
-                ;
             }
         }
     }
@@ -721,7 +693,7 @@ public class Config {
                     stringbuffer.append(p_listToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(object));
+                stringbuffer.append(object);
             }
 
             return stringbuffer.toString();
@@ -745,7 +717,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(object));
+                stringbuffer.append(object);
             }
 
             return stringbuffer.toString();
@@ -769,7 +741,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(j));
+                stringbuffer.append(j);
             }
 
             return stringbuffer.toString();
@@ -793,7 +765,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(f));
+                stringbuffer.append(f);
             }
 
             return stringbuffer.toString();
@@ -817,7 +789,7 @@ public class Config {
     }
 
     public static InputStream getResourceStream(IResourceManager p_getResourceStream_0_,
-            ResourceLocation p_getResourceStream_1_) throws IOException {
+                                                ResourceLocation p_getResourceStream_1_) throws IOException {
         IResource iresource = p_getResourceStream_0_.getResource(p_getResourceStream_1_);
         return iresource == null ? null : iresource.getInputStream();
     }
@@ -858,8 +830,8 @@ public class Config {
             list1.add(resourcepackrepository.getResourcePackInstance());
         }
 
-        IResourcePack[] airesourcepack = (IResourcePack[]) ((IResourcePack[]) list1
-                .toArray(new IResourcePack[list1.size()]));
+        IResourcePack[] airesourcepack = (IResourcePack[]) list1
+                .toArray(new IResourcePack[list1.size()]);
         return airesourcepack;
     }
 
@@ -878,7 +850,7 @@ public class Config {
                     astring[i] = airesourcepack[i].getPackName();
                 }
 
-                String s = arrayToString((Object[]) astring);
+                String s = arrayToString(astring);
                 return s;
             }
         }
@@ -916,7 +888,7 @@ public class Config {
             List<ResourcePackRepository.Entry> list = resourcepackrepository.repositoryEntries;
 
             for (int i = list.size() - 1; i >= 0; --i) {
-                ResourcePackRepository.Entry resourcepackrepository$entry = (ResourcePackRepository.Entry) list.get(i);
+                ResourcePackRepository.Entry resourcepackrepository$entry = list.get(i);
                 IResourcePack iresourcepack1 = resourcepackrepository$entry.getResourcePack();
 
                 if (iresourcepack1.resourceExists(p_getDefiningResourcePack_0_)) {
@@ -957,16 +929,15 @@ public class Config {
     }
 
     public static boolean isSunTexture() {
-        return !isSunMoonEnabled() ? false : !isShaders() || Shaders.isSun();
+        return isSunMoonEnabled() && (!isShaders() || Shaders.isSun());
     }
 
     public static boolean isMoonTexture() {
-        return !isSunMoonEnabled() ? false : !isShaders() || Shaders.isMoon();
+        return isSunMoonEnabled() && (!isShaders() || Shaders.isMoon());
     }
 
     public static boolean isVignetteEnabled() {
-        return isShaders() && !Shaders.isVignette() ? false
-                : (gameSettings.ofVignette == 0 ? gameSettings.fancyGraphics : gameSettings.ofVignette == 2);
+        return (!isShaders() || Shaders.isVignette()) && (gameSettings.ofVignette == 0 ? gameSettings.fancyGraphics : gameSettings.ofVignette == 2);
     }
 
     public static boolean isStarsEnabled() {
@@ -1018,7 +989,7 @@ public class Config {
     }
 
     public static boolean isMultiTexture() {
-        return getAnisotropicFilterLevel() > 1 ? true : getAntialiasingLevel() > 0;
+        return getAnisotropicFilterLevel() > 1 || getAntialiasingLevel() > 0;
     }
 
     public static boolean between(int p_between_0_, int p_between_1_, int p_between_2_) {
@@ -1117,7 +1088,7 @@ public class Config {
             list.add(s);
         }
 
-        String[] astring = (String[]) ((String[]) list.toArray(new String[list.size()]));
+        String[] astring = (String[]) list.toArray(new String[list.size()]);
         return astring;
     }
 
@@ -1141,13 +1112,13 @@ public class Config {
                     }
                 }
 
-                DisplayMode[] adisplaymode2 = (DisplayMode[]) ((DisplayMode[]) list
-                        .toArray(new DisplayMode[list.size()]));
+                DisplayMode[] adisplaymode2 = (DisplayMode[]) list
+                        .toArray(new DisplayMode[list.size()]);
                 Arrays.sort(adisplaymode2, new DisplayModeComparator());
                 return adisplaymode2;
             } catch (Exception exception) {
                 exception.printStackTrace();
-                displayModes = new DisplayMode[] { desktopDisplayMode };
+                displayModes = new DisplayMode[]{desktopDisplayMode};
             }
         }
 
@@ -1161,8 +1132,8 @@ public class Config {
             DisplayMode displaymode = adisplaymode[adisplaymode.length - 1];
             return desktopDisplayMode.getWidth() > displaymode.getWidth() ? desktopDisplayMode
                     : (desktopDisplayMode.getWidth() == displaymode.getWidth()
-                            && desktopDisplayMode.getHeight() > displaymode.getHeight() ? desktopDisplayMode
-                                    : displaymode);
+                    && desktopDisplayMode.getHeight() > displaymode.getHeight() ? desktopDisplayMode
+                    : displaymode);
         } else {
             return desktopDisplayMode;
         }
@@ -1192,7 +1163,7 @@ public class Config {
             }
         }
 
-        DisplayMode[] adisplaymode = (DisplayMode[]) ((DisplayMode[]) list.toArray(new DisplayMode[list.size()]));
+        DisplayMode[] adisplaymode = (DisplayMode[]) list.toArray(new DisplayMode[list.size()]);
         return adisplaymode;
     }
 
@@ -1222,7 +1193,7 @@ public class Config {
 
         for (int i = 0; i < adisplaymode.length; ++i) {
             DisplayMode displaymode = adisplaymode[i];
-            String s = "" + displaymode.getWidth() + "x" + displaymode.getHeight();
+            String s = displaymode.getWidth() + "x" + displaymode.getHeight();
             astring[i] = s;
         }
 
@@ -1266,11 +1237,11 @@ public class Config {
         if (i != 0 && GlErrors.isEnabled(i)) {
             String s = getGlErrorString(i);
             String s1 = String.format("OpenGL error: %s (%s), at: %s",
-                    new Object[] { Integer.valueOf(i), s, p_checkGlError_0_ });
+                    Integer.valueOf(i), s, p_checkGlError_0_);
             error(s1);
 
             if (isShowGlErrors() && TimedEvent.isActive("ShowGlError", 10000L)) {
-                String s2 = I18n.format("of.message.openglError", new Object[] { Integer.valueOf(i), s });
+                String s2 = I18n.format("of.message.openglError", Integer.valueOf(i), s);
                 minecraft.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(s2));
             }
         }
@@ -1327,19 +1298,19 @@ public class Config {
 
     public static String[] readLines(File p_readLines_0_) throws IOException {
         FileInputStream fileinputstream = new FileInputStream(p_readLines_0_);
-        return readLines((InputStream) fileinputstream);
+        return readLines(fileinputstream);
     }
 
     public static String[] readLines(InputStream p_readLines_0_) throws IOException {
         List list = new ArrayList();
-        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, "ASCII");
+        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
 
         while (true) {
             String s = bufferedreader.readLine();
 
             if (s == null) {
-                String[] astring = (String[]) ((String[]) list.toArray(new String[list.size()]));
+                String[] astring = (String[]) list.toArray(new String[list.size()]);
                 return astring;
             }
 
@@ -1442,15 +1413,15 @@ public class Config {
             Matcher matcher = pattern.matcher(p_splitRelease_0_);
 
             if (!matcher.matches()) {
-                return new String[] { "", "", "" };
+                return new String[]{"", "", ""};
             } else {
                 String s = normalize(matcher.group(1));
                 String s1 = normalize(matcher.group(2));
                 String s2 = normalize(matcher.group(3));
-                return new String[] { s, s1, s2 };
+                return new String[]{s, s1, s2};
             }
         } else {
-            return new String[] { "", "", "" };
+            return new String[]{"", "", ""};
         }
     }
 
@@ -1509,7 +1480,7 @@ public class Config {
     }
 
     public static boolean equals(Object p_equals_0_, Object p_equals_1_) {
-        return p_equals_0_ == p_equals_1_ ? true : (p_equals_0_ == null ? false : p_equals_0_.equals(p_equals_1_));
+        return p_equals_0_ == p_equals_1_ || (p_equals_0_ != null && p_equals_0_.equals(p_equals_1_));
     }
 
     public static boolean equalsOne(Object p_equalsOne_0_, Object[] p_equalsOne_1_) {
@@ -1614,7 +1585,7 @@ public class Config {
                             .getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
 
                     if (inputstream != null && inputstream1 != null) {
-                        Display.setIcon(new ByteBuffer[] { readIconImage(inputstream), readIconImage(inputstream1) });
+                        Display.setIcon(new ByteBuffer[]{readIconImage(inputstream), readIconImage(inputstream1)});
                     }
                 } catch (IOException ioexception) {
                     warn("Error setting window icon: " + ioexception.getClass().getName() + ": "
@@ -1629,7 +1600,7 @@ public class Config {
 
     private static ByteBuffer readIconImage(InputStream p_readIconImage_0_) throws IOException {
         BufferedImage bufferedimage = ImageIO.read(p_readIconImage_0_);
-        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), (int[]) null, 0,
+        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0,
                 bufferedimage.getWidth());
         ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
 
@@ -1729,8 +1700,8 @@ public class Config {
         } else {
             int i = p_addObjectToArray_0_.length;
             int j = i + 1;
-            Object[] aobject = (Object[]) ((Object[]) Array
-                    .newInstance(p_addObjectToArray_0_.getClass().getComponentType(), j));
+            Object[] aobject = (Object[]) Array
+                    .newInstance(p_addObjectToArray_0_.getClass().getComponentType(), j);
             System.arraycopy(p_addObjectToArray_0_, 0, aobject, 0, i);
             aobject[i] = p_addObjectToArray_1_;
             return aobject;
@@ -1738,11 +1709,11 @@ public class Config {
     }
 
     public static Object[] addObjectToArray(Object[] p_addObjectToArray_0_, Object p_addObjectToArray_1_,
-            int p_addObjectToArray_2_) {
+                                            int p_addObjectToArray_2_) {
         List list = new ArrayList(Arrays.asList(p_addObjectToArray_0_));
         list.add(p_addObjectToArray_2_, p_addObjectToArray_1_);
-        Object[] aobject = (Object[]) ((Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(),
-                list.size()));
+        Object[] aobject = (Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(),
+                list.size());
         return list.toArray(aobject);
     }
 
@@ -1754,8 +1725,8 @@ public class Config {
         } else {
             int i = p_addObjectsToArray_0_.length;
             int j = i + p_addObjectsToArray_1_.length;
-            Object[] aobject = (Object[]) ((Object[]) Array
-                    .newInstance(p_addObjectsToArray_0_.getClass().getComponentType(), j));
+            Object[] aobject = (Object[]) Array
+                    .newInstance(p_addObjectsToArray_0_.getClass().getComponentType(), j);
             System.arraycopy(p_addObjectsToArray_0_, 0, aobject, 0, i);
             System.arraycopy(p_addObjectsToArray_1_, 0, aobject, i, p_addObjectsToArray_1_.length);
             return aobject;
@@ -1763,7 +1734,7 @@ public class Config {
     }
 
     public static Object[] removeObjectFromArray(Object[] p_removeObjectFromArray_0_,
-            Object p_removeObjectFromArray_1_) {
+                                                 Object p_removeObjectFromArray_1_) {
         List list = new ArrayList(Arrays.asList(p_removeObjectFromArray_0_));
         list.remove(p_removeObjectFromArray_1_);
         Object[] aobject = collectionToArray(list, p_removeObjectFromArray_0_.getClass().getComponentType());
@@ -1780,8 +1751,8 @@ public class Config {
                     "Can not make arrays with primitive elements (int, double), element class: "
                             + p_collectionToArray_1_);
         } else {
-            Object[] aobject = (Object[]) ((Object[]) Array.newInstance(p_collectionToArray_1_,
-                    p_collectionToArray_0_.size()));
+            Object[] aobject = (Object[]) Array.newInstance(p_collectionToArray_1_,
+                    p_collectionToArray_0_.size());
             return p_collectionToArray_0_.toArray(aobject);
         }
     }
@@ -1796,7 +1767,7 @@ public class Config {
         int j = minecraft.renderGlobal.getCountActiveRenderers();
         int k = minecraft.renderGlobal.getCountEntitiesRendered();
         int l = minecraft.renderGlobal.getCountTileEntitiesRendered();
-        String s1 = "" + i + "/" + getFpsMin() + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
+        String s1 = i + "/" + getFpsMin() + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
         minecraft.fontRendererObj.drawString(s1, 2, 2, -2039584);
     }
 
@@ -1858,7 +1829,7 @@ public class Config {
     }
 
     public static int getBitsJre() {
-        String[] astring = new String[] { "sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch" };
+        String[] astring = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
 
         for (int i = 0; i < astring.length; ++i) {
             String s = astring[i];
@@ -1890,7 +1861,7 @@ public class Config {
     }
 
     public static int[] addIntToArray(int[] p_addIntToArray_0_, int p_addIntToArray_1_) {
-        return addIntsToArray(p_addIntToArray_0_, new int[] { p_addIntToArray_1_ });
+        return addIntsToArray(p_addIntToArray_0_, new int[]{p_addIntToArray_1_});
     }
 
     public static int[] addIntsToArray(int[] p_addIntsToArray_0_, int[] p_addIntsToArray_1_) {
@@ -1900,9 +1871,7 @@ public class Config {
             int[] aint = new int[j];
             System.arraycopy(p_addIntsToArray_0_, 0, aint, 0, i);
 
-            for (int k = 0; k < p_addIntsToArray_1_.length; ++k) {
-                aint[k + i] = p_addIntsToArray_1_[k];
-            }
+            System.arraycopy(p_addIntsToArray_1_, 0, aint, 0 + i, p_addIntsToArray_1_.length);
 
             return aint;
         } else {
@@ -1935,7 +1904,7 @@ public class Config {
 
     public static void writeFile(File p_writeFile_0_, String p_writeFile_1_) throws IOException {
         FileOutputStream fileoutputstream = new FileOutputStream(p_writeFile_0_);
-        byte[] abyte = p_writeFile_1_.getBytes("ASCII");
+        byte[] abyte = p_writeFile_1_.getBytes(StandardCharsets.US_ASCII);
         fileoutputstream.write(abyte);
         fileoutputstream.close();
     }
@@ -1953,7 +1922,7 @@ public class Config {
     }
 
     public static boolean isDynamicHandLight() {
-        return !isDynamicLights() ? false : (isShaders() ? Shaders.isDynamicHandLight() : true);
+        return isDynamicLights() && (!isShaders() || Shaders.isDynamicHandLight());
     }
 
     public static boolean isCustomEntityModels() {
@@ -2024,7 +1993,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(flag));
+                stringbuffer.append(flag);
             }
 
             return stringbuffer.toString();
@@ -2032,7 +2001,7 @@ public class Config {
     }
 
     public static boolean isIntegratedServerRunning() {
-        return minecraft.getIntegratedServer() == null ? false : minecraft.isIntegratedServerRunning();
+        return minecraft.getIntegratedServer() != null && minecraft.isIntegratedServerRunning();
     }
 
     public static IntBuffer createDirectIntBuffer(int p_createDirectIntBuffer_0_) {
@@ -2075,7 +2044,7 @@ public class Config {
     }
 
     public static boolean isQuadsToTriangles() {
-        return !isShaders() ? false : !Shaders.canRenderQuads();
+        return isShaders() && !Shaders.canRenderQuads();
     }
 
     public static void checkNull(Object p_checkNull_0_, String p_checkNull_1_) throws NullPointerException {

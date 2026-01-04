@@ -37,7 +37,7 @@ public class ModelWither extends ModelBase {
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
-            float p_78088_6_, float scale) {
+                       float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
         for (ModelRenderer modelrenderer : this.field_82904_b) {
@@ -50,7 +50,7 @@ public class ModelWither extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-            float headPitch, float scaleFactor, Entity entityIn) {
+                                  float headPitch, float scaleFactor, Entity entityIn) {
         float f = MathHelper.cos(ageInTicks * 0.1F);
         this.field_82905_a[1].rotateAngleX = (0.065F + 0.05F * f) * (float) Math.PI;
         this.field_82905_a[2].setRotationPoint(-2.0F, 6.9F + MathHelper.cos(this.field_82905_a[1].rotateAngleX) * 10.0F,
@@ -61,7 +61,7 @@ public class ModelWither extends ModelBase {
     }
 
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_,
-            float partialTickTime) {
+                                    float partialTickTime) {
         EntityWither entitywither = (EntityWither) entitylivingbaseIn;
 
         for (int i = 1; i < 3; ++i) {

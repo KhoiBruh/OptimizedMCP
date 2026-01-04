@@ -3,13 +3,12 @@ package net.minecraft.dispenser;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 
-public interface IBlockSource extends ILocatableSource
-{
-    double getX();
+public interface IBlockSource extends ILocatableSource {
+    double x();
 
-    double getY();
+    double y();
 
-    double getZ();
+    double z();
 
     BlockPos getBlockPos();
 

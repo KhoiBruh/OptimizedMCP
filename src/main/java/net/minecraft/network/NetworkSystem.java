@@ -1,23 +1,27 @@
 package net.minecraft.network;
 
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
-import io.netty.channel.epoll.Epoll;
-import io.netty.channel.epoll.EpollEventLoopGroup;
-import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.local.LocalAddress;
-import io.netty.channel.local.LocalEventLoopGroup;
 import io.netty.channel.local.LocalIoHandler;
 import io.netty.channel.local.LocalServerChannel;
-import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.nio.NioIoHandler;
 import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import net.minecraft.client.network.NetHandlerHandshakeMemory;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.network.play.server.S40PacketDisconnect;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.NetHandlerHandshakeTCP;
+import net.minecraft.util.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketAddress;
@@ -25,25 +29,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
-import net.minecraft.client.network.NetHandlerHandshakeMemory;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.network.play.server.S40PacketDisconnect;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.NetHandlerHandshakeTCP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.LazyLoadBase;
-import net.minecraft.util.MessageDeserializer;
-import net.minecraft.util.MessageDeserializer2;
-import net.minecraft.util.MessageSerializer;
-import net.minecraft.util.MessageSerializer2;
-import net.minecraft.util.ReportedException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class NetworkSystem
-{
-    private static final Logger logger = LogManager.getLogger();
+public class NetworkSystem {
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Server IO #%d", 0).factory(), NioIoHandler.newFactory());
@@ -54,19 +41,18 @@ public class NetworkSystem
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Local Server IO #%d", 0).factory(), LocalIoHandler.newFactory());
         }
     };
+    private static final Logger logger = LogManager.getLogger();
     private final MinecraftServer mcServer;
+    private final List<ChannelFuture> endpoints = Collections.synchronizedList(Lists.newArrayList());
+    private final List<NetworkManager> networkManagers = Collections.synchronizedList(Lists.newArrayList());
     public volatile boolean isAlive;
-    private final List<ChannelFuture> endpoints = Collections.<ChannelFuture>synchronizedList(Lists.<ChannelFuture>newArrayList());
-    private final List<NetworkManager> networkManagers = Collections.<NetworkManager>synchronizedList(Lists.<NetworkManager>newArrayList());
 
-    public NetworkSystem(MinecraftServer server)
-    {
+    public NetworkSystem(MinecraftServer server) {
         this.mcServer = server;
         this.isAlive = true;
     }
 
-    public void addLanEndpoint(InetAddress address, int port) throws IOException
-    {
+    public void addLanEndpoint(InetAddress address, int port) throws IOException {
         synchronized (endpoints) {
             Class<? extends ServerSocketChannel> oclass = NioServerSocketChannel.class;
 
@@ -83,8 +69,7 @@ public class NetworkSystem
         }
     }
 
-    public SocketAddress addLocalEndpoint()
-    {
+    public SocketAddress addLocalEndpoint() {
         ChannelFuture channelfuture;
 
         synchronized (endpoints) {
@@ -102,71 +87,51 @@ public class NetworkSystem
         return channelfuture.channel().localAddress();
     }
 
-    public void terminateEndpoints()
-    {
+    public void terminateEndpoints() {
         this.isAlive = false;
 
-        for (ChannelFuture channelfuture : this.endpoints)
-        {
-            try
-            {
+        for (ChannelFuture channelfuture : this.endpoints) {
+            try {
                 channelfuture.channel().close().sync();
-            }
-            catch (InterruptedException var4)
-            {
+            } catch (InterruptedException var4) {
                 logger.error("Interrupted whilst closing channel");
             }
         }
     }
 
-    public void networkTick()
-    {
-        synchronized (this.networkManagers)
-        {
+    public void networkTick() {
+        synchronized (this.networkManagers) {
             Iterator<NetworkManager> iterator = this.networkManagers.iterator();
 
-            while (iterator.hasNext())
-            {
-                final NetworkManager networkmanager = (NetworkManager)iterator.next();
+            while (iterator.hasNext()) {
+                final NetworkManager networkmanager = iterator.next();
 
-                if (!networkmanager.hasNoChannel())
-                {
-                    if (!networkmanager.isChannelOpen())
-                    {
+                if (!networkmanager.hasNoChannel()) {
+                    if (!networkmanager.isChannelOpen()) {
                         iterator.remove();
                         networkmanager.checkDisconnected();
-                    }
-                    else
-                    {
-                        try
-                        {
+                    } else {
+                        try {
                             networkmanager.processReceivedPackets();
-                        }
-                        catch (Exception exception)
-                        {
-                            if (networkmanager.isLocalChannel())
-                            {
+                        } catch (Exception exception) {
+                            if (networkmanager.isLocalChannel()) {
                                 CrashReport crashreport = CrashReport.makeCrashReport(exception, "Ticking memory connection");
                                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Ticking connection");
-                                crashreportcategory.addCrashSectionCallable("Connection", new Callable<String>()
-                                {
-                                    public String call() throws Exception
-                                    {
+                                crashreportcategory.addCrashSectionCallable("Connection", new Callable<String>() {
+                                    public String call() throws Exception {
                                         return networkmanager.toString();
                                     }
                                 });
                                 throw new ReportedException(crashreport);
                             }
 
-                            logger.warn((String)("Failed to handle packet for " + networkmanager.getRemoteAddress()), (Throwable)exception);
+                            logger.warn("Failed to handle packet for " + networkmanager.getRemoteAddress(), exception);
                             final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
-                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener < Future <? super Void >> ()
-                            {
-                                public void operationComplete(Future <? super Void > p_operationComplete_1_) throws Exception
-                                {
+                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<Future<? super Void>>() {
+                                public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
                                     networkmanager.closeChannel(chatcomponenttext);
                                 }
-                            }, new GenericFutureListener[0]);
+                            });
                             networkmanager.disableAutoRead();
                         }
                     }
@@ -175,8 +140,7 @@ public class NetworkSystem
         }
     }
 
-    public MinecraftServer getServer()
-    {
+    public MinecraftServer getServer() {
         return this.mcServer;
     }
 }

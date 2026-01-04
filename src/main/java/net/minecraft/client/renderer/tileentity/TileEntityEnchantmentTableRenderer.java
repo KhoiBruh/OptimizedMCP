@@ -13,7 +13,7 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
     public ModelBook field_147541_c = new ModelBook();
 
     public void renderTileEntityAt(TileEntityEnchantmentTable te, double x, double y, double z, float partialTicks,
-            int destroyStage) {
+                                   int destroyStage) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F, (float) z + 0.5F);
         float f = (float) te.tickCount + partialTicks;
@@ -21,7 +21,6 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
         float f1;
 
         for (f1 = te.bookRotation - te.bookRotationPrev; f1 >= (float) Math.PI; f1 -= ((float) Math.PI * 2F)) {
-            ;
         }
 
         while (f1 < -(float) Math.PI) {
@@ -34,8 +33,8 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
         this.bindTexture(TEXTURE_BOOK);
         float f3 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.25F;
         float f4 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.75F;
-        f3 = (f3 - (float) MathHelper.truncateDoubleToInt((double) f3)) * 1.6F - 0.3F;
-        f4 = (f4 - (float) MathHelper.truncateDoubleToInt((double) f4)) * 1.6F - 0.3F;
+        f3 = (f3 - (float) MathHelper.truncateDoubleToInt(f3)) * 1.6F - 0.3F;
+        f4 = (f4 - (float) MathHelper.truncateDoubleToInt(f4)) * 1.6F - 0.3F;
 
         if (f3 < 0.0F) {
             f3 = 0.0F;
@@ -55,7 +54,7 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 
         float f5 = te.bookSpreadPrev + (te.bookSpread - te.bookSpreadPrev) * partialTicks;
         GlStateManager.enableCull();
-        this.field_147541_c.render((Entity) null, f, f3, f4, f5, 0.0F, 0.0625F);
+        this.field_147541_c.render(null, f, f3, f4, f5, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
     }
 }

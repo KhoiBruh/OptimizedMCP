@@ -20,7 +20,7 @@ public class ModelRabbit extends ModelBase {
     public ModelRenderer rabbitTail;
     public ModelRenderer rabbitNose;
     private float field_178701_m = 0.0F;
-    private float field_178699_n = 0.0F;
+    private final float field_178699_n = 0.0F;
 
     public ModelRabbit() {
         this.setTextureOffset("head.main", 0, 0);
@@ -96,7 +96,7 @@ public class ModelRabbit extends ModelBase {
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
-            float p_78088_6_, float scale) {
+                       float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
         if (this.isChild) {
@@ -137,7 +137,7 @@ public class ModelRabbit extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-            float headPitch, float scaleFactor, Entity entityIn) {
+                                  float headPitch, float scaleFactor, Entity entityIn) {
         float f = ageInTicks - (float) entityIn.ticksExisted;
         EntityRabbit entityrabbit = (EntityRabbit) entityIn;
         this.rabbitNose.rotateAngleX = this.rabbitHead.rotateAngleX = this.rabbitRightEar.rotateAngleX = this.rabbitLeftEar.rotateAngleX = headPitch
@@ -155,6 +155,6 @@ public class ModelRabbit extends ModelBase {
     }
 
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_,
-            float partialTickTime) {
+                                    float partialTickTime) {
     }
 }

@@ -323,24 +323,24 @@ public class CustomItemProperties {
                 .setTexture(textureatlassprite);
 
         for (BlockPart blockpart : modelBlockIn.getElements()) {
-            for (EnumFacing enumfacing : blockpart.mapFaces.keySet()) {
-                BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
+            for (EnumFacing enumfacing : blockpart.mapFaces().keySet()) {
+                BlockPartFace blockpartface = blockpart.mapFaces().get(enumfacing);
 
                 if (!useTint) {
-                    blockpartface = new BlockPartFace(blockpartface.cullFace, -1, blockpartface.texture,
-                            blockpartface.blockFaceUV);
+                    blockpartface = new BlockPartFace(blockpartface.cullFace(), -1, blockpartface.texture(),
+                            blockpartface.blockFaceUV());
                 }
 
-                String s1 = modelBlockIn.resolveTextureName(blockpartface.texture);
+                String s1 = modelBlockIn.resolveTextureName(blockpartface.texture());
                 TextureAtlasSprite textureatlassprite1 = textureMap
                         .getAtlasSprite((new ResourceLocation(s1)).toString());
                 BakedQuad bakedquad = makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing,
                         modelrotation, flag);
 
-                if (blockpartface.cullFace == null) {
+                if (blockpartface.cullFace() == null) {
                     simplebakedmodel$builder.addGeneralQuad(bakedquad);
                 } else {
-                    simplebakedmodel$builder.addFaceQuad(modelrotation.rotateFace(blockpartface.cullFace), bakedquad);
+                    simplebakedmodel$builder.addFaceQuad(modelrotation.rotateFace(blockpartface.cullFace()), bakedquad);
                 }
             }
         }
@@ -352,8 +352,8 @@ public class CustomItemProperties {
                                            TextureAtlasSprite textureAtlasSprite, EnumFacing enumFacing, ModelRotation modelRotation,
                                            boolean uvLocked) {
         FaceBakery facebakery = new FaceBakery();
-        return facebakery.makeBakedQuad(blockPart.positionFrom, blockPart.positionTo, blockPartFace, textureAtlasSprite,
-                enumFacing, modelRotation, blockPart.partRotation, uvLocked, blockPart.shade);
+        return facebakery.makeBakedQuad(blockPart.positionFrom(), blockPart.positionTo(), blockPartFace, textureAtlasSprite,
+                enumFacing, modelRotation, blockPart.partRotation(), uvLocked, blockPart.shade());
     }
 
     private static void loadItemModel(ModelBakery modelBakery, String model) {

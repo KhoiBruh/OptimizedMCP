@@ -2,9 +2,6 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map.Entry;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -16,11 +13,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.WorldType;
@@ -32,17 +25,20 @@ import net.optifine.util.NativeMemory;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
+import java.util.List;
+import java.util.Map.Entry;
+
 public class GuiOverlayDebug extends Gui {
     private final Minecraft mc;
     private final FontRenderer fontRenderer;
+    private final String gpuVendor;
+    private final String gpuRenderer;
+    private final String gpuVersion;
     private String debugOF = null;
     private List<String> debugInfoLeft = null;
     private List<String> debugInfoRight = null;
     private long updateInfoLeftTimeMs = 0L;
     private long updateInfoRightTimeMs = 0L;
-    private final String gpuVendor;
-    private final String gpuRenderer;
-    private final String gpuVersion;
 
     public GuiOverlayDebug(Minecraft mc) {
         this.mc = mc;
@@ -50,6 +46,10 @@ public class GuiOverlayDebug extends Gui {
         this.gpuVendor = GL11.glGetString(GL11.GL_VENDOR);
         this.gpuRenderer = GL11.glGetString(GL11.GL_RENDERER);
         this.gpuVersion = GL11.glGetString(GL11.GL_VERSION);
+    }
+
+    private static long bytesToMb(long bytes) {
+        return bytes / 1024L / 1024L;
     }
 
     public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
@@ -80,7 +80,7 @@ public class GuiOverlayDebug extends Gui {
         }
 
         for (int i = 0; i < list.size(); ++i) {
-            String s = (String) list.get(i);
+            String s = list.get(i);
 
             if (!Strings.isNullOrEmpty(s)) {
                 int j = this.fontRenderer.FONT_HEIGHT;
@@ -103,7 +103,7 @@ public class GuiOverlayDebug extends Gui {
         }
 
         for (int i = 0; i < list.size(); ++i) {
-            String s = (String) list.get(i);
+            String s = list.get(i);
 
             if (!Strings.isNullOrEmpty(s)) {
                 int j = this.fontRenderer.FONT_HEIGHT;
@@ -320,7 +320,7 @@ public class GuiOverlayDebug extends Gui {
     private int getFrameColor(int p_181552_1_, int p_181552_2_, int p_181552_3_, int p_181552_4_) {
         return p_181552_1_ < p_181552_3_ ? this.blendColors(-16711936, -256, (float) p_181552_1_ / (float) p_181552_3_)
                 : this.blendColors(-256, -65536,
-                        (float) (p_181552_1_ - p_181552_3_) / (float) (p_181552_4_ - p_181552_3_));
+                (float) (p_181552_1_ - p_181552_3_) / (float) (p_181552_4_ - p_181552_3_));
     }
 
     private int blendColors(int p_181553_1_, int p_181553_2_, float p_181553_3_) {
@@ -337,9 +337,5 @@ public class GuiOverlayDebug extends Gui {
         int k2 = MathHelper.clamp_int((int) ((float) k + (float) (k1 - k) * p_181553_3_), 0, 255);
         int l2 = MathHelper.clamp_int((int) ((float) l + (float) (l1 - l) * p_181553_3_), 0, 255);
         return i2 << 24 | j2 << 16 | k2 << 8 | l2;
-    }
-
-    private static long bytesToMb(long bytes) {
-        return bytes / 1024L / 1024L;
     }
 }

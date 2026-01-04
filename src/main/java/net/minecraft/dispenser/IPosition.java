@@ -1,10 +1,9 @@
 package net.minecraft.dispenser;
 
-public interface IPosition
-{
-    double getX();
+public interface IPosition {
+    double x();
 
-    double getY();
+    double y();
 
-    double getZ();
+    double z();
 }

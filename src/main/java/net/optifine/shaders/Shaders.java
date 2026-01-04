@@ -1027,8 +1027,8 @@ public class Shaders {
                 TextureMetadataSection texturemetadatasection = SimpleShaderTexture.loadTextureMetadataSection(s,
                         new TextureMetadataSection(true, true, new ArrayList<>()));
                 return new CustomTextureRaw(type, internalFormat, width, height, depth,
-                        pixelFormat, pixelType, bytebuffer, textureUnit, texturemetadatasection.getTextureBlur(),
-                        texturemetadatasection.getTextureClamp());
+                        pixelFormat, pixelType, bytebuffer, textureUnit, texturemetadatasection.textureBlur(),
+                        texturemetadatasection.textureClamp());
             }
         } catch (IOException ioexception) {
             SMCLog.warning("Error loading raw texture: " + path);
@@ -3238,9 +3238,9 @@ public class Shaders {
 
             Vec3 vec3 = mc.theWorld.getSkyColor(entity, partialTicks);
             vec3 = CustomColors.getWorldSkyColor(vec3, currentWorld, entity, partialTicks);
-            skyColorR = (float) vec3.xCoord;
-            skyColorG = (float) vec3.yCoord;
-            skyColorB = (float) vec3.zCoord;
+            skyColorR = (float) vec3.xCoord();
+            skyColorG = (float) vec3.yCoord();
+            skyColorB = (float) vec3.zCoord();
         }
 
         isRenderingWorld = true;
@@ -3963,9 +3963,9 @@ public class Shaders {
     }
 
     public static void setSkyColor(Vec3 v3color) {
-        skyColorR = (float) v3color.xCoord;
-        skyColorG = (float) v3color.yCoord;
-        skyColorB = (float) v3color.zCoord;
+        skyColorR = (float) v3color.xCoord();
+        skyColorG = (float) v3color.yCoord();
+        skyColorB = (float) v3color.zCoord();
         setProgramUniform3f(uniform_skyColor, skyColorR, skyColorG, skyColorB);
     }
 

@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.culling;
 
-import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 public class ClippingHelper {
@@ -35,13 +34,13 @@ public class ClippingHelper {
 
                 if (
                         px * f + py * f1 + pz * f2 + pw <= 0.0F &&
-                        px * f3 + py * f1 + pz * f2 + pw <= 0.0F &&
-                        px * f + py * f4 + pz * f2 + pw <= 0.0F &&
-                        px * f3 + py * f4 + pz * f2 + pw <= 0.0F &&
-                        px * f + py * f1 + pz * f5 + pw <= 0.0F &&
-                        px * f3 + py * f1 + pz * f5 + pw <= 0.0F &&
-                        px * f + py * f4 + pz * f5 + pw <= 0.0F &&
-                        px * f3 + py * f4 + pz * f5 + pw <= 0.0F
+                                px * f3 + py * f1 + pz * f2 + pw <= 0.0F &&
+                                px * f + py * f4 + pz * f2 + pw <= 0.0F &&
+                                px * f3 + py * f4 + pz * f2 + pw <= 0.0F &&
+                                px * f + py * f1 + pz * f5 + pw <= 0.0F &&
+                                px * f3 + py * f1 + pz * f5 + pw <= 0.0F &&
+                                px * f + py * f4 + pz * f5 + pw <= 0.0F &&
+                                px * f3 + py * f4 + pz * f5 + pw <= 0.0F
                 ) {
                     return false;
                 }
@@ -72,25 +71,25 @@ public class ClippingHelper {
                 if (i < 4) {
                     if (
                             px * f + py * f1 + pz * f2 + pw <= 0.0F ||
-                            px * f3 + py * f1 + pz * f2 + pw <= 0.0F ||
-                            px * f + py * f4 + pz * f2 + pw <= 0.0F ||
-                            px * f3 + py * f4 + pz * f2 + pw <= 0.0F ||
-                            px * f + py * f1 + pz * f5 + pw <= 0.0F ||
-                            px * f3 + py * f1 + pz * f5 + pw <= 0.0F ||
-                            px * f + py * f4 + pz * f5 + pw <= 0.0F ||
-                            px * f3 + py * f4 + pz * f5 + pw <= 0.0F
+                                    px * f3 + py * f1 + pz * f2 + pw <= 0.0F ||
+                                    px * f + py * f4 + pz * f2 + pw <= 0.0F ||
+                                    px * f3 + py * f4 + pz * f2 + pw <= 0.0F ||
+                                    px * f + py * f1 + pz * f5 + pw <= 0.0F ||
+                                    px * f3 + py * f1 + pz * f5 + pw <= 0.0F ||
+                                    px * f + py * f4 + pz * f5 + pw <= 0.0F ||
+                                    px * f3 + py * f4 + pz * f5 + pw <= 0.0F
                     ) {
                         return false;
                     }
                 } else if (
                         px * f + py * f1 + pz * f2 + pw <= 0.0F &&
-                        px * f3 + py * f1 + pz * f2 + pw <= 0.0F &&
-                        px * f + py * f4 + pz * f2 + pw <= 0.0F &&
-                        px * f3 + py * f4 + pz * f2 + pw <= 0.0F &&
-                        px * f + py * f1 + pz * f5 + pw <= 0.0F &&
-                        px * f3 + py * f1 + pz * f5 + pw <= 0.0F &&
-                        px * f + py * f4 + pz * f5 + pw <= 0.0F &&
-                        px * f3 + py * f4 + pz * f5 + pw <= 0.0F
+                                px * f3 + py * f1 + pz * f2 + pw <= 0.0F &&
+                                px * f + py * f4 + pz * f2 + pw <= 0.0F &&
+                                px * f3 + py * f4 + pz * f2 + pw <= 0.0F &&
+                                px * f + py * f1 + pz * f5 + pw <= 0.0F &&
+                                px * f3 + py * f1 + pz * f5 + pw <= 0.0F &&
+                                px * f + py * f4 + pz * f5 + pw <= 0.0F &&
+                                px * f3 + py * f4 + pz * f5 + pw <= 0.0F
                 ) {
                     return false;
                 }

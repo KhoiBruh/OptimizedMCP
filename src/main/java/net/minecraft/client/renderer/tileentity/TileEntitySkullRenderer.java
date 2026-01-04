@@ -3,8 +3,6 @@ package net.minecraft.client.renderer.tileentity;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
-import java.util.Map;
-import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelHumanoidHead;
@@ -16,6 +14,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Map;
+import java.util.UUID;
 
 public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntitySkull> {
     private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation(
@@ -30,7 +31,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
     public ModelSkeletonHead humanoidHead = new ModelHumanoidHead();
 
     public void renderTileEntityAt(TileEntitySkull te, double x, double y, double z, float partialTicks,
-            int destroyStage) {
+                                   int destroyStage) {
         EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
         this.renderSkull((float) x, (float) y, (float) z, enumfacing, (float) (te.getSkullRotation() * 360) / 16.0F,
                 te.getSkullType(), te.getPlayerProfile(), destroyStage);
@@ -42,7 +43,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
     }
 
     public void renderSkull(float p_180543_1_, float p_180543_2_, float p_180543_3_, EnumFacing p_180543_4_,
-            float p_180543_5_, int p_180543_6_, GameProfile p_180543_7_, int p_180543_8_) {
+                            float p_180543_5_, int p_180543_6_, GameProfile p_180543_7_, int p_180543_8_) {
         ModelBase modelbase = this.skeletonHead;
 
         if (p_180543_8_ >= 0) {
@@ -79,7 +80,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
                         if (map.containsKey(Type.SKIN)) {
                             resourcelocation = minecraft.getSkinManager()
-                                    .loadSkin((MinecraftProfileTexture) map.get(Type.SKIN), Type.SKIN);
+                                    .loadSkin(map.get(Type.SKIN), Type.SKIN);
                         } else {
                             UUID uuid = EntityPlayer.getUUID(p_180543_7_);
                             resourcelocation = DefaultPlayerSkin.getDefaultSkin(uuid);
@@ -126,7 +127,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
         GlStateManager.enableAlpha();
-        modelbase.render((Entity) null, 0.0F, 0.0F, 0.0F, p_180543_5_, 0.0F, f);
+        modelbase.render(null, 0.0F, 0.0F, 0.0F, p_180543_5_, 0.0F, f);
         GlStateManager.popMatrix();
 
         if (p_180543_8_ >= 0) {

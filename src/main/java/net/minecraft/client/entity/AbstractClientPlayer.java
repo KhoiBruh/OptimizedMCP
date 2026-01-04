@@ -1,7 +1,6 @@
 package net.minecraft.client.entity;
 
 import com.mojang.authlib.GameProfile;
-import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.ImageBufferDownload;
@@ -22,13 +21,15 @@ import net.minecraft.world.WorldSettings;
 import net.optifine.player.CapeUtils;
 import net.optifine.player.PlayerConfigurations;
 
+import java.io.File;
+
 public abstract class AbstractClientPlayer extends EntityPlayer {
+    private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
     private NetworkPlayerInfo playerInfo;
     private ResourceLocation locationOfCape = null;
     private long reloadCapeTimeMs = 0L;
     private boolean elytraOfCape = false;
     private String nameClear = null;
-    private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
 
     public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {
         super(worldIn, playerProfile);
@@ -40,6 +41,25 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
         CapeUtils.downloadCape(this);
         PlayerConfigurations.getPlayerConfiguration(this);
+    }
+
+    public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username) {
+        TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+        ITextureObject itextureobject = texturemanager.getTexture(resourceLocationIn);
+
+        if (itextureobject == null) {
+            itextureobject = new ThreadDownloadImageData(null,
+                    String.format("http://skins.minecraft.net/MinecraftSkins/%s.png",
+                            StringUtils.stripControlCodes(username)),
+                    DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
+            texturemanager.loadTexture(resourceLocationIn, itextureobject);
+        }
+
+        return (ThreadDownloadImageData) itextureobject;
+    }
+
+    public static ResourceLocation getLocationSkin(String username) {
+        return new ResourceLocation("skins/" + StringUtils.stripControlCodes(username));
     }
 
     public boolean isSpectator() {
@@ -87,25 +107,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
                 return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
             }
         }
-    }
-
-    public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username) {
-        TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-        ITextureObject itextureobject = texturemanager.getTexture(resourceLocationIn);
-
-        if (itextureobject == null) {
-            itextureobject = new ThreadDownloadImageData((File) null,
-                    String.format("http://skins.minecraft.net/MinecraftSkins/%s.png",
-                            new Object[] { StringUtils.stripControlCodes(username) }),
-                    DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
-            texturemanager.loadTexture(resourceLocationIn, itextureobject);
-        }
-
-        return (ThreadDownloadImageData) itextureobject;
-    }
-
-    public static ResourceLocation getLocationSkin(String username) {
-        return new ResourceLocation("skins/" + StringUtils.stripControlCodes(username));
     }
 
     public String getSkinType() {
@@ -159,15 +160,15 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
     public boolean hasElytraCape() {
         ResourceLocation resourcelocation = this.getLocationCape();
-        return resourcelocation == null ? false : (resourcelocation == this.locationOfCape ? this.elytraOfCape : true);
-    }
-
-    public void setElytraOfCape(boolean p_setElytraOfCape_1_) {
-        this.elytraOfCape = p_setElytraOfCape_1_;
+        return resourcelocation != null && (resourcelocation != this.locationOfCape || this.elytraOfCape);
     }
 
     public boolean isElytraOfCape() {
         return this.elytraOfCape;
+    }
+
+    public void setElytraOfCape(boolean p_setElytraOfCape_1_) {
+        this.elytraOfCape = p_setElytraOfCape_1_;
     }
 
     public long getReloadCapeTimeMs() {

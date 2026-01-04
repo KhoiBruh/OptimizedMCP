@@ -53,7 +53,7 @@ public class ModelOcelot extends ModelBase {
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
-            float p_78088_6_, float scale) {
+                       float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
         if (this.isChild) {
@@ -87,7 +87,7 @@ public class ModelOcelot extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-            float headPitch, float scaleFactor, Entity entityIn) {
+                                  float headPitch, float scaleFactor, Entity entityIn) {
         this.ocelotHead.rotateAngleX = headPitch / (180F / (float) Math.PI);
         this.ocelotHead.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
 
@@ -124,7 +124,7 @@ public class ModelOcelot extends ModelBase {
     }
 
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_,
-            float partialTickTime) {
+                                    float partialTickTime) {
         EntityOcelot entityocelot = (EntityOcelot) entitylivingbaseIn;
         this.ocelotBody.rotationPointY = 12.0F;
         this.ocelotBody.rotationPointZ = -10.0F;
