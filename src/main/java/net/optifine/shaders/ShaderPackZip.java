@@ -37,7 +37,6 @@ public class ShaderPackZip implements IShaderPack
             }
             catch (Exception var2)
             {
-                ;
             }
 
             this.packZipFile = null;
@@ -72,59 +71,42 @@ public class ShaderPackZip implements IShaderPack
 
     private String resolveRelative(String name)
     {
-        Deque<String> deque = new ArrayDeque();
+        Deque<String> deque = new ArrayDeque<>();
         String[] astring = Config.tokenize(name, "/");
 
-        for (int i = 0; i < astring.length; ++i)
-        {
-            String s = astring[i];
-
-            if (s.equals(".."))
-            {
-                if (deque.isEmpty())
-                {
+        for (String s : astring) {
+            if (s.equals("..")) {
+                if (deque.isEmpty()) {
                     return "";
                 }
 
                 deque.removeLast();
-            }
-            else
-            {
+            } else {
                 deque.add(s);
             }
         }
 
-        String s1 = Joiner.on('/').join(deque);
-        return s1;
+        return Joiner.on('/').join(deque);
     }
 
     private String detectBaseFolder(ZipFile zip)
     {
         ZipEntry zipentry = zip.getEntry("shaders/");
 
-        if (zipentry != null && zipentry.isDirectory())
-        {
-            return "";
-        }
-        else
-        {
+        if (zipentry == null || !zipentry.isDirectory()) {
             Pattern pattern = Pattern.compile("([^/]+/)shaders/");
-            Enumeration <? extends ZipEntry > enumeration = zip.entries();
+            Enumeration<? extends ZipEntry> enumeration = zip.entries();
 
-            while (enumeration.hasMoreElements())
-            {
+            while (enumeration.hasMoreElements()) {
                 ZipEntry zipentry1 = enumeration.nextElement();
                 String s = zipentry1.getName();
                 Matcher matcher = pattern.matcher(s);
 
-                if (matcher.matches())
-                {
+                if (matcher.matches()) {
                     String s1 = matcher.group(1);
 
-                    if (s1 != null)
-                    {
-                        if (s1.equals("shaders/"))
-                        {
+                    if (s1 != null) {
+                        if (s1.equals("shaders/")) {
                             return "";
                         }
 
@@ -133,8 +115,8 @@ public class ShaderPackZip implements IShaderPack
                 }
             }
 
-            return "";
         }
+        return "";
     }
 
     public boolean hasDirectory(String resName)

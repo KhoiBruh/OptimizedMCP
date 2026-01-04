@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Programs
 {
-    private List<Program> programs = new ArrayList();
+    private List<Program> programs = new ArrayList<>();
     private Program programNone = this.make("", ProgramStage.NONE, true);
 
     public Program make(String name, ProgramStage programStage, Program backupProgram)
@@ -87,25 +87,17 @@ public class Programs
 
     public Program getProgram(String name)
     {
-        if (name == null)
-        {
-            return null;
-        }
-        else
-        {
-            for (int i = 0; i < this.programs.size(); ++i)
-            {
-                Program program = this.programs.get(i);
+        if (name != null) {
+            for (Program program : this.programs) {
                 String s = program.getName();
 
-                if (s.equals(name))
-                {
+                if (s.equals(name)) {
                     return program;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public String[] getProgramNames()
@@ -122,8 +114,7 @@ public class Programs
 
     public Program[] getPrograms()
     {
-        Program[] aprogram = this.programs.toArray(new Program[this.programs.size()]);
-        return aprogram;
+        return this.programs.toArray(new Program[this.programs.size()]);
     }
 
     public Program[] getPrograms(Program programFrom, Program programTo)

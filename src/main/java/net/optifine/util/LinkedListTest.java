@@ -9,9 +9,9 @@ public class LinkedListTest
 {
     public static void main(String[] args) throws Exception
     {
-        LinkedList<VboRange> linkedlist = new LinkedList();
-        List<VboRange> list = new ArrayList();
-        List<VboRange> list1 = new ArrayList();
+        LinkedList<VboRange> linkedlist = new LinkedList<>();
+        List<VboRange> list = new ArrayList<>();
+        List<VboRange> list1 = new ArrayList<>();
         Random random = new Random();
         int i = 100;
 
@@ -83,13 +83,12 @@ public class LinkedListTest
         StringBuffer stringbuffer = new StringBuffer();
 
         linkedList.iterator().forEachRemaining(vboRangeNode -> {
-            LinkedList.Node<VboRange> node = vboRangeNode;
-            if (node.getItem() == null) {
+            if (vboRangeNode.getItem() == null) {
                 return;
             }
-            VboRange vborange = node.getItem();
+            VboRange vborange = vboRangeNode.getItem();
 
-            if (stringbuffer.length() > 0)
+            if (!stringbuffer.isEmpty())
             {
                 stringbuffer.append(", ");
             }

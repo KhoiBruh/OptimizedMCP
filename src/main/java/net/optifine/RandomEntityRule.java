@@ -245,12 +245,10 @@ public class RandomEntityRule {
                 }
             }
 
-            if (this.professions != null && randomEntity instanceof RandomEntity) {
-                RandomEntity randomentity = (RandomEntity) randomEntity;
+            if (this.professions != null && randomEntity instanceof RandomEntity randomentity) {
                 Entity entity = randomentity.getEntity();
 
-                if (entity instanceof EntityVillager) {
-                    EntityVillager entityvillager = (EntityVillager) entity;
+                if (entity instanceof EntityVillager entityvillager) {
                     int j = entityvillager.getProfession();
                     int k = entityvillager.careerId;
 
@@ -260,9 +258,7 @@ public class RandomEntityRule {
 
                     boolean flag = false;
 
-                    for (int l = 0; l < this.professions.length; ++l) {
-                        VillagerProfession villagerprofession = this.professions[l];
-
+                    for (VillagerProfession villagerprofession : this.professions) {
                         if (villagerprofession.matches(j, k)) {
                             flag = true;
                             break;
@@ -275,12 +271,10 @@ public class RandomEntityRule {
                 }
             }
 
-            if (this.collarColors != null && randomEntity instanceof RandomEntity) {
-                RandomEntity randomentity1 = (RandomEntity) randomEntity;
+            if (this.collarColors != null && randomEntity instanceof RandomEntity randomentity1) {
                 Entity entity1 = randomentity1.getEntity();
 
-                if (entity1 instanceof EntityWolf) {
-                    EntityWolf entitywolf = (EntityWolf) entity1;
+                if (entity1 instanceof EntityWolf entitywolf) {
 
                     if (!entitywolf.isTamed()) {
                         return false;
@@ -294,14 +288,12 @@ public class RandomEntityRule {
                 }
             }
 
-            if (this.baby != null && randomEntity instanceof RandomEntity) {
-                RandomEntity randomentity2 = (RandomEntity) randomEntity;
+            if (this.baby != null && randomEntity instanceof RandomEntity randomentity2) {
                 Entity entity2 = randomentity2.getEntity();
 
-                if (entity2 instanceof EntityLiving) {
-                    EntityLiving entityliving = (EntityLiving) entity2;
+                if (entity2 instanceof EntityLiving entityliving) {
 
-                    if (entityliving.isChild() != this.baby.booleanValue()) {
+                    if (entityliving.isChild() != this.baby) {
                         return false;
                     }
                 }
@@ -337,9 +329,7 @@ public class RandomEntityRule {
                 if (world2 != null) {
                     Weather weather = Weather.getWeather(world2, 0.0F);
 
-                    if (!ArrayUtils.contains(this.weatherList, weather)) {
-                        return false;
-                    }
+                    return ArrayUtils.contains(this.weatherList, weather);
                 }
             }
 

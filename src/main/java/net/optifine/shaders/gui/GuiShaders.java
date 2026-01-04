@@ -111,7 +111,7 @@ public class GuiShaders extends GuiScreenOF
     {
         if (button.enabled)
         {
-            if (!(button instanceof GuiButtonEnumShaderOption))
+            if (!(button instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption))
             {
                 if (!rightClick)
                 {
@@ -205,7 +205,6 @@ public class GuiShaders extends GuiScreenOF
             }
             else
             {
-                GuiButtonEnumShaderOption guibuttonenumshaderoption = (GuiButtonEnumShaderOption)button;
 
                 switch (guibuttonenumshaderoption.getEnumShaderOption())
                 {

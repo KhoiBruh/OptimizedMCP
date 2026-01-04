@@ -29,12 +29,8 @@ public class CompoundKey
         {
             this.hashcode = 7;
 
-            for (int i = 0; i < this.keys.length; ++i)
-            {
-                Object object = this.keys[i];
-
-                if (object != null)
-                {
+            for (Object object : this.keys) {
+                if (object != null) {
                     this.hashcode = 31 * this.hashcode + object.hashCode();
                 }
             }
@@ -53,13 +49,12 @@ public class CompoundKey
         {
             return true;
         }
-        else if (!(obj instanceof CompoundKey))
+        else if (!(obj instanceof CompoundKey compoundkey))
         {
             return false;
         }
         else
         {
-            CompoundKey compoundkey = (CompoundKey)obj;
             Object[] aobject = compoundkey.getKeys();
 
             if (aobject.length != this.keys.length)
@@ -83,7 +78,7 @@ public class CompoundKey
 
     private static boolean compareKeys(Object key1, Object key2)
     {
-        return key1 == key2 ? true : (key1 == null ? false : (key2 == null ? false : key1.equals(key2)));
+        return key1 == key2 || (key1 != null && (key2 != null && key1.equals(key2)));
     }
 
     private Object[] getKeys()

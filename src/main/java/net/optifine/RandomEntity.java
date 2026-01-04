@@ -14,8 +14,7 @@ public class RandomEntity implements IRandomEntity
     {
         UUID uuid = this.entity.getUniqueID();
         long i = uuid.getLeastSignificantBits();
-        int j = (int)(i & 2147483647L);
-        return j;
+        return (int)(i & 2147483647L);
     }
 
     public BlockPos getSpawnPosition()
@@ -35,26 +34,24 @@ public class RandomEntity implements IRandomEntity
 
     public int getHealth()
     {
-        if (!(this.entity instanceof EntityLiving))
+        if (!(this.entity instanceof EntityLiving entityliving))
         {
             return 0;
         }
         else
         {
-            EntityLiving entityliving = (EntityLiving)this.entity;
             return (int)entityliving.getHealth();
         }
     }
 
     public int getMaxHealth()
     {
-        if (!(this.entity instanceof EntityLiving))
+        if (!(this.entity instanceof EntityLiving entityliving))
         {
             return 0;
         }
         else
         {
-            EntityLiving entityliving = (EntityLiving)this.entity;
             return (int)entityliving.getMaxHealth();
         }
     }

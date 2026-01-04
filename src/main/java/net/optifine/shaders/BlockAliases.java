@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.ConnectedParser;
@@ -26,19 +26,15 @@ public class BlockAliases {
         } else if (blockId >= 0 && blockId < blockAliases.length) {
             BlockAlias[] ablockalias = blockAliases[blockId];
 
-            if (ablockalias == null) {
-                return blockId;
-            } else {
-                for (int i = 0; i < ablockalias.length; ++i) {
-                    BlockAlias blockalias = ablockalias[i];
-
+            if (ablockalias != null) {
+                for (BlockAlias blockalias : ablockalias) {
                     if (blockalias.matches(blockId, metadata)) {
                         return blockalias.getBlockAliasId();
                     }
                 }
 
-                return blockId;
             }
+            return blockId;
         } else {
             return blockId;
         }
@@ -59,7 +55,7 @@ public class BlockAliases {
                 Config.dbg("[Shaders] Delayed loading of block mappings after resources are loaded");
                 updateOnResourcesReloaded = true;
             } else {
-                List<List<BlockAlias>> list = new ArrayList();
+                List<List<BlockAlias>> list = new ArrayList<>();
                 String s = "/shaders/block.properties";
                 InputStream inputstream = shaderPack.getResourceAsStream(s);
 
@@ -69,7 +65,7 @@ public class BlockAliases {
 
                 loadModBlockAliases(list);
 
-                if (list.size() > 0) {
+                if (!list.isEmpty()) {
                     blockAliases = toArrays(list);
                 }
             }
@@ -79,15 +75,12 @@ public class BlockAliases {
     private static void loadModBlockAliases(List<List<BlockAlias>> listBlockAliases) {
         String[] astring = new String[0];
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
+        for (String s : astring) {
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/block.properties");
                 InputStream inputstream = Config.getResourceStream(resourcelocation);
                 loadBlockAliases(inputstream, resourcelocation.toString(), listBlockAliases);
             } catch (IOException var6) {
-                ;
             }
         }
     }
@@ -145,9 +138,7 @@ public class BlockAliases {
     private static void addToList(List<List<BlockAlias>> blocksAliases, BlockAlias ba) {
         int[] aint = ba.getMatchBlockIds();
 
-        for (int i = 0; i < aint.length; ++i) {
-            int j = aint[i];
-
+        for (int j : aint) {
             while (j >= blocksAliases.size()) {
                 blocksAliases.add(null);
             }
@@ -155,7 +146,7 @@ public class BlockAliases {
             List<BlockAlias> list = blocksAliases.get(j);
 
             if (list == null) {
-                list = new ArrayList();
+                list = new ArrayList<>();
                 blocksAliases.set(j, list);
             }
 
@@ -171,7 +162,7 @@ public class BlockAliases {
             List<BlockAlias> list = listBlocksAliases.get(i);
 
             if (list != null) {
-                ablockalias[i] = list.toArray(new BlockAlias[list.size()]);
+                ablockalias[i] = list.toArray(new BlockAlias[0]);
             }
         }
 

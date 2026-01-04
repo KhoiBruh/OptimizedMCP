@@ -29,7 +29,7 @@ public enum RenderEntityParameterBool implements IExpressionBool
     private RenderManager renderManager;
     private static final RenderEntityParameterBool[] VALUES = values();
 
-    private RenderEntityParameterBool(String name)
+    RenderEntityParameterBool(String name)
     {
         this.name = name;
         this.renderManager = Minecraft.getMinecraft().getRenderManager();
@@ -49,24 +49,15 @@ public enum RenderEntityParameterBool implements IExpressionBool
     {
         Render render = this.renderManager.renderRender;
 
-        if (render == null)
-        {
-            return false;
-        }
-        else
-        {
-            if (render instanceof RendererLivingEntity)
-            {
-                RendererLivingEntity rendererlivingentity = (RendererLivingEntity)render;
+        if (render != null) {
+            if (render instanceof RendererLivingEntity rendererlivingentity) {
                 EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
-                if (entitylivingbase == null)
-                {
+                if (entitylivingbase == null) {
                     return false;
                 }
 
-                switch (this)
-                {
+                switch (this) {
                     case IS_ALIVE:
                         return entitylivingbase.isEntityAlive();
 
@@ -108,29 +99,20 @@ public enum RenderEntityParameterBool implements IExpressionBool
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static RenderEntityParameterBool parse(String str)
     {
-        if (str == null)
-        {
-            return null;
-        }
-        else
-        {
-            for (int i = 0; i < VALUES.length; ++i)
-            {
-                RenderEntityParameterBool renderentityparameterbool = VALUES[i];
-
-                if (renderentityparameterbool.getName().equals(str))
-                {
+        if (str != null) {
+            for (RenderEntityParameterBool renderentityparameterbool : VALUES) {
+                if (renderentityparameterbool.getName().equals(str)) {
                     return renderentityparameterbool;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 }

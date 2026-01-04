@@ -70,24 +70,24 @@ public enum FunctionType
     private String name;
     private IParameters parameters;
     public static FunctionType[] VALUES = values();
-    private static final Map<Integer, Float> mapSmooth = new HashMap();
+    private static final Map<Integer, Float> mapSmooth = new HashMap<>();
 
-    private FunctionType(ExpressionType expressionType, String name, ExpressionType[] parameterTypes)
+    FunctionType(ExpressionType expressionType, String name, ExpressionType[] parameterTypes)
     {
         this(0, expressionType, name, parameterTypes);
     }
 
-    private FunctionType(int precedence, ExpressionType expressionType, String name, ExpressionType[] parameterTypes)
+    FunctionType(int precedence, ExpressionType expressionType, String name, ExpressionType[] parameterTypes)
     {
         this(precedence, expressionType, name, new Parameters(parameterTypes));
     }
 
-    private FunctionType(ExpressionType expressionType, String name, IParameters parameters)
+    FunctionType(ExpressionType expressionType, String name, IParameters parameters)
     {
         this(0, expressionType, name, parameters);
     }
 
-    private FunctionType(int precedence, ExpressionType expressionType, String name, IParameters parameters)
+    FunctionType(int precedence, ExpressionType expressionType, String name, IParameters parameters)
     {
         this.precedence = precedence;
         this.expressionType = expressionType;
@@ -257,8 +257,7 @@ public enum FunctionType
                 float f4 = evalFloat(args, 1);
                 float f5 = args.length > 2 ? evalFloat(args, 2) : 1.0F;
                 float f6 = args.length > 3 ? evalFloat(args, 3) : f5;
-                float f7 = Smoother.getSmoothValue(j, f4, f5, f6);
-                return f7;
+                return Smoother.getSmoothValue(j, f4, f5, f6);
 
             default:
                 Config.warn("Unknown function type: " + this);
@@ -317,8 +316,7 @@ public enum FunctionType
     private static float evalFloat(IExpression[] exprs, int index)
     {
         IExpressionFloat iexpressionfloat = (IExpressionFloat)exprs[index];
-        float f = iexpressionfloat.eval();
-        return f;
+        return iexpressionfloat.eval();
     }
 
     public boolean evalBool(IExpression[] args)
@@ -391,34 +389,26 @@ public enum FunctionType
     private static boolean evalBool(IExpression[] exprs, int index)
     {
         IExpressionBool iexpressionbool = (IExpressionBool)exprs[index];
-        boolean flag = iexpressionbool.eval();
-        return flag;
+        return iexpressionbool.eval();
     }
 
     public float[] evalFloatArray(IExpression[] args)
     {
-        switch (this)
-        {
-            case VEC2:
-                return new float[] {evalFloat(args, 0), evalFloat(args, 1)};
-            case VEC3:
-                return new float[] {evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2)};
-            case VEC4:
-                return new float[] {evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2), evalFloat(args, 3)};
-            default:
+        return switch (this) {
+            case VEC2 -> new float[]{evalFloat(args, 0), evalFloat(args, 1)};
+            case VEC3 -> new float[]{evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2)};
+            case VEC4 -> new float[]{evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2), evalFloat(args, 3)};
+            default -> {
                 Config.warn("Unknown function type: " + this);
-                return null;
-        }
+                yield null;
+            }
+        };
     }
 
     public static FunctionType parse(String str)
     {
-        for (int i = 0; i < VALUES.length; ++i)
-        {
-            FunctionType functiontype = VALUES[i];
-
-            if (functiontype.getName().equals(str))
-            {
+        for (FunctionType functiontype : VALUES) {
+            if (functiontype.getName().equals(str)) {
                 return functiontype;
             }
         }

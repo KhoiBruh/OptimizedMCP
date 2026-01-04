@@ -19,10 +19,9 @@ public class ModelAdapterSquid extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSquid)) {
+        if (!(model instanceof ModelSquid modelsquid)) {
             return null;
         } else {
-            ModelSquid modelsquid = (ModelSquid) model;
 
             if (modelPart.equals("body")) {
                 return modelsquid.squidBody;
@@ -54,7 +53,6 @@ public class ModelAdapterSquid extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderSquid rendersquid = new RenderSquid(rendermanager, modelBase, shadowSize);
-        return rendersquid;
+        return new RenderSquid(rendermanager, modelBase, shadowSize);
     }
 }

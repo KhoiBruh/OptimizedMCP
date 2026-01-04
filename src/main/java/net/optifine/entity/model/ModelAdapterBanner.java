@@ -6,7 +6,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityBanner;
 
 public class ModelAdapterBanner extends ModelAdapter {
@@ -19,10 +18,9 @@ public class ModelAdapterBanner extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBanner)) {
+        if (!(model instanceof ModelBanner modelbanner)) {
             return null;
         } else {
-            ModelBanner modelbanner = (ModelBanner) model;
             return modelPart.equals("slate") ? modelbanner.bannerSlate
                     : (modelPart.equals("stand") ? modelbanner.bannerStand
                             : (modelPart.equals("top") ? modelbanner.bannerTop : null));

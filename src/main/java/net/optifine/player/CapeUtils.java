@@ -2,8 +2,6 @@ package net.optifine.player;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.util.regex.Pattern;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -29,19 +27,17 @@ public class CapeUtils
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
             ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
-            if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData)
+            if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData threaddownloadimagedata)
             {
-                ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData)itextureobject;
 
                 if (threaddownloadimagedata.imageFound != null)
                 {
-                    if (threaddownloadimagedata.imageFound.booleanValue())
+                    if (threaddownloadimagedata.imageFound)
                     {
                         player.setLocationOfCape(resourcelocation);
 
-                        if (threaddownloadimagedata.getImageBuffer() instanceof CapeImageBuffer)
+                        if (threaddownloadimagedata.getImageBuffer() instanceof CapeImageBuffer capeimagebuffer1)
                         {
-                            CapeImageBuffer capeimagebuffer1 = (CapeImageBuffer)threaddownloadimagedata.getImageBuffer();
                             player.setElytraOfCape(capeimagebuffer1.isElytraOfCape());
                         }
                     }
@@ -87,9 +83,8 @@ public class CapeUtils
         TextureManager texturemanager = Config.getTextureManager();
         ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
-        if (itextureobject instanceof SimpleTexture)
+        if (itextureobject instanceof SimpleTexture simpletexture)
         {
-            SimpleTexture simpletexture = (SimpleTexture)itextureobject;
             simpletexture.deleteGlTexture();
             texturemanager.deleteTexture(resourcelocation);
         }

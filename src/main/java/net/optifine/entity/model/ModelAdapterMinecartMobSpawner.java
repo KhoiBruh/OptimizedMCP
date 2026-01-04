@@ -5,7 +5,6 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecartMobSpawner;
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
-import net.minecraft.src.Config;
 
 public class ModelAdapterMinecartMobSpawner extends ModelAdapterMinecart {
     public ModelAdapterMinecartMobSpawner() {

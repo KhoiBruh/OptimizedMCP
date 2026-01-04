@@ -40,16 +40,14 @@ public class TooltipProviderEnumShaderOptions implements TooltipProvider
         {
             return TooltipProviderOptions.getTooltipLines("of.options.shaders.DOWNLOAD");
         }
-        else if (!(btn instanceof GuiButtonEnumShaderOption))
+        else if (!(btn instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption))
         {
             return null;
         }
         else
         {
-            GuiButtonEnumShaderOption guibuttonenumshaderoption = (GuiButtonEnumShaderOption)btn;
             EnumShaderOption enumshaderoption = guibuttonenumshaderoption.getEnumShaderOption();
-            String[] astring = this.getTooltipLines(enumshaderoption);
-            return astring;
+            return this.getTooltipLines(enumshaderoption);
         }
     }
 

@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelSkeletonHead;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntitySkull;
 
 public class ModelAdapterHeadHumanoid extends ModelAdapter {
@@ -20,10 +19,9 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelHumanoidHead)) {
+        if (!(model instanceof ModelHumanoidHead modelhumanoidhead)) {
             return null;
         } else {
-            ModelHumanoidHead modelhumanoidhead = (ModelHumanoidHead) model;
             return modelPart.equals("head") ? modelhumanoidhead.skeletonHead
                     : (modelPart.equals("head2") ? modelhumanoidhead.head : null);
         }

@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.src.Config;
 
 public class ModelAdapterMinecart extends ModelAdapter {
     public ModelAdapterMinecart() {
@@ -23,10 +22,9 @@ public class ModelAdapterMinecart extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelMinecart)) {
+        if (!(model instanceof ModelMinecart modelminecart)) {
             return null;
         } else {
-            ModelMinecart modelminecart = (ModelMinecart) model;
             return modelPart
                     .equals("bottom")
                             ? modelminecart.sideModels[0]

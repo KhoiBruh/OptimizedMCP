@@ -56,9 +56,8 @@ public class SVertexBuilder
         int i;
         int j;
 
-        if (blockState instanceof BlockStateBase)
+        if (blockState instanceof BlockStateBase blockstatebase)
         {
-            BlockStateBase blockstatebase = (BlockStateBase)blockState;
             i = blockstatebase.getBlockId();
             j = blockstatebase.getMetadata();
         }

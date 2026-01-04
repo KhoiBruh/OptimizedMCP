@@ -45,8 +45,8 @@ public class HttpPipelineConnection
         this.host = null;
         this.port = 0;
         this.proxy = Proxy.NO_PROXY;
-        this.listRequests = new LinkedList();
-        this.listRequestsSend = new LinkedList();
+        this.listRequests = new LinkedList<>();
+        this.listRequestsSend = new LinkedList<>();
         this.socket = null;
         this.inputStream = null;
         this.outputStream = null;
@@ -157,11 +157,11 @@ public class HttpPipelineConnection
 
         if (remove)
         {
-            return list.remove(0);
+            return list.removeFirst();
         }
         else
         {
-            return list.get(0);
+            return list.getFirst();
         }
     }
 
@@ -171,7 +171,7 @@ public class HttpPipelineConnection
         {
             long i = this.keepaliveTimeoutMs;
 
-            if (this.listRequests.size() > 0)
+            if (!this.listRequests.isEmpty())
             {
                 i = 5000L;
             }
@@ -205,9 +205,9 @@ public class HttpPipelineConnection
             this.responseReceived = true;
             this.onActivity();
 
-            if (this.listRequests.size() > 0 && this.listRequests.get(0) == pr)
+            if (!this.listRequests.isEmpty() && this.listRequests.getFirst() == pr)
             {
-                this.listRequests.remove(0);
+                this.listRequests.removeFirst();
                 pr.setClosed(true);
                 String s = resp.getHeader("Location");
 
@@ -288,29 +288,22 @@ public class HttpPipelineConnection
         {
             String[] astring = Config.tokenize(s1, ",;");
 
-            for (int i = 0; i < astring.length; ++i)
-            {
-                String s2 = astring[i];
+            for (String s2 : astring) {
                 String[] astring1 = this.split(s2, '=');
 
-                if (astring1.length >= 2)
-                {
-                    if (astring1[0].equals("timeout"))
-                    {
+                if (astring1.length >= 2) {
+                    if (astring1[0].equals("timeout")) {
                         int j = Config.parseInt(astring1[1], -1);
 
-                        if (j > 0)
-                        {
+                        if (j > 0) {
                             this.keepaliveTimeoutMs = j * 1000;
                         }
                     }
 
-                    if (astring1[0].equals("max"))
-                    {
+                    if (astring1[0].equals("max")) {
                         int k = Config.parseInt(astring1[1], -1);
 
-                        if (k > 0)
-                        {
+                        if (k > 0) {
                             this.keepaliveMaxCount = k;
                         }
                     }
@@ -371,7 +364,6 @@ public class HttpPipelineConnection
             }
             catch (IOException var3)
             {
-                ;
             }
 
             this.socket = null;
@@ -382,18 +374,18 @@ public class HttpPipelineConnection
 
     private void terminateRequests(Exception e)
     {
-        if (this.listRequests.size() > 0)
+        if (!this.listRequests.isEmpty())
         {
             if (!this.responseReceived)
             {
-                HttpPipelineRequest httppipelinerequest = this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest = this.listRequests.removeFirst();
                 httppipelinerequest.getHttpListener().failed(httppipelinerequest.getHttpRequest(), e);
                 httppipelinerequest.setClosed(true);
             }
 
-            while (this.listRequests.size() > 0)
+            while (!this.listRequests.isEmpty())
             {
-                HttpPipelineRequest httppipelinerequest1 = this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest1 = this.listRequests.removeFirst();
                 HttpPipeline.addRequest(httppipelinerequest1);
             }
         }
@@ -401,7 +393,7 @@ public class HttpPipelineConnection
 
     public synchronized boolean isClosed()
     {
-        return this.terminated ? true : this.countRequests >= this.keepaliveMaxCount;
+        return this.terminated || this.countRequests >= this.keepaliveMaxCount;
     }
 
     public int getCountRequests()
@@ -411,7 +403,7 @@ public class HttpPipelineConnection
 
     public synchronized boolean hasActiveRequests()
     {
-        return this.listRequests.size() > 0;
+        return !this.listRequests.isEmpty();
     }
 
     public String getHost()

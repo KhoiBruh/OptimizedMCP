@@ -22,42 +22,28 @@ public class ModelAdapterRabbit extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelRabbit)) {
+        if (!(model instanceof ModelRabbit modelrabbit)) {
             return null;
         } else {
-            ModelRabbit modelrabbit = (ModelRabbit) model;
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart).intValue();
-                switch (i) {
-                    case 0:
-                        return modelrabbit.rabbitLeftFoot;
-                    case 1:
-                        return modelrabbit.rabbitRightFoot;
-                    case 2:
-                        return modelrabbit.rabbitLeftThigh;
-                    case 3:
-                        return modelrabbit.rabbitRightThigh;
-                    case 4:
-                        return modelrabbit.rabbitBody;
-                    case 5:
-                        return modelrabbit.rabbitLeftArm;
-                    case 6:
-                        return modelrabbit.rabbitRightArm;
-                    case 7:
-                        return modelrabbit.rabbitHead;
-                    case 8:
-                        return modelrabbit.rabbitRightEar;
-                    case 9:
-                        return modelrabbit.rabbitLeftEar;
-                    case 10:
-                        return modelrabbit.rabbitTail;
-                    case 11:
-                        return modelrabbit.rabbitNose;
-                    default:
-                        return null;
-                }
+                int i = map.get(modelPart);
+                return switch (i) {
+                    case 0 -> modelrabbit.rabbitLeftFoot;
+                    case 1 -> modelrabbit.rabbitRightFoot;
+                    case 2 -> modelrabbit.rabbitLeftThigh;
+                    case 3 -> modelrabbit.rabbitRightThigh;
+                    case 4 -> modelrabbit.rabbitBody;
+                    case 5 -> modelrabbit.rabbitLeftArm;
+                    case 6 -> modelrabbit.rabbitRightArm;
+                    case 7 -> modelrabbit.rabbitHead;
+                    case 8 -> modelrabbit.rabbitRightEar;
+                    case 9 -> modelrabbit.rabbitLeftEar;
+                    case 10 -> modelrabbit.rabbitTail;
+                    case 11 -> modelrabbit.rabbitNose;
+                    default -> null;
+                };
             } else {
                 return null;
             }
@@ -70,29 +56,26 @@ public class ModelAdapterRabbit extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
-            mapPartFields = new HashMap();
-            mapPartFields.put("left_foot", Integer.valueOf(0));
-            mapPartFields.put("right_foot", Integer.valueOf(1));
-            mapPartFields.put("left_thigh", Integer.valueOf(2));
-            mapPartFields.put("right_thigh", Integer.valueOf(3));
-            mapPartFields.put("body", Integer.valueOf(4));
-            mapPartFields.put("left_arm", Integer.valueOf(5));
-            mapPartFields.put("right_arm", Integer.valueOf(6));
-            mapPartFields.put("head", Integer.valueOf(7));
-            mapPartFields.put("right_ear", Integer.valueOf(8));
-            mapPartFields.put("left_ear", Integer.valueOf(9));
-            mapPartFields.put("tail", Integer.valueOf(10));
-            mapPartFields.put("nose", Integer.valueOf(11));
-            return mapPartFields;
+        if (mapPartFields == null) {
+            mapPartFields = new HashMap<>();
+            mapPartFields.put("left_foot", 0);
+            mapPartFields.put("right_foot", 1);
+            mapPartFields.put("left_thigh", 2);
+            mapPartFields.put("right_thigh", 3);
+            mapPartFields.put("body", 4);
+            mapPartFields.put("left_arm", 5);
+            mapPartFields.put("right_arm", 6);
+            mapPartFields.put("head", 7);
+            mapPartFields.put("right_ear", 8);
+            mapPartFields.put("left_ear", 9);
+            mapPartFields.put("tail", 10);
+            mapPartFields.put("nose", 11);
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderRabbit renderrabbit = new RenderRabbit(rendermanager, modelBase, shadowSize);
-        return renderrabbit;
+        return new RenderRabbit(rendermanager, modelBase, shadowSize);
     }
 }

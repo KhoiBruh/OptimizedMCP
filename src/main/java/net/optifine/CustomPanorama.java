@@ -44,14 +44,13 @@ public class CustomPanorama
                 properties = new PropertiesOrdered();
             }
 
-            CustomPanoramaProperties custompanoramaproperties = new CustomPanoramaProperties(s, properties);
-            customPanoramaProperties = custompanoramaproperties;
+            customPanoramaProperties = new CustomPanoramaProperties(s, properties);
         }
     }
 
     private static String[] getPanoramaFolders()
     {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("textures/gui/title/background");
 
         for (int i = 0; i < 100; ++i)
@@ -66,8 +65,7 @@ public class CustomPanorama
             }
         }
 
-        String[] astring = list.toArray(new String[list.size()]);
-        return astring;
+        return list.toArray(new String[list.size()]);
     }
 
     private static Properties[] getPanoramaProperties(String[] folders)
@@ -104,7 +102,6 @@ public class CustomPanorama
             }
             catch (IOException var7)
             {
-                ;
             }
         }
 

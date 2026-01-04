@@ -35,8 +35,8 @@ import net.optifine.util.PropertiesOrdered;
 
 public class DynamicLights {
     private static DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
-    private static Map<Class, Integer> mapEntityLightLevels = new HashMap();
-    private static Map<Item, Integer> mapItemLightLevels = new HashMap();
+    private static Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
+    private static Map<Item, Integer> mapItemLightLevels = new HashMap<>();
     private static long timeUpdateMs = 0L;
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;
@@ -48,9 +48,6 @@ public class DynamicLights {
     private static final int LIGHT_LEVEL_GLOWSTONE_DUST = 8;
     private static final int LIGHT_LEVEL_PRISMARINE_CRYSTALS = 8;
     private static boolean initialized;
-
-    public static void entityAdded(Entity entityIn, RenderGlobal renderGlobal) {
-    }
 
     public static void entityRemoved(Entity entityIn, RenderGlobal renderGlobal) {
         synchronized (mapDynamicLights) {
@@ -78,8 +75,7 @@ public class DynamicLights {
                 if (mapDynamicLights.size() > 0) {
                     List<DynamicLight> list = mapDynamicLights.valueList();
 
-                    for (int j = 0; j < list.size(); ++j) {
-                        DynamicLight dynamiclight = list.get(j);
+                    for (DynamicLight dynamiclight : list) {
                         dynamiclight.update(renderGlobal);
                     }
                 }
@@ -93,23 +89,20 @@ public class DynamicLights {
         mapItemLightLevels.clear();
         String[] astring = new String[0];
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
+        for (String s : astring) {
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(s, "optifine/dynamic_lights.properties");
                 InputStream inputstream = Config.getResourceStream(resourcelocation);
                 loadModConfiguration(inputstream, resourcelocation.toString(), s);
             } catch (IOException var5) {
-                ;
             }
         }
 
-        if (mapEntityLightLevels.size() > 0) {
+        if (!mapEntityLightLevels.isEmpty()) {
             Config.dbg("DynamicLights entities: " + mapEntityLightLevels.size());
         }
 
-        if (mapItemLightLevels.size() > 0) {
+        if (!mapItemLightLevels.isEmpty()) {
             Config.dbg("DynamicLights items: " + mapItemLightLevels.size());
         }
     }
@@ -137,8 +130,7 @@ public class DynamicLights {
         if (prop != null) {
             String[] astring = Config.tokenize(prop, " ");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 String[] astring1 = Config.tokenize(s, ":");
 
                 if (astring1.length != 2) {
@@ -156,7 +148,7 @@ public class DynamicLights {
                         int j = cp.parseInt(s2, -1);
 
                         if (j >= 0 && j <= 15) {
-                            mapLightLevels.put(object, new Integer(j));
+                            mapLightLevels.put(object, j);
                         } else {
                             cp.warn("Invalid light level: " + s);
                         }
@@ -226,8 +218,7 @@ public class DynamicLights {
             List<DynamicLight> list = mapDynamicLights.valueList();
             int i = list.size();
 
-            for (int j = 0; j < i; ++j) {
-                DynamicLight dynamiclight = list.get(j);
+            for (DynamicLight dynamiclight : list) {
                 int k = dynamiclight.getLastLightLevel();
 
                 if (k > 0) {
@@ -257,8 +248,7 @@ public class DynamicLights {
             }
         }
 
-        double d11 = Config.limit(d0, 0.0D, 15.0D);
-        return d11;
+        return Config.limit(d0, 0.0D, 15.0D);
     }
 
     public static int getLightLevel(ItemStack itemStack) {
@@ -267,8 +257,7 @@ public class DynamicLights {
         } else {
             Item item = itemStack.getItem();
 
-            if (item instanceof ItemBlock) {
-                ItemBlock itemblock = (ItemBlock) item;
+            if (item instanceof ItemBlock itemblock) {
                 Block block = itemblock.getBlock();
 
                 if (block != null) {
@@ -292,7 +281,7 @@ public class DynamicLights {
                         Integer integer = mapItemLightLevels.get(item);
 
                         if (integer != null) {
-                            return integer.intValue();
+                            return integer;
                         }
                     }
 
@@ -308,8 +297,7 @@ public class DynamicLights {
         if (entity == Config.getMinecraft().getRenderViewEntity() && !Config.isDynamicHandLight()) {
             return 0;
         } else {
-            if (entity instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) entity;
+            if (entity instanceof EntityPlayer entityplayer) {
 
                 if (entityplayer.isSpectator()) {
                     return 0;
@@ -323,42 +311,43 @@ public class DynamicLights {
                     Integer integer = mapEntityLightLevels.get(entity.getClass());
 
                     if (integer != null) {
-                        return integer.intValue();
+                        return integer;
                     }
                 }
 
-                if (entity instanceof EntityFireball) {
-                    return 15;
-                } else if (entity instanceof EntityTNTPrimed) {
-                    return 15;
-                } else if (entity instanceof EntityBlaze) {
-                    EntityBlaze entityblaze = (EntityBlaze) entity;
-                    return entityblaze.func_70845_n() ? 15 : 10;
-                } else if (entity instanceof EntityMagmaCube) {
-                    EntityMagmaCube entitymagmacube = (EntityMagmaCube) entity;
-                    return (double) entitymagmacube.squishFactor > 0.6D ? 13 : 8;
-                } else {
-                    if (entity instanceof EntityCreeper) {
-                        EntityCreeper entitycreeper = (EntityCreeper) entity;
-
-                        if ((double) entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
-                            return 15;
-                        }
+                switch (entity) {
+                    case EntityFireball entityFireball -> {
+                        return 15;
                     }
+                    case EntityTNTPrimed entityTNTPrimed -> {
+                        return 15;
+                    }
+                    case EntityBlaze entityblaze -> {
+                        return entityblaze.func_70845_n() ? 15 : 10;
+                    }
+                    case EntityMagmaCube entitymagmacube -> {
+                        return (double) entitymagmacube.squishFactor > 0.6D ? 13 : 8;
+                    }
+                    default -> {
+                        if (entity instanceof EntityCreeper entitycreeper) {
 
-                    if (entity instanceof EntityLivingBase) {
-                        EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
-                        ItemStack itemstack2 = entitylivingbase.getHeldItem();
-                        int i = getLightLevel(itemstack2);
-                        ItemStack itemstack1 = entitylivingbase.getEquipmentInSlot(4);
-                        int j = getLightLevel(itemstack1);
-                        return Math.max(i, j);
-                    } else if (entity instanceof EntityItem) {
-                        EntityItem entityitem = (EntityItem) entity;
-                        ItemStack itemstack = getItemStack(entityitem);
-                        return getLightLevel(itemstack);
-                    } else {
-                        return 0;
+                            if ((double) entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
+                                return 15;
+                            }
+                        }
+
+                        if (entity instanceof EntityLivingBase entitylivingbase) {
+                            ItemStack itemstack2 = entitylivingbase.getHeldItem();
+                            int i = getLightLevel(itemstack2);
+                            ItemStack itemstack1 = entitylivingbase.getEquipmentInSlot(4);
+                            int j = getLightLevel(itemstack1);
+                            return Math.max(i, j);
+                        } else if (entity instanceof EntityItem entityitem) {
+                            ItemStack itemstack = getItemStack(entityitem);
+                            return getLightLevel(itemstack);
+                        } else {
+                            return 0;
+                        }
                     }
                 }
             }
@@ -369,8 +358,7 @@ public class DynamicLights {
         synchronized (mapDynamicLights) {
             List<DynamicLight> list = mapDynamicLights.valueList();
 
-            for (int i = 0; i < list.size(); ++i) {
-                DynamicLight dynamiclight = list.get(i);
+            for (DynamicLight dynamiclight : list) {
                 dynamiclight.updateLitChunks(renderGlobal);
             }
 
@@ -391,7 +379,6 @@ public class DynamicLights {
     }
 
     public static ItemStack getItemStack(EntityItem entityItem) {
-        ItemStack itemstack = entityItem.getDataWatcher().getWatchableObjectItemStack(10);
-        return itemstack;
+        return entityItem.getDataWatcher().getWatchableObjectItemStack(10);
     }
 }

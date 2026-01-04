@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -196,7 +195,6 @@ public class TextureUtils
 
         for (i = 1; i < val; i *= 2)
         {
-            ;
         }
 
         return i;
@@ -286,16 +284,9 @@ public class TextureUtils
     {
         IResourceManager iresourcemanager = Config.getResourceManager();
 
-        if (iresourcemanager instanceof IReloadableResourceManager)
+        if (iresourcemanager instanceof IReloadableResourceManager ireloadableresourcemanager)
         {
-            IReloadableResourceManager ireloadableresourcemanager = (IReloadableResourceManager)iresourcemanager;
-            IResourceManagerReloadListener iresourcemanagerreloadlistener = new IResourceManagerReloadListener()
-            {
-                public void onResourceManagerReload(IResourceManager var1)
-                {
-                    TextureUtils.resourcesReloaded(var1);
-                }
-            };
+            IResourceManagerReloadListener iresourcemanagerreloadlistener = var1 -> TextureUtils.resourcesReloaded(var1);
             ireloadableresourcemanager.registerReloadListener(iresourcemanagerreloadlistener);
         }
 
@@ -329,22 +320,16 @@ public class TextureUtils
 
     public static ResourceLocation fixResourceLocation(ResourceLocation loc, String basePath)
     {
-        if (!loc.getResourceDomain().equals("minecraft"))
-        {
-            return loc;
-        }
-        else
-        {
+        if (loc.getResourceDomain().equals("minecraft")) {
             String s = loc.getResourcePath();
             String s1 = fixResourcePath(s, basePath);
 
-            if (s1 != s)
-            {
+            if (s1 != s) {
                 loc = new ResourceLocation(loc.getResourceDomain(), s1);
             }
 
-            return loc;
         }
+        return loc;
     }
 
     public static String fixResourcePath(String path, String basePath)
@@ -454,7 +439,6 @@ public class TextureUtils
 
             for (i = size / sizeGrid * sizeGrid; i < size; i += sizeGrid)
             {
-                ;
             }
 
             return i;
@@ -473,7 +457,6 @@ public class TextureUtils
 
             for (i = sizeMin / size * size; i < sizeMin; i += size)
             {
-                ;
             }
 
             return i;
@@ -586,7 +569,7 @@ public class TextureUtils
 
         if (tas.getFrameCount() < 1)
         {
-            List<int[][]> list = new ArrayList();
+            List<int[][]> list = new ArrayList<>();
             int[][] aint = new int[mipmaps + 1][];
             int[] aint1 = new int[i * j];
             aint[0] = aint1;
@@ -594,7 +577,7 @@ public class TextureUtils
             tas.setFramesTextureData(list);
         }
 
-        List<int[][]> list1 = new ArrayList();
+        List<int[][]> list1 = new ArrayList<>();
         int l = tas.getFrameCount();
 
         for (int i1 = 0; i1 < l; ++i1)
@@ -647,8 +630,7 @@ public class TextureUtils
 
             if (aint != null && aint.length > level)
             {
-                int[] aint1 = aint[level];
-                return aint1;
+                return aint[level];
             }
             else
             {

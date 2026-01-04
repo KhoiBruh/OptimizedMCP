@@ -38,7 +38,7 @@ public class ShadersTex
     public static final int defBaseTexColor = 0;
     public static final int defNormTexColor = -8421377;
     public static final int defSpecTexColor = 0;
-    public static Map<Integer, MultiTexID> multiTexMap = new HashMap();
+    public static Map<Integer, MultiTexID> multiTexMap = new HashMap<>();
 
     public static IntBuffer getIntBuffer(int size)
     {
@@ -148,12 +148,12 @@ public class ShadersTex
         if (multitexid == null)
         {
             int i = tex.getGlTextureId();
-            multitexid = multiTexMap.get(Integer.valueOf(i));
+            multitexid = multiTexMap.get(i);
 
             if (multitexid == null)
             {
                 multitexid = new MultiTexID(i, GL11.glGenTextures(), GL11.glGenTextures());
-                multiTexMap.put(Integer.valueOf(i), multitexid);
+                multiTexMap.put(i, multitexid);
             }
 
             tex.multiTex = multitexid;
@@ -169,7 +169,7 @@ public class ShadersTex
         if (multitexid != null)
         {
             atex.multiTex = null;
-            multiTexMap.remove(Integer.valueOf(multitexid.base));
+            multiTexMap.remove(multitexid.base);
             GlStateManager.deleteTexture(multitexid.norm);
             GlStateManager.deleteTexture(multitexid.spec);
 
@@ -264,7 +264,7 @@ public class ShadersTex
 
     public static void bindTextures(int baseTex)
     {
-        MultiTexID multitexid = multiTexMap.get(Integer.valueOf(baseTex));
+        MultiTexID multitexid = multiTexMap.get(baseTex);
         bindTextures(multitexid);
     }
 
@@ -507,14 +507,12 @@ public class ShadersTex
         }
 
         int l1 = (k1 + 1) / 2;
-        int i2 = j1 << 24 | ((c0 >>> 16 & 255) * i + (c1 >>> 16 & 255) * j + (c2 >>> 16 & 255) * k + (c3 >>> 16 & 255) * l + l1) / k1 << 16 | ((c0 >>> 8 & 255) * i + (c1 >>> 8 & 255) * j + (c2 >>> 8 & 255) * k + (c3 >>> 8 & 255) * l + l1) / k1 << 8 | ((c0 >>> 0 & 255) * i + (c1 >>> 0 & 255) * j + (c2 >>> 0 & 255) * k + (c3 >>> 0 & 255) * l + l1) / k1 << 0;
-        return i2;
+        return j1 << 24 | ((c0 >>> 16 & 255) * i + (c1 >>> 16 & 255) * j + (c2 >>> 16 & 255) * k + (c3 >>> 16 & 255) * l + l1) / k1 << 16 | ((c0 >>> 8 & 255) * i + (c1 >>> 8 & 255) * j + (c2 >>> 8 & 255) * k + (c3 >>> 8 & 255) * l + l1) / k1 << 8 | ((c0 & 255) * i + (c1 & 255) * j + (c2 & 255) * k + (c3 & 255) * l + l1) / k1;
     }
 
     public static int blend4Simple(int c0, int c1, int c2, int c3)
     {
-        int i = ((c0 >>> 24 & 255) + (c1 >>> 24 & 255) + (c2 >>> 24 & 255) + (c3 >>> 24 & 255) + 2) / 4 << 24 | ((c0 >>> 16 & 255) + (c1 >>> 16 & 255) + (c2 >>> 16 & 255) + (c3 >>> 16 & 255) + 2) / 4 << 16 | ((c0 >>> 8 & 255) + (c1 >>> 8 & 255) + (c2 >>> 8 & 255) + (c3 >>> 8 & 255) + 2) / 4 << 8 | ((c0 >>> 0 & 255) + (c1 >>> 0 & 255) + (c2 >>> 0 & 255) + (c3 >>> 0 & 255) + 2) / 4 << 0;
-        return i;
+        return ((c0 >>> 24 & 255) + (c1 >>> 24 & 255) + (c2 >>> 24 & 255) + (c3 >>> 24 & 255) + 2) / 4 << 24 | ((c0 >>> 16 & 255) + (c1 >>> 16 & 255) + (c2 >>> 16 & 255) + (c3 >>> 16 & 255) + 2) / 4 << 16 | ((c0 >>> 8 & 255) + (c1 >>> 8 & 255) + (c2 >>> 8 & 255) + (c3 >>> 8 & 255) + 2) / 4 << 8 | ((c0 & 255) + (c1 & 255) + (c2 & 255) + (c3 & 255) + 2) / 4;
     }
 
     public static void genMipmapAlpha(int[] aint, int offset, int width, int height)
@@ -833,14 +831,10 @@ public class ShadersTex
         return textureID;
     }
 
-    public static void mergeImage(int[] aint, int dstoff, int srcoff, int size)
-    {
-    }
-
     public static int blendColor(int color1, int color2, int factor1)
     {
         int i = 255 - factor1;
-        return ((color1 >>> 24 & 255) * factor1 + (color2 >>> 24 & 255) * i) / 255 << 24 | ((color1 >>> 16 & 255) * factor1 + (color2 >>> 16 & 255) * i) / 255 << 16 | ((color1 >>> 8 & 255) * factor1 + (color2 >>> 8 & 255) * i) / 255 << 8 | ((color1 >>> 0 & 255) * factor1 + (color2 >>> 0 & 255) * i) / 255 << 0;
+        return ((color1 >>> 24 & 255) * factor1 + (color2 >>> 24 & 255) * i) / 255 << 24 | ((color1 >>> 16 & 255) * factor1 + (color2 >>> 16 & 255) * i) / 255 << 16 | ((color1 >>> 8 & 255) * factor1 + (color2 >>> 8 & 255) * i) / 255 << 8 | ((color1 & 255) * factor1 + (color2 & 255) * i) / 255;
     }
 
     public static void loadLayeredTexture(LayeredTexture tex, IResourceManager manager, List list)
@@ -948,7 +942,4 @@ public class ShadersTex
         return src;
     }
 
-    public static void fixTransparentColor(TextureAtlasSprite tas, int[] aint)
-    {
-    }
 }

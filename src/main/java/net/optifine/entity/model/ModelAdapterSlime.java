@@ -18,20 +18,23 @@ public class ModelAdapterSlime extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSlime)) {
-            return null;
-        } else {
-            ModelSlime modelslime = (ModelSlime) model;
-            if (modelPart.equals("body"))
-                return modelslime.slimeBodies;
-            if (modelPart.equals("left_eye"))
-                return modelslime.slimeRightEye;
-            if (modelPart.equals("right_eye"))
-                return modelslime.slimeLeftEye;
-            if (modelPart.equals("mouth"))
-                return modelslime.slimeMouth;
-            return null;
+        if (model instanceof ModelSlime modelslime) {
+            switch (modelPart) {
+                case "body" -> {
+                    return modelslime.slimeBodies;
+                }
+                case "left_eye" -> {
+                    return modelslime.slimeRightEye;
+                }
+                case "right_eye" -> {
+                    return modelslime.slimeLeftEye;
+                }
+                case "mouth" -> {
+                    return modelslime.slimeMouth;
+                }
+            }
         }
+        return null;
     }
 
     public String[] getModelRendererNames() {
@@ -40,7 +43,6 @@ public class ModelAdapterSlime extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderSlime renderslime = new RenderSlime(rendermanager, modelBase, shadowSize);
-        return renderslime;
+        return new RenderSlime(rendermanager, modelBase, shadowSize);
     }
 }

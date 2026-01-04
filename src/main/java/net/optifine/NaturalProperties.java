@@ -16,37 +16,25 @@ public class NaturalProperties
 
     public NaturalProperties(String type)
     {
-        if (type.equals("4"))
-        {
-            this.rotation = 4;
-        }
-        else if (type.equals("2"))
-        {
-            this.rotation = 2;
-        }
-        else if (type.equals("F"))
-        {
-            this.flip = true;
-        }
-        else if (type.equals("4F"))
-        {
-            this.rotation = 4;
-            this.flip = true;
-        }
-        else if (type.equals("2F"))
-        {
-            this.rotation = 2;
-            this.flip = true;
-        }
-        else
-        {
-            Config.warn("NaturalTextures: Unknown type: " + type);
+        switch (type) {
+            case "4" -> this.rotation = 4;
+            case "2" -> this.rotation = 2;
+            case "F" -> this.flip = true;
+            case "4F" -> {
+                this.rotation = 4;
+                this.flip = true;
+            }
+            case "2F" -> {
+                this.rotation = 2;
+                this.flip = true;
+            }
+            default -> Config.warn("NaturalTextures: Unknown type: " + type);
         }
     }
 
     public boolean isValid()
     {
-        return this.rotation != 2 && this.rotation != 4 ? this.flip : true;
+        return this.rotation == 2 || this.rotation == 4 || this.flip;
     }
 
     public synchronized BakedQuad getQuad(BakedQuad quadIn, int rotate, boolean flipU)
@@ -97,8 +85,7 @@ public class NaturalProperties
         }
 
         aint = this.transformVertexData(aint, rotate, flipU);
-        BakedQuad bakedquad = new BakedQuad(aint, i, enumfacing, textureatlassprite);
-        return bakedquad;
+        return new BakedQuad(aint, i, enumfacing, textureatlassprite);
     }
 
     private int[] transformVertexData(int[] vertexData, int rotate, boolean flipU)

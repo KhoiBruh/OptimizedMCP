@@ -7,7 +7,7 @@ import net.minecraft.src.Config;
 
 public class CacheObjectArray
 {
-    private static ArrayDeque<int[]> arrays = new ArrayDeque();
+    private static ArrayDeque<int[]> arrays = new ArrayDeque<>();
     private static int maxCacheSize = 10;
 
     private static synchronized int[] allocateArray(int size)

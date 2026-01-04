@@ -22,34 +22,24 @@ public class ModelAdapterOcelot extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelOcelot)) {
+        if (!(model instanceof ModelOcelot modelocelot)) {
             return null;
         } else {
-            ModelOcelot modelocelot = (ModelOcelot) model;
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart).intValue();
-                switch (i) {
-                    case 0:
-                        return modelocelot.ocelotBackLeftLeg;
-                    case 1:
-                        return modelocelot.ocelotBackRightLeg;
-                    case 2:
-                        return modelocelot.ocelotFrontLeftLeg;
-                    case 3:
-                        return modelocelot.ocelotFrontRightLeg;
-                    case 4:
-                        return modelocelot.ocelotTail;
-                    case 5:
-                        return modelocelot.ocelotTail2;
-                    case 6:
-                        return modelocelot.ocelotHead;
-                    case 7:
-                        return modelocelot.ocelotBody;
-                    default:
-                        return null;
-                }
+                int i = map.get(modelPart);
+                return switch (i) {
+                    case 0 -> modelocelot.ocelotBackLeftLeg;
+                    case 1 -> modelocelot.ocelotBackRightLeg;
+                    case 2 -> modelocelot.ocelotFrontLeftLeg;
+                    case 3 -> modelocelot.ocelotFrontRightLeg;
+                    case 4 -> modelocelot.ocelotTail;
+                    case 5 -> modelocelot.ocelotTail2;
+                    case 6 -> modelocelot.ocelotHead;
+                    case 7 -> modelocelot.ocelotBody;
+                    default -> null;
+                };
             } else {
                 return null;
             }
@@ -62,25 +52,22 @@ public class ModelAdapterOcelot extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
-            mapPartFields = new HashMap();
-            mapPartFields.put("back_left_leg", Integer.valueOf(0));
-            mapPartFields.put("back_right_leg", Integer.valueOf(1));
-            mapPartFields.put("front_left_leg", Integer.valueOf(2));
-            mapPartFields.put("front_right_leg", Integer.valueOf(3));
-            mapPartFields.put("tail", Integer.valueOf(4));
-            mapPartFields.put("tail2", Integer.valueOf(5));
-            mapPartFields.put("head", Integer.valueOf(6));
-            mapPartFields.put("body", Integer.valueOf(7));
-            return mapPartFields;
+        if (mapPartFields == null) {
+            mapPartFields = new HashMap<>();
+            mapPartFields.put("back_left_leg", 0);
+            mapPartFields.put("back_right_leg", 1);
+            mapPartFields.put("front_left_leg", 2);
+            mapPartFields.put("front_right_leg", 3);
+            mapPartFields.put("tail", 4);
+            mapPartFields.put("tail2", 5);
+            mapPartFields.put("head", 6);
+            mapPartFields.put("body", 7);
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderOcelot renderocelot = new RenderOcelot(rendermanager, modelBase, shadowSize);
-        return renderocelot;
+        return new RenderOcelot(rendermanager, modelBase, shadowSize);
     }
 }

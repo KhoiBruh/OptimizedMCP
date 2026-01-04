@@ -19,18 +19,15 @@ public class NativeMemory {
 	}
 
 	private static LongSupplier makeLongSupplier(String[][] paths) {
-		List<Throwable> list = new ArrayList();
+		List<Throwable> list = new ArrayList<>();
 
-		for (int i = 0; i < paths.length; ++i) {
-			String[] astring = paths[i];
-
-			try {
-				LongSupplier longsupplier = makeLongSupplier(astring);
-				return longsupplier;
-			} catch (Throwable throwable) {
-				list.add(throwable);
-			}
-		}
+        for (String[] astring : paths) {
+            try {
+                return makeLongSupplier(astring);
+            } catch (Throwable throwable) {
+                list.add(throwable);
+            }
+        }
 
 		for (Throwable throwable1 : list) {
 			Config.warn("" + throwable1.getClass().getName() + ": " + throwable1.getMessage());
@@ -57,24 +54,23 @@ public class NativeMemory {
 
 			Method finalMethod = method;
 			Object finalObject = object;
-			LongSupplier longsupplier = new LongSupplier() {
-				private boolean disabled = false;
+            return new LongSupplier() {
+                private boolean disabled = false;
 
-				public long getAsLong() {
-					if (this.disabled) {
-						return -1L;
-					} else {
-						try {
-							return ((Long) finalMethod.invoke(finalObject, new Object[0])).longValue();
-						} catch (Throwable throwable) {
-							Config.warn("" + throwable.getClass().getName() + ": " + throwable.getMessage());
-							this.disabled = true;
-							return -1L;
-						}
-					}
-				}
-			};
-			return longsupplier;
+                public long getAsLong() {
+                    if (this.disabled) {
+                        return -1L;
+                    } else {
+                        try {
+                            return (Long) finalMethod.invoke(finalObject, new Object[0]);
+                        } catch (Throwable throwable) {
+                            Config.warn("" + throwable.getClass().getName() + ": " + throwable.getMessage());
+                            this.disabled = true;
+                            return -1L;
+                        }
+                    }
+                }
+            };
 		}
 	}
 }

@@ -7,17 +7,12 @@ import net.optifine.expr.IExpressionResolver;
 
 public class ShaderOptionResolver implements IExpressionResolver
 {
-    private Map<String, ExpressionShaderOptionSwitch> mapOptions = new HashMap();
+    private Map<String, ExpressionShaderOptionSwitch> mapOptions = new HashMap<>();
 
     public ShaderOptionResolver(ShaderOption[] options)
     {
-        for (int i = 0; i < options.length; ++i)
-        {
-            ShaderOption shaderoption = options[i];
-
-            if (shaderoption instanceof ShaderOptionSwitch)
-            {
-                ShaderOptionSwitch shaderoptionswitch = (ShaderOptionSwitch)shaderoption;
+        for (ShaderOption shaderoption : options) {
+            if (shaderoption instanceof ShaderOptionSwitch shaderoptionswitch) {
                 ExpressionShaderOptionSwitch expressionshaderoptionswitch = new ExpressionShaderOptionSwitch(shaderoptionswitch);
                 this.mapOptions.put(shaderoption.getName(), expressionshaderoptionswitch);
             }
@@ -26,7 +21,6 @@ public class ShaderOptionResolver implements IExpressionResolver
 
     public IExpression getExpression(String name)
     {
-        ExpressionShaderOptionSwitch expressionshaderoptionswitch = this.mapOptions.get(name);
-        return expressionshaderoptionswitch;
+        return this.mapOptions.get(name);
     }
 }

@@ -5,22 +5,16 @@ import java.util.Map;
 
 public class TimedEvent
 {
-    private static Map<String, Long> mapEventTimes = new HashMap();
+    private static Map<String, Long> mapEventTimes = new HashMap<>();
 
     public static boolean isActive(String name, long timeIntervalMs)
     {
         synchronized (mapEventTimes)
         {
             long i = System.currentTimeMillis();
-            Long olong = mapEventTimes.get(name);
+            Long olong = mapEventTimes.computeIfAbsent(name, k -> i);
 
-            if (olong == null)
-            {
-                olong = new Long(i);
-                mapEventTimes.put(name, olong);
-            }
-
-            long j = olong.longValue();
+            long j = olong;
 
             if (i < j + timeIntervalMs)
             {
@@ -28,7 +22,7 @@ public class TimedEvent
             }
             else
             {
-                mapEventTimes.put(name, new Long(i));
+                mapEventTimes.put(name, i);
                 return true;
             }
         }

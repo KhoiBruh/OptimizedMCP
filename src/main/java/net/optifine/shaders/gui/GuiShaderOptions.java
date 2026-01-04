@@ -111,18 +111,16 @@ public class GuiShaderOptions extends GuiScreenOF
     {
         String s = so.getNameText();
 
-        if (so instanceof ShaderOptionScreen)
+        if (so instanceof ShaderOptionScreen shaderoptionscreen)
         {
-            ShaderOptionScreen shaderoptionscreen = (ShaderOptionScreen)so;
             return s + "...";
         }
         else
         {
             FontRenderer fontrenderer = Config.getMinecraft().fontRendererObj;
 
-            for (int i = fontrenderer.getStringWidth(": " + Lang.getOff()) + 5; fontrenderer.getStringWidth(s) + i >= btnWidth && s.length() > 0; s = s.substring(0, s.length() - 1))
+            for (int i = fontrenderer.getStringWidth(": " + Lang.getOff()) + 5; fontrenderer.getStringWidth(s) + i >= btnWidth && !s.isEmpty(); s = s.substring(0, s.length() - 1))
             {
-                ;
             }
 
             String s1 = so.isChanged() ? so.getValueColor(so.getValue()) : "";
@@ -135,9 +133,8 @@ public class GuiShaderOptions extends GuiScreenOF
     {
         if (guibutton.enabled)
         {
-            if (guibutton.id < 200 && guibutton instanceof GuiButtonShaderOption)
+            if (guibutton.id < 200 && guibutton instanceof GuiButtonShaderOption guibuttonshaderoption)
             {
-                GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption)guibutton;
                 ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
                 if (shaderoption instanceof ShaderOptionScreen)
@@ -165,9 +162,7 @@ public class GuiShaderOptions extends GuiScreenOF
             {
                 ShaderOption[] ashaderoption = Shaders.getChangedOptions(Shaders.getShaderPackOptions());
 
-                for (int i = 0; i < ashaderoption.length; ++i)
-                {
-                    ShaderOption shaderoption1 = ashaderoption[i];
+                for (ShaderOption shaderoption1 : ashaderoption) {
                     shaderoption1.resetValue();
                     this.changed = true;
                 }
@@ -191,9 +186,8 @@ public class GuiShaderOptions extends GuiScreenOF
 
     protected void actionPerformedRightClick(GuiButton btn)
     {
-        if (btn instanceof GuiButtonShaderOption)
+        if (btn instanceof GuiButtonShaderOption guibuttonshaderoption)
         {
-            GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption)btn;
             ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
             if (isShiftKeyDown())
@@ -226,14 +220,12 @@ public class GuiShaderOptions extends GuiScreenOF
     {
         for (GuiButton guibutton : this.buttonList)
         {
-            if (guibutton instanceof GuiButtonShaderOption)
+            if (guibutton instanceof GuiButtonShaderOption guibuttonshaderoption)
             {
-                GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption)guibutton;
                 ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
-                if (shaderoption instanceof ShaderOptionProfile)
+                if (shaderoption instanceof ShaderOptionProfile shaderoptionprofile)
                 {
-                    ShaderOptionProfile shaderoptionprofile = (ShaderOptionProfile)shaderoption;
                     shaderoptionprofile.updateProfile();
                 }
 

@@ -87,19 +87,13 @@ public class CustomSkyLayer
     private List<String> parseWeatherList(String str)
     {
         List<String> list = Arrays.<String>asList(new String[] {"clear", "rain", "thunder"});
-        List<String> list1 = new ArrayList();
+        List<String> list1 = new ArrayList<>();
         String[] astring = Config.tokenize(str, " ");
 
-        for (int i = 0; i < astring.length; ++i)
-        {
-            String s = astring[i];
-
-            if (!list.contains(s))
-            {
+        for (String s : astring) {
+            if (!list.contains(s)) {
                 Config.warn("Unknown weather: " + s);
-            }
-            else
-            {
+            } else {
                 list1.add(s);
             }
         }
@@ -138,8 +132,7 @@ public class CustomSkyLayer
                         i += 24;
                     }
 
-                    int k = i * 1000 + (int)((double)j / 60.0D * 1000.0D);
-                    return k;
+                    return i * 1000 + (int)((double)j / 60.0D * 1000.0D);
                 }
                 else
                 {
@@ -240,8 +233,7 @@ public class CustomSkyLayer
                 }
                 else
                 {
-                    float[] afloat1 = new float[] {f1, f, -f2};
-                    return afloat1;
+                    return new float[] {f1, f, -f2};
                 }
             }
         }
@@ -505,16 +497,12 @@ public class CustomSkyLayer
 
                 for (j = i - (long)this.startFadeIn; j < 0L; j += 24000 * this.daysLoop)
                 {
-                    ;
                 }
 
                 int k = (int)(j / 24000L);
                 int l = k % this.daysLoop;
 
-                if (!this.days.isInRange(l))
-                {
-                    return false;
-                }
+                return this.days.isInRange(l);
             }
 
             return true;

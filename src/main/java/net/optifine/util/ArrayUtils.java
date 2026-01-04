@@ -10,24 +10,15 @@ public class ArrayUtils
 {
     public static boolean contains(Object[] arr, Object val)
     {
-        if (arr == null)
-        {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < arr.length; ++i)
-            {
-                Object object = arr[i];
-
-                if (object == val)
-                {
+        if (arr != null) {
+            for (Object object : arr) {
+                if (object == val) {
                     return true;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static int[] addIntsToArray(int[] intArray, int[] copyFrom)
@@ -108,7 +99,7 @@ public class ArrayUtils
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i)
             {
@@ -119,7 +110,7 @@ public class ArrayUtils
                     stringbuffer.append(separator);
                 }
 
-                stringbuffer.append(String.valueOf(flag));
+                stringbuffer.append(flag);
             }
 
             return stringbuffer.toString();
@@ -139,7 +130,7 @@ public class ArrayUtils
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i)
             {
@@ -150,7 +141,7 @@ public class ArrayUtils
                     stringbuffer.append(separator);
                 }
 
-                stringbuffer.append(String.valueOf(f));
+                stringbuffer.append(f);
             }
 
             return stringbuffer.toString();
@@ -165,7 +156,7 @@ public class ArrayUtils
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i)
             {
@@ -176,7 +167,7 @@ public class ArrayUtils
                     stringbuffer.append(separator);
                 }
 
-                stringbuffer.append(String.format(format, new Object[] {Float.valueOf(f)}));
+                stringbuffer.append(String.format(format, new Object[] {f}));
             }
 
             return stringbuffer.toString();
@@ -196,7 +187,7 @@ public class ArrayUtils
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i)
             {
@@ -207,7 +198,7 @@ public class ArrayUtils
                     stringbuffer.append(separator);
                 }
 
-                stringbuffer.append(String.valueOf(j));
+                stringbuffer.append(j);
             }
 
             return stringbuffer.toString();
@@ -222,7 +213,7 @@ public class ArrayUtils
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i)
             {
@@ -254,7 +245,7 @@ public class ArrayUtils
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i)
             {
@@ -265,7 +256,7 @@ public class ArrayUtils
                     stringbuffer.append(separator);
                 }
 
-                stringbuffer.append(String.valueOf(object));
+                stringbuffer.append(object);
             }
 
             return stringbuffer.toString();
@@ -295,10 +286,8 @@ public class ArrayUtils
 
     public static boolean equalsOne(int val, int[] vals)
     {
-        for (int i = 0; i < vals.length; ++i)
-        {
-            if (vals[i] == val)
-            {
+        for (int j : vals) {
+            if (j == val) {
                 return true;
             }
         }
@@ -308,59 +297,40 @@ public class ArrayUtils
 
     public static boolean equalsOne(Object a, Object[] bs)
     {
-        if (bs == null)
-        {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < bs.length; ++i)
-            {
-                Object object = bs[i];
-
-                if (equals(a, object))
-                {
+        if (bs != null) {
+            for (Object object : bs) {
+                if (equals(a, object)) {
                     return true;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static boolean equals(Object o1, Object o2)
     {
-        return o1 == o2 ? true : (o1 == null ? false : o1.equals(o2));
+        return o1 == o2 || (o1 != null && o1.equals(o2));
     }
 
     public static boolean isSameOne(Object a, Object[] bs)
     {
-        if (bs == null)
-        {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < bs.length; ++i)
-            {
-                Object object = bs[i];
-
-                if (a == object)
-                {
+        if (bs != null) {
+            for (Object object : bs) {
+                if (a == object) {
                     return true;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static Object[] removeObjectFromArray(Object[] arr, Object obj)
     {
         List list = new ArrayList(Arrays.asList(arr));
         list.remove(obj);
-        Object[] aobject = collectionToArray(list, arr.getClass().getComponentType());
-        return aobject;
+        return collectionToArray(list, arr.getClass().getComponentType());
     }
 
     public static int[] toPrimitive(Integer[] arr)
@@ -379,7 +349,7 @@ public class ArrayUtils
 
             for (int i = 0; i < aint.length; ++i)
             {
-                aint[i] = arr[i].intValue();
+                aint[i] = arr[i];
             }
 
             return aint;

@@ -80,7 +80,7 @@ public class CustomEntityModelParser
             }
         }
 
-        CustomModelRenderer[] acustommodelrenderer = (CustomModelRenderer[]) list.toArray(new CustomModelRenderer[list.size()]);
+        CustomModelRenderer[] acustommodelrenderer = (CustomModelRenderer[]) list.toArray(new CustomModelRenderer[0]);
         ResourceLocation resourcelocation = null;
 
         if (s2 != null)
@@ -88,8 +88,7 @@ public class CustomEntityModelParser
             resourcelocation = getResourceLocation(s1, s2, ".png");
         }
 
-        CustomEntityRenderer customentityrenderer = new CustomEntityRenderer(s, s1, resourcelocation, acustommodelrenderer, f);
-        return customentityrenderer;
+        return new CustomEntityRenderer(s, s1, resourcelocation, acustommodelrenderer, f);
     }
 
     private static void processBaseId(JsonObject elem, Map mapModelJsons)
@@ -131,13 +130,9 @@ public class CustomEntityModelParser
 
                 copyJsonElements(jsonobject, elem);
             }
-            catch (IOException ioexception)
+            catch (IOException | JsonParseException ioexception)
             {
                 Config.error("" + ioexception.getClass().getName() + ": " + ioexception.getMessage());
-            }
-            catch (JsonParseException jsonparseexception)
-            {
-                Config.error("" + jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
             }
             catch (Exception exception)
             {
@@ -186,7 +181,7 @@ public class CustomEntityModelParser
 
         if (s != null)
         {
-            if (s.length() < 1)
+            if (s.isEmpty())
             {
                 Config.warn("Empty model ID: " + s);
             }
@@ -219,7 +214,7 @@ public class CustomEntityModelParser
 
         if (jsonarray != null)
         {
-            List<ModelVariableUpdater> list = new ArrayList();
+            List<ModelVariableUpdater> list = new ArrayList<>();
 
             for (int i = 0; i < jsonarray.size(); ++i)
             {
@@ -234,16 +229,15 @@ public class CustomEntityModelParser
                 }
             }
 
-            if (list.size() > 0)
+            if (!list.isEmpty())
             {
-                ModelVariableUpdater[] amodelvariableupdater = list.toArray(new ModelVariableUpdater[list.size()]);
+                ModelVariableUpdater[] amodelvariableupdater = list.toArray(new ModelVariableUpdater[0]);
                 modelupdater = new ModelUpdater(amodelvariableupdater);
             }
         }
 
         ModelRenderer modelrenderer = PlayerItemParser.parseModelRenderer(elem, modelbase, textureSize, basePath);
-        CustomModelRenderer custommodelrenderer = new CustomModelRenderer(s, flag, modelrenderer, modelupdater);
-        return custommodelrenderer;
+        return new CustomModelRenderer(s, flag, modelrenderer, modelupdater);
     }
 
     private static void checkNull(Object obj, String msg)
@@ -266,8 +260,7 @@ public class CustomEntityModelParser
         {
             String s = Config.readInputStream(inputstream, "ASCII");
             inputstream.close();
-            JsonObject jsonobject = JsonParser.parseString(s).getAsJsonObject();
-            return jsonobject;
+            return JsonParser.parseString(s).getAsJsonObject();
         }
     }
 }

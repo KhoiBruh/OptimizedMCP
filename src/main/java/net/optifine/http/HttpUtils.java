@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Config;
@@ -46,22 +47,16 @@ public class HttpUtils
             byte[] abyte = new byte[httpurlconnection.getContentLength()];
             int i = 0;
 
-            while (true)
-            {
+            do {
                 int j = inputstream.read(abyte, i, abyte.length - i);
 
-                if (j < 0)
-                {
+                if (j < 0) {
                     throw new IOException("Input stream closed: " + urlStr);
                 }
 
                 i += j;
 
-                if (i >= abyte.length)
-                {
-                    break;
-                }
-            }
+            } while (i < abyte.length);
 
             abyte1 = abyte;
         }
@@ -107,9 +102,9 @@ public class HttpUtils
             outputstream.flush();
             outputstream.close();
             InputStream inputstream = httpurlconnection.getInputStream();
-            InputStreamReader inputstreamreader = new InputStreamReader(inputstream, "ASCII");
+            InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
             BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-            StringBuffer stringbuffer = new StringBuffer();
+            StringBuilder stringbuffer = new StringBuilder();
             String s2;
 
             while ((s2 = bufferedreader.readLine()) != null)

@@ -2819,17 +2819,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     public void onEntityAdded(Entity entityIn)
     {
         RandomEntities.entityLoaded(entityIn, this.theWorld);
-
-        if (Config.isDynamicLights())
-        {
-            DynamicLights.entityAdded(entityIn, this);
-        }
     }
 
     public void onEntityRemoved(Entity entityIn)
     {
-        RandomEntities.entityUnloaded(entityIn, this.theWorld);
-
         if (Config.isDynamicLights())
         {
             DynamicLights.entityRemoved(entityIn, this);

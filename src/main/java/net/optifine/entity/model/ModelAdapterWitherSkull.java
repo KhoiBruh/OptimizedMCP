@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelSkeletonHead;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
 import net.minecraft.entity.projectile.EntityWitherSkull;
-import net.minecraft.src.Config;
 
 public class ModelAdapterWitherSkull extends ModelAdapter {
     public ModelAdapterWitherSkull() {
@@ -19,10 +18,9 @@ public class ModelAdapterWitherSkull extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSkeletonHead)) {
+        if (!(model instanceof ModelSkeletonHead modelskeletonhead)) {
             return null;
         } else {
-            ModelSkeletonHead modelskeletonhead = (ModelSkeletonHead) model;
             return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
         }
     }

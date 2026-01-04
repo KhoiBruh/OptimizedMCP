@@ -28,8 +28,7 @@ public class MathUtils
         else
         {
             int i = getSum(vals);
-            int j = i / vals.length;
-            return j;
+            return i / vals.length;
         }
     }
 
@@ -43,9 +42,7 @@ public class MathUtils
         {
             int i = 0;
 
-            for (int j = 0; j < vals.length; ++j)
-            {
-                int k = vals[j];
+            for (int k : vals) {
                 i += k;
             }
 

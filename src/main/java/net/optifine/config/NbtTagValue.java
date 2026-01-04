@@ -87,7 +87,7 @@ public class NbtTagValue
 
     public boolean matches(NBTTagCompound nbt)
     {
-        return this.negative ? !this.matchesCompound(nbt) : this.matchesCompound(nbt);
+        return this.negative != this.matchesCompound(nbt);
     }
 
     public boolean matchesCompound(NBTTagCompound nbt)
@@ -100,13 +100,10 @@ public class NbtTagValue
         {
             NBTBase nbtbase = nbt;
 
-            for (int i = 0; i < this.parents.length; ++i)
-            {
-                String s = this.parents[i];
+            for (String s : this.parents) {
                 nbtbase = getChildTag(nbtbase, s);
 
-                if (nbtbase == null)
-                {
+                if (nbtbase == null) {
                     return false;
                 }
             }
@@ -123,23 +120,15 @@ public class NbtTagValue
                 {
                     return false;
                 }
-                else if (this.matchesBase(nbtbase))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                else return this.matchesBase(nbtbase);
             }
         }
     }
 
     private boolean matchesAnyChild(NBTBase tagBase)
     {
-        if (tagBase instanceof NBTTagCompound)
+        if (tagBase instanceof NBTTagCompound nbttagcompound)
         {
-            NBTTagCompound nbttagcompound = (NBTTagCompound)tagBase;
 
             for (String s : nbttagcompound.getKeySet())
             {
@@ -152,9 +141,8 @@ public class NbtTagValue
             }
         }
 
-        if (tagBase instanceof NBTTagList)
+        if (tagBase instanceof NBTTagList nbttaglist)
         {
-            NBTTagList nbttaglist = (NBTTagList)tagBase;
             int i = nbttaglist.tagCount();
 
             for (int j = 0; j < i; ++j)
@@ -173,14 +161,12 @@ public class NbtTagValue
 
     private static NBTBase getChildTag(NBTBase tagBase, String tag)
     {
-        if (tagBase instanceof NBTTagCompound)
+        if (tagBase instanceof NBTTagCompound nbttagcompound)
         {
-            NBTTagCompound nbttagcompound = (NBTTagCompound)tagBase;
             return nbttagcompound.getTag(tag);
         }
-        else if (tagBase instanceof NBTTagList)
+        else if (tagBase instanceof NBTTagList nbttaglist)
         {
-            NBTTagList nbttaglist = (NBTTagList)tagBase;
 
             if (tag.equals("count"))
             {
@@ -219,26 +205,14 @@ public class NbtTagValue
         }
         else
         {
-            switch (this.type)
-            {
-                case 0:
-                    return nbtValue.equals(this.value);
-
-                case 1:
-                    return this.matchesPattern(nbtValue, this.value);
-
-                case 2:
-                    return this.matchesPattern(nbtValue.toLowerCase(), this.value);
-
-                case 3:
-                    return this.matchesRegex(nbtValue, this.value);
-
-                case 4:
-                    return this.matchesRegex(nbtValue.toLowerCase(), this.value);
-
-                default:
-                    throw new IllegalArgumentException("Unknown NbtTagValue type: " + this.type);
-            }
+            return switch (this.type) {
+                case 0 -> nbtValue.equals(this.value);
+                case 1 -> this.matchesPattern(nbtValue, this.value);
+                case 2 -> this.matchesPattern(nbtValue.toLowerCase(), this.value);
+                case 3 -> this.matchesRegex(nbtValue, this.value);
+                case 4 -> this.matchesRegex(nbtValue.toLowerCase(), this.value);
+                default -> throw new IllegalArgumentException("Unknown NbtTagValue type: " + this.type);
+            };
         }
     }
 
@@ -254,54 +228,23 @@ public class NbtTagValue
 
     private static String getNbtString(NBTBase nbtBase, int format)
     {
-        if (nbtBase == null)
-        {
-            return null;
-        }
-        else if (nbtBase instanceof NBTTagString)
-        {
-            NBTTagString nbttagstring = (NBTTagString)nbtBase;
-            return nbttagstring.getString();
-        }
-        else if (nbtBase instanceof NBTTagInt)
-        {
-            NBTTagInt nbttagint = (NBTTagInt)nbtBase;
-            return format == 1 ? "#" + StrUtils.fillLeft(Integer.toHexString(nbttagint.getInt()), 6, '0') : Integer.toString(nbttagint.getInt());
-        }
-        else if (nbtBase instanceof NBTTagByte)
-        {
-            NBTTagByte nbttagbyte = (NBTTagByte)nbtBase;
-            return Byte.toString(nbttagbyte.getByte());
-        }
-        else if (nbtBase instanceof NBTTagShort)
-        {
-            NBTTagShort nbttagshort = (NBTTagShort)nbtBase;
-            return Short.toString(nbttagshort.getShort());
-        }
-        else if (nbtBase instanceof NBTTagLong)
-        {
-            NBTTagLong nbttaglong = (NBTTagLong)nbtBase;
-            return Long.toString(nbttaglong.getLong());
-        }
-        else if (nbtBase instanceof NBTTagFloat)
-        {
-            NBTTagFloat nbttagfloat = (NBTTagFloat)nbtBase;
-            return Float.toString(nbttagfloat.getFloat());
-        }
-        else if (nbtBase instanceof NBTTagDouble)
-        {
-            NBTTagDouble nbttagdouble = (NBTTagDouble)nbtBase;
-            return Double.toString(nbttagdouble.getDouble());
-        }
-        else
-        {
-            return nbtBase.toString();
-        }
+        return switch (nbtBase) {
+            case null -> null;
+            case NBTTagString nbttagstring -> nbttagstring.getString();
+            case NBTTagInt nbttagint ->
+                    format == 1 ? "#" + StrUtils.fillLeft(Integer.toHexString(nbttagint.getInt()), 6, '0') : Integer.toString(nbttagint.getInt());
+            case NBTTagByte nbttagbyte -> Byte.toString(nbttagbyte.getByte());
+            case NBTTagShort nbttagshort -> Short.toString(nbttagshort.getShort());
+            case NBTTagLong nbttaglong -> Long.toString(nbttaglong.getLong());
+            case NBTTagFloat nbttagfloat -> Float.toString(nbttagfloat.getFloat());
+            case NBTTagDouble nbttagdouble -> Double.toString(nbttagdouble.getDouble());
+            default -> nbtBase.toString();
+        };
     }
 
     public String toString()
     {
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
 
         for (int i = 0; i < this.parents.length; ++i)
         {
@@ -315,7 +258,7 @@ public class NbtTagValue
             stringbuffer.append(s);
         }
 
-        if (stringbuffer.length() > 0)
+        if (!stringbuffer.isEmpty())
         {
             stringbuffer.append(".");
         }

@@ -6,22 +6,16 @@ import net.minecraft.client.Minecraft;
 
 public class FrameEvent
 {
-    private static Map<String, Integer> mapEventFrames = new HashMap();
+    private static Map<String, Integer> mapEventFrames = new HashMap<>();
 
     public static boolean isActive(String name, int frameInterval)
     {
         synchronized (mapEventFrames)
         {
             int i = Minecraft.getMinecraft().entityRenderer.frameCount;
-            Integer integer = mapEventFrames.get(name);
+            Integer integer = mapEventFrames.computeIfAbsent(name, k -> i);
 
-            if (integer == null)
-            {
-                integer = new Integer(i);
-                mapEventFrames.put(name, integer);
-            }
-
-            int j = integer.intValue();
+            int j = integer;
 
             if (i > j && i < j + frameInterval)
             {
@@ -29,7 +23,7 @@ public class FrameEvent
             }
             else
             {
-                mapEventFrames.put(name, new Integer(i));
+                mapEventFrames.put(name, i);
                 return true;
             }
         }

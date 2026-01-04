@@ -67,7 +67,7 @@ public class ParametersVariable implements IParameters
             ++k;
         }
 
-        List<ExpressionType> list = new ArrayList(Arrays.<ExpressionType>asList(this.first));
+        List<ExpressionType> list = new ArrayList<>(Arrays.<ExpressionType>asList(this.first));
 
         for (int i1 = 0; i1 < k; ++i1)
         {
@@ -75,8 +75,7 @@ public class ParametersVariable implements IParameters
         }
 
         list.addAll(Arrays.<ExpressionType>asList(this.last));
-        ExpressionType[] aexpressiontype = list.toArray(new ExpressionType[0]);
-        return aexpressiontype;
+        return list.toArray(new ExpressionType[0]);
     }
 
     public ParametersVariable first(ExpressionType... first)

@@ -2,7 +2,6 @@ package net.optifine.shaders;
 
 import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.util.MathHelper;
-import org.joml.Vector4f;
 
 public class ClippingHelperShadow extends ClippingHelper {
     private static final ClippingHelperShadow instance = new ClippingHelperShadow();

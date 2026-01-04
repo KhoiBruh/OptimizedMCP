@@ -44,7 +44,7 @@ public class ItemAliases {
                 Config.dbg("[Shaders] Delayed loading of item mappings after resources are loaded");
                 updateOnResourcesReloaded = true;
             } else {
-                List<Integer> list = new ArrayList();
+                List<Integer> list = new ArrayList<>();
                 String s = "/shaders/item.properties";
                 InputStream inputstream = shaderPack.getResourceAsStream(s);
 
@@ -54,7 +54,7 @@ public class ItemAliases {
 
                 loadModItemAliases(list);
 
-                if (list.size() > 0) {
+                if (!list.isEmpty()) {
                     itemAliases = toArray(list);
                 }
             }
@@ -64,15 +64,12 @@ public class ItemAliases {
     private static void loadModItemAliases(List<Integer> listItemAliases) {
         String[] astring = new String[0];
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
+        for (String s : astring) {
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/item.properties");
                 InputStream inputstream = Config.getResourceStream(resourcelocation);
                 loadItemAliases(inputstream, resourcelocation.toString(), listItemAliases);
             } catch (IOException var6) {
-                ;
             }
         }
     }
@@ -104,8 +101,7 @@ public class ItemAliases {
                             int[] aint = connectedparser.parseItems(s1);
 
                             if (aint != null && aint.length >= 1) {
-                                for (int j = 0; j < aint.length; ++j) {
-                                    int k = aint[j];
+                                for (int k : aint) {
                                     addToList(listItemAliases, k, i);
                                 }
                             } else {
@@ -122,17 +118,17 @@ public class ItemAliases {
 
     private static void addToList(List<Integer> list, int index, int val) {
         while (list.size() <= index) {
-            list.add(Integer.valueOf(Integer.MIN_VALUE));
+            list.add(Integer.MIN_VALUE);
         }
 
-        list.set(index, Integer.valueOf(val));
+        list.set(index, val);
     }
 
     private static int[] toArray(List<Integer> list) {
         int[] aint = new int[list.size()];
 
         for (int i = 0; i < aint.length; ++i) {
-            aint[i] = list.get(i).intValue();
+            aint[i] = list.get(i);
         }
 
         return aint;

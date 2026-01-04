@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.src.Config;
 
 public class ModelAdapterBoat extends ModelAdapter {
     public ModelAdapterBoat() {
@@ -19,10 +18,9 @@ public class ModelAdapterBoat extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBoat)) {
+        if (!(model instanceof ModelBoat modelboat)) {
             return null;
         } else {
-            ModelBoat modelboat = (ModelBoat) model;
             return modelPart.equals("bottom") ? modelboat.boatSides[0]
                     : (modelPart.equals("back") ? modelboat.boatSides[1]
                             : (modelPart.equals("front") ? modelboat.boatSides[2]

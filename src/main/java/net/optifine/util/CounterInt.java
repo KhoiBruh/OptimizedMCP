@@ -13,8 +13,7 @@ public class CounterInt
 
     public synchronized int nextValue()
     {
-        int i = this.value++;
-        return i;
+        return this.value++;
     }
 
     public synchronized void reset()

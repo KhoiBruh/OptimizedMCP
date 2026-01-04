@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.culling.ClippingHelper;
@@ -141,7 +140,6 @@ public class ShadersRender {
         if (!Shaders.isShadowPass) {
             Shaders.beginFPOverlay();
             er.renderHand(par1, par2, false, true, false);
-            Shaders.endFPOverlay();
         }
     }
 
@@ -391,15 +389,6 @@ public class ShadersRender {
 
     public static void beaconBeamBegin() {
         Shaders.useProgram(Shaders.ProgramBeaconBeam);
-    }
-
-    public static void beaconBeamStartQuad1() {
-    }
-
-    public static void beaconBeamStartQuad2() {
-    }
-
-    public static void beaconBeamDraw1() {
     }
 
     public static void beaconBeamDraw2() {

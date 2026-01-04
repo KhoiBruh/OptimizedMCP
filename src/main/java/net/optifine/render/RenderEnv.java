@@ -35,8 +35,8 @@ public class RenderEnv
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
     private EnumFacing[] borderDirections = null;
-    private List<BakedQuad> listQuadsCustomizer = new ArrayList();
-    private List<BakedQuad> listQuadsCtmMultipass = new ArrayList();
+    private List<BakedQuad> listQuadsCustomizer = new ArrayList<>();
+    private List<BakedQuad> listQuadsCtmMultipass = new ArrayList<>();
     private BakedQuad[] arrayQuadsCtm1 = new BakedQuad[1];
     private BakedQuad[] arrayQuadsCtm2 = new BakedQuad[2];
     private BakedQuad[] arrayQuadsCtm3 = new BakedQuad[3];
@@ -72,9 +72,8 @@ public class RenderEnv
     {
         if (this.blockId < 0)
         {
-            if (this.blockState instanceof BlockStateBase)
+            if (this.blockState instanceof BlockStateBase blockstatebase)
             {
-                BlockStateBase blockstatebase = (BlockStateBase)this.blockState;
                 this.blockId = blockstatebase.getBlockId();
             }
             else
@@ -90,9 +89,8 @@ public class RenderEnv
     {
         if (this.metadata < 0)
         {
-            if (this.blockState instanceof BlockStateBase)
+            if (this.blockState instanceof BlockStateBase blockstatebase)
             {
-                BlockStateBase blockstatebase = (BlockStateBase)this.blockState;
                 this.metadata = blockstatebase.getMetadata();
             }
             else
@@ -121,9 +119,9 @@ public class RenderEnv
 
     public boolean isBreakingAnimation(List listQuads)
     {
-        if (this.breakingAnimation == -1 && listQuads.size() > 0)
+        if (this.breakingAnimation == -1 && !listQuads.isEmpty())
         {
-            if (listQuads.get(0) instanceof BreakingFour)
+            if (listQuads.getFirst() instanceof BreakingFour)
             {
                 this.breakingAnimation = 1;
             }

@@ -82,50 +82,38 @@ public class CustomGuis
 
                         if (blockpos != null)
                         {
-                            if (guiscreen instanceof GuiRepair)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.ANVIL, blockpos, iblockaccess, loc, guiscreen);
+                            switch (guiscreen) {
+                                case GuiRepair guiRepair -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.ANVIL, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiBeacon guiBeacon -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.BEACON, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiBrewingStand guiBrewingStand -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.BREWING_STAND, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiChest guiChest -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.CHEST, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiCrafting guiCrafting -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.CRAFTING, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiDispenser guiDispenser -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.DISPENSER, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiEnchantment guiEnchantment -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.ENCHANTMENT, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiFurnace guiFurnace -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.FURNACE, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                case GuiHopper guiHopper -> {
+                                    return getTexturePos(CustomGuiProperties.EnumContainer.HOPPER, blockpos, iblockaccess, loc, guiscreen);
+                                }
+                                default -> {
+                                }
                             }
 
-                            if (guiscreen instanceof GuiBeacon)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.BEACON, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiBrewingStand)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.BREWING_STAND, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiChest)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.CHEST, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiCrafting)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.CRAFTING, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiDispenser)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.DISPENSER, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiEnchantment)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.ENCHANTMENT, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiFurnace)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.FURNACE, blockpos, iblockaccess, loc, guiscreen);
-                            }
-
-                            if (guiscreen instanceof GuiHopper)
-                            {
-                                return getTexturePos(CustomGuiProperties.EnumContainer.HOPPER, blockpos, iblockaccess, loc, guiscreen);
-                            }
                         }
 
                         Entity entity = playerControllerOF.getLastClickEntity();
@@ -158,48 +146,30 @@ public class CustomGuis
     {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
-        if (acustomguiproperties == null)
-        {
-            return loc;
-        }
-        else
-        {
-            for (int i = 0; i < acustomguiproperties.length; ++i)
-            {
-                CustomGuiProperties customguiproperties = acustomguiproperties[i];
-
-                if (customguiproperties.matchesPos(container, pos, blockAccess, screen))
-                {
+        if (acustomguiproperties != null) {
+            for (CustomGuiProperties customguiproperties : acustomguiproperties) {
+                if (customguiproperties.matchesPos(container, pos, blockAccess, screen)) {
                     return customguiproperties.getTextureLocation(loc);
                 }
             }
 
-            return loc;
         }
+        return loc;
     }
 
     private static ResourceLocation getTextureEntity(CustomGuiProperties.EnumContainer container, Entity entity, IBlockAccess blockAccess, ResourceLocation loc)
     {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
-        if (acustomguiproperties == null)
-        {
-            return loc;
-        }
-        else
-        {
-            for (int i = 0; i < acustomguiproperties.length; ++i)
-            {
-                CustomGuiProperties customguiproperties = acustomguiproperties[i];
-
-                if (customguiproperties.matchesEntity(container, entity, blockAccess))
-                {
+        if (acustomguiproperties != null) {
+            for (CustomGuiProperties customguiproperties : acustomguiproperties) {
+                if (customguiproperties.matchesEntity(container, entity, blockAccess)) {
                     return customguiproperties.getTextureLocation(loc);
                 }
             }
 
-            return loc;
         }
+        return loc;
     }
 
     public static void update()
@@ -208,7 +178,7 @@ public class CustomGuis
 
         if (Config.isCustomGuis())
         {
-            List<List<CustomGuiProperties>> list = new ArrayList();
+            List<List<CustomGuiProperties>> list = new ArrayList<>();
             IResourcePack[] airesourcepack = Config.getResourcePacks();
 
             for (int i = airesourcepack.length - 1; i >= 0; --i)
@@ -239,7 +209,7 @@ public class CustomGuis
 
                     if (list != null)
                     {
-                        CustomGuiProperties[] acustomguiproperties1 = list.toArray(new CustomGuiProperties[list.size()]);
+                        CustomGuiProperties[] acustomguiproperties1 = list.toArray(new CustomGuiProperties[0]);
                         acustomguiproperties[i] = acustomguiproperties1;
                     }
                 }
@@ -254,39 +224,28 @@ public class CustomGuis
         String[] astring = ResUtils.collectFiles(rp, "optifine/gui/container/", ".properties", null);
         Arrays.sort(astring);
 
-        for (int i = 0; i < astring.length; ++i)
-        {
-            String s = astring[i];
+        for (String s : astring) {
             Config.dbg("CustomGuis: " + s);
 
-            try
-            {
+            try {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
                 InputStream inputstream = rp.getInputStream(resourcelocation);
 
-                if (inputstream == null)
-                {
+                if (inputstream == null) {
                     Config.warn("CustomGuis file not found: " + s);
-                }
-                else
-                {
+                } else {
                     Properties properties = new PropertiesOrdered();
                     properties.load(inputstream);
                     inputstream.close();
                     CustomGuiProperties customguiproperties = new CustomGuiProperties(properties, s);
 
-                    if (customguiproperties.isValid(s))
-                    {
+                    if (customguiproperties.isValid(s)) {
                         addToList(customguiproperties, listProps);
                     }
                 }
-            }
-            catch (FileNotFoundException var9)
-            {
+            } catch (FileNotFoundException var9) {
                 Config.warn("CustomGuis file not found: " + s);
-            }
-            catch (Exception exception)
-            {
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
         }
@@ -311,7 +270,7 @@ public class CustomGuis
 
             if (list == null)
             {
-                list = new ArrayList();
+                list = new ArrayList<>();
                 listProps.set(i, list);
             }
 

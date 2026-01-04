@@ -129,8 +129,7 @@ public class TextureAnimation
                 index = 0;
             }
 
-            TextureAnimationFrame textureanimationframe = this.frames[index];
-            return textureanimationframe;
+            return this.frames[index];
         }
     }
 
@@ -164,7 +163,7 @@ public class TextureAnimation
                 this.srcData = null;
             }
 
-            this.active = SmartAnimations.isActive() ? SmartAnimations.isTextureRendered(this.dstTextId) : true;
+            this.active = !SmartAnimations.isActive() || SmartAnimations.isTextureRendered(this.dstTextId);
 
             if (this.nextFrame())
             {

@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -38,9 +39,8 @@ public class MacroProcessor
             Shaders.saveShader(s3, s);
         }
 
-        byte[] abyte = s.getBytes("ASCII");
-        ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(abyte);
-        return bytearrayinputstream;
+        byte[] abyte = s.getBytes(StandardCharsets.US_ASCII);
+        return new ByteArrayInputStream(abyte);
     }
 
     public static String process(String strIn) throws IOException
@@ -87,14 +87,14 @@ public class MacroProcessor
 
             if (MacroState.isMacroLine(s))
             {
-                if (stringbuilder.length() == 0)
+                if (stringbuilder.isEmpty())
                 {
                     stringbuilder.append(ShaderMacros.getFixedMacroLines());
                 }
 
                 if (list1 == null)
                 {
-                    list1 = new ArrayList(Arrays.asList(ShaderMacros.getExtensions()));
+                    list1 = new ArrayList<>(Arrays.asList(ShaderMacros.getExtensions()));
                 }
 
                 Iterator iterator = list1.iterator();
@@ -116,16 +116,13 @@ public class MacroProcessor
 
     private static List<ShaderOption> getMacroOptions()
     {
-        List<ShaderOption> list = new ArrayList();
+        List<ShaderOption> list = new ArrayList<>();
         ShaderOption[] ashaderoption = Shaders.getShaderPackOptions();
 
-        for (int i = 0; i < ashaderoption.length; ++i)
-        {
-            ShaderOption shaderoption = ashaderoption[i];
+        for (ShaderOption shaderoption : ashaderoption) {
             String s = shaderoption.getSourceLine();
 
-            if (s != null && s.startsWith("#"))
-            {
+            if (s != null && s.startsWith("#")) {
                 list.add(shaderoption);
             }
         }

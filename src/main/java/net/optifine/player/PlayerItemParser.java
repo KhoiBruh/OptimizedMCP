@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,7 +122,7 @@ public class PlayerItemParser
                 }
             }
 
-            PlayerItemRenderer[] aplayeritemrenderer = (PlayerItemRenderer[]) list.toArray(new PlayerItemRenderer[list.size()]);
+            PlayerItemRenderer[] aplayeritemrenderer = (PlayerItemRenderer[]) list.toArray(new PlayerItemRenderer[0]);
             return new PlayerItemModel(dimension, flag, aplayeritemrenderer);
         }
     }
@@ -209,8 +209,7 @@ public class PlayerItemParser
             modelbase.textureWidth = textureDim.width;
             modelbase.textureHeight = textureDim.height;
             ModelRenderer modelrenderer = parseModelRenderer(elem, modelbase, null, null);
-            PlayerItemRenderer playeritemrenderer = new PlayerItemRenderer(i, modelrenderer);
-            return playeritemrenderer;
+            return new PlayerItemRenderer(i, modelrenderer);
         }
     }
 
@@ -456,9 +455,8 @@ public class PlayerItemParser
 
         boolean flag = false;
 
-        for (int i = 0; i < aint.length; ++i)
-        {
-            if (aint[i] != null) {
+        for (int[] ints : aint) {
+            if (ints != null) {
                 flag = true;
                 break;
             }

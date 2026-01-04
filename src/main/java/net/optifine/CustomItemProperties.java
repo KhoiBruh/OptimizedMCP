@@ -1,7 +1,6 @@
 package net.optifine;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -168,12 +167,11 @@ public class CustomItemProperties {
             String[] astring = Config.tokenize(str, " ");
             label45:
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 int j = Config.parseInt(s, -1);
 
                 if (j >= 0) {
-                    set.add(new Integer(j));
+                    set.add(j);
                 } else {
                     if (s.contains("-")) {
                         String[] astring1 = Config.tokenize(s, "-");
@@ -192,7 +190,7 @@ public class CustomItemProperties {
                                         continue label45;
                                     }
 
-                                    set.add(new Integer(k1));
+                                    set.add(k1);
                                     ++k1;
                                 }
                             }
@@ -209,17 +207,17 @@ public class CustomItemProperties {
                         if (i2 <= 0) {
                             Config.warn("Item not found: " + s);
                         } else {
-                            set.add(new Integer(i2));
+                            set.add(i2);
                         }
                     }
                 }
             }
 
-            Integer[] ainteger = (Integer[]) set.toArray(new Integer[set.size()]);
+            Integer[] ainteger = (Integer[]) set.toArray(new Integer[0]);
             int[] aint = new int[ainteger.length];
 
             for (int l1 = 0; l1 < aint.length; ++l1) {
-                aint[l1] = ainteger[l1].intValue();
+                aint[l1] = ainteger[l1];
             }
 
             return aint;
@@ -428,9 +426,7 @@ public class CustomItemProperties {
             String[] astring = Config.tokenize(str, " ");
             RangeListInt rangelistint = new RangeListInt();
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
-
+            for (String s : astring) {
                 if (parser != null) {
                     int j = parser.parse(s, Integer.MIN_VALUE);
 
@@ -519,8 +515,7 @@ public class CustomItemProperties {
                 list.add(nbttagvalue);
             }
 
-            NbtTagValue[] anbttagvalue = (NbtTagValue[]) list.toArray(new NbtTagValue[list.size()]);
-            return anbttagvalue;
+            return (NbtTagValue[]) list.toArray(new NbtTagValue[list.size()]);
         }
     }
 
@@ -545,21 +540,26 @@ public class CustomItemProperties {
         } else {
             str = str.toLowerCase();
 
-            if (str.equals("any")) {
-                return 0;
-            } else if (str.equals("main")) {
-                return 1;
-            } else if (str.equals("off")) {
-                return 2;
-            } else {
-                Config.warn("Invalid hand: " + str);
-                return 0;
+            switch (str) {
+                case "any" -> {
+                    return 0;
+                }
+                case "main" -> {
+                    return 1;
+                }
+                case "off" -> {
+                    return 2;
+                }
+                default -> {
+                    Config.warn("Invalid hand: " + str);
+                    return 0;
+                }
             }
         }
     }
 
     public boolean isValid(String path) {
-        if (this.name != null && this.name.length() > 0) {
+        if (this.name != null && !this.name.isEmpty()) {
             if (this.basePath == null) {
                 Config.warn("No base path found: " + path);
                 return false;
@@ -661,8 +661,7 @@ public class CustomItemProperties {
         String s = resLoc.getResourcePath();
         s = StrUtils.removePrefix(s, "textures/");
         s = StrUtils.removeSuffix(s, ".png");
-        ResourceLocation resourcelocation = new ResourceLocation(resLoc.getResourceDomain(), s);
-        return resourcelocation;
+        return new ResourceLocation(resLoc.getResourceDomain(), s);
     }
 
     public void updateModelTexture(TextureMap textureMap, ItemModelGenerator itemModelGenerator) {
@@ -681,7 +680,7 @@ public class CustomItemProperties {
                         IBakedModel ibakedmodel = makeBakedModel(textureMap, itemModelGenerator, astring1, flag);
 
                         if (this.mapBakedModelsTexture == null) {
-                            this.mapBakedModelsTexture = new HashMap();
+                            this.mapBakedModelsTexture = new HashMap<>();
                         }
 
                         this.mapBakedModelsTexture.put(s2, ibakedmodel);
@@ -706,8 +705,7 @@ public class CustomItemProperties {
 
         ModelBlock modelblock = makeModelBlock(astring);
         ModelBlock modelblock1 = itemModelGenerator.makeItemModel(textureMap, modelblock);
-        IBakedModel ibakedmodel = bakeModel(textureMap, modelblock1, useTint);
-        return ibakedmodel;
+        return bakeModel(textureMap, modelblock1, useTint);
     }
 
     private String[] getModelTextures() {
@@ -732,8 +730,7 @@ public class CustomItemProperties {
                 return new String[] { s5, s6 };
             }
 
-            if (item instanceof ItemArmor) {
-                ItemArmor itemarmor = (ItemArmor) item;
+            if (item instanceof ItemArmor itemarmor) {
 
                 if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER) {
                     String s = "leather";
@@ -777,7 +774,7 @@ public class CustomItemProperties {
     }
 
     private static ModelBlock makeModelBlock(String[] modelTextures) {
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
         stringbuffer.append("{\"parent\": \"builtin/generated\",\"textures\": {");
 
         for (int i = 0; i < modelTextures.length; ++i) {
@@ -792,8 +789,7 @@ public class CustomItemProperties {
 
         stringbuffer.append("}}");
         String s1 = stringbuffer.toString();
-        ModelBlock modelblock = ModelBlock.deserialize(s1);
-        return modelblock;
+        return ModelBlock.deserialize(s1);
     }
 
     private static IBakedModel bakeModel(TextureMap textureMap, ModelBlock modelBlockIn, boolean useTint) {
@@ -952,7 +948,7 @@ public class CustomItemProperties {
                         Config.warn("Custom Items: Model not found " + modelresourcelocation1.getResourcePath());
                     } else {
                         if (this.mapBakedModelsFull == null) {
-                            this.mapBakedModelsFull = new HashMap();
+                            this.mapBakedModelsFull = new HashMap<>();
                         }
 
                         this.mapBakedModelsFull.put(s2, ibakedmodel1);

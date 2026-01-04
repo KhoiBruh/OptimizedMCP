@@ -7,14 +7,14 @@ import net.optifine.util.SmoothFloat;
 
 public class Smoother
 {
-    private static Map<Integer, SmoothFloat> mapSmoothValues = new HashMap();
+    private static Map<Integer, SmoothFloat> mapSmoothValues = new HashMap<>();
     private static CounterInt counterIds = new CounterInt(1);
 
     public static float getSmoothValue(int id, float value, float timeFadeUpSec, float timeFadeDownSec)
     {
         synchronized (mapSmoothValues)
         {
-            Integer integer = Integer.valueOf(id);
+            Integer integer = id;
             SmoothFloat smoothfloat = mapSmoothValues.get(integer);
 
             if (smoothfloat == null)
@@ -23,8 +23,7 @@ public class Smoother
                 mapSmoothValues.put(integer, smoothfloat);
             }
 
-            float f = smoothfloat.getSmoothValue(value, timeFadeUpSec, timeFadeDownSec);
-            return f;
+            return smoothfloat.getSmoothValue(value, timeFadeUpSec, timeFadeDownSec);
         }
     }
 

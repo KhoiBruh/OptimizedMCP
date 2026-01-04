@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderLeashKnot;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLeashKnot;
-import net.minecraft.src.Config;
 
 public class ModelAdapterLeadKnot extends ModelAdapter {
     public ModelAdapterLeadKnot() {
@@ -19,10 +18,9 @@ public class ModelAdapterLeadKnot extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelLeashKnot)) {
+        if (!(model instanceof ModelLeashKnot modelleashknot)) {
             return null;
         } else {
-            ModelLeashKnot modelleashknot = (ModelLeashKnot) model;
             return modelPart.equals("knot") ? modelleashknot.field_110723_a : null;
         }
     }

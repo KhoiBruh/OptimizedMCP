@@ -119,7 +119,6 @@ public class ChunkVisibility
                     }
                     catch (ConcurrentModificationException var21)
                     {
-                        ;
                     }
 
                     ClassInheritanceMultiMap<Entity>[] classinheritancemultimap = chunk1.getEntityLists();
@@ -169,7 +168,7 @@ public class ChunkVisibility
 
         for (int j = 0; j < i; ++j)
         {
-            List<EnumFacing> list = new ArrayList();
+            List<EnumFacing> list = new ArrayList<>();
 
             for (int k = 0; k < EnumFacing.VALUES.length; ++k)
             {

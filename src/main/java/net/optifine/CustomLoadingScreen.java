@@ -34,8 +34,7 @@ public class CustomLoadingScreen
         int j = i == 0 ? 2 : 1;
         int k = parseScale(getProperty("scale", dimId, props), j);
         boolean flag = Config.parseBoolean(getProperty("center", dimId, props), false);
-        CustomLoadingScreen customloadingscreen = new CustomLoadingScreen(resourcelocation, i, k, flag);
-        return customloadingscreen;
+        return new CustomLoadingScreen(resourcelocation, i, k, flag);
     }
 
     private static String getProperty(String key, int dim, Properties props)
@@ -48,15 +47,10 @@ public class CustomLoadingScreen
         {
             String s = props.getProperty("dim" + dim + "." + key);
 
-            if (s != null)
-            {
-                return s;
-            }
-            else
-            {
+            if (s == null) {
                 s = props.getProperty(key);
-                return s;
             }
+            return s;
         }
     }
 
@@ -70,22 +64,20 @@ public class CustomLoadingScreen
         {
             str = str.toLowerCase().trim();
 
-            if (str.equals("fixed"))
-            {
-                return 0;
-            }
-            else if (str.equals("full"))
-            {
-                return 1;
-            }
-            else if (str.equals("stretch"))
-            {
-                return 2;
-            }
-            else
-            {
-                CustomLoadingScreens.warn("Invalid scale mode: " + str);
-                return 0;
+            switch (str) {
+                case "fixed" -> {
+                    return 0;
+                }
+                case "full" -> {
+                    return 1;
+                }
+                case "stretch" -> {
+                    return 2;
+                }
+                default -> {
+                    CustomLoadingScreens.warn("Invalid scale mode: " + str);
+                    return 0;
+                }
             }
         }
     }

@@ -1,11 +1,6 @@
 package net.optifine.util;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
 public class ChunkUtils {

@@ -28,7 +28,7 @@ import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 
 public class RandomEntities {
-    private static Map<String, RandomEntityProperties> mapProperties = new HashMap();
+    private static Map<String, RandomEntityProperties> mapProperties = new HashMap<>();
     private static boolean active = false;
     private static RenderGlobal renderGlobal;
     private static RandomEntity randomEntity = new RandomEntity();
@@ -61,20 +61,14 @@ public class RandomEntities {
         }
     }
 
-    public static void entityUnloaded(Entity entity, World world) {
-    }
-
     private static void updateEntityVillager(UUID uuid, EntityVillager ev) {
         Entity entity = IntegratedServerUtils.getEntity(uuid);
 
-        if (entity instanceof EntityVillager) {
-            EntityVillager entityvillager = (EntityVillager) entity;
+        if (entity instanceof EntityVillager entityvillager) {
             int i = entityvillager.getProfession();
             ev.setProfession(i);
-            int j = entityvillager.careerId;
-            ev.careerId = j;
-            int k = entityvillager.careerLevel;
-            ev.careerLevel = k;
+            ev.careerId = entityvillager.careerId;
+            ev.careerLevel = entityvillager.careerLevel;
         }
     }
 
@@ -82,8 +76,8 @@ public class RandomEntities {
         if (newWorld != null) {
             List list = newWorld.getLoadedEntityList();
 
-            for (int i = 0; i < list.size(); ++i) {
-                Entity entity = (Entity) list.get(i);
+            for (Object o : list) {
+                Entity entity = (Entity) o;
                 entityLoaded(entity, newWorld);
             }
         }
@@ -112,19 +106,16 @@ public class RandomEntities {
                     }
 
                     if (!s.startsWith("textures/entity/") && !s.startsWith("textures/painting/")) {
-                        ResourceLocation resourcelocation2 = loc;
-                        return resourcelocation2;
+                        return loc;
                     }
 
                     RandomEntityProperties randomentityproperties = mapProperties.get(s);
 
                     if (randomentityproperties == null) {
-                        ResourceLocation resourcelocation3 = loc;
-                        return resourcelocation3;
+                        return loc;
                     }
 
-                    ResourceLocation resourcelocation1 = randomentityproperties.getTextureLocation(loc, irandomentity);
-                    return resourcelocation1;
+                    return randomentityproperties.getTextureLocation(loc, irandomentity);
                 }
 
                 name = loc;
@@ -146,10 +137,8 @@ public class RandomEntities {
                 }
             }
 
-            return path;
-        } else {
-            return path;
         }
+        return path;
     }
 
     private static IRandomEntity getRandomEntityRendered() {
@@ -278,19 +267,15 @@ public class RandomEntities {
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i);
                 String s3 = s1 + index + s2;
-                ResourceLocation resourcelocation = new ResourceLocation(loc.getResourceDomain(), s3);
-                return resourcelocation;
+                return new ResourceLocation(loc.getResourceDomain(), s3);
             }
         }
     }
 
     private static String getParentTexturePath(String path) {
-        for (int i = 0; i < DEPENDANT_SUFFIXES.length; ++i) {
-            String s = DEPENDANT_SUFFIXES[i];
-
+        for (String s : DEPENDANT_SUFFIXES) {
             if (path.endsWith(s)) {
-                String s1 = StrUtils.removeSuffix(path, s);
-                return s1;
+                return StrUtils.removeSuffix(path, s);
             }
         }
 
@@ -318,7 +303,7 @@ public class RandomEntities {
                 return null;
             } else {
                 ResourceLocation[] aresourcelocation = (ResourceLocation[]) list
-                        .toArray(new ResourceLocation[list.size()]);
+                        .toArray(new ResourceLocation[0]);
                 dbg(loc.getResourcePath() + ", variants: " + aresourcelocation.length);
                 return aresourcelocation;
             }
@@ -342,8 +327,8 @@ public class RandomEntities {
         String[] astring2 = ResUtils.collectFiles(astring, astring1);
         Set set = new HashSet();
 
-        for (int i = 0; i < astring2.length; ++i) {
-            String s = astring2[i];
+        for (String string : astring2) {
+            String s = string;
             s = StrUtils.removeSuffix(s, astring1);
             s = StrUtils.trimTrailing(s, "0123456789");
             s = s + ".png";

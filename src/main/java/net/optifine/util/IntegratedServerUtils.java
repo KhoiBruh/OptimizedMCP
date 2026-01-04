@@ -49,8 +49,7 @@ public class IntegratedServerUtils
 
                     try
                     {
-                        WorldServer worldserver = integratedserver.worldServerForDimension(i);
-                        return worldserver;
+                        return integratedserver.worldServerForDimension(i);
                     }
                     catch (NullPointerException var6)
                     {
@@ -71,8 +70,7 @@ public class IntegratedServerUtils
         }
         else
         {
-            Entity entity = worldserver.getEntityFromUuid(uuid);
-            return entity;
+            return worldserver.getEntityFromUuid(uuid);
         }
     }
 
@@ -94,8 +92,7 @@ public class IntegratedServerUtils
             }
             else
             {
-                TileEntity tileentity = chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-                return tileentity;
+                return chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
             }
         }
     }

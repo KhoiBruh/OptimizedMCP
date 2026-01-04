@@ -21,8 +21,7 @@ public class EntityAliases {
         if (entityAliases == null) {
             return -1;
         } else if (entityId >= 0 && entityId < entityAliases.length) {
-            int i = entityAliases[entityId];
-            return i;
+            return entityAliases[entityId];
         } else {
             return -1;
         }
@@ -43,7 +42,7 @@ public class EntityAliases {
                 Config.dbg("[Shaders] Delayed loading of entity mappings after resources are loaded");
                 updateOnResourcesReloaded = true;
             } else {
-                List<Integer> list = new ArrayList();
+                List<Integer> list = new ArrayList<>();
                 String s = "/shaders/entity.properties";
                 InputStream inputstream = shaderPack.getResourceAsStream(s);
 
@@ -53,7 +52,7 @@ public class EntityAliases {
 
                 loadModEntityAliases(list);
 
-                if (list.size() > 0) {
+                if (!list.isEmpty()) {
                     entityAliases = toArray(list);
                 }
             }
@@ -63,15 +62,12 @@ public class EntityAliases {
     private static void loadModEntityAliases(List<Integer> listEntityAliases) {
         String[] astring = new String[0];
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
+        for (String s : astring) {
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/entity.properties");
                 InputStream inputstream = Config.getResourceStream(resourcelocation);
                 loadEntityAliases(inputstream, resourcelocation.toString(), listEntityAliases);
             } catch (IOException var6) {
-                ;
             }
         }
     }
@@ -103,8 +99,7 @@ public class EntityAliases {
                             int[] aint = connectedparser.parseEntities(s1);
 
                             if (aint != null && aint.length >= 1) {
-                                for (int j = 0; j < aint.length; ++j) {
-                                    int k = aint[j];
+                                for (int k : aint) {
                                     addToList(listEntityAliases, k, i);
                                 }
                             } else {
@@ -121,17 +116,17 @@ public class EntityAliases {
 
     private static void addToList(List<Integer> list, int index, int val) {
         while (list.size() <= index) {
-            list.add(Integer.valueOf(-1));
+            list.add(-1);
         }
 
-        list.set(index, Integer.valueOf(val));
+        list.set(index, val);
     }
 
     private static int[] toArray(List<Integer> list) {
         int[] aint = new int[list.size()];
 
         for (int i = 0; i < aint.length; ++i) {
-            aint[i] = list.get(i).intValue();
+            aint[i] = list.get(i);
         }
 
         return aint;

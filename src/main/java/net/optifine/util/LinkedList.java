@@ -144,30 +144,27 @@ public class LinkedList<T>
 
     public Iterator<LinkedList.Node<T>> iterator()
     {
-        Iterator<LinkedList.Node<T>> iterator = new Iterator<LinkedList.Node<T>>()
-        {
-            LinkedList.Node<T> node = LinkedList.this.getFirst();
-            public boolean hasNext()
-            {
+        return new Iterator<>() {
+            Node<T> node = LinkedList.this.getFirst();
+
+            public boolean hasNext() {
                 return this.node != null;
             }
-            public LinkedList.Node<T> next()
-            {
-                LinkedList.Node<T> node = this.node;
 
-                if (this.node != null)
-                {
+            public Node<T> next() {
+                Node<T> node = this.node;
+
+                if (this.node != null) {
                     this.node = this.node.next;
                 }
 
                 return node;
             }
-            public void remove()
-            {
+
+            public void remove() {
                 throw new UnsupportedOperationException("remove");
             }
         };
-        return iterator;
     }
 
     public LinkedList.Node<T> getFirst()
@@ -192,11 +189,11 @@ public class LinkedList<T>
 
     public String toString()
     {
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
 
         for (Iterator<Node<T>> it = iterator(); it.hasNext(); ) {
             Node<T> node = it.next();
-            if (stringbuffer.length() > 0)
+            if (!stringbuffer.isEmpty())
             {
                 stringbuffer.append(", ");
             }
@@ -204,7 +201,7 @@ public class LinkedList<T>
             stringbuffer.append(node.getItem());
         }
 
-        return "" + this.size + " [" + stringbuffer.toString() + "]";
+        return "" + this.size + " [" + stringbuffer + "]";
     }
 
     public static class Node<T>

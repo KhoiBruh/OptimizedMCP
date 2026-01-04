@@ -26,96 +26,55 @@ public class ModelAdapterHorse extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelHorse)) {
+        if (!(model instanceof ModelHorse modelhorse)) {
             return null;
         } else {
-            ModelHorse modelhorse = (ModelHorse) model;
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart).intValue();
-                switch (i) {
-                    case 0:
-                        return modelhorse.head;
-                    case 1:
-                        return modelhorse.field_178711_b;
-                    case 2:
-                        return modelhorse.field_178712_c;
-                    case 3:
-                        return modelhorse.horseLeftEar;
-                    case 4:
-                        return modelhorse.horseRightEar;
-                    case 5:
-                        return modelhorse.muleLeftEar;
-                    case 6:
-                        return modelhorse.muleRightEar;
-                    case 7:
-                        return modelhorse.neck;
-                    case 8:
-                        return modelhorse.horseFaceRopes;
-                    case 9:
-                        return modelhorse.mane;
-                    case 10:
-                        return modelhorse.body;
-                    case 11:
-                        return modelhorse.tailBase;
-                    case 12:
-                        return modelhorse.tailMiddle;
-                    case 13:
-                        return modelhorse.tailTip;
-                    case 14:
-                        return modelhorse.backLeftLeg;
-                    case 15:
-                        return modelhorse.backLeftShin;
-                    case 16:
-                        return modelhorse.backLeftHoof;
-                    case 17:
-                        return modelhorse.backRightLeg;
-                    case 18:
-                        return modelhorse.backRightShin;
-                    case 19:
-                        return modelhorse.backRightHoof;
-                    case 20:
-                        return modelhorse.frontLeftLeg;
-                    case 21:
-                        return modelhorse.frontLeftShin;
-                    case 22:
-                        return modelhorse.frontLeftHoof;
-                    case 23:
-                        return modelhorse.frontRightLeg;
-                    case 24:
-                        return modelhorse.frontRightShin;
-                    case 25:
-                        return modelhorse.frontRightHoof;
-                    case 26:
-                        return modelhorse.muleLeftChest;
-                    case 27:
-                        return modelhorse.muleRightChest;
-                    case 28:
-                        return modelhorse.horseSaddleBottom;
-                    case 29:
-                        return modelhorse.horseSaddleFront;
-                    case 30:
-                        return modelhorse.horseSaddleBack;
-                    case 31:
-                        return modelhorse.horseLeftSaddleRope;
-                    case 32:
-                        return modelhorse.horseLeftSaddleMetal;
-                    case 33:
-                        return modelhorse.horseRightSaddleRope;
-                    case 34:
-                        return modelhorse.horseRightSaddleMetal;
-                    case 35:
-                        return modelhorse.horseLeftFaceMetal;
-                    case 36:
-                        return modelhorse.horseRightFaceMetal;
-                    case 37:
-                        return modelhorse.horseLeftRein;
-                    case 38:
-                        return modelhorse.horseRightRein;
-                    default:
-                        return null;
-                }
+                int i = map.get(modelPart);
+                return switch (i) {
+                    case 0 -> modelhorse.head;
+                    case 1 -> modelhorse.field_178711_b;
+                    case 2 -> modelhorse.field_178712_c;
+                    case 3 -> modelhorse.horseLeftEar;
+                    case 4 -> modelhorse.horseRightEar;
+                    case 5 -> modelhorse.muleLeftEar;
+                    case 6 -> modelhorse.muleRightEar;
+                    case 7 -> modelhorse.neck;
+                    case 8 -> modelhorse.horseFaceRopes;
+                    case 9 -> modelhorse.mane;
+                    case 10 -> modelhorse.body;
+                    case 11 -> modelhorse.tailBase;
+                    case 12 -> modelhorse.tailMiddle;
+                    case 13 -> modelhorse.tailTip;
+                    case 14 -> modelhorse.backLeftLeg;
+                    case 15 -> modelhorse.backLeftShin;
+                    case 16 -> modelhorse.backLeftHoof;
+                    case 17 -> modelhorse.backRightLeg;
+                    case 18 -> modelhorse.backRightShin;
+                    case 19 -> modelhorse.backRightHoof;
+                    case 20 -> modelhorse.frontLeftLeg;
+                    case 21 -> modelhorse.frontLeftShin;
+                    case 22 -> modelhorse.frontLeftHoof;
+                    case 23 -> modelhorse.frontRightLeg;
+                    case 24 -> modelhorse.frontRightShin;
+                    case 25 -> modelhorse.frontRightHoof;
+                    case 26 -> modelhorse.muleLeftChest;
+                    case 27 -> modelhorse.muleRightChest;
+                    case 28 -> modelhorse.horseSaddleBottom;
+                    case 29 -> modelhorse.horseSaddleFront;
+                    case 30 -> modelhorse.horseSaddleBack;
+                    case 31 -> modelhorse.horseLeftSaddleRope;
+                    case 32 -> modelhorse.horseLeftSaddleMetal;
+                    case 33 -> modelhorse.horseRightSaddleRope;
+                    case 34 -> modelhorse.horseRightSaddleMetal;
+                    case 35 -> modelhorse.horseLeftFaceMetal;
+                    case 36 -> modelhorse.horseRightFaceMetal;
+                    case 37 -> modelhorse.horseLeftRein;
+                    case 38 -> modelhorse.horseRightRein;
+                    default -> null;
+                };
             } else {
                 return null;
             }
@@ -134,56 +93,53 @@ public class ModelAdapterHorse extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
-            mapPartFields = new HashMap();
-            mapPartFields.put("head", Integer.valueOf(0));
-            mapPartFields.put("upper_mouth", Integer.valueOf(1));
-            mapPartFields.put("lower_mouth", Integer.valueOf(2));
-            mapPartFields.put("horse_left_ear", Integer.valueOf(3));
-            mapPartFields.put("horse_right_ear", Integer.valueOf(4));
-            mapPartFields.put("mule_left_ear", Integer.valueOf(5));
-            mapPartFields.put("mule_right_ear", Integer.valueOf(6));
-            mapPartFields.put("neck", Integer.valueOf(7));
-            mapPartFields.put("horse_face_ropes", Integer.valueOf(8));
-            mapPartFields.put("mane", Integer.valueOf(9));
-            mapPartFields.put("body", Integer.valueOf(10));
-            mapPartFields.put("tail_base", Integer.valueOf(11));
-            mapPartFields.put("tail_middle", Integer.valueOf(12));
-            mapPartFields.put("tail_tip", Integer.valueOf(13));
-            mapPartFields.put("back_left_leg", Integer.valueOf(14));
-            mapPartFields.put("back_left_shin", Integer.valueOf(15));
-            mapPartFields.put("back_left_hoof", Integer.valueOf(16));
-            mapPartFields.put("back_right_leg", Integer.valueOf(17));
-            mapPartFields.put("back_right_shin", Integer.valueOf(18));
-            mapPartFields.put("back_right_hoof", Integer.valueOf(19));
-            mapPartFields.put("front_left_leg", Integer.valueOf(20));
-            mapPartFields.put("front_left_shin", Integer.valueOf(21));
-            mapPartFields.put("front_left_hoof", Integer.valueOf(22));
-            mapPartFields.put("front_right_leg", Integer.valueOf(23));
-            mapPartFields.put("front_right_shin", Integer.valueOf(24));
-            mapPartFields.put("front_right_hoof", Integer.valueOf(25));
-            mapPartFields.put("mule_left_chest", Integer.valueOf(26));
-            mapPartFields.put("mule_right_chest", Integer.valueOf(27));
-            mapPartFields.put("horse_saddle_bottom", Integer.valueOf(28));
-            mapPartFields.put("horse_saddle_front", Integer.valueOf(29));
-            mapPartFields.put("horse_saddle_back", Integer.valueOf(30));
-            mapPartFields.put("horse_left_saddle_rope", Integer.valueOf(31));
-            mapPartFields.put("horse_left_saddle_metal", Integer.valueOf(32));
-            mapPartFields.put("horse_right_saddle_rope", Integer.valueOf(33));
-            mapPartFields.put("horse_right_saddle_metal", Integer.valueOf(34));
-            mapPartFields.put("horse_left_face_metal", Integer.valueOf(35));
-            mapPartFields.put("horse_right_face_metal", Integer.valueOf(36));
-            mapPartFields.put("horse_left_rein", Integer.valueOf(37));
-            mapPartFields.put("horse_right_rein", Integer.valueOf(38));
-            return mapPartFields;
+        if (mapPartFields == null) {
+            mapPartFields = new HashMap<>();
+            mapPartFields.put("head", 0);
+            mapPartFields.put("upper_mouth", 1);
+            mapPartFields.put("lower_mouth", 2);
+            mapPartFields.put("horse_left_ear", 3);
+            mapPartFields.put("horse_right_ear", 4);
+            mapPartFields.put("mule_left_ear", 5);
+            mapPartFields.put("mule_right_ear", 6);
+            mapPartFields.put("neck", 7);
+            mapPartFields.put("horse_face_ropes", 8);
+            mapPartFields.put("mane", 9);
+            mapPartFields.put("body", 10);
+            mapPartFields.put("tail_base", 11);
+            mapPartFields.put("tail_middle", 12);
+            mapPartFields.put("tail_tip", 13);
+            mapPartFields.put("back_left_leg", 14);
+            mapPartFields.put("back_left_shin", 15);
+            mapPartFields.put("back_left_hoof", 16);
+            mapPartFields.put("back_right_leg", 17);
+            mapPartFields.put("back_right_shin", 18);
+            mapPartFields.put("back_right_hoof", 19);
+            mapPartFields.put("front_left_leg", 20);
+            mapPartFields.put("front_left_shin", 21);
+            mapPartFields.put("front_left_hoof", 22);
+            mapPartFields.put("front_right_leg", 23);
+            mapPartFields.put("front_right_shin", 24);
+            mapPartFields.put("front_right_hoof", 25);
+            mapPartFields.put("mule_left_chest", 26);
+            mapPartFields.put("mule_right_chest", 27);
+            mapPartFields.put("horse_saddle_bottom", 28);
+            mapPartFields.put("horse_saddle_front", 29);
+            mapPartFields.put("horse_saddle_back", 30);
+            mapPartFields.put("horse_left_saddle_rope", 31);
+            mapPartFields.put("horse_left_saddle_metal", 32);
+            mapPartFields.put("horse_right_saddle_rope", 33);
+            mapPartFields.put("horse_right_saddle_metal", 34);
+            mapPartFields.put("horse_left_face_metal", 35);
+            mapPartFields.put("horse_right_face_metal", 36);
+            mapPartFields.put("horse_left_rein", 37);
+            mapPartFields.put("horse_right_rein", 38);
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderHorse renderhorse = new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
-        return renderhorse;
+        return new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
     }
 }

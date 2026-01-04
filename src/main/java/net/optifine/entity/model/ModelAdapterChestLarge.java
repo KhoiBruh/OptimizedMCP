@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityChest;
 
 public class ModelAdapterChestLarge extends ModelAdapter {
@@ -20,10 +19,9 @@ public class ModelAdapterChestLarge extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelChest)) {
+        if (!(model instanceof ModelChest modelchest)) {
             return null;
         } else {
-            ModelChest modelchest = (ModelChest) model;
             return modelPart.equals("lid") ? modelchest.chestLid
                     : (modelPart.equals("base") ? modelchest.chestBelow
                             : (modelPart.equals("knob") ? modelchest.chestKnob : null));

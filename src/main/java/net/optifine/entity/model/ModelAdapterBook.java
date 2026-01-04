@@ -6,7 +6,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
 
 public class ModelAdapterBook extends ModelAdapter {
@@ -19,10 +18,9 @@ public class ModelAdapterBook extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBook)) {
+        if (!(model instanceof ModelBook modelbook)) {
             return null;
         } else {
-            ModelBook modelbook = (ModelBook) model;
             return modelPart.equals("cover_right") ? modelbook.coverRight
                     : (modelPart.equals("cover_left") ? modelbook.coverLeft
                             : (modelPart.equals("pages_right") ? modelbook.pagesRight

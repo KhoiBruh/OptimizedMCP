@@ -79,7 +79,6 @@ public class IteratorAxis implements Iterator<BlockPos>
 
                 if (this.xNext >= this.xEnd)
                 {
-                    ;
                 }
             }
         }

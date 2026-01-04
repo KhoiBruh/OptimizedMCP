@@ -16,16 +16,14 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions
 {
     public String[] getTooltipLines(GuiButton btn, int width)
     {
-        if (!(btn instanceof GuiButtonShaderOption))
+        if (!(btn instanceof GuiButtonShaderOption guibuttonshaderoption))
         {
             return null;
         }
         else
         {
-            GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption)btn;
             ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
-            String[] astring = this.makeTooltipLines(shaderoption, width);
-            return astring;
+            return this.makeTooltipLines(shaderoption, width);
         }
     }
 
@@ -39,14 +37,14 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions
 
         if (!s.equals(so.getName()) && gamesettings.advancedItemTooltips)
         {
-            s2 = "\u00a78" + Lang.get("of.general.id") + ": " + so.getName();
+            s2 = "§8" + Lang.get("of.general.id") + ": " + so.getName();
         }
 
         String s3 = null;
 
         if (so.getPaths() != null && gamesettings.advancedItemTooltips)
         {
-            s3 = "\u00a78" + Lang.get("of.general.from") + ": " + Config.arrayToString(so.getPaths());
+            s3 = "§8" + Lang.get("of.general.from") + ": " + Config.arrayToString(so.getPaths());
         }
 
         String s4 = null;
@@ -54,10 +52,10 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions
         if (so.getValueDefault() != null && gamesettings.advancedItemTooltips)
         {
             String s5 = so.isEnabled() ? so.getValueText(so.getValueDefault()) : Lang.get("of.general.ambiguous");
-            s4 = "\u00a78" + Lang.getDefault() + ": " + s5;
+            s4 = "§8" + Lang.getDefault() + ": " + s5;
         }
 
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add(s);
         list.addAll(Arrays.<String>asList(astring));
 
@@ -76,8 +74,7 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions
             list.add(s4);
         }
 
-        String[] astring1 = this.makeTooltipLines(width, list);
-        return astring1;
+        return this.makeTooltipLines(width, list);
     }
 
     private String[] splitDescription(String desc)
@@ -104,19 +101,14 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions
     private String[] makeTooltipLines(int width, List<String> args)
     {
         FontRenderer fontrenderer = Config.getMinecraft().fontRendererObj;
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
-        for (int i = 0; i < args.size(); ++i)
-        {
-            String s = args.get(i);
-
-            if (s != null && s.length() > 0)
-            {
+        for (String s : args) {
+            if (s != null && !s.isEmpty()) {
                 list.addAll(fontrenderer.listFormattedStringToWidth(s, width));
             }
         }
 
-        String[] astring = list.toArray(new String[list.size()]);
-        return astring;
+        return list.toArray(new String[list.size()]);
     }
 }

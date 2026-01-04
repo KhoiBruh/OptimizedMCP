@@ -17,7 +17,7 @@ public class VboRegion
     private int capacity = 4096;
     private int positionTop = 0;
     private int sizeUsed;
-    private LinkedList<VboRange> rangeList = new LinkedList();
+    private LinkedList<VboRange> rangeList = new LinkedList<>();
     private VboRange compactRangeLast = null;
     private IntBuffer bufferIndexVertex;
     private IntBuffer bufferCountVertex;
@@ -219,7 +219,6 @@ public class VboRegion
 
         for (i = this.capacity * 6 / 4; i < sizeMin; i = i * 6 / 4)
         {
-            ;
         }
 
         long j = this.toBytes(this.capacity);

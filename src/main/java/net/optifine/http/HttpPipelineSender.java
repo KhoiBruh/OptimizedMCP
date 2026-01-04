@@ -6,13 +6,14 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class HttpPipelineSender extends Thread
 {
     private HttpPipelineConnection httpPipelineConnection = null;
     private static final String CRLF = "\r\n";
-    private static Charset ASCII = Charset.forName("ASCII");
+    private static Charset ASCII = StandardCharsets.US_ASCII;
 
     public HttpPipelineSender(HttpPipelineConnection httpPipelineConnection)
     {
