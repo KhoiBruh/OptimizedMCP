@@ -1,10 +1,5 @@
 package net.optifine;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 import net.minecraft.network.PacketThreadUtil;
 import net.minecraft.src.Config;
 import net.optifine.util.ResUtils;
@@ -12,25 +7,21 @@ import net.optifine.util.StrUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class CustomLoadingScreens
-{
+import java.util.*;
+
+public class CustomLoadingScreens {
     private static CustomLoadingScreen[] screens = null;
     private static int screensMinDimensionId = 0;
 
-    public static CustomLoadingScreen getCustomLoadingScreen()
-    {
-        if (screens == null)
-        {
+    public static CustomLoadingScreen getCustomLoadingScreen() {
+        if (screens == null) {
             return null;
-        }
-        else
-        {
+        } else {
             int i = PacketThreadUtil.lastDimensionId;
             int j = i - screensMinDimensionId;
             CustomLoadingScreen customloadingscreen = null;
 
-            if (j >= 0 && j < screens.length)
-            {
+            if (j >= 0 && j < screens.length) {
                 customloadingscreen = screens[j];
             }
 
@@ -38,8 +29,7 @@ public class CustomLoadingScreens
         }
     }
 
-    public static void update()
-    {
+    public static void update() {
         screens = null;
         screensMinDimensionId = 0;
         Pair<CustomLoadingScreen[], Integer> pair = parseScreens();
@@ -47,8 +37,7 @@ public class CustomLoadingScreens
         screensMinDimensionId = pair.getRight();
     }
 
-    private static Pair<CustomLoadingScreen[], Integer> parseScreens()
-    {
+    private static Pair<CustomLoadingScreen[], Integer> parseScreens() {
         String s = "optifine/gui/loading/background";
         String s1 = ".png";
         String[] astring = ResUtils.collectFiles(s, s1);
@@ -69,12 +58,9 @@ public class CustomLoadingScreens
         Integer[] ainteger = set.toArray(new Integer[0]);
         Arrays.sort(ainteger);
 
-        if (ainteger.length <= 0)
-        {
+        if (ainteger.length <= 0) {
             return new ImmutablePair<>(null, 0);
-        }
-        else
-        {
+        } else {
             String s5 = "optifine/gui/loading/loading.properties";
             Properties properties = ResUtils.readProperties(s5, "CustomLoadingScreens");
             int k = ainteger[0];
@@ -91,13 +77,11 @@ public class CustomLoadingScreens
         }
     }
 
-    public static void warn(String str)
-    {
+    public static void warn(String str) {
         Config.warn("CustomLoadingScreen: " + str);
     }
 
-    public static void dbg(String str)
-    {
+    public static void dbg(String str) {
         Config.dbg("CustomLoadingScreen: " + str);
     }
 }

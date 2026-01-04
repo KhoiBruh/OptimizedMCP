@@ -38,7 +38,7 @@ public class ModelAdapterSlime extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "body", "left_eye", "right_eye", "mouth" };
+        return new String[]{"body", "left_eye", "right_eye", "mouth"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

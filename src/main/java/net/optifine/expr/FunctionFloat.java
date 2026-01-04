@@ -4,20 +4,22 @@ import net.optifine.shaders.uniform.Smoother;
 
 import java.util.Objects;
 
-public class FunctionFloat implements IExpressionFloat
-{
-    private FunctionType type;
-    private IExpression[] arguments;
+public class FunctionFloat implements IExpressionFloat {
+    private final FunctionType type;
+    private final IExpression[] arguments;
     private int smoothId = -1;
 
-    public FunctionFloat(FunctionType type, IExpression[] arguments)
-    {
+    public FunctionFloat(FunctionType type, IExpression[] arguments) {
         this.type = type;
         this.arguments = arguments;
     }
 
-    public float eval()
-    {
+    private static float evalFloat(IExpression[] exprs, int index) {
+        IExpressionFloat iexpressionfloat = (IExpressionFloat) exprs[index];
+        return iexpressionfloat.eval();
+    }
+
+    public float eval() {
         IExpression[] aiexpression = this.arguments;
 
         if (Objects.requireNonNull(this.type) == FunctionType.SMOOTH) {
@@ -38,19 +40,11 @@ public class FunctionFloat implements IExpressionFloat
         return this.type.evalFloat(this.arguments);
     }
 
-    private static float evalFloat(IExpression[] exprs, int index)
-    {
-        IExpressionFloat iexpressionfloat = (IExpressionFloat)exprs[index];
-        return iexpressionfloat.eval();
-    }
-
-    public ExpressionType getExpressionType()
-    {
+    public ExpressionType getExpressionType() {
         return ExpressionType.FLOAT;
     }
 
-    public String toString()
-    {
-        return "" + this.type + "()";
+    public String toString() {
+        return this.type + "()";
     }
 }

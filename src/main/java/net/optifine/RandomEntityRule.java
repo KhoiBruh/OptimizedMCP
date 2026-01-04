@@ -1,6 +1,5 @@
 package net.optifine;
 
-import java.util.Properties;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
@@ -11,21 +10,18 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.optifine.config.ConnectedParser;
-import net.optifine.config.Matches;
-import net.optifine.config.NbtTagValue;
-import net.optifine.config.RangeInt;
-import net.optifine.config.RangeListInt;
-import net.optifine.config.VillagerProfession;
-import net.optifine.config.Weather;
-
+import net.optifine.config.*;
 import net.optifine.util.ArrayUtils;
 import net.optifine.util.MathUtils;
 
+import java.util.Properties;
+
 public class RandomEntityRule {
+    public int[] sumWeights = null;
+    public int sumAllWeights = 1;
     private String pathProps = null;
     private ResourceLocation baseResLoc = null;
-    private int index;
+    private final int index;
     private int[] textures = null;
     private ResourceLocation[] resourceLocations = null;
     private int[] weights = null;
@@ -34,8 +30,6 @@ public class RandomEntityRule {
     private RangeListInt healthRange = null;
     private boolean healthPercent = false;
     private NbtTagValue nbtName = null;
-    public int[] sumWeights = null;
-    public int sumAllWeights = 1;
     private VillagerProfession[] professions = null;
     private EnumDyeColor[] collarColors = null;
     private Boolean baby = null;
@@ -44,7 +38,7 @@ public class RandomEntityRule {
     private Weather[] weatherList = null;
 
     public RandomEntityRule(Properties props, String pathProps, ResourceLocation baseResLoc, int index,
-            String valTextures, ConnectedParser cp) {
+                            String valTextures, ConnectedParser cp) {
         this.pathProps = pathProps;
         this.baseResLoc = baseResLoc;
         this.index = index;

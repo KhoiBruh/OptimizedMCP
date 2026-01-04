@@ -1,63 +1,35 @@
 package net.optifine;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiBeacon;
-import net.minecraft.client.gui.inventory.GuiBrewingStand;
-import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.client.gui.inventory.GuiDispenser;
-import net.minecraft.client.gui.inventory.GuiFurnace;
+import net.minecraft.client.gui.inventory.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.Config;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityBeacon;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityDispenser;
-import net.minecraft.tileentity.TileEntityDropper;
-import net.minecraft.tileentity.TileEntityEnderChest;
+import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.optifine.config.ConnectedParser;
-import net.optifine.config.Matches;
-import net.optifine.config.NbtTagValue;
-import net.optifine.config.RangeListInt;
-import net.optifine.config.VillagerProfession;
-
+import net.optifine.config.*;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
 public class CustomGuiProperties {
-    private String fileName = null;
-    private String basePath = null;
-    private CustomGuiProperties.EnumContainer container = null;
-    private Map<ResourceLocation, ResourceLocation> textureLocations = null;
-    private NbtTagValue nbtName = null;
-    private BiomeGenBase[] biomes = null;
-    private RangeListInt heights = null;
-    private Boolean large = null;
-    private Boolean trapped = null;
-    private Boolean christmas = null;
-    private Boolean ender = null;
-    private RangeListInt levels = null;
-    private VillagerProfession[] professions = null;
-    private CustomGuiProperties.EnumVariant[] variants = null;
-    private EnumDyeColor[] colors = null;
-    private static final CustomGuiProperties.EnumVariant[] VARIANTS_HORSE = new CustomGuiProperties.EnumVariant[] {
+    private static final CustomGuiProperties.EnumVariant[] VARIANTS_HORSE = new CustomGuiProperties.EnumVariant[]{
             CustomGuiProperties.EnumVariant.HORSE, CustomGuiProperties.EnumVariant.DONKEY,
-            CustomGuiProperties.EnumVariant.MULE, CustomGuiProperties.EnumVariant.LLAMA };
-    private static final CustomGuiProperties.EnumVariant[] VARIANTS_DISPENSER = new CustomGuiProperties.EnumVariant[] {
-            CustomGuiProperties.EnumVariant.DISPENSER, CustomGuiProperties.EnumVariant.DROPPER };
+            CustomGuiProperties.EnumVariant.MULE, CustomGuiProperties.EnumVariant.LLAMA};
+    private static final CustomGuiProperties.EnumVariant[] VARIANTS_DISPENSER = new CustomGuiProperties.EnumVariant[]{
+            CustomGuiProperties.EnumVariant.DISPENSER, CustomGuiProperties.EnumVariant.DROPPER};
     private static final CustomGuiProperties.EnumVariant[] VARIANTS_INVALID = new CustomGuiProperties.EnumVariant[0];
     private static final EnumDyeColor[] COLORS_INVALID = new EnumDyeColor[0];
     private static final ResourceLocation ANVIL_GUI_TEXTURE = new ResourceLocation("textures/gui/container/anvil.png");
@@ -84,6 +56,21 @@ public class CustomGuiProperties {
             "textures/gui/container/shulker_box.png");
     private static final ResourceLocation VILLAGER_GUI_TEXTURE = new ResourceLocation(
             "textures/gui/container/villager.png");
+    private String fileName = null;
+    private String basePath = null;
+    private CustomGuiProperties.EnumContainer container = null;
+    private Map<ResourceLocation, ResourceLocation> textureLocations = null;
+    private NbtTagValue nbtName = null;
+    private BiomeGenBase[] biomes = null;
+    private RangeListInt heights = null;
+    private Boolean large = null;
+    private Boolean trapped = null;
+    private Boolean christmas = null;
+    private Boolean ender = null;
+    private RangeListInt levels = null;
+    private VillagerProfession[] professions = null;
+    private CustomGuiProperties.EnumVariant[] variants = null;
+    private EnumDyeColor[] colors = null;
 
     public CustomGuiProperties(Properties props, String path) {
         ConnectedParser connectedparser = new ConnectedParser("CustomGuis");
@@ -110,7 +97,7 @@ public class CustomGuiProperties {
     private static CustomGuiProperties.EnumVariant[] getContainerVariants(CustomGuiProperties.EnumContainer cont) {
         return cont == CustomGuiProperties.EnumContainer.HORSE ? VARIANTS_HORSE
                 : (cont == CustomGuiProperties.EnumContainer.DISPENSER ? VARIANTS_DISPENSER
-                        : new CustomGuiProperties.EnumVariant[0]);
+                : new CustomGuiProperties.EnumVariant[0]);
     }
 
     private static EnumDyeColor[] parseEnumDyeColors(String str) {
@@ -171,7 +158,7 @@ public class CustomGuiProperties {
     }
 
     private static Map<ResourceLocation, ResourceLocation> parseTextureLocations(Properties props, String property,
-            CustomGuiProperties.EnumContainer container, String pathPrefix, String basePath) {
+                                                                                 CustomGuiProperties.EnumContainer container, String pathPrefix, String basePath) {
         Map<ResourceLocation, ResourceLocation> map = new HashMap<>();
         String s = props.getProperty(property);
 
@@ -227,6 +214,28 @@ public class CustomGuiProperties {
         }
     }
 
+    private static void warn(String str) {
+        Config.warn("[CustomGuis] " + str);
+    }
+
+    public static String getName(GuiScreen screen) {
+        IWorldNameable iworldnameable = getWorldNameable(screen);
+        return iworldnameable == null ? null : iworldnameable.getDisplayName().getUnformattedText();
+    }
+
+    private static IWorldNameable getWorldNameable(GuiScreen screen) {
+        return switch (screen) {
+            case GuiBeacon guiBeacon -> (IWorldNameable) guiBeacon.tileBeacon;
+            case GuiBrewingStand guiBrewingStand -> (IWorldNameable) guiBrewingStand.tileBrewingStand;
+            case GuiChest guiChest -> (IWorldNameable) guiChest.lowerChestInventory;
+            case GuiDispenser guiDispenser -> (IWorldNameable) guiDispenser.dispenserInventory;
+            case GuiEnchantment guiEnchantment -> guiEnchantment.field_175380_I;
+            case GuiFurnace guiFurnace -> (IWorldNameable) guiFurnace.tileFurnace;
+            case GuiHopper guiHopper -> (IWorldNameable) guiHopper.hopperInventory;
+            case null, default -> null;
+        };
+    }
+
     public boolean isValid(String path) {
         if (this.fileName != null && !this.fileName.isEmpty()) {
             if (this.basePath == null) {
@@ -256,10 +265,6 @@ public class CustomGuiProperties {
         }
     }
 
-    private static void warn(String str) {
-        Config.warn("[CustomGuis] " + str);
-    }
-
     private boolean matchesGeneral(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess) {
         if (this.container != ec) {
             return false;
@@ -277,7 +282,7 @@ public class CustomGuiProperties {
     }
 
     public boolean matchesPos(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess,
-            GuiScreen screen) {
+                              GuiScreen screen) {
         if (!this.matchesGeneral(ec, pos, blockAccess)) {
             return false;
         } else {
@@ -296,24 +301,6 @@ public class CustomGuiProperties {
                 default -> true;
             };
         }
-    }
-
-    public static String getName(GuiScreen screen) {
-        IWorldNameable iworldnameable = getWorldNameable(screen);
-        return iworldnameable == null ? null : iworldnameable.getDisplayName().getUnformattedText();
-    }
-
-    private static IWorldNameable getWorldNameable(GuiScreen screen) {
-        return switch (screen) {
-            case GuiBeacon guiBeacon -> (IWorldNameable) guiBeacon.tileBeacon;
-            case GuiBrewingStand guiBrewingStand -> (IWorldNameable) guiBrewingStand.tileBrewingStand;
-            case GuiChest guiChest -> (IWorldNameable) guiChest.lowerChestInventory;
-            case GuiDispenser guiDispenser -> (IWorldNameable) guiDispenser.dispenserInventory;
-            case GuiEnchantment guiEnchantment -> guiEnchantment.field_175380_I;
-            case GuiFurnace guiFurnace -> (IWorldNameable) guiFurnace.tileFurnace;
-            case GuiHopper guiHopper -> (IWorldNameable) guiHopper.hopperInventory;
-            case null, default -> null;
-        };
     }
 
     private boolean matchesBeacon(BlockPos pos, IBlockAccess blockAccess) {

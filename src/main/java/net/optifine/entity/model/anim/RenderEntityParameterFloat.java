@@ -8,8 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.optifine.expr.ExpressionType;
 import net.optifine.expr.IExpressionFloat;
 
-public enum RenderEntityParameterFloat implements IExpressionFloat
-{
+public enum RenderEntityParameterFloat implements IExpressionFloat {
     LIMB_SWING("limb_swing"),
     LIMB_SWING_SPEED("limb_speed"),
     AGE("age"),
@@ -29,28 +28,36 @@ public enum RenderEntityParameterFloat implements IExpressionFloat
     REVENGE_TIME("revenge_time"),
     SWING_PROGRESS("swing_progress");
 
-    private String name;
-    private RenderManager renderManager;
     private static final RenderEntityParameterFloat[] VALUES = values();
+    private final String name;
+    private final RenderManager renderManager;
 
-    RenderEntityParameterFloat(String name)
-    {
+    RenderEntityParameterFloat(String name) {
         this.name = name;
         this.renderManager = Minecraft.getMinecraft().getRenderManager();
     }
 
-    public String getName()
-    {
+    public static RenderEntityParameterFloat parse(String str) {
+        if (str != null) {
+            for (RenderEntityParameterFloat renderentityparameterfloat : VALUES) {
+                if (renderentityparameterfloat.getName().equals(str)) {
+                    return renderentityparameterfloat;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public String getName() {
         return this.name;
     }
 
-    public ExpressionType getExpressionType()
-    {
+    public ExpressionType getExpressionType() {
         return ExpressionType.FLOAT;
     }
 
-    public float eval()
-    {
+    public float eval() {
         Render render = this.renderManager.renderRender;
 
         if (render != null) {
@@ -121,18 +128,5 @@ public enum RenderEntityParameterFloat implements IExpressionFloat
 
         }
         return 0.0F;
-    }
-
-    public static RenderEntityParameterFloat parse(String str)
-    {
-        if (str != null) {
-            for (RenderEntityParameterFloat renderentityparameterfloat : VALUES) {
-                if (renderentityparameterfloat.getName().equals(str)) {
-                    return renderentityparameterfloat;
-                }
-            }
-
-        }
-        return null;
     }
 }

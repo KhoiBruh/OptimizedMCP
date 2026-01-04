@@ -27,7 +27,7 @@ public class ModelAdapterSign extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "board", "stick" };
+        return new String[]{"board", "stick"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

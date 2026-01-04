@@ -1,98 +1,70 @@
 package net.optifine.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 
-public class ResUtils
-{
-    public static String[] collectFiles(String prefix, String suffix)
-    {
-        return collectFiles(new String[] {prefix}, new String[] {suffix});
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+public class ResUtils {
+    public static String[] collectFiles(String prefix, String suffix) {
+        return collectFiles(new String[]{prefix}, new String[]{suffix});
     }
 
-    public static String[] collectFiles(String[] prefixes, String[] suffixes)
-    {
+    public static String[] collectFiles(String[] prefixes, String[] suffixes) {
         Set<String> set = new LinkedHashSet<>();
         IResourcePack[] airesourcepack = Config.getResourcePacks();
 
         for (IResourcePack iresourcepack : airesourcepack) {
             String[] astring = collectFiles(iresourcepack, prefixes, suffixes, null);
-            set.addAll(Arrays.<String>asList(astring));
+            set.addAll(Arrays.asList(astring));
         }
 
         return set.toArray(new String[0]);
     }
 
-    public static String[] collectFiles(IResourcePack rp, String prefix, String suffix, String[] defaultPaths)
-    {
-        return collectFiles(rp, new String[] {prefix}, new String[] {suffix}, defaultPaths);
+    public static String[] collectFiles(IResourcePack rp, String prefix, String suffix, String[] defaultPaths) {
+        return collectFiles(rp, new String[]{prefix}, new String[]{suffix}, defaultPaths);
     }
 
-    public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes)
-    {
+    public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes) {
         return collectFiles(rp, prefixes, suffixes, null);
     }
 
-    public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes, String[] defaultPaths)
-    {
-        if (rp instanceof DefaultResourcePack)
-        {
+    public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes, String[] defaultPaths) {
+        if (rp instanceof DefaultResourcePack) {
             return collectFilesFixed(rp, defaultPaths);
-        }
-        else if (!(rp instanceof AbstractResourcePack abstractresourcepack))
-        {
+        } else if (!(rp instanceof AbstractResourcePack abstractresourcepack)) {
             Config.warn("Unknown resource pack type: " + rp);
             return new String[0];
-        }
-        else
-        {
+        } else {
             File file1 = abstractresourcepack.resourcePackFile;
 
-            if (file1 == null)
-            {
+            if (file1 == null) {
                 return new String[0];
-            }
-            else if (file1.isDirectory())
-            {
+            } else if (file1.isDirectory()) {
                 return collectFilesFolder(file1, "", prefixes, suffixes);
-            }
-            else if (file1.isFile())
-            {
+            } else if (file1.isFile()) {
                 return collectFilesZIP(file1, prefixes, suffixes);
-            }
-            else
-            {
+            } else {
                 Config.warn("Unknown resource pack file: " + file1);
                 return new String[0];
             }
         }
     }
 
-    private static String[] collectFilesFixed(IResourcePack rp, String[] paths)
-    {
-        if (paths == null)
-        {
+    private static String[] collectFilesFixed(IResourcePack rp, String[] paths) {
+        if (paths == null) {
             return new String[0];
-        }
-        else
-        {
+        } else {
             List list = new ArrayList();
 
             for (String s : paths) {
@@ -107,18 +79,14 @@ public class ResUtils
         }
     }
 
-    private static String[] collectFilesFolder(File tpFile, String basePath, String[] prefixes, String[] suffixes)
-    {
+    private static String[] collectFilesFolder(File tpFile, String basePath, String[] prefixes, String[] suffixes) {
         List list = new ArrayList();
         String s = "assets/minecraft/";
         File[] afile = tpFile.listFiles();
 
-        if (afile == null)
-        {
+        if (afile == null) {
             return new String[0];
-        }
-        else
-        {
+        } else {
             for (File file1 : afile) {
                 if (file1.isFile()) {
                     String s3 = basePath + file1.getName();
@@ -142,27 +110,22 @@ public class ResUtils
         }
     }
 
-    private static String[] collectFilesZIP(File tpFile, String[] prefixes, String[] suffixes)
-    {
+    private static String[] collectFilesZIP(File tpFile, String[] prefixes, String[] suffixes) {
         List list = new ArrayList();
         String s = "assets/minecraft/";
 
-        try
-        {
+        try {
             ZipFile zipfile = new ZipFile(tpFile);
             Enumeration enumeration = zipfile.entries();
 
-            while (enumeration.hasMoreElements())
-            {
-                ZipEntry zipentry = (ZipEntry)enumeration.nextElement();
+            while (enumeration.hasMoreElements()) {
+                ZipEntry zipentry = (ZipEntry) enumeration.nextElement();
                 String s1 = zipentry.getName();
 
-                if (s1.startsWith(s))
-                {
+                if (s1.startsWith(s)) {
                     s1 = s1.substring(s.length());
 
-                    if (StrUtils.startsWith(s1, prefixes) && StrUtils.endsWith(s1, suffixes))
-                    {
+                    if (StrUtils.startsWith(s1, prefixes) && StrUtils.endsWith(s1, suffixes)) {
                         list.add(s1);
                     }
                 }
@@ -170,68 +133,49 @@ public class ResUtils
 
             zipfile.close();
             return (String[]) list.toArray(new String[list.size()]);
-        }
-        catch (IOException ioexception)
-        {
+        } catch (IOException ioexception) {
             ioexception.printStackTrace();
             return new String[0];
         }
     }
 
-    private static boolean isLowercase(String str)
-    {
+    private static boolean isLowercase(String str) {
         return str.equals(str.toLowerCase(Locale.ROOT));
     }
 
-    public static Properties readProperties(String path, String module)
-    {
+    public static Properties readProperties(String path, String module) {
         ResourceLocation resourcelocation = new ResourceLocation(path);
 
-        try
-        {
+        try {
             InputStream inputstream = Config.getResourceStream(resourcelocation);
 
-            if (inputstream == null)
-            {
+            if (inputstream == null) {
                 return null;
-            }
-            else
-            {
+            } else {
                 Properties properties = new PropertiesOrdered();
                 properties.load(inputstream);
                 inputstream.close();
-                Config.dbg("" + module + ": Loading " + path);
+                Config.dbg(module + ": Loading " + path);
                 return properties;
             }
-        }
-        catch (FileNotFoundException var5)
-        {
+        } catch (FileNotFoundException var5) {
             return null;
-        }
-        catch (IOException var6)
-        {
-            Config.warn("" + module + ": Error reading " + path);
+        } catch (IOException var6) {
+            Config.warn(module + ": Error reading " + path);
             return null;
         }
     }
 
-    public static Properties readProperties(InputStream in, String module)
-    {
-        if (in == null)
-        {
+    public static Properties readProperties(InputStream in, String module) {
+        if (in == null) {
             return null;
-        }
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 Properties properties = new PropertiesOrdered();
                 properties.load(in);
                 in.close();
                 return properties;
-            }
-            catch (IOException var4)
-            {
+            } catch (IOException var4) {
                 return null;
             }
         }

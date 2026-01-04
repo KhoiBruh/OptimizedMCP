@@ -4,10 +4,8 @@ import net.minecraft.src.Config;
 import net.optifine.shaders.config.ShaderOption;
 import net.optifine.shaders.config.ShaderProfile;
 
-public class ShaderUtils
-{
-    public static ShaderOption getShaderOption(String name, ShaderOption[] opts)
-    {
+public class ShaderUtils {
+    public static ShaderOption getShaderOption(String name, ShaderOption[] opts) {
         if (opts != null) {
             for (ShaderOption shaderoption : opts) {
                 if (shaderoption.getName().equals(name)) {
@@ -19,8 +17,7 @@ public class ShaderUtils
         return null;
     }
 
-    public static ShaderProfile detectProfile(ShaderProfile[] profs, ShaderOption[] opts, boolean def)
-    {
+    public static ShaderProfile detectProfile(ShaderProfile[] profs, ShaderOption[] opts, boolean def) {
         if (profs != null) {
             for (ShaderProfile shaderprofile : profs) {
                 if (matchProfile(shaderprofile, opts, def)) {
@@ -32,18 +29,12 @@ public class ShaderUtils
         return null;
     }
 
-    public static boolean matchProfile(ShaderProfile prof, ShaderOption[] opts, boolean def)
-    {
-        if (prof == null)
-        {
+    public static boolean matchProfile(ShaderProfile prof, ShaderOption[] opts, boolean def) {
+        if (prof == null) {
             return false;
-        }
-        else if (opts == null)
-        {
+        } else if (opts == null) {
             return false;
-        }
-        else
-        {
+        } else {
             String[] astring = prof.getOptions();
 
             for (String s : astring) {

@@ -1,66 +1,33 @@
 package net.optifine.shaders.config;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.CharArrayReader;
-import java.io.CharArrayWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import net.minecraft.src.Config;
-import net.optifine.expr.ExpressionFloatArrayCached;
-import net.optifine.expr.ExpressionFloatCached;
-import net.optifine.expr.ExpressionParser;
-import net.optifine.expr.ExpressionType;
-import net.optifine.expr.IExpression;
-import net.optifine.expr.IExpressionBool;
-import net.optifine.expr.IExpressionFloat;
-import net.optifine.expr.IExpressionFloatArray;
-import net.optifine.expr.ParseException;
+import net.optifine.expr.*;
 import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
-import net.optifine.shaders.IShaderPack;
-import net.optifine.shaders.Program;
-import net.optifine.shaders.SMCLog;
-import net.optifine.shaders.ShaderUtils;
-import net.optifine.shaders.Shaders;
+import net.optifine.shaders.*;
 import net.optifine.shaders.uniform.CustomUniform;
 import net.optifine.shaders.uniform.CustomUniforms;
 import net.optifine.shaders.uniform.ShaderExpressionResolver;
 import net.optifine.shaders.uniform.UniformType;
 import net.optifine.util.StrUtils;
 
-public class ShaderPackParser
-{
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ShaderPackParser {
     private static final Pattern PATTERN_VERSION = Pattern.compile("^\\s*#version\\s+.*$");
     private static final Pattern PATTERN_INCLUDE = Pattern.compile("^\\s*#include\\s+\"([A-Za-z0-9_/\\.]+)\".*$");
     private static final Set<String> setConstNames = makeSetConstNames();
     private static final Map<String, Integer> mapAlphaFuncs = makeMapAlphaFuncs();
     private static final Map<String, Integer> mapBlendFactors = makeMapBlendFactors();
 
-    public static ShaderOption[] parseShaderPackOptions(IShaderPack shaderPack, String[] programNames, List<Integer> listDimensions)
-    {
-        if (shaderPack == null)
-        {
+    public static ShaderOption[] parseShaderPackOptions(IShaderPack shaderPack, String[] programNames, List<Integer> listDimensions) {
+        if (shaderPack == null) {
             return new ShaderOption[0];
-        }
-        else
-        {
+        } else {
             Map<String, ShaderOption> map = new HashMap<>();
             collectShaderOptions(shaderPack, "/shaders", programNames, map);
 
@@ -77,8 +44,7 @@ public class ShaderPackParser
         }
     }
 
-    private static void collectShaderOptions(IShaderPack shaderPack, String dir, String[] programNames, Map<String, ShaderOption> mapOptions)
-    {
+    private static void collectShaderOptions(IShaderPack shaderPack, String dir, String[] programNames, Map<String, ShaderOption> mapOptions) {
         for (String s : programNames) {
             if (!s.isEmpty()) {
                 String s1 = dir + "/" + s + ".vsh";
@@ -89,8 +55,7 @@ public class ShaderPackParser
         }
     }
 
-    private static void collectShaderOptions(IShaderPack sp, String path, Map<String, ShaderOption> mapOptions)
-    {
+    private static void collectShaderOptions(IShaderPack sp, String path, Map<String, ShaderOption> mapOptions) {
         String[] astring = getLines(sp, path);
 
         for (String s : astring) {
@@ -120,8 +85,7 @@ public class ShaderPackParser
         }
     }
 
-    private static boolean isOptionUsed(ShaderOption so, String[] lines)
-    {
+    private static boolean isOptionUsed(ShaderOption so, String[] lines) {
         for (String s : lines) {
             if (so.isUsedInLine(s)) {
                 return true;
@@ -131,57 +95,42 @@ public class ShaderPackParser
         return false;
     }
 
-    private static String[] getLines(IShaderPack sp, String path)
-    {
-        try
-        {
+    private static String[] getLines(IShaderPack sp, String path) {
+        try {
             List<String> list = new ArrayList<>();
             String s = loadFile(path, sp, 0, list, 0);
 
-            if (s == null)
-            {
+            if (s == null) {
                 return new String[0];
-            }
-            else
-            {
+            } else {
                 ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(s.getBytes());
                 return Config.readLines(bytearrayinputstream);
             }
-        }
-        catch (IOException ioexception)
-        {
+        } catch (IOException ioexception) {
             Config.dbg(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return new String[0];
         }
     }
 
-    private static ShaderOption getShaderOption(String line, String path)
-    {
+    private static ShaderOption getShaderOption(String line, String path) {
         ShaderOption shaderoption = null;
 
-        if (shaderoption == null)
-        {
+        if (shaderoption == null) {
             shaderoption = ShaderOptionSwitch.parseOption(line, path);
         }
 
-        if (shaderoption == null)
-        {
+        if (shaderoption == null) {
             shaderoption = ShaderOptionVariable.parseOption(line, path);
         }
 
-        if (shaderoption != null)
-        {
+        if (shaderoption != null) {
             return shaderoption;
-        }
-        else
-        {
-            if (shaderoption == null)
-            {
+        } else {
+            if (shaderoption == null) {
                 shaderoption = ShaderOptionSwitchConst.parseOption(line, path);
             }
 
-            if (shaderoption == null)
-            {
+            if (shaderoption == null) {
                 shaderoption = ShaderOptionVariableConst.parseOption(line, path);
             }
 
@@ -189,8 +138,7 @@ public class ShaderPackParser
         }
     }
 
-    private static Set<String> makeSetConstNames()
-    {
+    private static Set<String> makeSetConstNames() {
         Set<String> set = new HashSet<>();
         set.add("shadowMapResolution");
         set.add("shadowMapFov");
@@ -231,61 +179,48 @@ public class ShaderPackParser
         return set;
     }
 
-    public static ShaderProfile[] parseProfiles(Properties props, ShaderOption[] shaderOptions)
-    {
+    public static ShaderProfile[] parseProfiles(Properties props, ShaderOption[] shaderOptions) {
         String s = "profile.";
         List<ShaderProfile> list = new ArrayList<>();
 
-        for (Object o : props.keySet())
-        {
+        for (Object o : props.keySet()) {
             String s1 = (String) o;
-            if (s1.startsWith(s))
-            {
+            if (s1.startsWith(s)) {
                 String s2 = s1.substring(s.length());
                 props.getProperty(s1);
                 Set<String> set = new HashSet<>();
                 ShaderProfile shaderprofile = parseProfile(s2, props, set, shaderOptions);
 
-                if (shaderprofile != null)
-                {
+                if (shaderprofile != null) {
                     list.add(shaderprofile);
                 }
             }
         }
 
-        if (list.size() <= 0)
-        {
+        if (list.size() <= 0) {
             return null;
-        }
-        else
-        {
+        } else {
             return list.toArray(new ShaderProfile[list.size()]);
         }
     }
 
-    public static Map<String, IExpressionBool> parseProgramConditions(Properties props, ShaderOption[] shaderOptions)
-    {
+    public static Map<String, IExpressionBool> parseProgramConditions(Properties props, ShaderOption[] shaderOptions) {
         String s = "program.";
         Pattern pattern = Pattern.compile("program\\.([^.]+)\\.enabled");
         Map<String, IExpressionBool> map = new HashMap<>();
 
-        for (Object o : props.keySet())
-        {
+        for (Object o : props.keySet()) {
             String s1 = (String) o;
             Matcher matcher = pattern.matcher(s1);
 
-            if (matcher.matches())
-            {
+            if (matcher.matches()) {
                 String s2 = matcher.group(1);
                 String s3 = props.getProperty(s1).trim();
                 IExpressionBool iexpressionbool = parseOptionExpression(s3, shaderOptions);
 
-                if (iexpressionbool == null)
-                {
+                if (iexpressionbool == null) {
                     SMCLog.severe("Error parsing program condition: " + s1);
-                }
-                else
-                {
+                } else {
                     map.put(s2, iexpressionbool);
                 }
             }
@@ -294,23 +229,18 @@ public class ShaderPackParser
         return map;
     }
 
-    private static IExpressionBool parseOptionExpression(String val, ShaderOption[] shaderOptions)
-    {
-        try
-        {
+    private static IExpressionBool parseOptionExpression(String val, ShaderOption[] shaderOptions) {
+        try {
             ShaderOptionResolver shaderoptionresolver = new ShaderOptionResolver(shaderOptions);
             ExpressionParser expressionparser = new ExpressionParser(shaderoptionresolver);
             return expressionparser.parseBool(val);
-        }
-        catch (ParseException parseexception)
-        {
+        } catch (ParseException parseexception) {
             SMCLog.warning(parseexception.getClass().getName() + ": " + parseexception.getMessage());
             return null;
         }
     }
 
-    public static Set<String> parseOptionSliders(Properties props, ShaderOption[] shaderOptions)
-    {
+    public static Set<String> parseOptionSliders(Properties props, ShaderOption[] shaderOptions) {
         Set<String> set = new HashSet<>();
         String s = props.getProperty("sliders");
 
@@ -331,18 +261,14 @@ public class ShaderPackParser
         return set;
     }
 
-    private static ShaderProfile parseProfile(String name, Properties props, Set<String> parsedProfiles, ShaderOption[] shaderOptions)
-    {
+    private static ShaderProfile parseProfile(String name, Properties props, Set<String> parsedProfiles, ShaderOption[] shaderOptions) {
         String s = "profile.";
         String s1 = s + name;
 
-        if (parsedProfiles.contains(s1))
-        {
+        if (parsedProfiles.contains(s1)) {
             Config.warn("[Shaders] Profile already parsed: " + name);
             return null;
-        }
-        else
-        {
+        } else {
             parsedProfiles.add(name);
             ShaderProfile shaderprofile = new ShaderProfile(name);
             String s2 = props.getProperty(s1);
@@ -414,23 +340,18 @@ public class ShaderPackParser
         }
     }
 
-    public static Map<String, ScreenShaderOptions> parseGuiScreens(Properties props, ShaderProfile[] shaderProfiles, ShaderOption[] shaderOptions)
-    {
+    public static Map<String, ScreenShaderOptions> parseGuiScreens(Properties props, ShaderProfile[] shaderProfiles, ShaderOption[] shaderOptions) {
         Map<String, ScreenShaderOptions> map = new HashMap<>();
         parseGuiScreen("screen", props, map, shaderProfiles, shaderOptions);
         return map.isEmpty() ? null : map;
     }
 
-    private static boolean parseGuiScreen(String key, Properties props, Map<String, ScreenShaderOptions> map, ShaderProfile[] shaderProfiles, ShaderOption[] shaderOptions)
-    {
+    private static boolean parseGuiScreen(String key, Properties props, Map<String, ScreenShaderOptions> map, ShaderProfile[] shaderProfiles, ShaderOption[] shaderOptions) {
         String s = props.getProperty(key);
 
-        if (s == null)
-        {
+        if (s == null) {
             return false;
-        }
-        else
-        {
+        } else {
             List<ShaderOption> list = new ArrayList<>();
             Set<String> set = new HashSet<>();
             String[] astring = Config.tokenize(s, " ");
@@ -487,13 +408,11 @@ public class ShaderPackParser
         }
     }
 
-    public static BufferedReader resolveIncludes(BufferedReader reader, String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException
-    {
+    public static BufferedReader resolveIncludes(BufferedReader reader, String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException {
         String s = "/";
         int i = filePath.lastIndexOf("/");
 
-        if (i >= 0)
-        {
+        if (i >= 0) {
             s = filePath.substring(0, i);
         }
 
@@ -502,20 +421,16 @@ public class ShaderPackParser
         Set<ShaderMacro> set = new LinkedHashSet<>();
         int k = 1;
 
-        while (true)
-        {
+        while (true) {
             String s1 = reader.readLine();
 
-            if (s1 == null)
-            {
+            if (s1 == null) {
                 char[] achar = chararraywriter.toCharArray();
 
-                if (j >= 0 && !set.isEmpty())
-                {
+                if (j >= 0 && !set.isEmpty()) {
                     StringBuilder stringbuilder = new StringBuilder();
 
-                    for (ShaderMacro shadermacro : set)
-                    {
+                    for (ShaderMacro shadermacro : set) {
                         stringbuilder.append("#define ");
                         stringbuilder.append(shadermacro.getName());
                         stringbuilder.append(" ");
@@ -534,12 +449,10 @@ public class ShaderPackParser
                 return new BufferedReader(chararrayreader);
             }
 
-            if (j < 0)
-            {
+            if (j < 0) {
                 Matcher matcher = PATTERN_VERSION.matcher(s1);
 
-                if (matcher.matches())
-                {
+                if (matcher.matches()) {
                     String s2 = ShaderMacros.getFixedMacroLines() + ShaderMacros.getOptionMacroLines();
                     String s3 = s1 + "\n" + s2;
                     String s4 = "#line " + (k + 1) + " " + fileIndex;
@@ -550,42 +463,36 @@ public class ShaderPackParser
 
             Matcher matcher1 = PATTERN_INCLUDE.matcher(s1);
 
-            if (matcher1.matches())
-            {
+            if (matcher1.matches()) {
                 String s6 = matcher1.group(1);
                 boolean flag = s6.startsWith("/");
                 String s8 = flag ? "/shaders" + s6 : s + "/" + s6;
 
-                if (!listFiles.contains(s8))
-                {
+                if (!listFiles.contains(s8)) {
                     listFiles.add(s8);
                 }
 
                 int l = listFiles.indexOf(s8) + 1;
                 s1 = loadFile(s8, shaderPack, l, listFiles, includeLevel);
 
-                if (s1 == null)
-                {
+                if (s1 == null) {
                     throw new IOException("Included file not found: " + filePath);
                 }
 
-                if (s1.endsWith("\n"))
-                {
+                if (s1.endsWith("\n")) {
                     s1 = s1.substring(0, s1.length() - 1);
                 }
 
                 String s5 = "#line 1 " + l + "\n";
 
-                if (s1.startsWith("#version "))
-                {
+                if (s1.startsWith("#version ")) {
                     s5 = "";
                 }
 
                 s1 = s5 + s1 + "\n" + "#line " + (k + 1) + " " + fileIndex;
             }
 
-            if (j >= 0 && s1.contains(ShaderMacros.getPrefixMacro()))
-            {
+            if (j >= 0 && s1.contains(ShaderMacros.getPrefixMacro())) {
                 ShaderMacro[] ashadermacro = findMacros(s1, ShaderMacros.getExtensions());
 
                 set.addAll(Arrays.asList(ashadermacro));
@@ -597,8 +504,7 @@ public class ShaderPackParser
         }
     }
 
-    private static ShaderMacro[] findMacros(String line, ShaderMacro[] macros)
-    {
+    private static ShaderMacro[] findMacros(String line, ShaderMacro[] macros) {
         List<ShaderMacro> list = new ArrayList<>();
 
         for (ShaderMacro shadermacro : macros) {
@@ -610,34 +516,25 @@ public class ShaderPackParser
         return list.toArray(new ShaderMacro[0]);
     }
 
-    private static String loadFile(String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException
-    {
-        if (includeLevel >= 10)
-        {
+    private static String loadFile(String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException {
+        if (includeLevel >= 10) {
             throw new IOException("#include depth exceeded: " + includeLevel + ", file: " + filePath);
-        }
-        else
-        {
+        } else {
             ++includeLevel;
             InputStream inputstream = shaderPack.getResourceAsStream(filePath);
 
-            if (inputstream == null)
-            {
+            if (inputstream == null) {
                 return null;
-            }
-            else
-            {
+            } else {
                 InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
                 BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
                 bufferedreader = resolveIncludes(bufferedreader, filePath, shaderPack, fileIndex, listFiles, includeLevel);
                 CharArrayWriter chararraywriter = new CharArrayWriter();
 
-                while (true)
-                {
+                while (true) {
                     String s = bufferedreader.readLine();
 
-                    if (s == null)
-                    {
+                    if (s == null) {
                         return chararraywriter.toString();
                     }
 
@@ -648,8 +545,7 @@ public class ShaderPackParser
         }
     }
 
-    public static CustomUniforms parseCustomUniforms(Properties props)
-    {
+    public static CustomUniforms parseCustomUniforms(Properties props) {
         String s = "uniform";
         String s1 = "variable";
         String s2 = s + ".";
@@ -657,33 +553,26 @@ public class ShaderPackParser
         Map<String, IExpression> map = new HashMap<>();
         List<CustomUniform> list = new ArrayList<>();
 
-        for (Object o : props.keySet())
-        {
+        for (Object o : props.keySet()) {
             String s4 = (String) o;
             String[] astring = Config.tokenize(s4, ".");
 
-            if (astring.length == 3)
-            {
+            if (astring.length == 3) {
                 String s5 = astring[0];
                 String s6 = astring[1];
                 String s7 = astring[2];
                 String s8 = props.getProperty(s4).trim();
 
-                if (map.containsKey(s7))
-                {
+                if (map.containsKey(s7)) {
                     SMCLog.warning("Expression already defined: " + s7);
-                }
-                else if (s5.equals(s) || s5.equals(s1))
-                {
+                } else if (s5.equals(s) || s5.equals(s1)) {
                     SMCLog.info("Custom " + s5 + ": " + s7);
                     CustomUniform customuniform = parseCustomUniform(s5, s7, s6, s8, map);
 
-                    if (customuniform != null)
-                    {
+                    if (customuniform != null) {
                         map.put(s7, customuniform.getExpression());
 
-                        if (!s5.equals(s1))
-                        {
+                        if (!s5.equals(s1)) {
                             list.add(customuniform);
                         }
                     }
@@ -691,86 +580,64 @@ public class ShaderPackParser
             }
         }
 
-        if (list.size() <= 0)
-        {
+        if (list.size() <= 0) {
             return null;
-        }
-        else
-        {
+        } else {
             CustomUniform[] acustomuniform = list.toArray(new CustomUniform[0]);
             return new CustomUniforms(acustomuniform, map);
         }
     }
 
-    private static CustomUniform parseCustomUniform(String kind, String name, String type, String src, Map<String, IExpression> mapExpressions)
-    {
-        try
-        {
+    private static CustomUniform parseCustomUniform(String kind, String name, String type, String src, Map<String, IExpression> mapExpressions) {
+        try {
             UniformType uniformtype = UniformType.parse(type);
 
-            if (uniformtype == null)
-            {
+            if (uniformtype == null) {
                 SMCLog.warning("Unknown " + kind + " type: " + uniformtype);
                 return null;
-            }
-            else
-            {
+            } else {
                 ShaderExpressionResolver shaderexpressionresolver = new ShaderExpressionResolver(mapExpressions);
                 ExpressionParser expressionparser = new ExpressionParser(shaderexpressionresolver);
                 IExpression iexpression = expressionparser.parse(src);
                 ExpressionType expressiontype = iexpression.getExpressionType();
 
-                if (!uniformtype.matchesExpressionType(expressiontype))
-                {
+                if (!uniformtype.matchesExpressionType(expressiontype)) {
                     SMCLog.warning("Expression type does not match " + kind + " type, expression: " + expressiontype + ", " + kind + ": " + uniformtype + " " + name);
                     return null;
-                }
-                else
-                {
+                } else {
                     iexpression = makeExpressionCached(iexpression);
                     return new CustomUniform(name, uniformtype, iexpression);
                 }
             }
-        }
-        catch (ParseException parseexception)
-        {
+        } catch (ParseException parseexception) {
             SMCLog.warning(parseexception.getClass().getName() + ": " + parseexception.getMessage());
             return null;
         }
     }
 
-    private static IExpression makeExpressionCached(IExpression expr)
-    {
-        return expr instanceof IExpressionFloat ? new ExpressionFloatCached((IExpressionFloat)expr) : (expr instanceof IExpressionFloatArray ? new ExpressionFloatArrayCached((IExpressionFloatArray)expr) : expr);
+    private static IExpression makeExpressionCached(IExpression expr) {
+        return expr instanceof IExpressionFloat ? new ExpressionFloatCached((IExpressionFloat) expr) : (expr instanceof IExpressionFloatArray ? new ExpressionFloatArrayCached((IExpressionFloatArray) expr) : expr);
     }
 
-    public static void parseAlphaStates(Properties props)
-    {
-        for (Object o : props.keySet())
-        {
+    public static void parseAlphaStates(Properties props) {
+        for (Object o : props.keySet()) {
             String s = (String) o;
             String[] astring = Config.tokenize(s, ".");
 
-            if (astring.length == 2)
-            {
+            if (astring.length == 2) {
                 String s1 = astring[0];
                 String s2 = astring[1];
 
-                if (s1.equals("alphaTest"))
-                {
+                if (s1.equals("alphaTest")) {
                     Program program = Shaders.getProgram(s2);
 
-                    if (program == null)
-                    {
+                    if (program == null) {
                         SMCLog.severe("Invalid program name: " + s2);
-                    }
-                    else
-                    {
+                    } else {
                         String s3 = props.getProperty(s).trim();
                         GlAlphaState glalphastate = parseAlphaState(s3);
 
-                        if (glalphastate != null)
-                        {
+                        if (glalphastate != null) {
                             program.setAlphaState(glalphastate);
                         }
                     }
@@ -779,28 +646,22 @@ public class ShaderPackParser
         }
     }
 
-    private static GlAlphaState parseAlphaState(String str)
-    {
+    private static GlAlphaState parseAlphaState(String str) {
         String[] astring = Config.tokenize(str, " ");
 
-        if (astring.length == 1)
-        {
+        if (astring.length == 1) {
             String s = astring[0];
 
-            if (s.equals("off") || s.equals("false"))
-            {
+            if (s.equals("off") || s.equals("false")) {
                 return new GlAlphaState(false);
             }
-        }
-        else if (astring.length == 2)
-        {
+        } else if (astring.length == 2) {
             String s2 = astring[0];
             String s1 = astring[1];
             Integer integer = mapAlphaFuncs.get(s2);
             float f = Config.parseFloat(s1, -1.0F);
 
-            if (integer != null && f >= 0.0F)
-            {
+            if (integer != null && f >= 0.0F) {
                 return new GlAlphaState(true, integer, f);
             }
         }
@@ -809,33 +670,25 @@ public class ShaderPackParser
         return null;
     }
 
-    public static void parseBlendStates(Properties props)
-    {
-        for (Object o : props.keySet())
-        {
+    public static void parseBlendStates(Properties props) {
+        for (Object o : props.keySet()) {
             String s = (String) o;
             String[] astring = Config.tokenize(s, ".");
 
-            if (astring.length == 2)
-            {
+            if (astring.length == 2) {
                 String s1 = astring[0];
                 String s2 = astring[1];
 
-                if (s1.equals("blend"))
-                {
+                if (s1.equals("blend")) {
                     Program program = Shaders.getProgram(s2);
 
-                    if (program == null)
-                    {
+                    if (program == null) {
                         SMCLog.severe("Invalid program name: " + s2);
-                    }
-                    else
-                    {
+                    } else {
                         String s3 = props.getProperty(s).trim();
                         GlBlendState glblendstate = parseBlendState(s3);
 
-                        if (glblendstate != null)
-                        {
+                        if (glblendstate != null) {
                             program.setBlendState(glblendstate);
                         }
                     }
@@ -844,28 +697,22 @@ public class ShaderPackParser
         }
     }
 
-    private static GlBlendState parseBlendState(String str)
-    {
+    private static GlBlendState parseBlendState(String str) {
         String[] astring = Config.tokenize(str, " ");
 
-        if (astring.length == 1)
-        {
+        if (astring.length == 1) {
             String s = astring[0];
 
-            if (s.equals("off") || s.equals("false"))
-            {
+            if (s.equals("off") || s.equals("false")) {
                 return new GlBlendState(false);
             }
-        }
-        else if (astring.length == 2 || astring.length == 4)
-        {
+        } else if (astring.length == 2 || astring.length == 4) {
             String s4 = astring[0];
             String s1 = astring[1];
             String s2 = s4;
             String s3 = s1;
 
-            if (astring.length == 4)
-            {
+            if (astring.length == 4) {
                 s2 = astring[2];
                 s3 = astring[3];
             }
@@ -875,8 +722,7 @@ public class ShaderPackParser
             Integer integer2 = mapBlendFactors.get(s2);
             Integer integer3 = mapBlendFactors.get(s3);
 
-            if (integer != null && integer1 != null && integer2 != null && integer3 != null)
-            {
+            if (integer != null && integer1 != null && integer2 != null && integer3 != null) {
                 return new GlBlendState(true, integer, integer1, integer2, integer3);
             }
         }
@@ -885,33 +731,25 @@ public class ShaderPackParser
         return null;
     }
 
-    public static void parseRenderScales(Properties props)
-    {
-        for (Object o : props.keySet())
-        {
+    public static void parseRenderScales(Properties props) {
+        for (Object o : props.keySet()) {
             String s = (String) o;
             String[] astring = Config.tokenize(s, ".");
 
-            if (astring.length == 2)
-            {
+            if (astring.length == 2) {
                 String s1 = astring[0];
                 String s2 = astring[1];
 
-                if (s1.equals("scale"))
-                {
+                if (s1.equals("scale")) {
                     Program program = Shaders.getProgram(s2);
 
-                    if (program == null)
-                    {
+                    if (program == null) {
                         SMCLog.severe("Invalid program name: " + s2);
-                    }
-                    else
-                    {
+                    } else {
                         String s3 = props.getProperty(s).trim();
                         RenderScale renderscale = parseRenderScale(s3);
 
-                        if (renderscale != null)
-                        {
+                        if (renderscale != null) {
                             program.setRenderScale(renderscale);
                         }
                     }
@@ -920,17 +758,14 @@ public class ShaderPackParser
         }
     }
 
-    private static RenderScale parseRenderScale(String str)
-    {
+    private static RenderScale parseRenderScale(String str) {
         String[] astring = Config.tokenize(str, " ");
         float f = Config.parseFloat(astring[0], -1.0F);
         float f1 = 0.0F;
         float f2 = 0.0F;
 
-        if (astring.length > 1)
-        {
-            if (astring.length != 3)
-            {
+        if (astring.length > 1) {
+            if (astring.length != 3) {
                 SMCLog.severe("Invalid render scale: " + str);
                 return null;
             }
@@ -939,59 +774,43 @@ public class ShaderPackParser
             f2 = Config.parseFloat(astring[2], -1.0F);
         }
 
-        if (Config.between(f, 0.0F, 1.0F) && Config.between(f1, 0.0F, 1.0F) && Config.between(f2, 0.0F, 1.0F))
-        {
+        if (Config.between(f, 0.0F, 1.0F) && Config.between(f1, 0.0F, 1.0F) && Config.between(f2, 0.0F, 1.0F)) {
             return new RenderScale(f, f1, f2);
-        }
-        else
-        {
+        } else {
             SMCLog.severe("Invalid render scale: " + str);
             return null;
         }
     }
 
-    public static void parseBuffersFlip(Properties props)
-    {
-        for (Object o : props.keySet())
-        {
+    public static void parseBuffersFlip(Properties props) {
+        for (Object o : props.keySet()) {
             String s = (String) o;
             String[] astring = Config.tokenize(s, ".");
 
-            if (astring.length == 3)
-            {
+            if (astring.length == 3) {
                 String s1 = astring[0];
                 String s2 = astring[1];
                 String s3 = astring[2];
 
-                if (s1.equals("flip"))
-                {
+                if (s1.equals("flip")) {
                     Program program = Shaders.getProgram(s2);
 
-                    if (program == null)
-                    {
+                    if (program == null) {
                         SMCLog.severe("Invalid program name: " + s2);
-                    }
-                    else
-                    {
+                    } else {
                         Boolean[] aboolean = program.getBuffersFlip();
                         int i = Shaders.getBufferIndexFromString(s3);
 
-                        if (i >= 0 && i < aboolean.length)
-                        {
+                        if (i >= 0 && i < aboolean.length) {
                             String s4 = props.getProperty(s).trim();
                             Boolean obool = Config.parseBoolean(s4, null);
 
-                            if (obool == null)
-                            {
+                            if (obool == null) {
                                 SMCLog.severe("Invalid boolean value: " + s4);
-                            }
-                            else
-                            {
+                            } else {
                                 aboolean[i] = obool;
                             }
-                        }
-                        else
-                        {
+                        } else {
                             SMCLog.severe("Invalid buffer name: " + s3);
                         }
                     }
@@ -1000,13 +819,11 @@ public class ShaderPackParser
         }
     }
 
-    private static Map<String, Integer> makeMapAlphaFuncs()
-    {
+    private static Map<String, Integer> makeMapAlphaFuncs() {
         return Map.of("NEVER", 512, "LESS", 513, "EQUAL", 514, "LEQUAL", 515, "GREATER", 516, "NOTEQUAL", 517, "GEQUAL", 518, "ALWAYS", 519);
     }
 
-    private static Map<String, Integer> makeMapBlendFactors()
-    {
+    private static Map<String, Integer> makeMapBlendFactors() {
         return Map.ofEntries(Map.entry("ZERO", 0), Map.entry("ONE", 1), Map.entry("SRC_COLOR", 768), Map.entry("ONE_MINUS_SRC_COLOR", 769), Map.entry("DST_COLOR", 774), Map.entry("ONE_MINUS_DST_COLOR", 775), Map.entry("SRC_ALPHA", 770), Map.entry("ONE_MINUS_SRC_ALPHA", 771), Map.entry("DST_ALPHA", 772), Map.entry("ONE_MINUS_DST_ALPHA", 773), Map.entry("CONSTANT_COLOR", 32769), Map.entry("ONE_MINUS_CONSTANT_COLOR", 32770), Map.entry("CONSTANT_ALPHA", 32771), Map.entry("ONE_MINUS_CONSTANT_ALPHA", 32772), Map.entry("SRC_ALPHA_SATURATE", 776));
     }
 }

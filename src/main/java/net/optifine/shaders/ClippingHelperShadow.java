@@ -5,11 +5,11 @@ import net.minecraft.util.MathHelper;
 
 public class ClippingHelperShadow extends ClippingHelper {
     private static final ClippingHelperShadow instance = new ClippingHelperShadow();
-    float[] frustumTest = new float[6];
     final float[][] shadowClipPlanes = new float[10][4];
+    final float[] vecIntersection = new float[4];
+    float[] frustumTest = new float[6];
     int shadowClipPlaneCount;
     float[] matInvMP = new float[16];
-    final float[] vecIntersection = new float[4];
 
     public static ClippingHelper getInstance() {
         instance.init();

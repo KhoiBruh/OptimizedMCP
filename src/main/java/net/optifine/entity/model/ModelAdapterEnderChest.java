@@ -23,12 +23,12 @@ public class ModelAdapterEnderChest extends ModelAdapter {
         } else {
             return modelPart.equals("lid") ? modelchest.chestLid
                     : (modelPart.equals("base") ? modelchest.chestBelow
-                            : (modelPart.equals("knob") ? modelchest.chestKnob : null));
+                    : (modelPart.equals("knob") ? modelchest.chestKnob : null));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "lid", "base", "knob" };
+        return new String[]{"lid", "base", "knob"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

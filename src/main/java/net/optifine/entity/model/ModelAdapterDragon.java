@@ -62,8 +62,8 @@ public class ModelAdapterDragon extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "head", "spine", "jaw", "body", "rear_leg", "front_leg", "rear_leg_tip", "front_leg_tip",
-                "rear_foot", "front_foot", "wing", "wing_tip" };
+        return new String[]{"head", "spine", "jaw", "body", "rear_leg", "front_leg", "rear_leg_tip", "front_leg_tip",
+                "rear_foot", "front_foot", "wing", "wing_tip"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

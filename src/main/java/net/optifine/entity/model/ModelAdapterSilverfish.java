@@ -57,8 +57,8 @@ public class ModelAdapterSilverfish extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "body1", "body2", "body3", "body4", "body5", "body6", "body7", "wing1", "wing2",
-                "wing3" };
+        return new String[]{"body1", "body2", "body3", "body4", "body5", "body6", "body7", "wing1", "wing2",
+                "wing3"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

@@ -41,7 +41,7 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "cube", "glass", "base" };
+        return new String[]{"cube", "glass", "base"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

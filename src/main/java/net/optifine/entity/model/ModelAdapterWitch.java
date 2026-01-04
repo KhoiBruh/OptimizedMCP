@@ -27,15 +27,15 @@ public class ModelAdapterWitch extends ModelAdapter {
                 return modelwitch.witchHat;
             return modelPart.equals("head") ? modelwitch.villagerHead
                     : (modelPart.equals("body") ? modelwitch.villagerBody
-                            : (modelPart.equals("arms") ? modelwitch.villagerArms
-                                    : (modelPart.equals("left_leg") ? modelwitch.leftVillagerLeg
-                                            : (modelPart.equals("right_leg") ? modelwitch.rightVillagerLeg
-                                                    : (modelPart.equals("nose") ? modelwitch.villagerNose : null)))));
+                    : (modelPart.equals("arms") ? modelwitch.villagerArms
+                    : (modelPart.equals("left_leg") ? modelwitch.leftVillagerLeg
+                    : (modelPart.equals("right_leg") ? modelwitch.rightVillagerLeg
+                    : (modelPart.equals("nose") ? modelwitch.villagerNose : null)))));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "mole", "head", "body", "arms", "right_leg", "left_leg", "nose" };
+        return new String[]{"mole", "head", "body", "arms", "right_leg", "left_leg", "nose"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

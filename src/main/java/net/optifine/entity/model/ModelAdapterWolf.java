@@ -23,21 +23,21 @@ public class ModelAdapterWolf extends ModelAdapter {
         } else {
             return modelPart
                     .equals("head")
-                            ? modelwolf.wolfHeadMain
-                            : (modelPart.equals("body") ? modelwolf.wolfBody
-                                    : (modelPart.equals("leg1") ? modelwolf.wolfLeg1
-                                            : (modelPart.equals("leg2") ? modelwolf.wolfLeg2
-                                                    : (modelPart.equals("leg3") ? modelwolf.wolfLeg3
-                                                            : (modelPart.equals("leg4") ? modelwolf.wolfLeg4
-                                                                    : (modelPart.equals("tail") ? modelwolf.wolfTail
-                                                                            : (modelPart.equals("mane")
-                                                                                    ? modelwolf.wolfMane
-                                                                                    : null)))))));
+                    ? modelwolf.wolfHeadMain
+                    : (modelPart.equals("body") ? modelwolf.wolfBody
+                    : (modelPart.equals("leg1") ? modelwolf.wolfLeg1
+                    : (modelPart.equals("leg2") ? modelwolf.wolfLeg2
+                    : (modelPart.equals("leg3") ? modelwolf.wolfLeg3
+                    : (modelPart.equals("leg4") ? modelwolf.wolfLeg4
+                    : (modelPart.equals("tail") ? modelwolf.wolfTail
+                    : (modelPart.equals("mane")
+                    ? modelwolf.wolfMane
+                    : null)))))));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "head", "body", "leg1", "leg2", "leg3", "leg4", "tail", "mane" };
+        return new String[]{"head", "body", "leg1", "leg2", "leg3", "leg4", "tail", "mane"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

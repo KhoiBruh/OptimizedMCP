@@ -5,8 +5,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.shaders.Shaders;
 
-public enum ShaderParameterFloat
-{
+public enum ShaderParameterFloat {
     BIOME("biome"),
     TEMPERATURE("temperature"),
     RAINFALL("rainfall"),
@@ -58,84 +57,83 @@ public enum ShaderParameterFloat
     SHADOW_MODEL_VIEW(Shaders.uniform_shadowModelView, new String[]{"0", "1", "2", "3"}, new String[]{"0", "1", "2", "3"}),
     SHADOW_MODEL_VIEW_INVERSE(Shaders.uniform_shadowModelViewInverse, new String[]{"0", "1", "2", "3"}, new String[]{"0", "1", "2", "3"});
 
-    private String name;
+    private final String name;
     private ShaderUniformBase uniform;
     private String[] indexNames1;
     private String[] indexNames2;
 
-    ShaderParameterFloat(String name)
-    {
+    ShaderParameterFloat(String name) {
         this.name = name;
     }
 
-    ShaderParameterFloat(ShaderUniformBase uniform)
-    {
+    ShaderParameterFloat(ShaderUniformBase uniform) {
         this.name = uniform.getName();
         this.uniform = uniform;
 
-        if (!instanceOf(uniform, new Class[] {ShaderUniform1f.class, ShaderUniform1i.class}))
-        {
+        if (!instanceOf(uniform, ShaderUniform1f.class, ShaderUniform1i.class)) {
             throw new IllegalArgumentException("Invalid uniform type for enum: " + this + ", uniform: " + uniform.getClass().getName());
         }
     }
 
-    ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1)
-    {
+    ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1) {
         this.name = uniform.getName();
         this.uniform = uniform;
         this.indexNames1 = indexNames1;
 
-        if (!instanceOf(uniform, new Class[] {ShaderUniform2i.class, ShaderUniform2f.class, ShaderUniform3f.class, ShaderUniform4f.class}))
-        {
+        if (!instanceOf(uniform, ShaderUniform2i.class, ShaderUniform2f.class, ShaderUniform3f.class, ShaderUniform4f.class)) {
             throw new IllegalArgumentException("Invalid uniform type for enum: " + this + ", uniform: " + uniform.getClass().getName());
         }
     }
 
-    ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1, String[] indexNames2)
-    {
+    ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1, String[] indexNames2) {
         this.name = uniform.getName();
         this.uniform = uniform;
         this.indexNames1 = indexNames1;
         this.indexNames2 = indexNames2;
 
-        if (!instanceOf(uniform, new Class[] {ShaderUniformM4.class}))
-        {
+        if (!instanceOf(uniform, ShaderUniformM4.class)) {
             throw new IllegalArgumentException("Invalid uniform type for enum: " + this + ", uniform: " + uniform.getClass().getName());
         }
     }
 
-    public String getName()
-    {
+    private static boolean instanceOf(Object obj, Class... classes) {
+        if (obj != null) {
+            Class oclass = obj.getClass();
+
+            for (Class oclass1 : classes) {
+                if (oclass1.isAssignableFrom(oclass)) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public String getName() {
         return this.name;
     }
 
-    public ShaderUniformBase getUniform()
-    {
+    public ShaderUniformBase getUniform() {
         return this.uniform;
     }
 
-    public String[] getIndexNames1()
-    {
+    public String[] getIndexNames1() {
         return this.indexNames1;
     }
 
-    public String[] getIndexNames2()
-    {
+    public String[] getIndexNames2() {
         return this.indexNames2;
     }
 
-    public float eval(int index1, int index2)
-    {
-        if (this.indexNames1 == null || index1 >= 0 && index1 <= this.indexNames1.length)
-        {
-            if (this.indexNames2 == null || index2 >= 0 && index2 <= this.indexNames2.length)
-            {
-                switch (this)
-                {
+    public float eval(int index1, int index2) {
+        if (this.indexNames1 == null || index1 >= 0 && index1 <= this.indexNames1.length) {
+            if (this.indexNames2 == null || index2 >= 0 && index2 <= this.indexNames2.length) {
+                switch (this) {
                     case BIOME:
                         BlockPos blockpos2 = Shaders.getCameraPosition();
                         BiomeGenBase biomegenbase2 = Shaders.getCurrentWorld().getBiomeGenForCoords(blockpos2);
-                        return (float)biomegenbase2.biomeID;
+                        return (float) biomegenbase2.biomeID;
 
                     case TEMPERATURE:
                         BlockPos blockpos1 = Shaders.getCameraPosition();
@@ -159,32 +157,13 @@ public enum ShaderParameterFloat
                             case null, default -> throw new IllegalArgumentException("Unknown uniform type: " + this);
                         };
                 }
-            }
-            else
-            {
+            } else {
                 Config.warn("Invalid index2, parameter: " + this + ", index: " + index2);
                 return 0.0F;
             }
-        }
-        else
-        {
+        } else {
             Config.warn("Invalid index1, parameter: " + this + ", index: " + index1);
             return 0.0F;
         }
-    }
-
-    private static boolean instanceOf(Object obj, Class... classes)
-    {
-        if (obj != null) {
-            Class oclass = obj.getClass();
-
-            for (Class oclass1 : classes) {
-                if (oclass1.isAssignableFrom(oclass)) {
-                    return true;
-                }
-            }
-
-        }
-        return false;
     }
 }

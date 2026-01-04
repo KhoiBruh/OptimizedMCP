@@ -1,23 +1,6 @@
 package net.optifine;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockGlass;
-import net.minecraft.block.BlockPane;
-import net.minecraft.block.BlockQuartz;
-import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.block.BlockStainedGlass;
-import net.minecraft.block.BlockStainedGlassPane;
+import net.minecraft.block.*;
 import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -36,19 +19,18 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.Matches;
 import net.optifine.model.BlockModelUtils;
 import net.optifine.model.ListQuadsOverlay;
-
 import net.optifine.render.RenderEnv;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.TileEntityUtils;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.*;
+
 public class ConnectedTextures {
-    private static Map[] spriteQuadMaps = null;
-    private static Map[] spriteQuadFullMaps = null;
-    private static Map[][] spriteQuadCompactMaps = null;
-    private static ConnectedProperties[][] blockProperties = null;
-    private static ConnectedProperties[][] tileProperties = null;
-    private static boolean multipass = false;
+    public static final IBlockState AIR_DEFAULT_STATE = Blocks.air.getDefaultState();
+    public static final TextureAtlasSprite SPRITE_DEFAULT = new TextureAtlasSprite("<default>");
     protected static final int UNKNOWN = -1;
     protected static final int Y_NEG_DOWN = 0;
     protected static final int Y_POS_UP = 1;
@@ -59,44 +41,48 @@ public class ConnectedTextures {
     private static final int Y_AXIS = 0;
     private static final int Z_AXIS = 1;
     private static final int X_AXIS = 2;
-    public static final IBlockState AIR_DEFAULT_STATE = Blocks.air.getDefaultState();
+    private static final BlockDir[] SIDES_Y_NEG_DOWN = new BlockDir[]{BlockDir.WEST, BlockDir.EAST, BlockDir.NORTH,
+            BlockDir.SOUTH};
+    private static final BlockDir[] SIDES_Y_POS_UP = new BlockDir[]{BlockDir.WEST, BlockDir.EAST, BlockDir.SOUTH,
+            BlockDir.NORTH};
+    private static final BlockDir[] SIDES_Z_NEG_NORTH = new BlockDir[]{BlockDir.EAST, BlockDir.WEST, BlockDir.DOWN,
+            BlockDir.UP};
+    private static final BlockDir[] SIDES_Z_POS_SOUTH = new BlockDir[]{BlockDir.WEST, BlockDir.EAST, BlockDir.DOWN,
+            BlockDir.UP};
+    private static final BlockDir[] SIDES_X_NEG_WEST = new BlockDir[]{BlockDir.NORTH, BlockDir.SOUTH, BlockDir.DOWN,
+            BlockDir.UP};
+    private static final BlockDir[] SIDES_X_POS_EAST = new BlockDir[]{BlockDir.SOUTH, BlockDir.NORTH, BlockDir.DOWN,
+            BlockDir.UP};
+    private static final BlockDir[] SIDES_Z_NEG_NORTH_Z_AXIS = new BlockDir[]{BlockDir.WEST, BlockDir.EAST,
+            BlockDir.UP, BlockDir.DOWN};
+    private static final BlockDir[] SIDES_X_POS_EAST_X_AXIS = new BlockDir[]{BlockDir.NORTH, BlockDir.SOUTH,
+            BlockDir.UP, BlockDir.DOWN};
+    private static final BlockDir[] EDGES_Y_NEG_DOWN = new BlockDir[]{BlockDir.NORTH_EAST, BlockDir.NORTH_WEST,
+            BlockDir.SOUTH_EAST, BlockDir.SOUTH_WEST};
+    private static final BlockDir[] EDGES_Y_POS_UP = new BlockDir[]{BlockDir.SOUTH_EAST, BlockDir.SOUTH_WEST,
+            BlockDir.NORTH_EAST, BlockDir.NORTH_WEST};
+    private static final BlockDir[] EDGES_Z_NEG_NORTH = new BlockDir[]{BlockDir.DOWN_WEST, BlockDir.DOWN_EAST,
+            BlockDir.UP_WEST, BlockDir.UP_EAST};
+    private static final BlockDir[] EDGES_Z_POS_SOUTH = new BlockDir[]{BlockDir.DOWN_EAST, BlockDir.DOWN_WEST,
+            BlockDir.UP_EAST, BlockDir.UP_WEST};
+    private static final BlockDir[] EDGES_X_NEG_WEST = new BlockDir[]{BlockDir.DOWN_SOUTH, BlockDir.DOWN_NORTH,
+            BlockDir.UP_SOUTH, BlockDir.UP_NORTH};
+    private static final BlockDir[] EDGES_X_POS_EAST = new BlockDir[]{BlockDir.DOWN_NORTH, BlockDir.DOWN_SOUTH,
+            BlockDir.UP_NORTH, BlockDir.UP_SOUTH};
+    private static final BlockDir[] EDGES_Z_NEG_NORTH_Z_AXIS = new BlockDir[]{BlockDir.UP_EAST, BlockDir.UP_WEST,
+            BlockDir.DOWN_EAST, BlockDir.DOWN_WEST};
+    private static final BlockDir[] EDGES_X_POS_EAST_X_AXIS = new BlockDir[]{BlockDir.UP_SOUTH, BlockDir.UP_NORTH,
+            BlockDir.DOWN_SOUTH, BlockDir.DOWN_NORTH};
+    private static Map[] spriteQuadMaps = null;
+    private static Map[] spriteQuadFullMaps = null;
+    private static Map[][] spriteQuadCompactMaps = null;
+    private static ConnectedProperties[][] blockProperties = null;
+    private static ConnectedProperties[][] tileProperties = null;
+    private static boolean multipass = false;
     private static TextureAtlasSprite emptySprite = null;
-    private static final BlockDir[] SIDES_Y_NEG_DOWN = new BlockDir[] { BlockDir.WEST, BlockDir.EAST, BlockDir.NORTH,
-            BlockDir.SOUTH };
-    private static final BlockDir[] SIDES_Y_POS_UP = new BlockDir[] { BlockDir.WEST, BlockDir.EAST, BlockDir.SOUTH,
-            BlockDir.NORTH };
-    private static final BlockDir[] SIDES_Z_NEG_NORTH = new BlockDir[] { BlockDir.EAST, BlockDir.WEST, BlockDir.DOWN,
-            BlockDir.UP };
-    private static final BlockDir[] SIDES_Z_POS_SOUTH = new BlockDir[] { BlockDir.WEST, BlockDir.EAST, BlockDir.DOWN,
-            BlockDir.UP };
-    private static final BlockDir[] SIDES_X_NEG_WEST = new BlockDir[] { BlockDir.NORTH, BlockDir.SOUTH, BlockDir.DOWN,
-            BlockDir.UP };
-    private static final BlockDir[] SIDES_X_POS_EAST = new BlockDir[] { BlockDir.SOUTH, BlockDir.NORTH, BlockDir.DOWN,
-            BlockDir.UP };
-    private static final BlockDir[] SIDES_Z_NEG_NORTH_Z_AXIS = new BlockDir[] { BlockDir.WEST, BlockDir.EAST,
-            BlockDir.UP, BlockDir.DOWN };
-    private static final BlockDir[] SIDES_X_POS_EAST_X_AXIS = new BlockDir[] { BlockDir.NORTH, BlockDir.SOUTH,
-            BlockDir.UP, BlockDir.DOWN };
-    private static final BlockDir[] EDGES_Y_NEG_DOWN = new BlockDir[] { BlockDir.NORTH_EAST, BlockDir.NORTH_WEST,
-            BlockDir.SOUTH_EAST, BlockDir.SOUTH_WEST };
-    private static final BlockDir[] EDGES_Y_POS_UP = new BlockDir[] { BlockDir.SOUTH_EAST, BlockDir.SOUTH_WEST,
-            BlockDir.NORTH_EAST, BlockDir.NORTH_WEST };
-    private static final BlockDir[] EDGES_Z_NEG_NORTH = new BlockDir[] { BlockDir.DOWN_WEST, BlockDir.DOWN_EAST,
-            BlockDir.UP_WEST, BlockDir.UP_EAST };
-    private static final BlockDir[] EDGES_Z_POS_SOUTH = new BlockDir[] { BlockDir.DOWN_EAST, BlockDir.DOWN_WEST,
-            BlockDir.UP_EAST, BlockDir.UP_WEST };
-    private static final BlockDir[] EDGES_X_NEG_WEST = new BlockDir[] { BlockDir.DOWN_SOUTH, BlockDir.DOWN_NORTH,
-            BlockDir.UP_SOUTH, BlockDir.UP_NORTH };
-    private static final BlockDir[] EDGES_X_POS_EAST = new BlockDir[] { BlockDir.DOWN_NORTH, BlockDir.DOWN_SOUTH,
-            BlockDir.UP_NORTH, BlockDir.UP_SOUTH };
-    private static final BlockDir[] EDGES_Z_NEG_NORTH_Z_AXIS = new BlockDir[] { BlockDir.UP_EAST, BlockDir.UP_WEST,
-            BlockDir.DOWN_EAST, BlockDir.DOWN_WEST };
-    private static final BlockDir[] EDGES_X_POS_EAST_X_AXIS = new BlockDir[] { BlockDir.UP_SOUTH, BlockDir.UP_NORTH,
-            BlockDir.DOWN_SOUTH, BlockDir.DOWN_NORTH };
-    public static final TextureAtlasSprite SPRITE_DEFAULT = new TextureAtlasSprite("<default>");
 
     public static BakedQuad[] getConnectedTexture(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos,
-            BakedQuad quad, RenderEnv renderEnv) {
+                                                  BakedQuad quad, RenderEnv renderEnv) {
         TextureAtlasSprite textureatlassprite = quad.getSprite();
 
         if (textureatlassprite == null) {
@@ -116,7 +102,7 @@ public class ConnectedTextures {
     }
 
     private static boolean skipConnectedTexture(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos,
-            BakedQuad quad, RenderEnv renderEnv) {
+                                                BakedQuad quad, RenderEnv renderEnv) {
         Block block = blockState.getBlock();
 
         if (block instanceof BlockPane) {
@@ -269,7 +255,7 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureMultiPass(IBlockAccess blockAccess, IBlockState blockState,
-            BlockPos blockPos, EnumFacing side, BakedQuad quad, RenderEnv renderEnv) {
+                                                            BlockPos blockPos, EnumFacing side, BakedQuad quad, RenderEnv renderEnv) {
         BakedQuad[] abakedquad = getConnectedTextureSingle(blockAccess, blockState, blockPos, side, quad, true, 0,
                 renderEnv);
 
@@ -306,7 +292,7 @@ public class ConnectedTextures {
     }
 
     public static BakedQuad[] getConnectedTextureSingle(IBlockAccess blockAccess, IBlockState blockState,
-            BlockPos blockPos, EnumFacing facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv) {
+                                                        BlockPos blockPos, EnumFacing facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv) {
         Block block = blockState.getBlock();
 
         if (blockState instanceof BlockStateBase blockstatebase) {
@@ -392,7 +378,7 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTexture(ConnectedProperties cp, IBlockAccess blockAccess,
-            BlockStateBase blockState, BlockPos blockPos, int side, BakedQuad quad, int pass, RenderEnv renderEnv) {
+                                                   BlockStateBase blockState, BlockPos blockPos, int side, BakedQuad quad, int pass, RenderEnv renderEnv) {
         int i = 0;
         int j = blockState.getMetadata();
         int k = j;
@@ -536,9 +522,9 @@ public class ConnectedTextures {
                 return switch (side) {
                     case 0 -> 4;
                     case 1 -> 5;
-                    default -> side;
                     case 4 -> 1;
                     case 5 -> 0;
+                    default -> side;
                 };
 
             default:
@@ -565,7 +551,7 @@ public class ConnectedTextures {
     }
 
     private static TextureAtlasSprite getConnectedTextureRandom(ConnectedProperties cp, IBlockAccess blockAccess,
-            BlockStateBase blockState, BlockPos blockPos, int side) {
+                                                                BlockStateBase blockState, BlockPos blockPos, int side) {
         if (cp.tileIcons.length == 1) {
             return cp.tileIcons[0];
         } else {
@@ -668,16 +654,16 @@ public class ConnectedTextures {
     }
 
     private static TextureAtlasSprite getConnectedTextureCtm(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata,
-            RenderEnv renderEnv) {
+                                                             IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata,
+                                                             RenderEnv renderEnv) {
         int i = getConnectedTextureCtmIndex(cp, blockAccess, blockState, blockPos, vertAxis, side, icon, metadata,
                 renderEnv);
         return cp.tileIcons[i];
     }
 
     private static synchronized BakedQuad[] getConnectedTextureCtmCompact(ConnectedProperties cp,
-            IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad,
-            int metadata, RenderEnv renderEnv) {
+                                                                          IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad,
+                                                                          int metadata, RenderEnv renderEnv) {
         TextureAtlasSprite textureatlassprite = quad.getSprite();
         int i = getConnectedTextureCtmIndex(cp, blockAccess, blockState, blockPos, vertAxis, side, textureatlassprite,
                 metadata, renderEnv);
@@ -685,8 +671,8 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureOverlay(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata,
-            RenderEnv renderEnv) {
+                                                          IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata,
+                                                          RenderEnv renderEnv) {
         if (!quad.isFullQuad()) {
             return null;
         } else {
@@ -840,7 +826,7 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureOverlayFixed(ConnectedProperties cp, BakedQuad quad,
-            RenderEnv renderEnv) {
+                                                               RenderEnv renderEnv) {
         if (!quad.isFullQuad()) {
             return null;
         } else {
@@ -866,7 +852,7 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureOverlayRandom(ConnectedProperties cp, IBlockAccess blockAccess,
-            BlockStateBase blockState, BlockPos blockPos, int side, BakedQuad quad, RenderEnv renderEnv) {
+                                                                BlockStateBase blockState, BlockPos blockPos, int side, BakedQuad quad, RenderEnv renderEnv) {
         if (!quad.isFullQuad()) {
             return null;
         } else {
@@ -893,7 +879,7 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureOverlayRepeat(ConnectedProperties cp, BlockPos blockPos, int side,
-            BakedQuad quad, RenderEnv renderEnv) {
+                                                                BakedQuad quad, RenderEnv renderEnv) {
         if (!quad.isFullQuad()) {
             return null;
         } else {
@@ -919,8 +905,8 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureOverlayCtm(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata,
-            RenderEnv renderEnv) {
+                                                             IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata,
+                                                             RenderEnv renderEnv) {
         if (!quad.isFullQuad()) {
             return null;
         } else {
@@ -999,8 +985,8 @@ public class ConnectedTextures {
     }
 
     private static int getConnectedTextureCtmIndex(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata,
-            RenderEnv renderEnv) {
+                                                   IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata,
+                                                   RenderEnv renderEnv) {
         boolean[] aboolean = renderEnv.getBorderFlags();
 
         switch (side) {
@@ -1397,7 +1383,7 @@ public class ConnectedTextures {
     }
 
     private static boolean isNeighbourOverlay(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState,
-            BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata) {
+                                              BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata) {
         IBlockState iblockstate = iblockaccess.getBlockState(blockPos);
 
         if (!isFullCubeModel(iblockstate)) {
@@ -1435,7 +1421,7 @@ public class ConnectedTextures {
     }
 
     private static boolean isNeighbourMatching(ConnectedProperties cp, IBlockAccess iblockaccess,
-            IBlockState blockState, BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata) {
+                                               IBlockState blockState, BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata) {
         IBlockState iblockstate = iblockaccess.getBlockState(blockPos);
 
         if (iblockstate == AIR_DEFAULT_STATE) {
@@ -1463,13 +1449,13 @@ public class ConnectedTextures {
     }
 
     private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState,
-            BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata) {
+                                       BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata) {
         IBlockState iblockstate = iblockaccess.getBlockState(blockPos);
         return isNeighbour(cp, iblockaccess, blockState, blockPos, iblockstate, side, icon, metadata);
     }
 
     private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState,
-            BlockPos blockPos, IBlockState neighbourState, int side, TextureAtlasSprite icon, int metadata) {
+                                       BlockPos blockPos, IBlockState neighbourState, int side, TextureAtlasSprite icon, int metadata) {
         if (blockState == neighbourState) {
             return true;
         } else if (cp.connect == 2) {
@@ -1494,7 +1480,7 @@ public class ConnectedTextures {
     }
 
     private static TextureAtlasSprite getNeighbourIcon(IBlockAccess iblockaccess, IBlockState blockState,
-            BlockPos blockPos, IBlockState neighbourState, int side) {
+                                                       BlockPos blockPos, IBlockState neighbourState, int side) {
         neighbourState = neighbourState.getBlock().getActualState(neighbourState, iblockaccess, blockPos);
         IBakedModel ibakedmodel = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes()
                 .getModelForState(neighbourState);
@@ -1536,7 +1522,7 @@ public class ConnectedTextures {
     }
 
     private static TextureAtlasSprite getConnectedTextureHorizontal(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata) {
+                                                                    IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata) {
         boolean flag;
         boolean flag1;
         flag = false;
@@ -1662,7 +1648,7 @@ public class ConnectedTextures {
     }
 
     private static TextureAtlasSprite getConnectedTextureVertical(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata) {
+                                                                  IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata) {
         boolean flag = false;
         boolean flag1 = false;
 
@@ -1726,8 +1712,8 @@ public class ConnectedTextures {
     }
 
     private static TextureAtlasSprite getConnectedTextureHorizontalVertical(ConnectedProperties cp,
-            IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side,
-            TextureAtlasSprite icon, int metadata) {
+                                                                            IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side,
+                                                                            TextureAtlasSprite icon, int metadata) {
         TextureAtlasSprite[] atextureatlassprite = cp.tileIcons;
         TextureAtlasSprite textureatlassprite = getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPos,
                 vertAxis, side, icon, metadata);
@@ -1739,14 +1725,14 @@ public class ConnectedTextures {
                     vertAxis, side, icon, metadata);
             return textureatlassprite1 == atextureatlassprite[0] ? atextureatlassprite[4]
                     : (textureatlassprite1 == atextureatlassprite[1] ? atextureatlassprite[5]
-                            : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6]
-                                    : textureatlassprite1));
+                    : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6]
+                    : textureatlassprite1));
         }
     }
 
     private static TextureAtlasSprite getConnectedTextureVerticalHorizontal(ConnectedProperties cp,
-            IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side,
-            TextureAtlasSprite icon, int metadata) {
+                                                                            IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side,
+                                                                            TextureAtlasSprite icon, int metadata) {
         TextureAtlasSprite[] atextureatlassprite = cp.tileIcons;
         TextureAtlasSprite textureatlassprite = getConnectedTextureVertical(cp, blockAccess, blockState, blockPos,
                 vertAxis, side, icon, metadata);
@@ -1758,13 +1744,13 @@ public class ConnectedTextures {
                     blockPos, vertAxis, side, icon, metadata);
             return textureatlassprite1 == atextureatlassprite[0] ? atextureatlassprite[4]
                     : (textureatlassprite1 == atextureatlassprite[1] ? atextureatlassprite[5]
-                            : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6]
-                                    : textureatlassprite1));
+                    : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6]
+                    : textureatlassprite1));
         }
     }
 
     private static TextureAtlasSprite getConnectedTextureTop(ConnectedProperties cp, IBlockAccess blockAccess,
-            IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata) {
+                                                             IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata) {
         boolean flag = false;
 
         switch (vertAxis) {
@@ -2005,8 +1991,8 @@ public class ConnectedTextures {
             list.add(s + "sandstone.properties");
         }
 
-        String[] astring = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
-                "silver", "cyan", "purple", "blue", "brown", "green", "red", "black" };
+        String[] astring = new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
+                "silver", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 
         for (int i = 0; i < astring.length; ++i) {
             String s1 = astring[i];

@@ -1,6 +1,5 @@
 package net.optifine.override;
 
-import java.util.Arrays;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
@@ -11,10 +10,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.DynamicLights;
-
 import net.optifine.util.ArrayCache;
 
+import java.util.Arrays;
+
 public class ChunkCacheOF implements IBlockAccess {
+    private static final ArrayCache cacheCombinedLights = new ArrayCache(Integer.TYPE, 16);
+    private static final ArrayCache cacheBlockStates = new ArrayCache(IBlockState.class, 16);
     private final ChunkCache chunkCache;
     private final int posX;
     private final int posY;
@@ -23,12 +25,10 @@ public class ChunkCacheOF implements IBlockAccess {
     private final int sizeY;
     private final int sizeZ;
     private final int sizeXY;
-    private int[] combinedLights;
-    private IBlockState[] blockStates;
     private final int arraySize;
     private final boolean dynamicLights = Config.isDynamicLights();
-    private static final ArrayCache cacheCombinedLights = new ArrayCache(Integer.TYPE, 16);
-    private static final ArrayCache cacheBlockStates = new ArrayCache(IBlockState.class, 16);
+    private int[] combinedLights;
+    private IBlockState[] blockStates;
 
     public ChunkCacheOF(ChunkCache chunkCache, BlockPos posFromIn, BlockPos posToIn, int subIn) {
         this.chunkCache = chunkCache;

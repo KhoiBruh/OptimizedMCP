@@ -1,22 +1,22 @@
 package net.optifine.shaders;
 
+import net.minecraft.src.Config;
+import net.minecraft.util.ResourceLocation;
+import net.optifine.config.ConnectedParser;
+import net.optifine.shaders.config.MacroProcessor;
+import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.StrUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import net.minecraft.src.Config;
-import net.minecraft.util.ResourceLocation;
-import net.optifine.config.ConnectedParser;
-
-import net.optifine.shaders.config.MacroProcessor;
-import net.optifine.util.PropertiesOrdered;
-import net.optifine.util.StrUtils;
 
 public class ItemAliases {
+    private static final int NO_ALIAS = Integer.MIN_VALUE;
     private static int[] itemAliases = null;
     private static boolean updateOnResourcesReloaded;
-    private static final int NO_ALIAS = Integer.MIN_VALUE;
 
     public static int getItemAliasId(int itemId) {
         if (itemAliases == null) {

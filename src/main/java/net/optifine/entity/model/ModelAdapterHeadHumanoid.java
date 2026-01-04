@@ -28,7 +28,7 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "head" };
+        return new String[]{"head"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

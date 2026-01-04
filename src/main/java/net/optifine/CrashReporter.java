@@ -5,63 +5,48 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.src.Config;
 import net.optifine.shaders.Shaders;
 
-public class CrashReporter
-{
-    public static void onCrashReport(CrashReport crashReport, CrashReportCategory category)
-    {
-        try
-        {
+public class CrashReporter {
+    public static void onCrashReport(CrashReport crashReport, CrashReportCategory category) {
+        try {
             Throwable throwable = crashReport.getCrashCause();
 
-            if (throwable == null)
-            {
+            if (throwable == null) {
                 return;
             }
 
-            if (throwable.getClass().getName().contains(".fml.client.SplashProgress"))
-            {
+            if (throwable.getClass().getName().contains(".fml.client.SplashProgress")) {
                 return;
             }
 
-            if (throwable.getClass() == Throwable.class)
-            {
+            if (throwable.getClass() == Throwable.class) {
                 return;
             }
 
             extendCrashReport(category);
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             Config.dbg(exception.getClass().getName() + ": " + exception.getMessage());
         }
     }
 
-    private static String makeReport(CrashReport crashReport)
-    {
-        StringBuilder stringbuffer = new StringBuilder();
-        stringbuffer.append("OptiFineVersion: ").append(Config.getVersion()).append("\n");
-        stringbuffer.append("Summary: ").append(makeSummary(crashReport)).append("\n");
-        stringbuffer.append("\n");
-        stringbuffer.append(crashReport.getCompleteReport());
-        stringbuffer.append("\n");
-        return stringbuffer.toString();
+    private static String makeReport(CrashReport crashReport) {
+        String stringbuffer = "OptiFineVersion: " + Config.getVersion() + "\n" +
+                "Summary: " + makeSummary(crashReport) + "\n" +
+                "\n" +
+                crashReport.getCompleteReport() +
+                "\n";
+        return stringbuffer;
     }
 
-    private static String makeSummary(CrashReport crashReport)
-    {
+    private static String makeSummary(CrashReport crashReport) {
         Throwable throwable = crashReport.getCrashCause();
 
-        if (throwable == null)
-        {
+        if (throwable == null) {
             return "Unknown";
-        }
-        else
-        {
+        } else {
             StackTraceElement[] astacktraceelement = throwable.getStackTrace();
             String s = "unknown";
 
-            if (astacktraceelement.length > 0)
-            {
+            if (astacktraceelement.length > 0) {
                 s = astacktraceelement[0].toString().trim();
             }
 
@@ -69,13 +54,11 @@ public class CrashReporter
         }
     }
 
-    public static void extendCrashReport(CrashReportCategory cat)
-    {
+    public static void extendCrashReport(CrashReportCategory cat) {
         cat.addCrashSection("OptiFine Version", Config.getVersion());
         cat.addCrashSection("OptiFine Build", Config.getBuild());
 
-        if (Config.getGameSettings() != null)
-        {
+        if (Config.getGameSettings() != null) {
             cat.addCrashSection("Render Distance Chunks", "" + Config.getChunkViewDistance());
             cat.addCrashSection("Mipmaps", "" + Config.getMipmapLevels());
             cat.addCrashSection("Anisotropic Filtering", "" + Config.getAnisotropicFilterLevel());
@@ -83,10 +66,10 @@ public class CrashReporter
             cat.addCrashSection("Multitexture", "" + Config.isMultiTexture());
         }
 
-        cat.addCrashSection("Shaders", "" + Shaders.getShaderPackName());
-        cat.addCrashSection("OpenGlVersion", "" + Config.openGlVersion);
-        cat.addCrashSection("OpenGlRenderer", "" + Config.openGlRenderer);
-        cat.addCrashSection("OpenGlVendor", "" + Config.openGlVendor);
+        cat.addCrashSection("Shaders", Shaders.getShaderPackName());
+        cat.addCrashSection("OpenGlVersion", Config.openGlVersion);
+        cat.addCrashSection("OpenGlRenderer", Config.openGlRenderer);
+        cat.addCrashSection("OpenGlVendor", Config.openGlVendor);
         cat.addCrashSection("CpuCount", "" + Config.getAvailableProcessors());
     }
 }

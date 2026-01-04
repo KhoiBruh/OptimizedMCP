@@ -1,18 +1,17 @@
 package net.optifine.entity.model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.src.Config;
 
-public class CustomModelRegistry
-{
-    private static Map<String, ModelAdapter> mapModelAdapters = makeMapModelAdapters();
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
-    private static Map<String, ModelAdapter> makeMapModelAdapters()
-    {
+public class CustomModelRegistry {
+    private static final Map<String, ModelAdapter> mapModelAdapters = makeMapModelAdapters();
+
+    private static Map<String, ModelAdapter> makeMapModelAdapters() {
         Map<String, ModelAdapter> map = new LinkedHashMap<>();
         addModelAdapter(map, new ModelAdapterArmorStand());
         addModelAdapter(map, new ModelAdapterBat());
@@ -65,13 +64,11 @@ public class CustomModelRegistry
         return map;
     }
 
-    private static void addModelAdapter(Map<String, ModelAdapter> map, ModelAdapter modelAdapter)
-    {
+    private static void addModelAdapter(Map<String, ModelAdapter> map, ModelAdapter modelAdapter) {
         addModelAdapter(map, modelAdapter, modelAdapter.getName());
         String[] astring = modelAdapter.getAliases();
 
-        if (astring != null)
-        {
+        if (astring != null) {
             for (String s : astring) {
                 addModelAdapter(map, modelAdapter, s);
             }
@@ -89,23 +86,19 @@ public class CustomModelRegistry
         }
     }
 
-    private static void addModelAdapter(Map<String, ModelAdapter> map, ModelAdapter modelAdapter, String name)
-    {
-        if (map.containsKey(name))
-        {
+    private static void addModelAdapter(Map<String, ModelAdapter> map, ModelAdapter modelAdapter, String name) {
+        if (map.containsKey(name)) {
             Config.warn("Model adapter already registered for id: " + name + ", class: " + modelAdapter.getEntityClass().getName());
         }
 
         map.put(name, modelAdapter);
     }
 
-    public static ModelAdapter getModelAdapter(String name)
-    {
+    public static ModelAdapter getModelAdapter(String name) {
         return mapModelAdapters.get(name);
     }
 
-    public static String[] getModelNames()
-    {
+    public static String[] getModelNames() {
         Set<String> set = mapModelAdapters.keySet();
         return set.toArray(new String[set.size()]);
     }

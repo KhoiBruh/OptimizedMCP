@@ -1,48 +1,35 @@
 package net.optifine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockPart;
-import net.minecraft.client.renderer.block.model.BlockPartFace;
-import net.minecraft.client.renderer.block.model.FaceBakery;
-import net.minecraft.client.renderer.block.model.ItemModelGenerator;
-import net.minecraft.client.renderer.block.model.ModelBlock;
+import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.client.resources.model.ModelRotation;
-import net.minecraft.client.resources.model.SimpleBakedModel;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.src.Config;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.config.IParserInt;
-import net.optifine.config.NbtTagValue;
-import net.optifine.config.ParserEnchantmentId;
-import net.optifine.config.RangeInt;
-import net.optifine.config.RangeListInt;
-
+import net.optifine.config.*;
 import net.optifine.render.Blender;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
 import org.lwjgl.opengl.GL11;
 
+import java.util.*;
+
 public class CustomItemProperties {
+    public static final int TYPE_UNKNOWN = 0;
+    public static final int TYPE_ITEM = 1;
+    public static final int TYPE_ENCHANTMENT = 2;
+    public static final int TYPE_ARMOR = 3;
+    public static final int HAND_ANY = 0;
+    public static final int HAND_MAIN = 1;
+    public static final int HAND_OFF = 2;
+    public static final String INVENTORY = "inventory";
     public String name = null;
     public String basePath = null;
     public int type = 1;
@@ -75,14 +62,6 @@ public class CustomItemProperties {
     public Map<String, IBakedModel> mapBakedModelsFull = null;
     private int textureWidth = 0;
     private int textureHeight = 0;
-    public static final int TYPE_UNKNOWN = 0;
-    public static final int TYPE_ITEM = 1;
-    public static final int TYPE_ENCHANTMENT = 2;
-    public static final int TYPE_ARMOR = 3;
-    public static final int HAND_ANY = 0;
-    public static final int HAND_MAIN = 1;
-    public static final int HAND_OFF = 2;
-    public static final String INVENTORY = "inventory";
 
     public CustomItemProperties(Properties props, String path) {
         this.name = parseName(path);
@@ -139,93 +118,8 @@ public class CustomItemProperties {
         return i < 0 ? "" : path.substring(0, i);
     }
 
-    private int parseType(String str) {
-        if (str == null) {
-            return 1;
-        } else if (str.equals("item")) {
-            return 1;
-        } else if (str.equals("enchantment")) {
-            return 2;
-        } else if (str.equals("armor")) {
-            return 3;
-        } else {
-            Config.warn("Unknown method: " + str);
-            return 0;
-        }
-    }
-
-    private int[] parseItems(String str, String str2) {
-        if (str == null) {
-            str = str2;
-        }
-
-        if (str == null) {
-            return null;
-        } else {
-            str = str.trim();
-            Set set = new TreeSet();
-            String[] astring = Config.tokenize(str, " ");
-            label45:
-
-            for (String s : astring) {
-                int j = Config.parseInt(s, -1);
-
-                if (j >= 0) {
-                    set.add(j);
-                } else {
-                    if (s.contains("-")) {
-                        String[] astring1 = Config.tokenize(s, "-");
-
-                        if (astring1.length == 2) {
-                            int k = Config.parseInt(astring1[0], -1);
-                            int l = Config.parseInt(astring1[1], -1);
-
-                            if (k >= 0 && l >= 0) {
-                                int i1 = Math.min(k, l);
-                                int j1 = Math.max(k, l);
-                                int k1 = i1;
-
-                                while (true) {
-                                    if (k1 > j1) {
-                                        continue label45;
-                                    }
-
-                                    set.add(k1);
-                                    ++k1;
-                                }
-                            }
-                        }
-                    }
-
-                    Item item = Item.getByNameOrId(s);
-
-                    if (item == null) {
-                        Config.warn("Item not found: " + s);
-                    } else {
-                        int i2 = Item.getIdFromItem(item);
-
-                        if (i2 <= 0) {
-                            Config.warn("Item not found: " + s);
-                        } else {
-                            set.add(i2);
-                        }
-                    }
-                }
-            }
-
-            Integer[] ainteger = (Integer[]) set.toArray(new Integer[0]);
-            int[] aint = new int[ainteger.length];
-
-            for (int l1 = 0; l1 < aint.length; ++l1) {
-                aint[l1] = ainteger[l1];
-            }
-
-            return aint;
-        }
-    }
-
     private static String parseTexture(String texStr, String texStr2, String texStr3, String path, String basePath,
-            int type, Map<String, String> mapTexs, boolean textureFromPath) {
+                                       int type, Map<String, String> mapTexs, boolean textureFromPath) {
         if (texStr == null) {
             texStr = texStr2;
         }
@@ -316,7 +210,7 @@ public class CustomItemProperties {
     }
 
     private static String parseModel(String modelStr, String path, String basePath, int type,
-            Map<String, String> mapModelNames) {
+                                     Map<String, String> mapModelNames) {
         if (modelStr != null) {
             String s1 = ".json";
 
@@ -381,6 +275,197 @@ public class CustomItemProperties {
         }
 
         return modelName;
+    }
+
+    private static Map getMatchingProperties(Properties props, String keyPrefix) {
+        Map map = new LinkedHashMap();
+
+        for (Object o : props.keySet()) {
+            String s = (String) o;
+            String s1 = props.getProperty(s);
+
+            if (s.startsWith(keyPrefix)) {
+                map.put(s, s1);
+            }
+        }
+
+        return map;
+    }
+
+    private static IBakedModel makeBakedModel(TextureMap textureMap, ItemModelGenerator itemModelGenerator,
+                                              String[] textures, boolean useTint) {
+        String[] astring = new String[textures.length];
+
+        for (int i = 0; i < astring.length; ++i) {
+            String s = textures[i];
+            astring[i] = StrUtils.removePrefix(s, "textures/");
+        }
+
+        ModelBlock modelblock = makeModelBlock(astring);
+        ModelBlock modelblock1 = itemModelGenerator.makeItemModel(textureMap, modelblock);
+        return bakeModel(textureMap, modelblock1, useTint);
+    }
+
+    private static ModelBlock makeModelBlock(String[] modelTextures) {
+        StringBuilder stringbuffer = new StringBuilder();
+        stringbuffer.append("{\"parent\": \"builtin/generated\",\"textures\": {");
+
+        for (int i = 0; i < modelTextures.length; ++i) {
+            String s = modelTextures[i];
+
+            if (i > 0) {
+                stringbuffer.append(", ");
+            }
+
+            stringbuffer.append("\"layer").append(i).append("\": \"").append(s).append("\"");
+        }
+
+        stringbuffer.append("}}");
+        String s1 = stringbuffer.toString();
+        return ModelBlock.deserialize(s1);
+    }
+
+    private static IBakedModel bakeModel(TextureMap textureMap, ModelBlock modelBlockIn, boolean useTint) {
+        ModelRotation modelrotation = ModelRotation.X0_Y0;
+        boolean flag = false;
+        String s = modelBlockIn.resolveTextureName("particle");
+        TextureAtlasSprite textureatlassprite = textureMap.getAtlasSprite((new ResourceLocation(s)).toString());
+        SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn))
+                .setTexture(textureatlassprite);
+
+        for (BlockPart blockpart : modelBlockIn.getElements()) {
+            for (EnumFacing enumfacing : blockpart.mapFaces.keySet()) {
+                BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
+
+                if (!useTint) {
+                    blockpartface = new BlockPartFace(blockpartface.cullFace, -1, blockpartface.texture,
+                            blockpartface.blockFaceUV);
+                }
+
+                String s1 = modelBlockIn.resolveTextureName(blockpartface.texture);
+                TextureAtlasSprite textureatlassprite1 = textureMap
+                        .getAtlasSprite((new ResourceLocation(s1)).toString());
+                BakedQuad bakedquad = makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing,
+                        modelrotation, flag);
+
+                if (blockpartface.cullFace == null) {
+                    simplebakedmodel$builder.addGeneralQuad(bakedquad);
+                } else {
+                    simplebakedmodel$builder.addFaceQuad(modelrotation.rotateFace(blockpartface.cullFace), bakedquad);
+                }
+            }
+        }
+
+        return simplebakedmodel$builder.makeBakedModel();
+    }
+
+    private static BakedQuad makeBakedQuad(BlockPart blockPart, BlockPartFace blockPartFace,
+                                           TextureAtlasSprite textureAtlasSprite, EnumFacing enumFacing, ModelRotation modelRotation,
+                                           boolean uvLocked) {
+        FaceBakery facebakery = new FaceBakery();
+        return facebakery.makeBakedQuad(blockPart.positionFrom, blockPart.positionTo, blockPartFace, textureAtlasSprite,
+                enumFacing, modelRotation, blockPart.partRotation, uvLocked, blockPart.shade);
+    }
+
+    private static void loadItemModel(ModelBakery modelBakery, String model) {
+        ResourceLocation resourcelocation = getModelLocation(model);
+        ModelResourceLocation modelresourcelocation = new ModelResourceLocation(resourcelocation, "inventory");
+        modelBakery.loadItemModel(resourcelocation.toString(), modelresourcelocation, resourcelocation);
+    }
+
+    private static void checkNull(Object obj, String msg) throws NullPointerException {
+        if (obj == null) {
+            throw new NullPointerException(msg);
+        }
+    }
+
+    private static ResourceLocation getModelLocation(String modelName) {
+        return new ResourceLocation(modelName);
+    }
+
+    private int parseType(String str) {
+        if (str == null) {
+            return 1;
+        } else if (str.equals("item")) {
+            return 1;
+        } else if (str.equals("enchantment")) {
+            return 2;
+        } else if (str.equals("armor")) {
+            return 3;
+        } else {
+            Config.warn("Unknown method: " + str);
+            return 0;
+        }
+    }
+
+    private int[] parseItems(String str, String str2) {
+        if (str == null) {
+            str = str2;
+        }
+
+        if (str == null) {
+            return null;
+        } else {
+            str = str.trim();
+            Set set = new TreeSet();
+            String[] astring = Config.tokenize(str, " ");
+            label45:
+
+            for (String s : astring) {
+                int j = Config.parseInt(s, -1);
+
+                if (j >= 0) {
+                    set.add(j);
+                } else {
+                    if (s.contains("-")) {
+                        String[] astring1 = Config.tokenize(s, "-");
+
+                        if (astring1.length == 2) {
+                            int k = Config.parseInt(astring1[0], -1);
+                            int l = Config.parseInt(astring1[1], -1);
+
+                            if (k >= 0 && l >= 0) {
+                                int i1 = Math.min(k, l);
+                                int j1 = Math.max(k, l);
+                                int k1 = i1;
+
+                                while (true) {
+                                    if (k1 > j1) {
+                                        continue label45;
+                                    }
+
+                                    set.add(k1);
+                                    ++k1;
+                                }
+                            }
+                        }
+                    }
+
+                    Item item = Item.getByNameOrId(s);
+
+                    if (item == null) {
+                        Config.warn("Item not found: " + s);
+                    } else {
+                        int i2 = Item.getIdFromItem(item);
+
+                        if (i2 <= 0) {
+                            Config.warn("Item not found: " + s);
+                        } else {
+                            set.add(i2);
+                        }
+                    }
+                }
+            }
+
+            Integer[] ainteger = (Integer[]) set.toArray(new Integer[0]);
+            int[] aint = new int[ainteger.length];
+
+            for (int l1 = 0; l1 < aint.length; ++l1) {
+                aint[l1] = ainteger[l1];
+            }
+
+            return aint;
+        }
     }
 
     private int parseInt(String str, int defVal) {
@@ -519,21 +604,6 @@ public class CustomItemProperties {
         }
     }
 
-    private static Map getMatchingProperties(Properties props, String keyPrefix) {
-        Map map = new LinkedHashMap();
-
-        for (Object o : props.keySet()) {
-            String s = (String) o;
-            String s1 = props.getProperty(s);
-
-            if (s.startsWith(keyPrefix)) {
-                map.put(s, s1);
-            }
-        }
-
-        return map;
-    }
-
     private int parseHand(String str) {
         if (str == null) {
             return 0;
@@ -601,7 +671,7 @@ public class CustomItemProperties {
             return null;
         } else {
             int i = Item.getIdFromItem(item);
-            return i <= 0 ? null : new int[] { i };
+            return i <= 0 ? null : new int[]{i};
         }
     }
 
@@ -676,7 +746,7 @@ public class CustomItemProperties {
                     String s2 = StrUtils.removePrefix(s, "texture.");
 
                     if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
-                        String[] astring1 = new String[] { s1 };
+                        String[] astring1 = new String[]{s1};
                         IBakedModel ibakedmodel = makeBakedModel(textureMap, itemModelGenerator, astring1, flag);
 
                         if (this.mapBakedModelsTexture == null) {
@@ -692,20 +762,6 @@ public class CustomItemProperties {
 
     private boolean isUseTint() {
         return true;
-    }
-
-    private static IBakedModel makeBakedModel(TextureMap textureMap, ItemModelGenerator itemModelGenerator,
-            String[] textures, boolean useTint) {
-        String[] astring = new String[textures.length];
-
-        for (int i = 0; i < astring.length; ++i) {
-            String s = textures[i];
-            astring[i] = StrUtils.removePrefix(s, "textures/");
-        }
-
-        ModelBlock modelblock = makeModelBlock(astring);
-        ModelBlock modelblock1 = itemModelGenerator.makeItemModel(textureMap, modelblock);
-        return bakeModel(textureMap, modelblock1, useTint);
     }
 
     private String[] getModelTextures() {
@@ -727,7 +783,7 @@ public class CustomItemProperties {
                             "items/potion_bottle_drinkable");
                 }
 
-                return new String[] { s5, s6 };
+                return new String[]{s5, s6};
             }
 
             if (item instanceof ItemArmor itemarmor) {
@@ -756,12 +812,12 @@ public class CustomItemProperties {
                     String s3 = this.getMapTexture(this.mapTextures, "texture." + s2, "items/" + s2);
                     String s4 = this.getMapTexture(this.mapTextures, "texture." + s2 + "_overlay",
                             "items/" + s2 + "_overlay");
-                    return new String[] { s3, s4 };
+                    return new String[]{s3, s4};
                 }
             }
         }
 
-        return new String[] { this.texture };
+        return new String[]{this.texture};
     }
 
     private String getMapTexture(Map<String, String> map, String key, String def) {
@@ -773,69 +829,8 @@ public class CustomItemProperties {
         }
     }
 
-    private static ModelBlock makeModelBlock(String[] modelTextures) {
-        StringBuilder stringbuffer = new StringBuilder();
-        stringbuffer.append("{\"parent\": \"builtin/generated\",\"textures\": {");
-
-        for (int i = 0; i < modelTextures.length; ++i) {
-            String s = modelTextures[i];
-
-            if (i > 0) {
-                stringbuffer.append(", ");
-            }
-
-            stringbuffer.append("\"layer").append(i).append("\": \"").append(s).append("\"");
-        }
-
-        stringbuffer.append("}}");
-        String s1 = stringbuffer.toString();
-        return ModelBlock.deserialize(s1);
-    }
-
-    private static IBakedModel bakeModel(TextureMap textureMap, ModelBlock modelBlockIn, boolean useTint) {
-        ModelRotation modelrotation = ModelRotation.X0_Y0;
-        boolean flag = false;
-        String s = modelBlockIn.resolveTextureName("particle");
-        TextureAtlasSprite textureatlassprite = textureMap.getAtlasSprite((new ResourceLocation(s)).toString());
-        SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn))
-                .setTexture(textureatlassprite);
-
-        for (BlockPart blockpart : modelBlockIn.getElements()) {
-            for (EnumFacing enumfacing : blockpart.mapFaces.keySet()) {
-                BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
-
-                if (!useTint) {
-                    blockpartface = new BlockPartFace(blockpartface.cullFace, -1, blockpartface.texture,
-                            blockpartface.blockFaceUV);
-                }
-
-                String s1 = modelBlockIn.resolveTextureName(blockpartface.texture);
-                TextureAtlasSprite textureatlassprite1 = textureMap
-                        .getAtlasSprite((new ResourceLocation(s1)).toString());
-                BakedQuad bakedquad = makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing,
-                        modelrotation, flag);
-
-                if (blockpartface.cullFace == null) {
-                    simplebakedmodel$builder.addGeneralQuad(bakedquad);
-                } else {
-                    simplebakedmodel$builder.addFaceQuad(modelrotation.rotateFace(blockpartface.cullFace), bakedquad);
-                }
-            }
-        }
-
-        return simplebakedmodel$builder.makeBakedModel();
-    }
-
-    private static BakedQuad makeBakedQuad(BlockPart blockPart, BlockPartFace blockPartFace,
-            TextureAtlasSprite textureAtlasSprite, EnumFacing enumFacing, ModelRotation modelRotation,
-            boolean uvLocked) {
-        FaceBakery facebakery = new FaceBakery();
-        return facebakery.makeBakedQuad(blockPart.positionFrom, blockPart.positionTo, blockPartFace, textureAtlasSprite,
-                enumFacing, modelRotation, blockPart.partRotation, uvLocked, blockPart.shade);
-    }
-
     public String toString() {
-        return "" + this.basePath + "/" + this.name + ", type: " + this.type + ", items: ["
+        return this.basePath + "/" + this.name + ", type: " + this.type + ", items: ["
                 + Config.arrayToString(this.items) + "], textture: " + this.texture;
     }
 
@@ -956,21 +951,5 @@ public class CustomItemProperties {
                 }
             }
         }
-    }
-
-    private static void loadItemModel(ModelBakery modelBakery, String model) {
-        ResourceLocation resourcelocation = getModelLocation(model);
-        ModelResourceLocation modelresourcelocation = new ModelResourceLocation(resourcelocation, "inventory");
-        modelBakery.loadItemModel(resourcelocation.toString(), modelresourcelocation, resourcelocation);
-    }
-
-    private static void checkNull(Object obj, String msg) throws NullPointerException {
-        if (obj == null) {
-            throw new NullPointerException(msg);
-        }
-    }
-
-    private static ResourceLocation getModelLocation(String modelName) {
-        return new ResourceLocation(modelName);
     }
 }

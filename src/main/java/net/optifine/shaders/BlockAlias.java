@@ -1,30 +1,27 @@
 package net.optifine.shaders;
 
+import net.minecraft.src.Config;
+import net.optifine.config.MatchBlock;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import net.minecraft.src.Config;
-import net.optifine.config.MatchBlock;
 
-public class BlockAlias
-{
-    private int blockAliasId;
-    private MatchBlock[] matchBlocks;
+public class BlockAlias {
+    private final int blockAliasId;
+    private final MatchBlock[] matchBlocks;
 
-    public BlockAlias(int blockAliasId, MatchBlock[] matchBlocks)
-    {
+    public BlockAlias(int blockAliasId, MatchBlock[] matchBlocks) {
         this.blockAliasId = blockAliasId;
         this.matchBlocks = matchBlocks;
     }
 
-    public int getBlockAliasId()
-    {
+    public int getBlockAliasId() {
         return this.blockAliasId;
     }
 
-    public boolean matches(int id, int metadata)
-    {
+    public boolean matches(int id, int metadata) {
         for (MatchBlock matchblock : this.matchBlocks) {
             if (matchblock.matches(id, metadata)) {
                 return true;
@@ -34,8 +31,7 @@ public class BlockAlias
         return false;
     }
 
-    public int[] getMatchBlockIds()
-    {
+    public int[] getMatchBlockIds() {
         Set<Integer> set = new HashSet<>();
 
         for (MatchBlock matchblock : this.matchBlocks) {
@@ -47,8 +43,7 @@ public class BlockAlias
         return Config.toPrimitive(ainteger);
     }
 
-    public MatchBlock[] getMatchBlocks(int matchBlockId)
-    {
+    public MatchBlock[] getMatchBlocks(int matchBlockId) {
         List<MatchBlock> list = new ArrayList<>();
 
         for (MatchBlock matchblock : this.matchBlocks) {
@@ -60,8 +55,7 @@ public class BlockAlias
         return list.toArray(new MatchBlock[list.size()]);
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "block." + this.blockAliasId + "=" + Config.arrayToString(this.matchBlocks);
     }
 }

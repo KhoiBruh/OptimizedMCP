@@ -26,7 +26,7 @@ public class ModelAdapterLeadKnot extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "knot" };
+        return new String[]{"knot"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

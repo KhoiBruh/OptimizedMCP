@@ -27,21 +27,21 @@ public class ModelAdapterMinecart extends ModelAdapter {
         } else {
             return modelPart
                     .equals("bottom")
-                            ? modelminecart.sideModels[0]
-                            : (modelPart
-                                    .equals("back")
-                                            ? modelminecart.sideModels[1]
-                                            : (modelPart.equals("front") ? modelminecart.sideModels[2]
-                                                    : (modelPart.equals("right") ? modelminecart.sideModels[3]
-                                                            : (modelPart.equals("left") ? modelminecart.sideModels[4]
-                                                                    : (modelPart.equals("dirt")
-                                                                            ? modelminecart.sideModels[5]
-                                                                            : null)))));
+                    ? modelminecart.sideModels[0]
+                    : (modelPart
+                    .equals("back")
+                    ? modelminecart.sideModels[1]
+                    : (modelPart.equals("front") ? modelminecart.sideModels[2]
+                    : (modelPart.equals("right") ? modelminecart.sideModels[3]
+                    : (modelPart.equals("left") ? modelminecart.sideModels[4]
+                    : (modelPart.equals("dirt")
+                    ? modelminecart.sideModels[5]
+                    : null)))));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "bottom", "back", "front", "right", "left", "dirt" };
+        return new String[]{"bottom", "back", "front", "right", "left", "dirt"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

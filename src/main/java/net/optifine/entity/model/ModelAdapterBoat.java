@@ -23,14 +23,14 @@ public class ModelAdapterBoat extends ModelAdapter {
         } else {
             return modelPart.equals("bottom") ? modelboat.boatSides[0]
                     : (modelPart.equals("back") ? modelboat.boatSides[1]
-                            : (modelPart.equals("front") ? modelboat.boatSides[2]
-                                    : (modelPart.equals("right") ? modelboat.boatSides[3]
-                                            : (modelPart.equals("left") ? modelboat.boatSides[4] : null))));
+                    : (modelPart.equals("front") ? modelboat.boatSides[2]
+                    : (modelPart.equals("right") ? modelboat.boatSides[3]
+                    : (modelPart.equals("left") ? modelboat.boatSides[4] : null))));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "bottom", "back", "front", "right", "left" };
+        return new String[]{"bottom", "back", "front", "right", "left"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

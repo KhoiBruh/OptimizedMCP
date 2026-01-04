@@ -47,8 +47,8 @@ public class ModelAdapterMagmaCube extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "core", "segment1", "segment2", "segment3", "segment4", "segment5", "segment6",
-                "segment7", "segment8" };
+        return new String[]{"core", "segment1", "segment2", "segment3", "segment4", "segment5", "segment6",
+                "segment7", "segment8"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

@@ -44,7 +44,7 @@ public class ModelAdapterBat extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "head", "body", "right_wing", "left_wing", "outer_right_wing", "outer_left_wing" };
+        return new String[]{"head", "body", "right_wing", "left_wing", "outer_right_wing", "outer_left_wing"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

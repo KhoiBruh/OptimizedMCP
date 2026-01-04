@@ -2,16 +2,6 @@ package net.optifine.entity.model;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -24,35 +14,30 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.entity.model.anim.ModelResolver;
 import net.optifine.entity.model.anim.ModelUpdater;
 
-public class CustomEntityModels
-{
+import java.io.IOException;
+import java.util.*;
+
+public class CustomEntityModels {
     private static boolean active = false;
     private static Map<Class, Render> originalEntityRenderMap = null;
     private static Map<Class, TileEntitySpecialRenderer> originalTileEntityRenderMap = null;
 
-    public static void update()
-    {
+    public static void update() {
         Map<Class, Render> map = getEntityRenderMap();
         Map<Class, TileEntitySpecialRenderer> map1 = getTileEntityRenderMap();
 
-        if (map == null)
-        {
+        if (map == null) {
             Config.warn("Entity render map not found, custom entity models are DISABLED.");
-        }
-        else if (map1 == null)
-        {
+        } else if (map1 == null) {
             Config.warn("Tile entity render map not found, custom entity models are DISABLED.");
-        }
-        else
-        {
+        } else {
             active = false;
             map.clear();
             map1.clear();
             map.putAll(originalEntityRenderMap);
             map1.putAll(originalTileEntityRenderMap);
 
-            if (Config.isCustomEntityModels())
-            {
+            if (Config.isCustomEntityModels()) {
                 ResourceLocation[] aresourcelocation = getModelLocations();
 
                 for (ResourceLocation resourcelocation : aresourcelocation) {
@@ -79,19 +64,14 @@ public class CustomEntityModels
         }
     }
 
-    private static Map<Class, Render> getEntityRenderMap()
-    {
+    private static Map<Class, Render> getEntityRenderMap() {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         Map<Class, Render> map = rendermanager.getEntityRenderMap();
 
-        if (map == null)
-        {
+        if (map == null) {
             return null;
-        }
-        else
-        {
-            if (originalEntityRenderMap == null)
-            {
+        } else {
+            if (originalEntityRenderMap == null) {
                 originalEntityRenderMap = new HashMap<>(map);
             }
 
@@ -99,20 +79,17 @@ public class CustomEntityModels
         }
     }
 
-    private static Map<Class, TileEntitySpecialRenderer> getTileEntityRenderMap()
-    {
+    private static Map<Class, TileEntitySpecialRenderer> getTileEntityRenderMap() {
         Map<Class, TileEntitySpecialRenderer> map = TileEntityRendererDispatcher.instance.mapSpecialRenderers;
 
-        if (originalTileEntityRenderMap == null)
-        {
+        if (originalTileEntityRenderMap == null) {
             originalTileEntityRenderMap = new HashMap<>(map);
         }
 
         return map;
     }
 
-    private static ResourceLocation[] getModelLocations()
-    {
+    private static ResourceLocation[] getModelLocations() {
         String s = "optifine/cem/";
         String s1 = ".jem";
         List<ResourceLocation> list = new ArrayList<>();
@@ -130,27 +107,20 @@ public class CustomEntityModels
         return list.toArray(new ResourceLocation[list.size()]);
     }
 
-    private static IEntityRenderer parseEntityRender(ResourceLocation location)
-    {
-        try
-        {
+    private static IEntityRenderer parseEntityRender(ResourceLocation location) {
+        try {
             JsonObject jsonobject = CustomEntityModelParser.loadJson(location);
             return parseEntityRender(jsonobject, location.getResourcePath());
-        }
-        catch (IOException | JsonParseException ioexception)
-        {
-            Config.error("" + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+        } catch (IOException | JsonParseException ioexception) {
+            Config.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
     }
 
-    private static IEntityRenderer parseEntityRender(JsonObject obj, String path)
-    {
+    private static IEntityRenderer parseEntityRender(JsonObject obj, String path) {
         CustomEntityRenderer customentityrenderer = CustomEntityModelParser.parseEntityRender(obj, path);
         String s = customentityrenderer.getName();
         ModelAdapter modeladapter = CustomModelRegistry.getModelAdapter(s);
@@ -159,54 +129,39 @@ public class CustomEntityModels
         checkNull(oclass, "Entity class not found: " + s);
         IEntityRenderer ientityrenderer = makeEntityRender(modeladapter, customentityrenderer);
 
-        if (ientityrenderer == null)
-        {
+        if (ientityrenderer == null) {
             return null;
-        }
-        else
-        {
+        } else {
             ientityrenderer.setEntityClass(oclass);
             return ientityrenderer;
         }
     }
 
-    private static IEntityRenderer makeEntityRender(ModelAdapter modelAdapter, CustomEntityRenderer cer)
-    {
+    private static IEntityRenderer makeEntityRender(ModelAdapter modelAdapter, CustomEntityRenderer cer) {
         ResourceLocation resourcelocation = cer.getTextureLocation();
         CustomModelRenderer[] acustommodelrenderer = cer.getCustomModelRenderers();
         float f = cer.getShadowSize();
 
-        if (f < 0.0F)
-        {
+        if (f < 0.0F) {
             f = modelAdapter.getShadowSize();
         }
 
         ModelBase modelbase = modelAdapter.makeModel();
 
-        if (modelbase == null)
-        {
+        if (modelbase == null) {
             return null;
-        }
-        else
-        {
+        } else {
             ModelResolver modelresolver = new ModelResolver(modelAdapter, modelbase, acustommodelrenderer);
 
-            if (!modifyModel(modelAdapter, modelbase, acustommodelrenderer, modelresolver))
-            {
+            if (!modifyModel(modelAdapter, modelbase, acustommodelrenderer, modelresolver)) {
                 return null;
-            }
-            else
-            {
+            } else {
                 IEntityRenderer ientityrenderer = modelAdapter.makeEntityRender(modelbase, f);
 
-                if (ientityrenderer == null)
-                {
+                if (ientityrenderer == null) {
                     throw new JsonParseException("Entity renderer is null, model: " + modelAdapter.getName() + ", adapter: " + modelAdapter.getClass().getName());
-                }
-                else
-                {
-                    if (resourcelocation != null)
-                    {
+                } else {
+                    if (resourcelocation != null) {
                         ientityrenderer.setLocationTextureCustom(resourcelocation);
                     }
 
@@ -216,8 +171,7 @@ public class CustomEntityModels
         }
     }
 
-    private static boolean modifyModel(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer[] modelRenderers, ModelResolver mr)
-    {
+    private static boolean modifyModel(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer[] modelRenderers, ModelResolver mr) {
         for (CustomModelRenderer custommodelrenderer : modelRenderers) {
             if (!modifyModel(modelAdapter, model, custommodelrenderer, mr)) {
                 return false;
@@ -227,44 +181,34 @@ public class CustomEntityModels
         return true;
     }
 
-    private static boolean modifyModel(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer customModelRenderer, ModelResolver modelResolver)
-    {
+    private static boolean modifyModel(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer customModelRenderer, ModelResolver modelResolver) {
         String s = customModelRenderer.getModelPart();
         ModelRenderer modelrenderer = modelAdapter.getModelRenderer(model, s);
 
-        if (modelrenderer == null)
-        {
+        if (modelrenderer == null) {
             Config.warn("Model part not found: " + s + ", model: " + model);
             return false;
-        }
-        else
-        {
-            if (!customModelRenderer.isAttach())
-            {
-                if (modelrenderer.cubeList != null)
-                {
+        } else {
+            if (!customModelRenderer.isAttach()) {
+                if (modelrenderer.cubeList != null) {
                     modelrenderer.cubeList.clear();
                 }
 
-                if (modelrenderer.spriteList != null)
-                {
+                if (modelrenderer.spriteList != null) {
                     modelrenderer.spriteList.clear();
                 }
 
-                if (modelrenderer.childModels != null)
-                {
+                if (modelrenderer.childModels != null) {
                     ModelRenderer[] amodelrenderer = modelAdapter.getModelRenderers(model);
-                    Set<ModelRenderer> set = Collections.<ModelRenderer>newSetFromMap(new IdentityHashMap<>());
-                    set.addAll(Arrays.<ModelRenderer>asList(amodelrenderer));
+                    Set<ModelRenderer> set = Collections.newSetFromMap(new IdentityHashMap<>());
+                    set.addAll(Arrays.asList(amodelrenderer));
                     List<ModelRenderer> list = modelrenderer.childModels;
                     Iterator iterator = list.iterator();
 
-                    while (iterator.hasNext())
-                    {
-                        ModelRenderer modelrenderer1 = (ModelRenderer)iterator.next();
+                    while (iterator.hasNext()) {
+                        ModelRenderer modelrenderer1 = (ModelRenderer) iterator.next();
 
-                        if (!set.contains(modelrenderer1))
-                        {
+                        if (!set.contains(modelrenderer1)) {
                             iterator.remove();
                         }
                     }
@@ -274,13 +218,11 @@ public class CustomEntityModels
             modelrenderer.addChild(customModelRenderer.getModelRenderer());
             ModelUpdater modelupdater = customModelRenderer.getModelUpdater();
 
-            if (modelupdater != null)
-            {
+            if (modelupdater != null) {
                 modelResolver.setThisModelRenderer(customModelRenderer.getModelRenderer());
                 modelResolver.setPartModelRenderer(modelrenderer);
 
-                if (!modelupdater.initialize(modelResolver))
-                {
+                if (!modelupdater.initialize(modelResolver)) {
                     return false;
                 }
 
@@ -291,16 +233,13 @@ public class CustomEntityModels
         }
     }
 
-    private static void checkNull(Object obj, String msg)
-    {
-        if (obj == null)
-        {
+    private static void checkNull(Object obj, String msg) {
+        if (obj == null) {
             throw new JsonParseException(msg);
         }
     }
 
-    public static boolean isActive()
-    {
+    public static boolean isActive() {
         return active;
     }
 }

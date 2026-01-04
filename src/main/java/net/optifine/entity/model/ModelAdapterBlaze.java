@@ -47,8 +47,8 @@ public class ModelAdapterBlaze extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "head", "stick1", "stick2", "stick3", "stick4", "stick5", "stick6", "stick7", "stick8",
-                "stick9", "stick10", "stick11", "stick12" };
+        return new String[]{"head", "stick1", "stick2", "stick3", "stick4", "stick5", "stick6", "stick7", "stick8",
+                "stick9", "stick10", "stick11", "stick12"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

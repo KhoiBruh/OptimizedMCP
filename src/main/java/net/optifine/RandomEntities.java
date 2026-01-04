@@ -1,16 +1,5 @@
 package net.optifine;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.UUID;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.DataWatcher;
@@ -21,20 +10,17 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import net.optifine.util.IntegratedServerUtils;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+
 public class RandomEntities {
-    private static Map<String, RandomEntityProperties> mapProperties = new HashMap<>();
-    private static boolean active = false;
-    private static RenderGlobal renderGlobal;
-    private static RandomEntity randomEntity = new RandomEntity();
-    private static TileEntityRendererDispatcher tileEntityRendererDispatcher;
-    private static RandomTileEntity randomTileEntity = new RandomTileEntity();
-    private static boolean working = false;
     public static final String SUFFIX_PNG = ".png";
     public static final String SUFFIX_PROPERTIES = ".properties";
     public static final String PREFIX_TEXTURES_ENTITY = "textures/entity/";
@@ -42,11 +28,18 @@ public class RandomEntities {
     public static final String PREFIX_TEXTURES = "textures/";
     public static final String PREFIX_OPTIFINE_RANDOM = "optifine/random/";
     public static final String PREFIX_MCPATCHER_MOB = "mcpatcher/mob/";
-    private static final String[] DEPENDANT_SUFFIXES = new String[] { "_armor", "_eyes", "_exploding", "_shooting",
-            "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar" };
+    private static final String[] DEPENDANT_SUFFIXES = new String[]{"_armor", "_eyes", "_exploding", "_shooting",
+            "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar"};
     private static final String PREFIX_DYNAMIC_TEXTURE_HORSE = "horse/";
     private static final String[] HORSE_TEXTURES = EntityHorse.horseTextures;
     private static final String[] HORSE_TEXTURES_ABBR = EntityHorse.HORSE_TEXTURES_ABBR;
+    private static final Map<String, RandomEntityProperties> mapProperties = new HashMap<>();
+    private static boolean active = false;
+    private static RenderGlobal renderGlobal;
+    private static final RandomEntity randomEntity = new RandomEntity();
+    private static TileEntityRendererDispatcher tileEntityRendererDispatcher;
+    private static final RandomTileEntity randomTileEntity = new RandomTileEntity();
+    private static boolean working = false;
 
     public static void entityLoaded(Entity entity, World world) {
         if (world != null) {
@@ -250,8 +243,8 @@ public class RandomEntities {
         return pathRandom.startsWith("optifine/random/")
                 ? StrUtils.replacePrefix(pathRandom, "optifine/random/", "textures/")
                 : (pathRandom.startsWith("mcpatcher/mob/")
-                        ? StrUtils.replacePrefix(pathRandom, "mcpatcher/mob/", "textures/entity/")
-                        : null);
+                ? StrUtils.replacePrefix(pathRandom, "mcpatcher/mob/", "textures/entity/")
+                : null);
     }
 
     protected static ResourceLocation getLocationIndexed(ResourceLocation loc, int index) {
@@ -322,8 +315,8 @@ public class RandomEntities {
     private static void initialize() {
         renderGlobal = Config.getRenderGlobal();
         tileEntityRendererDispatcher = TileEntityRendererDispatcher.instance;
-        String[] astring = new String[] { "optifine/random/", "mcpatcher/mob/" };
-        String[] astring1 = new String[] { ".png", ".properties" };
+        String[] astring = new String[]{"optifine/random/", "mcpatcher/mob/"};
+        String[] astring1 = new String[]{".png", ".properties"};
         String[] astring2 = ResUtils.collectFiles(astring, astring1);
         Set set = new HashSet();
 

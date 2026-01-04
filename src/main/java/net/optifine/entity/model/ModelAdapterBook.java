@@ -23,19 +23,19 @@ public class ModelAdapterBook extends ModelAdapter {
         } else {
             return modelPart.equals("cover_right") ? modelbook.coverRight
                     : (modelPart.equals("cover_left") ? modelbook.coverLeft
-                            : (modelPart.equals("pages_right") ? modelbook.pagesRight
-                                    : (modelPart.equals("pages_left") ? modelbook.pagesLeft
-                                            : (modelPart.equals("flipping_page_right") ? modelbook.flippingPageRight
-                                                    : (modelPart.equals("flipping_page_left")
-                                                            ? modelbook.flippingPageLeft
-                                                            : (modelPart.equals("book_spine") ? modelbook.bookSpine
-                                                                    : null))))));
+                    : (modelPart.equals("pages_right") ? modelbook.pagesRight
+                    : (modelPart.equals("pages_left") ? modelbook.pagesLeft
+                    : (modelPart.equals("flipping_page_right") ? modelbook.flippingPageRight
+                    : (modelPart.equals("flipping_page_left")
+                    ? modelbook.flippingPageLeft
+                    : (modelPart.equals("book_spine") ? modelbook.bookSpine
+                    : null))))));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "cover_right", "cover_left", "pages_right", "pages_left", "flipping_page_right",
-                "flipping_page_left", "book_spine" };
+        return new String[]{"cover_right", "cover_left", "pages_right", "pages_left", "flipping_page_right",
+                "flipping_page_left", "book_spine"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

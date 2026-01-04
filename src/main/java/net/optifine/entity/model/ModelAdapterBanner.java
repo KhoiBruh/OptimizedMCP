@@ -23,12 +23,12 @@ public class ModelAdapterBanner extends ModelAdapter {
         } else {
             return modelPart.equals("slate") ? modelbanner.bannerSlate
                     : (modelPart.equals("stand") ? modelbanner.bannerStand
-                            : (modelPart.equals("top") ? modelbanner.bannerTop : null));
+                    : (modelPart.equals("top") ? modelbanner.bannerTop : null));
         }
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "slate", "stand", "top" };
+        return new String[]{"slate", "stand", "top"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

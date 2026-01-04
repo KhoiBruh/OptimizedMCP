@@ -1,11 +1,5 @@
 package net.optifine;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
@@ -30,14 +24,16 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.config.EntityClassLocator;
 import net.optifine.config.IObjectLocator;
 import net.optifine.config.ItemLocator;
-
 import net.optifine.util.PropertiesOrdered;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 public class DynamicLights {
-    private static DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
-    private static Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
-    private static Map<Item, Integer> mapItemLightLevels = new HashMap<>();
-    private static long timeUpdateMs = 0L;
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;
     private static final int LIGHT_LEVEL_MAX = 15;
@@ -47,6 +43,10 @@ public class DynamicLights {
     private static final int LIGHT_LEVEL_MAGMA_CUBE_CORE = 13;
     private static final int LIGHT_LEVEL_GLOWSTONE_DUST = 8;
     private static final int LIGHT_LEVEL_PRISMARINE_CRYSTALS = 8;
+    private static final DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
+    private static final Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
+    private static final Map<Item, Integer> mapItemLightLevels = new HashMap<>();
+    private static long timeUpdateMs = 0L;
     private static boolean initialized;
 
     public static void entityRemoved(Entity entityIn, RenderGlobal renderGlobal) {
@@ -126,7 +126,7 @@ public class DynamicLights {
     }
 
     private static void loadModLightLevels(String prop, Map mapLightLevels, IObjectLocator ol, ConnectedParser cp,
-            String path, String modId) {
+                                           String path, String modId) {
         if (prop != null) {
             String[] astring = Config.tokenize(prop, " ");
 

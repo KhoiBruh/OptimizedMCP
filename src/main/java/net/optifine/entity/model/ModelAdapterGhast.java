@@ -47,8 +47,8 @@ public class ModelAdapterGhast extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "body", "tentacle1", "tentacle2", "tentacle3", "tentacle4", "tentacle5", "tentacle6",
-                "tentacle7", "tentacle8", "tentacle9" };
+        return new String[]{"body", "tentacle1", "tentacle2", "tentacle3", "tentacle4", "tentacle5", "tentacle6",
+                "tentacle7", "tentacle8", "tentacle9"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

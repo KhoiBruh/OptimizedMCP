@@ -57,7 +57,7 @@ public class ModelAdapterWither extends ModelAdapter {
     }
 
     public String[] getModelRendererNames() {
-        return new String[] { "body1", "body2", "body3", "head1", "head2", "head3" };
+        return new String[]{"body1", "body2", "body3", "head1", "head2", "head3"};
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
