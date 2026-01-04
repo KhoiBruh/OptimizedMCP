@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +77,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             List<String> list = Lists.<String>newArrayList();
             bufferedreader = new BufferedReader(new InputStreamReader(
                     Minecraft.getMinecraft().getResourceManager().getResource(splashTexts).getInputStream(),
-                    Charsets.UTF_8));
+                    StandardCharsets.UTF_8));
             String s;
 
             while ((s = bufferedreader.readLine()) != null) {

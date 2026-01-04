@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class PlayerUsageSnooper
     {
         try
         {
-            this.serverUrl = new URL("http://snoop.minecraft.net/" + side + "?version=" + 2);
+            this.serverUrl = URI.create("http://snoop.minecraft.net/" + side + "?version=" + 2).toURL();
         }
         catch (MalformedURLException var6)
         {

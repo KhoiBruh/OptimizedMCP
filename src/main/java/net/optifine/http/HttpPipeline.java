@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.net.Proxy;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -37,7 +38,7 @@ public class HttpPipeline
 
     public static HttpRequest makeRequest(String urlStr, Proxy proxy) throws IOException
     {
-        URL url = new URL(urlStr);
+        URL url = URI.create(urlStr).toURL();
 
         if (!url.getProtocol().equals("http"))
         {
@@ -117,7 +118,7 @@ public class HttpPipeline
     {
         if (urlStr.startsWith("file:"))
         {
-            URL url = new URL(urlStr);
+            URL url = URI.create(urlStr).toURL();
             InputStream inputstream = url.openStream();
             byte[] abyte = Config.readAll(inputstream);
             return abyte;

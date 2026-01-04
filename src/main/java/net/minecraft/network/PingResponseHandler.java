@@ -7,6 +7,8 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+
 import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,7 +59,7 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter
                     default:
                         boolean flag1 = bytebuf.readUnsignedByte() == 1;
                         flag1 = flag1 & bytebuf.readUnsignedByte() == 250;
-                        flag1 = flag1 & "MC|PingHost".equals(new String(bytebuf.readBytes(bytebuf.readShort() * 2).array(), Charsets.UTF_16BE));
+                        flag1 = flag1 & "MC|PingHost".equals(new String(bytebuf.readBytes(bytebuf.readShort() * 2).array(), StandardCharsets.UTF_16BE));
                         int j = bytebuf.readUnsignedShort();
                         flag1 = flag1 & bytebuf.readUnsignedByte() >= 73;
                         flag1 = flag1 & 3 + bytebuf.readBytes(bytebuf.readShort() * 2).array().length + 4 == j;

@@ -121,11 +121,12 @@ public class GuiShaders extends GuiScreenOF
                             switch (getOSType())
                             {
                                 case 1:
-                                    String s = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[] {Shaders.shaderPacksDir.getAbsolutePath()});
-
                                     try
                                     {
-                                        Runtime.getRuntime().exec(s);
+                                        new ProcessBuilder(
+                                                "cmd", "/c", "start", "open file",
+                                                Shaders.shaderPacksDir.getAbsolutePath()
+                                        ).start();
                                         return;
                                     }
                                     catch (IOException ioexception)

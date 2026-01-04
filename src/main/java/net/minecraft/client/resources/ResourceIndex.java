@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 import net.minecraft.util.JsonUtils;
@@ -33,8 +34,8 @@ public class ResourceIndex
 
             try
             {
-                bufferedreader = Files.newReader(file2, Charsets.UTF_8);
-                JsonObject jsonobject = (new JsonParser()).parse((Reader)bufferedreader).getAsJsonObject();
+                bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8);
+                JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
                 JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "objects", (JsonObject)null);
 
                 if (jsonobject1 != null)

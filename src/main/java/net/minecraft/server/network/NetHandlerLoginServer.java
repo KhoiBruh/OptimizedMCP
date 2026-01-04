@@ -7,6 +7,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.concurrent.GenericFutureListener;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.Arrays;
 import java.util.Random;
@@ -224,7 +225,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable
 
     protected GameProfile getOfflineProfile(GameProfile original)
     {
-        UUID uuid = UUID.nameUUIDFromBytes(("OfflinePlayer:" + original.getName()).getBytes(Charsets.UTF_8));
+        UUID uuid = UUID.nameUUIDFromBytes(("OfflinePlayer:" + original.getName()).getBytes(StandardCharsets.UTF_8));
         return new GameProfile(uuid, original.getName());
     }
 

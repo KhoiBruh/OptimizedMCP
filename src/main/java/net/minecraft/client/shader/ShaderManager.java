@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.client.renderer.GlStateManager;
@@ -48,7 +49,6 @@ public class ShaderManager
 
     public ShaderManager(IResourceManager resourceManager, String programName) throws JsonException, IOException
     {
-        JsonParser jsonparser = new JsonParser();
         ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
         this.programFilename = programName;
         InputStream inputstream = null;
@@ -56,7 +56,7 @@ public class ShaderManager
         try
         {
             inputstream = resourceManager.getResource(resourcelocation).getInputStream();
-            JsonObject jsonobject = jsonparser.parse(IOUtils.toString(inputstream, Charsets.UTF_8)).getAsJsonObject();
+            JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(inputstream, StandardCharsets.UTF_8)).getAsJsonObject();
             String s = JsonUtils.getString(jsonobject, "vertex");
             String s1 = JsonUtils.getString(jsonobject, "fragment");
             JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "samplers", (JsonArray)null);

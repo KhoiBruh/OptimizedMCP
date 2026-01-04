@@ -8,6 +8,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.base64.Base64;
 import java.awt.image.BufferedImage;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -250,7 +251,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry
         }
         else
         {
-            ByteBuf bytebuf = Unpooled.copiedBuffer((CharSequence)this.server.getBase64EncodedIconData(), Charsets.UTF_8);
+            ByteBuf bytebuf = Unpooled.copiedBuffer((CharSequence)this.server.getBase64EncodedIconData(), StandardCharsets.UTF_8);
             ByteBuf bytebuf1 = Base64.decode(bytebuf);
             BufferedImage bufferedimage;
             label101:

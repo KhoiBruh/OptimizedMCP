@@ -26,6 +26,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -200,7 +201,7 @@ public class PlayerProfileCache
 
         try
         {
-            bufferedreader = Files.newReader(this.usercacheFile, Charsets.UTF_8);
+            bufferedreader = Files.newReader(this.usercacheFile, StandardCharsets.UTF_8);
             List<PlayerProfileCache.ProfileEntry> list = (List)this.gson.fromJson((Reader)bufferedreader, TYPE);
             this.usernameToProfileEntryMap.clear();
             this.uuidToProfileEntryMap.clear();
@@ -235,7 +236,7 @@ public class PlayerProfileCache
 
         try
         {
-            bufferedwriter = Files.newWriter(this.usercacheFile, Charsets.UTF_8);
+            bufferedwriter = Files.newWriter(this.usercacheFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
             return;
         }

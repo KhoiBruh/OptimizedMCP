@@ -9,14 +9,13 @@ import com.google.common.collect.Multimap;
 import io.netty.util.internal.ThreadLocalRandom;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
+import java.net.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
@@ -349,7 +348,7 @@ public class SoundManager
                         else
                         {
                             boolean flag = p_sound.canRepeat() && p_sound.getRepeatDelay() == 0;
-                            String s = MathHelper.getRandomUuid(ThreadLocalRandom.current()).toString();
+                            String s = UUID.randomUUID().toString();
 
                             if (soundpoolentry.isStreamingSound())
                             {

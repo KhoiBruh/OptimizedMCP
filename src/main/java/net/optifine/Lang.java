@@ -4,6 +4,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -74,7 +75,7 @@ public class Lang
 
     public static void loadLocaleData(InputStream is, Map localeProperties) throws IOException
     {
-        Iterator iterator = IOUtils.readLines(is, Charsets.UTF_8).iterator();
+        Iterator iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
         is.close();
 
         while (iterator.hasNext())

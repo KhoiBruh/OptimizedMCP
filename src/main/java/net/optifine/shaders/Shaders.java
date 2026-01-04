@@ -16,6 +16,7 @@ import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -2776,7 +2777,7 @@ public class Shaders {
                 abyte[i - 1] = 10;
             }
 
-            String s = new String(abyte, Charsets.US_ASCII);
+            String s = new String(abyte, StandardCharsets.US_ASCII);
             s = StrUtils.trim(s, " \n\r\t");
             SMCLog.info("Info log: " + name + "\n" + s);
             return false;

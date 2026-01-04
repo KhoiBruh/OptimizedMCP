@@ -11,6 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.client.renderer.texture.ITextureObject;
@@ -53,14 +54,13 @@ public class ShaderGroup
 
     public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws JsonException, IOException, JsonSyntaxException
     {
-        JsonParser jsonparser = new JsonParser();
         InputStream inputstream = null;
 
         try
         {
             IResource iresource = this.resourceManager.getResource(p_152765_2_);
             inputstream = iresource.getInputStream();
-            JsonObject jsonobject = jsonparser.parse(IOUtils.toString(inputstream, Charsets.UTF_8)).getAsJsonObject();
+            JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(inputstream, StandardCharsets.UTF_8)).getAsJsonObject();
 
             if (JsonUtils.isJsonArray(jsonobject, "targets"))
             {

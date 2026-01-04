@@ -126,8 +126,7 @@ public class PlayerConfigurationParser
         {
             byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
             String s1 = new String(abyte, "ASCII");
-            JsonParser jsonparser = new JsonParser();
-            JsonObject jsonobject = (JsonObject)jsonparser.parse(s1);
+            JsonObject jsonobject = JsonParser.parseString(s1).getAsJsonObject();
             PlayerItemModel playeritemmodel = PlayerItemParser.parseItemModel(jsonobject);
             return playeritemmodel;
         }

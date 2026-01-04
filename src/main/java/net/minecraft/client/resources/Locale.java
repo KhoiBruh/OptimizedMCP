@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class Locale
 
     private void loadLocaleData(InputStream inputStreamIn) throws IOException
     {
-        for (String s : IOUtils.readLines(inputStreamIn, Charsets.UTF_8))
+        for (String s : IOUtils.readLines(inputStreamIn, StandardCharsets.UTF_8))
         {
             if (!s.isEmpty() && s.charAt(0) != 35)
             {

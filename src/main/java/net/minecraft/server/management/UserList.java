@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -152,7 +153,7 @@ public class UserList<K, V extends UserListEntry<K>>
 
         try
         {
-            bufferedwriter = Files.newWriter(this.saveFile, Charsets.UTF_8);
+            bufferedwriter = Files.newWriter(this.saveFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
         }
         finally

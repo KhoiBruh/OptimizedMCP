@@ -117,11 +117,9 @@ public class GuiScreenResourcePacks extends GuiScreen
                 }
                 else if (Util.getOSType() == Util.EnumOS.WINDOWS)
                 {
-                    String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[] {s});
-
                     try
                     {
-                        Runtime.getRuntime().exec(s1);
+                        new ProcessBuilder("cmd", "/c", "start", "Open file", s).start();
                         return;
                     }
                     catch (IOException ioexception)

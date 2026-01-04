@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
+import java.net.URI;
 import java.net.URL;
 import java.net.Proxy.Type;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -140,7 +141,7 @@ public class ThreadDownloadImageData extends SimpleTexture
                 {
                     try
                     {
-                        httpurlconnection = (HttpURLConnection)(new URL(ThreadDownloadImageData.this.imageUrl)).openConnection(Minecraft.getMinecraft().getProxy());
+                        httpurlconnection = (HttpURLConnection)(URI.create(ThreadDownloadImageData.this.imageUrl)).toURL().openConnection(Minecraft.getMinecraft().getProxy());
                         httpurlconnection.setDoInput(true);
                         httpurlconnection.setDoOutput(false);
                         httpurlconnection.connect();

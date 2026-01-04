@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
@@ -70,8 +72,8 @@ public abstract class AbstractResourcePack implements IResourcePack
 
         try
         {
-            bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, Charsets.UTF_8));
-            jsonobject = (new JsonParser()).parse((Reader)bufferedreader).getAsJsonObject();
+            bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, StandardCharsets.UTF_8));
+            jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
         }
         catch (RuntimeException runtimeexception)
         {

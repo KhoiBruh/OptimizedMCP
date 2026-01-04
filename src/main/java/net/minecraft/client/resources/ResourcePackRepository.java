@@ -197,7 +197,7 @@ public class ResourcePackRepository
             {
                 try
                 {
-                    String s1 = Hashing.sha1().hashBytes(Files.toByteArray(file1)).toString();
+                    String s1 = Hashing.sha256().hashBytes(Files.toByteArray(file1)).toString();
 
                     if (s1.equals(hash))
                     {

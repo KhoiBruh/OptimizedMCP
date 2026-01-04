@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,7 @@ public class HttpUtils
 
         try
         {
-            URL url = new URL(urlStr);
+            URL url = URI.create(urlStr).toURL();
             httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setDoInput(true);
             httpurlconnection.setDoOutput(false);
@@ -82,7 +83,7 @@ public class HttpUtils
 
         try
         {
-            URL url = new URL(urlStr);
+            URL url = URI.create(urlStr).toURL();
             httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setRequestMethod("POST");
 
