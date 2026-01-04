@@ -7,9 +7,7 @@ public class ClippingHelperShadow extends ClippingHelper {
     private static final ClippingHelperShadow instance = new ClippingHelperShadow();
     final float[][] shadowClipPlanes = new float[10][4];
     final float[] vecIntersection = new float[4];
-    float[] frustumTest = new float[6];
     int shadowClipPlaneCount;
-    float[] matInvMP = new float[16];
 
     public static ClippingHelper getInstance() {
         instance.init();
@@ -37,14 +35,6 @@ public class ClippingHelperShadow extends ClippingHelper {
 
     private double dot3(float[] vecA, float[] vecB) {
         return (double) vecA[0] * (double) vecB[0] + (double) vecA[1] * (double) vecB[1] + (double) vecA[2] * (double) vecB[2];
-    }
-
-    private void normalizePlane(float[] plane) {
-        float f = MathHelper.sqrt_float(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
-        plane[0] /= f;
-        plane[1] /= f;
-        plane[2] /= f;
-        plane[3] /= f;
     }
 
     private void normalize3(float[] plane) {
@@ -78,10 +68,6 @@ public class ClippingHelperShadow extends ClippingHelper {
         out[0] = a[1] * b[2] - a[2] * b[1];
         out[1] = a[2] * b[0] - a[0] * b[2];
         out[2] = a[0] * b[1] - a[1] * b[0];
-    }
-
-    private void addShadowClipPlane(float[] plane) {
-        copyPlane(shadowClipPlanes[shadowClipPlaneCount++], plane);
     }
 
     private float length(float x, float y, float z) {

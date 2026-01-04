@@ -5,14 +5,6 @@ import net.optifine.util.StrUtils;
 import org.joml.Vector4f;
 
 public class ShaderLine {
-    public static final int TYPE_UNIFORM = 1;
-    public static final int TYPE_ATTRIBUTE = 2;
-    public static final int TYPE_CONST_INT = 3;
-    public static final int TYPE_CONST_FLOAT = 4;
-    public static final int TYPE_CONST_BOOL = 5;
-    public static final int TYPE_PROPERTY = 6;
-    public static final int TYPE_EXTENSION = 7;
-    public static final int TYPE_CONST_VEC4 = 8;
     private final int type;
     private final String name;
     private final String value;
@@ -25,10 +17,6 @@ public class ShaderLine {
         this.line = line;
     }
 
-    public int getType() {
-        return this.type;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -39,10 +27,6 @@ public class ShaderLine {
 
     public boolean isUniform() {
         return this.type == 1;
-    }
-
-    public boolean isUniform(String name) {
-        return this.isUniform() && name.equals(this.name);
     }
 
     public boolean isAttribute() {

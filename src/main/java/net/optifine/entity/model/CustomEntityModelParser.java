@@ -20,34 +20,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class CustomEntityModelParser {
-    public static final String ENTITY = "entity";
-    public static final String TEXTURE = "texture";
-    public static final String SHADOW_SIZE = "shadowSize";
-    public static final String ITEM_TYPE = "type";
-    public static final String ITEM_TEXTURE_SIZE = "textureSize";
-    public static final String ITEM_USE_PLAYER_TEXTURE = "usePlayerTexture";
-    public static final String ITEM_MODELS = "models";
-    public static final String ITEM_ANIMATIONS = "animations";
-    public static final String MODEL_ID = "id";
-    public static final String MODEL_BASE_ID = "baseId";
-    public static final String MODEL_MODEL = "model";
-    public static final String MODEL_TYPE = "type";
-    public static final String MODEL_PART = "part";
-    public static final String MODEL_ATTACH = "attach";
-    public static final String MODEL_INVERT_AXIS = "invertAxis";
-    public static final String MODEL_MIRROR_TEXTURE = "mirrorTexture";
-    public static final String MODEL_TRANSLATE = "translate";
-    public static final String MODEL_ROTATE = "rotate";
-    public static final String MODEL_SCALE = "scale";
-    public static final String MODEL_BOXES = "boxes";
-    public static final String MODEL_SPRITES = "sprites";
-    public static final String MODEL_SUBMODEL = "submodel";
-    public static final String MODEL_SUBMODELS = "submodels";
-    public static final String BOX_TEXTURE_OFFSET = "textureOffset";
-    public static final String BOX_COORDINATES = "coordinates";
-    public static final String BOX_SIZE_ADD = "sizeAdd";
-    public static final String ENTITY_MODEL = "EntityModel";
-    public static final String ENTITY_MODEL_PART = "EntityModelPart";
 
     public static CustomEntityRenderer parseEntityRender(JsonObject obj, String path) {
         ConnectedParser connectedparser = new ConnectedParser("CustomEntityModels");

@@ -94,18 +94,4 @@ public class MacroProcessor {
         }
     }
 
-    private static List<ShaderOption> getMacroOptions() {
-        List<ShaderOption> list = new ArrayList<>();
-        ShaderOption[] ashaderoption = Shaders.getShaderPackOptions();
-
-        for (ShaderOption shaderoption : ashaderoption) {
-            String s = shaderoption.getSourceLine();
-
-            if (s != null && s.startsWith("#")) {
-                list.add(shaderoption);
-            }
-        }
-
-        return list;
-    }
 }

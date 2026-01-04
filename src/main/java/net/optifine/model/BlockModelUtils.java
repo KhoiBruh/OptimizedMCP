@@ -3,7 +3,6 @@ package net.optifine.model;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.src.Config;
 import net.minecraft.util.AxisAlignedBB;
@@ -15,12 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockModelUtils {
-    private static final float VERTEX_COORD_ACCURACY = 1.0E-6F;
-
-    public static IBakedModel makeModelCube(String spriteName, int tintIndex) {
-        TextureAtlasSprite textureatlassprite = Config.getMinecraft().getTextureMapBlocks().getAtlasSprite(spriteName);
-        return makeModelCube(textureatlassprite, tintIndex);
-    }
 
     public static IBakedModel makeModelCube(TextureAtlasSprite sprite, int tintIndex) {
         List list = new ArrayList();
@@ -68,13 +61,6 @@ public class BlockModelUtils {
         boolean flag1 = true;
         FaceBakery facebakery = new FaceBakery();
         return facebakery.makeBakedQuad(vector3f, vector3f1, blockpartface, sprite, facing, modelrotation, blockpartrotation, flag, flag1);
-    }
-
-    public static IBakedModel makeModel(String modelName, String spriteOldName, String spriteNewName) {
-        TextureMap texturemap = Config.getMinecraft().getTextureMapBlocks();
-        TextureAtlasSprite textureatlassprite = texturemap.getSpriteSafe(spriteOldName);
-        TextureAtlasSprite textureatlassprite1 = texturemap.getSpriteSafe(spriteNewName);
-        return makeModel(modelName, textureatlassprite, textureatlassprite1);
     }
 
     public static IBakedModel makeModel(String modelName, TextureAtlasSprite spriteOld, TextureAtlasSprite spriteNew) {

@@ -69,10 +69,6 @@ public class GlBlendState {
         return this.enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public int getSrcFactor() {
         return this.srcFactor;
     }

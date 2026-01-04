@@ -20,11 +20,6 @@ import java.io.IOException;
 import java.net.URI;
 
 public class GuiShaders extends GuiScreenOF {
-    public static final int EnumOS_UNKNOWN = 0;
-    public static final int EnumOS_WINDOWS = 1;
-    public static final int EnumOS_OSX = 2;
-    public static final int EnumOS_SOLARIS = 3;
-    public static final int EnumOS_LINUX = 4;
     private static final float[] QUALITY_MULTIPLIERS = new float[]{0.5F, 0.6F, 0.6666667F, 0.75F, 0.8333333F, 0.9F, 1.0F, 1.1666666F, 1.3333334F, 1.5F, 1.6666666F, 1.8F, 2.0F};
     private static final String[] QUALITY_MULTIPLIER_NAMES = new String[]{"0.5x", "0.6x", "0.66x", "0.75x", "0.83x", "0.9x", "1x", "1.16x", "1.33x", "1.5x", "1.66x", "1.8x", "2x"};
     private static final float QUALITY_MULTIPLIER_DEFAULT = 1.0F;

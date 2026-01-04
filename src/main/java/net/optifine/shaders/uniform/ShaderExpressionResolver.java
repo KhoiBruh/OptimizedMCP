@@ -79,7 +79,4 @@ public class ShaderExpressionResolver implements IExpressionResolver {
         return this.mapExpressions.get(name);
     }
 
-    public boolean hasExpression(String name) {
-        return this.mapExpressions.containsKey(name);
-    }
 }

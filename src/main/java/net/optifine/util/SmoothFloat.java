@@ -41,22 +41,6 @@ public class SmoothFloat {
         }
     }
 
-    public float getValueLast() {
-        return this.valueLast;
-    }
-
-    public float getTimeFadeUpSec() {
-        return this.timeFadeUpSec;
-    }
-
-    public float getTimeFadeDownSec() {
-        return this.timeFadeDownSec;
-    }
-
-    public long getTimeLastMs() {
-        return this.timeLastMs;
-    }
-
     public float getSmoothValue(float value, float timeFadeUpSec, float timeFadeDownSec) {
         this.timeFadeUpSec = timeFadeUpSec;
         this.timeFadeDownSec = timeFadeDownSec;

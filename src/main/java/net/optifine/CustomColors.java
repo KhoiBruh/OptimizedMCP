@@ -33,8 +33,6 @@ import net.optifine.util.*;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -324,22 +322,6 @@ public class CustomColors {
             }
 
             return new ImmutablePair<>(alightmappack, j1);
-        }
-    }
-
-    private static int getTextureHeight(String path, int defHeight) {
-        try {
-            InputStream inputstream = Config.getResourceStream(new ResourceLocation(path));
-
-            if (inputstream == null) {
-                return defHeight;
-            } else {
-                BufferedImage bufferedimage = ImageIO.read(inputstream);
-                inputstream.close();
-                return bufferedimage == null ? defHeight : bufferedimage.getHeight();
-            }
-        } catch (IOException var4) {
-            return defHeight;
         }
     }
 
@@ -752,10 +734,8 @@ public class CustomColors {
                     }
 
                 }
-                return null;
-            } else {
-                return null;
             }
+            return null;
         }
     }
 
@@ -1440,10 +1420,6 @@ public class CustomColors {
 
     public static int getExpBarTextColor(int color) {
         return expBarTextColor < 0 ? color : expBarTextColor;
-    }
-
-    public static int getBossTextColor(int color) {
-        return bossTextColor < 0 ? color : bossTextColor;
     }
 
     public static int getSignTextColor(int color) {

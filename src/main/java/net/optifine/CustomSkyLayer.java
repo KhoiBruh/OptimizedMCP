@@ -25,9 +25,6 @@ import java.util.Properties;
 
 public class CustomSkyLayer {
     public static final float[] DEFAULT_AXIS = new float[]{1.0F, 0.0F, 0.0F};
-    private static final String WEATHER_CLEAR = "clear";
-    private static final String WEATHER_RAIN = "rain";
-    private static final String WEATHER_THUNDER = "thunder";
     public String source = null;
     public BiomeGenBase[] biomes;
     public RangeListInt heights;

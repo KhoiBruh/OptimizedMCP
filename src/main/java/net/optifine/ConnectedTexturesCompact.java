@@ -8,11 +8,6 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class ConnectedTexturesCompact {
-    private static final int COMPACT_NONE = 0;
-    private static final int COMPACT_ALL = 1;
-    private static final int COMPACT_V = 2;
-    private static final int COMPACT_H = 3;
-    private static final int COMPACT_HV = 4;
 
     public static BakedQuad[] getConnectedTextureCtmCompact(int ctmIndex, ConnectedProperties cp, int side, BakedQuad quad, RenderEnv renderEnv) {
         if (cp.ctmTileIndexes != null && ctmIndex >= 0 && ctmIndex < cp.ctmTileIndexes.length) {

@@ -7,7 +7,5 @@ public interface IEntityRenderer {
 
     void setEntityClass(Class var1);
 
-    ResourceLocation getLocationTextureCustom();
-
     void setLocationTextureCustom(ResourceLocation var1);
 }

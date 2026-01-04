@@ -609,40 +609,6 @@ public class ConnectedParser {
         }
     }
 
-    public boolean[] parseFaces(String str, boolean[] defVal) {
-        if (str == null) {
-            return defVal;
-        } else {
-            EnumSet enumset = EnumSet.allOf(EnumFacing.class);
-            String[] astring = Config.tokenize(str, " ,");
-
-            for (String s : astring) {
-                if (s.equals("sides")) {
-                    enumset.add(EnumFacing.NORTH);
-                    enumset.add(EnumFacing.SOUTH);
-                    enumset.add(EnumFacing.WEST);
-                    enumset.add(EnumFacing.EAST);
-                } else if (s.equals("all")) {
-                    enumset.addAll(Arrays.asList(EnumFacing.VALUES));
-                } else {
-                    EnumFacing enumfacing = this.parseFace(s);
-
-                    if (enumfacing != null) {
-                        enumset.add(enumfacing);
-                    }
-                }
-            }
-
-            boolean[] aboolean = new boolean[EnumFacing.VALUES.length];
-
-            for (int j = 0; j < aboolean.length; ++j) {
-                aboolean[j] = enumset.contains(EnumFacing.VALUES[j]);
-            }
-
-            return aboolean;
-        }
-    }
-
     public EnumFacing parseFace(String str) {
         str = str.toLowerCase();
 
@@ -672,10 +638,6 @@ public class ConnectedParser {
         } else {
             return EnumFacing.DOWN;
         }
-    }
-
-    public void dbg(String str) {
-        Config.dbg(this.context + ": " + str);
     }
 
     public void warn(String str) {

@@ -18,13 +18,6 @@ public abstract class ModelAdapter {
         this.shadowSize = shadowSize;
     }
 
-    public ModelAdapter(Class entityClass, String name, float shadowSize, String[] aliases) {
-        this.entityClass = entityClass;
-        this.name = name;
-        this.shadowSize = shadowSize;
-        this.aliases = aliases;
-    }
-
     public Class getEntityClass() {
         return this.entityClass;
     }

@@ -17,10 +17,6 @@ public class RangeInt {
         return this.min;
     }
 
-    public int getMax() {
-        return this.max;
-    }
-
     public String toString() {
         return "min: " + this.min + ", max: " + this.max;
     }

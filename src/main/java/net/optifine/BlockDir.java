@@ -35,14 +35,6 @@ public enum BlockDir {
         this.facing2 = facing2;
     }
 
-    public EnumFacing getFacing1() {
-        return this.facing1;
-    }
-
-    public EnumFacing getFacing2() {
-        return this.facing2;
-    }
-
     BlockPos offset(BlockPos pos) {
         pos = pos.offset(this.facing1, 1);
 
@@ -53,37 +45,4 @@ public enum BlockDir {
         return pos;
     }
 
-    public int getOffsetX() {
-        int i = this.facing1.getFrontOffsetX();
-
-        if (this.facing2 != null) {
-            i += this.facing2.getFrontOffsetX();
-        }
-
-        return i;
-    }
-
-    public int getOffsetY() {
-        int i = this.facing1.getFrontOffsetY();
-
-        if (this.facing2 != null) {
-            i += this.facing2.getFrontOffsetY();
-        }
-
-        return i;
-    }
-
-    public int getOffsetZ() {
-        int i = this.facing1.getFrontOffsetZ();
-
-        if (this.facing2 != null) {
-            i += this.facing2.getFrontOffsetZ();
-        }
-
-        return i;
-    }
-
-    public boolean isDouble() {
-        return this.facing2 != null;
-    }
 }

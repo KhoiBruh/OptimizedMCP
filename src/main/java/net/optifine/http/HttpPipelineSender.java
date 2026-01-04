@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class HttpPipelineSender extends Thread {
-    private static final String CRLF = "\r\n";
     private static final Charset ASCII = StandardCharsets.US_ASCII;
     private HttpPipelineConnection httpPipelineConnection = null;
 

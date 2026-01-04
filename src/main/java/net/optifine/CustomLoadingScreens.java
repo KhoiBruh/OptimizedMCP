@@ -81,7 +81,4 @@ public class CustomLoadingScreens {
         Config.warn("CustomLoadingScreen: " + str);
     }
 
-    public static void dbg(String str) {
-        Config.dbg("CustomLoadingScreen: " + str);
-    }
 }

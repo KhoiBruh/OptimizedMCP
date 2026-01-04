@@ -12,16 +12,8 @@ public class LightMap {
         this.lightMapRgb = lightMapRgb;
     }
 
-    private static void dbg(String str) {
-        Config.dbg("CustomColors: " + str);
-    }
-
     private static void warn(String str) {
         Config.warn("CustomColors: " + str);
-    }
-
-    public CustomColormap getColormap() {
-        return this.lightMapRgb;
     }
 
     public boolean updateLightmap(World world, float torchFlickerX, int[] lmColors, boolean nightvision) {

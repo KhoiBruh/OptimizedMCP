@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.src.Config;
 
-import java.io.IOException;
 import java.util.List;
 
 public class GuiMessage extends GuiScreen {
@@ -31,7 +30,7 @@ public class GuiMessage extends GuiScreen {
         this.listLines2.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         Config.getMinecraft().displayGuiScreen(this.parentScreen);
     }
 
@@ -46,14 +45,6 @@ public class GuiMessage extends GuiScreen {
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
-    }
-
-    public void setButtonDelay(int ticksUntilEnable) {
-        this.ticksUntilEnable = ticksUntilEnable;
-
-        for (GuiButton guibutton : this.buttonList) {
-            guibutton.enabled = false;
-        }
     }
 
     /**

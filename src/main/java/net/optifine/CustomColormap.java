@@ -25,20 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CustomColormap implements CustomColors.IColorizer {
-    public static final String FORMAT_VANILLA_STRING = "vanilla";
-    public static final String FORMAT_GRID_STRING = "grid";
-    public static final String FORMAT_FIXED_STRING = "fixed";
     public static final String[] FORMAT_STRINGS = new String[]{"vanilla", "grid", "fixed"};
-    public static final String KEY_FORMAT = "format";
-    public static final String KEY_BLOCKS = "blocks";
-    public static final String KEY_SOURCE = "source";
-    public static final String KEY_COLOR = "color";
-    public static final String KEY_Y_VARIANCE = "yVariance";
-    public static final String KEY_Y_OFFSET = "yOffset";
-    private static final int FORMAT_UNKNOWN = -1;
-    private static final int FORMAT_VANILLA = 0;
-    private static final int FORMAT_GRID = 1;
-    private static final int FORMAT_FIXED = 2;
     public String name = null;
     public String basePath = null;
     private int format = -1;
@@ -408,18 +395,6 @@ public class CustomColormap implements CustomColors.IColorizer {
         }
 
         this.matchBlocks = (MatchBlock[]) Config.addObjectToArray(this.matchBlocks, mb);
-    }
-
-    public void addMatchBlock(int blockId, int metadata) {
-        MatchBlock matchblock = this.getMatchBlock(blockId);
-
-        if (matchblock != null) {
-            if (metadata >= 0) {
-                matchblock.addMetadata(metadata);
-            }
-        } else {
-            this.addMatchBlock(new MatchBlock(blockId, metadata));
-        }
     }
 
     private MatchBlock getMatchBlock(int blockId) {

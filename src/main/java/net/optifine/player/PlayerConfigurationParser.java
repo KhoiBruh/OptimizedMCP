@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class PlayerConfigurationParser {
-    public static final String CONFIG_ITEMS = "items";
-    public static final String ITEM_TYPE = "type";
-    public static final String ITEM_ACTIVE = "active";
     private String player = null;
 
     public PlayerConfigurationParser(String player) {

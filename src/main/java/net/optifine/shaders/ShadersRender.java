@@ -56,26 +56,6 @@ public class ShadersRender {
         }
     }
 
-    public static void beginTranslucent() {
-        if (Shaders.isRenderingWorld) {
-            if (Shaders.usedDepthBuffers >= 2) {
-                GlStateManager.setActiveTexture(33995);
-                Shaders.checkGLError("pre copy depth");
-                GL11.glCopyTexSubImage2D(GL11.GL_TEXTURE_2D, 0, 0, 0, 0, 0, Shaders.renderWidth, Shaders.renderHeight);
-                Shaders.checkGLError("copy depth");
-                GlStateManager.setActiveTexture(33984);
-            }
-
-            Shaders.useProgram(Shaders.ProgramWater);
-        }
-    }
-
-    public static void endTranslucent() {
-        if (Shaders.isRenderingWorld) {
-            Shaders.useProgram(Shaders.ProgramTexturedLit);
-        }
-    }
-
     public static void renderHand0(EntityRenderer er, float par1, int par2) {
         if (!Shaders.isShadowPass) {
             boolean flag = Shaders.isItemToRenderMainTranslucent();
@@ -379,14 +359,6 @@ public class ShadersRender {
         GL20.glVertexAttribPointer(Shaders.midTexCoordAttrib, 2, GL11.GL_FLOAT, false, 56, 32L);
         GL20.glVertexAttribPointer(Shaders.tangentAttrib, 4, GL11.GL_SHORT, false, 56, 40L);
         GL20.glVertexAttribPointer(Shaders.entityAttrib, 3, GL11.GL_SHORT, false, 56, 48L);
-    }
-
-    public static void beaconBeamBegin() {
-        Shaders.useProgram(Shaders.ProgramBeaconBeam);
-    }
-
-    public static void beaconBeamDraw2() {
-        GlStateManager.disableBlend();
     }
 
     public static void renderEnchantedGlintBegin() {

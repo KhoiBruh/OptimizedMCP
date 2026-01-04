@@ -20,14 +20,6 @@ public class HttpResponse {
         return this.status;
     }
 
-    public String getStatusLine() {
-        return this.statusLine;
-    }
-
-    public Map getHeaders() {
-        return this.headers;
-    }
-
     public String getHeader(String key) {
         return this.headers.get(key);
     }

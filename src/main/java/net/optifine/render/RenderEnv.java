@@ -21,9 +21,6 @@ import java.util.BitSet;
 import java.util.List;
 
 public class RenderEnv {
-    private static final int UNKNOWN = -1;
-    private static final int FALSE = 0;
-    private static final int TRUE = 1;
     private IBlockState blockState;
     private BlockPos blockPos;
     private int blockId = -1;
@@ -171,15 +168,6 @@ public class RenderEnv {
         }
 
         return this.borderDirections;
-    }
-
-    public EnumFacing[] getBorderDirections(EnumFacing dir0, EnumFacing dir1, EnumFacing dir2, EnumFacing dir3) {
-        EnumFacing[] aenumfacing = this.getBorderDirections();
-        aenumfacing[0] = dir0;
-        aenumfacing[1] = dir1;
-        aenumfacing[2] = dir2;
-        aenumfacing[3] = dir3;
-        return aenumfacing;
     }
 
     public boolean isSmartLeaves() {

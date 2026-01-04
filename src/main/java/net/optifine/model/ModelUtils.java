@@ -10,20 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelUtils {
-    public static void dbgModel(IBakedModel model) {
-        if (model != null) {
-            Config.dbg("Model: " + model + ", ao: " + model.isAmbientOcclusion() + ", gui3d: " + model.isGui3d() + ", builtIn: " + model.isBuiltInRenderer() + ", particle: " + model.getParticleTexture());
-            EnumFacing[] aenumfacing = EnumFacing.VALUES;
-
-            for (EnumFacing enumfacing : aenumfacing) {
-                List list = model.getFaceQuads(enumfacing);
-                dbgQuads(enumfacing.getName(), list, "  ");
-            }
-
-            List list1 = model.getGeneralQuads();
-            dbgQuads("General", list1, "  ");
-        }
-    }
 
     private static void dbgQuads(String name, List quads, String prefix) {
         for (Object o : quads) {

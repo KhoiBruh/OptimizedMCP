@@ -37,20 +37,8 @@ public class CustomUniform {
         this.shaderUniform.reset();
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public UniformType getType() {
-        return this.type;
-    }
-
     public IExpression getExpression() {
         return this.expression;
-    }
-
-    public ShaderUniformBase getShaderUniform() {
-        return this.shaderUniform;
     }
 
     public String toString() {

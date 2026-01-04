@@ -19,11 +19,8 @@ public class SVertexBuilder {
     int vertexSize;
     int offsetNormal;
     int offsetUV;
-    int offsetUVCenter;
     boolean hasNormal;
-    boolean hasTangent;
     boolean hasUV;
-    boolean hasUVCenter;
     long[] entityData = new long[10];
     int entityDataIndex = 0;
 
@@ -64,21 +61,14 @@ public class SVertexBuilder {
         wrr.sVertexBuilder.popEntity();
     }
 
-    public static boolean popEntity(boolean value, WorldRenderer wrr) {
-        wrr.sVertexBuilder.popEntity();
-        return value;
-    }
-
     public static void endSetVertexFormat(WorldRenderer wrr) {
         SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
         VertexFormat vertexformat = wrr.getVertexFormat();
         svertexbuilder.vertexSize = vertexformat.getNextOffset() / 4;
         svertexbuilder.hasNormal = vertexformat.hasNormal();
-        svertexbuilder.hasTangent = svertexbuilder.hasNormal;
         svertexbuilder.hasUV = vertexformat.hasUvOffset(0);
         svertexbuilder.offsetNormal = svertexbuilder.hasNormal ? vertexformat.getNormalOffset() / 4 : 0;
         svertexbuilder.offsetUV = svertexbuilder.hasUV ? vertexformat.getUvOffsetById(0) / 4 : 0;
-        svertexbuilder.offsetUVCenter = 8;
     }
 
     public static void beginAddVertex(WorldRenderer wrr) {
@@ -115,26 +105,6 @@ public class SVertexBuilder {
             for (int j = 12; j + 1 < data.length; j += 14) {
                 data[j] = (int) i;
                 data[j + 1] = (int) (i >> 32);
-            }
-        }
-    }
-
-    public static void beginAddVertexData(WorldRenderer wrr, ByteBuffer byteBuffer) {
-        if (wrr.vertexCount == 0) {
-            endSetVertexFormat(wrr);
-        }
-
-        SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
-
-        if (svertexbuilder.vertexSize == 14) {
-            long i = svertexbuilder.entityData[svertexbuilder.entityDataIndex];
-            int j = byteBuffer.limit() / 4;
-
-            for (int k = 12; k + 1 < j; k += 14) {
-                int l = (int) i;
-                int i1 = (int) (i >> 32);
-                byteBuffer.putInt(k * 4, l);
-                byteBuffer.putInt((k + 1) * 4, i1);
             }
         }
     }

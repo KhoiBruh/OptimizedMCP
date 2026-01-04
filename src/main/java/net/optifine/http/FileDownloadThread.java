@@ -20,11 +20,4 @@ public class FileDownloadThread extends Thread {
         }
     }
 
-    public String getUrlString() {
-        return this.urlString;
-    }
-
-    public IFileDownloadListener getListener() {
-        return this.listener;
-    }
 }

@@ -12,14 +12,6 @@ public class MacroState {
     private static final Pattern PATTERN_DEFINED = Pattern.compile("defined\\s+(\\w+)");
     private static final Pattern PATTERN_DEFINED_FUNC = Pattern.compile("defined\\s*\\(\\s*(\\w+)\\s*\\)");
     private static final Pattern PATTERN_MACRO = Pattern.compile("(\\w+)");
-    private static final String DEFINE = "define";
-    private static final String UNDEF = "undef";
-    private static final String IFDEF = "ifdef";
-    private static final String IFNDEF = "ifndef";
-    private static final String IF = "if";
-    private static final String ELSE = "else";
-    private static final String ELIF = "elif";
-    private static final String ENDIF = "endif";
     private static final List<String> MACRO_NAMES = Arrays.asList("define", "undef", "ifdef", "ifndef", "if", "else", "elif", "endif");
     private boolean active = true;
     private final Deque<Boolean> dequeState = new ArrayDeque<>();

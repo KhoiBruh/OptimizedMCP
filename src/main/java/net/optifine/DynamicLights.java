@@ -34,15 +34,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class DynamicLights {
-    private static final double MAX_DIST = 7.5D;
-    private static final double MAX_DIST_SQ = 56.25D;
-    private static final int LIGHT_LEVEL_MAX = 15;
-    private static final int LIGHT_LEVEL_FIRE = 15;
-    private static final int LIGHT_LEVEL_BLAZE = 10;
-    private static final int LIGHT_LEVEL_MAGMA_CUBE = 8;
-    private static final int LIGHT_LEVEL_MAGMA_CUBE_CORE = 13;
-    private static final int LIGHT_LEVEL_GLOWSTONE_DUST = 8;
-    private static final int LIGHT_LEVEL_PRISMARINE_CRYSTALS = 8;
     private static final DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
     private static final Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
     private static final Map<Item, Integer> mapItemLightLevels = new HashMap<>();

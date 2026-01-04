@@ -16,16 +16,8 @@ public class PlayerConfiguration {
         }
     }
 
-    public boolean isInitialized() {
-        return this.initialized;
-    }
-
     public void setInitialized(boolean initialized) {
         this.initialized = initialized;
-    }
-
-    public PlayerItemModel[] getPlayerItemModels() {
-        return this.playerItemModels;
     }
 
     public void addPlayerItemModel(PlayerItemModel playerItemModel) {

@@ -18,14 +18,6 @@ public class CustomTexture implements ICustomTexture {
         return this.textureUnit;
     }
 
-    public String getPath() {
-        return this.path;
-    }
-
-    public ITextureObject getTexture() {
-        return this.texture;
-    }
-
     public int getTextureId() {
         return this.texture.getGlTextureId();
     }

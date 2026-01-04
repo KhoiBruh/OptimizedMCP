@@ -7,9 +7,6 @@ import net.minecraft.world.World;
 import net.optifine.shaders.uniform.Smoother;
 import net.optifine.util.MathUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum FunctionType {
     PLUS(10, ExpressionType.FLOAT, "+", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),
     MINUS(10, ExpressionType.FLOAT, "-", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),
@@ -63,7 +60,6 @@ public enum FunctionType {
     VEC3(ExpressionType.FLOAT_ARRAY, "vec3", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT}),
     VEC4(ExpressionType.FLOAT_ARRAY, "vec4", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT});
 
-    private static final Map<Integer, Float> mapSmooth = new HashMap<>();
     public static FunctionType[] VALUES = values();
     private final int precedence;
     private final ExpressionType expressionType;
@@ -119,10 +115,6 @@ public enum FunctionType {
 
     public ExpressionType getExpressionType() {
         return this.expressionType;
-    }
-
-    public IParameters getParameters() {
-        return this.parameters;
     }
 
     public int getParameterCount(IExpression[] arguments) {

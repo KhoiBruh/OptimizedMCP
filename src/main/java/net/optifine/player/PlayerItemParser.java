@@ -8,7 +8,6 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.optifine.entity.model.CustomEntityModelParser;
 import net.optifine.util.Json;
 
@@ -20,40 +19,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class PlayerItemParser {
-    public static final String ITEM_TYPE = "type";
-    public static final String ITEM_TEXTURE_SIZE = "textureSize";
-    public static final String ITEM_USE_PLAYER_TEXTURE = "usePlayerTexture";
-    public static final String ITEM_MODELS = "models";
-    public static final String MODEL_ID = "id";
-    public static final String MODEL_BASE_ID = "baseId";
-    public static final String MODEL_TYPE = "type";
-    public static final String MODEL_TEXTURE = "texture";
-    public static final String MODEL_TEXTURE_SIZE = "textureSize";
-    public static final String MODEL_ATTACH_TO = "attachTo";
-    public static final String MODEL_INVERT_AXIS = "invertAxis";
-    public static final String MODEL_MIRROR_TEXTURE = "mirrorTexture";
-    public static final String MODEL_TRANSLATE = "translate";
-    public static final String MODEL_ROTATE = "rotate";
-    public static final String MODEL_SCALE = "scale";
-    public static final String MODEL_BOXES = "boxes";
-    public static final String MODEL_SPRITES = "sprites";
-    public static final String MODEL_SUBMODEL = "submodel";
-    public static final String MODEL_SUBMODELS = "submodels";
-    public static final String BOX_TEXTURE_OFFSET = "textureOffset";
-    public static final String BOX_COORDINATES = "coordinates";
-    public static final String BOX_SIZE_ADD = "sizeAdd";
-    public static final String BOX_UV_DOWN = "uvDown";
-    public static final String BOX_UV_UP = "uvUp";
-    public static final String BOX_UV_NORTH = "uvNorth";
-    public static final String BOX_UV_SOUTH = "uvSouth";
-    public static final String BOX_UV_WEST = "uvWest";
-    public static final String BOX_UV_EAST = "uvEast";
-    public static final String BOX_UV_FRONT = "uvFront";
-    public static final String BOX_UV_BACK = "uvBack";
-    public static final String BOX_UV_LEFT = "uvLeft";
-    public static final String BOX_UV_RIGHT = "uvRight";
-    public static final String ITEM_TYPE_MODEL = "PlayerItem";
-    public static final String MODEL_TYPE_BOX = "ModelBox";
 
     public static PlayerItemModel parseItemModel(JsonObject obj) {
         String s = Json.getString(obj, "type");
@@ -115,18 +80,6 @@ public class PlayerItemParser {
     private static void checkNull(Object obj, String msg) {
         if (obj == null) {
             throw new JsonParseException(msg);
-        }
-    }
-
-    private static ResourceLocation makeResourceLocation(String texture) {
-        int i = texture.indexOf(58);
-
-        if (i < 0) {
-            return new ResourceLocation(texture);
-        } else {
-            String s = texture.substring(0, i);
-            String s1 = texture.substring(i + 1);
-            return new ResourceLocation(s, s1);
         }
     }
 

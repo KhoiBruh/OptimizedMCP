@@ -139,10 +139,6 @@ public class ResUtils {
         }
     }
 
-    private static boolean isLowercase(String str) {
-        return str.equals(str.toLowerCase(Locale.ROOT));
-    }
-
     public static Properties readProperties(String path, String module) {
         ResourceLocation resourcelocation = new ResourceLocation(path);
 

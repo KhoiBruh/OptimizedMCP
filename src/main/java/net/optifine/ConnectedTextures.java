@@ -31,16 +31,6 @@ import java.util.*;
 public class ConnectedTextures {
     public static final IBlockState AIR_DEFAULT_STATE = Blocks.air.getDefaultState();
     public static final TextureAtlasSprite SPRITE_DEFAULT = new TextureAtlasSprite("<default>");
-    protected static final int UNKNOWN = -1;
-    protected static final int Y_NEG_DOWN = 0;
-    protected static final int Y_POS_UP = 1;
-    protected static final int Z_NEG_NORTH = 2;
-    protected static final int Z_POS_SOUTH = 3;
-    protected static final int X_NEG_WEST = 4;
-    protected static final int X_POS_EAST = 5;
-    private static final int Y_AXIS = 0;
-    private static final int Z_AXIS = 1;
-    private static final int X_AXIS = 2;
     private static final BlockDir[] SIDES_Y_NEG_DOWN = new BlockDir[]{BlockDir.WEST, BlockDir.EAST, BlockDir.NORTH,
             BlockDir.SOUTH};
     private static final BlockDir[] SIDES_Y_POS_UP = new BlockDir[]{BlockDir.WEST, BlockDir.EAST, BlockDir.SOUTH,

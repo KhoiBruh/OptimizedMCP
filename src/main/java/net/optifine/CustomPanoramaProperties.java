@@ -40,10 +40,6 @@ public class CustomPanoramaProperties {
         return this.panoramaLocations;
     }
 
-    public int getWeight() {
-        return this.weight;
-    }
-
     public int getBlur1() {
         return this.blur1;
     }

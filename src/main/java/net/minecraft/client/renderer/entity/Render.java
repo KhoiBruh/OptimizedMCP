@@ -400,11 +400,6 @@ public abstract class Render<T extends Entity> implements IEntityRenderer
         this.entityClass = p_setEntityClass_1_;
     }
 
-    public ResourceLocation getLocationTextureCustom()
-    {
-        return this.locationTextureCustom;
-    }
-
     public void setLocationTextureCustom(ResourceLocation p_setLocationTextureCustom_1_)
     {
         this.locationTextureCustom = p_setLocationTextureCustom_1_;

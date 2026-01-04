@@ -17,7 +17,6 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.NbtTagValue;
@@ -34,19 +33,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class CustomItems {
-    public static final int MASK_POTION_SPLASH = 16384;
-    public static final int MASK_POTION_NAME = 63;
-    public static final int MASK_POTION_EXTENDED = 64;
-    public static final String KEY_TEXTURE_OVERLAY = "texture.potion_overlay";
-    public static final String KEY_TEXTURE_SPLASH = "texture.potion_bottle_splash";
-    public static final String KEY_TEXTURE_DRINKABLE = "texture.potion_bottle_drinkable";
-    public static final String DEFAULT_TEXTURE_OVERLAY = "items/potion_overlay";
-    public static final String DEFAULT_TEXTURE_SPLASH = "items/potion_bottle_splash";
-    public static final String DEFAULT_TEXTURE_DRINKABLE = "items/potion_bottle_drinkable";
     private static final int[][] EMPTY_INT2_ARRAY = new int[0][];
-    private static final String TYPE_POTION_NORMAL = "normal";
-    private static final String TYPE_POTION_SPLASH = "splash";
-    private static final String TYPE_POTION_LINGER = "linger";
     private static CustomItemProperties[][] itemProperties = null;
     private static CustomItemProperties[][] enchantmentProperties = null;
     private static Map mapPotionIds = null;
@@ -350,23 +337,6 @@ public class CustomItems {
 
     private static int[] getPotionId(int baseId, int subId) {
         return new int[]{baseId + subId * 16};
-    }
-
-    private static int getPotionNameDamage(String name) {
-        String s = "potion." + name;
-        Potion[] apotion = Potion.potionTypes;
-
-        for (Potion potion : apotion) {
-            if (potion != null) {
-                String s1 = potion.getName();
-
-                if (s.equals(s1)) {
-                    return potion.getId();
-                }
-            }
-        }
-
-        return -1;
     }
 
     private static List makePropertyList(CustomItemProperties[][] propsArr) {

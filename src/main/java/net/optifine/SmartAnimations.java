@@ -18,12 +18,6 @@ public class SmartAnimations {
         active = Config.getGameSettings().ofSmartAnimations;
     }
 
-    public static void spriteRendered(int animationIndex) {
-        if (animationIndex >= 0) {
-            spritesRendered.set(animationIndex);
-        }
-    }
-
     public static void spritesRendered(BitSet animationIndexes) {
         if (animationIndexes != null) {
             spritesRendered.or(animationIndexes);

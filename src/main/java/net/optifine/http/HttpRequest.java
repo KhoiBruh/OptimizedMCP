@@ -5,11 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpRequest {
-    public static final String METHOD_GET = "GET";
-    public static final String METHOD_HEAD = "HEAD";
-    public static final String METHOD_POST = "POST";
-    public static final String HTTP_1_0 = "HTTP/1.0";
-    public static final String HTTP_1_1 = "HTTP/1.1";
     private String host = null;
     private int port = 0;
     private Proxy proxy = Proxy.NO_PROXY;
@@ -53,10 +48,6 @@ public class HttpRequest {
 
     public Map<String, String> getHeaders() {
         return this.headers;
-    }
-
-    public byte[] getBody() {
-        return this.body;
     }
 
     public int getRedirects() {

@@ -1,7 +1,6 @@
 package net.optifine.util;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerMooshroomMushroom;
 import net.minecraft.client.renderer.texture.*;
@@ -29,85 +28,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class TextureUtils {
-    public static final String texGrassTop = "grass_top";
-    public static final String texStone = "stone";
-    public static final String texDirt = "dirt";
-    public static final String texCoarseDirt = "coarse_dirt";
-    public static final String texGrassSide = "grass_side";
-    public static final String texStoneslabSide = "stone_slab_side";
-    public static final String texStoneslabTop = "stone_slab_top";
-    public static final String texBedrock = "bedrock";
-    public static final String texSand = "sand";
-    public static final String texGravel = "gravel";
-    public static final String texLogOak = "log_oak";
-    public static final String texLogBigOak = "log_big_oak";
-    public static final String texLogAcacia = "log_acacia";
-    public static final String texLogSpruce = "log_spruce";
-    public static final String texLogBirch = "log_birch";
-    public static final String texLogJungle = "log_jungle";
-    public static final String texLogOakTop = "log_oak_top";
-    public static final String texLogBigOakTop = "log_big_oak_top";
-    public static final String texLogAcaciaTop = "log_acacia_top";
-    public static final String texLogSpruceTop = "log_spruce_top";
-    public static final String texLogBirchTop = "log_birch_top";
-    public static final String texLogJungleTop = "log_jungle_top";
-    public static final String texLeavesOak = "leaves_oak";
-    public static final String texLeavesBigOak = "leaves_big_oak";
-    public static final String texLeavesAcacia = "leaves_acacia";
-    public static final String texLeavesBirch = "leaves_birch";
-    public static final String texLeavesSpuce = "leaves_spruce";
-    public static final String texLeavesJungle = "leaves_jungle";
-    public static final String texGoldOre = "gold_ore";
-    public static final String texIronOre = "iron_ore";
-    public static final String texCoalOre = "coal_ore";
-    public static final String texObsidian = "obsidian";
-    public static final String texGrassSideOverlay = "grass_side_overlay";
-    public static final String texSnow = "snow";
-    public static final String texGrassSideSnowed = "grass_side_snowed";
-    public static final String texMyceliumSide = "mycelium_side";
-    public static final String texMyceliumTop = "mycelium_top";
-    public static final String texDiamondOre = "diamond_ore";
-    public static final String texRedstoneOre = "redstone_ore";
-    public static final String texLapisOre = "lapis_ore";
-    public static final String texCactusSide = "cactus_side";
-    public static final String texClay = "clay";
-    public static final String texFarmlandWet = "farmland_wet";
-    public static final String texFarmlandDry = "farmland_dry";
-    public static final String texNetherrack = "netherrack";
-    public static final String texSoulSand = "soul_sand";
-    public static final String texGlowstone = "glowstone";
-    public static final String texLeavesSpruce = "leaves_spruce";
-    public static final String texLeavesSpruceOpaque = "leaves_spruce_opaque";
-    public static final String texEndStone = "end_stone";
-    public static final String texSandstoneTop = "sandstone_top";
-    public static final String texSandstoneBottom = "sandstone_bottom";
-    public static final String texRedstoneLampOff = "redstone_lamp_off";
-    public static final String texRedstoneLampOn = "redstone_lamp_on";
-    public static final String texWaterStill = "water_still";
-    public static final String texWaterFlow = "water_flow";
-    public static final String texLavaStill = "lava_still";
-    public static final String texLavaFlow = "lava_flow";
-    public static final String texFireLayer0 = "fire_layer_0";
-    public static final String texFireLayer1 = "fire_layer_1";
-    public static final String texPortal = "portal";
-    public static final String texGlass = "glass";
-    public static final String texGlassPaneTop = "glass_pane_top";
-    public static final String texCompass = "compass";
-    public static final String texClock = "clock";
-    public static final String SPRITE_PREFIX_BLOCKS = "minecraft:blocks/";
-    public static final String SPRITE_PREFIX_ITEMS = "minecraft:items/";
-    public static TextureAtlasSprite iconGrassTop;
-    public static TextureAtlasSprite iconGrassSide;
     public static TextureAtlasSprite iconGrassSideOverlay;
-    public static TextureAtlasSprite iconSnow;
-    public static TextureAtlasSprite iconGrassSideSnowed;
-    public static TextureAtlasSprite iconMyceliumSide;
-    public static TextureAtlasSprite iconMyceliumTop;
     public static TextureAtlasSprite iconWaterStill;
     public static TextureAtlasSprite iconWaterFlow;
     public static TextureAtlasSprite iconLavaStill;
@@ -115,11 +40,8 @@ public class TextureUtils {
     public static TextureAtlasSprite iconPortal;
     public static TextureAtlasSprite iconFireLayer0;
     public static TextureAtlasSprite iconFireLayer1;
-    public static TextureAtlasSprite iconGlass;
-    public static TextureAtlasSprite iconGlassPaneTop;
     public static TextureAtlasSprite iconCompass;
     public static TextureAtlasSprite iconClock;
-    private static final IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
 
     public static void update() {
         TextureMap texturemap = getTextureMapBlocks();
@@ -131,48 +53,10 @@ public class TextureUtils {
         }
     }
 
-    public static BufferedImage fixTextureDimensions(String name, BufferedImage bi) {
-        if (name.startsWith("/mob/zombie") || name.startsWith("/mob/pigzombie")) {
-            int i = bi.getWidth();
-            int j = bi.getHeight();
-
-            if (i == j * 2) {
-                BufferedImage bufferedimage = new BufferedImage(i, j * 2, 2);
-                Graphics2D graphics2d = bufferedimage.createGraphics();
-                graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                graphics2d.drawImage(bi, 0, 0, i, j, null);
-                return bufferedimage;
-            }
-        }
-
-        return bi;
-    }
-
     public static int ceilPowerOfTwo(int val) {
         int i;
 
         for (i = 1; i < val; i *= 2) {
-        }
-
-        return i;
-    }
-
-    public static int getPowerOfTwo(int val) {
-        int i = 1;
-        int j;
-
-        for (j = 0; i < val; ++j) {
-            i *= 2;
-        }
-
-        return j;
-    }
-
-    public static int twoToPower(int power) {
-        int i = 1;
-
-        for (int j = 0; j < power; ++j) {
-            i *= 2;
         }
 
         return i;
@@ -237,7 +121,7 @@ public class TextureUtils {
                 TextureAnimations.updateAnimations();
             }
 
-            public void loadTexture(IResourceManager var1) throws IOException {
+            public void loadTexture(IResourceManager var1) {
             }
 
             public int getGlTextureId() {
@@ -256,19 +140,6 @@ public class TextureUtils {
         };
         ResourceLocation resourcelocation = new ResourceLocation("optifine/TickableTextures");
         Config.getTextureManager().loadTickableTexture(resourcelocation, itickabletextureobject);
-    }
-
-    public static ResourceLocation fixResourceLocation(ResourceLocation loc, String basePath) {
-        if (loc.getResourceDomain().equals("minecraft")) {
-            String s = loc.getResourcePath();
-            String s1 = fixResourcePath(s, basePath);
-
-            if (s1 != s) {
-                loc = new ResourceLocation(loc.getResourceDomain(), s1);
-            }
-
-        }
-        return loc;
     }
 
     public static String fixResourcePath(String path, String basePath) {
@@ -399,20 +270,6 @@ public class TextureUtils {
         }
     }
 
-    public static void dbgMipmaps(TextureAtlasSprite textureatlassprite) {
-        int[][] aint = textureatlassprite.getFrameTextureData(0);
-
-        for (int i = 0; i < aint.length; ++i) {
-            int[] aint1 = aint[i];
-
-            if (aint1 == null) {
-                Config.dbg(i + ": " + aint1);
-            } else {
-                Config.dbg(i + ": " + aint1.length);
-            }
-        }
-    }
-
     public static void saveGlTexture(String name, int textureId, int mipmapLevels, int width, int height) {
         bindTexture(textureId);
         GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
@@ -449,54 +306,6 @@ public class TextureUtils {
                 Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
-    }
-
-    public static void generateCustomMipmaps(TextureAtlasSprite tas, int mipmaps) {
-        int i = tas.getIconWidth();
-        int j = tas.getIconHeight();
-
-        if (tas.getFrameCount() < 1) {
-            List<int[][]> list = new ArrayList<>();
-            int[][] aint = new int[mipmaps + 1][];
-            int[] aint1 = new int[i * j];
-            aint[0] = aint1;
-            list.add(aint);
-            tas.setFramesTextureData(list);
-        }
-
-        List<int[][]> list1 = new ArrayList<>();
-        int l = tas.getFrameCount();
-
-        for (int i1 = 0; i1 < l; ++i1) {
-            int[] aint2 = getFrameData(tas, i1, 0);
-
-            if (aint2 == null || aint2.length < 1) {
-                aint2 = new int[i * j];
-            }
-
-            if (aint2.length != i * j) {
-                int k = (int) Math.round(Math.sqrt(aint2.length));
-
-                if (k * k != aint2.length) {
-                    aint2 = new int[1];
-                    k = 1;
-                }
-
-                BufferedImage bufferedimage = new BufferedImage(k, k, 2);
-                bufferedimage.setRGB(0, 0, k, k, aint2, 0, k);
-                BufferedImage bufferedimage1 = scaleImage(bufferedimage, i);
-                int[] aint3 = new int[i * j];
-                bufferedimage1.getRGB(0, 0, i, j, aint3, 0, i);
-                aint2 = aint3;
-            }
-
-            int[][] aint4 = new int[mipmaps + 1][];
-            aint4[0] = aint2;
-            list1.add(aint4);
-        }
-
-        tas.setFramesTextureData(list1);
-        tas.generateMipmaps(mipmaps);
     }
 
     public static int[] getFrameData(TextureAtlasSprite tas, int frame, int level) {

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShaderOptionProfile extends ShaderOption {
-    private static final String NAME_PROFILE = "<profile>";
-    private static final String VALUE_CUSTOM = "<custom>";
     private ShaderProfile[] profiles = null;
     private ShaderOption[] options = null;
 

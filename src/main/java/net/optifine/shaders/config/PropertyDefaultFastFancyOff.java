@@ -14,10 +14,6 @@ public class PropertyDefaultFastFancyOff extends Property {
         return this.getValue() == 0;
     }
 
-    public boolean isFast() {
-        return this.getValue() == 1;
-    }
-
     public boolean isFancy() {
         return this.getValue() == 2;
     }

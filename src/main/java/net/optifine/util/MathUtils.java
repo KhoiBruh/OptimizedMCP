@@ -3,9 +3,6 @@ package net.optifine.util;
 import net.minecraft.util.MathHelper;
 
 public class MathUtils {
-    public static final float PI = (float) Math.PI;
-    public static final float PI2 = ((float) Math.PI * 2F);
-    public static final float PId2 = ((float) Math.PI / 2F);
     private static final float[] ASIN_TABLE = new float[65536];
 
     static {
@@ -47,15 +44,6 @@ public class MathUtils {
 
             return i;
         }
-    }
-
-    public static int roundDownToPowerOfTwo(int val) {
-        int i = MathHelper.roundUpToPowerOfTwo(val);
-        return val == i ? i : i / 2;
-    }
-
-    public static boolean equalsDelta(float f1, float f2, float delta) {
-        return Math.abs(f1 - f2) <= delta;
     }
 
     public static float toDeg(float angle) {

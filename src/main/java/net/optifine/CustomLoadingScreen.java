@@ -10,10 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Properties;
 
 public class CustomLoadingScreen {
-    private static final int SCALE_DEFAULT = 2;
-    private static final int SCALE_MODE_FIXED = 0;
-    private static final int SCALE_MODE_FULL = 1;
-    private static final int SCALE_MODE_STRETCH = 2;
     private final ResourceLocation locationTexture;
     private int scaleMode = 0;
     private int scale = 2;

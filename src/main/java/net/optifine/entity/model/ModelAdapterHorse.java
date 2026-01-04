@@ -18,10 +18,6 @@ public class ModelAdapterHorse extends ModelAdapter {
         super(EntityHorse.class, "horse", 0.75F);
     }
 
-    protected ModelAdapterHorse(Class entityClass, String name, float shadowSize) {
-        super(entityClass, name, shadowSize);
-    }
-
     private static Map<String, Integer> getMapPartFields() {
         if (mapPartFields == null) {
             mapPartFields = new HashMap<>();

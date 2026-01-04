@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class EmissiveTextures {
-    private static final String SUFFIX_PNG = ".png";
     private static final ResourceLocation LOCATION_EMPTY = new ResourceLocation("mcpatcher/ctm/default/empty.png");
     private static String suffixEmissive = null;
     private static String suffixEmissivePng = null;
@@ -127,10 +126,6 @@ public class EmissiveTextures {
 
     private static void dbg(String str) {
         Config.dbg("EmissiveTextures: " + str);
-    }
-
-    private static void warn(String str) {
-        Config.warn("EmissiveTextures: " + str);
     }
 
     public static boolean isEmissive(ResourceLocation loc) {

@@ -28,14 +28,6 @@ public class CrashReporter {
         }
     }
 
-    private static String makeReport(CrashReport crashReport) {
-        return "OptiFineVersion: " + Config.getVersion() + "\n" +
-                "Summary: " + makeSummary(crashReport) + "\n" +
-                "\n" +
-                crashReport.getCompleteReport() +
-                "\n";
-    }
-
     private static String makeSummary(CrashReport crashReport) {
         Throwable throwable = crashReport.getCrashCause();
 

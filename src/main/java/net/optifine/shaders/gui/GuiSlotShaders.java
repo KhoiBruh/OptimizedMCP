@@ -142,7 +142,4 @@ class GuiSlotShaders extends GuiSlot {
         this.shadersGui.drawCenteredString(s, this.width / 2, posY + 1, 14737632);
     }
 
-    public int getSelectedIndex() {
-        return this.selectedIndex;
-    }
 }

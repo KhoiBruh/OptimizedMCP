@@ -3,8 +3,6 @@ package net.optifine;
 import net.minecraft.src.Config;
 
 public class GlErrors {
-    private static final long CHECK_INTERVAL_MS = 3000L;
-    private static final int CHECK_ERROR_MAX = 10;
     private static boolean frameStarted = false;
     private static long timeCheckStartMs = -1L;
     private static int countErrors = 0;

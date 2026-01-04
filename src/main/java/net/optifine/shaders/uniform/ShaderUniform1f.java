@@ -3,7 +3,6 @@ package net.optifine.shaders.uniform;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 public class ShaderUniform1f extends ShaderUniformBase {
-    private static final float VALUE_UNKNOWN = -3.4028235E38F;
     private float[] programValues;
 
     public ShaderUniform1f(String name) {

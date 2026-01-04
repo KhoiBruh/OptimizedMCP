@@ -11,10 +11,6 @@ public class ScreenShaderOptions {
         this.columns = columns;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public ShaderOption[] getShaderOptions() {
         return this.shaderOptions;
     }

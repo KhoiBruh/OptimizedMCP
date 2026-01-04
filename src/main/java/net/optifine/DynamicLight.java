@@ -136,10 +136,6 @@ public class DynamicLight {
         }
     }
 
-    public Entity getEntity() {
-        return this.entity;
-    }
-
     public double getLastPosX() {
         return this.lastPosX;
     }
@@ -158,10 +154,6 @@ public class DynamicLight {
 
     public boolean isUnderwater() {
         return this.underwater;
-    }
-
-    public double getOffsetY() {
-        return this.offsetY;
     }
 
     public String toString() {

@@ -25,17 +25,6 @@ public class ShaderProfile {
         }
     }
 
-    public void applyOptionValues(ShaderOption[] options) {
-        for (ShaderOption shaderoption : options) {
-            String s = shaderoption.getName();
-            String s1 = this.mapOptionValues.get(s);
-
-            if (s1 != null) {
-                shaderoption.setValue(s1);
-            }
-        }
-    }
-
     public String[] getOptions() {
         Set<String> set = this.mapOptionValues.keySet();
         return set.toArray(new String[set.size()]);

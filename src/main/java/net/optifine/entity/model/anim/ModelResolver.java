@@ -39,7 +39,7 @@ public class ModelResolver implements IModelResolver {
         }
     }
 
-    public ModelRenderer getModelRenderer(String name) {
+    private ModelRenderer getModelRenderer(String name) {
         if (name == null) {
             return null;
         } else if (name.contains(":")) {

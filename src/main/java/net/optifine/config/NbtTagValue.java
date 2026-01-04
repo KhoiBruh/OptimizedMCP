@@ -9,18 +9,6 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class NbtTagValue {
-    private static final int TYPE_TEXT = 0;
-    private static final int TYPE_PATTERN = 1;
-    private static final int TYPE_IPATTERN = 2;
-    private static final int TYPE_REGEX = 3;
-    private static final int TYPE_IREGEX = 4;
-    private static final String PREFIX_PATTERN = "pattern:";
-    private static final String PREFIX_IPATTERN = "ipattern:";
-    private static final String PREFIX_REGEX = "regex:";
-    private static final String PREFIX_IREGEX = "iregex:";
-    private static final int FORMAT_DEFAULT = 0;
-    private static final int FORMAT_HEX_COLOR = 1;
-    private static final String PREFIX_HEX_COLOR = "#";
     private static final Pattern PATTERN_HEX_COLOR = Pattern.compile("^#[0-9a-f]{6}+$");
     private String[] parents = null;
     private String name = null;

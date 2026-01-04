@@ -219,12 +219,7 @@ public class CustomGuis {
         }
     }
 
-    public static PlayerControllerOF getPlayerControllerOF() {
-        return playerControllerOF;
-    }
-
     public static void setPlayerControllerOF(PlayerControllerOF playerControllerOF) {
-        playerControllerOF = playerControllerOF;
     }
 
     private static boolean isChristmas() {

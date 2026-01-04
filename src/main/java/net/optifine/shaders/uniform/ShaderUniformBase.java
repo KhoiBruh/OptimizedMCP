@@ -6,8 +6,6 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import java.util.Arrays;
 
 public abstract class ShaderUniformBase {
-    private static final int LOCATION_UNDEFINED = -1;
-    private static final int LOCATION_UNKNOWN = Integer.MIN_VALUE;
     private final String name;
     private int program = 0;
     private int[] locations = new int[]{-1};

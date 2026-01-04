@@ -22,14 +22,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.*;
 
 public class CustomItemProperties {
-    public static final int TYPE_UNKNOWN = 0;
-    public static final int TYPE_ITEM = 1;
-    public static final int TYPE_ENCHANTMENT = 2;
-    public static final int TYPE_ARMOR = 3;
-    public static final int HAND_ANY = 0;
-    public static final int HAND_MAIN = 1;
-    public static final int HAND_OFF = 2;
-    public static final String INVENTORY = "inventory";
     public String name = null;
     public String basePath = null;
     public int type = 1;
@@ -50,11 +42,9 @@ public class CustomItemProperties {
     public float speed = 0.0F;
     public float rotation = 0.0F;
     public int layer = 0;
-    public float duration = 1.0F;
     public int weight = 0;
     public ResourceLocation textureLocation = null;
     public Map mapTextureLocations = null;
-    public TextureAtlasSprite sprite = null;
     public Map mapSprites = null;
     public IBakedModel bakedModelTexture = null;
     public Map<String, IBakedModel> mapBakedModelsTexture = null;
@@ -370,12 +360,6 @@ public class CustomItemProperties {
         ResourceLocation resourcelocation = getModelLocation(model);
         ModelResourceLocation modelresourcelocation = new ModelResourceLocation(resourcelocation, "inventory");
         modelBakery.loadItemModel(resourcelocation.toString(), modelresourcelocation, resourcelocation);
-    }
-
-    private static void checkNull(Object obj, String msg) throws NullPointerException {
-        if (obj == null) {
-            throw new NullPointerException(msg);
-        }
     }
 
     private static ResourceLocation getModelLocation(String modelName) {
@@ -735,7 +719,7 @@ public class CustomItemProperties {
     public void updateModelTexture(TextureMap textureMap, ItemModelGenerator itemModelGenerator) {
         if (this.texture != null || this.mapTextures != null) {
             String[] astring = this.getModelTextures();
-            boolean flag = this.isUseTint();
+            boolean flag = true;
             this.bakedModelTexture = makeBakedModel(textureMap, itemModelGenerator, astring, flag);
 
             if (this.type == 1 && this.mapTextures != null) {
@@ -756,10 +740,6 @@ public class CustomItemProperties {
                 }
             }
         }
-    }
-
-    private boolean isUseTint() {
-        return true;
     }
 
     private String[] getModelTextures() {
@@ -849,25 +829,6 @@ public class CustomItemProperties {
         }
 
         return (float) this.textureWidth;
-    }
-
-    public float getTextureHeight(TextureManager textureManager) {
-        if (this.textureHeight <= 0) {
-            if (this.textureLocation != null) {
-                ITextureObject itextureobject = textureManager.getTexture(this.textureLocation);
-                int i = itextureobject.getGlTextureId();
-                int j = GlStateManager.getBoundTexture();
-                GlStateManager.bindTexture(i);
-                this.textureHeight = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
-                GlStateManager.bindTexture(j);
-            }
-
-            if (this.textureHeight <= 0) {
-                this.textureHeight = 16;
-            }
-        }
-
-        return (float) this.textureHeight;
     }
 
     public IBakedModel getBakedModel(ResourceLocation modelLocation, boolean fullModel) {

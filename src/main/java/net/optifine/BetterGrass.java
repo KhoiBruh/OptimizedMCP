@@ -23,11 +23,6 @@ import java.util.List;
 import java.util.Properties;
 
 public class BetterGrass {
-    private static final String TEXTURE_GRASS_DEFAULT = "blocks/grass_top";
-    private static final String TEXTURE_GRASS_SIDE_DEFAULT = "blocks/grass_side";
-    private static final String TEXTURE_MYCELIUM_DEFAULT = "blocks/mycelium_top";
-    private static final String TEXTURE_PODZOL_DEFAULT = "blocks/dirt_podzol_top";
-    private static final String TEXTURE_SNOW_DEFAULT = "blocks/snow";
     private static boolean betterGrass = true;
     private static boolean betterMycelium = true;
     private static boolean betterPodzol = true;

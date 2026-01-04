@@ -17,42 +17,6 @@ import net.optifine.util.TextureUtils;
 import java.util.*;
 
 public class ConnectedProperties {
-    public static final int METHOD_NONE = 0;
-    public static final int METHOD_CTM = 1;
-    public static final int METHOD_HORIZONTAL = 2;
-    public static final int METHOD_TOP = 3;
-    public static final int METHOD_RANDOM = 4;
-    public static final int METHOD_REPEAT = 5;
-    public static final int METHOD_VERTICAL = 6;
-    public static final int METHOD_FIXED = 7;
-    public static final int METHOD_HORIZONTAL_VERTICAL = 8;
-    public static final int METHOD_VERTICAL_HORIZONTAL = 9;
-    public static final int METHOD_CTM_COMPACT = 10;
-    public static final int METHOD_OVERLAY = 11;
-    public static final int METHOD_OVERLAY_FIXED = 12;
-    public static final int METHOD_OVERLAY_RANDOM = 13;
-    public static final int METHOD_OVERLAY_REPEAT = 14;
-    public static final int METHOD_OVERLAY_CTM = 15;
-    public static final int CONNECT_NONE = 0;
-    public static final int CONNECT_BLOCK = 1;
-    public static final int CONNECT_TILE = 2;
-    public static final int CONNECT_MATERIAL = 3;
-    public static final int CONNECT_UNKNOWN = 128;
-    public static final int FACE_BOTTOM = 1;
-    public static final int FACE_TOP = 2;
-    public static final int FACE_NORTH = 4;
-    public static final int FACE_SOUTH = 8;
-    public static final int FACE_WEST = 16;
-    public static final int FACE_EAST = 32;
-    public static final int FACE_SIDES = 60;
-    public static final int FACE_ALL = 63;
-    public static final int FACE_UNKNOWN = 128;
-    public static final int SYMMETRY_NONE = 1;
-    public static final int SYMMETRY_OPPOSITE = 2;
-    public static final int SYMMETRY_ALL = 6;
-    public static final int SYMMETRY_UNKNOWN = 128;
-    public static final String TILE_SKIP_PNG = "<skip>.png";
-    public static final String TILE_DEFAULT_PNG = "<default>.png";
     public String name = null;
     public String basePath = null;
     public MatchBlock[] matchBlocks = null;
@@ -123,28 +87,6 @@ public class ConnectedProperties {
         this.tintIndex = connectedparser.parseInt(props.getProperty("tintIndex"), -1);
         this.tintBlockState = connectedparser.parseBlockState(props.getProperty("tintBlock"), Blocks.air.getDefaultState());
         this.layer = connectedparser.parseBlockRenderLayer(props.getProperty("layer"), EnumWorldBlockLayer.CUTOUT_MIPPED);
-    }
-
-    private static String parseName(String path) {
-        String s = path;
-        int i = path.lastIndexOf(47);
-
-        if (i >= 0) {
-            s = path.substring(i + 1);
-        }
-
-        int j = s.lastIndexOf(46);
-
-        if (j >= 0) {
-            s = s.substring(0, j);
-        }
-
-        return s;
-    }
-
-    private static String parseBasePath(String path) {
-        int i = path.lastIndexOf(47);
-        return i < 0 ? "" : path.substring(0, i);
     }
 
     private static int parseSymmetry(String str) {

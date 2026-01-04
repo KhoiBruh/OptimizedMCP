@@ -13,20 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpPipeline {
-    public static final String HEADER_USER_AGENT = "User-Agent";
-    public static final String HEADER_HOST = "Host";
-    public static final String HEADER_ACCEPT = "Accept";
-    public static final String HEADER_LOCATION = "Location";
-    public static final String HEADER_KEEP_ALIVE = "Keep-Alive";
-    public static final String HEADER_CONNECTION = "Connection";
-    public static final String HEADER_VALUE_KEEP_ALIVE = "keep-alive";
-    public static final String HEADER_TRANSFER_ENCODING = "Transfer-Encoding";
-    public static final String HEADER_VALUE_CHUNKED = "chunked";
     private static final Map mapConnections = new HashMap();
-
-    public static void addRequest(String urlStr, HttpListener listener) throws IOException {
-        addRequest(urlStr, listener, Proxy.NO_PROXY);
-    }
 
     public static void addRequest(String urlStr, HttpListener listener, Proxy proxy) throws IOException {
         HttpRequest httprequest = makeRequest(urlStr, proxy);
@@ -91,10 +78,6 @@ public class HttpPipeline {
 
     private static String makeConnectionKey(String host, int port, Proxy proxy) {
         return host + ":" + port + "-" + proxy;
-    }
-
-    public static byte[] get(String urlStr) throws IOException {
-        return get(urlStr, Proxy.NO_PROXY);
     }
 
     public static byte[] get(String urlStr, Proxy proxy) throws IOException {
@@ -166,14 +149,4 @@ public class HttpPipeline {
         }
     }
 
-    public static boolean hasActiveRequests() {
-        for (Object o : mapConnections.values()) {
-            HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) o;
-            if (httppipelineconnection.hasActiveRequests()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

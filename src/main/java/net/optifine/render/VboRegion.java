@@ -13,7 +13,6 @@ import java.nio.IntBuffer;
 
 public class VboRegion {
     private final int vertexBytes;
-    private EnumWorldBlockLayer layer = null;
     private int glBufferId = OpenGlHelper.glGenBuffers();
     private int capacity = 4096;
     private int positionTop = 0;
@@ -29,7 +28,6 @@ public class VboRegion {
         this.bufferCountVertex = Config.createDirectIntBuffer(this.capacity);
         this.drawMode = 7;
         this.vertexBytes = DefaultVertexFormats.BLOCK.getNextOffset();
-        this.layer = layer;
         this.bindBuffer();
         long i = this.toBytes(this.capacity);
         OpenGlHelper.glBufferData(OpenGlHelper.GL_ARRAY_BUFFER, i, OpenGlHelper.GL_STATIC_DRAW);
@@ -129,38 +127,6 @@ public class VboRegion {
         }
     }
 
-    private void checkRanges() {
-        int i = 0;
-        int j = 0;
-
-        for (VboRange vborange = this.rangeList.getFirst().getItem(); vborange != null; vborange = vborange.getNext()) {
-            ++i;
-            j += vborange.getSize();
-
-            if (vborange.getPosition() < 0 || vborange.getSize() <= 0 || vborange.getPositionNext() > this.positionTop) {
-                throw new RuntimeException("Invalid range: " + vborange);
-            }
-
-            VboRange vborange1 = vborange.getPrev();
-
-            if (vborange1 != null && vborange.getPosition() < vborange1.getPositionNext()) {
-                throw new RuntimeException("Invalid range: " + vborange);
-            }
-
-            VboRange vborange2 = vborange.getNext();
-
-            if (vborange2 != null && vborange.getPositionNext() > vborange2.getPosition()) {
-                throw new RuntimeException("Invalid range: " + vborange);
-            }
-        }
-
-        if (i != this.rangeList.getSize()) {
-            throw new RuntimeException("Invalid count: " + i + " <> " + this.rangeList.getSize());
-        } else if (j != this.sizeUsed) {
-            throw new RuntimeException("Invalid size: " + j + " <> " + this.sizeUsed);
-        }
-    }
-
     private void checkVboSize(int sizeMin) {
         if (this.capacity < sizeMin) {
             this.expandVbo(sizeMin);
@@ -255,7 +221,4 @@ public class VboRegion {
         return (int) (bytes / (long) this.vertexBytes);
     }
 
-    public int getPositionTop() {
-        return this.positionTop;
-    }
 }

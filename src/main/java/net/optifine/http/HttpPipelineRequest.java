@@ -18,10 +18,6 @@ public class HttpPipelineRequest {
         return this.httpListener;
     }
 
-    public boolean isClosed() {
-        return this.closed;
-    }
-
     public void setClosed(boolean closed) {
         this.closed = closed;
     }

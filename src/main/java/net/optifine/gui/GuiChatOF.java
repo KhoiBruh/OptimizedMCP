@@ -6,8 +6,6 @@ import net.minecraft.src.Config;
 import net.optifine.shaders.Shaders;
 
 public class GuiChatOF extends GuiChat {
-    private static final String CMD_RELOAD_SHADERS = "/reloadShaders";
-    private static final String CMD_RELOAD_CHUNKS = "/reloadChunks";
 
     public GuiChatOF(GuiChat guiChat) {
         super(GuiVideoSettings.getGuiChatText(guiChat));

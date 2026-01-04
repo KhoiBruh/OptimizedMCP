@@ -1,7 +1,6 @@
 package net.optifine.shaders.uniform;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.optifine.expr.ExpressionType;
@@ -28,18 +27,6 @@ public enum ShaderParameterBool implements IExpressionBool {
 
     ShaderParameterBool(String name) {
         this.name = name;
-    }
-
-    public static ShaderParameterBool parse(String str) {
-        if (str != null) {
-            for (ShaderParameterBool shaderparameterbool : VALUES) {
-                if (shaderparameterbool.getName().equals(str)) {
-                    return shaderparameterbool;
-                }
-            }
-
-        }
-        return null;
     }
 
     public String getName() {

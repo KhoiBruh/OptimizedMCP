@@ -4,7 +4,6 @@ import com.google.common.collect.AbstractIterator;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3i;
 
 import java.util.Iterator;
 
@@ -18,10 +17,6 @@ public class BlockPosM extends BlockPos {
 
     public BlockPosM(int x, int y, int z) {
         this(x, y, z, 0);
-    }
-
-    public BlockPosM(double xIn, double yIn, double zIn) {
-        this(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
     }
 
     public BlockPosM(int x, int y, int z, int level) {
@@ -98,20 +93,6 @@ public class BlockPosM extends BlockPos {
         this.setXyz(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
     }
 
-    public BlockPosM set(Vec3i vec) {
-        this.setXyz(vec.getX(), vec.getY(), vec.getZ());
-        return this;
-    }
-
-    public BlockPosM set(int xIn, int yIn, int zIn) {
-        this.setXyz(xIn, yIn, zIn);
-        return this;
-    }
-
-    public BlockPos offsetMutable(EnumFacing facing) {
-        return this.offset(facing);
-    }
-
     public BlockPos offset(EnumFacing facing) {
         if (this.level <= 0) {
             return super.offset(facing, 1);
@@ -159,7 +140,4 @@ public class BlockPosM extends BlockPos {
         this.needsUpdate = false;
     }
 
-    public BlockPos toImmutable() {
-        return new BlockPos(this.mx, this.my, this.mz);
-    }
 }

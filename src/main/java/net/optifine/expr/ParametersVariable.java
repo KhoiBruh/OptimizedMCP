@@ -31,22 +31,6 @@ public class ParametersVariable implements IParameters {
         return exprs == null ? EMPTY : exprs;
     }
 
-    public ExpressionType[] getFirst() {
-        return this.first;
-    }
-
-    public ExpressionType[] getRepeat() {
-        return this.repeat;
-    }
-
-    public ExpressionType[] getLast() {
-        return this.last;
-    }
-
-    public int getCountRepeat() {
-        return this.first == null ? 0 : this.first.length;
-    }
-
     public ExpressionType[] getParameterTypes(IExpression[] arguments) {
         int i = this.first.length + this.last.length;
         int j = arguments.length - i;

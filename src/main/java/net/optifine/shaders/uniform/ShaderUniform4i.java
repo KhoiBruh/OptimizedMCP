@@ -3,7 +3,6 @@ package net.optifine.shaders.uniform;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 public class ShaderUniform4i extends ShaderUniformBase {
-    private static final int VALUE_UNKNOWN = Integer.MIN_VALUE;
     private int[][] programValues;
 
     public ShaderUniform4i(String name) {
@@ -27,11 +26,6 @@ public class ShaderUniform4i extends ShaderUniformBase {
                 this.checkGLError();
             }
         }
-    }
-
-    public int[] getValue() {
-        int i = this.getProgram();
-        return this.programValues[i];
     }
 
     protected void onProgramSet(int program) {

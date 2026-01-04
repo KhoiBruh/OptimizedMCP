@@ -12,10 +12,6 @@ public class PlayerItemRenderer {
         this.modelRenderer = modelRenderer;
     }
 
-    public ModelRenderer getModelRenderer() {
-        return this.modelRenderer;
-    }
-
     public void render(ModelBiped modelBiped, float scale) {
         ModelRenderer modelrenderer = PlayerItemModel.getAttachModel(modelBiped, this.attachTo);
 

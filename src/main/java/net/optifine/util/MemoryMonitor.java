@@ -41,10 +41,6 @@ public class MemoryMonitor {
         return startTimeMs;
     }
 
-    public static long getStartMemoryMb() {
-        return startMemory / MB;
-    }
-
     public static boolean isGcEvent() {
         return gcEvent;
     }

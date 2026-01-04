@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class HttpPipelineConnection {
-    public static final int TIMEOUT_CONNECT_MS = 5000;
-    public static final int TIMEOUT_READ_MS = 5000;
-    private static final String LF = "\n";
     private static final Pattern patternFullUrl = Pattern.compile("^[a-zA-Z]+://.*");
     private String host;
     private int port;
@@ -30,10 +27,6 @@ public class HttpPipelineConnection {
     private int keepaliveMaxCount;
     private long timeLastActivityMs;
     private boolean terminated;
-
-    public HttpPipelineConnection(String host, int port) {
-        this(host, port, Proxy.NO_PROXY);
-    }
 
     public HttpPipelineConnection(String host, int port, Proxy proxy) {
         this.host = null;
@@ -92,7 +85,7 @@ public class HttpPipelineConnection {
         }
     }
 
-    public synchronized OutputStream getOutputStream() throws IOException, InterruptedException {
+    public synchronized OutputStream getOutputStream() throws InterruptedException {
         while (this.outputStream == null) {
             this.checkTimeout();
             this.wait(1000L);
@@ -101,7 +94,7 @@ public class HttpPipelineConnection {
         return this.outputStream;
     }
 
-    public synchronized InputStream getInputStream() throws IOException, InterruptedException {
+    public synchronized InputStream getInputStream() throws InterruptedException {
         while (this.inputStream == null) {
             this.checkTimeout();
             this.wait(1000L);
@@ -316,10 +309,6 @@ public class HttpPipelineConnection {
 
     public synchronized boolean isClosed() {
         return this.terminated || this.countRequests >= this.keepaliveMaxCount;
-    }
-
-    public int getCountRequests() {
-        return this.countRequests;
     }
 
     public synchronized boolean hasActiveRequests() {

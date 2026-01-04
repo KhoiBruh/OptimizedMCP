@@ -7,9 +7,6 @@ import net.optifine.BlockPosM;
 import java.util.Iterator;
 
 public class Iterator3d implements Iterator<BlockPos> {
-    private static final int AXIS_X = 0;
-    private static final int AXIS_Y = 1;
-    private static final int AXIS_Z = 2;
     private final IteratorAxis iteratorAxis;
     private final BlockPosM blockPos = new BlockPosM(0, 0, 0);
     private int axis = 0;

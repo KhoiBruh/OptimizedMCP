@@ -113,10 +113,6 @@ public class TextureAnimation {
         }
     }
 
-    public int getFrameCount() {
-        return this.frames.length;
-    }
-
     public void updateTexture() {
         if (this.valid) {
             if (this.dstTextId < 0) {
@@ -195,16 +191,8 @@ public class TextureAnimation {
         return (int) ((double) col1 * (1.0D - k) + (double) col2 * k);
     }
 
-    public String getSrcTex() {
-        return this.srcTex;
-    }
-
     public String getDstTex() {
         return this.dstTex;
-    }
-
-    public ResourceLocation getDstTexLoc() {
-        return this.dstTexLoc;
     }
 
     public boolean isActive() {

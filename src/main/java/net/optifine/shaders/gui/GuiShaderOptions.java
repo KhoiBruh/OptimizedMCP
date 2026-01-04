@@ -17,9 +17,6 @@ import net.optifine.shaders.config.ShaderOptionProfile;
 import net.optifine.shaders.config.ShaderOptionScreen;
 
 public class GuiShaderOptions extends GuiScreenOF {
-    public static final String OPTION_PROFILE = "<profile>";
-    public static final String OPTION_EMPTY = "<empty>";
-    public static final String OPTION_REST = "*";
     protected String title;
     private final GuiScreen prevScreen;
     private final GameSettings settings;

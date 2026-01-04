@@ -8,9 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class ShaderOption {
-    public static final String COLOR_GREEN = "§a";
-    public static final String COLOR_RED = "§c";
-    public static final String COLOR_BLUE = "§9";
     private String name = null;
     private String description = null;
     private String value = null;

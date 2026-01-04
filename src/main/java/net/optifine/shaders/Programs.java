@@ -99,25 +99,6 @@ public class Programs {
         return this.programs.toArray(new Program[this.programs.size()]);
     }
 
-    public Program[] getPrograms(Program programFrom, Program programTo) {
-        int i = programFrom.getIndex();
-        int j = programTo.getIndex();
-
-        if (i > j) {
-            int k = i;
-            i = j;
-            j = k;
-        }
-
-        Program[] aprogram = new Program[j - i + 1];
-
-        for (int l = 0; l < aprogram.length; ++l) {
-            aprogram[l] = this.programs.get(i + l);
-        }
-
-        return aprogram;
-    }
-
     public String toString() {
         return this.programs.toString();
     }

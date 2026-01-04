@@ -21,10 +21,6 @@ public class CustomEntityRenderer {
         return this.name;
     }
 
-    public String getBasePath() {
-        return this.basePath;
-    }
-
     public ResourceLocation getTextureLocation() {
         return this.textureLocation;
     }

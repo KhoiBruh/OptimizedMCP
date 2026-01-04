@@ -15,9 +15,7 @@ public class CustomColorFader {
             long i = System.currentTimeMillis();
             long j = i - this.timeUpdate;
 
-            if (j == 0L) {
-                return this.color;
-            } else {
+            if (j != 0L) {
                 this.timeUpdate = i;
 
                 if (!(Math.abs(x - this.color.xCoord) < 0.004D) || !(Math.abs(y - this.color.yCoord) < 0.004D) || !(Math.abs(z - this.color.zCoord) < 0.004D)) {
@@ -31,8 +29,8 @@ public class CustomColorFader {
                     double d6 = this.color.zCoord + d3 * d0;
                     this.color = new Vec3(d4, d5, d6);
                 }
-                return this.color;
             }
+            return this.color;
         }
     }
 }

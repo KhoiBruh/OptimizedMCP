@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Properties;
 
 public class ItemAliases {
-    private static final int NO_ALIAS = Integer.MIN_VALUE;
     private static int[] itemAliases = null;
     private static boolean updateOnResourcesReloaded;
 

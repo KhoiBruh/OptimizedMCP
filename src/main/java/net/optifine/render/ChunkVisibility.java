@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ChunkVisibility {
-    public static final int MASK_FACINGS = 63;
-    public static final EnumFacing[][] enumFacingArrays = makeEnumFacingArrays(false);
     public static final EnumFacing[][] enumFacingOppositeArrays = makeEnumFacingArrays(true);
     private static int counter = 0;
     private static int iMaxStatic = -1;

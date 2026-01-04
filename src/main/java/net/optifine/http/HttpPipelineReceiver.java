@@ -13,9 +13,6 @@ import java.util.Map;
 
 public class HttpPipelineReceiver extends Thread {
     private static final Charset ASCII = StandardCharsets.US_ASCII;
-    private static final String HEADER_CONTENT_LENGTH = "Content-Length";
-    private static final char CR = '\r';
-    private static final char LF = '\n';
     private HttpPipelineConnection httpPipelineConnection = null;
 
     public HttpPipelineReceiver(HttpPipelineConnection httpPipelineConnection) {

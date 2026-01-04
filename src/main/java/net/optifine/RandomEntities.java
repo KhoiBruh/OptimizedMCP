@@ -21,16 +21,8 @@ import java.io.InputStream;
 import java.util.*;
 
 public class RandomEntities {
-    public static final String SUFFIX_PNG = ".png";
-    public static final String SUFFIX_PROPERTIES = ".properties";
-    public static final String PREFIX_TEXTURES_ENTITY = "textures/entity/";
-    public static final String PREFIX_TEXTURES_PAINTING = "textures/painting/";
-    public static final String PREFIX_TEXTURES = "textures/";
-    public static final String PREFIX_OPTIFINE_RANDOM = "optifine/random/";
-    public static final String PREFIX_MCPATCHER_MOB = "mcpatcher/mob/";
     private static final String[] DEPENDANT_SUFFIXES = new String[]{"_armor", "_eyes", "_exploding", "_shooting",
             "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar"};
-    private static final String PREFIX_DYNAMIC_TEXTURE_HORSE = "horse/";
     private static final String[] HORSE_TEXTURES = EntityHorse.horseTextures;
     private static final String[] HORSE_TEXTURES_ABBR = EntityHorse.HORSE_TEXTURES_ABBR;
     private static final Map<String, RandomEntityProperties> mapProperties = new HashMap<>();

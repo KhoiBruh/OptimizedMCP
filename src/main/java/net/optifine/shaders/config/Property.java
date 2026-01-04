@@ -69,24 +69,12 @@ public class Property {
         return this.value;
     }
 
-    public void setValue(int val) {
-        this.value = val;
-
-        if (this.value < 0 || this.value >= this.propertyValues.length) {
-            this.value = this.defaultValue;
-        }
-    }
-
     public String getUserValue() {
         return this.userValues[this.value];
     }
 
     public String getPropertyValue() {
         return this.propertyValues[this.value];
-    }
-
-    public String getUserName() {
-        return this.userName;
     }
 
     public String getPropertyName() {
@@ -105,12 +93,6 @@ public class Property {
         } else {
             String s = props.getProperty(this.propertyName);
             return s != null && this.setPropertyValue(s);
-        }
-    }
-
-    public void saveTo(Properties props) {
-        if (props != null) {
-            props.setProperty(this.getPropertyName(), this.getPropertyValue());
         }
     }
 

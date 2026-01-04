@@ -35,16 +35,10 @@ public enum TokenType {
         return this.charsFirst;
     }
 
-    public String getCharsNext() {
-        return this.charsNext;
-    }
-
     public boolean hasCharNext(char ch) {
         return this.charsNext.indexOf(ch) >= 0;
     }
 
     private static class Const {
-        static final String ALPHAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        static final String DIGITS = "0123456789";
     }
 }

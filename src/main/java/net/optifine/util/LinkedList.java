@@ -83,33 +83,6 @@ public class LinkedList<T> {
         return tNode;
     }
 
-    public void moveAfter(LinkedList.Node<T> nodePrev, LinkedList.Node<T> node) {
-        this.remove(node);
-        this.addAfter(nodePrev, node);
-    }
-
-    public boolean find(LinkedList.Node<T> nodeFind, LinkedList.Node<T> nodeFrom, LinkedList.Node<T> nodeTo) {
-        this.checkParent(nodeFrom);
-
-        if (nodeTo != null) {
-            this.checkParent(nodeTo);
-        }
-
-        LinkedList.Node<T> node;
-
-        for (node = nodeFrom; node != null && node != nodeTo; node = node.getNext()) {
-            if (node == nodeFind) {
-                return true;
-            }
-        }
-
-        if (node != nodeTo) {
-            throw new IllegalArgumentException("Sublist is not linked, from: " + nodeFrom + ", to: " + nodeTo);
-        } else {
-            return false;
-        }
-    }
-
     private void checkParent(LinkedList.Node<T> node) {
         if (node.parent != this) {
             throw new IllegalArgumentException("Node has different parent, node: " + node + ", parent: " + node.parent + ", this: " + this);

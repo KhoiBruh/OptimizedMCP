@@ -33,10 +33,6 @@ public class RandomTileEntity implements IRandomEntity {
         return -1;
     }
 
-    public TileEntity getTileEntity() {
-        return this.tileEntity;
-    }
-
     public void setTileEntity(TileEntity tileEntity) {
         this.tileEntity = tileEntity;
     }

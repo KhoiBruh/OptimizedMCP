@@ -114,10 +114,6 @@ public enum ShaderParameterFloat {
         return this.name;
     }
 
-    public ShaderUniformBase getUniform() {
-        return this.uniform;
-    }
-
     public String[] getIndexNames1() {
         return this.indexNames1;
     }

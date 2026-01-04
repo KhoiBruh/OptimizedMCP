@@ -3,7 +3,6 @@ package net.optifine.shaders.uniform;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 public class ShaderUniform2i extends ShaderUniformBase {
-    private static final int VALUE_UNKNOWN = Integer.MIN_VALUE;
     private int[][] programValues;
 
     public ShaderUniform2i(String name) {

@@ -24,10 +24,6 @@ public class HFNoiseTexture implements ICustomTexture {
         GlStateManager.bindTexture(0);
     }
 
-    public int getID() {
-        return this.texID;
-    }
-
     public void deleteTexture() {
         GlStateManager.deleteTexture(this.texID);
         this.texID = 0;

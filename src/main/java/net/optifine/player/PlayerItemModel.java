@@ -14,14 +14,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PlayerItemModel {
-    public static final int ATTACH_BODY = 0;
-    public static final int ATTACH_HEAD = 1;
-    public static final int ATTACH_LEFT_ARM = 2;
-    public static final int ATTACH_RIGHT_ARM = 3;
-    public static final int ATTACH_LEFT_LEG = 4;
-    public static final int ATTACH_RIGHT_LEG = 5;
-    public static final int ATTACH_CAPE = 6;
-    private Dimension textureSize = null;
     private boolean usePlayerTexture = false;
     private PlayerItemRenderer[] modelRenderers = new PlayerItemRenderer[0];
     private ResourceLocation textureLocation = null;
@@ -30,7 +22,6 @@ public class PlayerItemModel {
     private final ResourceLocation locationMissing = new ResourceLocation("textures/blocks/wool_colored_red.png");
 
     public PlayerItemModel(Dimension textureSize, boolean usePlayerTexture, PlayerItemRenderer[] modelRenderers) {
-        this.textureSize = textureSize;
         this.usePlayerTexture = usePlayerTexture;
         this.modelRenderers = modelRenderers;
     }
@@ -75,20 +66,8 @@ public class PlayerItemModel {
         }
     }
 
-    public BufferedImage getTextureImage() {
-        return this.textureImage;
-    }
-
     public void setTextureImage(BufferedImage textureImage) {
         this.textureImage = textureImage;
-    }
-
-    public DynamicTexture getTexture() {
-        return this.texture;
-    }
-
-    public ResourceLocation getTextureLocation() {
-        return this.textureLocation;
     }
 
     public void setTextureLocation(ResourceLocation textureLocation) {

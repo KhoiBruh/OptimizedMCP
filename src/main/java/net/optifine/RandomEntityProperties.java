@@ -2,15 +2,8 @@ package net.optifine;
 
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.config.ConnectedParser;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 public class RandomEntityProperties {
-    public String name = null;
-    public String basePath = null;
     public ResourceLocation[] resourceLocations = null;
     public RandomEntityRule[] rules = null;
 
@@ -30,30 +23,6 @@ public class RandomEntityProperties {
         } else {
             return loc;
         }
-    }
-
-    private RandomEntityRule[] parseRules(Properties props, String pathProps, ResourceLocation baseResLoc, ConnectedParser cp) {
-        List list = new ArrayList();
-        int i = props.size();
-
-        for (int j = 0; j < i; ++j) {
-            int k = j + 1;
-            String s = props.getProperty("textures." + k);
-
-            if (s == null) {
-                s = props.getProperty("skins." + k);
-            }
-
-            if (s != null) {
-                RandomEntityRule randomentityrule = new RandomEntityRule(props, pathProps, baseResLoc, k, s, cp);
-
-                if (randomentityrule.isValid(pathProps)) {
-                    list.add(randomentityrule);
-                }
-            }
-        }
-
-        return (RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]);
     }
 
     public boolean isValid(String path) {
@@ -82,7 +51,4 @@ public class RandomEntityProperties {
         }
     }
 
-    public boolean isDefault() {
-        return this.rules == null && this.resourceLocations == null;
-    }
 }
