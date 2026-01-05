@@ -72,7 +72,7 @@ public class IteratorCache {
                 IteratorCache.finished(this);
                 return false;
             } else {
-                return this.hasNext;
+                return true;
             }
         }
 

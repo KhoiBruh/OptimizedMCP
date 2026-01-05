@@ -10,7 +10,6 @@ public class CustomColorFader {
     public Vec3 getColor(double x, double y, double z) {
         if (this.color == null) {
             this.color = new Vec3(x, y, z);
-            return this.color;
         } else {
             long i = System.currentTimeMillis();
             long j = i - this.timeUpdate;
@@ -30,7 +29,7 @@ public class CustomColorFader {
                     this.color = new Vec3(d4, d5, d6);
                 }
             }
-            return this.color;
         }
+        return this.color;
     }
 }

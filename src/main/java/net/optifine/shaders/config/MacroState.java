@@ -79,7 +79,7 @@ public class MacroState {
 
                     if (flag7) {
                         this.dequeState.add(Boolean.FALSE);
-                        this.dequeResolved.add(flag7);
+                        this.dequeResolved.add(true);
                     } else {
                         boolean flag8 = this.eval(param);
                         this.dequeState.add(flag8);

@@ -58,7 +58,6 @@ public class WorldClient extends World {
 
         if (this.mc.playerController != null && this.mc.playerController.getClass() == PlayerControllerMP.class) {
             this.mc.playerController = new PlayerControllerOF(this.mc, netHandler);
-            CustomGuis.setPlayerControllerOF((PlayerControllerOF) this.mc.playerController);
         }
     }
 

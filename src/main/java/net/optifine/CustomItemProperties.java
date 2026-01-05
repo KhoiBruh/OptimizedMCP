@@ -220,7 +220,7 @@ public class CustomItemProperties {
                 }
             }
 
-            return modelStr;
+            return null;
         }
     }
 

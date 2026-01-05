@@ -111,12 +111,8 @@ public class ExpressionParser {
         try {
             Token[] atoken = TokenParser.parse(str);
 
-            if (atoken == null) {
-                return null;
-            } else {
-                Deque<Token> deque = new ArrayDeque<>(Arrays.asList(atoken));
-                return this.parseInfix(deque);
-            }
+            Deque<Token> deque = new ArrayDeque<>(Arrays.asList(atoken));
+            return this.parseInfix(deque);
         } catch (IOException ioexception) {
             throw new ParseException(ioexception.getMessage(), ioexception);
         }

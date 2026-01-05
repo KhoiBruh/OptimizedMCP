@@ -32,70 +32,7 @@ public class CustomGuis {
             if (!(guiscreen instanceof GuiContainer)) {
                 return loc;
             } else if (loc.getResourceDomain().equals("minecraft") && loc.getResourcePath().startsWith("textures/gui/")) {
-                if (playerControllerOF == null) {
-                    return loc;
-                } else {
-                    IBlockAccess iblockaccess = mc.theWorld;
-
-                    if (iblockaccess == null) {
-                        return loc;
-                    } else if (guiscreen instanceof GuiContainerCreative) {
-                        return getTexturePos(CustomGuiProperties.EnumContainer.CREATIVE, mc.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
-                    } else if (guiscreen instanceof GuiInventory) {
-                        return getTexturePos(CustomGuiProperties.EnumContainer.INVENTORY, mc.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
-                    } else {
-                        BlockPos blockpos = playerControllerOF.getLastClickBlockPos();
-
-                        if (blockpos != null) {
-                            switch (guiscreen) {
-                                case GuiRepair guiRepair -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.ANVIL, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiBeacon guiBeacon -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.BEACON, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiBrewingStand guiBrewingStand -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.BREWING_STAND, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiChest guiChest -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.CHEST, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiCrafting guiCrafting -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.CRAFTING, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiDispenser guiDispenser -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.DISPENSER, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiEnchantment guiEnchantment -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.ENCHANTMENT, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiFurnace guiFurnace -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.FURNACE, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                case GuiHopper guiHopper -> {
-                                    return getTexturePos(CustomGuiProperties.EnumContainer.HOPPER, blockpos, iblockaccess, loc, guiscreen);
-                                }
-                                default -> {
-                                }
-                            }
-
-                        }
-
-                        Entity entity = playerControllerOF.getLastClickEntity();
-
-                        if (entity != null) {
-                            if (guiscreen instanceof GuiScreenHorseInventory) {
-                                return getTextureEntity(CustomGuiProperties.EnumContainer.HORSE, entity, iblockaccess, loc);
-                            }
-
-                            if (guiscreen instanceof GuiMerchant) {
-                                return getTextureEntity(CustomGuiProperties.EnumContainer.VILLAGER, entity, iblockaccess, loc);
-                            }
-                        }
-
-                        return loc;
-                    }
-                }
+                return loc;
             } else {
                 return loc;
             }
@@ -219,12 +156,9 @@ public class CustomGuis {
         }
     }
 
-    public static void setPlayerControllerOF(PlayerControllerOF playerControllerOF) {
-    }
-
     private static boolean isChristmas() {
         Calendar calendar = Calendar.getInstance();
-        return calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26;
+        return calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26;
     }
 
     private static void warn(String str) {

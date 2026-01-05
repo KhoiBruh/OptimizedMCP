@@ -672,13 +672,7 @@ public class CustomColors {
             CustomColors.IColorizer customcolors$icolorizer;
 
             if (block != Blocks.grass && block != Blocks.tallgrass && block != Blocks.double_plant) {
-                if (block == Blocks.double_plant) {
-                    customcolors$icolorizer = COLORIZER_GRASS;
-
-                    if (i >= 8) {
-                        blockPos = blockPos.down();
-                    }
-                } else if (block == Blocks.leaves) {
+                if (block == Blocks.leaves) {
                     customcolors$icolorizer = switch (i & 3) {
                         case 1 -> COLORIZER_FOLIAGE_PINE;
                         case 2 -> COLORIZER_FOLIAGE_BIRCH;
@@ -1374,7 +1368,7 @@ public class CustomColors {
         int[] aint = new int[amapcolor.length];
         Arrays.fill(aint, -1);
 
-        for (int i = 0; i < amapcolor.length && i < aint.length; ++i) {
+        for (int i = 0; i < amapcolor.length; ++i) {
             MapColor mapcolor = amapcolor[i];
 
             if (mapcolor != null) {

@@ -80,9 +80,7 @@ public class ChunkVisibility {
                         ExtendedBlockStorage extendedblockstorage = aextendedblockstorage[k2];
 
                         if (extendedblockstorage != null && !extendedblockstorage.isEmpty()) {
-                            if (k2 > l1) {
-                                l1 = k2;
-                            }
+                            l1 = k2;
 
                             break;
                         }
@@ -109,9 +107,7 @@ public class ChunkVisibility {
                         ClassInheritanceMultiMap<Entity> classinheritancemultimap1 = classinheritancemultimap[i3];
 
                         if (!classinheritancemultimap1.isEmpty() && (chunk1 != chunk || i3 != j || classinheritancemultimap1.size() != 1)) {
-                            if (i3 > l1) {
-                                l1 = i3;
-                            }
+                            l1 = i3;
 
                             break;
                         }

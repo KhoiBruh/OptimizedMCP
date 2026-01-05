@@ -426,68 +426,27 @@ public class ConnectedTextures {
 
                 TextureAtlasSprite textureatlassprite = quad.getSprite();
 
-                switch (cp.method) {
-                    case 1:
-                        return getQuads(getConnectedTextureCtm(cp, blockAccess, blockState, blockPos, i, side,
-                                textureatlassprite, j, renderEnv), quad, renderEnv);
-
-                    case 2:
-                        return getQuads(getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPos, i, side,
-                                textureatlassprite, j), quad, renderEnv);
-
-                    case 3:
-                        return getQuads(getConnectedTextureTop(cp, blockAccess, blockState, blockPos, i, side,
-                                textureatlassprite, j), quad, renderEnv);
-
-                    case 4:
-                        return getQuads(getConnectedTextureRandom(cp, blockAccess, blockState, blockPos, side), quad,
-                                renderEnv);
-
-                    case 5:
-                        return getQuads(getConnectedTextureRepeat(cp, blockPos, side), quad, renderEnv);
-
-                    case 6:
-                        return getQuads(getConnectedTextureVertical(cp, blockAccess, blockState, blockPos, i, side,
-                                textureatlassprite, j), quad, renderEnv);
-
-                    case 7:
-                        return getQuads(getConnectedTextureFixed(cp), quad, renderEnv);
-
-                    case 8:
-                        return getQuads(getConnectedTextureHorizontalVertical(cp, blockAccess, blockState, blockPos, i,
-                                side, textureatlassprite, j), quad, renderEnv);
-
-                    case 9:
-                        return getQuads(getConnectedTextureVerticalHorizontal(cp, blockAccess, blockState, blockPos, i,
-                                side, textureatlassprite, j), quad, renderEnv);
-
-                    case 10:
-                        if (pass == 0) {
-                            return getConnectedTextureCtmCompact(cp, blockAccess, blockState, blockPos, i, side, quad,
-                                    j, renderEnv);
-                        }
-
-                    default:
-                        return null;
-
-                    case 11:
-                        return getConnectedTextureOverlay(cp, blockAccess, blockState, blockPos, i, side, quad, j,
-                                renderEnv);
-
-                    case 12:
-                        return getConnectedTextureOverlayFixed(cp, quad, renderEnv);
-
-                    case 13:
-                        return getConnectedTextureOverlayRandom(cp, blockAccess, blockState, blockPos, side, quad,
-                                renderEnv);
-
-                    case 14:
-                        return getConnectedTextureOverlayRepeat(cp, blockPos, side, quad, renderEnv);
-
-                    case 15:
-                        return getConnectedTextureOverlayCtm(cp, blockAccess, blockState, blockPos, i, side, quad, j,
-                                renderEnv);
-                }
+                return switch (cp.method) {
+                    case 1 -> getQuads(getConnectedTextureCtm(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j, renderEnv), quad, renderEnv);
+                    case 2 -> getQuads(getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                    case 3 -> getQuads(getConnectedTextureTop(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                    case 4 -> getQuads(getConnectedTextureRandom(cp, blockAccess, blockState, blockPos, side), quad, renderEnv);
+                    case 5 -> getQuads(getConnectedTextureRepeat(cp, blockPos, side), quad, renderEnv);
+                    case 6 -> getQuads(getConnectedTextureVertical(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                    case 7 -> getQuads(getConnectedTextureFixed(cp), quad, renderEnv);
+                    case 8 -> getQuads(getConnectedTextureHorizontalVertical(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                    case 9 -> getQuads(getConnectedTextureVerticalHorizontal(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                    case 10 -> {
+                        if (pass == 0) yield getConnectedTextureCtmCompact(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                        yield getConnectedTextureOverlay(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                    }
+                    case 11 -> getConnectedTextureOverlay(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                    case 12 -> getConnectedTextureOverlayFixed(cp, quad, renderEnv);
+                    case 13 -> getConnectedTextureOverlayRandom(cp, blockAccess, blockState, blockPos, side, quad, renderEnv);
+                    case 14 -> getConnectedTextureOverlayRepeat(cp, blockPos, side, quad, renderEnv);
+                    case 15 -> getConnectedTextureOverlayCtm(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                    default -> null;
+                };
             }
         }
     }
@@ -673,25 +632,25 @@ public class ConnectedTextures {
                     if (aboolean[0] && aboolean[1] && aboolean[2]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[5], quad, cp.tintIndex), cp.tintBlockState);
                         dirEdges = null;
-                        return (BakedQuad[]) dirEdges;
+                        return (BakedQuad[]) null;
                     }
 
                     if (aboolean[0] && aboolean[2] && aboolean[3]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[6], quad, cp.tintIndex), cp.tintBlockState);
                         dirEdges = null;
-                        return (BakedQuad[]) dirEdges;
+                        return (BakedQuad[]) null;
                     }
 
                     if (aboolean[1] && aboolean[2] && aboolean[3]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[12], quad, cp.tintIndex), cp.tintBlockState);
                         dirEdges = null;
-                        return (BakedQuad[]) dirEdges;
+                        return (BakedQuad[]) null;
                     }
 
                     if (aboolean[0] && aboolean[1] && aboolean[3]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[13], quad, cp.tintIndex), cp.tintBlockState);
                         dirEdges = null;
-                        return (BakedQuad[]) dirEdges;
+                        return (BakedQuad[]) null;
                     }
 
                     BlockDir[] ablockdir1 = getEdgeDirections(side, vertAxis);
@@ -711,7 +670,7 @@ public class ConnectedTextures {
                         }
 
                         Object object4 = null;
-                        return (BakedQuad[]) object4;
+                        return (BakedQuad[]) null;
                     }
 
                     if (aboolean[0] && aboolean[2]) {
@@ -723,7 +682,7 @@ public class ConnectedTextures {
                         }
 
                         Object object3 = null;
-                        return (BakedQuad[]) object3;
+                        return (BakedQuad[]) null;
                     }
 
                     if (aboolean[1] && aboolean[3]) {
@@ -735,7 +694,7 @@ public class ConnectedTextures {
                         }
 
                         Object object2 = null;
-                        return (BakedQuad[]) object2;
+                        return (BakedQuad[]) null;
                     }
 
                     if (aboolean[0] && aboolean[3]) {
@@ -747,7 +706,7 @@ public class ConnectedTextures {
                         }
 
                         Object object1 = null;
-                        return (BakedQuad[]) object1;
+                        return (BakedQuad[]) null;
                     }
 
                     boolean[] aboolean2 = renderEnv.getBorderFlags3();
@@ -790,7 +749,7 @@ public class ConnectedTextures {
                     }
 
                     Object object5 = null;
-                    return (BakedQuad[]) object5;
+                    return (BakedQuad[]) null;
                 }
 
                 listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[8], quad, cp.tintIndex), cp.tintBlockState);
@@ -801,7 +760,7 @@ public class ConnectedTextures {
                 }
             }
 
-            return (BakedQuad[]) dirEdges;
+            return (BakedQuad[]) null;
         }
     }
 
@@ -827,7 +786,7 @@ public class ConnectedTextures {
                 }
             }
 
-            return (BakedQuad[]) object;
+            return (BakedQuad[]) null;
         }
     }
 
@@ -854,7 +813,7 @@ public class ConnectedTextures {
                 }
             }
 
-            return (BakedQuad[]) object;
+            return (BakedQuad[]) null;
         }
     }
 
@@ -880,7 +839,7 @@ public class ConnectedTextures {
                 }
             }
 
-            return (BakedQuad[]) object;
+            return (BakedQuad[]) null;
         }
     }
 
@@ -908,7 +867,7 @@ public class ConnectedTextures {
                 }
             }
 
-            return (BakedQuad[]) object;
+            return (BakedQuad[]) null;
         }
     }
 
@@ -1306,19 +1265,19 @@ public class ConnectedTextures {
                 i = 18;
             } else if (i == 14 && !aboolean[0] && aboolean[1]) {
                 i = 31;
-            } else if (i == 25 && aboolean[0] && !aboolean[2]) {
+            } else if (i == 25 && aboolean[0]) {
                 i = 30;
             } else if (i == 27 && !aboolean[3] && aboolean[1]) {
                 i = 41;
-            } else if (i == 38 && aboolean[3] && !aboolean[2]) {
+            } else if (i == 38 && aboolean[3]) {
                 i = 40;
-            } else if (i == 14 && aboolean[0] && !aboolean[1]) {
+            } else if (i == 14 && aboolean[0]) {
                 i = 29;
-            } else if (i == 25 && !aboolean[0] && aboolean[2]) {
+            } else if (i == 25 && aboolean[2]) {
                 i = 28;
-            } else if (i == 27 && aboolean[3] && !aboolean[1]) {
+            } else if (i == 27 && aboolean[3]) {
                 i = 43;
-            } else if (i == 38 && !aboolean[3] && aboolean[2]) {
+            } else if (i == 38 && aboolean[2]) {
                 i = 42;
             } else if (i == 26 && aboolean[0] && aboolean[1] && aboolean[2] && aboolean[3]) {
                 i = 46;
@@ -1328,27 +1287,27 @@ public class ConnectedTextures {
                 i = 21;
             } else if (i == 26 && aboolean[0] && aboolean[1] && !aboolean[2] && aboolean[3]) {
                 i = 8;
-            } else if (i == 26 && aboolean[0] && aboolean[1] && aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && aboolean[0] && aboolean[1] && aboolean[2]) {
                 i = 20;
-            } else if (i == 26 && aboolean[0] && aboolean[1] && !aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && aboolean[0] && aboolean[1]) {
                 i = 11;
             } else if (i == 26 && !aboolean[0] && !aboolean[1] && aboolean[2] && aboolean[3]) {
                 i = 22;
             } else if (i == 26 && !aboolean[0] && aboolean[1] && !aboolean[2] && aboolean[3]) {
                 i = 23;
-            } else if (i == 26 && aboolean[0] && !aboolean[1] && aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && aboolean[0] && aboolean[2]) {
                 i = 10;
-            } else if (i == 26 && aboolean[0] && !aboolean[1] && !aboolean[2] && aboolean[3]) {
+            } else if (i == 26 && aboolean[0] && aboolean[3]) {
                 i = 34;
-            } else if (i == 26 && !aboolean[0] && aboolean[1] && aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && !aboolean[0] && aboolean[1] && aboolean[2]) {
                 i = 35;
-            } else if (i == 26 && aboolean[0] && !aboolean[1] && !aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && aboolean[0]) {
                 i = 32;
-            } else if (i == 26 && !aboolean[0] && aboolean[1] && !aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && aboolean[1]) {
                 i = 33;
-            } else if (i == 26 && !aboolean[0] && !aboolean[1] && aboolean[2] && !aboolean[3]) {
+            } else if (i == 26 && aboolean[2]) {
                 i = 44;
-            } else if (i == 26 && !aboolean[0] && !aboolean[1] && !aboolean[2] && aboolean[3]) {
+            } else if (i == 26 && aboolean[3]) {
                 i = 45;
             }
 
@@ -1578,7 +1537,7 @@ public class ConnectedTextures {
                         flag = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
                         yield isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
                     }
-                    default -> flag1;
+                    default -> false;
                 };
         }
 
@@ -1882,7 +1841,7 @@ public class ConnectedTextures {
                 TextureAtlasSprite textureatlassprite = cp.matchTileIcons[i];
 
                 if (!(textureatlassprite instanceof TextureAtlasSprite)) {
-                    Config.warn("TextureAtlasSprite is not TextureAtlasSprite: " + textureatlassprite + ", name: "
+                    Config.warn("TextureAtlasSprite is not TextureAtlasSprite: " + null + ", name: "
                             + textureatlassprite.getIconName());
                 } else {
                     int j = textureatlassprite.getIndexInMap();

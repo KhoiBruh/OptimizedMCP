@@ -60,7 +60,7 @@ public class BlockModelUtils {
         boolean flag = false;
         boolean flag1 = true;
         FaceBakery facebakery = new FaceBakery();
-        return facebakery.makeBakedQuad(vector3f, vector3f1, blockpartface, sprite, facing, modelrotation, blockpartrotation, flag, flag1);
+        return facebakery.makeBakedQuad(vector3f, vector3f1, blockpartface, sprite, facing, modelrotation, null, flag, flag1);
     }
 
     public static IBakedModel makeModel(String modelName, TextureAtlasSprite spriteOld, TextureAtlasSprite spriteNew) {

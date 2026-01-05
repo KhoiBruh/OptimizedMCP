@@ -96,10 +96,8 @@ public class StrUtils {
 
                 }
             }
-            return -1;
-        } else {
-            return -1;
         }
+        return -1;
     }
 
     private static boolean endsWithMaskSingle(String str, String mask, char wildCharSingle) {

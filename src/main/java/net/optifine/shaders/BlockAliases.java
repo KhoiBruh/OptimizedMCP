@@ -50,23 +50,18 @@ public class BlockAliases {
         reset();
 
         if (shaderPack != null) {
-            if (false) {
-                Config.dbg("[Shaders] Delayed loading of block mappings after resources are loaded");
-                updateOnResourcesReloaded = true;
-            } else {
-                List<List<BlockAlias>> list = new ArrayList<>();
-                String s = "/shaders/block.properties";
-                InputStream inputstream = shaderPack.getResourceAsStream(s);
+            List<List<BlockAlias>> list = new ArrayList<>();
+            String s = "/shaders/block.properties";
+            InputStream inputstream = shaderPack.getResourceAsStream(s);
 
-                if (inputstream != null) {
-                    loadBlockAliases(inputstream, s, list);
-                }
+            if (inputstream != null) {
+                loadBlockAliases(inputstream, s, list);
+            }
 
-                loadModBlockAliases(list);
+            loadModBlockAliases(list);
 
-                if (!list.isEmpty()) {
-                    blockAliases = toArrays(list);
-                }
+            if (!list.isEmpty()) {
+                blockAliases = toArrays(list);
             }
         }
     }

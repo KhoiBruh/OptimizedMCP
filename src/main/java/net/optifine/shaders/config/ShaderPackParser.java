@@ -115,9 +115,7 @@ public class ShaderPackParser {
     private static ShaderOption getShaderOption(String line, String path) {
         ShaderOption shaderoption = null;
 
-        if (shaderoption == null) {
-            shaderoption = ShaderOptionSwitch.parseOption(line, path);
-        }
+        shaderoption = ShaderOptionSwitch.parseOption(line, path);
 
         if (shaderoption == null) {
             shaderoption = ShaderOptionVariable.parseOption(line, path);
@@ -126,9 +124,7 @@ public class ShaderPackParser {
         if (shaderoption != null) {
             return shaderoption;
         } else {
-            if (shaderoption == null) {
-                shaderoption = ShaderOptionSwitchConst.parseOption(line, path);
-            }
+            shaderoption = ShaderOptionSwitchConst.parseOption(line, path);
 
             if (shaderoption == null) {
                 shaderoption = ShaderOptionVariableConst.parseOption(line, path);
@@ -279,10 +275,8 @@ public class ShaderPackParser {
                     String s4 = s3.substring(s.length());
                     ShaderProfile shaderprofile1 = parseProfile(s4, props, parsedProfiles, shaderOptions);
 
-                    if (shaderprofile != null) {
-                        shaderprofile.addOptionValues(shaderprofile1);
-                        shaderprofile.addDisabledPrograms(shaderprofile1.getDisabledPrograms());
-                    }
+                    shaderprofile.addOptionValues(shaderprofile1);
+                    shaderprofile.addDisabledPrograms(shaderprofile1.getDisabledPrograms());
                 } else {
                     String[] astring1 = Config.tokenize(s3, ":=");
 
@@ -593,7 +587,7 @@ public class ShaderPackParser {
             UniformType uniformtype = UniformType.parse(type);
 
             if (uniformtype == null) {
-                SMCLog.warning("Unknown " + kind + " type: " + uniformtype);
+                SMCLog.warning("Unknown " + kind + " type: " + null);
                 return null;
             } else {
                 ShaderExpressionResolver shaderexpressionresolver = new ShaderExpressionResolver(mapExpressions);
