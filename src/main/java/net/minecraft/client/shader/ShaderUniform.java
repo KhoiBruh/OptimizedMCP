@@ -151,7 +151,7 @@ public class ShaderUniform {
 
     public void set(float[] p_148097_1_) {
         if (p_148097_1_.length < uniformCount) {
-            logger.warn("Uniform.set called with a too-small value array (expected " + uniformCount + ", got " + p_148097_1_.length + "). Ignoring.");
+            logger.warn("Uniform.set called with a too-small value array (expected {}, got {}). Ignoring.", uniformCount, p_148097_1_.length);
         } else {
             uniformFloatBuffer.position(0);
             uniformFloatBuffer.put(p_148097_1_);
@@ -214,7 +214,7 @@ public class ShaderUniform {
             uploadFloat();
         } else {
             if (uniformType > 10) {
-                logger.warn("Uniform.upload called, but type value (" + uniformType + ") is not " + "a valid type. Ignoring.");
+                logger.warn("Uniform.upload called, but type value ({}) is not a valid type. Ignoring.", uniformType);
                 return;
             }
 
@@ -241,7 +241,7 @@ public class ShaderUniform {
                 break;
 
             default:
-                logger.warn("Uniform.upload called, but count value (" + uniformCount + ") is " + " not in the range of 1 to 4. Ignoring.");
+                logger.warn("Uniform.upload called, but count value ({}) is  not in the range of 1 to 4. Ignoring.", uniformCount);
         }
     }
 
@@ -264,7 +264,7 @@ public class ShaderUniform {
                 break;
 
             default:
-                logger.warn("Uniform.upload called, but count value (" + uniformCount + ") is " + "not in the range of 1 to 4. Ignoring.");
+                logger.warn("Uniform.upload called, but count value ({}) is not in the range of 1 to 4. Ignoring.", uniformCount);
         }
     }
 

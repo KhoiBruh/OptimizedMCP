@@ -221,7 +221,7 @@ public class ShaderManager {
             int k = OpenGlHelper.glGetUniformLocation(program, s);
 
             if (k == -1) {
-                logger.warn("Shader " + programFilename + "could not find sampler named " + s + " in the specified shader program.");
+                logger.warn("Shader {}could not find sampler named {} in the specified shader program.", programFilename, s);
                 shaderSamplers.remove(s);
                 samplerNames.remove(j);
                 --j;
@@ -237,7 +237,7 @@ public class ShaderManager {
             int l = OpenGlHelper.glGetUniformLocation(program, s1);
 
             if (l == -1) {
-                logger.warn("Could not find uniform named " + s1 + " in the specified" + " shader program.");
+                logger.warn("Could not find uniform named {} in the specified shader program.", s1);
             } else {
                 shaderUniformLocations.add(l);
                 shaderuniform.setUniformLocation(l);

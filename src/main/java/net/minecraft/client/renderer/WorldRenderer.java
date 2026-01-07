@@ -79,7 +79,7 @@ public class WorldRenderer {
             int i = byteBuffer.capacity();
             int j = i % 2097152;
             int k = j + (((rawIntBuffer.position() + p_181670_1_) * 4 - j) / 2097152 + 1) * 2097152;
-            LogManager.getLogger().warn("Needed to grow BufferBuilder buffer: Old size " + i + " bytes, new size " + k + " bytes.");
+            LogManager.getLogger().warn("Needed to grow BufferBuilder buffer: Old size {} bytes, new size {} bytes.", i, k);
             int l = rawIntBuffer.position();
             ByteBuffer bytebuffer = GLAllocation.createDirectByteBuffer(k);
             byteBuffer.position(0);

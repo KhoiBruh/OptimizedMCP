@@ -23,7 +23,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
         Objects.requireNonNull(value);
 
         if (registryObjects.containsKey(key)) {
-            logger.debug("Adding duplicate key '" + key + "' to registry");
+            logger.debug("Adding duplicate key '{}' to registry", key);
         }
 
         registryObjects.put(key, value);

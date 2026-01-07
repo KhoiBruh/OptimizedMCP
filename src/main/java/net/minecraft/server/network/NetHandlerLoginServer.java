@@ -70,7 +70,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 
     public void closeConnection(String reason) {
         try {
-            logger.info("Disconnecting " + getConnectionInfo() + ": " + reason);
+            logger.info("Disconnecting {}: {}", getConnectionInfo(), reason);
             ChatComponentText chatcomponenttext = new ChatComponentText(reason);
             networkManager.sendPacket(new S00PacketDisconnect(chatcomponenttext));
             networkManager.closeChannel(chatcomponenttext);
@@ -108,7 +108,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
     }
 
     public void onDisconnect(IChatComponent reason) {
-        logger.info(getConnectionInfo() + " lost connection: " + reason.getUnformattedText());
+        logger.info("{} lost connection: {}", getConnectionInfo(), reason.getUnformattedText());
     }
 
     public String getConnectionInfo() {
@@ -146,7 +146,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                         loginGameProfile = server.getMinecraftSessionService().hasJoinedServer(new GameProfile(null, gameprofile.getName()), s);
 
                         if (loginGameProfile != null) {
-                            NetHandlerLoginServer.logger.info("UUID of player " + loginGameProfile.getName() + " is " + loginGameProfile.getId());
+                            NetHandlerLoginServer.logger.info("UUID of player {} is {}", loginGameProfile.getName(), loginGameProfile.getId());
                             currentLoginState = NetHandlerLoginServer.LoginState.READY_TO_ACCEPT;
                         } else if (server.isSinglePlayer()) {
                             NetHandlerLoginServer.logger.warn("Failed to verify username but will let them in anyway!");
@@ -154,7 +154,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                             currentLoginState = NetHandlerLoginServer.LoginState.READY_TO_ACCEPT;
                         } else {
                             closeConnection("Failed to verify username!");
-                            NetHandlerLoginServer.logger.error("Username '" + loginGameProfile.getName() + "' tried to join with an invalid session");
+                            NetHandlerLoginServer.logger.error("Username '{}' tried to join with an invalid session", loginGameProfile.getName());
                         }
                     } catch (AuthenticationUnavailableException var3) {
                         if (server.isSinglePlayer()) {

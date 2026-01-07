@@ -202,7 +202,7 @@ public class CrashReport {
                 crashReportFile = toFile;
                 return true;
             } catch (Throwable throwable) {
-                logger.error("Could not save crash report to " + toFile, throwable);
+                logger.error("Could not save crash report to {}", toFile, throwable);
                 return false;
             }
         }

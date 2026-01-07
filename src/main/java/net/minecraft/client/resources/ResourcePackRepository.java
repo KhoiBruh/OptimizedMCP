@@ -80,10 +80,10 @@ public class ResourcePackRepository {
     private void fixDirResourcepacks() {
         if (dirResourcepacks.exists()) {
             if (!dirResourcepacks.isDirectory() && (!dirResourcepacks.delete() || !dirResourcepacks.mkdirs())) {
-                logger.warn("Unable to recreate resourcepack folder, it exists but is not a directory: " + dirResourcepacks);
+                logger.warn("Unable to recreate resourcepack folder, it exists but is not a directory: {}", dirResourcepacks);
             }
         } else if (!dirResourcepacks.mkdirs()) {
-            logger.warn("Unable to create resourcepack folder: " + dirResourcepacks);
+            logger.warn("Unable to create resourcepack folder: {}", dirResourcepacks);
         }
     }
 
@@ -162,10 +162,10 @@ public class ResourcePackRepository {
                         return setResourcePackInstance(file1);
                     }
 
-                    logger.warn("File " + file1 + " had wrong hash (expected " + hash + ", found " + s1 + "). Deleting it.");
+                    logger.warn("File {} had wrong hash (expected {}, found {}). Deleting it.", file1, hash, s1);
                     FileUtils.deleteQuietly(file1);
                 } catch (IOException ioexception) {
-                    logger.warn("File " + file1 + " couldn't be hashed. Deleting it.", ioexception);
+                    logger.warn("File {} couldn't be hashed. Deleting it.", file1, ioexception);
                     FileUtils.deleteQuietly(file1);
                 }
             }
@@ -200,7 +200,7 @@ public class ResourcePackRepository {
 
         for (File file1 : list) {
             if (i++ >= 10) {
-                logger.info("Deleting old server resource pack " + file1.getName());
+                logger.info("Deleting old server resource pack {}", file1.getName());
                 FileUtils.deleteQuietly(file1);
             }
         }

@@ -221,8 +221,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo().proxy(),
                 UUID.randomUUID().toString())).createMinecraftSessionService();
         session = gameConfig.userInfo().session();
-        logger.info("Setting user: " + session.username());
-        logger.info("(Session ID is " + session.getSessionID() + ")");
+        logger.info("Setting user: {}", session.username());
+        logger.info("(Session ID is {})", session.getSessionID());
         displayWidth = gameConfig.displayInfo().width() > 0 ? gameConfig.displayInfo().width() : 1;
         displayHeight = gameConfig.displayInfo().height() > 0 ? gameConfig.displayInfo().height() : 1;
         tempDisplayWidth = gameConfig.displayInfo().width();
@@ -369,7 +369,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             displayHeight = gameSettings.overrideHeight;
         }
 
-        logger.info("LWJGL Version: " + Sys.getVersion());
+        logger.info("LWJGL Version: {}", Sys.getVersion());
         setWindowIcon();
         setInitialDisplayMode();
         createDisplay();
@@ -717,7 +717,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     new DynamicTexture(ImageIO.read(inputstream)));
             textureManagerInstance.bindTexture(mojangLogo);
         } catch (IOException ioexception) {
-            logger.error("Unable to load logo: " + locationMojangPng, ioexception);
+            logger.error("Unable to load logo: {}", locationMojangPng, ioexception);
         } finally {
             IOUtils.closeQuietly(inputstream);
         }
@@ -809,8 +809,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             if (i != 0) {
                 String s = GLU.gluErrorString(i);
                 logger.error("########## GL ERROR ##########");
-                logger.error("@ " + message);
-                logger.error(i + ": " + s);
+                logger.error("@ {}", message);
+                logger.error("{}: {}", i, s);
             }
         }
     }

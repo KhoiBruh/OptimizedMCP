@@ -324,7 +324,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                             openWebLink(uri);
                         }
                     } catch (URISyntaxException urisyntaxexception) {
-                        LOGGER.error("Can't open url for " + clickevent, urisyntaxexception);
+                        LOGGER.error("Can't open url for {}", clickevent, urisyntaxexception);
                     }
                 } else if (clickevent.action() == ClickEvent.Action.OPEN_FILE) {
                     URI uri1 = (new File(clickevent.value())).toURI();
@@ -334,7 +334,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 } else if (clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
                     sendChatMessage(clickevent.value(), false);
                 } else {
-                    LOGGER.error("Don't know how to handle " + clickevent);
+                    LOGGER.error("Don't know how to handle {}", clickevent);
                 }
 
                 return true;

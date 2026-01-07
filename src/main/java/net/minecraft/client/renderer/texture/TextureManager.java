@@ -81,7 +81,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         try {
             textureObj.loadTexture(theResourceManager);
         } catch (IOException ioexception) {
-            logger.warn("Failed to load texture: " + textureLocation, ioexception);
+            logger.warn("Failed to load texture: {}", textureLocation, ioexception);
             textureObj = TextureUtil.missingTexture;
             mapTextureObjects.put(textureLocation, textureObj);
             flag = false;

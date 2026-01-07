@@ -313,7 +313,7 @@ public class EntityItem extends Entity {
 
         if (itemstack == null) {
             if (worldObj != null) {
-                logger.error("Item entity " + getEntityId() + " has no item?!");
+                logger.error("Item entity {} has no item?!", getEntityId());
             }
 
             return new ItemStack(Blocks.stone);

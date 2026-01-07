@@ -94,7 +94,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
                     loadingFinished();
                 } catch (IOException ioexception) {
-                    logger.error("Couldn't load skin " + cacheFile, ioexception);
+                    logger.error("Couldn't load skin {}", cacheFile, ioexception);
                     loadTextureFromServer();
                 }
             } else {
@@ -141,7 +141,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
                         setBufferedImage(bufferedimage);
                     } catch (Exception exception) {
-                        ThreadDownloadImageData.logger.error("Couldn't download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
+                        ThreadDownloadImageData.logger.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
                     } finally {
                         if (httpurlconnection != null) {
                             httpurlconnection.disconnect();
@@ -191,7 +191,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
             setBufferedImage(bufferedimage);
         } catch (Exception exception) {
-            logger.error("Couldn't download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
+            logger.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
         } finally {
             loadingFinished();
         }

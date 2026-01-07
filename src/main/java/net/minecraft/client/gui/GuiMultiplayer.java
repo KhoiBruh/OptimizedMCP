@@ -52,7 +52,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
                 lanServerDetector = new LanServerDetector.ThreadLanServerFind(lanServerList);
                 lanServerDetector.start();
             } catch (Exception exception) {
-                logger.warn("Unable to start LAN server detection: " + exception.getMessage());
+                logger.warn("Unable to start LAN server detection: {}", exception.getMessage());
             }
 
             serverListSelector = new ServerSelectionList(this, mc, width, height, 32, height - 64, 36);

@@ -125,7 +125,7 @@ public class GuiNewChat extends Gui {
 
     public void printChatMessageWithOptionalDeletion(IChatComponent chatComponent, int chatLineId) {
         setChatLine(chatComponent, chatLineId, mc.ingameGUI.getUpdateCounter(), false);
-        logger.info("[CHAT] " + chatComponent.getUnformattedText());
+        logger.info("[CHAT] {}", chatComponent.getUnformattedText());
     }
 
     private void setChatLine(IChatComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {

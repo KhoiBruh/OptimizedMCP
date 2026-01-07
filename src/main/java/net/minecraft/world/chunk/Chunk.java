@@ -626,8 +626,7 @@ public class Chunk {
         int j = MathHelper.floor_double(entityIn.posZ / 16.0D);
 
         if (i != xPosition || j != zPosition) {
-            logger.warn("Wrong location! (" + i + ", " + j + ") should be (" + xPosition + ", " + zPosition
-                    + "), " + entityIn, new Object[]{entityIn});
+            logger.warn("Wrong location! ({}, {}) should be ({}, {}), {}", i, j, xPosition, zPosition, entityIn, new Object[]{entityIn});
             entityIn.setDead();
         }
 
@@ -957,8 +956,7 @@ public class Chunk {
 
     public void setStorageArrays(ExtendedBlockStorage[] newStorageArrays) {
         if (storageArrays.length != newStorageArrays.length) {
-            logger.warn("Could not set level chunk sections, array length is " + newStorageArrays.length
-                    + " instead of " + storageArrays.length);
+            logger.warn("Could not set level chunk sections, array length is {} instead of {}", newStorageArrays.length, storageArrays.length);
         } else {
             System.arraycopy(newStorageArrays, 0, storageArrays, 0, storageArrays.length);
         }
@@ -1044,8 +1042,7 @@ public class Chunk {
 
     public void setBiomeArray(byte[] biomeArray) {
         if (blockBiomeArray.length != biomeArray.length) {
-            logger.warn("Could not set level chunk biomes, array length is " + biomeArray.length + " instead of "
-                    + blockBiomeArray.length);
+            logger.warn("Could not set level chunk biomes, array length is {} instead of {}", biomeArray.length, blockBiomeArray.length);
         } else {
             System.arraycopy(biomeArray, 0, blockBiomeArray, 0, blockBiomeArray.length);
         }
@@ -1203,8 +1200,7 @@ public class Chunk {
 
     public void setHeightMap(int[] newHeightMap) {
         if (heightMap.length != newHeightMap.length) {
-            logger.warn("Could not set level chunk heightmap, array length is " + newHeightMap.length + " instead of "
-                    + heightMap.length);
+            logger.warn("Could not set level chunk heightmap, array length is {} instead of {}", newHeightMap.length, heightMap.length);
         } else {
             System.arraycopy(newHeightMap, 0, heightMap, 0, heightMap.length);
         }
