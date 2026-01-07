@@ -107,7 +107,7 @@ public class VillageCollection extends WorldSavedData {
 
     private void dropOldestVillagerPosition() {
         if (!villagerPositionsList.isEmpty()) {
-            addDoorsAround(villagerPositionsList.remove(0));
+            addDoorsAround(villagerPositionsList.removeFirst());
         }
     }
 

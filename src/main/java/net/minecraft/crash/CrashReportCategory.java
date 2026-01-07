@@ -94,7 +94,7 @@ public class CrashReportCategory {
     }
 
     public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
-        category.addCrashSectionCallable("Block", () -> state.toString());
+        category.addCrashSectionCallable("Block", state::toString);
         category.addCrashSectionCallable("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));
     }
 

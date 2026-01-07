@@ -75,7 +75,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
             if (list.isEmpty()) {
                 return false;
             } else {
-                targetEntity = list.get(0);
+                targetEntity = list.getFirst();
                 return true;
             }
         }
@@ -96,7 +96,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         public int compare(Entity p_compare_1_, Entity p_compare_2_) {
             double d0 = theEntity.getDistanceSqToEntity(p_compare_1_);
             double d1 = theEntity.getDistanceSqToEntity(p_compare_2_);
-            return d0 < d1 ? -1 : (d0 > d1 ? 1 : 0);
+            return Double.compare(d0, d1);
         }
     }
 }

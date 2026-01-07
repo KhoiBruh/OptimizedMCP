@@ -20,7 +20,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
 
     public RenderZombie(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelZombie(), 0.5F, 1.0F);
-        LayerRenderer<?> layerrenderer = layerRenderers.get(0);
+        LayerRenderer<?> layerrenderer = layerRenderers.getFirst();
         field_82434_o = modelBipedMain;
         zombieVillagerModel = new ModelZombieVillager();
         addLayer(new LayerHeldItem(this));

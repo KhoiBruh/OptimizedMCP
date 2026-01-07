@@ -321,10 +321,10 @@ public class GuiCreateWorld extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            actionPerformed((GuiButton) buttonList.get(0));
+            actionPerformed((GuiButton) buttonList.getFirst());
         }
 
-        buttonList.get(0).enabled = !worldNameField.getText().isEmpty();
+        buttonList.getFirst().enabled = !worldNameField.getText().isEmpty();
         calcSaveDirName();
     }
 

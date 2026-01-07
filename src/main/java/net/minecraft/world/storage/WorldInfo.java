@@ -558,17 +558,11 @@ public class WorldInfo {
         category.addCrashSectionCallable("Level storage version", () -> {
             String s = "Unknown?";
 
-            try {
-                switch (saveVersion) {
-                    case 19132:
-                        s = "McRegion";
-                        break;
-
-                    case 19133:
-                        s = "Anvil";
-                }
-            } catch (Throwable var3) {
-            }
+            s = switch (saveVersion) {
+                case 19132 -> "McRegion";
+                case 19133 -> "Anvil";
+                default -> s;
+            };
 
             return String.format("0x%05X - %s", saveVersion, s);
         });

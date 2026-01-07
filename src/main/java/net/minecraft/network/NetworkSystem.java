@@ -117,7 +117,7 @@ public class NetworkSystem {
                             if (networkmanager.isLocalChannel()) {
                                 CrashReport crashreport = CrashReport.makeCrashReport(exception, "Ticking memory connection");
                                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Ticking connection");
-                                crashreportcategory.addCrashSectionCallable("Connection", () -> networkmanager.toString());
+                                crashreportcategory.addCrashSectionCallable("Connection", networkmanager::toString);
                                 throw new ReportedException(crashreport);
                             }
 

@@ -113,7 +113,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         final ChatComponentText chatcomponenttext = new ChatComponentText(reason);
         netManager.sendPacket(new S40PacketDisconnect(chatcomponenttext), p_operationComplete_1_ -> netManager.closeChannel(chatcomponenttext));
         netManager.disableAutoRead();
-        Futures.getUnchecked(serverController.addScheduledTask(() -> netManager.checkDisconnected()));
+        Futures.getUnchecked(serverController.addScheduledTask(netManager::checkDisconnected));
     }
 
     public void processInput(C0CPacketInput packetIn) {

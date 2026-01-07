@@ -61,7 +61,7 @@ public class CombatTracker {
             return new ChatComponentTranslation("death.attack.generic", fighter.getDisplayName());
         } else {
             CombatEntry combatentry = func_94544_f();
-            CombatEntry combatentry1 = combatEntries.get(combatEntries.size() - 1);
+            CombatEntry combatentry1 = combatEntries.getLast();
             IChatComponent ichatcomponent1 = combatentry1.getDamageSrcDisplayName();
             Entity entity = combatentry1.getDamageSrc().getEntity();
             IChatComponent ichatcomponent;

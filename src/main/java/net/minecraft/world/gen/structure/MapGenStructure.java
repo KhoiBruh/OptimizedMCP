@@ -124,7 +124,7 @@ public abstract class MapGenStructure extends MapGenBase {
 
         for (StructureStart structurestart : structureMap.values()) {
             if (structurestart.isSizeableStructure()) {
-                StructureComponent structurecomponent = structurestart.getComponents().get(0);
+                StructureComponent structurecomponent = structurestart.getComponents().getFirst();
                 BlockPos blockpos1 = structurecomponent.getBoundingBoxCenter();
                 double d1 = blockpos1.distanceSq(pos);
 

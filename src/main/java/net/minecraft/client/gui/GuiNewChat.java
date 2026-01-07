@@ -143,18 +143,18 @@ public class GuiNewChat extends Gui {
                 scroll(1);
             }
 
-            drawnChatLines.add(0, new ChatLine(updateCounter, ichatcomponent, chatLineId));
+            drawnChatLines.addFirst(new ChatLine(updateCounter, ichatcomponent, chatLineId));
         }
 
         while (drawnChatLines.size() > 100) {
-            drawnChatLines.remove(drawnChatLines.size() - 1);
+            drawnChatLines.removeLast();
         }
 
         if (!displayOnly) {
-            chatLines.add(0, new ChatLine(updateCounter, chatComponent, chatLineId));
+            chatLines.addFirst(new ChatLine(updateCounter, chatComponent, chatLineId));
 
             while (chatLines.size() > 100) {
-                chatLines.remove(chatLines.size() - 1);
+                chatLines.removeLast();
             }
         }
     }
@@ -174,7 +174,7 @@ public class GuiNewChat extends Gui {
     }
 
     public void addToSentMessages(String message) {
-        if (sentMessages.isEmpty() || !sentMessages.get(sentMessages.size() - 1).equals(message)) {
+        if (sentMessages.isEmpty() || !sentMessages.getLast().equals(message)) {
             sentMessages.add(message);
         }
     }

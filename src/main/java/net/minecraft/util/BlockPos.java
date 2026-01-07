@@ -46,38 +46,34 @@ public class BlockPos extends Vec3i {
     public static Iterable<BlockPos> getAllInBox(BlockPos from, BlockPos to) {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
-        return new Iterable<>() {
-            public Iterator<BlockPos> iterator() {
-                return new AbstractIterator<>() {
-                    private BlockPos lastReturned = null;
+        return () -> new AbstractIterator<>() {
+            private BlockPos lastReturned = null;
 
-                    protected BlockPos computeNext() {
-                        if (lastReturned == null) {
-                            lastReturned = blockpos;
-                            return lastReturned;
-                        } else if (lastReturned.equals(blockpos1)) {
-                            return endOfData();
-                        } else {
-                            int i = lastReturned.getX();
-                            int j = lastReturned.getY();
-                            int k = lastReturned.getZ();
+            protected BlockPos computeNext() {
+                if (lastReturned == null) {
+                    lastReturned = blockpos;
+                    return lastReturned;
+                } else if (lastReturned.equals(blockpos1)) {
+                    return endOfData();
+                } else {
+                    int i = lastReturned.getX();
+                    int j = lastReturned.getY();
+                    int k = lastReturned.getZ();
 
-                            if (i < blockpos1.getX()) {
-                                ++i;
-                            } else if (j < blockpos1.getY()) {
-                                i = blockpos.getX();
-                                ++j;
-                            } else if (k < blockpos1.getZ()) {
-                                i = blockpos.getX();
-                                j = blockpos.getY();
-                                ++k;
-                            }
-
-                            lastReturned = new BlockPos(i, j, k);
-                            return lastReturned;
-                        }
+                    if (i < blockpos1.getX()) {
+                        ++i;
+                    } else if (j < blockpos1.getY()) {
+                        i = blockpos.getX();
+                        ++j;
+                    } else if (k < blockpos1.getZ()) {
+                        i = blockpos.getX();
+                        j = blockpos.getY();
+                        ++k;
                     }
-                };
+
+                    lastReturned = new BlockPos(i, j, k);
+                    return lastReturned;
+                }
             }
         };
     }
@@ -85,40 +81,36 @@ public class BlockPos extends Vec3i {
     public static Iterable<BlockPos.MutableBlockPos> getAllInBoxMutable(BlockPos from, BlockPos to) {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
-        return new Iterable<>() {
-            public Iterator<BlockPos.MutableBlockPos> iterator() {
-                return new AbstractIterator<>() {
-                    private BlockPos.MutableBlockPos theBlockPos = null;
+        return () -> new AbstractIterator<>() {
+            private MutableBlockPos theBlockPos = null;
 
-                    protected BlockPos.MutableBlockPos computeNext() {
-                        if (theBlockPos == null) {
-                            theBlockPos = new BlockPos.MutableBlockPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
-                            return theBlockPos;
-                        } else if (theBlockPos.equals(blockpos1)) {
-                            return endOfData();
-                        } else {
-                            int i = theBlockPos.getX();
-                            int j = theBlockPos.getY();
-                            int k = theBlockPos.getZ();
+            protected MutableBlockPos computeNext() {
+                if (theBlockPos == null) {
+                    theBlockPos = new MutableBlockPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
+                    return theBlockPos;
+                } else if (theBlockPos.equals(blockpos1)) {
+                    return endOfData();
+                } else {
+                    int i = theBlockPos.getX();
+                    int j = theBlockPos.getY();
+                    int k = theBlockPos.getZ();
 
-                            if (i < blockpos1.getX()) {
-                                ++i;
-                            } else if (j < blockpos1.getY()) {
-                                i = blockpos.getX();
-                                ++j;
-                            } else if (k < blockpos1.getZ()) {
-                                i = blockpos.getX();
-                                j = blockpos.getY();
-                                ++k;
-                            }
-
-                            theBlockPos.x = i;
-                            theBlockPos.y = j;
-                            theBlockPos.z = k;
-                            return theBlockPos;
-                        }
+                    if (i < blockpos1.getX()) {
+                        ++i;
+                    } else if (j < blockpos1.getY()) {
+                        i = blockpos.getX();
+                        ++j;
+                    } else if (k < blockpos1.getZ()) {
+                        i = blockpos.getX();
+                        j = blockpos.getY();
+                        ++k;
                     }
-                };
+
+                    theBlockPos.x = i;
+                    theBlockPos.y = j;
+                    theBlockPos.z = k;
+                    return theBlockPos;
+                }
             }
         };
     }

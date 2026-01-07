@@ -39,7 +39,7 @@ public class NextTickListEntry implements Comparable<NextTickListEntry> {
     }
 
     public int compareTo(NextTickListEntry p_compareTo_1_) {
-        return scheduledTime < p_compareTo_1_.scheduledTime ? -1 : (scheduledTime > p_compareTo_1_.scheduledTime ? 1 : (priority != p_compareTo_1_.priority ? priority - p_compareTo_1_.priority : (tickEntryID < p_compareTo_1_.tickEntryID ? -1 : (tickEntryID > p_compareTo_1_.tickEntryID ? 1 : 0))));
+        return scheduledTime < p_compareTo_1_.scheduledTime ? -1 : (scheduledTime > p_compareTo_1_.scheduledTime ? 1 : (priority != p_compareTo_1_.priority ? priority - p_compareTo_1_.priority : (Long.compare(tickEntryID, p_compareTo_1_.tickEntryID))));
     }
 
     public String toString() {

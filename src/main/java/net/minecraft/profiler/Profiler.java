@@ -84,8 +84,8 @@ public class Profiler {
         if (profilerLocalEnabled) {
             if (profilingEnabled) {
                 long i = System.nanoTime();
-                long j = timestampList.remove(timestampList.size() - 1);
-                sectionList.remove(sectionList.size() - 1);
+                long j = timestampList.removeLast();
+                sectionList.removeLast();
                 long k = i - j;
 
                 if (profilingMap.containsKey(profilingSection)) {
@@ -98,7 +98,7 @@ public class Profiler {
                     logger.warn("Something's taking too long! '" + profilingSection + "' took aprox " + (double) k / 1000000.0D + " ms");
                 }
 
-                profilingSection = !sectionList.isEmpty() ? sectionList.get(sectionList.size() - 1) : "";
+                profilingSection = !sectionList.isEmpty() ? sectionList.getLast() : "";
             }
         }
     }
@@ -150,7 +150,7 @@ public class Profiler {
             }
 
             Collections.sort(list);
-            list.add(0, new Profiler.Result(profilerName, 100.0D, (double) k * 100.0D / (double) i));
+            list.addFirst(new Profiler.Result(profilerName, 100.0D, (double) k * 100.0D / (double) i));
             return list;
         }
     }
@@ -163,7 +163,7 @@ public class Profiler {
     }
 
     public String getNameOfLastSection() {
-        return sectionList.isEmpty() ? "[UNKNOWN]" : sectionList.get(sectionList.size() - 1);
+        return sectionList.isEmpty() ? "[UNKNOWN]" : sectionList.getLast();
     }
 
     public void startSection(Class<?> p_startSection_1_) {

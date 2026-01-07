@@ -16,7 +16,7 @@ public class NBTTagList extends NBTBase {
 
     void write(DataOutput output) throws IOException {
         if (!tagList.isEmpty()) {
-            tagType = tagList.get(0).getId();
+            tagType = tagList.getFirst().getId();
         } else {
             tagType = 0;
         }

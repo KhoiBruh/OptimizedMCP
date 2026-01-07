@@ -37,16 +37,16 @@ public class JsonException extends IOException {
     }
 
     public void func_151380_a(String p_151380_1_) {
-        field_151383_a.get(0).func_151373_a(p_151380_1_);
+        field_151383_a.getFirst().func_151373_a(p_151380_1_);
     }
 
     public void func_151381_b(String p_151381_1_) {
-        field_151383_a.get(0).field_151376_a = p_151381_1_;
-        field_151383_a.add(0, new JsonException.Entry());
+        field_151383_a.getFirst().field_151376_a = p_151381_1_;
+        field_151383_a.addFirst(new JsonException.Entry());
     }
 
     public String getMessage() {
-        return "Invalid " + field_151383_a.get(field_151383_a.size() - 1).toString() + ": " + exceptionMessage;
+        return "Invalid " + field_151383_a.getLast().toString() + ": " + exceptionMessage;
     }
 
     public static class Entry {
@@ -59,7 +59,7 @@ public class JsonException extends IOException {
         }
 
         private void func_151373_a(String p_151373_1_) {
-            field_151375_b.add(0, p_151373_1_);
+            field_151375_b.addFirst(p_151373_1_);
         }
 
         public String func_151372_b() {

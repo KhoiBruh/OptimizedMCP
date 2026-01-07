@@ -284,15 +284,15 @@ public class ContainerEnchantment extends Container {
                     return null;
                 }
             } else {
-                if (inventorySlots.get(0).getHasStack() || !inventorySlots.get(0).isItemValid(itemstack1)) {
+                if (inventorySlots.getFirst().getHasStack() || !inventorySlots.getFirst().isItemValid(itemstack1)) {
                     return null;
                 }
 
                 if (itemstack1.hasTagCompound() && itemstack1.stackSize == 1) {
-                    inventorySlots.get(0).putStack(itemstack1.copy());
+                    inventorySlots.getFirst().putStack(itemstack1.copy());
                     itemstack1.stackSize = 0;
                 } else if (itemstack1.stackSize >= 1) {
-                    inventorySlots.get(0).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+                    inventorySlots.getFirst().putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
                     --itemstack1.stackSize;
                 }
             }

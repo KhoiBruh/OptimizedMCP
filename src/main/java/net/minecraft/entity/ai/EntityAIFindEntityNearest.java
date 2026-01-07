@@ -49,7 +49,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
         if (list.isEmpty()) {
             return false;
         } else {
-            target = list.get(0);
+            target = list.getFirst();
             return true;
         }
     }

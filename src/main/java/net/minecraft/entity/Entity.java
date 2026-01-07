@@ -1713,7 +1713,7 @@ public abstract class Entity implements ICommandSender {
     public void addEntityCrashInfo(CrashReportCategory category) {
         category.addCrashSectionCallable("Entity Type", () -> EntityList.getEntityString(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")");
         category.addCrashSection("Entity ID", entityId);
-        category.addCrashSectionCallable("Entity Name", () -> getName());
+        category.addCrashSectionCallable("Entity Name", this::getName);
         category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));
         category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)));
         category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", motionX, motionY, motionZ));

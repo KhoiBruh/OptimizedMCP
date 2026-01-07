@@ -1118,7 +1118,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                         }
 
                         netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.ACCEPTED));
-                        Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), new FutureCallback<Object>() {
+                        Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), new FutureCallback<>() {
                             public void onSuccess(Object p_onSuccess_1_) {
                                 netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
                             }

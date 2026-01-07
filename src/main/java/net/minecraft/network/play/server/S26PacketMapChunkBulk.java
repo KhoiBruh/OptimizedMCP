@@ -22,7 +22,7 @@ public class S26PacketMapChunkBulk implements Packet<INetHandlerPlayClient> {
         xPositions = new int[i];
         zPositions = new int[i];
         chunksData = new S21PacketChunkData.Extracted[i];
-        isOverworld = !chunks.get(0).getWorld().provider.getHasNoSky();
+        isOverworld = !chunks.getFirst().getWorld().provider.getHasNoSky();
 
         for (int j = 0; j < i; ++j) {
             Chunk chunk = chunks.get(j);

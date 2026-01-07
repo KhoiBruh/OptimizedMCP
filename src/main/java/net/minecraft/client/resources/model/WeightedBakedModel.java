@@ -19,7 +19,7 @@ public class WeightedBakedModel implements IBakedModel {
     public WeightedBakedModel(List<WeightedBakedModel.MyWeighedRandomItem> p_i46073_1_) {
         models = p_i46073_1_;
         totalWeight = WeightedRandom.getTotalWeight(p_i46073_1_);
-        baseModel = p_i46073_1_.get(0).model;
+        baseModel = p_i46073_1_.getFirst().model;
     }
 
     public List<BakedQuad> getFaceQuads(EnumFacing facing) {
@@ -68,7 +68,7 @@ public class WeightedBakedModel implements IBakedModel {
         }
 
         public IBakedModel first() {
-            return listItems.get(0).model;
+            return listItems.getFirst().model;
         }
     }
 

@@ -52,10 +52,10 @@ public class GuiRenameWorld extends GuiScreen {
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         field_146583_f.textboxKeyTyped(typedChar, keyCode);
-        buttonList.get(0).enabled = !field_146583_f.getText().trim().isEmpty();
+        buttonList.getFirst().enabled = !field_146583_f.getText().trim().isEmpty();
 
         if (keyCode == 28 || keyCode == 156) {
-            actionPerformed((GuiButton) buttonList.get(0));
+            actionPerformed((GuiButton) buttonList.getFirst());
         }
     }
 

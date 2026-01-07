@@ -145,12 +145,12 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 
                         if (result) {
                             list2.remove(ResourcePackListEntry.this);
-                            resourcePacksGUI.getSelectedResourcePacks().add(0, ResourcePackListEntry.this);
+                            resourcePacksGUI.getSelectedResourcePacks().addFirst(ResourcePackListEntry.this);
                         }
                     }, s1, s, 0));
                 } else {
                     resourcePacksGUI.getListContaining(this).remove(this);
-                    resourcePacksGUI.getSelectedResourcePacks().add(0, this);
+                    resourcePacksGUI.getSelectedResourcePacks().addFirst(this);
                 }
 
                 return true;
@@ -158,7 +158,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 
             if (p_148278_5_ < 16 && func_148308_f()) {
                 resourcePacksGUI.getListContaining(this).remove(this);
-                resourcePacksGUI.getAvailableResourcePacks().add(0, this);
+                resourcePacksGUI.getAvailableResourcePacks().addFirst(this);
                 resourcePacksGUI.markChanged();
                 return true;
             }

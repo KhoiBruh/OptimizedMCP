@@ -1011,7 +1011,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         List<Profiler.Result> list = mcProfiler.getProfilingData(debugProfilerName);
 
         if (list != null && !list.isEmpty()) {
-            Profiler.Result profiler$result = list.remove(0);
+            Profiler.Result profiler$result = list.removeFirst();
 
             if (keyCount == 0) {
                 if (!profiler$result.field_76331_c.isEmpty()) {
@@ -1040,7 +1040,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private void displayDebugInfo(long elapsedTicksTime) {
         if (mcProfiler.profilingEnabled) {
             List<Profiler.Result> list = mcProfiler.getProfilingData(debugProfilerName);
-            Profiler.Result profiler$result = list.remove(0);
+            Profiler.Result profiler$result = list.removeFirst();
             GlStateManager.clear(256);
             GlStateManager.matrixMode(5889);
             GlStateManager.enableColorMaterial();
@@ -2033,10 +2033,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
         theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> launchedVersion);
-        theCrash.getCategory().addCrashSectionCallable("LWJGL", () -> Sys.getVersion());
+        theCrash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
         theCrash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", "
                 + GL11.glGetString(GL11.GL_VENDOR));
-        theCrash.getCategory().addCrashSectionCallable("GL Caps", () -> OpenGlHelper.getLogText());
+        theCrash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
         theCrash.getCategory().addCrashSectionCallable("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");
         theCrash.getCategory().addCrashSectionCallable("Is Modded", () -> {
             String s = ClientBrandRetriever.getClientModName();
@@ -2065,7 +2065,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         theCrash.getCategory().addCrashSectionCallable("Current Language", () -> mcLanguageManager.getCurrentLanguage().toString());
         theCrash.getCategory().addCrashSectionCallable("Profiler Position", () -> mcProfiler.profilingEnabled ? mcProfiler.getNameOfLastSection()
                 : "N/A (disabled)");
-        theCrash.getCategory().addCrashSectionCallable("CPU", () -> OpenGlHelper.getCpu());
+        theCrash.getCategory().addCrashSectionCallable("CPU", OpenGlHelper::getCpu);
 
         if (theWorld != null) {
             theWorld.addWorldInfoToCrashReport(theCrash);
@@ -2075,7 +2075,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public ListenableFuture<Object> scheduleResourcesRefresh() {
-        return addScheduledTask(() -> refreshResources());
+        return addScheduledTask(this::refreshResources);
     }
 
     public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper) {

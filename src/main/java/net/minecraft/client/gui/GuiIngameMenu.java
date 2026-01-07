@@ -19,7 +19,7 @@ public class GuiIngameMenu extends GuiScreen {
         buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + i, I18n.format("menu.returnToMenu")));
 
         if (!mc.isIntegratedServerRunning()) {
-            buttonList.get(0).displayString = I18n.format("menu.disconnect");
+            buttonList.getFirst().displayString = I18n.format("menu.disconnect");
         }
 
         buttonList.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + i, I18n.format("menu.returnToGame")));

@@ -393,7 +393,7 @@ public class EntityZombie extends EntityMob {
                     List<EntityChicken> list = worldObj.getEntitiesWithinAABB(EntityChicken.class, getEntityBoundingBox().expand(5.0D, 3.0D, 5.0D), EntitySelectors.IS_STANDALONE);
 
                     if (!list.isEmpty()) {
-                        EntityChicken entitychicken = list.get(0);
+                        EntityChicken entitychicken = list.getFirst();
                         entitychicken.setChickenJockey(true);
                         mountEntity(entitychicken);
                     }

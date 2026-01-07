@@ -89,7 +89,7 @@ public class CrashReport {
 
             return String.format("%d total; %s", i, stringbuilder);
         });
-        theReportCategory.addCrashSectionCallable("IntCache", () -> IntCache.getCacheSizes());
+        theReportCategory.addCrashSectionCallable("IntCache", IntCache::getCacheSizes);
     }
 
     public String getDescription() {
@@ -102,7 +102,7 @@ public class CrashReport {
 
     public void getSectionsInStringBuilder(StringBuilder builder) {
         if ((stacktrace == null || stacktrace.length <= 0) && !crashReportSections.isEmpty()) {
-            stacktrace = ArrayUtils.subarray(crashReportSections.get(0).getStackTrace(), 0, 1);
+            stacktrace = ArrayUtils.subarray(crashReportSections.getFirst().getStackTrace(), 0, 1);
         }
 
         if (stacktrace != null && stacktrace.length > 0) {
@@ -242,7 +242,7 @@ public class CrashReport {
             firstCategoryInCrashReport = crashreportcategory.firstTwoElementsOfStackTraceMatch(stacktraceelement, stacktraceelement1);
 
             if (i > 0 && !crashReportSections.isEmpty()) {
-                CrashReportCategory crashreportcategory1 = crashReportSections.get(crashReportSections.size() - 1);
+                CrashReportCategory crashreportcategory1 = crashReportSections.getLast();
                 crashreportcategory1.trimStackTraceEntriesFromBottom(i);
             } else if (astacktraceelement != null && astacktraceelement.length >= i && 0 <= j && j < astacktraceelement.length) {
                 stacktrace = new StackTraceElement[j];

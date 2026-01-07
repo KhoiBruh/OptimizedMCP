@@ -123,7 +123,7 @@ public class EffectRenderer {
                 int j = effect.getAlpha() != 1.0F ? 0 : 1;
 
                 if (fxLayers[i][j].size() >= 4000) {
-                    fxLayers[i][j].remove(0);
+                    fxLayers[i][j].removeFirst();
                 }
 
                 fxLayers[i][j].add(effect);
@@ -194,7 +194,7 @@ public class EffectRenderer {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking Particle");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
             final int i = particle.getFXLayer();
-            crashreportcategory.addCrashSectionCallable("Particle", () -> particle.toString());
+            crashreportcategory.addCrashSectionCallable("Particle", particle::toString);
             crashreportcategory.addCrashSectionCallable("Particle Type", () -> i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i)));
             throw new ReportedException(crashreport);
         }
