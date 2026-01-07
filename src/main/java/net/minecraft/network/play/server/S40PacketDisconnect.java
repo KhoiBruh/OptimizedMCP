@@ -17,11 +17,11 @@ public class S40PacketDisconnect implements Packet<INetHandlerPlayClient> {
         reason = reasonIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         reason = buf.readChatComponent();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeChatComponent(reason);
     }
 

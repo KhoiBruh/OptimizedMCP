@@ -100,7 +100,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         drawEntityOnScreen(i + 51, j + 75, 30, (float) (i + 51) - oldMouseX, (float) (j + 75 - 50) - oldMouseY, mc.thePlayer);
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             mc.displayGuiScreen(new GuiAchievements(this, mc.thePlayer.getStatFileWriter()));
         }

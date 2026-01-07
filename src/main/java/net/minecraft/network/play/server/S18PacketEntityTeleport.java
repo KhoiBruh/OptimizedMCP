@@ -40,7 +40,7 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
         onGround = onGroundIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readVarIntFromBuffer();
         posX = buf.readInt();
         posY = buf.readInt();
@@ -50,7 +50,7 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
         onGround = buf.readBoolean();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityId);
         buf.writeInt(posX);
         buf.writeInt(posY);

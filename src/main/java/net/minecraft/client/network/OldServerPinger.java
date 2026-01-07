@@ -148,7 +148,7 @@ public class OldServerPinger {
     private void tryCompatibilityPing(final ServerData server) {
         final ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
         (new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENTLOOP.getValue()).handler(new ChannelInitializer<Channel>() {
-            protected void initChannel(Channel p_initChannel_1_) throws Exception {
+            protected void initChannel(Channel p_initChannel_1_) {
                 try {
                     p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
                 } catch (ChannelException var3) {
@@ -186,7 +186,7 @@ public class OldServerPinger {
                         }
                     }
 
-                    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, ByteBuf p_channelRead0_2_) throws Exception {
+                    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, ByteBuf p_channelRead0_2_) {
                         short short1 = p_channelRead0_2_.readUnsignedByte();
 
                         if (short1 == 255) {
@@ -209,7 +209,7 @@ public class OldServerPinger {
                         p_channelRead0_1_.close();
                     }
 
-                    public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception {
+                    public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) {
                         p_exceptionCaught_1_.close();
                     }
                 });

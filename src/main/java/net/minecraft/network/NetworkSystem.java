@@ -52,7 +52,7 @@ public class NetworkSystem {
         isAlive = true;
     }
 
-    public void addLanEndpoint(InetAddress address, int port) throws IOException {
+    public void addLanEndpoint(InetAddress address, int port) {
         synchronized (endpoints) {
             Class<? extends ServerSocketChannel> oclass = NioServerSocketChannel.class;
 
@@ -118,7 +118,7 @@ public class NetworkSystem {
                                 CrashReport crashreport = CrashReport.makeCrashReport(exception, "Ticking memory connection");
                                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Ticking connection");
                                 crashreportcategory.addCrashSectionCallable("Connection", new Callable<String>() {
-                                    public String call() throws Exception {
+                                    public String call() {
                                         return networkmanager.toString();
                                     }
                                 });
@@ -128,7 +128,7 @@ public class NetworkSystem {
                             logger.warn("Failed to handle packet for " + networkmanager.getRemoteAddress(), exception);
                             final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
                             networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<Future<? super Void>>() {
-                                public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
+                                public void operationComplete(Future<? super Void> p_operationComplete_1_) {
                                     networkmanager.closeChannel(chatcomponenttext);
                                 }
                             });

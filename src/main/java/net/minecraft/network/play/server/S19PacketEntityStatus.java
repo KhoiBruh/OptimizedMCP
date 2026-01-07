@@ -20,12 +20,12 @@ public class S19PacketEntityStatus implements Packet<INetHandlerPlayClient> {
         logicOpcode = opCodeIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readInt();
         logicOpcode = buf.readByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeInt(entityId);
         buf.writeByte(logicOpcode);
     }

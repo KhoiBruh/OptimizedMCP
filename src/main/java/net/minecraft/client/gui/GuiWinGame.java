@@ -49,7 +49,7 @@ public class GuiWinGame extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
         if (keyCode == 1) {
             sendRespawnPacket();
         }

@@ -18,12 +18,12 @@ public class S47PacketPlayerListHeaderFooter implements Packet<INetHandlerPlayCl
         header = headerIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         header = buf.readChatComponent();
         footer = buf.readChatComponent();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeChatComponent(header);
         buf.writeChatComponent(footer);
     }

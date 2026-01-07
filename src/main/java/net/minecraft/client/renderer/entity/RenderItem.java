@@ -425,22 +425,22 @@ public class RenderItem implements IResourceManagerReloadListener {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering item");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being rendered");
                 crashreportcategory.addCrashSectionCallable("Item Type", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(stack.getItem());
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Item Aux", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(stack.getMetadata());
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Item NBT", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(stack.getTagCompound());
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Item Foil", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(stack.hasEffect());
                     }
                 });

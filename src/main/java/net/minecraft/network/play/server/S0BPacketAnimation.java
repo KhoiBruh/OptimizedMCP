@@ -19,12 +19,12 @@ public class S0BPacketAnimation implements Packet<INetHandlerPlayClient> {
         type = animationType;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readVarIntFromBuffer();
         type = buf.readUnsignedByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityId);
         buf.writeByte(type);
     }

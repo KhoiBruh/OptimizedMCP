@@ -39,7 +39,7 @@ public class GuiShareToLan extends GuiScreen {
         }
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 102) {
             mc.displayGuiScreen(field_146598_a);
         } else if (button.id == 104) {

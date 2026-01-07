@@ -22,13 +22,13 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient> 
         nbt = nbtIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         blockPos = buf.readBlockPos();
         metadata = buf.readUnsignedByte();
         nbt = buf.readNBTTagCompoundFromBuffer();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeBlockPos(blockPos);
         buf.writeByte((byte) metadata);
         buf.writeNBTTagCompoundToBuffer(nbt);

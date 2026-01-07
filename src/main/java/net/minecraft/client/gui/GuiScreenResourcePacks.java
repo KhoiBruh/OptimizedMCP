@@ -79,7 +79,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
         return selectedResourcePacks;
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 2) {
                 File file1 = mc.getResourcePackRepository().getDirResourcepacks();

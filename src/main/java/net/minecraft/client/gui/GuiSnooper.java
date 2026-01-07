@@ -57,7 +57,7 @@ public class GuiSnooper extends GuiScreen {
         field_146606_s.handleMouseInput();
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 2) {
                 game_settings_2.saveOptions();

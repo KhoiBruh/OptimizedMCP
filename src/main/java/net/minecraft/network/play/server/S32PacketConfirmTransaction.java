@@ -24,13 +24,13 @@ public class S32PacketConfirmTransaction implements Packet<INetHandlerPlayClient
         handler.handleConfirmTransaction(this);
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         windowId = buf.readUnsignedByte();
         actionNumber = buf.readShort();
         field_148893_c = buf.readBoolean();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByte(windowId);
         buf.writeShort(actionNumber);
         buf.writeBoolean(field_148893_c);

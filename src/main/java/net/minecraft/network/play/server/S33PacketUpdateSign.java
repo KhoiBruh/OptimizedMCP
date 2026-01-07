@@ -23,7 +23,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
         lines = new IChatComponent[]{linesIn[0], linesIn[1], linesIn[2], linesIn[3]};
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         blockPos = buf.readBlockPos();
         lines = new IChatComponent[4];
 
@@ -32,7 +32,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeBlockPos(blockPos);
 
         for (int i = 0; i < 4; ++i) {

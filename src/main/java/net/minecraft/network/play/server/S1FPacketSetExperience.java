@@ -20,13 +20,13 @@ public class S1FPacketSetExperience implements Packet<INetHandlerPlayClient> {
         level = levelIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         field_149401_a = buf.readFloat();
         level = buf.readVarIntFromBuffer();
         totalExperience = buf.readVarIntFromBuffer();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeFloat(field_149401_a);
         buf.writeVarIntToBuffer(level);
         buf.writeVarIntToBuffer(totalExperience);

@@ -105,7 +105,7 @@ public class GuiBeacon extends GuiContainer {
         beaconConfirmButton.enabled = tileBeacon.getStackInSlot(0) != null && j > 0;
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == -2) {
             mc.displayGuiScreen(null);
         } else if (button.id == -1) {

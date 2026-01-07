@@ -116,7 +116,7 @@ public class GuiScreenBook extends GuiScreen {
         }
     }
 
-    private void sendBookToServer(boolean publish) throws IOException {
+    private void sendBookToServer(boolean publish) {
         if (bookIsUnsigned && bookIsModified) {
             if (bookPages != null) {
                 while (bookPages.tagCount() > 1) {

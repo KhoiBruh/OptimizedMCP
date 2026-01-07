@@ -310,7 +310,7 @@ public class InventoryPlayer implements IInventory {
                 crashreportcategory.addCrashSection("Item ID", Item.getIdFromItem(itemStackIn.getItem()));
                 crashreportcategory.addCrashSection("Item data", itemStackIn.getMetadata());
                 crashreportcategory.addCrashSectionCallable("Item name", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return itemStackIn.getDisplayName();
                     }
                 });

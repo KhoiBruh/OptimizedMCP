@@ -20,12 +20,12 @@ public class S19PacketEntityHeadLook implements Packet<INetHandlerPlayClient> {
         yaw = p_i45214_2_;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readVarIntFromBuffer();
         yaw = buf.readByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityId);
         buf.writeByte(yaw);
     }

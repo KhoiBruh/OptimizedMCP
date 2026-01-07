@@ -83,7 +83,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
         }
     }
 
-    public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException, IOException {
+    public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException {
         worldIn.checkSessionLock();
 
         try {
@@ -143,7 +143,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
         dataoutputstream.close();
     }
 
-    public void saveExtraChunkData(World worldIn, Chunk chunkIn) throws IOException {
+    public void saveExtraChunkData(World worldIn, Chunk chunkIn) {
     }
 
     public void chunkTick() {

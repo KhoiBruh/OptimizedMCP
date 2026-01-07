@@ -48,7 +48,7 @@ public class GuiEditSign extends GuiScreen {
         ++updateCounter;
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 0) {
                 tileSign.markDirty();

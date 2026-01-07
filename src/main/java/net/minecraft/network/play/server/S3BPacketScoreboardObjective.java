@@ -24,7 +24,7 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
         field_149342_c = p_i45224_2_;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         objectiveName = buf.readStringFromBuffer(16);
         field_149342_c = buf.readByte();
 
@@ -34,7 +34,7 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeString(objectiveName);
         buf.writeByte(field_149342_c);
 

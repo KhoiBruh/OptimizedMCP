@@ -21,12 +21,12 @@ public class S49PacketUpdateEntityNBT implements Packet<INetHandlerPlayClient> {
         tagCompound = tagCompoundIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readVarIntFromBuffer();
         tagCompound = buf.readNBTTagCompoundFromBuffer();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityId);
         buf.writeNBTTagCompoundToBuffer(tagCompound);
     }

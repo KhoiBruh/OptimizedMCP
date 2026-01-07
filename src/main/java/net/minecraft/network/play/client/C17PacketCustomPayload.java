@@ -34,7 +34,7 @@ public class C17PacketCustomPayload implements Packet<INetHandlerPlayServer> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeString(channel);
         buf.writeBytes(data);
     }

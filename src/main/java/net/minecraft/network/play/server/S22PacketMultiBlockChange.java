@@ -27,7 +27,7 @@ public class S22PacketMultiBlockChange implements Packet<INetHandlerPlayClient> 
         }
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         chunkPosCoord = new ChunkCoordIntPair(buf.readInt(), buf.readInt());
         changedBlocks = new S22PacketMultiBlockChange.BlockUpdateData[buf.readVarIntFromBuffer()];
 
@@ -36,7 +36,7 @@ public class S22PacketMultiBlockChange implements Packet<INetHandlerPlayClient> 
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeInt(chunkPosCoord.chunkXPos);
         buf.writeInt(chunkPosCoord.chunkZPos);
         buf.writeVarIntToBuffer(changedBlocks.length);

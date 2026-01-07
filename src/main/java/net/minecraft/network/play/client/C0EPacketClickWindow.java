@@ -40,7 +40,7 @@ public class C0EPacketClickWindow implements Packet<INetHandlerPlayServer> {
         clickedItem = buf.readItemStackFromBuffer();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByte(windowId);
         buf.writeShort(slotId);
         buf.writeByte(usedButton);

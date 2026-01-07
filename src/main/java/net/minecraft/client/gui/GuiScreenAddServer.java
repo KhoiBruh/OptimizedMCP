@@ -65,7 +65,7 @@ public class GuiScreenAddServer extends GuiScreen {
         Keyboard.enableRepeatEvents(false);
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 2) {
                 serverData.setResourceMode(ServerData.ServerResourceMode.values()[(serverData.getResourceMode().ordinal() + 1) % ServerData.ServerResourceMode.values().length]);

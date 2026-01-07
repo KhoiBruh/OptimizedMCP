@@ -23,12 +23,12 @@ public class S02PacketChat implements Packet<INetHandlerPlayClient> {
         type = typeIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         chatComponent = buf.readChatComponent();
         type = buf.readByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeChatComponent(chatComponent);
         buf.writeByte(type);
     }

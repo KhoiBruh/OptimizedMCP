@@ -38,7 +38,7 @@ public class GuiRenameWorld extends GuiScreen {
         Keyboard.enableRepeatEvents(false);
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 1) {
                 mc.displayGuiScreen(parentScreen);

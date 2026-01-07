@@ -21,13 +21,13 @@ public class S1BPacketEntityAttach implements Packet<INetHandlerPlayClient> {
         vehicleEntityId = vehicle != null ? vehicle.getEntityId() : -1;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readInt();
         vehicleEntityId = buf.readInt();
         leash = buf.readUnsignedByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeInt(entityId);
         buf.writeInt(vehicleEntityId);
         buf.writeByte(leash);

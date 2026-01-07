@@ -30,7 +30,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
         pitch = MathHelper.clamp_float(pitch, 0.0F, 255.0F);
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         soundName = buf.readStringFromBuffer(256);
         posX = buf.readInt();
         posY = buf.readInt();
@@ -39,7 +39,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
         soundPitch = buf.readUnsignedByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeString(soundName);
         buf.writeInt(posX);
         buf.writeInt(posY);

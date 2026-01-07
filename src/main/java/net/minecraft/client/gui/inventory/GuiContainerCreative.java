@@ -614,7 +614,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         zLevel = 0.0F;
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             mc.displayGuiScreen(new GuiAchievements(this, mc.thePlayer.getStatFileWriter()));
         }

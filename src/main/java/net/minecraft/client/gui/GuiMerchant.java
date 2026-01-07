@@ -63,7 +63,7 @@ public class GuiMerchant extends GuiContainer {
         }
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         boolean flag = false;
 
         if (button == nextButton) {

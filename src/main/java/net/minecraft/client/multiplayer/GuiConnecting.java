@@ -95,7 +95,7 @@ public class GuiConnecting extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
     }
 
     public void initGui() {
@@ -103,7 +103,7 @@ public class GuiConnecting extends GuiScreen {
         buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, I18n.format("gui.cancel")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             cancel = true;
 

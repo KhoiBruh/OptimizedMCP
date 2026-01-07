@@ -82,7 +82,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         return p_179757_2_ + p_179757_0_.length;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         chunkX = buf.readInt();
         chunkZ = buf.readInt();
         field_149279_g = buf.readBoolean();
@@ -91,7 +91,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         extractedData.data = buf.readByteArray();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeInt(chunkX);
         buf.writeInt(chunkZ);
         buf.writeBoolean(field_149279_g);

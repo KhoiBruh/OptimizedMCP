@@ -17,11 +17,11 @@ public class S05PacketSpawnPosition implements Packet<INetHandlerPlayClient> {
         spawnBlockPos = spawnBlockPosIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         spawnBlockPos = buf.readBlockPos();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeBlockPos(spawnBlockPos);
     }
 

@@ -16,11 +16,11 @@ public class S01PacketPong implements Packet<INetHandlerStatusClient> {
         clientTime = time;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         clientTime = buf.readLong();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeLong(clientTime);
     }
 

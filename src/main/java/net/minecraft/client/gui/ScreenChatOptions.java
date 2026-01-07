@@ -33,7 +33,7 @@ public class ScreenChatOptions extends GuiScreen {
         buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 120, I18n.format("gui.done")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id < 100 && button instanceof GuiOptionButton) {
                 game_settings.setOptionValue(((GuiOptionButton) button).returnEnumOptions(), 1);

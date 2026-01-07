@@ -17,7 +17,7 @@ public class GuiDownloadTerrain extends GuiScreen {
         netHandlerPlayClient = netHandler;
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
     }
 
     public void initGui() {

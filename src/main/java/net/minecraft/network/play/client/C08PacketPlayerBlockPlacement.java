@@ -42,7 +42,7 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
         facingZ = (float) buf.readUnsignedByte() / 16.0F;
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeBlockPos(position);
         buf.writeByte(placedBlockDirection);
         buf.writeItemStackToBuffer(stack);

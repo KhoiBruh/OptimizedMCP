@@ -39,7 +39,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         mapId = buf.readVarIntFromBuffer();
         mapScale = buf.readByte();
         mapVisiblePlayersVec4b = new Vec4b[buf.readVarIntFromBuffer()];
@@ -59,7 +59,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(mapId);
         buf.writeByte(mapScale);
         buf.writeVarIntToBuffer(mapVisiblePlayersVec4b.length);

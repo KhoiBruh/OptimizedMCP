@@ -75,7 +75,7 @@ public class Locale {
         }
     }
 
-    private void loadLocaleData(InputStream inputStreamIn) throws IOException {
+    private void loadLocaleData(InputStream inputStreamIn) {
         for (String s : IOUtils.readLines(inputStreamIn, StandardCharsets.UTF_8)) {
             if (!s.isEmpty() && s.charAt(0) != 35) {
                 String[] astring = Iterables.toArray(splitter.split(s), String.class);

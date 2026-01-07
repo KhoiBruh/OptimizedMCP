@@ -401,7 +401,7 @@ public class Chunk {
             CrashReportCategory crashreportcategory = reportedexception.getCrashReport()
                     .makeCategory("Block being got");
             crashreportcategory.addCrashSectionCallable("Location", new Callable<String>() {
-                public String call() throws Exception {
+                public String call() {
                     return CrashReportCategory.getCoordinateInfo(
                             new BlockPos(xPosition * 16 + x, y, zPosition * 16 + z));
                 }
@@ -417,7 +417,7 @@ public class Chunk {
             CrashReportCategory crashreportcategory = reportedexception.getCrashReport()
                     .makeCategory("Block being got");
             crashreportcategory.addCrashSectionCallable("Location", new Callable<String>() {
-                public String call() throws Exception {
+                public String call() {
                     return CrashReportCategory.getCoordinateInfo(pos);
                 }
             });
@@ -456,7 +456,7 @@ public class Chunk {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block state");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being got");
                 crashreportcategory.addCrashSectionCallable("Location", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return CrashReportCategory.getCoordinateInfo(pos);
                     }
                 });

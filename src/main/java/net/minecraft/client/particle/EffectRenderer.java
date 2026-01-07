@@ -195,12 +195,12 @@ public class EffectRenderer {
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
             final int i = particle.getFXLayer();
             crashreportcategory.addCrashSectionCallable("Particle", new Callable<String>() {
-                public String call() throws Exception {
+                public String call() {
                     return particle.toString();
                 }
             });
             crashreportcategory.addCrashSectionCallable("Particle Type", new Callable<String>() {
-                public String call() throws Exception {
+                public String call() {
                     return i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i));
                 }
             });
@@ -263,12 +263,12 @@ public class EffectRenderer {
                             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
                             CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
                             crashreportcategory.addCrashSectionCallable("Particle", new Callable<String>() {
-                                public String call() throws Exception {
+                                public String call() {
                                     return entityfx.toString();
                                 }
                             });
                             crashreportcategory.addCrashSectionCallable("Particle Type", new Callable<String>() {
-                                public String call() throws Exception {
+                                public String call() {
                                     return i_f == 0 ? "MISC_TEXTURE" : (i_f == 1 ? "TERRAIN_TEXTURE" : (i_f == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i_f));
                                 }
                             });

@@ -246,7 +246,7 @@ public class ShaderManager {
         }
     }
 
-    private void parseSampler(JsonElement p_147996_1_) throws JsonException {
+    private void parseSampler(JsonElement p_147996_1_) {
         JsonObject jsonobject = JsonUtils.getJsonObject(p_147996_1_, "sampler");
         String s = JsonUtils.getString(jsonobject, "name");
 

@@ -101,7 +101,7 @@ public class BlockPattern {
             field_181626_b = p_i46460_2_;
         }
 
-        public BlockWorldState load(BlockPos p_load_1_) throws Exception {
+        public BlockWorldState load(BlockPos p_load_1_) {
             return new BlockWorldState(world, p_load_1_, field_181626_b);
         }
     }

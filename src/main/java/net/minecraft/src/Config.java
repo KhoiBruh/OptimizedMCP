@@ -1186,7 +1186,7 @@ public class Config {
         return astring;
     }
 
-    public static DisplayMode getDisplayMode(Dimension p_getDisplayMode_0_) throws LWJGLException {
+    public static DisplayMode getDisplayMode(Dimension p_getDisplayMode_0_) {
         DisplayMode[] adisplaymode = getDisplayModes();
 
         for (DisplayMode displaymode : adisplaymode) {

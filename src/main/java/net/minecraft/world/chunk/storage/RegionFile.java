@@ -246,7 +246,7 @@ public class RegionFile {
             chunkZ = z;
         }
 
-        public void close() throws IOException {
+        public void close() {
             RegionFile.this.write(chunkX, chunkZ, buf, count);
         }
     }

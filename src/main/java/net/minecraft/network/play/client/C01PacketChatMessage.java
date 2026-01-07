@@ -20,11 +20,11 @@ public class C01PacketChatMessage implements Packet<INetHandlerPlayServer> {
         message = messageIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         message = buf.readStringFromBuffer(100);
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeString(message);
     }
 

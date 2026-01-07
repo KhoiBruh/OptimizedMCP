@@ -27,7 +27,7 @@ public class S04PacketEntityEquipment implements Packet<INetHandlerPlayClient> {
         itemStack = buf.readItemStackFromBuffer();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityID);
         buf.writeShort(equipmentSlot);
         buf.writeItemStackToBuffer(itemStack);

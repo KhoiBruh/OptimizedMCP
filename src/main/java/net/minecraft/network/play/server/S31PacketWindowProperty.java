@@ -24,13 +24,13 @@ public class S31PacketWindowProperty implements Packet<INetHandlerPlayClient> {
         handler.handleWindowProperty(this);
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         windowId = buf.readUnsignedByte();
         varIndex = buf.readShort();
         varValue = buf.readShort();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByte(windowId);
         buf.writeShort(varIndex);
         buf.writeShort(varValue);

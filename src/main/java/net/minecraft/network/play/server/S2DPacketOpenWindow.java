@@ -37,7 +37,7 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
         handler.handleOpenWindow(this);
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         windowId = buf.readUnsignedByte();
         inventoryType = buf.readStringFromBuffer(32);
         windowTitle = buf.readChatComponent();
@@ -48,7 +48,7 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByte(windowId);
         buf.writeString(inventoryType);
         buf.writeChatComponent(windowTitle);

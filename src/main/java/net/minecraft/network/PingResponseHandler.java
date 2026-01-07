@@ -20,7 +20,7 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter {
         networkSystem = networkSystemIn;
     }
 
-    public void channelRead(ChannelHandlerContext p_channelRead_1_, Object p_channelRead_2_) throws Exception {
+    public void channelRead(ChannelHandlerContext p_channelRead_1_, Object p_channelRead_2_) {
         ByteBuf bytebuf = (ByteBuf) p_channelRead_2_;
         bytebuf.markReaderIndex();
         boolean flag = true;

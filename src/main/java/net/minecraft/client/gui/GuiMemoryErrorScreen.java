@@ -11,7 +11,7 @@ public class GuiMemoryErrorScreen extends GuiScreen {
         buttonList.add(new GuiOptionButton(1, width / 2 - 155 + 160, height / 4 + 120 + 12, I18n.format("menu.quit")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             mc.displayGuiScreen(new GuiMainMenu());
         } else if (button.id == 1) {
@@ -19,7 +19,7 @@ public class GuiMemoryErrorScreen extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {

@@ -37,7 +37,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         action = buf.readEnumValue(Action.class);
         int i = buf.readVarIntFromBuffer();
 
@@ -100,7 +100,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeEnumValue(action);
         buf.writeVarIntToBuffer(players.size());
 

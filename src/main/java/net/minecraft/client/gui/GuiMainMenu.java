@@ -122,7 +122,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         return false;
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
     }
 
     public void initGui() {
@@ -169,7 +169,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
                 I18n.format("menu.multiplayer")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
         }

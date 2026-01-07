@@ -107,12 +107,12 @@ public abstract class GenLayer {
                 crashreportcategory.addCrashSection("Biome A ID", biomeIDA);
                 crashreportcategory.addCrashSection("Biome B ID", biomeIDB);
                 crashreportcategory.addCrashSectionCallable("Biome A", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(biomegenbase);
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Biome B", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return String.valueOf(biomegenbase1);
                     }
                 });

@@ -23,11 +23,11 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
         response = responseIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         response = GSON.fromJson(buf.readStringFromBuffer(32767), ServerStatusResponse.class);
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeString(GSON.toJson(response));
     }
 

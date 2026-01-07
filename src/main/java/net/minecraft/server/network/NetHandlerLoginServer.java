@@ -95,7 +95,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 
             if (server.getNetworkCompressionTreshold() >= 0 && !networkManager.isLocalChannel()) {
                 networkManager.sendPacket(new S03PacketEnableCompression(server.getNetworkCompressionTreshold()), new ChannelFutureListener() {
-                    public void operationComplete(ChannelFuture p_operationComplete_1_) throws Exception {
+                    public void operationComplete(ChannelFuture p_operationComplete_1_) {
                         networkManager.setCompressionTreshold(server.getNetworkCompressionTreshold());
                     }
                 });

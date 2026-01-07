@@ -40,7 +40,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
         buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, I18n.format("gui.done")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 200) {
                 mc.gameSettings.saveOptions();

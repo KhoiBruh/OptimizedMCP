@@ -37,7 +37,7 @@ public class GuiLanguage extends GuiScreen {
         list.handleMouseInput();
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             switch (button.id) {
                 case 5:

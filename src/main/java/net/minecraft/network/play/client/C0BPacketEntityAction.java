@@ -25,13 +25,13 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer> {
         this.auxData = auxData;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityID = buf.readVarIntFromBuffer();
         action = buf.readEnumValue(Action.class);
         auxData = buf.readVarIntFromBuffer();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityID);
         buf.writeEnumValue(action);
         buf.writeVarIntToBuffer(auxData);

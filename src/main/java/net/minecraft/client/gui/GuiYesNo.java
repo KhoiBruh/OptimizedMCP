@@ -41,7 +41,7 @@ public class GuiYesNo extends GuiScreen {
         field_175298_s.addAll(fontRendererObj.listFormattedStringToWidth(messageLine2, width - 50));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         parentScreen.confirmClicked(button.id == 0, parentButtonClickedId);
     }
 

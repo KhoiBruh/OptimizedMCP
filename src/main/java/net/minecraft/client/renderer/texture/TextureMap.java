@@ -99,7 +99,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         missingImage.setIndexInMap(counterIndexInMap.nextValue());
     }
 
-    public void loadTexture(IResourceManager resourceManager) throws IOException {
+    public void loadTexture(IResourceManager resourceManager) {
         if (iconCreator != null) {
             loadSprites(resourceManager, iconCreator);
         }
@@ -301,17 +301,17 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                     CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Applying mipmap");
                     CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
                     crashreportcategory.addCrashSectionCallable("Sprite name", new Callable<String>() {
-                        public String call() throws Exception {
+                        public String call() {
                             return textureatlassprite1.getIconName();
                         }
                     });
                     crashreportcategory.addCrashSectionCallable("Sprite size", new Callable<String>() {
-                        public String call() throws Exception {
+                        public String call() {
                             return textureatlassprite1.getIconWidth() + " x " + textureatlassprite1.getIconHeight();
                         }
                     });
                     crashreportcategory.addCrashSectionCallable("Sprite frames", new Callable<String>() {
-                        public String call() throws Exception {
+                        public String call() {
                             return textureatlassprite1.getFrameCount() + " frames";
                         }
                     });

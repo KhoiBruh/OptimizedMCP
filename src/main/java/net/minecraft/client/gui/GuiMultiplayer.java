@@ -103,7 +103,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         oldServerPinger.clearPendingNetworks();
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             GuiListExtended.IGuiListEntry guilistextended$iguilistentry = serverListSelector.func_148193_k() < 0 ? null : serverListSelector.getListEntry(serverListSelector.func_148193_k());
 

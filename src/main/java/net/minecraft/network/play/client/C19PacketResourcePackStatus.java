@@ -22,12 +22,12 @@ public class C19PacketResourcePackStatus implements Packet<INetHandlerPlayServer
         status = statusIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         hash = buf.readStringFromBuffer(40);
         status = buf.readEnumValue(Action.class);
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeString(hash);
         buf.writeEnumValue(status);
     }

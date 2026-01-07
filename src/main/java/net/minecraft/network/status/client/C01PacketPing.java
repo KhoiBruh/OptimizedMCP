@@ -16,11 +16,11 @@ public class C01PacketPing implements Packet<INetHandlerStatusServer> {
         clientTime = ping;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         clientTime = buf.readLong();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeLong(clientTime);
     }
 

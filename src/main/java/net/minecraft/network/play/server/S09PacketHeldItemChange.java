@@ -16,11 +16,11 @@ public class S09PacketHeldItemChange implements Packet<INetHandlerPlayClient> {
         heldItemHotbarIndex = hotbarIndexIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         heldItemHotbarIndex = buf.readByte();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByte(heldItemHotbarIndex);
     }
 

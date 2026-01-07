@@ -18,14 +18,14 @@ public class S02PacketLoginSuccess implements Packet<INetHandlerLoginClient> {
         profile = profileIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         String s = buf.readStringFromBuffer(36);
         String s1 = buf.readStringFromBuffer(16);
         UUID uuid = UUID.fromString(s);
         profile = new GameProfile(uuid, s1);
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         UUID uuid = profile.getId();
         buf.writeString(uuid == null ? "" : uuid.toString());
         buf.writeString(profile.getName());

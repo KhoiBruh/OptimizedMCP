@@ -346,7 +346,7 @@ public class JsonToNBT {
             jsonValue = p_i45139_2_;
         }
 
-        public NBTBase parse() throws NBTException {
+        public NBTBase parse() {
             try {
                 if (DOUBLE.matcher(jsonValue).matches()) {
                     return new NBTTagDouble(Double.parseDouble(jsonValue.substring(0, jsonValue.length() - 1)));

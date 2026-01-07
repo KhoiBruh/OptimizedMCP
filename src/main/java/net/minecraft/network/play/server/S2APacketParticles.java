@@ -37,7 +37,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         particleArguments = particleArgumentsIn;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         particleType = EnumParticleTypes.getParticleFromId(buf.readInt());
 
         if (particleType == null) {
@@ -61,7 +61,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeInt(particleType.getParticleID());
         buf.writeBoolean(longDistance);
         buf.writeFloat(xCoord);

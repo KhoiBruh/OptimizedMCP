@@ -61,7 +61,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         buttonList.add(new GuiOptionButton(1, width / 2 + 24, height / 2 + 74, 80, 20, I18n.format("gui.done")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (!loadingAchievements) {
             if (button.id == 1) {
                 mc.displayGuiScreen(parentScreen);

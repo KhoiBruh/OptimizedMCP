@@ -110,7 +110,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
         recreateButton.enabled = false;
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 2) {
                 String s = func_146614_d(selectedIndex);

@@ -87,7 +87,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         }
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 0:
                 field_175314_r.func_175324_a(field_175317_i.getText());

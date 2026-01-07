@@ -19,7 +19,7 @@ public class GuiDisconnected extends GuiScreen {
         message = chatComp;
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
     }
 
     public void initGui() {
@@ -29,7 +29,7 @@ public class GuiDisconnected extends GuiScreen {
         buttonList.add(new GuiButton(0, width / 2 - 100, height / 2 + field_175353_i / 2 + fontRendererObj.FONT_HEIGHT, I18n.format("gui.toMenu")));
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             mc.displayGuiScreen(parentScreen);
         }

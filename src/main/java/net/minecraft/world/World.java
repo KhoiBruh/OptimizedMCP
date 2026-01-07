@@ -108,7 +108,7 @@ public abstract class World implements IBlockAccess {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting biome");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Coordinates of biome request");
                 crashreportcategory.addCrashSectionCallable("Location", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return CrashReportCategory.getCoordinateInfo(pos);
                     }
                 });
@@ -361,7 +361,7 @@ public abstract class World implements IBlockAccess {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while updating neighbours");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being updated");
                 crashreportcategory.addCrashSectionCallable("Source block type", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         try {
                             return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
                         } catch (Throwable var2) {

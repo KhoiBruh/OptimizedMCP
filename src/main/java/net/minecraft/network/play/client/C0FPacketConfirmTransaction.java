@@ -24,13 +24,13 @@ public class C0FPacketConfirmTransaction implements Packet<INetHandlerPlayServer
         handler.processConfirmTransaction(this);
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         windowId = buf.readByte();
         uid = buf.readShort();
         accepted = buf.readByte() != 0;
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByte(windowId);
         buf.writeShort(uid);
         buf.writeByte(accepted ? 1 : 0);

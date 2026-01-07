@@ -695,7 +695,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         displayHeight = displaymode.getHeight();
     }
 
-    private void drawSplashScreen(TextureManager textureManagerInstance) throws LWJGLException {
+    private void drawSplashScreen(TextureManager textureManagerInstance) {
         ScaledResolution scaledresolution = new ScaledResolution(this);
         int i = scaledresolution.getScaleFactor();
         Framebuffer framebuffer = new Framebuffer(scaledresolution.getScaledWidth() * i,
@@ -1418,7 +1418,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Updating screen events");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected screen");
                 crashreportcategory.addCrashSectionCallable("Screen name", new Callable<String>() {
-                    public String call() throws Exception {
+                    public String call() {
                         return currentScreen.getClass().getCanonicalName();
                     }
                 });
@@ -1432,7 +1432,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Ticking screen");
                     CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Affected screen");
                     crashreportcategory1.addCrashSectionCallable("Screen name", new Callable<String>() {
-                        public String call() throws Exception {
+                        public String call() {
                             return currentScreen.getClass().getCanonicalName();
                         }
                     });
@@ -2063,7 +2063,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
         theCrash.getCategory().addCrashSectionCallable("Launched Version", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return launchedVersion;
             }
         });
@@ -2089,7 +2089,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         });
         theCrash.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 String s = ClientBrandRetriever.getClientModName();
                 return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'"
                         : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated"
@@ -2097,12 +2097,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         });
         theCrash.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return "Client (map_client.txt)";
             }
         });
         theCrash.getCategory().addCrashSectionCallable("Resource Packs", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 StringBuilder stringbuilder = new StringBuilder();
 
                 for (String s : gameSettings.resourcePacks) {
@@ -2121,12 +2121,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         });
         theCrash.getCategory().addCrashSectionCallable("Current Language", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return mcLanguageManager.getCurrentLanguage().toString();
             }
         });
         theCrash.getCategory().addCrashSectionCallable("Profiler Position", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return mcProfiler.profilingEnabled ? mcProfiler.getNameOfLastSection()
                         : "N/A (disabled)";
             }

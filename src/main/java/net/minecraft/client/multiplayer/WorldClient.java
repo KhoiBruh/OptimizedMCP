@@ -302,12 +302,12 @@ public class WorldClient extends World {
             }
         });
         crashreportcategory.addCrashSectionCallable("Server brand", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return mc.thePlayer.getClientBrand();
             }
         });
         crashreportcategory.addCrashSectionCallable("Server type", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server";
             }
         });

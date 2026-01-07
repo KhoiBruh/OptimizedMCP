@@ -145,7 +145,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         return new ServerCommandManager();
     }
 
-    protected abstract boolean startServer() throws IOException;
+    protected abstract boolean startServer();
 
     protected void convertMapIfNeeded(String worldNameIn) {
         if (getActiveAnvilConverter().isOldMapFormat(worldNameIn)) {
@@ -634,7 +634,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public CrashReport addServerInfoToCrashReport(CrashReport report) {
         report.getCategory().addCrashSectionCallable("Profiler Position", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return theProfiler.profilingEnabled ? theProfiler.getNameOfLastSection() : "N/A (disabled)";
             }
         });

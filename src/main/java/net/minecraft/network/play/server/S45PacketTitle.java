@@ -33,7 +33,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         this.fadeOutTime = fadeOutTime;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         type = buf.readEnumValue(Type.class);
 
         if (type == S45PacketTitle.Type.TITLE || type == S45PacketTitle.Type.SUBTITLE) {
@@ -47,7 +47,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeEnumValue(type);
 
         if (type == S45PacketTitle.Type.TITLE || type == S45PacketTitle.Type.SUBTITLE) {

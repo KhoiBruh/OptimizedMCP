@@ -38,7 +38,7 @@ public class GuiScreenServerList extends GuiScreen {
         mc.gameSettings.saveOptions();
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 1) {
                 field_146303_a.confirmClicked(false, 0);

@@ -123,7 +123,7 @@ public class IntegratedServer extends MinecraftServer {
         initialWorldChunkLoad();
     }
 
-    protected boolean startServer() throws IOException {
+    protected boolean startServer() {
         logger.info("Starting integrated minecraft server version 1.9");
         setOnlineMode(true);
         setCanSpawnAnimals(true);
@@ -246,12 +246,12 @@ public class IntegratedServer extends MinecraftServer {
     public CrashReport addServerInfoToCrashReport(CrashReport report) {
         report = super.addServerInfoToCrashReport(report);
         report.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return "Integrated Server (map_client.txt)";
             }
         });
         report.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 String s = ClientBrandRetriever.getClientModName();
 
                 if (!s.equals("vanilla")) {

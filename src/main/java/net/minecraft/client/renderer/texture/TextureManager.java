@@ -92,7 +92,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Resource location being registered");
             crashreportcategory.addCrashSection("Resource location", textureLocation);
             crashreportcategory.addCrashSectionCallable("Texture object class", new Callable<String>() {
-                public String call() throws Exception {
+                public String call() {
                     return textureObjf.getClass().getName();
                 }
             });

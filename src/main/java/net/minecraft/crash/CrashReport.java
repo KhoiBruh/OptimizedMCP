@@ -110,7 +110,7 @@ public class CrashReport {
             }
         });
         theReportCategory.addCrashSectionCallable("IntCache", new Callable<String>() {
-            public String call() throws Exception {
+            public String call() {
                 return IntCache.getCacheSizes();
             }
         });

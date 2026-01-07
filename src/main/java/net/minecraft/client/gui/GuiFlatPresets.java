@@ -110,7 +110,7 @@ public class GuiFlatPresets extends GuiScreen {
         }
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0 && func_146430_p()) {
             parentScreen.func_146383_a(field_146433_u.getText());
             mc.displayGuiScreen(parentScreen);

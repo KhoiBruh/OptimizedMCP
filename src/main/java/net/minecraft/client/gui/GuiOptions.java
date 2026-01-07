@@ -98,7 +98,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id < 100 && button instanceof GuiOptionButton) {
                 GameSettings.Options gamesettings$options = ((GuiOptionButton) button).returnEnumOptions();

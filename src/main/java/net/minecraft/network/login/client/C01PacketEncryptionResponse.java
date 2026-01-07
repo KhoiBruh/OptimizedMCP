@@ -22,12 +22,12 @@ public class C01PacketEncryptionResponse implements Packet<INetHandlerLoginServe
         verifyTokenEncrypted = CryptManager.encryptData(publicKey, verifyToken);
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         secretKeyEncrypted = buf.readByteArray();
         verifyTokenEncrypted = buf.readByteArray();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeByteArray(secretKeyEncrypted);
         buf.writeByteArray(verifyTokenEncrypted);
     }

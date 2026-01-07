@@ -30,7 +30,7 @@ public class S2CPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
         }
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         entityId = buf.readVarIntFromBuffer();
         type = buf.readByte();
         x = buf.readInt();
@@ -38,7 +38,7 @@ public class S2CPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
         z = buf.readInt();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeVarIntToBuffer(entityId);
         buf.writeByte(type);
         buf.writeInt(x);

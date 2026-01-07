@@ -26,12 +26,12 @@ public class S03PacketTimeUpdate implements Packet<INetHandlerPlayClient> {
         }
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void readPacketData(PacketBuffer buf) {
         totalWorldTime = buf.readLong();
         worldTime = buf.readLong();
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void writePacketData(PacketBuffer buf) {
         buf.writeLong(totalWorldTime);
         buf.writeLong(worldTime);
     }

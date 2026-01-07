@@ -34,10 +34,10 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(char typedChar, int keyCode) {
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 0:
                 mc.thePlayer.respawnPlayer();

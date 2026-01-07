@@ -31,7 +31,7 @@ public class GuiIngameMenu extends GuiScreen {
         guibutton.enabled = mc.isSingleplayer() && !mc.getIntegratedServer().getPublic();
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 0:
                 mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));

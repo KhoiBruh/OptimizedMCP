@@ -288,7 +288,7 @@ public class TextureAtlasSprite {
         return framesTextureData.size();
     }
 
-    public void loadSprite(BufferedImage[] images, AnimationMetadataSection meta) throws IOException {
+    public void loadSprite(BufferedImage[] images, AnimationMetadataSection meta) {
         resetSprite();
         int i = images[0].getWidth();
         int j = images[0].getHeight();
@@ -389,7 +389,7 @@ public class TextureAtlasSprite {
                     CrashReportCategory crashreportcategory = crashreport.makeCategory("Frame being iterated");
                     crashreportcategory.addCrashSection("Frame index", i);
                     crashreportcategory.addCrashSectionCallable("Frame sizes", new Callable<String>() {
-                        public String call() throws Exception {
+                        public String call() {
                             StringBuilder stringbuilder = new StringBuilder();
 
                             for (int[] aint1 : aint) {

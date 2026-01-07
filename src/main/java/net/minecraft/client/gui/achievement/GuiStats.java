@@ -93,7 +93,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
     }
 
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == 0) {
                 mc.displayGuiScreen(parentScreen);
