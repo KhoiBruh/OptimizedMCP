@@ -154,7 +154,4 @@ public class ModelRabbit extends ModelBase {
                 * 0.017453292F;
     }
 
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_,
-                                    float partialTickTime) {
-    }
 }

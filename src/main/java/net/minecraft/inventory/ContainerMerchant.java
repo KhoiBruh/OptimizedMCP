@@ -51,9 +51,6 @@ public class ContainerMerchant extends Container {
         merchantInventory.setCurrentRecipeIndex(currentRecipeIndex);
     }
 
-    public void updateProgressBar(int id, int data) {
-    }
-
     public boolean canInteractWith(EntityPlayer playerIn) {
         return theMerchant.getCustomer() == playerIn;
     }

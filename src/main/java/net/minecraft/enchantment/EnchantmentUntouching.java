@@ -18,10 +18,6 @@ public class EnchantmentUntouching extends Enchantment {
         return super.getMinEnchantability(enchantmentLevel) + 50;
     }
 
-    public int getMaxLevel() {
-        return 1;
-    }
-
     public boolean canApplyTogether(Enchantment ench) {
         return super.canApplyTogether(ench) && ench.effectId != fortune.effectId;
     }

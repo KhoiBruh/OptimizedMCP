@@ -77,7 +77,7 @@ public class EntityFirework {
         public void setColour(int colour) {
             float f = (float) ((colour & 16711680) >> 16) / 255.0F;
             float f1 = (float) ((colour & 65280) >> 8) / 255.0F;
-            float f2 = (float) ((colour & 255) >> 0) / 255.0F;
+            float f2 = (float) ((colour & 255)) / 255.0F;
             float f3 = 1.0F;
             setRBGColorF(f * f3, f1 * f3, f2 * f3);
         }
@@ -85,16 +85,8 @@ public class EntityFirework {
         public void setFadeColour(int faceColour) {
             fadeColourRed = (float) ((faceColour & 16711680) >> 16) / 255.0F;
             fadeColourGreen = (float) ((faceColour & 65280) >> 8) / 255.0F;
-            fadeColourBlue = (float) ((faceColour & 255) >> 0) / 255.0F;
+            fadeColourBlue = (float) ((faceColour & 255)) / 255.0F;
             hasFadeColour = true;
-        }
-
-        public AxisAlignedBB getCollisionBoundingBox() {
-            return null;
-        }
-
-        public boolean canBePushed() {
-            return false;
         }
 
         public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
@@ -249,7 +241,7 @@ public class EntityFirework {
                 int j = aint[0];
                 float f = (float) ((j & 16711680) >> 16) / 255.0F;
                 float f1 = (float) ((j & 65280) >> 8) / 255.0F;
-                float f2 = (float) ((j & 255) >> 0) / 255.0F;
+                float f2 = (float) ((j & 255)) / 255.0F;
                 EntityFirework.OverlayFX entityfirework$overlayfx = new EntityFirework.OverlayFX(worldObj, posX, posY, posZ);
                 entityfirework$overlayfx.setRBGColorF(f, f1, f2);
                 theEffectRenderer.addEffect(entityfirework$overlayfx);
@@ -355,8 +347,5 @@ public class EntityFirework {
             }
         }
 
-        public int getFXLayer() {
-            return 0;
-        }
     }
 }

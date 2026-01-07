@@ -21,8 +21,6 @@ import net.minecraft.world.WorldSettings;
 import net.optifine.player.CapeUtils;
 import net.optifine.player.PlayerConfigurations;
 
-import java.io.File;
-
 public abstract class AbstractClientPlayer extends EntityPlayer {
     private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
     private NetworkPlayerInfo playerInfo;

@@ -24,10 +24,7 @@ import net.optifine.util.MemoryMonitor;
 import net.optifine.util.NativeMemory;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import oshi.SystemInfo;
-import oshi.hardware.GraphicsCard;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Map.Entry;
 

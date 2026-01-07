@@ -14,8 +14,6 @@ import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 
-import java.util.UUID;
-
 public class TileEntityItemStackRenderer {
     public static TileEntityItemStackRenderer instance = new TileEntityItemStackRenderer();
     private final TileEntityChest field_147717_b = new TileEntityChest(0);

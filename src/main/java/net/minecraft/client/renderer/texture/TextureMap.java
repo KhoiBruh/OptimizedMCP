@@ -307,11 +307,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
             stitcher.addSprite(missingImage);
             skipFirst = false;
 
-            try {
-                stitcher.doStitch();
-            } catch (StitcherException stitcherexception) {
-                throw stitcherexception;
-            }
+            stitcher.doStitch();
 
             logger.info("Created: {}x{} {}-atlas", new Object[]{stitcher.getCurrentWidth(),
                     stitcher.getCurrentHeight(), basePath});

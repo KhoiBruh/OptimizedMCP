@@ -7,8 +7,6 @@ import net.optifine.Lang;
 import net.optifine.gui.*;
 import net.optifine.shaders.gui.GuiShaders;
 
-import java.io.IOException;
-
 public class GuiVideoSettings extends GuiScreenOF {
     private static final GameSettings.Options[] videoOptions = new GameSettings.Options[]{GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION, GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.AO_LEVEL, GameSettings.Options.VIEW_BOBBING, GameSettings.Options.GUI_SCALE, GameSettings.Options.USE_VBO, GameSettings.Options.GAMMA, GameSettings.Options.BLOCK_ALTERNATIVES, GameSettings.Options.DYNAMIC_LIGHTS, GameSettings.Options.DYNAMIC_FOV};
     protected String screenTitle = "Video Settings";

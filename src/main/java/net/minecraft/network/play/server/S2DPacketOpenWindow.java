@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.IChatComponent;
 
-import java.io.IOException;
-
 public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
     private int windowId;
     private String inventoryType;

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -34,10 +33,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 
     public int getBlockColor() {
         return ColorizerGrass.getGrassColor(0.5D, 1.0D);
-    }
-
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-        return canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
 
     public boolean isReplaceable(World worldIn, BlockPos pos) {

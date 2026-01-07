@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 

@@ -83,10 +83,6 @@ public class EntityPigZombie extends EntityZombie {
         return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
     }
 
-    public boolean isNotColliding() {
-        return worldObj.checkNoEntityCollision(getEntityBoundingBox(), this) && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox());
-    }
-
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setShort("Anger", (short) angerLevel);

@@ -78,10 +78,6 @@ public class EntitySilverfish extends EntityMob {
         playSound("mob.silverfish.step", 0.15F, 1.0F);
     }
 
-    protected Item getDropItem() {
-        return null;
-    }
-
     public void onUpdate() {
         renderYawOffset = rotationYaw;
         super.onUpdate();

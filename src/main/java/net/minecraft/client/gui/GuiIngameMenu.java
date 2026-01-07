@@ -2,10 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
-
-import java.io.IOException;
 
 public class GuiIngameMenu extends GuiScreen {
     private int field_146445_a;

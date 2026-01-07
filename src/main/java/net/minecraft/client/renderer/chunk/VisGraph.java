@@ -36,7 +36,7 @@ public class VisGraph {
     }
 
     private static int getIndex(int x, int y, int z) {
-        return x << 0 | y << 8 | z << 4;
+        return x | y << 8 | z << 4;
     }
 
     public void func_178606_a(BlockPos pos) {
@@ -90,7 +90,7 @@ public class VisGraph {
     }
 
     private void func_178610_a(int p_178610_1_, Set<EnumFacing> p_178610_2_) {
-        int i = p_178610_1_ >> 0 & 15;
+        int i = p_178610_1_ & 15;
 
         if (i == 0) {
             p_178610_2_.add(EnumFacing.WEST);
@@ -146,14 +146,14 @@ public class VisGraph {
                 yield p_178603_1_ + field_178614_b;
             }
             case WEST -> {
-                if ((p_178603_1_ >> 0 & 15) == 0) {
+                if ((p_178603_1_ & 15) == 0) {
                     yield -1;
                 }
 
                 yield p_178603_1_ - field_178616_a;
             }
             case EAST -> {
-                if ((p_178603_1_ >> 0 & 15) == 15) {
+                if ((p_178603_1_ & 15) == 15) {
                     yield -1;
                 }
 

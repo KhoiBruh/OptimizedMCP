@@ -5,8 +5,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.IChatComponent;
 
-import java.io.IOException;
-
 public class S02PacketChat implements Packet<INetHandlerPlayClient> {
     private IChatComponent chatComponent;
     private byte type;

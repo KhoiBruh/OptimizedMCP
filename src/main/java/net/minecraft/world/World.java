@@ -31,7 +31,6 @@ import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldInfo;
 
 import java.util.*;
-import java.util.concurrent.Callable;
 
 public abstract class World implements IBlockAccess {
     public final List<Entity> loadedEntityList = Lists.newArrayList();

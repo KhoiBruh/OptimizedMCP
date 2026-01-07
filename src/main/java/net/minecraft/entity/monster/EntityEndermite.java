@@ -59,10 +59,6 @@ public class EntityEndermite extends EntityMob {
         playSound("mob.silverfish.step", 0.15F, 1.0F);
     }
 
-    protected Item getDropItem() {
-        return null;
-    }
-
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         lifetime = tagCompund.getInteger("Lifetime");

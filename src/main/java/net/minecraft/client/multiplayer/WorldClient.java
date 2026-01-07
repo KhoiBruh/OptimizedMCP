@@ -28,13 +28,11 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.SaveDataMemoryStorage;
 import net.minecraft.world.storage.SaveHandlerMP;
 import net.minecraft.world.storage.WorldInfo;
-import net.optifine.CustomGuis;
 import net.optifine.DynamicLights;
 import net.optifine.override.PlayerControllerOF;
 
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 public class WorldClient extends World {
     private final Set<Entity> entityList = Sets.newHashSet();

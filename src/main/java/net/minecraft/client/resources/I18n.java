@@ -1,7 +1,6 @@
 package net.minecraft.client.resources;
 
 import java.util.Map;
-import java.util.Properties;
 
 public class I18n {
     private static Locale i18nLocale;

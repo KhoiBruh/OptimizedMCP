@@ -45,10 +45,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         getDataWatcher().addObject(21, (byte) 0);
     }
 
-    protected String getLivingSound() {
-        return null;
-    }
-
     protected String getHurtSound() {
         return null;
     }

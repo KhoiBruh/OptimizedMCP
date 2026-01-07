@@ -7,8 +7,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
-import java.io.IOException;
-
 public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     private World world;
     private BlockPos blockPos;

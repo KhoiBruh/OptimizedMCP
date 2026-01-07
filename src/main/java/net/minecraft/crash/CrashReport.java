@@ -15,7 +15,6 @@ import java.lang.management.RuntimeMXBean;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class CrashReport {
     private static final Logger logger = LogManager.getLogger();

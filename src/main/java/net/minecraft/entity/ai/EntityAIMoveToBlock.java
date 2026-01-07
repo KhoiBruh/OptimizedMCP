@@ -41,9 +41,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
         field_179490_f = theEntity.getRNG().nextInt(theEntity.getRNG().nextInt(1200) + 1200) + 1200;
     }
 
-    public void resetTask() {
-    }
-
     public void updateTask() {
         if (theEntity.getDistanceSqToCenter(destinationBlock.up()) > 1.0D) {
             isAboveDestination = false;

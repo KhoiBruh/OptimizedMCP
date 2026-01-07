@@ -109,10 +109,6 @@ public class BlockState {
             return block;
         }
 
-        public boolean equals(Object p_equals_1_) {
-            return this == p_equals_1_;
-        }
-
         public int hashCode() {
             return properties.hashCode();
         }

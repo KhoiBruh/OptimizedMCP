@@ -31,7 +31,6 @@ import net.minecraft.world.WorldServer;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 public abstract class Entity implements ICommandSender {
     private static final AxisAlignedBB ZERO_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
@@ -1245,7 +1244,7 @@ public abstract class Entity implements ICommandSender {
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
-                int j = MathHelper.floor_double(posY + (double) (((float) ((i >> 0) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
+                int j = MathHelper.floor_double(posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
                 int k = MathHelper.floor_double(posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * width * 0.8F));
                 int l = MathHelper.floor_double(posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * width * 0.8F));
 

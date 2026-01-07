@@ -6,8 +6,6 @@ import net.minecraft.network.play.client.C00PacketKeepAlive;
 import net.optifine.CustomLoadingScreen;
 import net.optifine.CustomLoadingScreens;
 
-import java.io.IOException;
-
 public class GuiDownloadTerrain extends GuiScreen {
     private final NetHandlerPlayClient netHandlerPlayClient;
     private int progress;
