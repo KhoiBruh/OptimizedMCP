@@ -28,7 +28,7 @@ public class EntityTracker {
     private static final Logger logger = LogManager.getLogger();
     private final WorldServer theWorld;
     private final Set<EntityTrackerEntry> trackedEntities = Sets.newHashSet();
-    private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap();
+    private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap<>();
     private final int maxTrackingDistanceThreshold;
 
     public EntityTracker(WorldServer theWorldIn) {

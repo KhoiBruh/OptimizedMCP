@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class KeyBinding implements Comparable<KeyBinding> {
     private static final List<KeyBinding> keybindArray = Lists.newArrayList();
-    private static final IntHashMap<KeyBinding> hash = new IntHashMap();
+    private static final IntHashMap<KeyBinding> hash = new IntHashMap<>();
     private static final Set<String> keybindSet = Sets.newHashSet();
     private final String keyDescription;
     private final int keyCodeDefault;

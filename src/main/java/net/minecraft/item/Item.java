@@ -27,7 +27,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Item {
-    public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced();
+    public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced<>();
     protected static final UUID itemModifierUUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
     protected static Random itemRand = new Random();

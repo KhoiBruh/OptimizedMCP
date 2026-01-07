@@ -152,7 +152,7 @@ public class LongHashMap<V> {
 
     private void createKey(int p_76156_1_, long p_76156_2_, V p_76156_4_, int p_76156_5_) {
         LongHashMap.Entry<V> entry = hashArray[p_76156_5_];
-        hashArray[p_76156_5_] = new LongHashMap.Entry(p_76156_1_, p_76156_2_, p_76156_4_, entry);
+        hashArray[p_76156_5_] = new LongHashMap.Entry<>(p_76156_1_, p_76156_2_, p_76156_4_, entry);
 
         if (numHashElements++ >= capacity) {
             resizeTable(2 * hashArray.length);

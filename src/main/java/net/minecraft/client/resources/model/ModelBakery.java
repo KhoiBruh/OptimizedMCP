@@ -78,7 +78,7 @@ public class ModelBakery {
     private final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
     private final Map<ResourceLocation, ModelBlockDefinition> blockDefinitions = Maps
             .newHashMap();
-    private final RegistrySimple<ModelResourceLocation, IBakedModel> bakedRegistry = new RegistrySimple();
+    private final RegistrySimple<ModelResourceLocation, IBakedModel> bakedRegistry = new RegistrySimple<>();
     private final Map<String, ResourceLocation> itemLocations = Maps.newLinkedHashMap();
     private final Map<Item, List<String>> variantNames = Maps.newIdentityHashMap();
 

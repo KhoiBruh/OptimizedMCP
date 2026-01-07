@@ -43,7 +43,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
     }
 
     public static <T extends Enum<T> & IStringSerializable> PropertyEnum<T> create(String name, Class<T> clazz, Collection<T> values) {
-        return new PropertyEnum(name, clazz, values);
+        return new PropertyEnum<>(name, clazz, values);
     }
 
     public Collection<T> getAllowedValues() {

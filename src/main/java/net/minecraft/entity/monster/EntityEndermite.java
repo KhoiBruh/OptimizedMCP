@@ -25,7 +25,7 @@ public class EntityEndermite extends EntityMob {
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
     public float getEyeHeight() {

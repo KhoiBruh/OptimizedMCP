@@ -84,7 +84,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private static final ResourceLocation locationCloudsPng = new ResourceLocation("textures/environment/clouds.png");
     private static final ResourceLocation locationEndSkyPng = new ResourceLocation("textures/environment/end_sky.png");
     private static final ResourceLocation locationForcefieldPng = new ResourceLocation("textures/misc/forcefield.png");
-    private static final Set SET_ALL_FACINGS = Collections.unmodifiableSet(new HashSet(Arrays.asList(EnumFacing.VALUES)));
+    private static final Set SET_ALL_FACINGS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(EnumFacing.VALUES)));
     private static int renderEntitiesCounter = 0;
     public final Minecraft mc;
     public final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();
@@ -2672,7 +2672,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     private void clearRenderInfos() {
         if (renderEntitiesCounter > 0) {
-            renderInfos = new ArrayList(renderInfos.size() + 16);
+            renderInfos = new ArrayList<>(renderInfos.size() + 16);
             renderInfosEntities = new ArrayList(renderInfosEntities.size() + 16);
             renderInfosTileEntities = new ArrayList(renderInfosTileEntities.size() + 16);
         } else {

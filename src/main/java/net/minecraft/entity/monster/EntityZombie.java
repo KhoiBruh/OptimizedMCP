@@ -58,9 +58,9 @@ public class EntityZombie extends EntityMob {
         tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityIronGolem.class, 1.0D, true));
         tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPigZombie.class));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, true));
     }
 
     protected void applyEntityAttributes() {

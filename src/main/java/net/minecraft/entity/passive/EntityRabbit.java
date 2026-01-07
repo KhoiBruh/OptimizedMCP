@@ -44,7 +44,7 @@ public class EntityRabbit extends EntityAnimal {
         tasks.addTask(5, new EntityRabbit.AIRaidFarm(this));
         tasks.addTask(5, new EntityAIWander(this, 0.6D));
         tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-        aiAvoidWolves = new EntityRabbit.AIAvoidEntity(this, EntityWolf.class, 16.0F, 1.33D, 1.33D);
+        aiAvoidWolves = new EntityRabbit.AIAvoidEntity<>(this, EntityWolf.class, 16.0F, 1.33D, 1.33D);
         tasks.addTask(4, aiAvoidWolves);
         setMovementSpeed(0.0D);
     }
@@ -293,8 +293,8 @@ public class EntityRabbit extends EntityAnimal {
             tasks.removeTask(aiAvoidWolves);
             tasks.addTask(4, new EntityRabbit.AIEvilAttack(this));
             targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-            targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-            targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityWolf.class, true));
+            targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+            targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityWolf.class, true));
 
             if (!hasCustomName()) {
                 setCustomNameTag(StatCollector.translateToLocal("entity.KillerBunny.name"));

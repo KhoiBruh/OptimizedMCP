@@ -29,8 +29,8 @@ public class EntitySpider extends EntityMob {
         tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(6, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        targetTasks.addTask(2, new EntitySpider.AISpiderTarget(this, EntityPlayer.class));
-        targetTasks.addTask(3, new EntitySpider.AISpiderTarget(this, EntityIronGolem.class));
+        targetTasks.addTask(2, new EntitySpider.AISpiderTarget<>(this, EntityPlayer.class));
+        targetTasks.addTask(3, new EntitySpider.AISpiderTarget<>(this, EntityIronGolem.class));
     }
 
     public double getMountedYOffset() {

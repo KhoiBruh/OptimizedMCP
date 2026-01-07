@@ -48,7 +48,7 @@ public class EntityGuardian extends EntityMob {
         tasks.addTask(9, new EntityAILookIdle(this));
         wander.setMutexBits(3);
         entityaimovetowardsrestriction.setMutexBits(3);
-        targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 10, true, false, new EntityGuardian.GuardianTargetSelector(this)));
+        targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityLivingBase.class, 10, true, false, new EntityGuardian.GuardianTargetSelector(this)));
         moveHelper = new EntityGuardian.GuardianMoveHelper(this);
         field_175484_c = field_175482_b = rand.nextFloat();
     }

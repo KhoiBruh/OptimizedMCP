@@ -16,8 +16,8 @@ import java.util.Arrays;
 
 public class RegionRenderCache extends ChunkCache {
     private static final IBlockState DEFAULT_STATE = Blocks.air.getDefaultState();
-    private static final ArrayDeque<int[]> cacheLights = new ArrayDeque();
-    private static final ArrayDeque<IBlockState[]> cacheStates = new ArrayDeque();
+    private static final ArrayDeque<int[]> cacheLights = new ArrayDeque<>();
+    private static final ArrayDeque<IBlockState[]> cacheStates = new ArrayDeque<>();
     private static final int maxCacheSize = Config.limit(Runtime.getRuntime().availableProcessors(), 1, 32);
     private final BlockPos position;
     private final int[] combinedLights;

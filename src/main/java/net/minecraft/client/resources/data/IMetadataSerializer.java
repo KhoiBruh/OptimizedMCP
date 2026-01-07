@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.util.*;
 
 public class IMetadataSerializer {
-    private final IRegistry<String, IMetadataSerializer.Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple();
+    private final IRegistry<String, IMetadataSerializer.Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple<>();
     private final GsonBuilder gsonBuilder = new GsonBuilder();
     private Gson gson;
 
@@ -18,7 +18,7 @@ public class IMetadataSerializer {
     }
 
     public <T extends IMetadataSection> void registerMetadataSectionType(IMetadataSectionSerializer<T> metadataSectionSerializer, Class<T> clazz) {
-        metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new IMetadataSerializer.Registration(metadataSectionSerializer, clazz));
+        metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new IMetadataSerializer.Registration<>(metadataSectionSerializer, clazz));
         gsonBuilder.registerTypeAdapter(clazz, metadataSectionSerializer);
         gson = null;
     }

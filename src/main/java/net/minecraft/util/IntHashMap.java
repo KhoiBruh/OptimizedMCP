@@ -143,7 +143,7 @@ public class IntHashMap<V> {
 
     private void insert(int p_76040_1_, int p_76040_2_, V p_76040_3_, int p_76040_4_) {
         IntHashMap.Entry<V> entry = slots[p_76040_4_];
-        slots[p_76040_4_] = new IntHashMap.Entry(p_76040_1_, p_76040_2_, p_76040_3_, entry);
+        slots[p_76040_4_] = new IntHashMap.Entry<>(p_76040_1_, p_76040_2_, p_76040_3_, entry);
 
         if (count++ >= threshold) {
             grow(2 * slots.length);

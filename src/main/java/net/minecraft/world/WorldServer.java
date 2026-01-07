@@ -56,7 +56,7 @@ public class WorldServer extends World implements IThreadListener {
     private final EntityTracker theEntityTracker;
     private final PlayerManager thePlayerManager;
     private final Set<NextTickListEntry> pendingTickListEntriesHashSet = Sets.newHashSet();
-    private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet();
+    private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<>();
     private final Map<UUID, Entity> entitiesByUuid = Maps.newHashMap();
     private final Teleporter worldTeleporter;
     private final SpawnerAnimals mobSpawner = new SpawnerAnimals();

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ServersideAttributeMap extends BaseAttributeMap {
-    protected final Map<String, IAttributeInstance> descriptionToAttributeInstanceMap = new LowerStringMap();
+    protected final Map<String, IAttributeInstance> descriptionToAttributeInstanceMap = new LowerStringMap<>();
     private final Set<IAttributeInstance> attributeInstanceSet = Sets.newHashSet();
 
     public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute) {

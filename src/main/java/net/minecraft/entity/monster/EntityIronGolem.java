@@ -40,7 +40,7 @@ public class EntityIronGolem extends EntityGolem {
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIDefendVillage(this));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-        targetTasks.addTask(3, new EntityIronGolem.AINearestAttackableTargetNonCreeper(this, EntityLiving.class, 10, false, true, IMob.VISIBLE_MOB_SELECTOR));
+        targetTasks.addTask(3, new EntityIronGolem.AINearestAttackableTargetNonCreeper<>(this, EntityLiving.class, 10, false, true, IMob.VISIBLE_MOB_SELECTOR));
     }
 
     protected void entityInit() {

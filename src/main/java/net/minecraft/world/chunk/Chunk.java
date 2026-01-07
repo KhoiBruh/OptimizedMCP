@@ -71,7 +71,7 @@ public class Chunk {
         heightMap = new int[256];
 
         for (int i = 0; i < entityLists.length; ++i) {
-            entityLists[i] = new ClassInheritanceMultiMap(Entity.class);
+            entityLists[i] = new ClassInheritanceMultiMap<>(Entity.class);
         }
 
         Arrays.fill(precipitationHeightMap, -999);

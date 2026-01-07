@@ -44,7 +44,7 @@ public abstract class World implements IBlockAccess {
     public final Profiler theProfiler;
     public final boolean isRemote;
     protected final List<Entity> unloadedEntityList = Lists.newArrayList();
-    protected final IntHashMap<Entity> entitiesById = new IntHashMap();
+    protected final IntHashMap<Entity> entitiesById = new IntHashMap<>();
     protected final int DIST_HASH_MAGIC = 1013904223;
     protected final ISaveHandler saveHandler;
     private final List<TileEntity> addedTileEntityList = Lists.newArrayList();
