@@ -203,7 +203,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         if (getEquipmentInSlot(4) == null) {
             Calendar calendar = worldObj.getCurrentDate();
 
-            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && rand.nextFloat() < 0.25F) {
+            if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && rand.nextFloat() < 0.25F) {
                 setCurrentItemOrArmor(4, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.lit_pumpkin : Blocks.pumpkin));
                 equipmentDropChances[4] = 0.0F;
             }

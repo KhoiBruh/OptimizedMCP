@@ -2212,8 +2212,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             String s = null;
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            int i = calendar.get(5);
-            int j = calendar.get(2) + 1;
+            int i = calendar.get(Calendar.DATE);
+            int j = calendar.get(Calendar.MONTH) + 1;
 
             if (i == 8 && j == 4) {
                 s = "Happy birthday, OptiFine!";
