@@ -78,7 +78,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
             lazyloadbase = CLIENT_NIO_EVENTLOOP;
         }
 
-        (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<Channel>() {
+        (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<>() {
             protected void initChannel(Channel p_initChannel_1_) {
                 try {
                     p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -93,7 +93,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
     public static NetworkManager provideLocalClient(SocketAddress address) {
         final NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.CLIENTBOUND);
-        (new Bootstrap()).group(CLIENT_LOCAL_EVENTLOOP.getValue()).handler(new ChannelInitializer<Channel>() {
+        (new Bootstrap()).group(CLIENT_LOCAL_EVENTLOOP.getValue()).handler(new ChannelInitializer<>() {
             protected void initChannel(Channel p_initChannel_1_) {
                 p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
             }
@@ -159,7 +159,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         }
     }
 
-    public void sendPacket(Packet packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
+    @SafeVarargs
+    public final void sendPacket(Packet packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
         if (isChannelOpen()) {
             flushOutboundQueue();
             dispatchPacket(packetIn, ArrayUtils.add(listeners, listener));
@@ -332,6 +333,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         private final Packet packet;
         private final GenericFutureListener<? extends Future<? super Void>>[] futureListeners;
 
+        @SafeVarargs
         public InboundHandlerTuplePacketListener(Packet inPacket, GenericFutureListener<? extends Future<? super Void>>... inFutureListeners) {
             packet = inPacket;
             futureListeners = inFutureListeners;

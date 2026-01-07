@@ -37,13 +37,13 @@ public class GuiSnooper extends GuiScreen {
         buttonList.add(new GuiButton(2, width / 2 + 2, height - 30, 150, 20, I18n.format("gui.done")));
         boolean flag = mc.getIntegratedServer() != null && mc.getIntegratedServer().getPlayerUsageSnooper() != null;
 
-        for (Entry<String, String> entry : (new TreeMap<String, String>(mc.getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
+        for (Entry<String, String> entry : (new TreeMap<>(mc.getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
             field_146604_g.add((flag ? "C " : "") + entry.getKey());
             field_146609_h.add(fontRendererObj.trimStringToWidth(entry.getValue(), width - 220));
         }
 
         if (flag) {
-            for (Entry<String, String> entry1 : (new TreeMap<String, String>(mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
+            for (Entry<String, String> entry1 : (new TreeMap<>(mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet()) {
                 field_146604_g.add("S " + entry1.getKey());
                 field_146609_h.add(fontRendererObj.trimStringToWidth(entry1.getValue(), width - 220));
             }

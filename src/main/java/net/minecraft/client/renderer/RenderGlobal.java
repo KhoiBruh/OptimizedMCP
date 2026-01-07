@@ -266,12 +266,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 entityOutlineShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), resourcelocation);
                 entityOutlineShader.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
                 entityOutlineFramebuffer = entityOutlineShader.getFramebufferRaw("final");
-            } catch (IOException ioexception) {
+            } catch (IOException | JsonSyntaxException ioexception) {
                 logger.warn("Failed to load shader: " + resourcelocation, ioexception);
-                entityOutlineShader = null;
-                entityOutlineFramebuffer = null;
-            } catch (JsonSyntaxException jsonsyntaxexception) {
-                logger.warn("Failed to load shader: " + resourcelocation, jsonsyntaxexception);
                 entityOutlineShader = null;
                 entityOutlineFramebuffer = null;
             }

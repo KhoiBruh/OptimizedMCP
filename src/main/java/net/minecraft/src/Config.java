@@ -1461,7 +1461,7 @@ public class Config {
     }
 
     public static boolean equals(Object p_equals_0_, Object p_equals_1_) {
-        return p_equals_0_ == p_equals_1_ || (p_equals_0_ != null && p_equals_0_.equals(p_equals_1_));
+        return Objects.equals(p_equals_0_, p_equals_1_);
     }
 
     public static boolean equalsOne(Object p_equalsOne_0_, Object[] p_equalsOne_1_) {
