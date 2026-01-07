@@ -766,8 +766,7 @@ public class WorldRenderer {
     }
 
     private int getBufferQuadSize() {
-        int i = rawIntBuffer.capacity() * 4 / (vertexFormat.getIntegerSize() * 4);
-        return i;
+        return rawIntBuffer.capacity() * 4 / (vertexFormat.getIntegerSize() * 4);
     }
 
     public RenderEnv getRenderEnv(IBlockState p_getRenderEnv_1_, BlockPos p_getRenderEnv_2_) {

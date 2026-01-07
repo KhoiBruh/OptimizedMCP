@@ -225,8 +225,7 @@ public class Config {
 
     public static String getOpenGlVersionString() {
         GlVersion glversion = getGlVersion();
-        String s = glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
-        return s;
+        return glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
     }
 
     private static GlVersion getGlVersionLwjgl() {
@@ -362,8 +361,7 @@ public class Config {
 
         try {
             String s = GL11.glGetString(GL11.GL_EXTENSIONS);
-            String[] astring1 = s.split(" ");
-            return astring1;
+            return s.split(" ");
         } catch (Exception exception) {
             exception.printStackTrace();
             return new String[0];
@@ -827,9 +825,8 @@ public class Config {
             list1.add(resourcepackrepository.getResourcePackInstance());
         }
 
-        IResourcePack[] airesourcepack = (IResourcePack[]) list1
+        return (IResourcePack[]) list1
                 .toArray(new IResourcePack[0]);
-        return airesourcepack;
     }
 
     public static String getResourcePackNames() {
@@ -847,8 +844,7 @@ public class Config {
                     astring[i] = airesourcepack[i].getPackName();
                 }
 
-                String s = arrayToString(astring);
-                return s;
+                return arrayToString(astring);
             }
         }
     }
@@ -1085,8 +1081,7 @@ public class Config {
             list.add(s);
         }
 
-        String[] astring = (String[]) list.toArray(new String[0]);
-        return astring;
+        return (String[]) list.toArray(new String[0]);
     }
 
     public static DisplayMode getDesktopDisplayMode() {
@@ -1157,8 +1152,7 @@ public class Config {
             }
         }
 
-        DisplayMode[] adisplaymode = (DisplayMode[]) list.toArray(new DisplayMode[0]);
-        return adisplaymode;
+        return (DisplayMode[]) list.toArray(new DisplayMode[0]);
     }
 
     private static DisplayMode getDisplayMode(DisplayMode[] p_getDisplayMode_0_, DisplayMode p_getDisplayMode_1_) {
@@ -1300,8 +1294,7 @@ public class Config {
             String s = bufferedreader.readLine();
 
             if (s == null) {
-                String[] astring = (String[]) list.toArray(new String[0]);
-                return astring;
+                return (String[]) list.toArray(new String[0]);
             }
 
             list.add(s);
@@ -1344,8 +1337,7 @@ public class Config {
 
             if (i < 0) {
                 p_readAll_0_.close();
-                byte[] abyte1 = bytearrayoutputstream.toByteArray();
-                return abyte1;
+                return bytearrayoutputstream.toByteArray();
             }
 
             bytearrayoutputstream.write(abyte, 0, i);
@@ -1464,8 +1456,7 @@ public class Config {
         if (gameSettings == null) {
             return 10;
         } else {
-            int i = gameSettings.renderDistanceChunks;
-            return i;
+            return gameSettings.renderDistanceChunks;
         }
     }
 
@@ -1723,8 +1714,7 @@ public class Config {
                                                  Object p_removeObjectFromArray_1_) {
         List list = new ArrayList(Arrays.asList(p_removeObjectFromArray_0_));
         list.remove(p_removeObjectFromArray_1_);
-        Object[] aobject = collectionToArray(list, p_removeObjectFromArray_0_.getClass().getComponentType());
-        return aobject;
+        return collectionToArray(list, p_removeObjectFromArray_0_.getClass().getComponentType());
     }
 
     public static Object[] collectionToArray(Collection p_collectionToArray_0_, Class p_collectionToArray_1_) {
@@ -1776,8 +1766,7 @@ public class Config {
                     k = 1;
                 }
 
-                long l = (long) (1.0D / (double) k * 1.0E9D);
-                long i1 = l;
+                long i1 = (long) (1.0D / (double) k * 1.0E9D);
                 long j1 = 0L;
 
                 for (int k1 = MathHelper.normalizeAngle(i - 1, along.length); k1 != j
@@ -1877,8 +1866,7 @@ public class Config {
                 if (bufferedimage == null) {
                     return p_getMojangLogoTexture_0_;
                 } else {
-                    DynamicTexture dynamictexture = new DynamicTexture(bufferedimage);
-                    return dynamictexture;
+                    return new DynamicTexture(bufferedimage);
                 }
             }
         } catch (Exception exception) {

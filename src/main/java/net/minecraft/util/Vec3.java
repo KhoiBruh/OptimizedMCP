@@ -117,18 +117,16 @@ public record Vec3(double xCoord, double yCoord, double zCoord) {
     public Vec3 rotatePitch(float pitch) {
         float f = MathHelper.cos(pitch);
         float f1 = MathHelper.sin(pitch);
-        double d0 = xCoord;
         double d1 = yCoord * (double) f + zCoord * (double) f1;
         double d2 = zCoord * (double) f - yCoord * (double) f1;
-        return new Vec3(d0, d1, d2);
+        return new Vec3(xCoord, d1, d2);
     }
 
     public Vec3 rotateYaw(float yaw) {
         float f = MathHelper.cos(yaw);
         float f1 = MathHelper.sin(yaw);
         double d0 = xCoord * (double) f + zCoord * (double) f1;
-        double d1 = yCoord;
         double d2 = zCoord * (double) f - xCoord * (double) f1;
-        return new Vec3(d0, d1, d2);
+        return new Vec3(d0, yCoord, d2);
     }
 }

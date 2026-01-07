@@ -327,8 +327,6 @@ public class TextureAtlasSprite {
             framesTextureData.add(aint);
         } else {
             int j1 = j / i;
-            int l1 = i;
-            int l = i;
             height = width;
 
             if (meta.getFrameCount() > 0) {
@@ -342,7 +340,7 @@ public class TextureAtlasSprite {
                     }
 
                     allocateFrameTextureData(i1);
-                    framesTextureData.set(i1, getFrameTextureData(aint, l1, l, i1));
+                    framesTextureData.set(i1, getFrameTextureData(aint, i, i, i1));
                 }
 
                 animationMetadata = meta;
@@ -350,7 +348,7 @@ public class TextureAtlasSprite {
                 List<AnimationFrame> list = Lists.newArrayList();
 
                 for (int j2 = 0; j2 < j1; ++j2) {
-                    framesTextureData.add(getFrameTextureData(aint, l1, l, j2));
+                    framesTextureData.add(getFrameTextureData(aint, i, i, j2));
                     list.add(new AnimationFrame(j2, -1));
                 }
 

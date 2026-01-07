@@ -775,7 +775,6 @@ public class ModelBakery {
     }
 
     public ModelBlock getModelBlock(ResourceLocation p_getModelBlock_1_) {
-        ModelBlock modelblock = models.get(p_getModelBlock_1_);
-        return modelblock;
+        return models.get(p_getModelBlock_1_);
     }
 }

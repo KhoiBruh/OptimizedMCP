@@ -100,8 +100,7 @@ public class EntityAITasks {
     }
 
     private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry) {
-        boolean flag = taskEntry.action.continueExecuting();
-        return flag;
+        return taskEntry.action.continueExecuting();
     }
 
     private boolean canUse(EntityAITasks.EntityAITaskEntry taskEntry) {

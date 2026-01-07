@@ -194,12 +194,10 @@ public class ChunkRenderDispatcher {
                         queueChunkUpdates.remove(chunkcompiletaskgenerator);
                     }
                 });
-                boolean flag2 = queueChunkUpdates.offer(chunkcompiletaskgenerator);
-                return flag2;
+                return queueChunkUpdates.offer(chunkcompiletaskgenerator);
             }
 
-            boolean flag = true;
-            flag1 = flag;
+            flag1 = true;
         } finally {
             chunkRenderer.getLockCompileTask().unlock();
         }

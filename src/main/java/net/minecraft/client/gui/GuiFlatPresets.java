@@ -135,8 +135,7 @@ public class GuiFlatPresets extends GuiScreen {
     }
 
     public void func_146426_g() {
-        boolean flag = func_146430_p();
-        field_146434_t.enabled = flag;
+        field_146434_t.enabled = func_146430_p();
     }
 
     private boolean func_146430_p() {

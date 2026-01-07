@@ -283,8 +283,7 @@ public class RenderChunk {
 
         try {
             if (compileTask != null && compileTask.getStatus() == ChunkCompileTaskGenerator.Status.PENDING) {
-                ChunkCompileTaskGenerator chunkcompiletaskgenerator2 = null;
-                return chunkcompiletaskgenerator2;
+                return null;
             }
 
             if (compileTask != null && compileTask.getStatus() != ChunkCompileTaskGenerator.Status.DONE) {
@@ -294,8 +293,7 @@ public class RenderChunk {
 
             compileTask = new ChunkCompileTaskGenerator(this, ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY);
             compileTask.setCompiledChunk(compiledChunk);
-            ChunkCompileTaskGenerator chunkcompiletaskgenerator = compileTask;
-            chunkcompiletaskgenerator1 = chunkcompiletaskgenerator;
+            chunkcompiletaskgenerator1 = compileTask;
         } finally {
             lockCompileTask.unlock();
         }
@@ -514,8 +512,7 @@ public class RenderChunk {
         BlockPos blockpos1 = p_makeChunkCacheOF_1_.add(16, 16, 16);
         ChunkCache chunkcache = createRegionRenderCache(world, blockpos, blockpos1, 1);
 
-        ChunkCacheOF chunkcacheof = new ChunkCacheOF(chunkcache, blockpos, blockpos1, 1);
-        return chunkcacheof;
+        return new ChunkCacheOF(chunkcache, blockpos, blockpos1, 1);
     }
 
     public RenderChunk getRenderChunkOffset16(ViewFrustum p_getRenderChunkOffset16_1_,

@@ -67,8 +67,7 @@ public class IntegratedServer extends MinecraftServer {
             NBTTagCompound nbttagcompound = worldinfo.getPlayerNBTTagCompound();
 
             if (nbttagcompound != null && nbttagcompound.hasKey("Dimension")) {
-                int i = nbttagcompound.getInteger("Dimension");
-                PacketThreadUtil.lastDimensionId = i;
+                PacketThreadUtil.lastDimensionId = nbttagcompound.getInteger("Dimension");
                 mc.loadingScreen.setLoadingProgress(-1);
             }
         }

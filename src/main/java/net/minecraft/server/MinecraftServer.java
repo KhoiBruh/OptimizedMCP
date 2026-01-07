@@ -814,16 +814,15 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         if (worldServers != null) {
             for (WorldServer worldServer : worldServers) {
                 if (worldServer != null) {
-                    WorldServer worldserver = worldServer;
-                    WorldInfo worldinfo = worldserver.getWorldInfo();
-                    playerSnooper.addClientStat("world[" + i + "][dimension]", worldserver.provider.getDimensionId());
+                    WorldInfo worldinfo = worldServer.getWorldInfo();
+                    playerSnooper.addClientStat("world[" + i + "][dimension]", worldServer.provider.getDimensionId());
                     playerSnooper.addClientStat("world[" + i + "][mode]", worldinfo.getGameType());
-                    playerSnooper.addClientStat("world[" + i + "][difficulty]", worldserver.getDifficulty());
+                    playerSnooper.addClientStat("world[" + i + "][difficulty]", worldServer.getDifficulty());
                     playerSnooper.addClientStat("world[" + i + "][hardcore]", worldinfo.isHardcoreModeEnabled());
                     playerSnooper.addClientStat("world[" + i + "][generator_name]", worldinfo.getTerrainType().getWorldTypeName());
                     playerSnooper.addClientStat("world[" + i + "][generator_version]", worldinfo.getTerrainType().getGeneratorVersion());
                     playerSnooper.addClientStat("world[" + i + "][height]", buildLimit);
-                    playerSnooper.addClientStat("world[" + i + "][chunks_loaded]", worldserver.getChunkProvider().getLoadedChunkCount());
+                    playerSnooper.addClientStat("world[" + i + "][chunks_loaded]", worldServer.getChunkProvider().getLoadedChunkCount());
                     ++i;
                 }
             }

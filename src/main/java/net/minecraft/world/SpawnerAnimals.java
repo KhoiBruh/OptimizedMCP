@@ -199,11 +199,10 @@ public final class SpawnerAnimals {
                     int l4 = enumcreaturetype.getMaxNumberOfCreature() * countChunkPos / MOB_COUNT_DIV;
 
                     if (k4 <= l4) {
-                        Collection<ChunkCoordIntPair> collection = eligibleChunksForSpawning;
 
                         label561:
 
-                        for (ChunkCoordIntPair chunkcoordintpair1 : collection) {
+                        for (ChunkCoordIntPair chunkcoordintpair1 : eligibleChunksForSpawning) {
                             BlockPos blockpos = getRandomChunkPosition(worldServerIn, chunkcoordintpair1.chunkXPos,
                                     chunkcoordintpair1.chunkZPos, blockposm);
                             int k1 = blockpos.getX();

@@ -162,9 +162,7 @@ public class ResourcePackRepository {
                     String s1 = Hashing.sha256().hashBytes(Files.toByteArray(file1)).toString();
 
                     if (s1.equals(hash)) {
-                        ListenableFuture listenablefuture2 = setResourcePackInstance(file1);
-                        ListenableFuture listenablefuture3 = listenablefuture2;
-                        return listenablefuture3;
+                        return setResourcePackInstance(file1);
                     }
 
                     logger.warn("File " + file1 + " had wrong hash (expected " + hash + ", found " + s1 + "). Deleting it.");
@@ -196,9 +194,7 @@ public class ResourcePackRepository {
                     settablefuture.setException(p_onFailure_1_);
                 }
             }, Executors.newVirtualThreadPerTaskExecutor());
-            ListenableFuture listenablefuture = downloadingPacks;
-            ListenableFuture listenablefuture11 = listenablefuture;
-            return listenablefuture11;
+            return downloadingPacks;
         } finally {
             lock.unlock();
         }
