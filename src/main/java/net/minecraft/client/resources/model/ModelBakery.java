@@ -222,9 +222,8 @@ public class ModelBakery {
     }
 
     private void loadVariantModels() {
-        for (ModelResourceLocation modelresourcelocation : variants.keySet()) {
-            for (ModelBlockDefinition.Variant modelblockdefinition$variant : variants
-                    .get(modelresourcelocation).getVariants()) {
+        for (Entry<ModelResourceLocation, ModelBlockDefinition.Variants> entry : variants.entrySet()) {
+            for (ModelBlockDefinition.Variant modelblockdefinition$variant : entry.getValue().getVariants()) {
                 ResourceLocation resourcelocation = modelblockdefinition$variant.getModelLocation();
 
                 if (models.get(resourcelocation) == null) {
@@ -232,7 +231,7 @@ public class ModelBakery {
                         ModelBlock modelblock = loadModel(resourcelocation);
                         models.put(resourcelocation, modelblock);
                     } catch (Exception exception) {
-                        LOGGER.warn("Unable to load block model: '{}' for variant: '{}'", resourcelocation, modelresourcelocation, exception);
+                        LOGGER.warn("Unable to load block model: '{}' for variant: '{}'", resourcelocation, entry.getKey(), exception);
                     }
                 }
             }
@@ -471,12 +470,12 @@ public class ModelBakery {
     }
 
     private void bakeBlockModels() {
-        for (ModelResourceLocation modelresourcelocation : variants.keySet()) {
+        for (Entry<ModelResourceLocation, ModelBlockDefinition.Variants> entry : variants.entrySet()) {
+            ModelResourceLocation modelresourcelocation = entry.getKey();
             WeightedBakedModel.Builder weightedbakedmodel$builder = new WeightedBakedModel.Builder();
             int i = 0;
 
-            for (ModelBlockDefinition.Variant modelblockdefinition$variant : variants
-                    .get(modelresourcelocation).getVariants()) {
+            for (ModelBlockDefinition.Variant modelblockdefinition$variant : entry.getValue().getVariants()) {
                 ModelBlock modelblock = models.get(modelblockdefinition$variant.getModelLocation());
 
                 if (modelblock != null && modelblock.isResolved()) {
@@ -594,9 +593,9 @@ public class ModelBakery {
         Deque<ResourceLocation> deque = Queues.newArrayDeque();
         Set<ResourceLocation> set = Sets.newHashSet();
 
-        for (ResourceLocation resourcelocation : models.keySet()) {
-            set.add(resourcelocation);
-            ResourceLocation resourcelocation1 = models.get(resourcelocation).getParentLocation();
+        for (Entry<ResourceLocation, ModelBlock> entry : models.entrySet()) {
+            set.add(entry.getKey());
+            ResourceLocation resourcelocation1 = entry.getValue().getParentLocation();
 
             if (resourcelocation1 != null) {
                 deque.add(resourcelocation1);

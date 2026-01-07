@@ -203,8 +203,7 @@ public class ViewFrustum {
     }
 
     public void deleteVboRegions() {
-        for (ChunkCoordIntPair chunkcoordintpair : mapVboRegions.keySet()) {
-            VboRegion[] avboregion = mapVboRegions.get(chunkcoordintpair);
+        for (VboRegion[] avboregion : mapVboRegions.values()) {
 
             for (int i = 0; i < avboregion.length; ++i) {
                 VboRegion vboregion = avboregion[i];

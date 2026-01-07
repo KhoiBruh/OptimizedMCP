@@ -19,10 +19,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 public class Village {
     private final List<VillageDoorInfo> villageDoorInfoList = Lists.newArrayList();
@@ -396,14 +393,14 @@ public class Village {
         compound.setTag("Doors", nbttaglist);
         NBTTagList nbttaglist1 = new NBTTagList();
 
-        for (String s : playerReputation.keySet()) {
+        for (Map.Entry<String, Integer> entry : playerReputation.entrySet()) {
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             PlayerProfileCache playerprofilecache = MinecraftServer.getServer().getPlayerProfileCache();
-            GameProfile gameprofile = playerprofilecache.getGameProfileForUsername(s);
+            GameProfile gameprofile = playerprofilecache.getGameProfileForUsername(entry.getKey());
 
             if (gameprofile != null) {
                 nbttagcompound1.setString("UUID", gameprofile.getId().toString());
-                nbttagcompound1.setInteger("S", playerReputation.get(s));
+                nbttagcompound1.setInteger("S", entry.getValue());
                 nbttaglist1.appendTag(nbttagcompound1);
             }
         }

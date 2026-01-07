@@ -119,9 +119,10 @@ public class BlockState {
             } else {
                 Table<IProperty, Comparable, IBlockState> table = HashBasedTable.create();
 
-                for (IProperty<? extends Comparable> iproperty : properties.keySet()) {
+                for (Map.Entry<IProperty, Comparable> entry : properties.entrySet()) {
+                    IProperty<? extends Comparable> iproperty = entry.getKey();
                     for (Comparable comparable : iproperty.getAllowedValues()) {
-                        if (comparable != properties.get(iproperty)) {
+                        if (comparable != entry.getValue()) {
                             table.put(iproperty, comparable, map.get(getPropertiesWithValue(iproperty, comparable)));
                         }
                     }

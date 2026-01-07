@@ -443,9 +443,10 @@ public class PlayerSelector {
     public static Map<String, Integer> func_96560_a(Map<String, String> p_96560_0_) {
         Map<String, Integer> map = Maps.newHashMap();
 
-        for (String s : p_96560_0_.keySet()) {
+        for (Entry<String, String> entry : p_96560_0_.entrySet()) {
+            String s = entry.getKey();
             if (s.startsWith("score_") && s.length() > "score_".length()) {
-                map.put(s.substring("score_".length()), MathHelper.parseIntWithDefault(p_96560_0_.get(s), 1));
+                map.put(s.substring("score_".length()), MathHelper.parseIntWithDefault(entry.getValue(), 1));
             }
         }
 

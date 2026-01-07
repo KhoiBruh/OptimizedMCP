@@ -146,9 +146,9 @@ public class MapStorage {
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-                    for (String s : idCounts.keySet()) {
-                        short short1 = idCounts.get(s);
-                        nbttagcompound.setShort(s, short1);
+                    for (Map.Entry<String, Short> entry : idCounts.entrySet()) {
+                        short short1 = entry.getValue();
+                        nbttagcompound.setShort(entry.getKey(), short1);
                     }
 
                     DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));

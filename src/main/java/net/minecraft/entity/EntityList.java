@@ -208,14 +208,13 @@ public class EntityList {
     }
 
     public static List<String> getEntityNameList() {
-        Set<String> set = stringToClassMapping.keySet();
         List<String> list = Lists.newArrayList();
 
-        for (String s : set) {
-            Class<? extends Entity> oclass = stringToClassMapping.get(s);
+        for (Map.Entry<String, Class<? extends Entity>> entry : stringToClassMapping.entrySet()) {
+            Class<? extends Entity> oclass = entry.getValue();
 
             if ((oclass.getModifiers() & 1024) != 1024) {
-                list.add(s);
+                list.add(entry.getKey());
             }
         }
 

@@ -165,8 +165,8 @@ public enum EnumConnectionState {
 
             STATES_BY_ID[i - field_181136_e] = enumconnectionstate;
 
-            for (EnumPacketDirection enumpacketdirection : enumconnectionstate.directionMaps.keySet()) {
-                for (Class<? extends Packet> oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values()) {
+            for (BiMap<Integer, Class<? extends Packet>> integerClassBiMap : enumconnectionstate.directionMaps.values()) {
+                for (Class<? extends Packet> oclass : (integerClassBiMap).values()) {
                     if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != enumconnectionstate) {
                         throw new Error("Packet " + oclass + " is already assigned to protocol " + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + enumconnectionstate);
                     }

@@ -67,17 +67,18 @@ public class EnchantmentHelper {
     public static void setEnchantments(Map<Integer, Integer> enchMap, ItemStack stack) {
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i : enchMap.keySet()) {
+        for (Map.Entry<Integer, Integer> entry : enchMap.entrySet()) {
+            int i = entry.getKey();
             Enchantment enchantment = Enchantment.getEnchantmentById(i);
 
             if (enchantment != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setShort("id", (short) i);
-                nbttagcompound.setShort("lvl", (short) enchMap.get(i).intValue());
+                nbttagcompound.setShort("lvl", (short) entry.getValue().intValue());
                 nbttaglist.appendTag(nbttagcompound);
 
                 if (stack.getItem() == Items.enchanted_book) {
-                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(i)));
+                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, entry.getValue()));
                 }
             }
         }

@@ -2,6 +2,7 @@ package net.minecraft.world;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -58,9 +59,9 @@ public class GameRules {
     public NBTTagCompound writeToNBT() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-        for (String s : theGameRules.keySet()) {
-            GameRules.Value gamerules$value = theGameRules.get(s);
-            nbttagcompound.setString(s, gamerules$value.getString());
+        for (Map.Entry<String, Value> entry : theGameRules.entrySet()) {
+            GameRules.Value gamerules$value = entry.getValue();
+            nbttagcompound.setString(entry.getKey(), gamerules$value.getString());
         }
 
         return nbttagcompound;

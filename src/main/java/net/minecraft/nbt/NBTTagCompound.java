@@ -48,9 +48,9 @@ public class NBTTagCompound extends NBTBase {
     }
 
     void write(DataOutput output) throws IOException {
-        for (String s : tagMap.keySet()) {
-            NBTBase nbtbase = tagMap.get(s);
-            writeEntry(s, nbtbase, output);
+        for (Entry<String, NBTBase> entry : tagMap.entrySet()) {
+            NBTBase nbtbase = entry.getValue();
+            writeEntry(entry.getKey(), nbtbase, output);
         }
 
         output.writeByte(0);
@@ -288,8 +288,8 @@ public class NBTTagCompound extends NBTBase {
     public NBTBase copy() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-        for (String s : tagMap.keySet()) {
-            nbttagcompound.setTag(s, tagMap.get(s).copy());
+        for (Entry<String, NBTBase> entry : tagMap.entrySet()) {
+            nbttagcompound.setTag(entry.getKey(), entry.getValue().copy());
         }
 
         return nbttagcompound;
@@ -309,8 +309,9 @@ public class NBTTagCompound extends NBTBase {
     }
 
     public void merge(NBTTagCompound other) {
-        for (String s : other.tagMap.keySet()) {
-            NBTBase nbtbase = other.tagMap.get(s);
+        for (Entry<String, NBTBase> entry : other.tagMap.entrySet()) {
+            String s = entry.getKey();
+            NBTBase nbtbase = entry.getValue();
 
             if (nbtbase.getId() == 10) {
                 if (hasKey(s, 10)) {

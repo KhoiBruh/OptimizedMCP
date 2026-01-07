@@ -186,12 +186,13 @@ public class ContainerRepair extends Container {
 
                     Map<Integer, Integer> map1 = EnchantmentHelper.getEnchantments(itemstack2);
 
-                    for (int i5 : map1.keySet()) {
+                    for (Map.Entry<Integer, Integer> entry : map1.entrySet()) {
+                        int i5 = entry.getKey();
                         Enchantment enchantment = Enchantment.getEnchantmentById(i5);
 
                         if (enchantment != null) {
                             int k5 = map.getOrDefault(i5, 0);
-                            int l3 = map1.get(i5);
+                            int l3 = entry.getValue();
                             int i6;
 
                             if (k5 == l3) {
