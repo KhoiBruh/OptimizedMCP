@@ -809,7 +809,7 @@ public abstract class Entity implements ICommandSender {
             float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
             float f1 = (float) (blockpos.getY() + 1) - f;
             boolean flag = d0 < (double) f1;
-            return (flag || !(this instanceof EntityPlayer)) && flag;
+            return flag;
         } else {
             return false;
         }

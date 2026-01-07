@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TileEntityHopper extends TileEntityLockable implements IHopper, ITickable {
@@ -514,8 +515,6 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public void clear() {
-        for (int i = 0; i < inventory.length; ++i) {
-            inventory[i] = null;
-        }
+        Arrays.fill(inventory, null);
     }
 }

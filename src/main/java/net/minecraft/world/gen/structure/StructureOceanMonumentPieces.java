@@ -589,10 +589,6 @@ public class StructureOceanMonumentPieces {
             coordBaseMode = p_i45599_4_;
 
             switch (coordBaseMode) {
-                case NORTH:
-                case SOUTH:
-                    boundingBox = new StructureBoundingBox(p_i45599_2_, 39, p_i45599_3_, p_i45599_2_ + 58 - 1, 61, p_i45599_3_ + 58 - 1);
-                    break;
 
                 default:
                     boundingBox = new StructureBoundingBox(p_i45599_2_, 39, p_i45599_3_, p_i45599_2_ + 58 - 1, 61, p_i45599_3_ + 58 - 1);

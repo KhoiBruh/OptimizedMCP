@@ -972,10 +972,6 @@ public class StructureStrongholdPieces {
             field_143013_d = StructureStrongholdPieces.Stronghold.Door.OPENING;
 
             switch (coordBaseMode) {
-                case NORTH:
-                case SOUTH:
-                    boundingBox = new StructureBoundingBox(p_i2081_3_, 64, p_i2081_4_, p_i2081_3_ + 5 - 1, 74, p_i2081_4_ + 5 - 1);
-                    break;
 
                 default:
                     boundingBox = new StructureBoundingBox(p_i2081_3_, 64, p_i2081_4_, p_i2081_3_ + 5 - 1, 74, p_i2081_4_ + 5 - 1);
@@ -1300,16 +1296,10 @@ public class StructureStrongholdPieces {
         protected StructureComponent getNextComponentX(StructureStrongholdPieces.Stairs2 p_74989_1_, List<StructureComponent> p_74989_2_, Random p_74989_3_, int p_74989_4_, int p_74989_5_) {
             if (coordBaseMode != null) {
                 switch (coordBaseMode) {
-                    case NORTH:
+                    case NORTH, SOUTH:
                         return StructureStrongholdPieces.func_175953_c(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX - 1, boundingBox.minY + p_74989_4_, boundingBox.minZ + p_74989_5_, EnumFacing.WEST, getComponentType());
 
-                    case SOUTH:
-                        return StructureStrongholdPieces.func_175953_c(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX - 1, boundingBox.minY + p_74989_4_, boundingBox.minZ + p_74989_5_, EnumFacing.WEST, getComponentType());
-
-                    case WEST:
-                        return StructureStrongholdPieces.func_175953_c(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX + p_74989_5_, boundingBox.minY + p_74989_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
-
-                    case EAST:
+                    case WEST, EAST:
                         return StructureStrongholdPieces.func_175953_c(p_74989_1_, p_74989_2_, p_74989_3_, boundingBox.minX + p_74989_5_, boundingBox.minY + p_74989_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
                 }
             }
@@ -1320,16 +1310,10 @@ public class StructureStrongholdPieces {
         protected StructureComponent getNextComponentZ(StructureStrongholdPieces.Stairs2 p_74987_1_, List<StructureComponent> p_74987_2_, Random p_74987_3_, int p_74987_4_, int p_74987_5_) {
             if (coordBaseMode != null) {
                 switch (coordBaseMode) {
-                    case NORTH:
+                    case NORTH, SOUTH:
                         return StructureStrongholdPieces.func_175953_c(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.maxX + 1, boundingBox.minY + p_74987_4_, boundingBox.minZ + p_74987_5_, EnumFacing.EAST, getComponentType());
 
-                    case SOUTH:
-                        return StructureStrongholdPieces.func_175953_c(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.maxX + 1, boundingBox.minY + p_74987_4_, boundingBox.minZ + p_74987_5_, EnumFacing.EAST, getComponentType());
-
-                    case WEST:
-                        return StructureStrongholdPieces.func_175953_c(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.minX + p_74987_5_, boundingBox.minY + p_74987_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
-
-                    case EAST:
+                    case WEST, EAST:
                         return StructureStrongholdPieces.func_175953_c(p_74987_1_, p_74987_2_, p_74987_3_, boundingBox.minX + p_74987_5_, boundingBox.minY + p_74987_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
                 }
             }

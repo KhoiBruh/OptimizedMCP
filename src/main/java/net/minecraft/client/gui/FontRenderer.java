@@ -127,9 +127,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
     public void onResourceManagerReload(IResourceManager resourceManager) {
         locationFontTexture = FontUtils.getHdFontLocation(locationFontTextureBase);
 
-        for (int i = 0; i < unicodePageLocations.length; ++i) {
-            unicodePageLocations[i] = null;
-        }
+        Arrays.fill(unicodePageLocations, null);
 
         readFontTexture();
         readGlyphSizes();

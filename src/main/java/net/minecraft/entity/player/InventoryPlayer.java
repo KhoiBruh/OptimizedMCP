@@ -15,6 +15,8 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ReportedException;
 
+import java.util.Arrays;
+
 public class InventoryPlayer implements IInventory {
     public ItemStack[] mainInventory = new ItemStack[36];
     public ItemStack[] armorInventory = new ItemStack[4];
@@ -218,11 +220,7 @@ public class InventoryPlayer implements IInventory {
                 }
             }
 
-            int k = i;
-
-            if (i > mainInventory[j].getMaxStackSize() - mainInventory[j].stackSize) {
-                k = mainInventory[j].getMaxStackSize() - mainInventory[j].stackSize;
-            }
+            int k = Math.min(i, mainInventory[j].getMaxStackSize() - mainInventory[j].stackSize);
 
             if (k > getInventoryStackLimit() - mainInventory[j].stackSize) {
                 k = getInventoryStackLimit() - mainInventory[j].stackSize;
@@ -580,12 +578,8 @@ public class InventoryPlayer implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < mainInventory.length; ++i) {
-            mainInventory[i] = null;
-        }
+        Arrays.fill(mainInventory, null);
 
-        for (int j = 0; j < armorInventory.length; ++j) {
-            armorInventory[j] = null;
-        }
+        Arrays.fill(armorInventory, null);
     }
 }

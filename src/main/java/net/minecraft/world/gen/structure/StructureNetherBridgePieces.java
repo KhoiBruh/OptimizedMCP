@@ -448,10 +448,6 @@ public class StructureNetherBridgePieces {
             coordBaseMode = EnumFacing.Plane.HORIZONTAL.random(p_i2042_1_);
 
             switch (coordBaseMode) {
-                case NORTH:
-                case SOUTH:
-                    boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
-                    break;
 
                 default:
                     boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
@@ -907,16 +903,10 @@ public class StructureNetherBridgePieces {
         protected StructureComponent getNextComponentX(StructureNetherBridgePieces.Start p_74961_1_, List<StructureComponent> p_74961_2_, Random p_74961_3_, int p_74961_4_, int p_74961_5_, boolean p_74961_6_) {
             if (coordBaseMode != null) {
                 switch (coordBaseMode) {
-                    case NORTH:
+                    case NORTH, SOUTH:
                         return func_175870_a(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX - 1, boundingBox.minY + p_74961_4_, boundingBox.minZ + p_74961_5_, EnumFacing.WEST, getComponentType(), p_74961_6_);
 
-                    case SOUTH:
-                        return func_175870_a(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX - 1, boundingBox.minY + p_74961_4_, boundingBox.minZ + p_74961_5_, EnumFacing.WEST, getComponentType(), p_74961_6_);
-
-                    case WEST:
-                        return func_175870_a(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX + p_74961_5_, boundingBox.minY + p_74961_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType(), p_74961_6_);
-
-                    case EAST:
+                    case WEST, EAST:
                         return func_175870_a(p_74961_1_, p_74961_2_, p_74961_3_, boundingBox.minX + p_74961_5_, boundingBox.minY + p_74961_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType(), p_74961_6_);
                 }
             }
@@ -927,16 +917,10 @@ public class StructureNetherBridgePieces {
         protected StructureComponent getNextComponentZ(StructureNetherBridgePieces.Start p_74965_1_, List<StructureComponent> p_74965_2_, Random p_74965_3_, int p_74965_4_, int p_74965_5_, boolean p_74965_6_) {
             if (coordBaseMode != null) {
                 switch (coordBaseMode) {
-                    case NORTH:
+                    case NORTH, SOUTH:
                         return func_175870_a(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.maxX + 1, boundingBox.minY + p_74965_4_, boundingBox.minZ + p_74965_5_, EnumFacing.EAST, getComponentType(), p_74965_6_);
 
-                    case SOUTH:
-                        return func_175870_a(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.maxX + 1, boundingBox.minY + p_74965_4_, boundingBox.minZ + p_74965_5_, EnumFacing.EAST, getComponentType(), p_74965_6_);
-
-                    case WEST:
-                        return func_175870_a(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.minX + p_74965_5_, boundingBox.minY + p_74965_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType(), p_74965_6_);
-
-                    case EAST:
+                    case WEST, EAST:
                         return func_175870_a(p_74965_1_, p_74965_2_, p_74965_3_, boundingBox.minX + p_74965_5_, boundingBox.minY + p_74965_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType(), p_74965_6_);
                 }
             }

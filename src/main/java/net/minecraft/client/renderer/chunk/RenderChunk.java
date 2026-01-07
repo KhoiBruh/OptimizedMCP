@@ -30,10 +30,7 @@ import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 
 import java.nio.FloatBuffer;
-import java.util.BitSet;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class RenderChunk {
@@ -383,9 +380,7 @@ public class RenderChunk {
         boundingBox = new AxisAlignedBB(pos, pos.add(16, 16, 16));
         initModelviewMatrix();
 
-        for (int j = 0; j < positionOffsets16.length; ++j) {
-            positionOffsets16[j] = null;
-        }
+        Arrays.fill(positionOffsets16, null);
 
         renderChunksOffset16Updated = false;
         renderChunkNeighboursUpated = false;

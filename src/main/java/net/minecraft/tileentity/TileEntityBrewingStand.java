@@ -308,8 +308,6 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     public void clear() {
-        for (int i = 0; i < brewingItemStacks.length; ++i) {
-            brewingItemStacks[i] = null;
-        }
+        Arrays.fill(brewingItemStacks, null);
     }
 }

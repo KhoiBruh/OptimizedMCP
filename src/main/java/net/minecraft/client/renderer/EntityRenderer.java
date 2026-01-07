@@ -1676,11 +1676,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             l2 = j2;
                         }
 
-                        int i3 = j2;
-
-                        if (j2 < l) {
-                            i3 = l;
-                        }
+                        int i3 = Math.max(j2, l);
 
                         if (k2 != l2) {
                             random
@@ -1724,7 +1720,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                         .lightmap(k3, l3).endVertex();
                             } else {
                                 if (j1 != 1) {
-                                    if (j1 >= 0) {
+                                    if (j1 == 0) {
                                         tessellator.draw();
                                     }
 

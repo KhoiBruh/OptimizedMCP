@@ -88,7 +88,7 @@ public class EntityAIAttackOnCollide extends EntityAIBase {
 
         attackTick = Math.max(attackTick - 1, 0);
 
-        if (d0 <= d1 && attackTick <= 0) {
+        if (d0 <= d1 && attackTick == 0) {
             attackTick = 20;
 
             if (attacker.getHeldItem() != null) {

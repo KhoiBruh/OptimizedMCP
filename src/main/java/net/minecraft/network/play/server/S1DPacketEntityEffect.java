@@ -20,11 +20,7 @@ public class S1DPacketEntityEffect implements Packet<INetHandlerPlayClient> {
         effectId = (byte) (effect.getPotionID() & 255);
         amplifier = (byte) (effect.getAmplifier() & 255);
 
-        if (effect.getDuration() > 32767) {
-            duration = 32767;
-        } else {
-            duration = effect.getDuration();
-        }
+        duration = Math.min(effect.getDuration(), 32767);
 
         hideParticles = (byte) (effect.getIsShowParticles() ? 1 : 0);
     }

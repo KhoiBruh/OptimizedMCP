@@ -16,6 +16,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
+import java.util.Arrays;
+
 public class TileEntityChest extends TileEntityLockable implements ITickable, IInventory {
     public boolean adjacentChestChecked;
     public TileEntityChest adjacentChestZNeg;
@@ -370,8 +372,6 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
     }
 
     public void clear() {
-        for (int i = 0; i < chestContents.length; ++i) {
-            chestContents[i] = null;
-        }
+        Arrays.fill(chestContents, null);
     }
 }

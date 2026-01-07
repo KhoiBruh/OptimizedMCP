@@ -22,7 +22,7 @@ public class BlockLilyPad extends BlockBush {
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        if (collidingEntity == null || !(collidingEntity instanceof EntityBoat)) {
+        if (!(collidingEntity instanceof EntityBoat)) {
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
     }

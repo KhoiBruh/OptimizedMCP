@@ -66,8 +66,8 @@ public class GuiTextField extends Gui {
     }
 
     public String getSelectedText() {
-        int i = cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
-        int j = cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
+        int i = Math.min(cursorPosition, selectionEnd);
+        int j = Math.max(cursorPosition, selectionEnd);
         return text.substring(i, j);
     }
 
@@ -78,8 +78,8 @@ public class GuiTextField extends Gui {
     public void writeText(String p_146191_1_) {
         String s = "";
         String s1 = ChatAllowedCharacters.filterAllowedCharacters(p_146191_1_);
-        int i = cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
-        int j = cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
+        int i = Math.min(cursorPosition, selectionEnd);
+        int j = Math.max(cursorPosition, selectionEnd);
         int k = maxStringLength - text.length() - (i - j);
         int l;
 

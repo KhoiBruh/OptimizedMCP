@@ -1498,7 +1498,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             return 0;
         } else {
             int i = experienceLevel * 7;
-            return i > 100 ? 100 : i;
+            return Math.min(i, 100);
         }
     }
 

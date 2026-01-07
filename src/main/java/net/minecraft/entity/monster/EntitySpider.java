@@ -193,9 +193,9 @@ public class EntitySpider extends EntityMob {
 
             if (i <= 1) {
                 potionEffectId = Potion.moveSpeed.id;
-            } else if (i <= 2) {
+            } else if (i == 2) {
                 potionEffectId = Potion.damageBoost.id;
-            } else if (i <= 3) {
+            } else if (i == 3) {
                 potionEffectId = Potion.regeneration.id;
             } else if (i <= 4) {
                 potionEffectId = Potion.invisibility.id;

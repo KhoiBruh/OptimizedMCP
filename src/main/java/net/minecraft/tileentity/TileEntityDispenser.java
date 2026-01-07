@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class TileEntityDispenser extends TileEntityLockable implements IInventory {
@@ -179,8 +180,6 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
     }
 
     public void clear() {
-        for (int i = 0; i < stacks.length; ++i) {
-            stacks[i] = null;
-        }
+        Arrays.fill(stacks, null);
     }
 }

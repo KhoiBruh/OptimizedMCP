@@ -414,7 +414,7 @@ public class CommandScoreboard extends CommandBase {
             Collection<String> collection = scoreplayerteam.getMembershipCollection();
             p_147186_1_.setCommandStat(CommandResultStats.Type.QUERY_RESULT, collection.size());
 
-            if (collection.size() <= 0) {
+            if (collection.size() == 0) {
                 throw new CommandException("commands.scoreboard.teams.list.player.empty", scoreplayerteam.getRegisteredName());
             }
 
@@ -426,7 +426,7 @@ public class CommandScoreboard extends CommandBase {
             Collection<ScorePlayerTeam> collection1 = scoreboard.getTeams();
             p_147186_1_.setCommandStat(CommandResultStats.Type.QUERY_RESULT, collection1.size());
 
-            if (collection1.size() <= 0) {
+            if (collection1.size() == 0) {
                 throw new CommandException("commands.scoreboard.teams.list.empty");
             }
 
@@ -570,7 +570,7 @@ public class CommandScoreboard extends CommandBase {
         Scoreboard scoreboard = getScoreboard();
         Collection<ScoreObjective> collection = scoreboard.getScoreObjectives();
 
-        if (collection.size() <= 0) {
+        if (collection.size() == 0) {
             throw new CommandException("commands.scoreboard.objectives.list.empty");
         } else {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.scoreboard.objectives.list.count", collection.size());
@@ -614,7 +614,7 @@ public class CommandScoreboard extends CommandBase {
             Map<ScoreObjective, Score> map = scoreboard.getObjectivesForEntity(s);
             p_147195_1_.setCommandStat(CommandResultStats.Type.QUERY_RESULT, map.size());
 
-            if (map.size() <= 0) {
+            if (map.size() == 0) {
                 throw new CommandException("commands.scoreboard.players.list.player.empty", s);
             }
 
@@ -629,7 +629,7 @@ public class CommandScoreboard extends CommandBase {
             Collection<String> collection = scoreboard.getObjectiveNames();
             p_147195_1_.setCommandStat(CommandResultStats.Type.QUERY_RESULT, collection.size());
 
-            if (collection.size() <= 0) {
+            if (collection.size() == 0) {
                 throw new CommandException("commands.scoreboard.players.list.empty");
             }
 

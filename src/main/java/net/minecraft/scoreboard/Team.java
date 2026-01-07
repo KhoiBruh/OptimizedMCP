@@ -7,7 +7,7 @@ import java.util.Map;
 
 public abstract class Team {
     public boolean isSameTeam(Team other) {
-        return other != null && this == other;
+        return this == other;
     }
 
     public abstract String getRegisteredName();

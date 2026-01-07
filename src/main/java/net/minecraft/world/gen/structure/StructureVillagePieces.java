@@ -158,7 +158,7 @@ public class StructureVillagePieces {
                 int j = (structurecomponent.boundingBox.minZ + structurecomponent.boundingBox.maxZ) / 2;
                 int k = structurecomponent.boundingBox.maxX - structurecomponent.boundingBox.minX;
                 int l = structurecomponent.boundingBox.maxZ - structurecomponent.boundingBox.minZ;
-                int i1 = k > l ? k : l;
+                int i1 = Math.max(k, l);
 
                 if (start.getWorldChunkManager().areBiomesViable(i, j, i1 / 2 + 4, MapGenVillage.villageSpawnBiomes)) {
                     p_176066_1_.add(structurecomponent);
@@ -185,7 +185,7 @@ public class StructureVillagePieces {
                 int j = (structurecomponent.boundingBox.minZ + structurecomponent.boundingBox.maxZ) / 2;
                 int k = structurecomponent.boundingBox.maxX - structurecomponent.boundingBox.minX;
                 int l = structurecomponent.boundingBox.maxZ - structurecomponent.boundingBox.minZ;
-                int i1 = k > l ? k : l;
+                int i1 = Math.max(k, l);
 
                 if (start.getWorldChunkManager().areBiomesViable(i, j, i1 / 2 + 4, MapGenVillage.villageSpawnBiomes)) {
                     p_176069_1_.add(structurecomponent);
@@ -846,7 +846,7 @@ public class StructureVillagePieces {
                 for (int l = 0; l <= 8; ++l) {
                     setBlockState(worldIn, Blocks.oak_stairs.getStateFromMeta(i), l, 4 + k, k, structureBoundingBoxIn);
 
-                    if ((k > -1 || l <= 1) && (k > 0 || l <= 3) && (k > 1 || l <= 4 || l >= 6)) {
+                    if ((k > -1 || l <= 1) && (k > 0 || l <= 3) && (k > 1 || l != 5)) {
                         setBlockState(worldIn, Blocks.oak_stairs.getStateFromMeta(j), l, 4 + k, 5 - k, structureBoundingBoxIn);
                     }
                 }
@@ -1293,16 +1293,10 @@ public class StructureVillagePieces {
         protected StructureComponent getNextComponentNN(StructureVillagePieces.Start start, List<StructureComponent> p_74891_2_, Random rand, int p_74891_4_, int p_74891_5_) {
             if (coordBaseMode != null) {
                 switch (coordBaseMode) {
-                    case NORTH:
+                    case NORTH, SOUTH:
                         return StructureVillagePieces.func_176066_d(start, p_74891_2_, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, EnumFacing.WEST, getComponentType());
 
-                    case SOUTH:
-                        return StructureVillagePieces.func_176066_d(start, p_74891_2_, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, EnumFacing.WEST, getComponentType());
-
-                    case WEST:
-                        return StructureVillagePieces.func_176066_d(start, p_74891_2_, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
-
-                    case EAST:
+                    case WEST, EAST:
                         return StructureVillagePieces.func_176066_d(start, p_74891_2_, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
                 }
             }
@@ -1313,16 +1307,10 @@ public class StructureVillagePieces {
         protected StructureComponent getNextComponentPP(StructureVillagePieces.Start start, List<StructureComponent> p_74894_2_, Random rand, int p_74894_4_, int p_74894_5_) {
             if (coordBaseMode != null) {
                 switch (coordBaseMode) {
-                    case NORTH:
+                    case NORTH, SOUTH:
                         return StructureVillagePieces.func_176066_d(start, p_74894_2_, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, EnumFacing.EAST, getComponentType());
 
-                    case SOUTH:
-                        return StructureVillagePieces.func_176066_d(start, p_74894_2_, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, EnumFacing.EAST, getComponentType());
-
-                    case WEST:
-                        return StructureVillagePieces.func_176066_d(start, p_74894_2_, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
-
-                    case EAST:
+                    case WEST, EAST:
                         return StructureVillagePieces.func_176066_d(start, p_74894_2_, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
                 }
             }
@@ -1438,10 +1426,6 @@ public class StructureVillagePieces {
             coordBaseMode = EnumFacing.Plane.HORIZONTAL.random(rand);
 
             switch (coordBaseMode) {
-                case NORTH:
-                case SOUTH:
-                    boundingBox = new StructureBoundingBox(p_i2109_4_, 64, p_i2109_5_, p_i2109_4_ + 6 - 1, 78, p_i2109_5_ + 6 - 1);
-                    break;
 
                 default:
                     boundingBox = new StructureBoundingBox(p_i2109_4_, 64, p_i2109_5_, p_i2109_4_ + 6 - 1, 78, p_i2109_5_ + 6 - 1);

@@ -29,6 +29,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public abstract class EntityLiving extends EntityLivingBase {
@@ -64,9 +65,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         navigator = getNewNavigator(worldIn);
         senses = new EntitySenses(this);
 
-        for (int i = 0; i < equipmentDropChances.length; ++i) {
-            equipmentDropChances[i] = 0.085F;
-        }
+        Arrays.fill(equipmentDropChances, 0.085F);
     }
 
     public static int getArmorPosition(ItemStack stack) {

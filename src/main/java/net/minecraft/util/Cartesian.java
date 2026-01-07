@@ -54,7 +54,7 @@ public class Cartesian {
         }
 
         public Iterator<T[]> iterator() {
-            return (iterables.length <= 0 ? Collections.singletonList(Cartesian.createArray(clazz, 0)).iterator() : new Cartesian.Product.ProductIterator<>(clazz, iterables));
+            return (iterables.length == 0 ? Collections.singletonList(Cartesian.createArray(clazz, 0)).iterator() : new Cartesian.Product.ProductIterator<>(clazz, iterables));
         }
 
         static class ProductIterator<T> extends UnmodifiableIterator<T[]> {

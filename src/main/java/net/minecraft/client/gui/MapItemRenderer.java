@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec4b;
 import net.minecraft.world.storage.MapData;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class MapItemRenderer {
@@ -62,9 +63,7 @@ public class MapItemRenderer {
             mapTextureData = mapTexture.getTextureData();
             location = textureManager.getDynamicTextureLocation("map/" + mapdataIn.mapName, mapTexture);
 
-            for (int i = 0; i < mapTextureData.length; ++i) {
-                mapTextureData[i] = 0;
-            }
+            Arrays.fill(mapTextureData, 0);
         }
 
         private void updateMapTexture() {
