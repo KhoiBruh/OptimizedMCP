@@ -21,7 +21,7 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
     }
 
     public int getField(int id) {
-        return field_174895_b.containsKey(id) ? field_174895_b.get(id) : 0;
+        return field_174895_b.getOrDefault(id, 0);
     }
 
     public void setField(int id, int value) {

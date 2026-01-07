@@ -291,26 +291,10 @@ public class WorldClient extends World {
 
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
         CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
-        crashreportcategory.addCrashSectionCallable("Forced entities", new Callable<String>() {
-            public String call() {
-                return entityList.size() + " total; " + entityList;
-            }
-        });
-        crashreportcategory.addCrashSectionCallable("Retry entities", new Callable<String>() {
-            public String call() {
-                return entitySpawnQueue.size() + " total; " + entitySpawnQueue;
-            }
-        });
-        crashreportcategory.addCrashSectionCallable("Server brand", new Callable<String>() {
-            public String call() {
-                return mc.thePlayer.getClientBrand();
-            }
-        });
-        crashreportcategory.addCrashSectionCallable("Server type", new Callable<String>() {
-            public String call() {
-                return mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server";
-            }
-        });
+        crashreportcategory.addCrashSectionCallable("Forced entities", () -> entityList.size() + " total; " + entityList);
+        crashreportcategory.addCrashSectionCallable("Retry entities", () -> entitySpawnQueue.size() + " total; " + entitySpawnQueue);
+        crashreportcategory.addCrashSectionCallable("Server brand", () -> mc.thePlayer.getClientBrand());
+        crashreportcategory.addCrashSectionCallable("Server type", () -> mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server");
         return crashreportcategory;
     }
 

@@ -245,21 +245,15 @@ public class IntegratedServer extends MinecraftServer {
 
     public CrashReport addServerInfoToCrashReport(CrashReport report) {
         report = super.addServerInfoToCrashReport(report);
-        report.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
-            public String call() {
-                return "Integrated Server (map_client.txt)";
-            }
-        });
-        report.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
-            public String call() {
-                String s = ClientBrandRetriever.getClientModName();
+        report.getCategory().addCrashSectionCallable("Type", () -> "Integrated Server (map_client.txt)");
+        report.getCategory().addCrashSectionCallable("Is Modded", () -> {
+            String s = ClientBrandRetriever.getClientModName();
 
-                if (!s.equals("vanilla")) {
-                    return "Definitely; Client brand changed to '" + s + "'";
-                } else {
-                    s = getServerModName();
-                    return !s.equals("vanilla") ? "Definitely; Server brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.");
-                }
+            if (!s.equals("vanilla")) {
+                return "Definitely; Client brand changed to '" + s + "'";
+            } else {
+                s = getServerModName();
+                return !s.equals("vanilla") ? "Definitely; Server brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.");
             }
         });
         return report;
@@ -319,11 +313,9 @@ public class IntegratedServer extends MinecraftServer {
 
     public void initiateShutdown() {
         if (isServerRunning()) {
-            Futures.getUnchecked(addScheduledTask(new Runnable() {
-                public void run() {
-                    for (EntityPlayerMP entityplayermp : Lists.newArrayList(getConfigurationManager().getPlayerList())) {
-                        getConfigurationManager().playerLoggedOut(entityplayermp);
-                    }
+            Futures.getUnchecked(addScheduledTask(() -> {
+                for (EntityPlayerMP entityplayermp : Lists.newArrayList(getConfigurationManager().getPlayerList())) {
+                    getConfigurationManager().playerLoggedOut(entityplayermp);
                 }
             }));
         }

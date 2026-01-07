@@ -336,7 +336,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 field_148215_p = 0;
             }
 
-            Collections.sort(statsHolder, statSorter);
+            statsHolder.sort(statSorter);
         }
     }
 
@@ -362,43 +362,41 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 }
             }
 
-            statSorter = new Comparator<StatCrafting>() {
-                public int compare(StatCrafting p_compare_1_, StatCrafting p_compare_2_) {
-                    int j = Item.getIdFromItem(p_compare_1_.func_150959_a());
-                    int k = Item.getIdFromItem(p_compare_2_.func_150959_a());
-                    StatBase statbase = null;
-                    StatBase statbase1 = null;
+            statSorter = (p_compare_1_, p_compare_2_) -> {
+                int j = Item.getIdFromItem(p_compare_1_.func_150959_a());
+                int k = Item.getIdFromItem(p_compare_2_.func_150959_a());
+                StatBase statbase = null;
+                StatBase statbase1 = null;
 
-                    if (field_148217_o == 2) {
-                        statbase = StatList.mineBlockStatArray[j];
-                        statbase1 = StatList.mineBlockStatArray[k];
-                    } else if (field_148217_o == 0) {
-                        statbase = StatList.objectCraftStats[j];
-                        statbase1 = StatList.objectCraftStats[k];
-                    } else if (field_148217_o == 1) {
-                        statbase = StatList.objectUseStats[j];
-                        statbase1 = StatList.objectUseStats[k];
-                    }
-
-                    if (statbase != null || statbase1 != null) {
-                        if (statbase == null) {
-                            return 1;
-                        }
-
-                        if (statbase1 == null) {
-                            return -1;
-                        }
-
-                        int l = field_146546_t.readStat(statbase);
-                        int i1 = field_146546_t.readStat(statbase1);
-
-                        if (l != i1) {
-                            return (l - i1) * field_148215_p;
-                        }
-                    }
-
-                    return j - k;
+                if (field_148217_o == 2) {
+                    statbase = StatList.mineBlockStatArray[j];
+                    statbase1 = StatList.mineBlockStatArray[k];
+                } else if (field_148217_o == 0) {
+                    statbase = StatList.objectCraftStats[j];
+                    statbase1 = StatList.objectCraftStats[k];
+                } else if (field_148217_o == 1) {
+                    statbase = StatList.objectUseStats[j];
+                    statbase1 = StatList.objectUseStats[k];
                 }
+
+                if (statbase != null || statbase1 != null) {
+                    if (statbase == null) {
+                        return 1;
+                    }
+
+                    if (statbase1 == null) {
+                        return -1;
+                    }
+
+                    int l = field_146546_t.readStat(statbase);
+                    int i1 = field_146546_t.readStat(statbase1);
+
+                    if (l != i1) {
+                        return (l - i1) * field_148215_p;
+                    }
+                }
+
+                return j - k;
             };
         }
 
@@ -494,43 +492,41 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 }
             }
 
-            statSorter = new Comparator<StatCrafting>() {
-                public int compare(StatCrafting p_compare_1_, StatCrafting p_compare_2_) {
-                    int j = Item.getIdFromItem(p_compare_1_.func_150959_a());
-                    int k = Item.getIdFromItem(p_compare_2_.func_150959_a());
-                    StatBase statbase = null;
-                    StatBase statbase1 = null;
+            statSorter = (p_compare_1_, p_compare_2_) -> {
+                int j = Item.getIdFromItem(p_compare_1_.func_150959_a());
+                int k = Item.getIdFromItem(p_compare_2_.func_150959_a());
+                StatBase statbase = null;
+                StatBase statbase1 = null;
 
-                    if (field_148217_o == 0) {
-                        statbase = StatList.objectBreakStats[j];
-                        statbase1 = StatList.objectBreakStats[k];
-                    } else if (field_148217_o == 1) {
-                        statbase = StatList.objectCraftStats[j];
-                        statbase1 = StatList.objectCraftStats[k];
-                    } else if (field_148217_o == 2) {
-                        statbase = StatList.objectUseStats[j];
-                        statbase1 = StatList.objectUseStats[k];
-                    }
-
-                    if (statbase != null || statbase1 != null) {
-                        if (statbase == null) {
-                            return 1;
-                        }
-
-                        if (statbase1 == null) {
-                            return -1;
-                        }
-
-                        int l = field_146546_t.readStat(statbase);
-                        int i1 = field_146546_t.readStat(statbase1);
-
-                        if (l != i1) {
-                            return (l - i1) * field_148215_p;
-                        }
-                    }
-
-                    return j - k;
+                if (field_148217_o == 0) {
+                    statbase = StatList.objectBreakStats[j];
+                    statbase1 = StatList.objectBreakStats[k];
+                } else if (field_148217_o == 1) {
+                    statbase = StatList.objectCraftStats[j];
+                    statbase1 = StatList.objectCraftStats[k];
+                } else if (field_148217_o == 2) {
+                    statbase = StatList.objectUseStats[j];
+                    statbase1 = StatList.objectUseStats[k];
                 }
+
+                if (statbase != null || statbase1 != null) {
+                    if (statbase == null) {
+                        return 1;
+                    }
+
+                    if (statbase1 == null) {
+                        return -1;
+                    }
+
+                    int l = field_146546_t.readStat(statbase);
+                    int i1 = field_146546_t.readStat(statbase1);
+
+                    if (l != i1) {
+                        return (l - i1) * field_148215_p;
+                    }
+                }
+
+                return j - k;
             };
         }
 

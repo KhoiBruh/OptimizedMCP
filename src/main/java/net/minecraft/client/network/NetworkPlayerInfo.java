@@ -91,22 +91,20 @@ public class NetworkPlayerInfo {
         synchronized (this) {
             if (!playerTexturesLoaded) {
                 playerTexturesLoaded = true;
-                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, new SkinManager.SkinAvailableCallback() {
-                    public void skinAvailable(Type p_180521_1_, ResourceLocation location, MinecraftProfileTexture profileTexture) {
-                        switch (p_180521_1_) {
-                            case SKIN:
-                                locationSkin = location;
-                                skinType = profileTexture.getMetadata("model");
+                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, (p_180521_1_, location, profileTexture) -> {
+                    switch (p_180521_1_) {
+                        case SKIN:
+                            locationSkin = location;
+                            skinType = profileTexture.getMetadata("model");
 
-                                if (skinType == null) {
-                                    skinType = "default";
-                                }
+                            if (skinType == null) {
+                                skinType = "default";
+                            }
 
-                                break;
+                            break;
 
-                            case CAPE:
-                                locationCape = location;
-                        }
+                        case CAPE:
+                            locationCape = location;
                     }
                 }, true);
             }

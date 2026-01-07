@@ -345,13 +345,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
     private void setNewTarget() {
         forceNewTarget = false;
         List<EntityPlayer> list = Lists.newArrayList(worldObj.playerEntities);
-        Iterator<EntityPlayer> iterator = list.iterator();
 
-        while (iterator.hasNext()) {
-            if (iterator.next().isSpectator()) {
-                iterator.remove();
-            }
-        }
+        list.removeIf(EntityPlayer::isSpectator);
 
         if (rand.nextInt(2) == 0 && !list.isEmpty()) {
             target = list.get(rand.nextInt(list.size()));

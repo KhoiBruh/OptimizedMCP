@@ -112,11 +112,7 @@ public class ChunkRenderDispatcher {
 
         try {
             final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
-            chunkcompiletaskgenerator.addFinishRunnable(new Runnable() {
-                public void run() {
-                    queueChunkUpdates.remove(chunkcompiletaskgenerator);
-                }
-            });
+            chunkcompiletaskgenerator.addFinishRunnable(() -> queueChunkUpdates.remove(chunkcompiletaskgenerator));
             boolean flag1 = queueChunkUpdates.offer(chunkcompiletaskgenerator);
 
             if (!flag1) {
@@ -189,11 +185,7 @@ public class ChunkRenderDispatcher {
             final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
 
             if (chunkcompiletaskgenerator != null) {
-                chunkcompiletaskgenerator.addFinishRunnable(new Runnable() {
-                    public void run() {
-                        queueChunkUpdates.remove(chunkcompiletaskgenerator);
-                    }
-                });
+                chunkcompiletaskgenerator.addFinishRunnable(() -> queueChunkUpdates.remove(chunkcompiletaskgenerator));
                 return queueChunkUpdates.offer(chunkcompiletaskgenerator);
             }
 
@@ -216,11 +208,7 @@ public class ChunkRenderDispatcher {
             p_178503_2_.setTranslation(0.0D, 0.0D, 0.0D);
             return Futures.immediateFuture(null);
         } else {
-            ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(new Runnable() {
-                public void run() {
-                    uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn);
-                }
-            }, null);
+            ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn), null);
 
             synchronized (queueChunkUploads) {
                 queueChunkUploads.add(listenablefuturetask);

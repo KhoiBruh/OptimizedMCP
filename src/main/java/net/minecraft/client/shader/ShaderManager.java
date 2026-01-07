@@ -206,11 +206,11 @@ public class ShaderManager {
     }
 
     public ShaderUniform getShaderUniform(String p_147991_1_) {
-        return mappedShaderUniforms.containsKey(p_147991_1_) ? mappedShaderUniforms.get(p_147991_1_) : null;
+        return mappedShaderUniforms.getOrDefault(p_147991_1_, null);
     }
 
     public ShaderUniform getShaderUniformOrDefault(String p_147984_1_) {
-        return mappedShaderUniforms.containsKey(p_147984_1_) ? mappedShaderUniforms.get(p_147984_1_) : defaultShaderUniform;
+        return mappedShaderUniforms.getOrDefault(p_147984_1_, defaultShaderUniform);
     }
 
     private void setupUniforms() {

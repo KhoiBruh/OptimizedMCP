@@ -407,14 +407,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         mcResourceManager.registerReloadListener(standardGalacticFontRenderer);
         mcResourceManager.registerReloadListener(new GrassColorReloadListener());
         mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
-        AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat() {
-            public String formatString(String str) {
-                try {
-                    return String.format(str, GameSettings
-                            .getKeyDisplayString(gameSettings.keyBindInventory.getKeyCode()));
-                } catch (Exception exception) {
-                    return "Error: " + exception.getLocalizedMessage();
-                }
+        AchievementList.openInventory.setStatStringFormatter(str -> {
+            try {
+                return String.format(str, GameSettings
+                        .getKeyDisplayString(gameSettings.keyBindInventory.getKeyCode()));
+            } catch (Exception exception) {
+                return "Error: " + exception.getLocalizedMessage();
             }
         });
         mouseHelper = new MouseHelper();
@@ -1417,11 +1415,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             } catch (Throwable throwable1) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Updating screen events");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected screen");
-                crashreportcategory.addCrashSectionCallable("Screen name", new Callable<String>() {
-                    public String call() {
-                        return currentScreen.getClass().getCanonicalName();
-                    }
-                });
+                crashreportcategory.addCrashSectionCallable("Screen name", () -> currentScreen.getClass().getCanonicalName());
                 throw new ReportedException(crashreport);
             }
 
@@ -1431,11 +1425,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 } catch (Throwable throwable) {
                     CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Ticking screen");
                     CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Affected screen");
-                    crashreportcategory1.addCrashSectionCallable("Screen name", new Callable<String>() {
-                        public String call() {
-                            return currentScreen.getClass().getCanonicalName();
-                        }
-                    });
+                    crashreportcategory1.addCrashSectionCallable("Screen name", () -> currentScreen.getClass().getCanonicalName());
                     throw new ReportedException(crashreport1);
                 }
             }
@@ -2043,80 +2033,40 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
-        theCrash.getCategory().addCrashSectionCallable("Launched Version", new Callable<String>() {
-            public String call() {
-                return launchedVersion;
-            }
+        theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> launchedVersion);
+        theCrash.getCategory().addCrashSectionCallable("LWJGL", () -> Sys.getVersion());
+        theCrash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", "
+                + GL11.glGetString(GL11.GL_VENDOR));
+        theCrash.getCategory().addCrashSectionCallable("GL Caps", () -> OpenGlHelper.getLogText());
+        theCrash.getCategory().addCrashSectionCallable("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");
+        theCrash.getCategory().addCrashSectionCallable("Is Modded", () -> {
+            String s = ClientBrandRetriever.getClientModName();
+            return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'"
+                    : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated"
+                    : "Probably not. Jar signature remains and client brand is untouched.");
         });
-        theCrash.getCategory().addCrashSectionCallable("LWJGL", new Callable<String>() {
-            public String call() {
-                return Sys.getVersion();
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("OpenGL", new Callable<String>() {
-            public String call() {
-                return GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", "
-                        + GL11.glGetString(GL11.GL_VENDOR);
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("GL Caps", new Callable<String>() {
-            public String call() {
-                return OpenGlHelper.getLogText();
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("Using VBOs", new Callable<String>() {
-            public String call() {
-                return gameSettings.useVbo ? "Yes" : "No";
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
-            public String call() {
-                String s = ClientBrandRetriever.getClientModName();
-                return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'"
-                        : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated"
-                        : "Probably not. Jar signature remains and client brand is untouched.");
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
-            public String call() {
-                return "Client (map_client.txt)";
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("Resource Packs", new Callable<String>() {
-            public String call() {
-                StringBuilder stringbuilder = new StringBuilder();
+        theCrash.getCategory().addCrashSectionCallable("Type", () -> "Client (map_client.txt)");
+        theCrash.getCategory().addCrashSectionCallable("Resource Packs", () -> {
+            StringBuilder stringbuilder = new StringBuilder();
 
-                for (String s : gameSettings.resourcePacks) {
-                    if (!stringbuilder.isEmpty()) {
-                        stringbuilder.append(", ");
-                    }
-
-                    stringbuilder.append(s);
-
-                    if (gameSettings.incompatibleResourcePacks.contains(s)) {
-                        stringbuilder.append(" (incompatible)");
-                    }
+            for (String s : gameSettings.resourcePacks) {
+                if (!stringbuilder.isEmpty()) {
+                    stringbuilder.append(", ");
                 }
 
-                return stringbuilder.toString();
+                stringbuilder.append(s);
+
+                if (gameSettings.incompatibleResourcePacks.contains(s)) {
+                    stringbuilder.append(" (incompatible)");
+                }
             }
+
+            return stringbuilder.toString();
         });
-        theCrash.getCategory().addCrashSectionCallable("Current Language", new Callable<String>() {
-            public String call() {
-                return mcLanguageManager.getCurrentLanguage().toString();
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("Profiler Position", new Callable<String>() {
-            public String call() {
-                return mcProfiler.profilingEnabled ? mcProfiler.getNameOfLastSection()
-                        : "N/A (disabled)";
-            }
-        });
-        theCrash.getCategory().addCrashSectionCallable("CPU", new Callable<String>() {
-            public String call() {
-                return OpenGlHelper.getCpu();
-            }
-        });
+        theCrash.getCategory().addCrashSectionCallable("Current Language", () -> mcLanguageManager.getCurrentLanguage().toString());
+        theCrash.getCategory().addCrashSectionCallable("Profiler Position", () -> mcProfiler.profilingEnabled ? mcProfiler.getNameOfLastSection()
+                : "N/A (disabled)");
+        theCrash.getCategory().addCrashSectionCallable("CPU", () -> OpenGlHelper.getCpu());
 
         if (theWorld != null) {
             theWorld.addWorldInfoToCrashReport(theCrash);
@@ -2126,11 +2076,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public ListenableFuture<Object> scheduleResourcesRefresh() {
-        return addScheduledTask(new Runnable() {
-            public void run() {
-                refreshResources();
-            }
-        });
+        return addScheduledTask(() -> refreshResources());
     }
 
     public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper) {

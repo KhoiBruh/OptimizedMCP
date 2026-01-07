@@ -31,11 +31,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             "textures/entity/horse/horse_brown.png", "textures/entity/horse/horse_black.png",
             "textures/entity/horse/horse_gray.png", "textures/entity/horse/horse_darkbrown.png"};
     public static final String[] HORSE_TEXTURES_ABBR = new String[]{"hwh", "hcr", "hch", "hbr", "hbl", "hgr", "hdb"};
-    private static final Predicate<Entity> horseBreedingSelector = new Predicate<Entity>() {
-        public boolean apply(Entity p_apply_1_) {
-            return p_apply_1_ instanceof EntityHorse && ((EntityHorse) p_apply_1_).isBreeding();
-        }
-    };
+    private static final Predicate<Entity> horseBreedingSelector = p_apply_1_ -> p_apply_1_ instanceof EntityHorse && ((EntityHorse) p_apply_1_).isBreeding();
     private static final IAttribute horseJumpStrength = (new RangedAttribute(null, "horse.jumpStrength",
             0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
     private static final String[] horseArmorTextures = new String[]{null,

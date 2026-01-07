@@ -549,64 +549,30 @@ public class WorldInfo {
     }
 
     public void addToCrashReport(CrashReportCategory category) {
-        category.addCrashSectionCallable("Level seed", new Callable<String>() {
-            public String call() {
-                return String.valueOf(getSeed());
-            }
-        });
-        category.addCrashSectionCallable("Level generator", new Callable<String>() {
-            public String call() {
-                return String.format("ID %02d - %s, ver %d. Features enabled: %b", terrainType.getWorldTypeID(), terrainType.getWorldTypeName(), terrainType.getGeneratorVersion(), mapFeaturesEnabled);
-            }
-        });
-        category.addCrashSectionCallable("Level generator options", new Callable<String>() {
-            public String call() {
-                return generatorOptions;
-            }
-        });
-        category.addCrashSectionCallable("Level spawn location", new Callable<String>() {
-            public String call() {
-                return CrashReportCategory.getCoordinateInfo(spawnX, spawnY, spawnZ);
-            }
-        });
-        category.addCrashSectionCallable("Level time", new Callable<String>() {
-            public String call() {
-                return String.format("%d game time, %d day time", totalTime, worldTime);
-            }
-        });
-        category.addCrashSectionCallable("Level dimension", new Callable<String>() {
-            public String call() {
-                return String.valueOf(dimension);
-            }
-        });
-        category.addCrashSectionCallable("Level storage version", new Callable<String>() {
-            public String call() {
-                String s = "Unknown?";
+        category.addCrashSectionCallable("Level seed", () -> String.valueOf(getSeed()));
+        category.addCrashSectionCallable("Level generator", () -> String.format("ID %02d - %s, ver %d. Features enabled: %b", terrainType.getWorldTypeID(), terrainType.getWorldTypeName(), terrainType.getGeneratorVersion(), mapFeaturesEnabled));
+        category.addCrashSectionCallable("Level generator options", () -> generatorOptions);
+        category.addCrashSectionCallable("Level spawn location", () -> CrashReportCategory.getCoordinateInfo(spawnX, spawnY, spawnZ));
+        category.addCrashSectionCallable("Level time", () -> String.format("%d game time, %d day time", totalTime, worldTime));
+        category.addCrashSectionCallable("Level dimension", () -> String.valueOf(dimension));
+        category.addCrashSectionCallable("Level storage version", () -> {
+            String s = "Unknown?";
 
-                try {
-                    switch (saveVersion) {
-                        case 19132:
-                            s = "McRegion";
-                            break;
+            try {
+                switch (saveVersion) {
+                    case 19132:
+                        s = "McRegion";
+                        break;
 
-                        case 19133:
-                            s = "Anvil";
-                    }
-                } catch (Throwable var3) {
+                    case 19133:
+                        s = "Anvil";
                 }
+            } catch (Throwable var3) {
+            }
 
-                return String.format("0x%05X - %s", saveVersion, s);
-            }
+            return String.format("0x%05X - %s", saveVersion, s);
         });
-        category.addCrashSectionCallable("Level weather", new Callable<String>() {
-            public String call() {
-                return String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", rainTime, raining, thunderTime, thundering);
-            }
-        });
-        category.addCrashSectionCallable("Level game mode", new Callable<String>() {
-            public String call() {
-                return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", theGameType.getName(), theGameType.getID(), hardcore, allowCommands);
-            }
-        });
+        category.addCrashSectionCallable("Level weather", () -> String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", rainTime, raining, thunderTime, thundering));
+        category.addCrashSectionCallable("Level game mode", () -> String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", theGameType.getName(), theGameType.getID(), hardcore, allowCommands));
     }
 }

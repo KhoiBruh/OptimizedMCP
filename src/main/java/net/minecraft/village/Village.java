@@ -264,15 +264,8 @@ public class Village {
     }
 
     private void removeDeadAndOldAgressors() {
-        Iterator<Village.VillageAggressor> iterator = villageAgressors.iterator();
 
-        while (iterator.hasNext()) {
-            Village.VillageAggressor village$villageaggressor = iterator.next();
-
-            if (!village$villageaggressor.agressor.isEntityAlive() || Math.abs(tickCounter - village$villageaggressor.agressionTime) > 300) {
-                iterator.remove();
-            }
-        }
+        villageAgressors.removeIf(village$villageaggressor -> !village$villageaggressor.agressor.isEntityAlive() || Math.abs(tickCounter - village$villageaggressor.agressionTime) > 300);
     }
 
     private void removeDeadAndOutOfRangeDoors() {

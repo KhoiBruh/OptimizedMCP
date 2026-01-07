@@ -107,11 +107,7 @@ public abstract class World implements IBlockAccess {
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting biome");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Coordinates of biome request");
-                crashreportcategory.addCrashSectionCallable("Location", new Callable<String>() {
-                    public String call() {
-                        return CrashReportCategory.getCoordinateInfo(pos);
-                    }
-                });
+                crashreportcategory.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(pos));
                 throw new ReportedException(crashreport);
             }
         } else {
@@ -360,13 +356,11 @@ public abstract class World implements IBlockAccess {
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while updating neighbours");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being updated");
-                crashreportcategory.addCrashSectionCallable("Source block type", new Callable<String>() {
-                    public String call() {
-                        try {
-                            return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
-                        } catch (Throwable var2) {
-                            return "ID #" + Block.getIdFromBlock(blockIn);
-                        }
+                crashreportcategory.addCrashSectionCallable("Source block type", () -> {
+                    try {
+                        return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
+                    } catch (Throwable var2) {
+                        return "ID #" + Block.getIdFromBlock(blockIn);
                     }
                 });
                 CrashReportCategory.addBlockInfo(crashreportcategory, pos, iblockstate);
@@ -2631,16 +2625,8 @@ public abstract class World implements IBlockAccess {
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
         CrashReportCategory crashreportcategory = report.makeCategoryDepth("Affected level", 1);
         crashreportcategory.addCrashSection("Level name", worldInfo == null ? "????" : worldInfo.getWorldName());
-        crashreportcategory.addCrashSectionCallable("All players", new Callable<String>() {
-            public String call() {
-                return playerEntities.size() + " total; " + playerEntities;
-            }
-        });
-        crashreportcategory.addCrashSectionCallable("Chunk stats", new Callable<String>() {
-            public String call() {
-                return chunkProvider.makeString();
-            }
-        });
+        crashreportcategory.addCrashSectionCallable("All players", () -> playerEntities.size() + " total; " + playerEntities);
+        crashreportcategory.addCrashSectionCallable("Chunk stats", () -> chunkProvider.makeString());
 
         try {
             worldInfo.addToCrashReport(crashreportcategory);

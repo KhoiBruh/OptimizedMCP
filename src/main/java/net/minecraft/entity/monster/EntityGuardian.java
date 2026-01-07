@@ -310,11 +310,7 @@ public class EntityGuardian extends EntityMob {
             if ((ticksExisted + getEntityId()) % 1200 == 0) {
                 Potion potion = Potion.digSlowdown;
 
-                for (EntityPlayerMP entityplayermp : worldObj.getPlayers(EntityPlayerMP.class, new Predicate<EntityPlayerMP>() {
-                    public boolean apply(EntityPlayerMP p_apply_1_) {
-                        return getDistanceSqToEntity(p_apply_1_) < 2500.0D && p_apply_1_.theItemInWorldManager.survivalOrAdventure();
-                    }
-                })) {
+                for (EntityPlayerMP entityplayermp : worldObj.getPlayers(EntityPlayerMP.class, p_apply_1_ -> getDistanceSqToEntity(p_apply_1_) < 2500.0D && p_apply_1_.theItemInWorldManager.survivalOrAdventure())) {
                     if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion).getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion).getDuration() < 1200) {
                         entityplayermp.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(10, 0.0F));
                         entityplayermp.addPotionEffect(new PotionEffect(potion.id, 6000, 2));

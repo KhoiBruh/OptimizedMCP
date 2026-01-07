@@ -991,7 +991,7 @@ public class GameSettings {
     }
 
     public float getSoundLevel(SoundCategory sndCategory) {
-        return mapSoundLevels.containsKey(sndCategory) ? mapSoundLevels.get(sndCategory) : 1.0F;
+        return mapSoundLevels.getOrDefault(sndCategory, 1.0F);
     }
 
     public void setSoundLevel(SoundCategory sndCategory, float soundLevel) {

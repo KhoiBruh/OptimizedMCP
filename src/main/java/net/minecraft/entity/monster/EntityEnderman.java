@@ -60,11 +60,7 @@ public class EntityEnderman extends EntityMob {
         tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         targetTasks.addTask(2, new EntityEnderman.AIFindPlayer(this));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, new Predicate<EntityEndermite>() {
-            public boolean apply(EntityEndermite p_apply_1_) {
-                return p_apply_1_.isSpawnedByPlayer();
-            }
-        }));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) p_apply_1_ -> p_apply_1_.isSpawnedByPlayer()));
     }
 
     protected void applyEntityAttributes() {
@@ -327,7 +323,7 @@ public class EntityEnderman extends EntityMob {
         public boolean shouldExecute() {
             double d0 = getTargetDistance();
             List<EntityPlayer> list = taskOwner.worldObj.getEntitiesWithinAABB(EntityPlayer.class, taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), targetEntitySelector);
-            Collections.sort(list, theNearestAttackableTargetSorter);
+            list.sort(theNearestAttackableTargetSorter);
 
             if (list.isEmpty()) {
                 return false;

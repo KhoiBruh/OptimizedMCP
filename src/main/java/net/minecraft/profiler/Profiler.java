@@ -107,8 +107,8 @@ public class Profiler {
         if (!profilingEnabled) {
             return null;
         } else {
-            long i = profilingMap.containsKey("root") ? profilingMap.get("root") : 0L;
-            long j = profilingMap.containsKey(profilerName) ? profilingMap.get(profilerName) : -1L;
+            long i = profilingMap.getOrDefault("root", 0L);
+            long j = profilingMap.getOrDefault(profilerName, -1L);
             List<Profiler.Result> list = Lists.newArrayList();
 
             if (!profilerName.isEmpty()) {
@@ -143,9 +143,7 @@ public class Profiler {
                 }
             }
 
-            for (String s3 : profilingMap.keySet()) {
-                profilingMap.put(s3, profilingMap.get(s3).longValue() * 950L / 1000L);
-            }
+            profilingMap.replaceAll((s, v) -> profilingMap.get(s).longValue() * 950L / 1000L);
 
             if ((float) k > f) {
                 list.add(new Profiler.Result("unspecified", (double) ((float) k - f) * 100.0D / (double) k, (double) ((float) k - f) * 100.0D / (double) i));

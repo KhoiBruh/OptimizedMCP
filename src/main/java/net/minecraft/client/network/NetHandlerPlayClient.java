@@ -1109,41 +1109,35 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             } else if (gameController.getCurrentServerData() != null && gameController.getCurrentServerData().getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
                 netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.DECLINED));
             } else {
-                gameController.addScheduledTask(new Runnable() {
-                    public void run() {
-                        gameController.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-                            public void confirmClicked(boolean result, int id) {
-                                gameController = Minecraft.getMinecraft();
+                gameController.addScheduledTask(() -> gameController.displayGuiScreen(new GuiYesNo((result, id) -> {
+                    gameController = Minecraft.getMinecraft();
 
-                                if (result) {
-                                    if (gameController.getCurrentServerData() != null) {
-                                        gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.ENABLED);
-                                    }
+                    if (result) {
+                        if (gameController.getCurrentServerData() != null) {
+                            gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.ENABLED);
+                        }
 
-                                    netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.ACCEPTED));
-                                    Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), new FutureCallback<Object>() {
-                                        public void onSuccess(Object p_onSuccess_1_) {
-                                            netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
-                                        }
-
-                                        public void onFailure(Throwable p_onFailure_1_) {
-                                            netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
-                                        }
-                                    }, Executors.newVirtualThreadPerTaskExecutor());
-                                } else {
-                                    if (gameController.getCurrentServerData() != null) {
-                                        gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.DISABLED);
-                                    }
-
-                                    netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.DECLINED));
-                                }
-
-                                ServerList.func_147414_b(gameController.getCurrentServerData());
-                                gameController.displayGuiScreen(null);
+                        netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.ACCEPTED));
+                        Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), new FutureCallback<Object>() {
+                            public void onSuccess(Object p_onSuccess_1_) {
+                                netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
                             }
-                        }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0));
+
+                            public void onFailure(Throwable p_onFailure_1_) {
+                                netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                            }
+                        }, Executors.newVirtualThreadPerTaskExecutor());
+                    } else {
+                        if (gameController.getCurrentServerData() != null) {
+                            gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.DISABLED);
+                        }
+
+                        netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.DECLINED));
                     }
-                });
+
+                    ServerList.func_147414_b(gameController.getCurrentServerData());
+                    gameController.displayGuiScreen(null);
+                }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0)));
             }
         }
     }
