@@ -12,8 +12,8 @@ public class GuiLabel extends Gui {
     public int field_146174_h;
     public int field_175204_i;
     public boolean visible = true;
-    protected int field_146167_a = 200;
-    protected int field_146161_f = 20;
+    protected int field_146167_a;
+    protected int field_146161_f;
     private final List<String> field_146173_k;
     private boolean centered;
     private final boolean labelBgEnabled;

@@ -120,7 +120,6 @@ public class ModelDragon extends ModelBase {
         float f6 = updateRotations(entitydragon.getMovementOffsets(5, partialTicks)[0]
                 - entitydragon.getMovementOffsets(10, partialTicks)[0]);
         float f7 = updateRotations(entitydragon.getMovementOffsets(5, partialTicks)[0] + (double) (f6 / 2.0F));
-        f2 = f2 + 2.0F;
         float f8 = f * (float) Math.PI * 2.0F;
         f2 = 20.0F;
         float f3 = -12.0F;

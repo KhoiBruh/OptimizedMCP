@@ -130,7 +130,7 @@ public class PotionEffect {
     }
 
     public String toString() {
-        String s = "";
+        String s;
 
         if (amplifier > 0) {
             s = getEffectName() + " x " + (amplifier + 1) + ", Duration: " + duration;

@@ -165,7 +165,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         for (int i1 = 0; i1 < 256; ++i1) {
             int j1 = i1 % 16;
             int k1 = i1 / 16;
-            int l1 = 0;
+            int l1;
 
             for (l1 = k - 1; l1 >= 0; --l1) {
                 int i2 = j1 * k + l1;

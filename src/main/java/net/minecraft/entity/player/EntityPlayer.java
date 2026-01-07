@@ -469,7 +469,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         cameraPitch += (f1 - cameraPitch) * 0.8F;
 
         if (getHealth() > 0.0F && !isSpectator()) {
-            AxisAlignedBB axisalignedbb = null;
+            AxisAlignedBB axisalignedbb;
 
             if (ridingEntity != null && !ridingEntity.isDead) {
                 axisalignedbb = getEntityBoundingBox().union(ridingEntity.getEntityBoundingBox()).expand(1.0D, 0.0D, 1.0D);
@@ -780,7 +780,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
                     Entity entity = source.getEntity();
 
                     if (entity instanceof EntityArrow && ((EntityArrow) entity).shootingEntity != null) {
-                        entity = ((EntityArrow) entity).shootingEntity;
                     }
 
                     return super.attackEntityFrom(source, amount);
@@ -919,7 +918,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             if (!targetEntity.hitByEntity(this)) {
                 float f = (float) getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
                 int i = 0;
-                float f1 = 0.0F;
+                float f1;
 
                 if (targetEntity instanceof EntityLivingBase) {
                     f1 = EnchantmentHelper.getModifierForCreature(getHeldItem(), ((EntityLivingBase) targetEntity).getCreatureAttribute());

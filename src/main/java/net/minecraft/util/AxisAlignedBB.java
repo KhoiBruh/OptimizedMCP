@@ -241,7 +241,7 @@ public class AxisAlignedBB {
         if (vec36 == null) {
             return null;
         } else {
-            EnumFacing enumfacing = null;
+            EnumFacing enumfacing;
 
             if (vec36 == vec3) {
                 enumfacing = EnumFacing.WEST;

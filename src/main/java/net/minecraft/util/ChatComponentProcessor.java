@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ChatComponentProcessor {
     public static IChatComponent processComponent(ICommandSender commandSender, IChatComponent component, Entity entityIn) throws CommandException {
-        IChatComponent ichatcomponent = null;
+        IChatComponent ichatcomponent;
 
         switch (component) {
             case ChatComponentScore chatcomponentscore -> {

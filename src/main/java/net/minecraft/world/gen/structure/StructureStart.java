@@ -101,7 +101,7 @@ public abstract class StructureStart {
 
     protected void setRandomHeight(World worldIn, Random rand, int p_75070_3_, int p_75070_4_) {
         int i = p_75070_4_ - p_75070_3_ + 1 - boundingBox.getYSize();
-        int j = 1;
+        int j;
 
         if (i > 1) {
             j = p_75070_3_ + rand.nextInt(i);

@@ -1548,7 +1548,6 @@ public abstract class Entity implements ICommandSender {
             }
 
             if (!worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3) {
-                d3 = 1.0D - d2;
                 i = 5;
             }
 

@@ -381,7 +381,7 @@ public class EntityTrackerEntry {
             case EntityEnderEye entityEnderEye -> new S0EPacketSpawnObject(trackedEntity, 72);
             case EntityFireworkRocket entityFireworkRocket -> new S0EPacketSpawnObject(trackedEntity, 76);
             case EntityFireball entityfireball -> {
-                S0EPacketSpawnObject s0epacketspawnobject2 = null;
+                S0EPacketSpawnObject s0epacketspawnobject2;
                 int i = 63;
 
                 if (trackedEntity instanceof EntitySmallFireball) {

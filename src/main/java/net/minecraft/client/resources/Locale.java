@@ -42,7 +42,6 @@ public class Locale {
     }
 
     private void checkUnicode() {
-        unicode = false;
         int i = 0;
         int j = 0;
 

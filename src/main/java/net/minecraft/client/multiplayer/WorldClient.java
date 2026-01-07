@@ -164,7 +164,6 @@ public class WorldClient extends World {
         if (entityList.contains(entityIn)) {
             if (entityIn.isEntityAlive()) {
                 entitySpawnQueue.add(entityIn);
-                flag = true;
             } else {
                 entityList.remove(entityIn);
             }

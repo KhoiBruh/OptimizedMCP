@@ -25,7 +25,6 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
         posZ = (int) (soundZ * 8.0D);
         soundVolume = volume;
         soundPitch = (int) (pitch * 63.0F);
-        pitch = MathHelper.clamp_float(pitch, 0.0F, 255.0F);
     }
 
     public void readPacketData(PacketBuffer buf) {

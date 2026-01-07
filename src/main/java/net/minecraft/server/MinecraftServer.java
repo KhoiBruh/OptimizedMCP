@@ -409,7 +409,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             }
         } catch (Throwable throwable1) {
             logger.error("Encountered an unexpected exception", throwable1);
-            CrashReport crashreport = null;
+            CrashReport crashreport;
 
             if (throwable1 instanceof ReportedException) {
                 crashreport = addServerInfoToCrashReport(((ReportedException) throwable1).getCrashReport());

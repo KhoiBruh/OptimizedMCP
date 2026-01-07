@@ -256,7 +256,7 @@ public class ChunkProviderHell implements IChunkProvider {
                 double d3 = 0.0D;
 
                 for (int k = 0; k < p_73164_6_; ++k) {
-                    double d4 = 0.0D;
+                    double d4;
                     double d5 = adouble[k];
                     double d6 = noiseData2[i] / 512.0D;
                     double d7 = noiseData3[i] / 512.0D;

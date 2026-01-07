@@ -601,7 +601,7 @@ public class GameSettings {
             try {
                 if (optionsFile.exists()) {
                     BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(fileinputstream = new FileInputStream(optionsFile)));
-                    String s = "";
+                    String s;
                     mapSoundLevels.clear();
 
                     while ((s = bufferedreader.readLine()) != null) {
@@ -1779,7 +1779,7 @@ public class GameSettings {
             }
 
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(new FileInputStream(file1), StandardCharsets.UTF_8));
-            String s = "";
+            String s;
 
             while ((s = bufferedreader.readLine()) != null) {
                 try {

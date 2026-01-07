@@ -81,7 +81,7 @@ public class GuiTextField extends Gui {
         int i = cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
         int j = cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
         int k = maxStringLength - text.length() - (i - j);
-        int l = 0;
+        int l;
 
         if (!text.isEmpty()) {
             s = s + text.substring(0, i);
@@ -373,7 +373,7 @@ public class GuiTextField extends Gui {
             }
 
             if (!s.isEmpty() && flag && j < s.length()) {
-                j1 = fontRendererInstance.drawStringWithShadow(s.substring(j), (float) j1, (float) i1, i);
+                fontRendererInstance.drawStringWithShadow(s.substring(j), (float) j1, (float) i1, i);
             }
 
             if (flag1) {

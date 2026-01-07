@@ -398,7 +398,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             }
         }
 
-        double d18 = 0.0D;
+        double d18;
         double d19 = (double) p_180460_1_.getX() + 0.5D + (double) aint[0][0] * 0.5D;
         double d20 = (double) p_180460_1_.getZ() + 0.5D + (double) aint[0][2] * 0.5D;
         double d21 = (double) p_180460_1_.getX() + 0.5D + (double) aint[1][0] * 0.5D;
@@ -553,7 +553,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         if (BlockRailBase.isRailBlock(iblockstate)) {
             BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
             int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
-            double d0 = 0.0D;
+            double d0;
             double d1 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
             double d2 = (double) j + 0.0625D + (double) aint[0][1] * 0.5D;
             double d3 = (double) k + 0.5D + (double) aint[0][2] * 0.5D;
@@ -565,10 +565,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             double d9 = d6 - d3;
 
             if (d7 == 0.0D) {
-                p_70489_1_ = (double) i + 0.5D;
                 d0 = p_70489_5_ - (double) k;
             } else if (d9 == 0.0D) {
-                p_70489_5_ = (double) k + 0.5D;
                 d0 = p_70489_1_ - (double) i;
             } else {
                 double d10 = p_70489_1_ - d1;

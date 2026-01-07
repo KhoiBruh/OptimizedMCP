@@ -393,7 +393,7 @@ public class ModelHorse extends ModelBase {
         mane.rotateAngleY = head.rotateAngleY;
         muleLeftChest.rotateAngleX = f11 / 5.0F;
         muleRightChest.rotateAngleX = -f11 / 5.0F;
-        float f12 = ((float) Math.PI / 2F);
+        float f12;
         float f13 = ((float) Math.PI * 3F / 2F);
         float f14 = -1.0471976F;
         float f15 = 0.2617994F * f6;

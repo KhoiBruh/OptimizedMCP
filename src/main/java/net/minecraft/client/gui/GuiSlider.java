@@ -9,7 +9,7 @@ public class GuiSlider extends GuiButton {
     private final float max;
     private final GuiPageButtonList.GuiResponder responder;
     public boolean isMouseDown;
-    private float sliderPosition = 1.0F;
+    private float sliderPosition;
     private final String name;
     private final GuiSlider.FormatHelper formatHelper;
 

@@ -280,7 +280,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                     StatCrafting statcrafting = func_148211_c(i);
                     func_148213_a(statcrafting, p_148142_1_, p_148142_2_);
                 } else {
-                    String s = "";
+                    String s;
 
                     if (p_148142_1_ >= j + 115 - 18 && p_148142_1_ <= j + 115) {
                         s = func_148210_b(0);

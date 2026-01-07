@@ -431,7 +431,7 @@ public abstract class EntityLivingBase extends Entity {
         boolean flag1 = dataWatcher.getWatchableObjectByte(8) > 0;
 
         if (i > 0) {
-            boolean flag = false;
+            boolean flag;
 
             if (!isInvisible()) {
                 flag = rand.nextBoolean();

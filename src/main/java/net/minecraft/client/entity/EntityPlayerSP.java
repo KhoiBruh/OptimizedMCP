@@ -282,7 +282,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 }
 
                 if (isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
-                    d2 = 1.0D - d1;
                     i = 5;
                 }
 

@@ -166,7 +166,6 @@ public class RenderChunk {
                 EnumWorldBlockLayer[] aenumworldblocklayer;
 
                 if (flag) {
-                    aenumworldblocklayer = ENUM_WORLD_BLOCK_LAYERS;
                 } else {
                     aenumworldblocklayer = blockLayersSingle;
                     aenumworldblocklayer[0] = block.getBlockLayer();
@@ -306,9 +305,9 @@ public class RenderChunk {
 
         if (Config.isRenderRegions()) {
             int i = 8;
-            int j = pos.getX() >> i << i;
+            int j;
             int k = pos.getY() >> i << i;
-            int l = pos.getZ() >> i << i;
+            int l;
             j = regionX;
             l = regionZ;
             worldRendererIn.setTranslation(-j, -k, -l);

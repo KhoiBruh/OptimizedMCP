@@ -132,7 +132,7 @@ public class EntityArrow extends Entity implements IProjectile {
         if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
             float f = MathHelper.sqrt_double(x * x + z * z);
             prevRotationYaw = rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
-            prevRotationPitch = rotationPitch = (float) (MathHelper.atan2(y, f) * 180.0D / Math.PI);
+            rotationPitch = (float) (MathHelper.atan2(y, f) * 180.0D / Math.PI);
             prevRotationPitch = rotationPitch;
             prevRotationYaw = rotationYaw;
             setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);

@@ -141,7 +141,8 @@ public class CrashReport {
             throwable.setStackTrace(cause.getStackTrace());
         }
 
-        String s = throwable.toString();
+        throwable.toString();
+        String s;
 
         try {
             stringwriter = new StringWriter();

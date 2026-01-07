@@ -39,7 +39,7 @@ public class RenderItem implements IResourceManagerReloadListener {
     private final ItemModelMesher itemModelMesher;
     private final TextureManager textureManager;
     public float zLevel;
-    public ModelManager modelManager = null;
+    public ModelManager modelManager;
     private boolean notRenderingEffectsInGUI = true;
     private ModelResourceLocation modelLocation = null;
     private boolean renderItemGui = false;

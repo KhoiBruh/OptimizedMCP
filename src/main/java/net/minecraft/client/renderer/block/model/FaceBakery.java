@@ -306,7 +306,7 @@ public class FaceBakery {
             f2 -= (float) MathHelper.floor_float(f2);
         }
 
-        float f3 = 0.0F;
+        float f3;
         float f4 = switch (facing) {
             case DOWN -> {
                 f3 = f * 16.0F;

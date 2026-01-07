@@ -55,7 +55,7 @@ public class GuiVideoSettings extends GuiScreenOF {
         }
 
         int l = height / 6 + 21 * (videoOptions.length / 2) - 12;
-        int i1 = 0;
+        int i1;
         i1 = width / 2 - 155;
         buttonList.add(new GuiOptionButton(231, i1, l, Lang.get("of.options.shaders")));
         i1 = width / 2 - 155 + 160;
@@ -70,7 +70,6 @@ public class GuiVideoSettings extends GuiScreenOF {
         buttonList.add(new GuiOptionButton(211, i1, l, Lang.get("of.options.animations")));
         i1 = width / 2 - 155 + 160;
         buttonList.add(new GuiOptionButton(222, i1, l, Lang.get("of.options.other")));
-        l = l + 21;
         buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168 + 11, I18n.format("gui.done")));
     }
 

@@ -32,7 +32,7 @@ public abstract class AbstractResourcePack implements IResourcePack {
     }
 
     static <T extends IMetadataSection> T readMetadata(IMetadataSerializer p_110596_0_, InputStream p_110596_1_, String p_110596_2_) {
-        JsonObject jsonobject = null;
+        JsonObject jsonobject;
         BufferedReader bufferedreader = null;
 
         try {

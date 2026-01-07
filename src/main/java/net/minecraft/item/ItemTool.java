@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import java.util.Set;
 
 public class ItemTool extends Item {
-    protected float efficiencyOnProperMaterial = 4.0F;
+    protected float efficiencyOnProperMaterial;
     protected Item.ToolMaterial toolMaterial;
     private final Set<Block> effectiveBlocks;
     private final float damageVsEntity;
