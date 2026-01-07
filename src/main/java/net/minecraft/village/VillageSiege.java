@@ -80,7 +80,7 @@ public class VillageSiege {
                 return false;
             }
 
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+            EntityPlayer entityplayer = iterator.next();
 
             if (!entityplayer.isSpectator()) {
                 theVillage = worldObj.getVillageCollection().getNearestVillage(new BlockPos(entityplayer), 1);

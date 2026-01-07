@@ -55,7 +55,7 @@ public class GuiRenameWorld extends GuiScreen {
         buttonList.getFirst().enabled = !field_146583_f.getText().trim().isEmpty();
 
         if (keyCode == 28 || keyCode == 156) {
-            actionPerformed((GuiButton) buttonList.getFirst());
+            actionPerformed(buttonList.getFirst());
         }
     }
 

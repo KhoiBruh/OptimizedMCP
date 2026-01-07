@@ -138,7 +138,7 @@ public class InventoryBasic implements IInventory {
     }
 
     public IChatComponent getDisplayName() {
-        return hasCustomName() ? new ChatComponentText(inventoryTitle) : new ChatComponentTranslation(inventoryTitle, new Object[0]);
+        return hasCustomName() ? new ChatComponentText(inventoryTitle) : new ChatComponentTranslation(inventoryTitle);
     }
 
     public int getInventoryStackLimit() {

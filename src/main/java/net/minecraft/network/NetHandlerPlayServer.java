@@ -95,7 +95,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             --itemDropThreshold;
         }
 
-        if (playerEntity.getLastActiveTime() > 0L && serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - playerEntity.getLastActiveTime() > (long) ((long) serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
+        if (playerEntity.getLastActiveTime() > 0L && serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - playerEntity.getLastActiveTime() > ((long) serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
             kickPlayerFromServer("You have been idle for too long!");
         }
     }
@@ -916,11 +916,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         itemstack3.setTagInfo("pages", itemstack1.getTagCompound().getTagList("pages", 8));
                     }
 
-                    return;
                 }
             } catch (Exception exception3) {
                 logger.error("Couldn't handle book info", exception3);
-                return;
             } finally {
                 packetbuffer3.release();
             }
@@ -949,11 +947,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         itemstack2.setItem(Items.written_book);
                     }
 
-                    return;
                 }
             } catch (Exception exception4) {
                 logger.error("Couldn't sign book", exception4);
-                return;
             } finally {
                 packetbuffer2.release();
             }

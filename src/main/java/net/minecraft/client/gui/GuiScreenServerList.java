@@ -53,7 +53,7 @@ public class GuiScreenServerList extends GuiScreen {
         if (field_146302_g.textboxKeyTyped(typedChar, keyCode)) {
             buttonList.getFirst().enabled = !field_146302_g.getText().isEmpty() && field_146302_g.getText().split(":").length > 0;
         } else if (keyCode == 28 || keyCode == 156) {
-            actionPerformed((GuiButton) buttonList.getFirst());
+            actionPerformed(buttonList.getFirst());
         }
     }
 

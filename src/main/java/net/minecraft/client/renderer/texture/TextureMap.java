@@ -146,7 +146,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
         while (true) {
             if (iterator.hasNext()) {
-                Entry<String, TextureAtlasSprite> entry = (Entry) iterator.next();
+                Entry<String, TextureAtlasSprite> entry = iterator.next();
 
                 if (!skipFirst) {
                     TextureAtlasSprite textureatlassprite3 = entry.getValue();

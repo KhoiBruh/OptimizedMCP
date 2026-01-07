@@ -280,13 +280,13 @@ public class ItemRenderer {
     public void renderItemInFirstPerson(float partialTicks) {
         if (!Config.isShaders() || !Shaders.isSkipRenderHand()) {
             float f = 1.0F - (prevEquippedProgress + (equippedProgress - prevEquippedProgress) * partialTicks);
-            AbstractClientPlayer abstractclientplayer = mc.thePlayer;
+            EntityPlayerSP abstractclientplayer = mc.thePlayer;
             float f1 = abstractclientplayer.getSwingProgress(partialTicks);
             float f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
             float f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
             rotateArroundXAndY(f2, f3);
             setLightMapFromPlayer(abstractclientplayer);
-            rotateWithPlayerRotations((EntityPlayerSP) abstractclientplayer, partialTicks);
+            rotateWithPlayerRotations(abstractclientplayer, partialTicks);
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
 

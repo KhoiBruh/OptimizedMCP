@@ -37,6 +37,6 @@ public abstract class TileEntityLockable extends TileEntity implements IInteract
     }
 
     public IChatComponent getDisplayName() {
-        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName());
     }
 }

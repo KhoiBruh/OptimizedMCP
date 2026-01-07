@@ -672,7 +672,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                                 continue label926;
                             }
 
-                            entity2 = (Entity) iterator.next();
+                            entity2 = iterator.next();
 
                             flag4 = renderManager.shouldRender(entity2, camera, d0, d1, d2) || entity2.riddenByEntity == mc.thePlayer;
 
@@ -741,7 +741,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                                 continue label1408;
                             }
 
-                            tileentity1 = (TileEntity) iterator1.next();
+                            tileentity1 = iterator1.next();
 
                             break;
                         }

@@ -142,7 +142,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         Iterator<ResourceLocation> iterator = mapTextureObjects.keySet().iterator();
 
         while (iterator.hasNext()) {
-            ResourceLocation resourcelocation = (ResourceLocation) iterator.next();
+            ResourceLocation resourcelocation = iterator.next();
             String s = resourcelocation.getResourcePath();
 
             if (s.startsWith("mcpatcher/") || s.startsWith("optifine/") || EmissiveTextures.isEmissive(resourcelocation)) {

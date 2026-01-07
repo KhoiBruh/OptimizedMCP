@@ -25,7 +25,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
     private void setDefaultUvs() {
         for (Entry<EnumFacing, BlockPartFace> entry : mapFaces.entrySet()) {
             float[] afloat = getFaceUvs(entry.getKey());
-            ((BlockPartFace) entry.getValue()).blockFaceUV().setUvs(afloat);
+            entry.getValue().blockFaceUV().setUvs(afloat);
         }
     }
 

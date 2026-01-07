@@ -224,10 +224,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 ItemStack itemstack = null;
 
                 try {
-                    NBTBase nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
+                    NBTTagCompound nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
 
                     if (nbtbase instanceof NBTTagCompound) {
-                        itemstack = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbtbase);
+                        itemstack = ItemStack.loadItemStackFromNBT(nbtbase);
                     }
                 } catch (NBTException var11) {
                 }

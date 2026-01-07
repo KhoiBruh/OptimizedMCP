@@ -136,7 +136,7 @@ public class RenderManager {
     }
 
     public <T extends Entity> Render<T> getEntityClassRenderObject(Class<? extends Entity> entityClass) {
-        Render<? extends Entity> render = (Render) entityRenderMap.get(entityClass);
+        Render<? extends Entity> render = entityRenderMap.get(entityClass);
 
         if (render == null && entityClass != Entity.class) {
             render = getEntityClassRenderObject((Class<? extends Entity>) entityClass.getSuperclass());

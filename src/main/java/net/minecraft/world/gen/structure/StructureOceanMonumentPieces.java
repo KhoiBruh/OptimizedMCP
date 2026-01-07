@@ -622,7 +622,7 @@ public class StructureOceanMonumentPieces {
                             continue label319;
                         }
 
-                        structureoceanmonumentpieces$monumentroomfithelper = (StructureOceanMonumentPieces.MonumentRoomFitHelper) iterator.next();
+                        structureoceanmonumentpieces$monumentroomfithelper = iterator.next();
 
                         if (structureoceanmonumentpieces$monumentroomfithelper.func_175969_a(structureoceanmonumentpieces$roomdefinition)) {
                             break;

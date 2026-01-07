@@ -57,7 +57,7 @@ public class EntityAITasks {
                         break label38;
                     }
 
-                    entityaitasks$entityaitaskentry = (EntityAITasks.EntityAITaskEntry) iterator.next();
+                    entityaitasks$entityaitaskentry = iterator.next();
                     boolean flag = executingTaskEntries.contains(entityaitasks$entityaitaskentry);
 
                     if (!flag) {

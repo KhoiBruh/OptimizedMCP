@@ -251,7 +251,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
                 } else if (keyCode != 28 && keyCode != 156) {
                     super.keyTyped(typedChar, keyCode);
                 } else {
-                    actionPerformed((GuiButton) buttonList.get(2));
+                    actionPerformed(buttonList.get(2));
                 }
             } else {
                 super.keyTyped(typedChar, keyCode);

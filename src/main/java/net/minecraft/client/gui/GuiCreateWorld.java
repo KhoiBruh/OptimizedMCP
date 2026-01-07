@@ -321,7 +321,7 @@ public class GuiCreateWorld extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            actionPerformed((GuiButton) buttonList.getFirst());
+            actionPerformed(buttonList.getFirst());
         }
 
         buttonList.getFirst().enabled = !worldNameField.getText().isEmpty();

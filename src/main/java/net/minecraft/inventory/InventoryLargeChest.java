@@ -52,7 +52,7 @@ public class InventoryLargeChest implements ILockableContainer {
     }
 
     public IChatComponent getDisplayName() {
-        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName());
     }
 
     public ItemStack getStackInSlot(int index) {

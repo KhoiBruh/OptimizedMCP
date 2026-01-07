@@ -313,7 +313,7 @@ public class BlockModelRenderer {
         if (block$enumoffsettype != Block.EnumOffsetType.NONE) {
             int i = p_renderQuadsFlat_3_.getX();
             int j = p_renderQuadsFlat_3_.getZ();
-            long k = (long) (i * 3129871L) ^ (long) j * 116129781L;
+            long k = (i * 3129871L) ^ (long) j * 116129781L;
             k = k * k * 42317861L + k * 11L;
             d0 += ((double) ((float) (k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
             d2 += ((double) ((float) (k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;

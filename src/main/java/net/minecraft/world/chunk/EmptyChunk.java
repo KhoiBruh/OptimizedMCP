@@ -97,7 +97,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Random getRandomWithSeed(long seed) {
-        return new Random(getWorld().getSeed() + (long) ((long) xPosition * xPosition * 4987142) + (long) (xPosition * 5947611L) + (long) ((long) zPosition * zPosition) * 4392871L + (long) (zPosition * 389711L) ^ seed);
+        return new Random(getWorld().getSeed() + ((long) xPosition * xPosition * 4987142) + (xPosition * 5947611L) + (long) zPosition * zPosition * 4392871L + (zPosition * 389711L) ^ seed);
     }
 
     public boolean isEmpty() {

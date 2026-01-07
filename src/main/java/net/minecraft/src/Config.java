@@ -809,8 +809,8 @@ public class Config {
         List<ResourcePackRepository.Entry> list = resourcepackrepository.getRepositoryEntries();
         List list1 = new ArrayList();
 
-        for (Object o : list) {
-            ResourcePackRepository.Entry resourcepackrepository$entry = (ResourcePackRepository.Entry) o;
+        for (ResourcePackRepository.Entry o : list) {
+            ResourcePackRepository.Entry resourcepackrepository$entry = o;
             list1.add(resourcepackrepository$entry.getResourcePack());
         }
 

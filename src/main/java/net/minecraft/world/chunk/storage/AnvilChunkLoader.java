@@ -34,7 +34,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
     private static final Logger logger = LogManager.getLogger();
     private final File chunkSaveLocation;
     private final Map<ChunkCoordIntPair, NBTTagCompound> chunksToRemove = new ConcurrentHashMap<>();
-    private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.<ChunkCoordIntPair>newSetFromMap(new ConcurrentHashMap<>());
+    private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private boolean field_183014_e = false;
 
     public AnvilChunkLoader(File chunkSaveLocationIn) {
@@ -155,7 +155,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
             while (true) {
                 if (writeNextIO()) {
-                    continue;
                 }
             }
         } finally {

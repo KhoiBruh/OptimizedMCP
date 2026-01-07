@@ -118,7 +118,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 
     public IChatComponent getDisplayName() {
         return hasCustomName() ? new ChatComponentText(getName())
-                : new ChatComponentTranslation(getName(), new Object[0]);
+                : new ChatComponentTranslation(getName());
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {

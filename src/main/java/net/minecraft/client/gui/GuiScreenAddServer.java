@@ -88,7 +88,7 @@ public class GuiScreenAddServer extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            actionPerformed((GuiButton) buttonList.getFirst());
+            actionPerformed(buttonList.getFirst());
         }
 
         buttonList.getFirst().enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();

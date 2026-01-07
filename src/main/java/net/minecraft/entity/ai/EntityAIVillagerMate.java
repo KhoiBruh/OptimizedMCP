@@ -30,12 +30,12 @@ public class EntityAIVillagerMate extends EntityAIBase {
             if (villageObj == null) {
                 return false;
             } else if (checkSufficientDoorsPresentForNewVillager() && villagerObj.getIsWillingToMate(true)) {
-                Entity entity = worldObj.findNearestEntityWithinAABB(EntityVillager.class, villagerObj.getEntityBoundingBox().expand(8.0D, 3.0D, 8.0D), villagerObj);
+                EntityVillager entity = worldObj.findNearestEntityWithinAABB(EntityVillager.class, villagerObj.getEntityBoundingBox().expand(8.0D, 3.0D, 8.0D), villagerObj);
 
                 if (entity == null) {
                     return false;
                 } else {
-                    mate = (EntityVillager) entity;
+                    mate = entity;
                     return mate.getGrowingAge() == 0 && mate.getIsWillingToMate(true);
                 }
             } else {

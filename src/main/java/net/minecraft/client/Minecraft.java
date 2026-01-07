@@ -673,7 +673,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                             continue label53;
                         }
 
-                        displaymode3 = (DisplayMode) iterator.next();
+                        displaymode3 = iterator.next();
 
                         if (displaymode3.getBitsPerPixel() == 32
                                 && displaymode3.getWidth() == displaymode1.getWidth() / 2

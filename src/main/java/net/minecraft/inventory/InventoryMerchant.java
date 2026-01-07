@@ -97,7 +97,7 @@ public class InventoryMerchant implements IInventory {
     }
 
     public IChatComponent getDisplayName() {
-        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName());
     }
 
     public int getInventoryStackLimit() {
