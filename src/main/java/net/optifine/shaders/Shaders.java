@@ -855,7 +855,7 @@ public class Shaders {
 
     private static ICustomTexture[] loadCustomTextures(Properties props, int stage) {
         String s = "texture." + STAGE_NAMES[stage] + ".";
-        Set set = props.keySet();
+        Set<Object> set = props.keySet();
         List<ICustomTexture> list = new ArrayList<>();
 
         for (Object o : set) {
@@ -880,7 +880,7 @@ public class Shaders {
             }
         }
 
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return list.toArray(new ICustomTexture[0]);
@@ -1399,7 +1399,7 @@ public class Shaders {
         return line;
     }
 
-    public static ArrayList listOfShaders() {
+    public static ArrayList<String> listOfShaders() {
         ArrayList<String> arraylist = new ArrayList<>();
         arraylist.add("OFF");
         arraylist.add("(internal)");
@@ -1435,14 +1435,13 @@ public class Shaders {
         return arraylist;
     }
 
-    public static int checkFramebufferStatus(String location) {
+    public static void checkFramebufferStatus(String location) {
         int i = EXTFramebufferObject.glCheckFramebufferStatusEXT(36160);
 
         if (i != 36053) {
             System.err.format("FramebufferStatus 0x%04X at %s\n", i, location);
         }
 
-        return i;
     }
 
     public static int checkGLError(String location) {
@@ -2457,7 +2456,7 @@ public class Shaders {
         }
     }
 
-    private static boolean printLogInfo(int obj, String name) {
+    private static void printLogInfo(int obj, String name) {
         IntBuffer intbuffer = BufferUtils.createIntBuffer(1);
         ARBShaderObjects.glGetObjectParameterARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB, intbuffer);
         int i = intbuffer.get();
@@ -2476,18 +2475,15 @@ public class Shaders {
             String s = new String(abyte, StandardCharsets.US_ASCII);
             s = StrUtils.trim(s, " \n\r\t");
             SMCLog.info("Info log: " + name + "\n" + s);
-            return false;
         } else {
-            return true;
         }
     }
 
-    private static boolean printShaderLogInfo(int shader, String name, List<String> listFiles) {
+    private static void printShaderLogInfo(int shader, String name, List<String> listFiles) {
         IntBuffer intbuffer = BufferUtils.createIntBuffer(1);
         int i = GL20.glGetShaderi(shader, 35716);
 
         if (i <= 1) {
-            return true;
         } else {
             for (int j = 0; j < listFiles.size(); ++j) {
                 String s = listFiles.get(j);
@@ -2497,7 +2493,6 @@ public class Shaders {
             String s1 = GL20.glGetShaderInfoLog(shader, i);
             s1 = StrUtils.trim(s1, " \n\r\t");
             SMCLog.info("Shader info log: " + name + "\n" + s1);
-            return false;
         }
     }
 
@@ -2851,14 +2846,13 @@ public class Shaders {
         }
     }
 
-    private static IntBuffer fillIntBufferZero(IntBuffer buf) {
+    private static void fillIntBufferZero(IntBuffer buf) {
         int i = buf.limit();
 
         for (int j = buf.position(); j < i; ++j) {
             buf.put(j, 0);
         }
 
-        return buf;
     }
 
     public static void uninit() {
@@ -4355,7 +4349,7 @@ public class Shaders {
 
     public static void checkShadersModInstalled() {
         try {
-            Class oclass = Class.forName("shadersmod.transform.SMCClassTransformer");
+            Class<?> oclass = Class.forName("shadersmod.transform.SMCClassTransformer");
         } catch (Throwable var1) {
             return;
         }
@@ -4418,7 +4412,7 @@ public class Shaders {
     public static boolean isProgramPath(String path) {
         if (path == null) {
             return false;
-        } else if (path.length() == 0) {
+        } else if (path.isEmpty()) {
             return false;
         } else {
             int i = path.lastIndexOf("/");

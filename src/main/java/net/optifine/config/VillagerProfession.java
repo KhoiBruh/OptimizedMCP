@@ -12,14 +12,14 @@ public class VillagerProfession {
     }
 
     public boolean matches(int prof, int car) {
-        return this.profession == prof && (this.careers == null || Config.equalsOne(car, this.careers));
+        return profession == prof && (careers == null || Config.equalsOne(car, careers));
     }
 
     private boolean hasCareer(int car) {
-        return this.careers != null && Config.equalsOne(car, this.careers);
+        return careers != null && Config.equalsOne(car, careers);
     }
 
     public String toString() {
-        return this.careers == null ? "" + this.profession : this.profession + ":" + Config.arrayToString(this.careers);
+        return careers == null ? "" + profession : profession + ":" + Config.arrayToString(careers);
     }
 }

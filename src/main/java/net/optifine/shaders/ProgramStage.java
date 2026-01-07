@@ -7,10 +7,7 @@ public enum ProgramStage {
     DEFERRED("deferred"),
     COMPOSITE("composite");
 
-    private final String name;
-
     ProgramStage(String name) {
-        this.name = name;
     }
 
 }

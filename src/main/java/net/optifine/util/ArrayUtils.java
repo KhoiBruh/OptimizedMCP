@@ -1,6 +1,5 @@
 package net.optifine.util;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class ArrayUtils {
@@ -88,19 +87,6 @@ public class ArrayUtils {
             }
 
             return stringbuffer.toString();
-        }
-    }
-
-    public static Object[] collectionToArray(Collection coll, Class elementClass) {
-        if (coll == null) {
-            return null;
-        } else if (elementClass == null) {
-            return null;
-        } else if (elementClass.isPrimitive()) {
-            throw new IllegalArgumentException("Can not make arrays with primitive elements (int, double), element class: " + elementClass);
-        } else {
-            Object[] aobject = (Object[]) Array.newInstance(elementClass, coll.size());
-            return coll.toArray(aobject);
         }
     }
 

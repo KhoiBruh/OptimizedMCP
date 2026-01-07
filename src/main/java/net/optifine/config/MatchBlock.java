@@ -4,7 +4,7 @@ import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.src.Config;
 
 public class MatchBlock {
-    private int blockId;
+    private final int blockId;
     private int[] metadatas = null;
 
     public MatchBlock(int blockId) {
@@ -15,7 +15,7 @@ public class MatchBlock {
         this.blockId = blockId;
 
         if (metadata >= 0 && metadata <= 15) {
-            this.metadatas = new int[]{metadata};
+            metadatas = new int[]{metadata};
         }
     }
 
@@ -25,36 +25,36 @@ public class MatchBlock {
     }
 
     public int getBlockId() {
-        return this.blockId;
+        return blockId;
     }
 
     public int[] getMetadatas() {
-        return this.metadatas;
+        return metadatas;
     }
 
     public boolean matches(BlockStateBase blockState) {
-        return blockState.getBlockId() == this.blockId && Matches.metadata(blockState.getMetadata(), this.metadatas);
+        return blockState.getBlockId() == blockId && Matches.metadata(blockState.getMetadata(), metadatas);
     }
 
     public boolean matches(int id, int metadata) {
-        return id == this.blockId && Matches.metadata(metadata, this.metadatas);
+        return id == blockId && Matches.metadata(metadata, metadatas);
     }
 
     public void addMetadata(int metadata) {
-        if (this.metadatas != null) {
+        if (metadatas != null) {
             if (metadata >= 0 && metadata <= 15) {
-                for (int j : this.metadatas) {
+                for (int j : metadatas) {
                     if (j == metadata) {
                         return;
                     }
                 }
 
-                this.metadatas = Config.addIntToArray(this.metadatas, metadata);
+                metadatas = Config.addIntToArray(metadatas, metadata);
             }
         }
     }
 
     public String toString() {
-        return this.blockId + ":" + Config.arrayToString(this.metadatas);
+        return blockId + ":" + Config.arrayToString(metadatas);
     }
 }

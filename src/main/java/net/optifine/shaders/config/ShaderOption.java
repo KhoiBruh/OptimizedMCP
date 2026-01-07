@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class ShaderOption {
-    private String name;
+    private final String name;
     private String description;
     private String value;
-    private String[] values;
-    private String valueDefault;
+    private final String[] values;
+    private final String valueDefault;
     private String[] paths = null;
     private boolean enabled = true;
     private boolean visible = true;
@@ -25,7 +25,7 @@ public abstract class ShaderOption {
         this.valueDefault = valueDefault;
 
         if (path != null) {
-            this.paths = new String[]{path};
+            paths = new String[]{path};
         }
     }
 
@@ -42,11 +42,11 @@ public abstract class ShaderOption {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -54,18 +54,18 @@ public abstract class ShaderOption {
     }
 
     public String getDescriptionText() {
-        String s = Config.normalize(this.description);
+        String s = Config.normalize(description);
         s = StrUtils.removePrefix(s, "//");
-        s = Shaders.translate("option." + this.getName() + ".comment", s);
+        s = Shaders.translate("option." + getName() + ".comment", s);
         return s;
     }
 
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     public boolean setValue(String value) {
-        int i = getIndex(value, this.values);
+        int i = getIndex(value, values);
 
         if (i < 0) {
             return false;
@@ -76,47 +76,47 @@ public abstract class ShaderOption {
     }
 
     public String getValueDefault() {
-        return this.valueDefault;
+        return valueDefault;
     }
 
     public void resetValue() {
-        this.value = this.valueDefault;
+        value = valueDefault;
     }
 
     public void nextValue() {
-        int i = getIndex(this.value, this.values);
+        int i = getIndex(value, values);
 
         if (i >= 0) {
-            i = (i + 1) % this.values.length;
-            this.value = this.values[i];
+            i = (i + 1) % values.length;
+            value = values[i];
         }
     }
 
     public void prevValue() {
-        int i = getIndex(this.value, this.values);
+        int i = getIndex(value, values);
 
         if (i >= 0) {
-            i = (i - 1 + this.values.length) % this.values.length;
-            this.value = this.values[i];
+            i = (i - 1 + values.length) % values.length;
+            value = values[i];
         }
     }
 
     public String[] getPaths() {
-        return this.paths;
+        return paths;
     }
 
     public void addPaths(String[] newPaths) {
-        List<String> list = Arrays.asList(this.paths);
+        List<String> list = Arrays.asList(paths);
 
         for (String s : newPaths) {
             if (!list.contains(s)) {
-                this.paths = (String[]) Config.addObjectToArray(this.paths, s);
+                paths = (String[]) Config.addObjectToArray(paths, s);
             }
         }
     }
 
     public boolean isEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -124,11 +124,11 @@ public abstract class ShaderOption {
     }
 
     public boolean isChanged() {
-        return !Config.equals(this.value, this.valueDefault);
+        return !Config.equals(value, valueDefault);
     }
 
     public boolean isVisible() {
-        return this.visible;
+        return visible;
     }
 
     public void setVisible(boolean visible) {
@@ -136,15 +136,15 @@ public abstract class ShaderOption {
     }
 
     public boolean isValidValue(String val) {
-        return getIndex(val, this.values) >= 0;
+        return getIndex(val, values) >= 0;
     }
 
     public String getNameText() {
-        return Shaders.translate("option." + this.name, this.name);
+        return Shaders.translate("option." + name, name);
     }
 
     public String getValueText(String val) {
-        return Shaders.translate("value." + this.name + "." + val, val);
+        return Shaders.translate("value." + name + "." + val, val);
     }
 
     public String getValueColor(String val) {
@@ -168,32 +168,32 @@ public abstract class ShaderOption {
     }
 
     public String[] getValues() {
-        return this.values.clone();
+        return values.clone();
     }
 
     public float getIndexNormalized() {
-        if (this.values.length <= 1) {
+        if (values.length <= 1) {
             return 0.0F;
         } else {
-            int i = getIndex(this.value, this.values);
+            int i = getIndex(value, values);
 
             if (i < 0) {
                 return 0.0F;
             } else {
-                return (float) i / ((float) this.values.length - 1.0F);
+                return (float) i / ((float) values.length - 1.0F);
             }
         }
     }
 
     public void setIndexNormalized(float f) {
-        if (this.values.length > 1) {
+        if (values.length > 1) {
             f = Config.limit(f, 0.0F, 1.0F);
-            int i = Math.round(f * (float) (this.values.length - 1));
-            this.value = this.values[i];
+            int i = Math.round(f * (float) (values.length - 1));
+            value = values[i];
         }
     }
 
     public String toString() {
-        return this.name + ", value: " + this.value + ", valueDefault: " + this.valueDefault + ", paths: " + Config.arrayToString(this.paths);
+        return name + ", value: " + value + ", valueDefault: " + valueDefault + ", paths: " + Config.arrayToString(paths);
     }
 }

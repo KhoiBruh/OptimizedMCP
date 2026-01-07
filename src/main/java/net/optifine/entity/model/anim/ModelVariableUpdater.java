@@ -17,18 +17,18 @@ public class ModelVariableUpdater {
     }
 
     public boolean initialize(IModelResolver mr) {
-        this.modelVariable = mr.getModelVariable(this.modelVariableName);
+        modelVariable = mr.getModelVariable(modelVariableName);
 
-        if (this.modelVariable == null) {
-            Config.warn("Model variable not found: " + this.modelVariableName);
+        if (modelVariable == null) {
+            Config.warn("Model variable not found: " + modelVariableName);
             return false;
         } else {
             try {
                 ExpressionParser expressionparser = new ExpressionParser(mr);
-                this.expression = expressionparser.parseFloat(this.expressionText);
+                expression = expressionparser.parseFloat(expressionText);
                 return true;
             } catch (ParseException parseexception) {
-                Config.warn("Error parsing expression: " + this.expressionText);
+                Config.warn("Error parsing expression: " + expressionText);
                 Config.warn(parseexception.getClass().getName() + ": " + parseexception.getMessage());
                 return false;
             }
@@ -36,7 +36,7 @@ public class ModelVariableUpdater {
     }
 
     public void update() {
-        float f = this.expression.eval();
-        this.modelVariable.setValue(f);
+        float f = expression.eval();
+        modelVariable.setValue(f);
     }
 }

@@ -5,40 +5,40 @@ import java.util.List;
 
 public class Programs {
     private final List<Program> programs = new ArrayList<>();
-    private final Program programNone = this.make("", ProgramStage.NONE, true);
+    private final Program programNone = make("", ProgramStage.NONE, true);
 
     public Program make(String name, ProgramStage programStage, Program backupProgram) {
-        int i = this.programs.size();
+        int i = programs.size();
         Program program = new Program(i, name, programStage, backupProgram);
-        this.programs.add(program);
+        programs.add(program);
         return program;
     }
 
     private Program make(String name, ProgramStage programStage, boolean ownBackup) {
-        int i = this.programs.size();
+        int i = programs.size();
         Program program = new Program(i, name, programStage, ownBackup);
-        this.programs.add(program);
+        programs.add(program);
         return program;
     }
 
     public Program makeGbuffers(String name, Program backupProgram) {
-        return this.make(name, ProgramStage.GBUFFERS, backupProgram);
+        return make(name, ProgramStage.GBUFFERS, backupProgram);
     }
 
     public Program makeComposite(String name) {
-        return this.make(name, ProgramStage.COMPOSITE, this.programNone);
+        return make(name, ProgramStage.COMPOSITE, programNone);
     }
 
     public Program makeDeferred(String name) {
-        return this.make(name, ProgramStage.DEFERRED, this.programNone);
+        return make(name, ProgramStage.DEFERRED, programNone);
     }
 
     public Program makeShadow(String name, Program backupProgram) {
-        return this.make(name, ProgramStage.SHADOW, backupProgram);
+        return make(name, ProgramStage.SHADOW, backupProgram);
     }
 
     public Program makeVirtual(String name) {
-        return this.make(name, ProgramStage.NONE, true);
+        return make(name, ProgramStage.NONE, true);
     }
 
     public Program[] makeComposites(String prefix, int count) {
@@ -46,7 +46,7 @@ public class Programs {
 
         for (int i = 0; i < count; ++i) {
             String s = i == 0 ? prefix : prefix + i;
-            aprogram[i] = this.makeComposite(s);
+            aprogram[i] = makeComposite(s);
         }
 
         return aprogram;
@@ -57,23 +57,23 @@ public class Programs {
 
         for (int i = 0; i < count; ++i) {
             String s = i == 0 ? prefix : prefix + i;
-            aprogram[i] = this.makeDeferred(s);
+            aprogram[i] = makeDeferred(s);
         }
 
         return aprogram;
     }
 
     public Program getProgramNone() {
-        return this.programNone;
+        return programNone;
     }
 
     public int getCount() {
-        return this.programs.size();
+        return programs.size();
     }
 
     public Program getProgram(String name) {
         if (name != null) {
-            for (Program program : this.programs) {
+            for (Program program : programs) {
                 String s = program.getName();
 
                 if (s.equals(name)) {
@@ -86,20 +86,20 @@ public class Programs {
     }
 
     public String[] getProgramNames() {
-        String[] astring = new String[this.programs.size()];
+        String[] astring = new String[programs.size()];
 
         for (int i = 0; i < astring.length; ++i) {
-            astring[i] = this.programs.get(i).getName();
+            astring[i] = programs.get(i).getName();
         }
 
         return astring;
     }
 
     public Program[] getPrograms() {
-        return this.programs.toArray(new Program[0]);
+        return programs.toArray(new Program[0]);
     }
 
     public String toString() {
-        return this.programs.toString();
+        return programs.toString();
     }
 }

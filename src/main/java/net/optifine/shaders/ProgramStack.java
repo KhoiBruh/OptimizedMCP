@@ -7,18 +7,18 @@ public class ProgramStack {
     private final Deque<Program> stack = new ArrayDeque<>();
 
     public void push(Program p) {
-        this.stack.addLast(p);
+        stack.addLast(p);
 
-        if (this.stack.size() > 100) {
-            throw new RuntimeException("Program stack overflow: " + this.stack.size());
+        if (stack.size() > 100) {
+            throw new RuntimeException("Program stack overflow: " + stack.size());
         }
     }
 
     public Program pop() {
-        if (this.stack.isEmpty()) {
+        if (stack.isEmpty()) {
             throw new RuntimeException("Program stack empty");
         } else {
-            return this.stack.pollLast();
+            return stack.pollLast();
         }
     }
 }

@@ -13,7 +13,7 @@ public class ModelAdapterSpider extends ModelAdapter {
         super(EntitySpider.class, "spider", 1.0F);
     }
 
-    protected ModelAdapterSpider(Class entityClass, String name, float shadowSize) {
+    protected ModelAdapterSpider(Class<? extends EntitySpider> entityClass, String name, float shadowSize) {
         super(entityClass, name, shadowSize);
     }
 
@@ -35,7 +35,7 @@ public class ModelAdapterSpider extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderSpider renderspider = new RenderSpider(rendermanager);
+        RenderSpider<EntitySpider> renderspider = new RenderSpider<>(rendermanager);
         renderspider.mainModel = modelBase;
         renderspider.shadowSize = shadowSize;
         return renderspider;

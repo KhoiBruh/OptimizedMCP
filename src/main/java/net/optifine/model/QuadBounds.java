@@ -19,54 +19,54 @@ public class QuadBounds {
             float f1 = Float.intBitsToFloat(vertexData[k + 1]);
             float f2 = Float.intBitsToFloat(vertexData[k + 2]);
 
-            if (this.minX > f) {
-                this.minX = f;
+            if (minX > f) {
+                minX = f;
             }
 
-            if (this.minY > f1) {
-                this.minY = f1;
+            if (minY > f1) {
+                minY = f1;
             }
 
-            if (this.minZ > f2) {
-                this.minZ = f2;
+            if (minZ > f2) {
+                minZ = f2;
             }
 
-            if (this.maxX < f) {
-                this.maxX = f;
+            if (maxX < f) {
+                maxX = f;
             }
 
-            if (this.maxY < f1) {
-                this.maxY = f1;
+            if (maxY < f1) {
+                maxY = f1;
             }
 
-            if (this.maxZ < f2) {
-                this.maxZ = f2;
+            if (maxZ < f2) {
+                maxZ = f2;
             }
         }
     }
 
     public float getMinX() {
-        return this.minX;
+        return minX;
     }
 
     public float getMinY() {
-        return this.minY;
+        return minY;
     }
 
     public float getMinZ() {
-        return this.minZ;
+        return minZ;
     }
 
     public float getMaxX() {
-        return this.maxX;
+        return maxX;
     }
 
     public float getMaxY() {
-        return this.maxY;
+        return maxY;
     }
 
     public float getMaxZ() {
-        return this.maxZ;
+        return maxZ;
     }
 
     public boolean isFaceQuad(EnumFacing face) {
@@ -76,38 +76,38 @@ public class QuadBounds {
 
         switch (face) {
             case DOWN:
-                f = this.getMinY();
-                f1 = this.getMaxY();
+                f = getMinY();
+                f1 = getMaxY();
                 f2 = 0.0F;
                 break;
 
             case UP:
-                f = this.getMinY();
-                f1 = this.getMaxY();
+                f = getMinY();
+                f1 = getMaxY();
                 f2 = 1.0F;
                 break;
 
             case NORTH:
-                f = this.getMinZ();
-                f1 = this.getMaxZ();
+                f = getMinZ();
+                f1 = getMaxZ();
                 f2 = 0.0F;
                 break;
 
             case SOUTH:
-                f = this.getMinZ();
-                f1 = this.getMaxZ();
+                f = getMinZ();
+                f1 = getMaxZ();
                 f2 = 1.0F;
                 break;
 
             case WEST:
-                f = this.getMinX();
-                f1 = this.getMaxX();
+                f = getMinX();
+                f1 = getMaxX();
                 f2 = 0.0F;
                 break;
 
             case EAST:
-                f = this.getMinX();
-                f1 = this.getMaxX();
+                f = getMinX();
+                f1 = getMaxX();
                 f2 = 1.0F;
                 break;
 
@@ -127,26 +127,26 @@ public class QuadBounds {
         switch (face) {
             case DOWN:
             case UP:
-                f = this.getMinX();
-                f1 = this.getMaxX();
-                f2 = this.getMinZ();
-                f3 = this.getMaxZ();
+                f = getMinX();
+                f1 = getMaxX();
+                f2 = getMinZ();
+                f3 = getMaxZ();
                 break;
 
             case NORTH:
             case SOUTH:
-                f = this.getMinX();
-                f1 = this.getMaxX();
-                f2 = this.getMinY();
-                f3 = this.getMaxY();
+                f = getMinX();
+                f1 = getMaxX();
+                f2 = getMinY();
+                f3 = getMaxY();
                 break;
 
             case WEST:
             case EAST:
-                f = this.getMinY();
-                f1 = this.getMaxY();
-                f2 = this.getMinZ();
-                f3 = this.getMaxZ();
+                f = getMinY();
+                f1 = getMaxY();
+                f2 = getMinZ();
+                f3 = getMaxZ();
                 break;
 
             default:

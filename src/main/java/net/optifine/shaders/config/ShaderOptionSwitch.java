@@ -41,7 +41,7 @@ public class ShaderOptionSwitch extends ShaderOption {
     }
 
     public String getSourceLine() {
-        return isTrue(this.getValue()) ? "#define " + this.getName() + " // Shader option ON" : "//#define " + this.getName() + " // Shader option OFF";
+        return isTrue(getValue()) ? "#define " + getName() + " // Shader option ON" : "//#define " + getName() + " // Shader option OFF";
     }
 
     public String getValueText(String val) {
@@ -60,7 +60,7 @@ public class ShaderOptionSwitch extends ShaderOption {
             return false;
         } else {
             String s = matcher.group(2);
-            return s.matches(this.getName());
+            return s.matches(getName());
         }
     }
 
@@ -74,7 +74,7 @@ public class ShaderOptionSwitch extends ShaderOption {
         if (matcher.matches()) {
             String s = matcher.group(2);
 
-            return s.equals(this.getName());
+            return s.equals(getName());
         }
 
         return false;

@@ -18,130 +18,130 @@ public class ShaderLine {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     public boolean isUniform() {
-        return this.type == 1;
+        return type == 1;
     }
 
     public boolean isAttribute() {
-        return this.type == 2;
+        return type == 2;
     }
 
     public boolean isAttribute(String name) {
-        return this.isAttribute() && name.equals(this.name);
+        return isAttribute() && name.equals(this.name);
     }
 
     public boolean isProperty() {
-        return this.type == 6;
+        return type == 6;
     }
 
     public boolean isConstInt() {
-        return this.type == 3;
+        return type == 3;
     }
 
     public boolean isConstFloat() {
-        return this.type == 4;
+        return type == 4;
     }
 
     public boolean isConstBool() {
-        return this.type == 5;
+        return type == 5;
     }
 
     public boolean isExtension() {
-        return this.type == 7;
+        return type == 7;
     }
 
     public boolean isConstVec4() {
-        return this.type == 8;
+        return type == 8;
     }
 
     public boolean isProperty(String name) {
-        return this.isProperty() && name.equals(this.name);
+        return isProperty() && name.equals(this.name);
     }
 
     public boolean isProperty(String name, String value) {
-        return this.isProperty(name) && value.equals(this.value);
+        return isProperty(name) && value.equals(this.value);
     }
 
     public boolean isConstInt(String name) {
-        return this.isConstInt() && name.equals(this.name);
+        return isConstInt() && name.equals(this.name);
     }
 
     public boolean isConstIntSuffix(String suffix) {
-        return this.isConstInt() && this.name.endsWith(suffix);
+        return isConstInt() && name.endsWith(suffix);
     }
 
     public boolean isConstFloat(String name) {
-        return this.isConstFloat() && name.equals(this.name);
+        return isConstFloat() && name.equals(this.name);
     }
 
     public boolean isConstBool(String name) {
-        return this.isConstBool() && name.equals(this.name);
+        return isConstBool() && name.equals(this.name);
     }
 
     public boolean isExtension(String name) {
-        return this.isExtension() && name.equals(this.name);
+        return isExtension() && name.equals(this.name);
     }
 
     public boolean isConstBoolSuffix(String suffix) {
-        return this.isConstBool() && this.name.endsWith(suffix);
+        return isConstBool() && name.endsWith(suffix);
     }
 
     public boolean isConstBoolSuffix(String suffix, boolean val) {
-        return this.isConstBoolSuffix(suffix) && this.getValueBool() == val;
+        return isConstBoolSuffix(suffix) && getValueBool() == val;
     }
 
     public boolean isConstBool(String name1, String name2) {
-        return this.isConstBool(name1) || this.isConstBool(name2);
+        return isConstBool(name1) || isConstBool(name2);
     }
 
     public boolean isConstBool(String name1, String name2, String name3) {
-        return this.isConstBool(name1) || this.isConstBool(name2) || this.isConstBool(name3);
+        return isConstBool(name1) || isConstBool(name2) || isConstBool(name3);
     }
 
     public boolean isConstBool(String name, boolean val) {
-        return this.isConstBool(name) && this.getValueBool() == val;
+        return isConstBool(name) && getValueBool() == val;
     }
 
     public boolean isConstBool(String name1, String name2, boolean val) {
-        return this.isConstBool(name1, name2) && this.getValueBool() == val;
+        return isConstBool(name1, name2) && getValueBool() == val;
     }
 
     public boolean isConstBool(String name1, String name2, String name3, boolean val) {
-        return this.isConstBool(name1, name2, name3) && this.getValueBool() == val;
+        return isConstBool(name1, name2, name3) && getValueBool() == val;
     }
 
     public boolean isConstVec4Suffix(String suffix) {
-        return this.isConstVec4() && this.name.endsWith(suffix);
+        return isConstVec4() && name.endsWith(suffix);
     }
 
     public int getValueInt() {
         try {
-            return Integer.parseInt(this.value);
+            return Integer.parseInt(value);
         } catch (NumberFormatException var2) {
-            throw new NumberFormatException("Invalid integer: " + this.value + ", line: " + this.line);
+            throw new NumberFormatException("Invalid integer: " + value + ", line: " + line);
         }
     }
 
     public float getValueFloat() {
         try {
-            return Float.parseFloat(this.value);
+            return Float.parseFloat(value);
         } catch (NumberFormatException var2) {
-            throw new NumberFormatException("Invalid float: " + this.value + ", line: " + this.line);
+            throw new NumberFormatException("Invalid float: " + value + ", line: " + line);
         }
     }
 
     public Vector4f getValueVec4() {
-        if (this.value == null) {
+        if (value == null) {
             return null;
         } else {
-            String s = this.value.trim();
+            String s = value.trim();
             s = StrUtils.removePrefix(s, "vec4");
             s = StrUtils.trim(s, " ()");
             String[] astring = Config.tokenize(s, ", ");
@@ -169,12 +169,12 @@ public class ShaderLine {
     }
 
     public boolean getValueBool() {
-        String s = this.value.toLowerCase();
+        String s = value.toLowerCase();
 
         if (!s.equals("true") && !s.equals("false")) {
-            throw new RuntimeException("Invalid boolean: " + this.value + ", line: " + this.line);
+            throw new RuntimeException("Invalid boolean: " + value + ", line: " + line);
         } else {
-            return Boolean.parseBoolean(this.value);
+            return Boolean.parseBoolean(value);
         }
     }
 }

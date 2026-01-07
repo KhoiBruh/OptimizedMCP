@@ -30,11 +30,11 @@ public class GuiScreenOF extends GuiScreen {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
         if (mouseButton == 1) {
-            GuiButton guibutton = getSelectedButton(mouseX, mouseY, this.buttonList);
+            GuiButton guibutton = getSelectedButton(mouseX, mouseY, buttonList);
 
             if (guibutton != null && guibutton.enabled) {
-                guibutton.playPressSound(this.mc.getSoundHandler());
-                this.actionPerformedRightClick(guibutton);
+                guibutton.playPressSound(mc.getSoundHandler());
+                actionPerformedRightClick(guibutton);
             }
         }
     }

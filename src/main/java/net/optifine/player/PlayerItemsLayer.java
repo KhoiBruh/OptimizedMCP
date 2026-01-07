@@ -12,20 +12,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class PlayerItemsLayer implements LayerRenderer {
-    private RenderPlayer renderPlayer;
+    private final RenderPlayer renderPlayer;
 
     public PlayerItemsLayer(RenderPlayer renderPlayer) {
         this.renderPlayer = renderPlayer;
     }
 
-    public static void register(Map renderPlayerMap) {
-        Set set = renderPlayerMap.keySet();
+    public static void register(Map<String, RenderPlayer> renderPlayerMap) {
+        Set<String> set = renderPlayerMap.keySet();
         boolean flag = false;
 
-        for (Object object : set) {
-            Object object1 = renderPlayerMap.get(object);
+        for (String s : set) {
+            RenderPlayer player = renderPlayerMap.get(s);
 
-            if (object1 instanceof RenderPlayer renderplayer) {
+            if (player instanceof RenderPlayer renderplayer) {
                 renderplayer.addLayer(new PlayerItemsLayer(renderplayer));
                 flag = true;
             }
@@ -37,7 +37,7 @@ public class PlayerItemsLayer implements LayerRenderer {
     }
 
     public void doRenderLayer(EntityLivingBase entityLiving, float limbSwing, float limbSwingAmount, float partialTicks, float ticksExisted, float headYaw, float rotationPitch, float scale) {
-        this.renderEquippedItems(entityLiving, scale, partialTicks);
+        renderEquippedItems(entityLiving, scale, partialTicks);
     }
 
     protected void renderEquippedItems(EntityLivingBase entityLiving, float scale, float partialTicks) {
@@ -47,7 +47,7 @@ public class PlayerItemsLayer implements LayerRenderer {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.disableRescaleNormal();
                     GlStateManager.enableCull();
-                    ModelBiped modelbiped = this.renderPlayer.getMainModel();
+                    ModelBiped modelbiped = renderPlayer.getMainModel();
                     PlayerConfigurations.renderPlayerItems(modelbiped, abstractclientplayer, scale, partialTicks);
                     GlStateManager.disableCull();
                 }

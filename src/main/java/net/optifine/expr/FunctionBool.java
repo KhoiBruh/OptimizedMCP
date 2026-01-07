@@ -10,7 +10,7 @@ public class FunctionBool implements IExpressionBool {
     }
 
     public boolean eval() {
-        return this.type.evalBool(this.arguments);
+        return type.evalBool(arguments);
     }
 
     public ExpressionType getExpressionType() {
@@ -18,6 +18,6 @@ public class FunctionBool implements IExpressionBool {
     }
 
     public String toString() {
-        return this.type + "()";
+        return type + "()";
     }
 }

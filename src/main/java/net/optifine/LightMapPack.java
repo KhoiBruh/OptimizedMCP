@@ -26,8 +26,8 @@ public class LightMapPack {
     }
 
     public boolean updateLightmap(World world, float torchFlickerX, int[] lmColors, boolean nightvision, float partialTicks) {
-        if (this.lightMapRain == null && this.lightMapThunder == null) {
-            return this.lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);
+        if (lightMapRain == null && lightMapThunder == null) {
+            return lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);
         } else {
             int i = world.provider.getDimensionId();
 
@@ -39,7 +39,7 @@ public class LightMapPack {
                 boolean flag1 = f1 > f2;
 
                 if (!flag && !flag1) {
-                    return this.lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);
+                    return lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);
                 } else {
                     if (f > 0.0F) {
                         f1 /= f;
@@ -48,34 +48,34 @@ public class LightMapPack {
                     float f3 = 1.0F - f;
                     float f4 = f - f1;
 
-                    if (this.colorBuffer1.length != lmColors.length) {
-                        this.colorBuffer1 = new int[lmColors.length];
-                        this.colorBuffer2 = new int[lmColors.length];
+                    if (colorBuffer1.length != lmColors.length) {
+                        colorBuffer1 = new int[lmColors.length];
+                        colorBuffer2 = new int[lmColors.length];
                     }
 
                     int j = 0;
-                    int[][] aint = new int[][]{lmColors, this.colorBuffer1, this.colorBuffer2};
+                    int[][] aint = new int[][]{lmColors, colorBuffer1, colorBuffer2};
                     float[] afloat = new float[3];
 
-                    if (f3 > f2 && this.lightMap.updateLightmap(world, torchFlickerX, aint[j], nightvision)) {
+                    if (f3 > f2 && lightMap.updateLightmap(world, torchFlickerX, aint[j], nightvision)) {
                         afloat[j] = f3;
                         ++j;
                     }
 
-                    if (f4 > f2 && this.lightMapRain != null && this.lightMapRain.updateLightmap(world, torchFlickerX, aint[j], nightvision)) {
+                    if (f4 > f2 && lightMapRain != null && lightMapRain.updateLightmap(world, torchFlickerX, aint[j], nightvision)) {
                         afloat[j] = f4;
                         ++j;
                     }
 
-                    if (f1 > f2 && this.lightMapThunder != null && this.lightMapThunder.updateLightmap(world, torchFlickerX, aint[j], nightvision)) {
+                    if (f1 > f2 && lightMapThunder != null && lightMapThunder.updateLightmap(world, torchFlickerX, aint[j], nightvision)) {
                         afloat[j] = f1;
                         ++j;
                     }
 
-                    return j == 2 ? this.blend(aint[0], afloat[0], aint[1], afloat[1]) : (j != 3 || this.blend(aint[0], afloat[0], aint[1], afloat[1], aint[2], afloat[2]));
+                    return j == 2 ? blend(aint[0], afloat[0], aint[1], afloat[1]) : (j != 3 || blend(aint[0], afloat[0], aint[1], afloat[1], aint[2], afloat[2]));
                 }
             } else {
-                return this.lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);
+                return lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);
             }
         }
     }

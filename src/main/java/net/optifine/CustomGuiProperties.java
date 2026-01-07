@@ -56,42 +56,42 @@ public class CustomGuiProperties {
             "textures/gui/container/shulker_box.png");
     private static final ResourceLocation VILLAGER_GUI_TEXTURE = new ResourceLocation(
             "textures/gui/container/villager.png");
-    private String fileName;
-    private String basePath;
-    private CustomGuiProperties.EnumContainer container;
-    private Map<ResourceLocation, ResourceLocation> textureLocations;
-    private NbtTagValue nbtName;
-    private BiomeGenBase[] biomes;
-    private RangeListInt heights;
-    private Boolean large;
-    private Boolean trapped;
-    private Boolean christmas;
-    private Boolean ender;
-    private RangeListInt levels;
-    private VillagerProfession[] professions;
-    private CustomGuiProperties.EnumVariant[] variants;
-    private EnumDyeColor[] colors;
+    private final String fileName;
+    private final String basePath;
+    private final CustomGuiProperties.EnumContainer container;
+    private final Map<ResourceLocation, ResourceLocation> textureLocations;
+    private final NbtTagValue nbtName;
+    private final BiomeGenBase[] biomes;
+    private final RangeListInt heights;
+    private final Boolean large;
+    private final Boolean trapped;
+    private final Boolean christmas;
+    private final Boolean ender;
+    private final RangeListInt levels;
+    private final VillagerProfession[] professions;
+    private final CustomGuiProperties.EnumVariant[] variants;
+    private final EnumDyeColor[] colors;
 
     public CustomGuiProperties(Properties props, String path) {
         ConnectedParser connectedparser = new ConnectedParser("CustomGuis");
-        this.fileName = connectedparser.parseName(path);
-        this.basePath = connectedparser.parseBasePath(path);
-        this.container = (CustomGuiProperties.EnumContainer) connectedparser.parseEnum(props.getProperty("container"),
+        fileName = connectedparser.parseName(path);
+        basePath = connectedparser.parseBasePath(path);
+        container = (CustomGuiProperties.EnumContainer) connectedparser.parseEnum(props.getProperty("container"),
                 CustomGuiProperties.EnumContainer.values(), "container");
-        this.textureLocations = parseTextureLocations(props, "texture", this.container, "textures/gui/", this.basePath);
-        this.nbtName = connectedparser.parseNbtTagValue("name", props.getProperty("name"));
-        this.biomes = connectedparser.parseBiomes(props.getProperty("biomes"));
-        this.heights = connectedparser.parseRangeListInt(props.getProperty("heights"));
-        this.large = connectedparser.parseBooleanObject(props.getProperty("large"));
-        this.trapped = connectedparser.parseBooleanObject(props.getProperty("trapped"));
-        this.christmas = connectedparser.parseBooleanObject(props.getProperty("christmas"));
-        this.ender = connectedparser.parseBooleanObject(props.getProperty("ender"));
-        this.levels = connectedparser.parseRangeListInt(props.getProperty("levels"));
-        this.professions = connectedparser.parseProfessions(props.getProperty("professions"));
-        CustomGuiProperties.EnumVariant[] acustomguiproperties$enumvariant = getContainerVariants(this.container);
-        this.variants = (CustomGuiProperties.EnumVariant[]) connectedparser.parseEnums(props.getProperty("variants"),
+        textureLocations = parseTextureLocations(props, "texture", container, "textures/gui/", basePath);
+        nbtName = connectedparser.parseNbtTagValue("name", props.getProperty("name"));
+        biomes = connectedparser.parseBiomes(props.getProperty("biomes"));
+        heights = connectedparser.parseRangeListInt(props.getProperty("heights"));
+        large = connectedparser.parseBooleanObject(props.getProperty("large"));
+        trapped = connectedparser.parseBooleanObject(props.getProperty("trapped"));
+        christmas = connectedparser.parseBooleanObject(props.getProperty("christmas"));
+        ender = connectedparser.parseBooleanObject(props.getProperty("ender"));
+        levels = connectedparser.parseRangeListInt(props.getProperty("levels"));
+        professions = connectedparser.parseProfessions(props.getProperty("professions"));
+        CustomGuiProperties.EnumVariant[] acustomguiproperties$enumvariant = getContainerVariants(container);
+        variants = (CustomGuiProperties.EnumVariant[]) connectedparser.parseEnums(props.getProperty("variants"),
                 acustomguiproperties$enumvariant, "variants", VARIANTS_INVALID);
-        this.colors = parseEnumDyeColors(props.getProperty("colors"));
+        colors = parseEnumDyeColors(props.getProperty("colors"));
     }
 
     private static CustomGuiProperties.EnumVariant[] getContainerVariants(CustomGuiProperties.EnumContainer cont) {
@@ -236,23 +236,23 @@ public class CustomGuiProperties {
     }
 
     public boolean isValid(String path) {
-        if (this.fileName != null && !this.fileName.isEmpty()) {
-            if (this.basePath == null) {
+        if (fileName != null && !fileName.isEmpty()) {
+            if (basePath == null) {
                 warn("No base path found: " + path);
                 return false;
-            } else if (this.container == null) {
+            } else if (container == null) {
                 warn("No container found: " + path);
                 return false;
-            } else if (this.textureLocations.isEmpty()) {
+            } else if (textureLocations.isEmpty()) {
                 warn("No texture found: " + path);
                 return false;
-            } else if (this.professions == ConnectedParser.PROFESSIONS_INVALID) {
+            } else if (professions == ConnectedParser.PROFESSIONS_INVALID) {
                 warn("Invalid professions or careers: " + path);
                 return false;
-            } else if (this.variants == VARIANTS_INVALID) {
+            } else if (variants == VARIANTS_INVALID) {
                 warn("Invalid variants: " + path);
                 return false;
-            } else if (this.colors == COLORS_INVALID) {
+            } else if (colors == COLORS_INVALID) {
                 warn("Invalid colors: " + path);
                 return false;
             } else {
@@ -265,38 +265,38 @@ public class CustomGuiProperties {
     }
 
     private boolean matchesGeneral(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess) {
-        if (this.container != ec) {
+        if (container != ec) {
             return false;
         } else {
-            if (this.biomes != null) {
+            if (biomes != null) {
                 BiomeGenBase biomegenbase = blockAccess.getBiomeGenForCoords(pos);
 
-                if (!Matches.biome(biomegenbase, this.biomes)) {
+                if (!Matches.biome(biomegenbase, biomes)) {
                     return false;
                 }
             }
 
-            return this.heights == null || this.heights.isInRange(pos.getY());
+            return heights == null || heights.isInRange(pos.getY());
         }
     }
 
     public boolean matchesPos(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess,
                               GuiScreen screen) {
-        if (!this.matchesGeneral(ec, pos, blockAccess)) {
+        if (!matchesGeneral(ec, pos, blockAccess)) {
             return false;
         } else {
-            if (this.nbtName != null) {
+            if (nbtName != null) {
                 String s = getName(screen);
 
-                if (!this.nbtName.matchesValue(s)) {
+                if (!nbtName.matchesValue(s)) {
                     return false;
                 }
             }
 
             return switch (ec) {
-                case BEACON -> this.matchesBeacon(pos, blockAccess);
-                case CHEST -> this.matchesChest(pos, blockAccess);
-                case DISPENSER -> this.matchesDispenser(pos, blockAccess);
+                case BEACON -> matchesBeacon(pos, blockAccess);
+                case CHEST -> matchesChest(pos, blockAccess);
+                case DISPENSER -> matchesDispenser(pos, blockAccess);
                 default -> true;
             };
         }
@@ -309,12 +309,12 @@ public class CustomGuiProperties {
             return false;
         } else {
 
-            if (this.levels != null) {
+            if (levels != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 tileentitybeacon.writeToNBT(nbttagcompound);
                 int i = nbttagcompound.getInteger("Levels");
 
-                return this.levels.isInRange(i);
+                return levels.isInRange(i);
             }
 
             return true;
@@ -325,9 +325,9 @@ public class CustomGuiProperties {
         TileEntity tileentity = blockAccess.getTileEntity(pos);
 
         if (tileentity instanceof TileEntityChest tileentitychest) {
-            return this.matchesChest(tileentitychest, pos, blockAccess);
+            return matchesChest(tileentitychest, pos, blockAccess);
         } else if (tileentity instanceof TileEntityEnderChest tileentityenderchest) {
-            return this.matchesEnderChest(tileentityenderchest, pos, blockAccess);
+            return matchesEnderChest(tileentityenderchest, pos, blockAccess);
         } else {
             return false;
         }
@@ -339,15 +339,15 @@ public class CustomGuiProperties {
         boolean flag1 = tec.getChestType() == 1;
         boolean flag2 = CustomGuis.isChristmas;
         boolean flag3 = false;
-        return this.matchesChest(flag, flag1, flag2, flag3);
+        return matchesChest(flag, flag1, flag2, flag3);
     }
 
     private boolean matchesEnderChest(TileEntityEnderChest teec, BlockPos pos, IBlockAccess blockAccess) {
-        return this.matchesChest(false, false, false, true);
+        return matchesChest(false, false, false, true);
     }
 
     private boolean matchesChest(boolean isLarge, boolean isTrapped, boolean isChristmas, boolean isEnder) {
-        return (this.large == null || this.large == isLarge) && ((this.trapped == null || this.trapped == isTrapped) && ((this.christmas == null || this.christmas == isChristmas) && (this.ender == null || this.ender == isEnder)));
+        return (large == null || large == isLarge) && ((trapped == null || trapped == isTrapped) && ((christmas == null || christmas == isChristmas) && (ender == null || ender == isEnder)));
     }
 
     private boolean matchesDispenser(BlockPos pos, IBlockAccess blockAccess) {
@@ -357,11 +357,10 @@ public class CustomGuiProperties {
             return false;
         } else {
 
-            if (this.variants != null) {
-                CustomGuiProperties.EnumVariant customguiproperties$enumvariant = this
-                        .getDispenserVariant(tileentitydispenser);
+            if (variants != null) {
+                CustomGuiProperties.EnumVariant customguiproperties$enumvariant = getDispenserVariant(tileentitydispenser);
 
-                return Config.equalsOne(customguiproperties$enumvariant, this.variants);
+                return Config.equalsOne(customguiproperties$enumvariant, variants);
             }
 
             return true;
@@ -374,20 +373,20 @@ public class CustomGuiProperties {
     }
 
     public boolean matchesEntity(CustomGuiProperties.EnumContainer ec, Entity entity, IBlockAccess blockAccess) {
-        if (!this.matchesGeneral(ec, entity.getPosition(), blockAccess)) {
+        if (!matchesGeneral(ec, entity.getPosition(), blockAccess)) {
             return false;
         } else {
-            if (this.nbtName != null) {
+            if (nbtName != null) {
                 String s = entity.getName();
 
-                if (!this.nbtName.matchesValue(s)) {
+                if (!nbtName.matchesValue(s)) {
                     return false;
                 }
             }
 
             return switch (ec) {
-                case HORSE -> this.matchesHorse(entity, blockAccess);
-                case VILLAGER -> this.matchesVillager(entity, blockAccess);
+                case HORSE -> matchesHorse(entity, blockAccess);
+                case VILLAGER -> matchesVillager(entity, blockAccess);
                 default -> true;
             };
         }
@@ -398,7 +397,7 @@ public class CustomGuiProperties {
             return false;
         } else {
 
-            if (this.professions != null) {
+            if (professions != null) {
                 int i = entityvillager.getProfession();
                 int j = entityvillager.careerId;
 
@@ -408,7 +407,7 @@ public class CustomGuiProperties {
 
                 boolean flag = false;
 
-                for (VillagerProfession villagerprofession : this.professions) {
+                for (VillagerProfession villagerprofession : professions) {
                     if (villagerprofession.matches(i, j)) {
                         flag = true;
                         break;
@@ -427,10 +426,10 @@ public class CustomGuiProperties {
             return false;
         } else {
 
-            if (this.variants != null) {
-                CustomGuiProperties.EnumVariant customguiproperties$enumvariant = this.getHorseVariant(entityhorse);
+            if (variants != null) {
+                CustomGuiProperties.EnumVariant customguiproperties$enumvariant = getHorseVariant(entityhorse);
 
-                return Config.equalsOne(customguiproperties$enumvariant, this.variants);
+                return Config.equalsOne(customguiproperties$enumvariant, variants);
             }
 
             return true;
@@ -449,16 +448,16 @@ public class CustomGuiProperties {
     }
 
     public CustomGuiProperties.EnumContainer getContainer() {
-        return this.container;
+        return container;
     }
 
     public ResourceLocation getTextureLocation(ResourceLocation loc) {
-        ResourceLocation resourcelocation = this.textureLocations.get(loc);
+        ResourceLocation resourcelocation = textureLocations.get(loc);
         return resourcelocation == null ? loc : resourcelocation;
     }
 
     public String toString() {
-        return "name: " + this.fileName + ", container: " + this.container + ", textures: " + this.textureLocations;
+        return "name: " + fileName + ", container: " + container + ", textures: " + textureLocations;
     }
 
     public enum EnumContainer {

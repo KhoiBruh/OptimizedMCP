@@ -26,13 +26,13 @@ public class GuiShaderOptions extends GuiScreenOF {
     private boolean changed;
 
     public GuiShaderOptions(GuiScreen guiscreen, GameSettings gamesettings) {
-        this.tooltipManager = new TooltipManager(this, new TooltipProviderShaderOptions());
-        this.screenName = null;
-        this.screenText = null;
-        this.changed = false;
-        this.title = "Shader Options";
-        this.prevScreen = guiscreen;
-        this.settings = gamesettings;
+        tooltipManager = new TooltipManager(this, new TooltipProviderShaderOptions());
+        screenName = null;
+        screenText = null;
+        changed = false;
+        title = "Shader Options";
+        prevScreen = guiscreen;
+        settings = gamesettings;
     }
 
     public GuiShaderOptions(GuiScreen guiscreen, GameSettings gamesettings, String screenName) {
@@ -40,7 +40,7 @@ public class GuiShaderOptions extends GuiScreenOF {
         this.screenName = screenName;
 
         if (screenName != null) {
-            this.screenText = Shaders.translate("screen." + screenName, screenName);
+            screenText = Shaders.translate("screen." + screenName, screenName);
         }
     }
 
@@ -62,15 +62,15 @@ public class GuiShaderOptions extends GuiScreenOF {
     }
 
     public void initGui() {
-        this.title = I18n.format("of.options.shaderOptionsTitle");
+        title = I18n.format("of.options.shaderOptionsTitle");
         int i = 100;
         int j;
         int k = 30;
         int l = 20;
         int i1 = 120;
         int j1 = 20;
-        int k1 = Shaders.getShaderPackColumns(this.screenName, 2);
-        ShaderOption[] ashaderoption = Shaders.getShaderPackOptions(this.screenName);
+        int k1 = Shaders.getShaderPackColumns(screenName, 2);
+        ShaderOption[] ashaderoption = Shaders.getShaderPackOptions(screenName);
 
         if (ashaderoption != null) {
             int l1 = MathHelper.ceiling_double_int((double) ashaderoption.length / 9.0D);
@@ -85,8 +85,8 @@ public class GuiShaderOptions extends GuiScreenOF {
                 if (shaderoption != null && shaderoption.isVisible()) {
                     int j2 = i2 % k1;
                     int k2 = i2 / k1;
-                    int l2 = Math.min(this.width / k1, 200);
-                    j = (this.width - l2 * k1) / 2;
+                    int l2 = Math.min(width / k1, 200);
+                    j = (width - l2 * k1) / 2;
                     int i3 = j2 * l2 + 5 + j;
                     int j3 = k + k2 * l;
                     int k3 = l2 - 10;
@@ -100,13 +100,13 @@ public class GuiShaderOptions extends GuiScreenOF {
                     }
 
                     guibuttonshaderoption.enabled = shaderoption.isEnabled();
-                    this.buttonList.add(guibuttonshaderoption);
+                    buttonList.add(guibuttonshaderoption);
                 }
             }
         }
 
-        this.buttonList.add(new GuiButton(201, this.width / 2 - i1 - 20, this.height / 6 + 168 + 11, i1, j1, I18n.format("controls.reset")));
-        this.buttonList.add(new GuiButton(200, this.width / 2 + 20, this.height / 6 + 168 + 11, i1, j1, I18n.format("gui.done")));
+        buttonList.add(new GuiButton(201, width / 2 - i1 - 20, height / 6 + 168 + 11, i1, j1, I18n.format("controls.reset")));
+        buttonList.add(new GuiButton(200, width / 2 + 20, height / 6 + 168 + 11, i1, j1, I18n.format("gui.done")));
     }
 
     protected void actionPerformed(GuiButton guibutton) {
@@ -116,8 +116,8 @@ public class GuiShaderOptions extends GuiScreenOF {
 
                 if (shaderoption instanceof ShaderOptionScreen) {
                     String s = shaderoption.getName();
-                    GuiShaderOptions guishaderoptions = new GuiShaderOptions(this, this.settings, s);
-                    this.mc.displayGuiScreen(guishaderoptions);
+                    GuiShaderOptions guishaderoptions = new GuiShaderOptions(this, settings, s);
+                    mc.displayGuiScreen(guishaderoptions);
                     return;
                 }
 
@@ -127,8 +127,8 @@ public class GuiShaderOptions extends GuiScreenOF {
                     shaderoption.nextValue();
                 }
 
-                this.updateAllButtons();
-                this.changed = true;
+                updateAllButtons();
+                changed = true;
             }
 
             if (guibutton.id == 201) {
@@ -136,20 +136,20 @@ public class GuiShaderOptions extends GuiScreenOF {
 
                 for (ShaderOption shaderoption1 : ashaderoption) {
                     shaderoption1.resetValue();
-                    this.changed = true;
+                    changed = true;
                 }
 
-                this.updateAllButtons();
+                updateAllButtons();
             }
 
             if (guibutton.id == 200) {
-                if (this.changed) {
+                if (changed) {
                     Shaders.saveShaderPackOptions();
-                    this.changed = false;
+                    changed = false;
                     Shaders.uninit();
                 }
 
-                this.mc.displayGuiScreen(this.prevScreen);
+                mc.displayGuiScreen(prevScreen);
             }
         }
     }
@@ -164,23 +164,23 @@ public class GuiShaderOptions extends GuiScreenOF {
                 shaderoption.prevValue();
             }
 
-            this.updateAllButtons();
-            this.changed = true;
+            updateAllButtons();
+            changed = true;
         }
     }
 
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        if (this.changed) {
+        if (changed) {
             Shaders.saveShaderPackOptions();
-            this.changed = false;
+            changed = false;
             Shaders.uninit();
         }
     }
 
     private void updateAllButtons() {
-        for (GuiButton guibutton : this.buttonList) {
+        for (GuiButton guibutton : buttonList) {
             if (guibutton instanceof GuiButtonShaderOption guibuttonshaderoption) {
                 ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
@@ -195,15 +195,15 @@ public class GuiShaderOptions extends GuiScreenOF {
     }
 
     public void drawScreen(int x, int y, float f) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
 
-        if (this.screenText != null) {
-            this.drawCenteredString(this.fontRendererObj, this.screenText, this.width / 2, 15, 16777215);
+        if (screenText != null) {
+            drawCenteredString(fontRendererObj, screenText, width / 2, 15, 16777215);
         } else {
-            this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, 16777215);
+            drawCenteredString(fontRendererObj, title, width / 2, 15, 16777215);
         }
 
         super.drawScreen(x, y, f);
-        this.tooltipManager.drawTooltips(x, y, this.buttonList);
+        tooltipManager.drawTooltips(x, y, buttonList);
     }
 }

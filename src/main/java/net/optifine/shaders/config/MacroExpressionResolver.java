@@ -6,7 +6,7 @@ import net.optifine.expr.*;
 import java.util.Map;
 
 public class MacroExpressionResolver implements IExpressionResolver {
-    private Map<String, String> mapMacroValues;
+    private final Map<String, String> mapMacroValues;
 
     public MacroExpressionResolver(Map<String, String> mapMacroValues) {
         this.mapMacroValues = mapMacroValues;
@@ -17,10 +17,10 @@ public class MacroExpressionResolver implements IExpressionResolver {
 
         if (name.startsWith(s)) {
             String s2 = name.substring(s.length());
-            return this.mapMacroValues.containsKey(s2) ? new FunctionBool(FunctionType.TRUE, null) : new FunctionBool(FunctionType.FALSE, null);
+            return mapMacroValues.containsKey(s2) ? new FunctionBool(FunctionType.TRUE, null) : new FunctionBool(FunctionType.FALSE, null);
         } else {
-            while (this.mapMacroValues.containsKey(name)) {
-                String s1 = this.mapMacroValues.get(name);
+            while (mapMacroValues.containsKey(name)) {
+                String s1 = mapMacroValues.get(name);
 
                 if (s1 == null || s1.equals(name)) {
                     break;

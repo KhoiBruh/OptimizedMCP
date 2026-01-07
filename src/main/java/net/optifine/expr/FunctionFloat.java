@@ -20,9 +20,9 @@ public class FunctionFloat implements IExpressionFloat {
     }
 
     public float eval() {
-        IExpression[] aiexpression = this.arguments;
+        IExpression[] aiexpression = arguments;
 
-        if (Objects.requireNonNull(this.type) == FunctionType.SMOOTH) {
+        if (Objects.requireNonNull(type) == FunctionType.SMOOTH) {
             IExpression iexpression = aiexpression[0];
 
             if (!(iexpression instanceof ConstantFloat)) {
@@ -30,14 +30,14 @@ public class FunctionFloat implements IExpressionFloat {
                 float f1 = aiexpression.length > 1 ? evalFloat(aiexpression, 1) : 1.0F;
                 float f2 = aiexpression.length > 2 ? evalFloat(aiexpression, 2) : f1;
 
-                if (this.smoothId < 0) {
-                    this.smoothId = Smoother.getNextId();
+                if (smoothId < 0) {
+                    smoothId = Smoother.getNextId();
                 }
 
-                return Smoother.getSmoothValue(this.smoothId, f, f1, f2);
+                return Smoother.getSmoothValue(smoothId, f, f1, f2);
             }
         }
-        return this.type.evalFloat(this.arguments);
+        return type.evalFloat(arguments);
     }
 
     public ExpressionType getExpressionType() {
@@ -45,6 +45,6 @@ public class FunctionFloat implements IExpressionFloat {
     }
 
     public String toString() {
-        return this.type + "()";
+        return type + "()";
     }
 }

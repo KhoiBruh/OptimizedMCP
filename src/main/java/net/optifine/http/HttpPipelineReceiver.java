@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class HttpPipelineReceiver extends Thread {
     private static final Charset ASCII = StandardCharsets.US_ASCII;
-    private HttpPipelineConnection httpPipelineConnection;
+    private final HttpPipelineConnection httpPipelineConnection;
 
     public HttpPipelineReceiver(HttpPipelineConnection httpPipelineConnection) {
         super("HttpPipelineReceiver");
@@ -25,20 +25,20 @@ public class HttpPipelineReceiver extends Thread {
             HttpPipelineRequest httppipelinerequest = null;
 
             try {
-                httppipelinerequest = this.httpPipelineConnection.getNextRequestReceive();
-                InputStream inputstream = this.httpPipelineConnection.getInputStream();
-                HttpResponse httpresponse = this.readResponse(inputstream);
-                this.httpPipelineConnection.onResponseReceived(httppipelinerequest, httpresponse);
+                httppipelinerequest = httpPipelineConnection.getNextRequestReceive();
+                InputStream inputstream = httpPipelineConnection.getInputStream();
+                HttpResponse httpresponse = readResponse(inputstream);
+                httpPipelineConnection.onResponseReceived(httppipelinerequest, httpresponse);
             } catch (InterruptedException var4) {
                 return;
             } catch (Exception exception) {
-                this.httpPipelineConnection.onExceptionReceive(httppipelinerequest, exception);
+                httpPipelineConnection.onExceptionReceive(httppipelinerequest, exception);
             }
         }
     }
 
     private HttpResponse readResponse(InputStream in) throws IOException {
-        String s = this.readLine(in);
+        String s = readLine(in);
         String[] astring = Config.tokenize(s, " ");
 
         if (astring.length < 3) {
@@ -50,9 +50,9 @@ public class HttpPipelineReceiver extends Thread {
             Map<String, String> map = new LinkedHashMap<>();
 
             while (true) {
-                String s3 = this.readLine(in);
+                String s3 = readLine(in);
 
-                if (s3.length() == 0) {
+                if (s3.isEmpty()) {
                     byte[] abyte = null;
                     String s6 = map.get("Content-Length");
 
@@ -61,13 +61,13 @@ public class HttpPipelineReceiver extends Thread {
 
                         if (k > 0) {
                             abyte = new byte[k];
-                            this.readFull(abyte, in);
+                            readFull(abyte, in);
                         }
                     } else {
                         String s7 = map.get("Transfer-Encoding");
 
                         if (Config.equals(s7, "chunked")) {
-                            abyte = this.readContentChunked(in);
+                            abyte = readContentChunked(in);
                         }
                     }
 
@@ -89,13 +89,13 @@ public class HttpPipelineReceiver extends Thread {
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
 
         while (true) {
-            String s = this.readLine(in);
+            String s = readLine(in);
             String[] astring = Config.tokenize(s, "; ");
             int i = Integer.parseInt(astring[0], 16);
             byte[] abyte = new byte[i];
-            this.readFull(abyte, in);
+            readFull(abyte, in);
             bytearrayoutputstream.write(abyte);
-            this.readLine(in);
+            readLine(in);
 
             if (i == 0) {
                 break;

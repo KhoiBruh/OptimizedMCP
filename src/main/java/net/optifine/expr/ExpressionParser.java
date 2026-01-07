@@ -15,7 +15,7 @@ public class ExpressionParser {
     private static IExpression makeConstantFloat(Token token) throws ParseException {
         float f = Config.parseFloat(token.getText(), Float.NaN);
 
-        if (f == Float.NaN) {
+        if (Float.isNaN(f)) {
             throw new ParseException("Invalid float value: " + token);
         } else {
             return new ConstantFloat(f);
@@ -53,10 +53,10 @@ public class ExpressionParser {
     private static Deque<Token> getGroup(Deque<Token> deque, TokenType tokenTypeEnd, boolean tokenEndRequired) throws ParseException {
         Deque<Token> deque3 = new ArrayDeque<>();
         int i = 0;
-        Iterator iterator = deque.iterator();
+        Iterator<Token> iterator = deque.iterator();
 
         while (iterator.hasNext()) {
-            Token token = (Token) iterator.next();
+            Token token = iterator.next();
             iterator.remove();
 
             if (i == 0 && token.getType() == tokenTypeEnd) {
@@ -88,7 +88,7 @@ public class ExpressionParser {
     }
 
     public IExpressionFloat parseFloat(String str) throws ParseException {
-        IExpression iexpression = this.parse(str);
+        IExpression iexpression = parse(str);
 
         if (!(iexpression instanceof IExpressionFloat)) {
             throw new ParseException("Not a float expression: " + iexpression.getExpressionType());
@@ -98,7 +98,7 @@ public class ExpressionParser {
     }
 
     public IExpressionBool parseBool(String str) throws ParseException {
-        IExpression iexpression = this.parse(str);
+        IExpression iexpression = parse(str);
 
         if (!(iexpression instanceof IExpressionBool)) {
             throw new ParseException("Not a boolean expression: " + iexpression.getExpressionType());
@@ -112,7 +112,7 @@ public class ExpressionParser {
             Token[] atoken = TokenParser.parse(str);
 
             Deque<Token> deque = new ArrayDeque<>(Arrays.asList(atoken));
-            return this.parseInfix(deque);
+            return parseInfix(deque);
         } catch (IOException ioexception) {
             throw new ParseException(ioexception.getMessage(), ioexception);
         }
@@ -124,7 +124,7 @@ public class ExpressionParser {
         } else {
             List<IExpression> list = new LinkedList<>();
             List<Token> list1 = new LinkedList<>();
-            IExpression iexpression = this.parseExpression(deque);
+            IExpression iexpression = parseExpression(deque);
             checkNull(iexpression, "Missing expression");
             list.add(iexpression);
 
@@ -132,14 +132,14 @@ public class ExpressionParser {
                 Token token = deque.poll();
 
                 if (token == null) {
-                    return this.makeInfix(list, list1);
+                    return makeInfix(list, list1);
                 }
 
                 if (token.getType() != TokenType.OPERATOR) {
                     throw new ParseException("Invalid operator: " + token);
                 }
 
-                IExpression iexpression1 = this.parseExpression(deque);
+                IExpression iexpression1 = parseExpression(deque);
                 checkNull(iexpression1, "Missing expression");
                 list1.add(token);
                 list.add(iexpression1);
@@ -156,7 +156,7 @@ public class ExpressionParser {
             list.add(functiontype);
         }
 
-        return this.makeInfixFunc(listExpr, list);
+        return makeInfixFunc(listExpr, list);
     }
 
     private IExpression makeInfixFunc(List<IExpression> listExpr, List<FunctionType> listFunc) throws ParseException {
@@ -175,7 +175,7 @@ public class ExpressionParser {
 
             if (j >= i && j - i <= 10) {
                 for (int k = j; k >= i; --k) {
-                    this.mergeOperators(listExpr, listFunc, k);
+                    mergeOperators(listExpr, listFunc, k);
                 }
 
                 if (listExpr.size() == 1 && listFunc.isEmpty()) {
@@ -213,28 +213,28 @@ public class ExpressionParser {
                 return makeConstantFloat(token);
 
             case IDENTIFIER:
-                FunctionType functiontype = this.getFunctionType(token, deque);
+                FunctionType functiontype = getFunctionType(token, deque);
 
                 if (functiontype != null) {
-                    return this.makeFunction(functiontype, deque);
+                    return makeFunction(functiontype, deque);
                 }
 
-                return this.makeVariable(token);
+                return makeVariable(token);
 
             case BRACKET_OPEN:
-                return this.makeBracketed(token, deque);
+                return makeBracketed(token, deque);
 
             case OPERATOR:
                 FunctionType functiontype1 = FunctionType.parse(token.getText());
                 checkNull(functiontype1, "Invalid operator: " + token);
 
                 if (functiontype1 == FunctionType.PLUS) {
-                    return this.parseExpression(deque);
+                    return parseExpression(deque);
                 } else if (functiontype1 == FunctionType.MINUS) {
-                    IExpression iexpression1 = this.parseExpression(deque);
+                    IExpression iexpression1 = parseExpression(deque);
                     return makeFunction(FunctionType.NEG, new IExpression[]{iexpression1});
                 } else if (functiontype1 == FunctionType.NOT) {
-                    IExpression iexpression = this.parseExpression(deque);
+                    IExpression iexpression = parseExpression(deque);
                     return makeFunction(FunctionType.NOT, new IExpression[]{iexpression});
                 }
 
@@ -274,7 +274,7 @@ public class ExpressionParser {
 
         Token token1 = deque.poll();
         Deque<Token> deque2 = getGroup(deque, TokenType.BRACKET_CLOSE, true);
-        IExpression[] aiexpression = this.parseExpressions(deque2);
+        IExpression[] aiexpression = parseExpressions(deque2);
         return makeFunction(type, aiexpression);
     }
 
@@ -283,7 +283,7 @@ public class ExpressionParser {
 
         while (true) {
             Deque<Token> deque2 = getGroup(deque, TokenType.COMMA, false);
-            IExpression iexpression = this.parseInfix(deque2);
+            IExpression iexpression = parseInfix(deque2);
 
             if (iexpression == null) {
                 return list.toArray(new IExpression[0]);
@@ -294,10 +294,10 @@ public class ExpressionParser {
     }
 
     private IExpression makeVariable(Token token) throws ParseException {
-        if (this.expressionResolver == null) {
+        if (expressionResolver == null) {
             throw new ParseException("Model variable not found: " + token);
         } else {
-            IExpression iexpression = this.expressionResolver.getExpression(token.getText());
+            IExpression iexpression = expressionResolver.getExpression(token.getText());
 
             if (iexpression == null) {
                 throw new ParseException("Model variable not found: " + token);
@@ -309,6 +309,6 @@ public class ExpressionParser {
 
     private IExpression makeBracketed(Token token, Deque<Token> deque) throws ParseException {
         Deque<Token> deque2 = getGroup(deque, TokenType.BRACKET_CLOSE, true);
-        return this.parseInfix(deque2);
+        return parseInfix(deque2);
     }
 }

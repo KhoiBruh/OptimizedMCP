@@ -29,6 +29,6 @@ public enum PixelType {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 }

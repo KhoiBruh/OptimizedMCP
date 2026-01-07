@@ -50,14 +50,14 @@ public class NativeMemory {
                 private boolean disabled = false;
 
                 public long getAsLong() {
-                    if (this.disabled) {
+                    if (disabled) {
                         return -1L;
                     } else {
                         try {
                             return (Long) finalMethod.invoke(finalObject, new Object[0]);
                         } catch (Throwable throwable) {
                             Config.warn(throwable.getClass().getName() + ": " + throwable.getMessage());
-                            this.disabled = true;
+                            disabled = true;
                             return -1L;
                         }
                     }

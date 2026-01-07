@@ -8,28 +8,28 @@ public class CustomColorFader {
     private long timeUpdate = System.currentTimeMillis();
 
     public Vec3 getColor(double x, double y, double z) {
-        if (this.color == null) {
-            this.color = new Vec3(x, y, z);
+        if (color == null) {
+            color = new Vec3(x, y, z);
         } else {
             long i = System.currentTimeMillis();
-            long j = i - this.timeUpdate;
+            long j = i - timeUpdate;
 
             if (j != 0L) {
-                this.timeUpdate = i;
+                timeUpdate = i;
 
-                if (!(Math.abs(x - this.color.xCoord()) < 0.004D) || !(Math.abs(y - this.color.yCoord()) < 0.004D) || !(Math.abs(z - this.color.zCoord()) < 0.004D)) {
+                if (!(Math.abs(x - color.xCoord()) < 0.004D) || !(Math.abs(y - color.yCoord()) < 0.004D) || !(Math.abs(z - color.zCoord()) < 0.004D)) {
                     double d0 = (double) j * 0.001D;
                     d0 = Config.limit(d0, 0.0D, 1.0D);
-                    double d1 = x - this.color.xCoord();
-                    double d2 = y - this.color.yCoord();
-                    double d3 = z - this.color.zCoord();
-                    double d4 = this.color.xCoord() + d1 * d0;
-                    double d5 = this.color.yCoord() + d2 * d0;
-                    double d6 = this.color.zCoord() + d3 * d0;
-                    this.color = new Vec3(d4, d5, d6);
+                    double d1 = x - color.xCoord();
+                    double d2 = y - color.yCoord();
+                    double d3 = z - color.zCoord();
+                    double d4 = color.xCoord() + d1 * d0;
+                    double d5 = color.yCoord() + d2 * d0;
+                    double d6 = color.zCoord() + d3 * d0;
+                    color = new Vec3(d4, d5, d6);
                 }
             }
         }
-        return this.color;
+        return color;
     }
 }

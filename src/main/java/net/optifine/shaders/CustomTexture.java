@@ -4,9 +4,9 @@ import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureUtil;
 
 public class CustomTexture implements ICustomTexture {
-    private int textureUnit;
-    private String path;
-    private ITextureObject texture;
+    private final int textureUnit;
+    private final String path;
+    private final ITextureObject texture;
 
     public CustomTexture(int textureUnit, String path, ITextureObject texture) {
         this.textureUnit = textureUnit;
@@ -15,15 +15,15 @@ public class CustomTexture implements ICustomTexture {
     }
 
     public int getTextureUnit() {
-        return this.textureUnit;
+        return textureUnit;
     }
 
     public int getTextureId() {
-        return this.texture.getGlTextureId();
+        return texture.getGlTextureId();
     }
 
     public void deleteTexture() {
-        TextureUtil.deleteTexture(this.texture.getGlTextureId());
+        TextureUtil.deleteTexture(texture.getGlTextureId());
     }
 
     public int getTarget() {
@@ -31,6 +31,6 @@ public class CustomTexture implements ICustomTexture {
     }
 
     public String toString() {
-        return "textureUnit: " + this.textureUnit + ", path: " + this.path + ", glTextureId: " + this.getTextureId();
+        return "textureUnit: " + textureUnit + ", path: " + path + ", glTextureId: " + getTextureId();
     }
 }

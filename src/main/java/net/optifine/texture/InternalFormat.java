@@ -46,6 +46,6 @@ public enum InternalFormat {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 }

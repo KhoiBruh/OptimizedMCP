@@ -12,27 +12,27 @@ import java.util.Map;
 public class NaturalProperties {
     public int rotation = 1;
     public boolean flip = false;
-    private final Map[] quadMaps = new Map[8];
+    private final Map<BakedQuad, BakedQuad>[] quadMaps = new Map[8];
 
     public NaturalProperties(String type) {
         switch (type) {
-            case "4" -> this.rotation = 4;
-            case "2" -> this.rotation = 2;
-            case "F" -> this.flip = true;
+            case "4" -> rotation = 4;
+            case "2" -> rotation = 2;
+            case "F" -> flip = true;
             case "4F" -> {
-                this.rotation = 4;
-                this.flip = true;
+                rotation = 4;
+                flip = true;
             }
             case "2F" -> {
-                this.rotation = 2;
-                this.flip = true;
+                rotation = 2;
+                flip = true;
             }
             default -> Config.warn("NaturalTextures: Unknown type: " + type);
         }
     }
 
     public boolean isValid() {
-        return this.rotation == 2 || this.rotation == 4 || this.flip;
+        return rotation == 2 || rotation == 4 || flip;
     }
 
     public synchronized BakedQuad getQuad(BakedQuad quadIn, int rotate, boolean flipU) {
@@ -42,18 +42,18 @@ public class NaturalProperties {
             i = rotate | 4;
         }
 
-        if (i > 0 && i < this.quadMaps.length) {
-            Map map = this.quadMaps[i];
+        if (i > 0 && i < quadMaps.length) {
+            Map<BakedQuad, BakedQuad> map = quadMaps[i];
 
             if (map == null) {
-                map = new IdentityHashMap(1);
-                this.quadMaps[i] = map;
+                map = new IdentityHashMap<>(1);
+                quadMaps[i] = map;
             }
 
-            BakedQuad bakedquad = (BakedQuad) map.get(quadIn);
+            BakedQuad bakedquad = map.get(quadIn);
 
             if (bakedquad == null) {
-                bakedquad = this.makeQuad(quadIn, rotate, flipU);
+                bakedquad = makeQuad(quadIn, rotate, flipU);
                 map.put(quadIn, bakedquad);
             }
 
@@ -69,11 +69,11 @@ public class NaturalProperties {
         EnumFacing enumfacing = quad.getFace();
         TextureAtlasSprite textureatlassprite = quad.getSprite();
 
-        if (!this.isFullSprite(quad)) {
+        if (!isFullSprite(quad)) {
             rotate = 0;
         }
 
-        aint = this.transformVertexData(aint, rotate, flipU);
+        aint = transformVertexData(aint, rotate, flipU);
         return new BakedQuad(aint, i, enumfacing, textureatlassprite);
     }
 
@@ -130,11 +130,11 @@ public class NaturalProperties {
             float f8 = Float.intBitsToFloat(aint[k + 4]);
             float f9 = Float.intBitsToFloat(aint[k + 4 + 1]);
 
-            if (!this.equalsDelta(f8, f, f3) && !this.equalsDelta(f8, f1, f3)) {
+            if (!equalsDelta(f8, f, f3) && !equalsDelta(f8, f1, f3)) {
                 return false;
             }
 
-            if (!this.equalsDelta(f9, f4, f7) && !this.equalsDelta(f9, f5, f7)) {
+            if (!equalsDelta(f9, f4, f7) && !equalsDelta(f9, f5, f7)) {
                 return false;
             }
         }

@@ -20,9 +20,9 @@ public enum EnumShaderOption {
     TEX_MAG_FIL_N("of.options.shaders.TEX_MAG_FIL_N", "TexMagFilN", "0"),
     TEX_MAG_FIL_S("of.options.shaders.TEX_MAG_FIL_S", "TexMagFilS", "0");
 
-    private String resourceKey;
-    private String propertyKey;
-    private String valueDefault;
+    private final String resourceKey;
+    private final String propertyKey;
+    private final String valueDefault;
 
     EnumShaderOption(String resourceKey, String propertyKey, String valueDefault) {
         this.resourceKey = resourceKey;
@@ -31,14 +31,14 @@ public enum EnumShaderOption {
     }
 
     public String getResourceKey() {
-        return this.resourceKey;
+        return resourceKey;
     }
 
     public String getPropertyKey() {
-        return this.propertyKey;
+        return propertyKey;
     }
 
     public String getValueDefault() {
-        return this.valueDefault;
+        return valueDefault;
     }
 }

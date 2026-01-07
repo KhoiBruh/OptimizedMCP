@@ -141,8 +141,7 @@ public class RenderChunk {
             boolean flag = false;
             boolean flag1 = false;
 
-            for (Object o : BlockPosM.getAllInBoxMutable(blockpos, blockpos1)) {
-                BlockPosM blockposm = (BlockPosM) o;
+            for (BlockPosM blockposm : BlockPosM.getAllInBoxMutableM(blockpos, blockpos1)) {
                 IBlockState iblockstate = chunkcacheof.getBlockState(blockposm);
                 Block block = iblockstate.getBlock();
 

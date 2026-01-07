@@ -9,15 +9,15 @@ public class RangeListInt {
     }
 
     public RangeListInt(RangeInt ri) {
-        this.addRange(ri);
+        addRange(ri);
     }
 
     public void addRange(RangeInt ri) {
-        this.ranges = (RangeInt[]) Config.addObjectToArray(this.ranges, ri);
+        ranges = (RangeInt[]) Config.addObjectToArray(ranges, ri);
     }
 
     public boolean isInRange(int val) {
-        for (RangeInt rangeint : this.ranges) {
+        for (RangeInt rangeint : ranges) {
             if (rangeint.isInRange(val)) {
                 return true;
             }
@@ -27,19 +27,19 @@ public class RangeListInt {
     }
 
     public int getCountRanges() {
-        return this.ranges.length;
+        return ranges.length;
     }
 
     public RangeInt getRange(int i) {
-        return this.ranges[i];
+        return ranges[i];
     }
 
     public String toString() {
         StringBuilder stringbuffer = new StringBuilder();
         stringbuffer.append("[");
 
-        for (int i = 0; i < this.ranges.length; ++i) {
-            RangeInt rangeint = this.ranges[i];
+        for (int i = 0; i < ranges.length; ++i) {
+            RangeInt rangeint = ranges[i];
 
             if (i > 0) {
                 stringbuffer.append(", ");

@@ -30,7 +30,7 @@ public enum RenderEntityParameterBool implements IExpressionBool {
 
     RenderEntityParameterBool(String name) {
         this.name = name;
-        this.renderManager = Minecraft.getMinecraft().getRenderManager();
+        renderManager = Minecraft.getMinecraft().getRenderManager();
     }
 
     public static RenderEntityParameterBool parse(String str) {
@@ -46,7 +46,7 @@ public enum RenderEntityParameterBool implements IExpressionBool {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public ExpressionType getExpressionType() {
@@ -54,10 +54,10 @@ public enum RenderEntityParameterBool implements IExpressionBool {
     }
 
     public boolean eval() {
-        Render render = this.renderManager.renderRender;
+        Render<?> render = renderManager.renderRender;
 
         if (render != null) {
-            if (render instanceof RendererLivingEntity rendererlivingentity) {
+            if (render instanceof RendererLivingEntity<?> rendererlivingentity) {
                 EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
                 if (entitylivingbase == null) {

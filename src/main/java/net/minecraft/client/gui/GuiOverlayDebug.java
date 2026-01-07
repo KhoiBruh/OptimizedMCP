@@ -24,7 +24,10 @@ import net.optifine.util.MemoryMonitor;
 import net.optifine.util.NativeMemory;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import oshi.SystemInfo;
+import oshi.hardware.GraphicsCard;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -272,16 +275,20 @@ public class GuiOverlayDebug extends Gui {
         List<String> list = Lists.newArrayList(
                 String.format("Java: %s %dbit", System.getProperty("java.version"), this.mc.isJava64bit() ? 64 : 32),
                 String.format("Mem: % 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i)),
-                String.format("Allocated: % 2d%% %03dMB", j * 100L / i, bytesToMb(j)), "",
-                String.format("CPU: %s", OpenGlHelper.getCpu()), "",
+                String.format("Allocated: % 2d%% %03dMB", j * 100L / i, bytesToMb(j)),
+                "",
+                "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s",
+                "",
+                String.format("CPU: %s", OpenGlHelper.getCpu()),
+                "",
                 String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), this.gpuVendor),
                 this.gpuRenderer,
-                this.gpuVersion);
+                this.gpuVersion
+        );
         long i1 = NativeMemory.getBufferAllocated();
         long j1 = NativeMemory.getBufferMaximum();
         String s = "Native: " + bytesToMb(i1) + "/" + bytesToMb(j1) + "MB";
         list.add(4, s);
-        list.set(5, "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s");
 
         if (!this.isReducedDebug()) {
             if (this.mc.objectMouseOver != null

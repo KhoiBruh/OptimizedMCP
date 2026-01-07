@@ -16,12 +16,12 @@ import java.util.List;
 public class BlockModelUtils {
 
     public static IBakedModel makeModelCube(TextureAtlasSprite sprite, int tintIndex) {
-        List list = new ArrayList();
+        List<BakedQuad> list = new ArrayList<>();
         EnumFacing[] aenumfacing = EnumFacing.VALUES;
         List<List<BakedQuad>> list1 = new ArrayList<>();
 
         for (EnumFacing enumfacing : aenumfacing) {
-            List list2 = new ArrayList();
+            List<BakedQuad> list2 = new ArrayList<>();
             list2.add(makeBakedQuad(enumfacing, sprite, tintIndex));
             list1.add(list2);
         }
@@ -34,10 +34,10 @@ public class BlockModelUtils {
         list.addAll(modelBase.getGeneralQuads());
         list.addAll(modelAdd.getGeneralQuads());
         EnumFacing[] aenumfacing = EnumFacing.VALUES;
-        List list1 = new ArrayList();
+        List<List<BakedQuad>> list1 = new ArrayList<>();
 
         for (EnumFacing enumfacing : aenumfacing) {
-            List list2 = new ArrayList();
+            List<BakedQuad> list2 = new ArrayList<>();
             list2.addAll(modelBase.getFaceQuads(enumfacing));
             list2.addAll(modelAdd.getFaceQuads(enumfacing));
             list1.add(list2);
@@ -115,8 +115,8 @@ public class BlockModelUtils {
         pos.z = snapVertexCoord(pos.z);
     }
 
-    private static float snapVertexCoord(float x) {
-        return x > -1.0E-6F && x < 1.0E-6F ? 0.0F : (x > 0.999999F && x < 1.000001F ? 1.0F : x);
+    private static float snapVertexCoord(float v) {
+        return v > -1.0E-6F && v < 1.0E-6F ? 0.0F : (v > 0.999999F && v < 1.000001F ? 1.0F : v);
     }
 
     public static AxisAlignedBB getOffsetBoundingBox(AxisAlignedBB aabb, Block.EnumOffsetType offsetType, BlockPos pos) {

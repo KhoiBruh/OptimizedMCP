@@ -8,6 +8,6 @@ public class TextureAnimationFrame {
     public TextureAnimationFrame(int index, int duration) {
         this.index = index;
         this.duration = duration;
-        this.counter = 0;
+        counter = 0;
     }
 }

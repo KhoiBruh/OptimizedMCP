@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShaderOptionProfile extends ShaderOption {
-    private ShaderProfile[] profiles;
-    private ShaderOption[] options;
+    private final ShaderProfile[] profiles;
+    private final ShaderOption[] options;
 
     public ShaderOptionProfile(ShaderProfile[] profiles, ShaderOption[] options) {
         super("<profile>", "", detectProfileName(profiles, options), getProfileNames(profiles), detectProfileName(profiles, options, true), null);
@@ -40,30 +40,30 @@ public class ShaderOptionProfile extends ShaderOption {
     public void nextValue() {
         super.nextValue();
 
-        if (this.getValue().equals("<custom>")) {
+        if (getValue().equals("<custom>")) {
             super.nextValue();
         }
 
-        this.applyProfileOptions();
+        applyProfileOptions();
     }
 
     public void updateProfile() {
-        ShaderProfile shaderprofile = this.getProfile(this.getValue());
+        ShaderProfile shaderprofile = getProfile(getValue());
 
-        if (!ShaderUtils.matchProfile(shaderprofile, this.options, false)) {
-            String s = detectProfileName(this.profiles, this.options);
-            this.setValue(s);
+        if (!ShaderUtils.matchProfile(shaderprofile, options, false)) {
+            String s = detectProfileName(profiles, options);
+            setValue(s);
         }
     }
 
     private void applyProfileOptions() {
-        ShaderProfile shaderprofile = this.getProfile(this.getValue());
+        ShaderProfile shaderprofile = getProfile(getValue());
 
         if (shaderprofile != null) {
             String[] astring = shaderprofile.getOptions();
 
             for (String s : astring) {
-                ShaderOption shaderoption = this.getOption(s);
+                ShaderOption shaderoption = getOption(s);
 
                 if (shaderoption != null) {
                     String s1 = shaderprofile.getValue(s);
@@ -74,7 +74,7 @@ public class ShaderOptionProfile extends ShaderOption {
     }
 
     private ShaderOption getOption(String name) {
-        for (ShaderOption shaderoption : this.options) {
+        for (ShaderOption shaderoption : options) {
             if (shaderoption.getName().equals(name)) {
                 return shaderoption;
             }
@@ -84,7 +84,7 @@ public class ShaderOptionProfile extends ShaderOption {
     }
 
     private ShaderProfile getProfile(String name) {
-        for (ShaderProfile shaderprofile : this.profiles) {
+        for (ShaderProfile shaderprofile : profiles) {
             if (shaderprofile.getName().equals(name)) {
                 return shaderprofile;
             }
@@ -113,7 +113,7 @@ public class ShaderOptionProfile extends ShaderOption {
         } else {
             StringBuilder stringbuffer = new StringBuilder();
 
-            for (ShaderProfile profile : this.profiles) {
+            for (ShaderProfile profile : profiles) {
                 String s1 = profile.getName();
 
                 if (s1 != null) {

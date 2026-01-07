@@ -6,24 +6,22 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Properties;
 
 public class Property {
-    private int defaultValue;
-    private String propertyName;
-    private String[] propertyValues;
-    private String userName;
-    private String[] userValues;
+    private final int defaultValue;
+    private final String propertyName;
+    private final String[] propertyValues;
+    private final String[] userValues;
     private int value;
 
     public Property(String propertyName, String[] propertyValues, String userName, String[] userValues, int defaultValue) {
         this.propertyName = propertyName;
         this.propertyValues = propertyValues;
-        this.userName = userName;
         this.userValues = userValues;
         this.defaultValue = defaultValue;
 
         if (propertyValues.length != userValues.length) {
             throw new IllegalArgumentException("Property and user values have different lengths: " + propertyValues.length + " != " + userValues.length);
         } else if (defaultValue >= 0 && defaultValue < propertyValues.length) {
-            this.value = defaultValue;
+            value = defaultValue;
         } else {
             throw new IllegalArgumentException("Invalid default value: " + defaultValue);
         }
@@ -31,15 +29,15 @@ public class Property {
 
     public boolean setPropertyValue(String propVal) {
         if (propVal == null) {
-            this.value = this.defaultValue;
+            value = defaultValue;
             return false;
         } else {
-            this.value = ArrayUtils.indexOf(this.propertyValues, propVal);
+            value = ArrayUtils.indexOf(propertyValues, propVal);
 
-            if (this.value >= 0 && this.value < this.propertyValues.length) {
+            if (value >= 0 && value < propertyValues.length) {
                 return true;
             } else {
-                this.value = this.defaultValue;
+                value = defaultValue;
                 return false;
             }
         }
@@ -47,56 +45,57 @@ public class Property {
 
     public void nextValue(boolean forward) {
         int i = 0;
-        int j = this.propertyValues.length - 1;
-        this.value = Config.limit(this.value, i, j);
+        int j = propertyValues.length - 1;
+        value = Config.limit(value, i, j);
 
         if (forward) {
-            ++this.value;
+            ++value;
 
-            if (this.value > j) {
-                this.value = i;
+            if (value > j) {
+                value = i;
             }
         } else {
-            --this.value;
+            --value;
 
-            if (this.value < i) {
-                this.value = j;
+            if (value < i) {
+                value = j;
             }
         }
     }
 
     public int getValue() {
-        return this.value;
+        return value;
     }
 
     public String getUserValue() {
-        return this.userValues[this.value];
+        return userValues[value];
     }
 
     public String getPropertyValue() {
-        return this.propertyValues[this.value];
+        return propertyValues[value];
     }
 
     public String getPropertyName() {
-        return this.propertyName;
+        return propertyName;
     }
 
     public void resetValue() {
-        this.value = this.defaultValue;
+        value = defaultValue;
     }
 
-    public boolean loadFrom(Properties props) {
-        this.resetValue();
+    public void loadFrom(Properties props) {
+        resetValue();
 
         if (props == null) {
-            return false;
         } else {
-            String s = props.getProperty(this.propertyName);
-            return s != null && this.setPropertyValue(s);
+            String s = props.getProperty(propertyName);
+            if (s != null) {
+                setPropertyValue(s);
+            }
         }
     }
 
     public String toString() {
-        return this.propertyName + "=" + this.getPropertyValue() + " [" + Config.arrayToString(this.propertyValues) + "], value: " + this.value;
+        return propertyName + "=" + getPropertyValue() + " [" + Config.arrayToString(propertyValues) + "], value: " + value;
     }
 }

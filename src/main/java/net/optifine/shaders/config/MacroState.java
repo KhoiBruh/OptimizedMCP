@@ -33,7 +33,7 @@ public class MacroState {
         Matcher matcher = PATTERN_DIRECTIVE.matcher(line);
 
         if (!matcher.matches()) {
-            return this.active;
+            return active;
         } else {
             String s = matcher.group(1);
             String s1 = matcher.group(2);
@@ -43,10 +43,10 @@ public class MacroState {
                 s1 = s1.substring(0, i);
             }
 
-            boolean flag = this.active;
-            this.processMacro(s, s1);
-            this.active = !this.dequeState.contains(Boolean.FALSE);
-            return this.active || flag;
+            boolean flag = active;
+            processMacro(s, s1);
+            active = !dequeState.contains(Boolean.FALSE);
+            return active || flag;
         }
     }
 
@@ -56,46 +56,46 @@ public class MacroState {
         String s1 = stringtokenizer.hasMoreTokens() ? stringtokenizer.nextToken("").trim() : "";
 
         if (name.equals("define")) {
-            this.mapMacroValues.put(s, s1);
+            mapMacroValues.put(s, s1);
         } else if (name.equals("undef")) {
-            this.mapMacroValues.remove(s);
+            mapMacroValues.remove(s);
         } else if (name.equals("ifdef")) {
-            boolean flag6 = this.mapMacroValues.containsKey(s);
-            this.dequeState.add(flag6);
-            this.dequeResolved.add(flag6);
+            boolean flag6 = mapMacroValues.containsKey(s);
+            dequeState.add(flag6);
+            dequeResolved.add(flag6);
         } else if (name.equals("ifndef")) {
-            boolean flag5 = !this.mapMacroValues.containsKey(s);
-            this.dequeState.add(flag5);
-            this.dequeResolved.add(flag5);
+            boolean flag5 = !mapMacroValues.containsKey(s);
+            dequeState.add(flag5);
+            dequeResolved.add(flag5);
         } else if (name.equals("if")) {
-            boolean flag4 = this.eval(param);
-            this.dequeState.add(flag4);
-            this.dequeResolved.add(flag4);
-        } else if (!this.dequeState.isEmpty()) {
+            boolean flag4 = eval(param);
+            dequeState.add(flag4);
+            dequeResolved.add(flag4);
+        } else if (!dequeState.isEmpty()) {
             switch (name) {
                 case "elif" -> {
-                    boolean flag3 = this.dequeState.removeLast();
-                    boolean flag7 = this.dequeResolved.removeLast();
+                    boolean flag3 = dequeState.removeLast();
+                    boolean flag7 = dequeResolved.removeLast();
 
                     if (flag7) {
-                        this.dequeState.add(Boolean.FALSE);
-                        this.dequeResolved.add(true);
+                        dequeState.add(Boolean.FALSE);
+                        dequeResolved.add(true);
                     } else {
-                        boolean flag8 = this.eval(param);
-                        this.dequeState.add(flag8);
-                        this.dequeResolved.add(flag8);
+                        boolean flag8 = eval(param);
+                        dequeState.add(flag8);
+                        dequeResolved.add(flag8);
                     }
                 }
                 case "else" -> {
-                    boolean flag = this.dequeState.removeLast();
-                    boolean flag1 = this.dequeResolved.removeLast();
+                    boolean flag = dequeState.removeLast();
+                    boolean flag1 = dequeResolved.removeLast();
                     boolean flag2 = !flag1;
-                    this.dequeState.add(flag2);
-                    this.dequeResolved.add(Boolean.TRUE);
+                    dequeState.add(flag2);
+                    dequeResolved.add(Boolean.TRUE);
                 }
                 case "endif" -> {
-                    this.dequeState.removeLast();
-                    this.dequeResolved.removeLast();
+                    dequeState.removeLast();
+                    dequeResolved.removeLast();
                 }
             }
         }
@@ -119,8 +119,8 @@ public class MacroState {
                 if (!s.isEmpty()) {
                     char c0 = s.charAt(0);
 
-                    if ((Character.isLetter(c0) || c0 == 95) && this.mapMacroValues.containsKey(s)) {
-                        String s1 = this.mapMacroValues.get(s);
+                    if ((Character.isLetter(c0) || c0 == 95) && mapMacroValues.containsKey(s)) {
+                        String s1 = mapMacroValues.get(s);
 
                         if (s1 == null) {
                             s1 = "1";
@@ -143,7 +143,7 @@ public class MacroState {
             return true;
         } else {
             try {
-                IExpressionResolver iexpressionresolver = new MacroExpressionResolver(this.mapMacroValues);
+                IExpressionResolver iexpressionresolver = new MacroExpressionResolver(mapMacroValues);
                 ExpressionParser expressionparser = new ExpressionParser(iexpressionresolver);
                 IExpression iexpression = expressionparser.parse(str);
 

@@ -2,6 +2,7 @@ package net.optifine.entity.model.anim;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.optifine.entity.model.CustomModelRenderer;
@@ -20,22 +21,22 @@ public class ModelResolver implements IModelResolver {
         this.modelAdapter = modelAdapter;
         this.model = model;
         this.customModelRenderers = customModelRenderers;
-        Class oclass = modelAdapter.getEntityClass();
+        Class<?> oclass = modelAdapter.getEntityClass();
 
         if (TileEntity.class.isAssignableFrom(oclass)) {
-            this.renderResolver = new RenderResolverTileEntity();
+            renderResolver = new RenderResolverTileEntity();
         } else {
-            this.renderResolver = new RenderResolverEntity();
+            renderResolver = new RenderResolverEntity();
         }
     }
 
     public IExpression getExpression(String name) {
-        IExpression iexpression = this.getModelVariable(name);
+        IExpression iexpression = getModelVariable(name);
 
         if (iexpression != null) {
             return iexpression;
         } else {
-            return this.renderResolver.getParameter(name);
+            return renderResolver.getParameter(name);
         }
     }
 
@@ -44,7 +45,7 @@ public class ModelResolver implements IModelResolver {
             return null;
         } else if (name.contains(":")) {
             String[] astring = Config.tokenize(name, ":");
-            ModelRenderer modelrenderer3 = this.getModelRenderer(astring[0]);
+            ModelRenderer modelrenderer3 = getModelRenderer(astring[0]);
 
             for (int j = 1; j < astring.length; ++j) {
                 String s = astring[j];
@@ -58,17 +59,17 @@ public class ModelResolver implements IModelResolver {
             }
 
             return modelrenderer3;
-        } else if (this.thisModelRenderer != null && name.equals("this")) {
-            return this.thisModelRenderer;
-        } else if (this.partModelRenderer != null && name.equals("part")) {
-            return this.partModelRenderer;
+        } else if (thisModelRenderer != null && name.equals("this")) {
+            return thisModelRenderer;
+        } else if (partModelRenderer != null && name.equals("part")) {
+            return partModelRenderer;
         } else {
-            ModelRenderer modelrenderer = this.modelAdapter.getModelRenderer(this.model, name);
+            ModelRenderer modelrenderer = modelAdapter.getModelRenderer(model, name);
 
             if (modelrenderer != null) {
                 return modelrenderer;
             } else {
-                for (CustomModelRenderer custommodelrenderer : this.customModelRenderers) {
+                for (CustomModelRenderer custommodelrenderer : customModelRenderers) {
                     ModelRenderer modelrenderer1 = custommodelrenderer.getModelRenderer();
 
                     if (name.equals(modelrenderer1.getId())) {
@@ -95,7 +96,7 @@ public class ModelResolver implements IModelResolver {
         } else {
             String s = astring[0];
             String s1 = astring[1];
-            ModelRenderer modelrenderer = this.getModelRenderer(s);
+            ModelRenderer modelrenderer = getModelRenderer(s);
 
             if (modelrenderer == null) {
                 return null;

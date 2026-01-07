@@ -18,13 +18,11 @@ public class ModelAdapterChest extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelChest modelchest)) {
-            return null;
-        } else {
+        if (model instanceof ModelChest modelchest) {
             return modelPart.equals("lid") ? modelchest.chestLid
                     : (modelPart.equals("base") ? modelchest.chestBelow
                     : (modelPart.equals("knob") ? modelchest.chestKnob : null));
-        }
+        } else return null;
     }
 
     public String[] getModelRendererNames() {
@@ -33,12 +31,10 @@ public class ModelAdapterChest extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+        TileEntitySpecialRenderer<?> tileentityspecialrenderer = tileentityrendererdispatcher
                 .getSpecialRendererByClass(TileEntityChest.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityChestRenderer)) {
-            return null;
-        } else {
+        if (tileentityspecialrenderer instanceof TileEntityChestRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {
                 tileentityspecialrenderer = new TileEntityChestRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
@@ -47,6 +43,6 @@ public class ModelAdapterChest extends ModelAdapter {
             TileEntityChestRenderer chestRenderer = (TileEntityChestRenderer) tileentityspecialrenderer;
             chestRenderer.simpleChest = (ModelChest) modelBase;
             return chestRenderer;
-        }
+        } else return null;
     }
 }

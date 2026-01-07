@@ -11,18 +11,18 @@ public class PropertyDefaultTrueFalse extends Property {
     }
 
     public String getUserValue() {
-        return this.isDefault() ? Lang.getDefault() : (this.isTrue() ? Lang.getOn() : (this.isFalse() ? Lang.getOff() : super.getUserValue()));
+        return isDefault() ? Lang.getDefault() : (isTrue() ? Lang.getOn() : (isFalse() ? Lang.getOff() : super.getUserValue()));
     }
 
     public boolean isDefault() {
-        return this.getValue() == 0;
+        return getValue() == 0;
     }
 
     public boolean isTrue() {
-        return this.getValue() == 1;
+        return getValue() == 1;
     }
 
     public boolean isFalse() {
-        return this.getValue() == 2;
+        return getValue() == 2;
     }
 }

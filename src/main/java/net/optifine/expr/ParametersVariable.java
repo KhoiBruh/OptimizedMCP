@@ -9,7 +9,7 @@ public class ParametersVariable implements IParameters {
     private final ExpressionType[] first;
     private final ExpressionType[] repeat;
     private final ExpressionType[] last;
-    private int maxCount;
+    private final int maxCount;
 
     public ParametersVariable() {
         this(null, null, null);
@@ -31,37 +31,37 @@ public class ParametersVariable implements IParameters {
     }
 
     public ExpressionType[] getParameterTypes(IExpression[] arguments) {
-        int i = this.first.length + this.last.length;
+        int i = first.length + last.length;
         int j = arguments.length - i;
         int k = 0;
 
-        for (int l = 0; l + this.repeat.length <= j && i + l + this.repeat.length <= this.maxCount; l += this.repeat.length) {
+        for (int l = 0; l + repeat.length <= j && i + l + repeat.length <= maxCount; l += repeat.length) {
             ++k;
         }
 
-        List<ExpressionType> list = new ArrayList<>(Arrays.asList(this.first));
+        List<ExpressionType> list = new ArrayList<>(Arrays.asList(first));
 
         for (int i1 = 0; i1 < k; ++i1) {
-            list.addAll(Arrays.asList(this.repeat));
+            list.addAll(Arrays.asList(repeat));
         }
 
-        list.addAll(Arrays.asList(this.last));
+        list.addAll(Arrays.asList(last));
         return list.toArray(new ExpressionType[0]);
     }
 
     public ParametersVariable first(ExpressionType... first) {
-        return new ParametersVariable(first, this.repeat, this.last);
+        return new ParametersVariable(first, repeat, last);
     }
 
     public ParametersVariable repeat(ExpressionType... repeat) {
-        return new ParametersVariable(this.first, repeat, this.last);
+        return new ParametersVariable(first, repeat, last);
     }
 
     public ParametersVariable last(ExpressionType... last) {
-        return new ParametersVariable(this.first, this.repeat, last);
+        return new ParametersVariable(first, repeat, last);
     }
 
     public ParametersVariable maxCount(int maxCount) {
-        return new ParametersVariable(this.first, this.repeat, this.last, maxCount);
+        return new ParametersVariable(first, repeat, last, maxCount);
     }
 }

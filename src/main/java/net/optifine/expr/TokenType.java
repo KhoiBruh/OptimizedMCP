@@ -32,11 +32,11 @@ public enum TokenType {
     }
 
     public String getCharsFirst() {
-        return this.charsFirst;
+        return charsFirst;
     }
 
     public boolean hasCharNext(char ch) {
-        return this.charsNext.indexOf(ch) >= 0;
+        return charsNext.indexOf(ch) >= 0;
     }
 
     private static class Const {

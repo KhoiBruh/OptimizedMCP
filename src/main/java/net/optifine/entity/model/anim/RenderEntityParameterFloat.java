@@ -34,7 +34,7 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
 
     RenderEntityParameterFloat(String name) {
         this.name = name;
-        this.renderManager = Minecraft.getMinecraft().getRenderManager();
+        renderManager = Minecraft.getMinecraft().getRenderManager();
     }
 
     public static RenderEntityParameterFloat parse(String str) {
@@ -50,7 +50,7 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public ExpressionType getExpressionType() {
@@ -58,31 +58,31 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
     }
 
     public float eval() {
-        Render render = this.renderManager.renderRender;
+        Render<?> render = renderManager.renderRender;
 
         if (render != null) {
-            if (render instanceof RendererLivingEntity rendererlivingentity) {
+            if (render instanceof RendererLivingEntity<?> rendererlivingentity) {
 
                 switch (this) {
-                    case LIMB_SWING:
+                    case LIMB_SWING -> {
                         return rendererlivingentity.renderLimbSwing;
-
-                    case LIMB_SWING_SPEED:
+                    }
+                    case LIMB_SWING_SPEED -> {
                         return rendererlivingentity.renderLimbSwingAmount;
-
-                    case AGE:
+                    }
+                    case AGE -> {
                         return rendererlivingentity.renderAgeInTicks;
-
-                    case HEAD_YAW:
+                    }
+                    case HEAD_YAW -> {
                         return rendererlivingentity.renderHeadYaw;
-
-                    case HEAD_PITCH:
+                    }
+                    case HEAD_PITCH -> {
                         return rendererlivingentity.renderHeadPitch;
-
-                    case SCALE:
+                    }
+                    case SCALE -> {
                         return rendererlivingentity.renderScaleFactor;
-
-                    default:
+                    }
+                    default -> {
                         EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
                         if (entitylivingbase == null) {
@@ -90,39 +90,41 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
                         }
 
                         switch (this) {
-                            case HEALTH:
+                            case HEALTH -> {
                                 return entitylivingbase.getHealth();
-
-                            case HURT_TIME:
+                            }
+                            case HURT_TIME -> {
                                 return (float) entitylivingbase.hurtTime;
-
-                            case IDLE_TIME:
+                            }
+                            case IDLE_TIME -> {
                                 return (float) entitylivingbase.getAge();
-
-                            case MAX_HEALTH:
+                            }
+                            case MAX_HEALTH -> {
                                 return entitylivingbase.getMaxHealth();
-
-                            case MOVE_FORWARD:
+                            }
+                            case MOVE_FORWARD -> {
                                 return entitylivingbase.moveForward;
-
-                            case MOVE_STRAFING:
+                            }
+                            case MOVE_STRAFING -> {
                                 return entitylivingbase.moveStrafing;
-
-                            case POS_X:
+                            }
+                            case POS_X -> {
                                 return (float) entitylivingbase.posX;
-
-                            case POS_Y:
+                            }
+                            case POS_Y -> {
                                 return (float) entitylivingbase.posY;
-
-                            case POS_Z:
+                            }
+                            case POS_Z -> {
                                 return (float) entitylivingbase.posZ;
-
-                            case REVENGE_TIME:
+                            }
+                            case REVENGE_TIME -> {
                                 return (float) entitylivingbase.getRevengeTimer();
-
-                            case SWING_PROGRESS:
+                            }
+                            case SWING_PROGRESS -> {
                                 return entitylivingbase.getSwingProgress(rendererlivingentity.renderPartialTicks);
+                            }
                         }
+                    }
                 }
             }
 

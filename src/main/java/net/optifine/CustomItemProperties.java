@@ -22,8 +22,8 @@ import org.lwjgl.opengl.GL11;
 import java.util.*;
 
 public class CustomItemProperties {
-    public String name;
-    public String basePath;
+    public final String name;
+    public final String basePath;
     public int type = 1;
     public int[] items = null;
     public String texture = null;
@@ -51,38 +51,38 @@ public class CustomItemProperties {
     public IBakedModel bakedModelFull = null;
     public Map<String, IBakedModel> mapBakedModelsFull = null;
     private int textureWidth = 0;
-    private int textureHeight = 0;
+    private final int textureHeight = 0;
 
     public CustomItemProperties(Properties props, String path) {
-        this.name = parseName(path);
-        this.basePath = parseBasePath(path);
-        this.type = this.parseType(props.getProperty("type"));
-        this.items = this.parseItems(props.getProperty("items"), props.getProperty("matchItems"));
-        this.mapModels = parseModels(props, this.basePath);
-        this.model = parseModel(props.getProperty("model"), path, this.basePath, this.type, this.mapModels);
-        this.mapTextures = parseTextures(props, this.basePath);
-        boolean flag = this.mapModels == null && this.model == null;
-        this.texture = parseTexture(props.getProperty("texture"), props.getProperty("tile"),
-                props.getProperty("source"), path, this.basePath, this.type, this.mapTextures, flag);
+        name = parseName(path);
+        basePath = parseBasePath(path);
+        type = parseType(props.getProperty("type"));
+        items = parseItems(props.getProperty("items"), props.getProperty("matchItems"));
+        mapModels = parseModels(props, basePath);
+        model = parseModel(props.getProperty("model"), path, basePath, type, mapModels);
+        mapTextures = parseTextures(props, basePath);
+        boolean flag = mapModels == null && model == null;
+        texture = parseTexture(props.getProperty("texture"), props.getProperty("tile"),
+                props.getProperty("source"), path, basePath, type, mapTextures, flag);
         String s = props.getProperty("damage");
 
         if (s != null) {
-            this.damagePercent = s.contains("%");
+            damagePercent = s.contains("%");
             s = s.replace("%", "");
-            this.damage = this.parseRangeListInt(s);
-            this.damageMask = this.parseInt(props.getProperty("damageMask"), 0);
+            damage = parseRangeListInt(s);
+            damageMask = parseInt(props.getProperty("damageMask"), 0);
         }
 
-        this.stackSize = this.parseRangeListInt(props.getProperty("stackSize"));
-        this.enchantmentIds = this.parseRangeListInt(props.getProperty("enchantmentIDs"), new ParserEnchantmentId());
-        this.enchantmentLevels = this.parseRangeListInt(props.getProperty("enchantmentLevels"));
-        this.nbtTagValues = this.parseNbtTagValues(props);
-        this.hand = this.parseHand(props.getProperty("hand"));
-        this.blend = Blender.parseBlend(props.getProperty("blend"));
-        this.speed = this.parseFloat(props.getProperty("speed"), 0.0F);
-        this.rotation = this.parseFloat(props.getProperty("rotation"), 0.0F);
-        this.layer = this.parseInt(props.getProperty("layer"), 0);
-        this.weight = this.parseInt(props.getProperty("weight"), 0);
+        stackSize = parseRangeListInt(props.getProperty("stackSize"));
+        enchantmentIds = parseRangeListInt(props.getProperty("enchantmentIDs"), new ParserEnchantmentId());
+        enchantmentLevels = parseRangeListInt(props.getProperty("enchantmentLevels"));
+        nbtTagValues = parseNbtTagValues(props);
+        hand = parseHand(props.getProperty("hand"));
+        blend = Blender.parseBlend(props.getProperty("blend"));
+        speed = parseFloat(props.getProperty("speed"), 0.0F);
+        rotation = parseFloat(props.getProperty("rotation"), 0.0F);
+        layer = parseInt(props.getProperty("layer"), 0);
+        weight = parseInt(props.getProperty("weight"), 0);
     }
 
     private static String parseName(String path) {
@@ -163,7 +163,7 @@ public class CustomItemProperties {
         String s = "texture.";
         Map map = getMatchingProperties(props, s);
 
-        if (map.size() == 0) {
+        if (map.isEmpty()) {
             return null;
         } else {
             Set set = map.keySet();
@@ -213,11 +213,8 @@ public class CustomItemProperties {
             return null;
         } else {
             if (mapModelNames != null) {
-                String s = mapModelNames.get("model.bow_standby");
 
-                if (s != null) {
-                    return s;
-                }
+                return mapModelNames.get("model.bow_standby");
             }
 
             return null;
@@ -228,7 +225,7 @@ public class CustomItemProperties {
         String s = "model.";
         Map map = getMatchingProperties(props, s);
 
-        if (map.size() == 0) {
+        if (map.isEmpty()) {
             return null;
         } else {
             Set set = map.keySet();
@@ -484,7 +481,7 @@ public class CustomItemProperties {
     }
 
     private RangeListInt parseRangeListInt(String str) {
-        return this.parseRangeListInt(str, null);
+        return parseRangeListInt(str, null);
     }
 
     private RangeListInt parseRangeListInt(String str, IParserInt parser) {
@@ -504,7 +501,7 @@ public class CustomItemProperties {
                     }
                 }
 
-                RangeInt rangeint = this.parseRangeInt(s);
+                RangeInt rangeint = parseRangeInt(s);
 
                 if (rangeint == null) {
                     Config.warn("Invalid range list: " + str);
@@ -570,10 +567,10 @@ public class CustomItemProperties {
         String s = "nbt.";
         Map map = getMatchingProperties(props, s);
 
-        if (map.size() == 0) {
+        if (map.isEmpty()) {
             return null;
         } else {
-            List list = new ArrayList();
+            List list = new ArrayList<>();
 
             for (Object o : map.keySet()) {
                 String s1 = (String) o;
@@ -606,29 +603,29 @@ public class CustomItemProperties {
     }
 
     public boolean isValid(String path) {
-        if (this.name != null && !this.name.isEmpty()) {
-            if (this.basePath == null) {
+        if (name != null && !name.isEmpty()) {
+            if (basePath == null) {
                 Config.warn("No base path found: " + path);
                 return false;
-            } else if (this.type == 0) {
+            } else if (type == 0) {
                 Config.warn("No type defined: " + path);
                 return false;
             } else {
-                if (this.type == 1 || this.type == 3) {
-                    if (this.items == null) {
-                        this.items = this.detectItems();
+                if (type == 1 || type == 3) {
+                    if (items == null) {
+                        items = detectItems();
                     }
 
-                    if (this.items == null) {
+                    if (items == null) {
                         Config.warn("No items defined: " + path);
                         return false;
                     }
                 }
 
-                if (this.texture == null && this.mapTextures == null && this.model == null && this.mapModels == null) {
+                if (texture == null && mapTextures == null && model == null && mapModels == null) {
                     Config.warn("No texture or model specified: " + path);
                     return false;
-                } else if (this.type == 2 && this.enchantmentIds == null) {
+                } else if (type == 2 && enchantmentIds == null) {
                     Config.warn("No enchantmentIDs specified: " + path);
                     return false;
                 } else {
@@ -642,7 +639,7 @@ public class CustomItemProperties {
     }
 
     private int[] detectItems() {
-        Item item = Item.getByNameOrId(this.name);
+        Item item = Item.getByNameOrId(name);
 
         if (item == null) {
             return null;
@@ -653,27 +650,27 @@ public class CustomItemProperties {
     }
 
     public void updateIcons(TextureMap textureMap) {
-        if (this.texture != null) {
-            this.textureLocation = this.getTextureLocation(this.texture);
+        if (texture != null) {
+            textureLocation = getTextureLocation(texture);
 
-            if (this.type == 1) {
-                ResourceLocation resourcelocation = this.getSpriteLocation(this.textureLocation);
+            if (type == 1) {
+                ResourceLocation resourcelocation = getSpriteLocation(textureLocation);
             }
         }
 
-        if (this.mapTextures != null) {
-            this.mapTextureLocations = new HashMap();
-            this.mapSprites = new HashMap();
+        if (mapTextures != null) {
+            mapTextureLocations = new HashMap<>();
+            mapSprites = new HashMap<>();
 
-            for (String s : this.mapTextures.keySet()) {
-                String s1 = this.mapTextures.get(s);
-                ResourceLocation resourcelocation1 = this.getTextureLocation(s1);
-                this.mapTextureLocations.put(s, resourcelocation1);
+            for (String s : mapTextures.keySet()) {
+                String s1 = mapTextures.get(s);
+                ResourceLocation resourcelocation1 = getTextureLocation(s1);
+                mapTextureLocations.put(s, resourcelocation1);
 
-                if (this.type == 1) {
-                    ResourceLocation resourcelocation2 = this.getSpriteLocation(resourcelocation1);
+                if (type == 1) {
+                    ResourceLocation resourcelocation2 = getSpriteLocation(resourcelocation1);
                     TextureAtlasSprite textureatlassprite = textureMap.registerSprite(resourcelocation2);
-                    this.mapSprites.put(s, textureatlassprite);
+                    mapSprites.put(s, textureatlassprite);
                 }
             }
         }
@@ -711,25 +708,25 @@ public class CustomItemProperties {
     }
 
     public void updateModelTexture(TextureMap textureMap, ItemModelGenerator itemModelGenerator) {
-        if (this.texture != null || this.mapTextures != null) {
-            String[] astring = this.getModelTextures();
+        if (texture != null || mapTextures != null) {
+            String[] astring = getModelTextures();
             boolean flag = true;
-            this.bakedModelTexture = makeBakedModel(textureMap, itemModelGenerator, astring, flag);
+            bakedModelTexture = makeBakedModel(textureMap, itemModelGenerator, astring, flag);
 
-            if (this.type == 1 && this.mapTextures != null) {
-                for (String s : this.mapTextures.keySet()) {
-                    String s1 = this.mapTextures.get(s);
+            if (type == 1 && mapTextures != null) {
+                for (String s : mapTextures.keySet()) {
+                    String s1 = mapTextures.get(s);
                     String s2 = StrUtils.removePrefix(s, "texture.");
 
                     if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
                         String[] astring1 = new String[]{s1};
                         IBakedModel ibakedmodel = makeBakedModel(textureMap, itemModelGenerator, astring1, flag);
 
-                        if (this.mapBakedModelsTexture == null) {
-                            this.mapBakedModelsTexture = new HashMap<>();
+                        if (mapBakedModelsTexture == null) {
+                            mapBakedModelsTexture = new HashMap<>();
                         }
 
-                        this.mapBakedModelsTexture.put(s2, ibakedmodel);
+                        mapBakedModelsTexture.put(s2, ibakedmodel);
                     }
                 }
             }
@@ -737,21 +734,21 @@ public class CustomItemProperties {
     }
 
     private String[] getModelTextures() {
-        if (this.type == 1 && this.items.length == 1) {
-            Item item = Item.getItemById(this.items[0]);
+        if (type == 1 && items.length == 1) {
+            Item item = Item.getItemById(items[0]);
 
-            if (item == Items.potionitem && this.damage != null && this.damage.getCountRanges() > 0) {
-                RangeInt rangeint = this.damage.getRange(0);
+            if (item == Items.potionitem && damage != null && damage.getCountRanges() > 0) {
+                RangeInt rangeint = damage.getRange(0);
                 int i = rangeint.getMin();
                 boolean flag = (i & 16384) != 0;
-                String s5 = this.getMapTexture(this.mapTextures, "texture.potion_overlay", "items/potion_overlay");
+                String s5 = getMapTexture(mapTextures, "texture.potion_overlay", "items/potion_overlay");
                 String s6;
 
                 if (flag) {
-                    s6 = this.getMapTexture(this.mapTextures, "texture.potion_bottle_splash",
+                    s6 = getMapTexture(mapTextures, "texture.potion_bottle_splash",
                             "items/potion_bottle_splash");
                 } else {
-                    s6 = this.getMapTexture(this.mapTextures, "texture.potion_bottle_drinkable",
+                    s6 = getMapTexture(mapTextures, "texture.potion_bottle_drinkable",
                             "items/potion_bottle_drinkable");
                 }
 
@@ -781,15 +778,15 @@ public class CustomItemProperties {
                     }
 
                     String s2 = s + "_" + s1;
-                    String s3 = this.getMapTexture(this.mapTextures, "texture." + s2, "items/" + s2);
-                    String s4 = this.getMapTexture(this.mapTextures, "texture." + s2 + "_overlay",
+                    String s3 = getMapTexture(mapTextures, "texture." + s2, "items/" + s2);
+                    String s4 = getMapTexture(mapTextures, "texture." + s2 + "_overlay",
                             "items/" + s2 + "_overlay");
                     return new String[]{s3, s4};
                 }
             }
         }
 
-        return new String[]{this.texture};
+        return new String[]{texture};
     }
 
     private String getMapTexture(Map<String, String> map, String key, String def) {
@@ -802,27 +799,27 @@ public class CustomItemProperties {
     }
 
     public String toString() {
-        return this.basePath + "/" + this.name + ", type: " + this.type + ", items: ["
-                + Config.arrayToString(this.items) + "], textture: " + this.texture;
+        return basePath + "/" + name + ", type: " + type + ", items: ["
+                + Config.arrayToString(items) + "], textture: " + texture;
     }
 
     public float getTextureWidth(TextureManager textureManager) {
-        if (this.textureWidth <= 0) {
-            if (this.textureLocation != null) {
-                ITextureObject itextureobject = textureManager.getTexture(this.textureLocation);
+        if (textureWidth <= 0) {
+            if (textureLocation != null) {
+                ITextureObject itextureobject = textureManager.getTexture(textureLocation);
                 int i = itextureobject.getGlTextureId();
                 int j = GlStateManager.getBoundTexture();
                 GlStateManager.bindTexture(i);
-                this.textureWidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+                textureWidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
                 GlStateManager.bindTexture(j);
             }
 
-            if (this.textureWidth <= 0) {
-                this.textureWidth = 16;
+            if (textureWidth <= 0) {
+                textureWidth = 16;
             }
         }
 
-        return (float) this.textureWidth;
+        return (float) textureWidth;
     }
 
     public IBakedModel getBakedModel(ResourceLocation modelLocation, boolean fullModel) {
@@ -830,11 +827,11 @@ public class CustomItemProperties {
         Map<String, IBakedModel> map;
 
         if (fullModel) {
-            ibakedmodel = this.bakedModelFull;
-            map = this.mapBakedModelsFull;
+            ibakedmodel = bakedModelFull;
+            map = mapBakedModelsFull;
         } else {
-            ibakedmodel = this.bakedModelTexture;
-            map = this.mapBakedModelsTexture;
+            ibakedmodel = bakedModelTexture;
+            map = mapBakedModelsTexture;
         }
 
         if (modelLocation != null && map != null) {
@@ -850,13 +847,13 @@ public class CustomItemProperties {
     }
 
     public void loadModels(ModelBakery modelBakery) {
-        if (this.model != null) {
-            loadItemModel(modelBakery, this.model);
+        if (model != null) {
+            loadItemModel(modelBakery, model);
         }
 
-        if (this.type == 1 && this.mapModels != null) {
-            for (String s : this.mapModels.keySet()) {
-                String s1 = this.mapModels.get(s);
+        if (type == 1 && mapModels != null) {
+            for (String s : mapModels.keySet()) {
+                String s1 = mapModels.get(s);
                 String s2 = StrUtils.removePrefix(s, "model.");
 
                 if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
@@ -870,20 +867,20 @@ public class CustomItemProperties {
         ModelManager modelmanager = Config.getModelManager();
         IBakedModel ibakedmodel = modelmanager.getMissingModel();
 
-        if (this.model != null) {
-            ResourceLocation resourcelocation = getModelLocation(this.model);
+        if (model != null) {
+            ResourceLocation resourcelocation = getModelLocation(model);
             ModelResourceLocation modelresourcelocation = new ModelResourceLocation(resourcelocation, "inventory");
-            this.bakedModelFull = modelmanager.getModel(modelresourcelocation);
+            bakedModelFull = modelmanager.getModel(modelresourcelocation);
 
-            if (this.bakedModelFull == ibakedmodel) {
+            if (bakedModelFull == ibakedmodel) {
                 Config.warn("Custom Items: Model not found " + modelresourcelocation.getResourcePath());
-                this.bakedModelFull = null;
+                bakedModelFull = null;
             }
         }
 
-        if (this.type == 1 && this.mapModels != null) {
-            for (String s : this.mapModels.keySet()) {
-                String s1 = this.mapModels.get(s);
+        if (type == 1 && mapModels != null) {
+            for (String s : mapModels.keySet()) {
+                String s1 = mapModels.get(s);
                 String s2 = StrUtils.removePrefix(s, "model.");
 
                 if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
@@ -895,11 +892,11 @@ public class CustomItemProperties {
                     if (ibakedmodel1 == ibakedmodel) {
                         Config.warn("Custom Items: Model not found " + modelresourcelocation1.getResourcePath());
                     } else {
-                        if (this.mapBakedModelsFull == null) {
-                            this.mapBakedModelsFull = new HashMap<>();
+                        if (mapBakedModelsFull == null) {
+                            mapBakedModelsFull = new HashMap<>();
                         }
 
-                        this.mapBakedModelsFull.put(s2, ibakedmodel1);
+                        mapBakedModelsFull.put(s2, ibakedmodel1);
                     }
                 }
             }

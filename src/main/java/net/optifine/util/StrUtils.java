@@ -7,10 +7,8 @@ import java.util.StringTokenizer;
 public class StrUtils {
     public static boolean equalsMask(String str, String mask, char wildChar, char wildCharSingle) {
         if (mask != null && str != null) {
-            if (mask.indexOf(wildChar) < 0) {
-                return mask.indexOf(wildCharSingle) < 0 ? mask.equals(str) : equalsMaskSingle(str, mask, wildCharSingle);
-            } else {
-                List list = new ArrayList();
+            if (mask.indexOf(wildChar) >= 0) {
+                List<String> list = new ArrayList<>();
                 String s = "" + wildChar;
 
                 if (mask.startsWith(s)) {
@@ -27,20 +25,16 @@ public class StrUtils {
                     list.add("");
                 }
 
-                String s1 = (String) list.getFirst();
+                String s1 = list.getFirst();
 
-                if (!startsWithMaskSingle(str, s1, wildCharSingle)) {
-                    return false;
-                } else {
-                    String s2 = (String) list.getLast();
+                if (startsWithMaskSingle(str, s1, wildCharSingle)) {
+                    String s2 = list.getLast();
 
-                    if (!endsWithMaskSingle(str, s2, wildCharSingle)) {
-                        return false;
-                    } else {
+                    if (endsWithMaskSingle(str, s2, wildCharSingle)) {
                         int i = 0;
 
-                        for (Object o : list) {
-                            String s3 = (String) o;
+                        for (String o : list) {
+                            String s3 = o;
 
                             if (!s3.isEmpty()) {
                                 int k = indexOfMaskSingle(str, s3, i, wildCharSingle);
@@ -54,19 +48,15 @@ public class StrUtils {
                         }
 
                         return true;
-                    }
-                }
-            }
-        } else {
-            return mask == str;
-        }
+                    } else return false;
+                } else return false;
+            } else return mask.indexOf(wildCharSingle) < 0 ? mask.equals(str) : equalsMaskSingle(str, mask, wildCharSingle);
+        } else return mask == str;
     }
 
     private static boolean equalsMaskSingle(String str, String mask, char wildCharSingle) {
         if (str != null && mask != null) {
-            if (str.length() != mask.length()) {
-                return false;
-            } else {
+            if (str.length() == mask.length()) {
                 for (int i = 0; i < mask.length(); ++i) {
                     char c0 = mask.charAt(i);
 
@@ -76,10 +66,8 @@ public class StrUtils {
                 }
 
                 return true;
-            }
-        } else {
-            return str == mask;
-        }
+            } else return false;
+        } else return str == mask;
     }
 
     private static int indexOfMaskSingle(String str, String mask, int startPos, char wildCharSingle) {
@@ -123,89 +111,6 @@ public class StrUtils {
             }
         } else {
             return str == mask;
-        }
-    }
-
-    public static boolean equalsMask(String str, String mask, char wildChar) {
-        if (mask != null && str != null) {
-            if (mask.indexOf(wildChar) < 0) {
-                return mask.equals(str);
-            } else {
-                List list = new ArrayList();
-                String s = "" + wildChar;
-
-                if (mask.startsWith(s)) {
-                    list.add("");
-                }
-
-                StringTokenizer stringtokenizer = new StringTokenizer(mask, s);
-
-                while (stringtokenizer.hasMoreElements()) {
-                    list.add(stringtokenizer.nextToken());
-                }
-
-                if (mask.endsWith(s)) {
-                    list.add("");
-                }
-
-                String s1 = (String) list.getFirst();
-
-                if (!str.startsWith(s1)) {
-                    return false;
-                } else {
-                    String s2 = (String) list.getLast();
-
-                    if (!str.endsWith(s2)) {
-                        return false;
-                    } else {
-                        int i = 0;
-
-                        for (Object o : list) {
-                            String s3 = (String) o;
-
-                            if (!s3.isEmpty()) {
-                                int k = str.indexOf(s3, i);
-
-                                if (k < 0) {
-                                    return false;
-                                }
-
-                                i = k + s3.length();
-                            }
-                        }
-
-                        return true;
-                    }
-                }
-            }
-        } else {
-            return mask == str;
-        }
-    }
-
-    private static boolean equals(char ch, String matches) {
-        for (int i = 0; i < matches.length(); ++i) {
-            if (matches.charAt(i) == ch) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static boolean isEmpty(String string) {
-        return string == null || string.trim().length() == 0;
-    }
-
-    public static int parseInt(String s, int defVal) {
-        if (s == null) {
-            return defVal;
-        } else {
-            try {
-                return Integer.parseInt(s);
-            } catch (NumberFormatException var3) {
-                return defVal;
-            }
         }
     }
 

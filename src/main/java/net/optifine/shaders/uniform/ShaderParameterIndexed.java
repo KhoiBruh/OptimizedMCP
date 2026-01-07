@@ -23,7 +23,7 @@ public class ShaderParameterIndexed implements IExpressionFloat {
     }
 
     public float eval() {
-        return this.type.eval(this.index1, this.index2);
+        return type.eval(index1, index2);
     }
 
     public ExpressionType getExpressionType() {
@@ -31,6 +31,6 @@ public class ShaderParameterIndexed implements IExpressionFloat {
     }
 
     public String toString() {
-        return this.type.getIndexNames1() == null ? "" + this.type : (this.type.getIndexNames2() == null ? this.type + "." + this.type.getIndexNames1()[this.index1] : this.type + "." + this.type.getIndexNames1()[this.index1] + "." + this.type.getIndexNames2()[this.index2]);
+        return type.getIndexNames1() == null ? "" + type : (type.getIndexNames2() == null ? type + "." + type.getIndexNames1()[index1] : type + "." + type.getIndexNames1()[index1] + "." + type.getIndexNames2()[index2]);
     }
 }

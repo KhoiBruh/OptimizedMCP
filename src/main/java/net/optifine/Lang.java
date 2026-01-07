@@ -11,10 +11,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Lang {
@@ -42,7 +39,7 @@ public class Lang {
         }
     }
 
-    private static void loadResources(IResourcePack rp, String[] files, Map localeProperties) {
+    private static void loadResources(IResourcePack rp, String[] files, Map<Object, Object> localeProperties) {
         try {
             for (String s : files) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
@@ -60,12 +57,12 @@ public class Lang {
         }
     }
 
-    public static void loadLocaleData(InputStream is, Map localeProperties) throws IOException {
-        Iterator iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
+    public static void loadLocaleData(InputStream is, Map<Object, Object> localeProperties) throws IOException {
+        Iterator<String> iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
         is.close();
 
         while (iterator.hasNext()) {
-            String s = (String) iterator.next();
+            String s = iterator.next();
 
             if (!s.isEmpty() && s.charAt(0) != 35) {
                 String[] astring = Iterables.toArray(splitter.split(s), String.class);

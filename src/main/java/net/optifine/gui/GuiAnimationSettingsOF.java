@@ -15,59 +15,59 @@ public class GuiAnimationSettingsOF extends GuiScreen {
     private final GameSettings settings;
 
     public GuiAnimationSettingsOF(GuiScreen guiscreen, GameSettings gamesettings) {
-        this.prevScreen = guiscreen;
-        this.settings = gamesettings;
+        prevScreen = guiscreen;
+        settings = gamesettings;
     }
 
     public void initGui() {
-        this.title = I18n.format("of.options.animationsTitle");
-        this.buttonList.clear();
+        title = I18n.format("of.options.animationsTitle");
+        buttonList.clear();
 
         for (int i = 0; i < enumOptions.length; ++i) {
             GameSettings.Options gamesettings$options = enumOptions[i];
-            int j = this.width / 2 - 155 + i % 2 * 160;
-            int k = this.height / 6 + 21 * (i / 2) - 12;
+            int j = width / 2 - 155 + i % 2 * 160;
+            int k = height / 6 + 21 * (i / 2) - 12;
 
             if (!gamesettings$options.getEnumFloat()) {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
+                buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, settings.getKeyBinding(gamesettings$options)));
             } else {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
             }
         }
 
-        this.buttonList.add(new GuiButton(210, this.width / 2 - 155, this.height / 6 + 168 + 11, 70, 20, Lang.get("of.options.animation.allOn")));
-        this.buttonList.add(new GuiButton(211, this.width / 2 - 155 + 80, this.height / 6 + 168 + 11, 70, 20, Lang.get("of.options.animation.allOff")));
-        this.buttonList.add(new GuiOptionButton(200, this.width / 2 + 5, this.height / 6 + 168 + 11, I18n.format("gui.done")));
+        buttonList.add(new GuiButton(210, width / 2 - 155, height / 6 + 168 + 11, 70, 20, Lang.get("of.options.animation.allOn")));
+        buttonList.add(new GuiButton(211, width / 2 - 155 + 80, height / 6 + 168 + 11, 70, 20, Lang.get("of.options.animation.allOff")));
+        buttonList.add(new GuiOptionButton(200, width / 2 + 5, height / 6 + 168 + 11, I18n.format("gui.done")));
     }
 
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
             if (guibutton.id < 200 && guibutton instanceof GuiOptionButton) {
-                this.settings.setOptionValue(((GuiOptionButton) guibutton).returnEnumOptions(), 1);
-                guibutton.displayString = this.settings.getKeyBinding(GameSettings.Options.getEnumOptions(guibutton.id));
+                settings.setOptionValue(((GuiOptionButton) guibutton).returnEnumOptions(), 1);
+                guibutton.displayString = settings.getKeyBinding(GameSettings.Options.getEnumOptions(guibutton.id));
             }
 
             if (guibutton.id == 200) {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(this.prevScreen);
+                mc.gameSettings.saveOptions();
+                mc.displayGuiScreen(prevScreen);
             }
 
             if (guibutton.id == 210) {
-                this.mc.gameSettings.setAllAnimations(true);
+                mc.gameSettings.setAllAnimations(true);
             }
 
             if (guibutton.id == 211) {
-                this.mc.gameSettings.setAllAnimations(false);
+                mc.gameSettings.setAllAnimations(false);
             }
 
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-            this.setWorldAndResolution(this.mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+            ScaledResolution scaledresolution = new ScaledResolution(mc);
+            setWorldAndResolution(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
         }
     }
 
     public void drawScreen(int x, int y, float f) {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, 16777215);
+        drawDefaultBackground();
+        drawCenteredString(fontRendererObj, title, width / 2, 15, 16777215);
         super.drawScreen(x, y, f);
     }
 }

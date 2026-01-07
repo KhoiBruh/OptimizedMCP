@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 
 public class CustomTextureLocation implements ICustomTexture {
-    private int textureUnit;
+    private final int textureUnit;
     private final ResourceLocation location;
-    private int variant;
+    private final int variant;
     private ITextureObject texture;
 
     public CustomTextureLocation(int textureUnit, ResourceLocation location, int variant) {
@@ -20,32 +20,32 @@ public class CustomTextureLocation implements ICustomTexture {
     }
 
     public ITextureObject getTexture() {
-        if (this.texture == null) {
+        if (texture == null) {
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-            this.texture = texturemanager.getTexture(this.location);
+            texture = texturemanager.getTexture(location);
 
-            if (this.texture == null) {
-                this.texture = new SimpleTexture(this.location);
-                texturemanager.loadTexture(this.location, this.texture);
-                this.texture = texturemanager.getTexture(this.location);
+            if (texture == null) {
+                texture = new SimpleTexture(location);
+                texturemanager.loadTexture(location, texture);
+                texture = texturemanager.getTexture(location);
             }
         }
 
-        return this.texture;
+        return texture;
     }
 
     public int getTextureId() {
-        ITextureObject itextureobject = this.getTexture();
+        ITextureObject itextureobject = getTexture();
 
-        if (this.variant != 0 && itextureobject instanceof AbstractTexture abstracttexture) {
+        if (variant != 0 && itextureobject instanceof AbstractTexture abstracttexture) {
             MultiTexID multitexid = abstracttexture.multiTex;
 
             if (multitexid != null) {
-                if (this.variant == 1) {
+                if (variant == 1) {
                     return multitexid.norm;
                 }
 
-                if (this.variant == 2) {
+                if (variant == 2) {
                     return multitexid.spec;
                 }
             }
@@ -55,7 +55,7 @@ public class CustomTextureLocation implements ICustomTexture {
     }
 
     public int getTextureUnit() {
-        return this.textureUnit;
+        return textureUnit;
     }
 
     public void deleteTexture() {
@@ -66,6 +66,6 @@ public class CustomTextureLocation implements ICustomTexture {
     }
 
     public String toString() {
-        return "textureUnit: " + this.textureUnit + ", location: " + this.location + ", glTextureId: " + (this.texture != null ? Integer.valueOf(this.texture.getGlTextureId()) : "");
+        return "textureUnit: " + textureUnit + ", location: " + location + ", glTextureId: " + (texture != null ? Integer.valueOf(texture.getGlTextureId()) : "");
     }
 }

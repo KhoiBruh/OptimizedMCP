@@ -51,7 +51,7 @@ public class RenderManager {
     public double viewerPosY;
     public double viewerPosZ;
     public Render renderRender = null;
-    private Map<Class, Render> entityRenderMap = Maps.newHashMap();
+    private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.newHashMap();
     private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
     private final RenderPlayer playerRenderer;
     private FontRenderer textRenderer;
@@ -362,7 +362,7 @@ public class RenderManager {
         this.renderOutlines = renderOutlinesIn;
     }
 
-    public Map<Class, Render> getEntityRenderMap() {
+    public Map<Class<? extends Entity>, Render<? extends Entity>> getEntityRenderMap() {
         return this.entityRenderMap;
     }
 

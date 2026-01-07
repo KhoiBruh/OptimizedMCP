@@ -13,7 +13,7 @@ public class ModelAdapterMinecart extends ModelAdapter {
         super(EntityMinecart.class, "minecart", 0.5F);
     }
 
-    protected ModelAdapterMinecart(Class entityClass, String name, float shadow) {
+    protected ModelAdapterMinecart(Class<? extends EntityMinecart> entityClass, String name, float shadow) {
         super(entityClass, name, shadow);
     }
 
@@ -46,7 +46,7 @@ public class ModelAdapterMinecart extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderMinecart renderminecart = new RenderMinecart(rendermanager);
+        RenderMinecart<EntityMinecart> renderminecart = new RenderMinecart<>(rendermanager);
 
         renderminecart.modelMinecart = modelBase;
         renderminecart.shadowSize = shadowSize;

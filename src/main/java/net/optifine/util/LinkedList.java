@@ -8,79 +8,78 @@ public class LinkedList<T> {
     private int size;
 
     public void addFirst(LinkedList.Node<T> tNode) {
-        this.checkNoParent(tNode);
+        checkNoParent(tNode);
 
-        if (this.isEmpty()) {
-            this.first = tNode;
-            this.last = tNode;
+        if (isEmpty()) {
+            first = tNode;
+            last = tNode;
         } else {
-            LinkedList.Node<T> node = this.first;
+            LinkedList.Node<T> node = first;
             tNode.setNext(node);
             node.setPrev(tNode);
-            this.first = tNode;
+            first = tNode;
         }
 
         tNode.setParent(this);
-        ++this.size;
+        ++size;
     }
 
     public void addLast(LinkedList.Node<T> tNode) {
-        this.checkNoParent(tNode);
+        checkNoParent(tNode);
 
-        if (this.isEmpty()) {
-            this.first = tNode;
-            this.last = tNode;
+        if (isEmpty()) {
+            first = tNode;
+            last = tNode;
         } else {
-            LinkedList.Node<T> node = this.last;
+            LinkedList.Node<T> node = last;
             tNode.setPrev(node);
             node.setNext(tNode);
-            this.last = tNode;
+            last = tNode;
         }
 
         tNode.setParent(this);
-        ++this.size;
+        ++size;
     }
 
     public void addAfter(LinkedList.Node<T> nodePrev, LinkedList.Node<T> tNode) {
         if (nodePrev == null) {
-            this.addFirst(tNode);
-        } else if (nodePrev == this.last) {
-            this.addLast(tNode);
+            addFirst(tNode);
+        } else if (nodePrev == last) {
+            addLast(tNode);
         } else {
-            this.checkParent(nodePrev);
-            this.checkNoParent(tNode);
+            checkParent(nodePrev);
+            checkNoParent(tNode);
             LinkedList.Node<T> nodeNext = nodePrev.getNext();
             nodePrev.setNext(tNode);
             tNode.setPrev(nodePrev);
             nodeNext.setPrev(tNode);
             tNode.setNext(nodeNext);
             tNode.setParent(this);
-            ++this.size;
+            ++size;
         }
     }
 
-    public LinkedList.Node<T> remove(LinkedList.Node<T> tNode) {
-        this.checkParent(tNode);
+    public void remove(Node<T> tNode) {
+        checkParent(tNode);
         LinkedList.Node<T> prev = tNode.getPrev();
         LinkedList.Node<T> next = tNode.getNext();
 
         if (prev != null) {
             prev.setNext(next);
         } else {
-            this.first = next;
+            first = next;
         }
 
         if (next != null) {
             next.setPrev(prev);
         } else {
-            this.last = prev;
+            last = prev;
         }
 
         tNode.setPrev(null);
         tNode.setNext(null);
         tNode.setParent(null);
-        --this.size;
-        return tNode;
+        --size;
     }
 
     private void checkParent(LinkedList.Node<T> node) {
@@ -101,10 +100,10 @@ public class LinkedList<T> {
 
     public Iterator<LinkedList.Node<T>> iterator() {
         return new Iterator<>() {
-            Node<T> node = LinkedList.this.getFirst();
+            Node<T> node = getFirst();
 
             public boolean hasNext() {
-                return this.node != null;
+                return node != null;
             }
 
             public Node<T> next() {
@@ -121,19 +120,19 @@ public class LinkedList<T> {
     }
 
     public LinkedList.Node<T> getFirst() {
-        return this.first;
+        return first;
     }
 
     public LinkedList.Node<T> getLast() {
-        return this.last;
+        return last;
     }
 
     public int getSize() {
-        return this.size;
+        return size;
     }
 
     public boolean isEmpty() {
-        return this.size <= 0;
+        return size <= 0;
     }
 
     public String toString() {
@@ -148,7 +147,7 @@ public class LinkedList<T> {
             stringbuffer.append(node.getItem());
         }
 
-        return this.size + " [" + stringbuffer + "]";
+        return size + " [" + stringbuffer + "]";
     }
 
     public static class Node<T> {
@@ -162,11 +161,11 @@ public class LinkedList<T> {
         }
 
         public T getItem() {
-            return this.item;
+            return item;
         }
 
         public LinkedList.Node<T> getPrev() {
-            return this.prev;
+            return prev;
         }
 
         private void setPrev(LinkedList.Node<T> prev) {
@@ -174,7 +173,7 @@ public class LinkedList<T> {
         }
 
         public LinkedList.Node<T> getNext() {
-            return this.next;
+            return next;
         }
 
         private void setNext(LinkedList.Node<T> next) {
@@ -186,7 +185,7 @@ public class LinkedList<T> {
         }
 
         public String toString() {
-            return "" + this.item;
+            return "" + item;
         }
     }
 }

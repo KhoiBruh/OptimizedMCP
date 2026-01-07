@@ -13,11 +13,11 @@ public class ShaderExpressionResolver implements IExpressionResolver {
     private final Map<String, IExpression> mapExpressions = new HashMap<>();
 
     public ShaderExpressionResolver(Map<String, IExpression> map) {
-        this.registerExpressions();
+        registerExpressions();
 
         for (String s : map.keySet()) {
             IExpression iexpression = map.get(s);
-            this.registerExpression(s, iexpression);
+            registerExpression(s, iexpression);
         }
     }
 
@@ -25,13 +25,13 @@ public class ShaderExpressionResolver implements IExpressionResolver {
         ShaderParameterFloat[] ashaderparameterfloat = ShaderParameterFloat.values();
 
         for (ShaderParameterFloat shaderparameterfloat : ashaderparameterfloat) {
-            this.addParameterFloat(this.mapExpressions, shaderparameterfloat);
+            addParameterFloat(mapExpressions, shaderparameterfloat);
         }
 
         ShaderParameterBool[] ashaderparameterbool = ShaderParameterBool.values();
 
         for (ShaderParameterBool shaderparameterbool : ashaderparameterbool) {
-            this.mapExpressions.put(shaderparameterbool.getName(), shaderparameterbool);
+            mapExpressions.put(shaderparameterbool.getName(), shaderparameterbool);
         }
 
         for (BiomeGenBase biomegenbase : BiomeGenBase.BIOME_ID_MAP.values()) {
@@ -39,7 +39,7 @@ public class ShaderExpressionResolver implements IExpressionResolver {
             s = "BIOME_" + s.toUpperCase().replace(' ', '_');
             int j = biomegenbase.biomeID;
             IExpression iexpression = new ConstantFloat((float) j);
-            this.registerExpression(s, iexpression);
+            registerExpression(s, iexpression);
         }
     }
 
@@ -65,18 +65,16 @@ public class ShaderExpressionResolver implements IExpressionResolver {
         }
     }
 
-    public boolean registerExpression(String name, IExpression expr) {
-        if (this.mapExpressions.containsKey(name)) {
+    public void registerExpression(String name, IExpression expr) {
+        if (mapExpressions.containsKey(name)) {
             SMCLog.warning("Expression already defined: " + name);
-            return false;
         } else {
-            this.mapExpressions.put(name, expr);
-            return true;
+            mapExpressions.put(name, expr);
         }
     }
 
     public IExpression getExpression(String name) {
-        return this.mapExpressions.get(name);
+        return mapExpressions.get(name);
     }
 
 }

@@ -8,6 +8,6 @@ public class Parameters implements IParameters {
     }
 
     public ExpressionType[] getParameterTypes(IExpression[] params) {
-        return this.parameterTypes;
+        return parameterTypes;
     }
 }

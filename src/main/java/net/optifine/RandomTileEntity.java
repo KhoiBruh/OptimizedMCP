@@ -10,19 +10,19 @@ public class RandomTileEntity implements IRandomEntity {
     private TileEntity tileEntity;
 
     public int getId() {
-        return Config.getRandom(this.tileEntity.getPos(), this.tileEntity.getBlockMetadata());
+        return Config.getRandom(tileEntity.getPos(), tileEntity.getBlockMetadata());
     }
 
     public BlockPos getSpawnPosition() {
-        return this.tileEntity.getPos();
+        return tileEntity.getPos();
     }
 
     public String getName() {
-        return TileEntityUtils.getTileEntityName(this.tileEntity);
+        return TileEntityUtils.getTileEntityName(tileEntity);
     }
 
     public BiomeGenBase getSpawnBiome() {
-        return this.tileEntity.getWorld().getBiomeGenForCoords(this.tileEntity.getPos());
+        return tileEntity.getWorld().getBiomeGenForCoords(tileEntity.getPos());
     }
 
     public int getHealth() {

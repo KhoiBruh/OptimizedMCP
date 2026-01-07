@@ -34,7 +34,7 @@ public class ShaderOptionSwitchConst extends ShaderOptionSwitch {
     }
 
     public String getSourceLine() {
-        return "const bool " + this.getName() + " = " + this.getValue() + "; // Shader option " + this.getValue();
+        return "const bool " + getName() + " = " + getValue() + "; // Shader option " + getValue();
     }
 
     public boolean matchesLine(String line) {
@@ -44,7 +44,7 @@ public class ShaderOptionSwitchConst extends ShaderOptionSwitch {
             return false;
         } else {
             String s = matcher.group(1);
-            return s.matches(this.getName());
+            return s.matches(getName());
         }
     }
 

@@ -14,17 +14,17 @@ public class IteratorRenderChunks implements Iterator<RenderChunk> {
 
     public IteratorRenderChunks(ViewFrustum viewFrustum, BlockPos posStart, BlockPos posEnd, int width, int height) {
         this.viewFrustum = viewFrustum;
-        this.Iterator3d = new Iterator3d(posStart, posEnd, width, height);
+        Iterator3d = new Iterator3d(posStart, posEnd, width, height);
     }
 
     public boolean hasNext() {
-        return this.Iterator3d.hasNext();
+        return Iterator3d.hasNext();
     }
 
     public RenderChunk next() {
-        BlockPos blockpos = this.Iterator3d.next();
-        this.posBlock.setXyz(blockpos.getX() << 4, blockpos.getY() << 4, blockpos.getZ() << 4);
-        return this.viewFrustum.getRenderChunk(this.posBlock);
+        BlockPos blockpos = Iterator3d.next();
+        posBlock.setXyz(blockpos.getX() << 4, blockpos.getY() << 4, blockpos.getZ() << 4);
+        return viewFrustum.getRenderChunk(posBlock);
     }
 
     public void remove() {

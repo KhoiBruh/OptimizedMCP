@@ -10,7 +10,7 @@ public class FunctionFloatArray implements IExpressionFloatArray {
     }
 
     public float[] eval() {
-        return this.type.evalFloatArray(this.arguments);
+        return type.evalFloatArray(arguments);
     }
 
     public ExpressionType getExpressionType() {
@@ -18,6 +18,6 @@ public class FunctionFloatArray implements IExpressionFloatArray {
     }
 
     public String toString() {
-        return this.type + "()";
+        return type + "()";
     }
 }

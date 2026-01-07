@@ -21,6 +21,6 @@ public enum PixelFormat {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 }

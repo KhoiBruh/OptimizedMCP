@@ -206,7 +206,7 @@ public class CustomItems {
     }
 
     private static Map makeAutoImageProperties(IResourcePack rp) {
-        Map map = new HashMap();
+        Map map = new HashMap<>();
         map.putAll(makePotionImageProperties(rp, "normal", Item.getIdFromItem(Items.potionitem)));
         map.putAll(makePotionImageProperties(rp, "splash", Item.getIdFromItem(Items.potionitem)));
         map.putAll(makePotionImageProperties(rp, "linger", Item.getIdFromItem(Items.potionitem)));
@@ -214,7 +214,7 @@ public class CustomItems {
     }
 
     private static Map makePotionImageProperties(IResourcePack rp, String type, int itemId) {
-        Map map = new HashMap();
+        Map map = new HashMap<>();
         String s = type + "/";
         String[] astring = new String[]{"mcpatcher/cit/potion/" + s, "mcpatcher/cit/Potion/" + s};
         String[] astring1 = new String[]{".png"};
@@ -340,14 +340,14 @@ public class CustomItems {
     }
 
     private static List makePropertyList(CustomItemProperties[][] propsArr) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         if (propsArr != null) {
             for (CustomItemProperties[] acustomitemproperties : propsArr) {
                 List list1 = null;
 
                 if (acustomitemproperties != null) {
-                    list1 = new ArrayList(Arrays.asList(acustomitemproperties));
+                    list1 = new ArrayList<>(Arrays.asList(acustomitemproperties));
                 }
 
                 list.add(list1);
@@ -407,7 +407,7 @@ public class CustomItems {
         List list = (List) lists.get(id);
 
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<>();
             list.set(id, list);
         }
 
@@ -639,7 +639,7 @@ public class CustomItems {
                         if (acustomitemproperties != null) {
                             for (CustomItemProperties customitemproperties : acustomitemproperties) {
                                 if (set == null) {
-                                    set = new HashSet();
+                                    set = new HashSet<>();
                                 }
 
                                 if (set.add(j) && matchesProperties(customitemproperties, itemStack, aint) && customitemproperties.textureLocation != null) {
@@ -711,7 +711,7 @@ public class CustomItems {
                         if (acustomitemproperties != null) {
                             for (CustomItemProperties customitemproperties : acustomitemproperties) {
                                 if (set == null) {
-                                    set = new HashSet();
+                                    set = new HashSet<>();
                                 }
 
                                 if (set.add(j) && matchesProperties(customitemproperties, itemStack, aint) && customitemproperties.textureLocation != null) {

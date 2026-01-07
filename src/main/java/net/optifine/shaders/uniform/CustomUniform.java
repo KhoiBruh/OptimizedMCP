@@ -13,35 +13,35 @@ public class CustomUniform {
         this.name = name;
         this.type = type;
         this.expression = expression;
-        this.shaderUniform = type.makeShaderUniform(name);
+        shaderUniform = type.makeShaderUniform(name);
     }
 
     public void setProgram(int program) {
-        this.shaderUniform.setProgram(program);
+        shaderUniform.setProgram(program);
     }
 
     public void update() {
-        if (this.shaderUniform.isDefined()) {
+        if (shaderUniform.isDefined()) {
             try {
-                this.type.updateUniform(this.expression, this.shaderUniform);
+                type.updateUniform(expression, shaderUniform);
             } catch (RuntimeException runtimeexception) {
-                SMCLog.severe("Error updating custom uniform: " + this.shaderUniform.getName());
+                SMCLog.severe("Error updating custom uniform: " + shaderUniform.getName());
                 SMCLog.severe(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
-                this.shaderUniform.disable();
-                SMCLog.severe("Custom uniform disabled: " + this.shaderUniform.getName());
+                shaderUniform.disable();
+                SMCLog.severe("Custom uniform disabled: " + shaderUniform.getName());
             }
         }
     }
 
     public void reset() {
-        this.shaderUniform.reset();
+        shaderUniform.reset();
     }
 
     public IExpression getExpression() {
-        return this.expression;
+        return expression;
     }
 
     public String toString() {
-        return this.type.name().toLowerCase() + " " + this.name;
+        return type.name().toLowerCase() + " " + name;
     }
 }

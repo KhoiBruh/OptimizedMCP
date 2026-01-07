@@ -1,9 +1,9 @@
 package net.optifine.shaders.config;
 
 public class RenderScale {
-    private float scale;
-    private float offsetX;
-    private float offsetY;
+    private final float scale;
+    private final float offsetX;
+    private final float offsetY;
 
     public RenderScale(float scale, float offsetX, float offsetY) {
         this.scale = scale;
@@ -12,18 +12,18 @@ public class RenderScale {
     }
 
     public float getScale() {
-        return this.scale;
+        return scale;
     }
 
     public float getOffsetX() {
-        return this.offsetX;
+        return offsetX;
     }
 
     public float getOffsetY() {
-        return this.offsetY;
+        return offsetY;
     }
 
     public String toString() {
-        return this.scale + ", " + this.offsetX + ", " + this.offsetY;
+        return scale + ", " + offsetX + ", " + offsetY;
     }
 }

@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class ShaderOptionVariableConst extends ShaderOptionVariable {
     private static final Pattern PATTERN_CONST = Pattern.compile("^\\s*const\\s*(float|int)\\s*([A-Za-z0-9_]+)\\s*=\\s*(-?[0-9\\.]+f?F?)\\s*;\\s*(//.*)?$");
-    private String type;
+    private final String type;
 
     public ShaderOptionVariableConst(String name, String type, String description, String value, String[] values, String path) {
         super(name, description, value, values, path);
@@ -42,7 +42,7 @@ public class ShaderOptionVariableConst extends ShaderOptionVariable {
     }
 
     public String getSourceLine() {
-        return "const " + this.type + " " + this.getName() + " = " + this.getValue() + "; // Shader option " + this.getValue();
+        return "const " + type + " " + getName() + " = " + getValue() + "; // Shader option " + getValue();
     }
 
     public boolean matchesLine(String line) {
@@ -52,7 +52,7 @@ public class ShaderOptionVariableConst extends ShaderOptionVariable {
             return false;
         } else {
             String s = matcher.group(2);
-            return s.matches(this.getName());
+            return s.matches(getName());
         }
     }
 }

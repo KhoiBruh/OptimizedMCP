@@ -17,8 +17,8 @@ public class CustomTextureRaw implements ICustomTexture {
     public CustomTextureRaw(TextureType type, InternalFormat internalFormat, int width, int height, int depth, PixelFormat pixelFormat, PixelType pixelType, ByteBuffer data, int textureUnit, boolean blur, boolean clamp) {
         this.type = type;
         this.textureUnit = textureUnit;
-        this.textureId = GL11.glGenTextures();
-        GL11.glBindTexture(this.getTarget(), this.textureId);
+        textureId = GL11.glGenTextures();
+        GL11.glBindTexture(getTarget(), textureId);
         int i = clamp ? 33071 : 10497;
         int j = blur ? 9729 : 9728;
 
@@ -55,25 +55,25 @@ public class CustomTextureRaw implements ICustomTexture {
                 GL11.glTexParameteri(34037, GL11.GL_TEXTURE_MIN_FILTER, j);
         }
 
-        GL11.glBindTexture(this.getTarget(), 0);
+        GL11.glBindTexture(getTarget(), 0);
     }
 
     public int getTarget() {
-        return this.type.getId();
+        return type.getId();
     }
 
     public int getTextureId() {
-        return this.textureId;
+        return textureId;
     }
 
     public int getTextureUnit() {
-        return this.textureUnit;
+        return textureUnit;
     }
 
     public void deleteTexture() {
-        if (this.textureId > 0) {
-            GL11.glDeleteTextures(this.textureId);
-            this.textureId = 0;
+        if (textureId > 0) {
+            GL11.glDeleteTextures(textureId);
+            textureId = 0;
         }
     }
 }

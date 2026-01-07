@@ -15,20 +15,20 @@ public class ShaderUniformM4 extends ShaderUniformBase {
     public void setValue(boolean transpose, FloatBuffer matrix) {
         this.transpose = transpose;
         this.matrix = matrix;
-        int i = this.getLocation();
+        int i = getLocation();
 
         if (i >= 0) {
             ARBShaderObjects.glUniformMatrix4ARB(i, transpose, matrix);
-            this.checkGLError();
+            checkGLError();
         }
     }
 
     public float getValue(int row, int col) {
-        if (this.matrix == null) {
+        if (matrix == null) {
             return 0.0F;
         } else {
-            int i = this.transpose ? col * 4 + row : row * 4 + col;
-            return this.matrix.get(i);
+            int i = transpose ? col * 4 + row : row * 4 + col;
+            return matrix.get(i);
         }
     }
 
@@ -36,6 +36,6 @@ public class ShaderUniformM4 extends ShaderUniformBase {
     }
 
     protected void resetValue() {
-        this.matrix = null;
+        matrix = null;
     }
 }

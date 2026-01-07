@@ -11,8 +11,8 @@ import java.util.Properties;
 
 public class CustomLoadingScreen {
     private final ResourceLocation locationTexture;
-    private int scaleMode;
-    private int scale;
+    private final int scaleMode;
+    private final int scale;
     private final boolean center;
 
     public CustomLoadingScreen(ResourceLocation locationTexture, int scaleMode, int scale, boolean center) {
@@ -83,35 +83,35 @@ public class CustomLoadingScreen {
         GlStateManager.disableFog();
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        Config.getTextureManager().bindTexture(this.locationTexture);
+        Config.getTextureManager().bindTexture(locationTexture);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        double d0 = 16 * this.scale;
+        double d0 = 16 * scale;
         double d1 = (double) width / d0;
         double d2 = (double) height / d0;
         double d3 = 0.0D;
         double d4 = 0.0D;
 
-        if (this.center) {
+        if (center) {
             d3 = (d0 - (double) width) / (d0 * 2.0D);
             d4 = (d0 - (double) height) / (d0 * 2.0D);
         }
 
-        switch (this.scaleMode) {
+        switch (scaleMode) {
             case 1:
                 d0 = Math.max(width, height);
-                d1 = (double) (this.scale * width) / d0;
-                d2 = (double) (this.scale * height) / d0;
+                d1 = (double) (scale * width) / d0;
+                d2 = (double) (scale * height) / d0;
 
-                if (this.center) {
-                    d3 = (double) this.scale * (d0 - (double) width) / (d0 * 2.0D);
-                    d4 = (double) this.scale * (d0 - (double) height) / (d0 * 2.0D);
+                if (center) {
+                    d3 = (double) scale * (d0 - (double) width) / (d0 * 2.0D);
+                    d4 = (double) scale * (d0 - (double) height) / (d0 * 2.0D);
                 }
 
                 break;
 
             case 2:
-                d1 = this.scale;
-                d2 = this.scale;
+                d1 = scale;
+                d2 = scale;
                 d3 = 0.0D;
                 d4 = 0.0D;
         }

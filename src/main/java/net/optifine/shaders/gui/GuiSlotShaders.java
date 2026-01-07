@@ -16,61 +16,61 @@ import java.util.Properties;
 
 class GuiSlotShaders extends GuiSlot {
     final GuiShaders shadersGui;
-    private ArrayList shaderslist;
+    private ArrayList<String> shaderslist;
     private int selectedIndex;
     private long lastClickedCached = 0L;
 
     public GuiSlotShaders(GuiShaders par1GuiShaders, int width, int height, int top, int bottom, int slotHeight) {
         super(par1GuiShaders.getMc(), width, height, top, bottom, slotHeight);
-        this.shadersGui = par1GuiShaders;
-        this.updateList();
-        this.amountScrolled = 0.0F;
-        int i = this.selectedIndex * slotHeight;
+        shadersGui = par1GuiShaders;
+        updateList();
+        amountScrolled = 0.0F;
+        int i = selectedIndex * slotHeight;
         int j = (bottom - top) / 2;
 
         if (i > j) {
-            this.scrollBy(i - j);
+            scrollBy(i - j);
         }
     }
 
     public int getListWidth() {
-        return this.width - 20;
+        return width - 20;
     }
 
     public void updateList() {
-        this.shaderslist = Shaders.listOfShaders();
-        this.selectedIndex = 0;
+        shaderslist = Shaders.listOfShaders();
+        selectedIndex = 0;
         int i = 0;
 
-        for (int j = this.shaderslist.size(); i < j; ++i) {
-            if (this.shaderslist.get(i).equals(Shaders.currentShaderName)) {
-                this.selectedIndex = i;
+        for (int j = shaderslist.size(); i < j; ++i) {
+            if (shaderslist.get(i).equals(Shaders.currentShaderName)) {
+                selectedIndex = i;
                 break;
             }
         }
     }
 
     protected int getSize() {
-        return this.shaderslist.size();
+        return shaderslist.size();
     }
 
     protected void elementClicked(int index, boolean doubleClicked, int mouseX, int mouseY) {
-        if (index != this.selectedIndex || this.lastClicked != this.lastClickedCached) {
-            String s = (String) this.shaderslist.get(index);
+        if (index != selectedIndex || lastClicked != lastClickedCached) {
+            String s = shaderslist.get(index);
             IShaderPack ishaderpack = Shaders.getShaderPack(s);
 
-            if (this.checkCompatible(ishaderpack, index)) {
-                this.selectIndex(index);
+            if (checkCompatible(ishaderpack, index)) {
+                selectIndex(index);
             }
         }
     }
 
     private void selectIndex(int index) {
-        this.selectedIndex = index;
-        this.lastClickedCached = this.lastClicked;
-        Shaders.setShaderPack((String) this.shaderslist.get(index));
+        selectedIndex = index;
+        lastClickedCached = lastClicked;
+        Shaders.setShaderPack(shaderslist.get(index));
         Shaders.uninit();
-        this.shadersGui.updateButtons();
+        shadersGui.updateButtons();
     }
 
     private boolean checkCompatible(IShaderPack sp, final int index) {
@@ -101,13 +101,13 @@ class GuiSlotShaders extends GuiSlot {
                         String s5 = I18n.format("of.message.shaders.nv2");
                         GuiYesNoCallback guiyesnocallback = (result, id) -> {
                             if (result) {
-                                GuiSlotShaders.this.selectIndex(index);
+                                selectIndex(index);
                             }
 
-                            GuiSlotShaders.this.mc.displayGuiScreen(GuiSlotShaders.this.shadersGui);
+                            mc.displayGuiScreen(shadersGui);
                         };
                         GuiYesNo guiyesno = new GuiYesNo(guiyesnocallback, s4, s5, 0);
-                        this.mc.displayGuiScreen(guiyesno);
+                        mc.displayGuiScreen(guiyesno);
                         return false;
                     }
                 }
@@ -116,22 +116,22 @@ class GuiSlotShaders extends GuiSlot {
     }
 
     protected boolean isSelected(int index) {
-        return index == this.selectedIndex;
+        return index == selectedIndex;
     }
 
     protected int getScrollBarX() {
-        return this.width - 6;
+        return width - 6;
     }
 
     protected int getContentHeight() {
-        return this.getSize() * 18;
+        return getSize() * 18;
     }
 
     protected void drawBackground() {
     }
 
     protected void drawSlot(int index, int posX, int posY, int contentY, int mouseX, int mouseY) {
-        String s = (String) this.shaderslist.get(index);
+        String s = shaderslist.get(index);
 
         if (s.equals("OFF")) {
             s = Lang.get("of.options.shaders.packNone");
@@ -139,7 +139,7 @@ class GuiSlotShaders extends GuiSlot {
             s = Lang.get("of.options.shaders.packDefault");
         }
 
-        this.shadersGui.drawCenteredString(s, this.width / 2, posY + 1, 14737632);
+        shadersGui.drawCenteredString(s, width / 2, posY + 1, 14737632);
     }
 
 }

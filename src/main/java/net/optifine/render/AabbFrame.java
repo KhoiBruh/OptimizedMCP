@@ -14,10 +14,10 @@ public class AabbFrame extends AxisAlignedBB {
 
     public boolean isBoundingBoxInFrustumFully(ICamera camera, int frameCount) {
         if (this.frameCount != frameCount) {
-            this.inFrustumFully = camera instanceof Frustum && ((Frustum) camera).isBoxInFrustumFully(this.minX, this.minY, this.minZ, this.maxX, this.maxY, this.maxZ);
+            inFrustumFully = camera instanceof Frustum && ((Frustum) camera).isBoxInFrustumFully(minX, minY, minZ, maxX, maxY, maxZ);
             this.frameCount = frameCount;
         }
 
-        return this.inFrustumFully;
+        return inFrustumFully;
     }
 }

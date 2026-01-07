@@ -8,7 +8,7 @@ public class VboRange {
     private final LinkedList.Node<VboRange> node = new LinkedList.Node<>(this);
 
     public int getPosition() {
-        return this.position;
+        return position;
     }
 
     public void setPosition(int position) {
@@ -16,7 +16,7 @@ public class VboRange {
     }
 
     public int getSize() {
-        return this.size;
+        return size;
     }
 
     public void setSize(int size) {
@@ -24,11 +24,11 @@ public class VboRange {
     }
 
     public int getPositionNext() {
-        return this.position + this.size;
+        return position + size;
     }
 
     public LinkedList.Node<VboRange> getNode() {
-        return this.node;
+        return node;
     }
 
     public VboRange getPrev() {
@@ -42,6 +42,6 @@ public class VboRange {
     }
 
     public String toString() {
-        return this.position + "/" + this.size + "/" + (this.position + this.size);
+        return position + "/" + size + "/" + (position + size);
     }
 }

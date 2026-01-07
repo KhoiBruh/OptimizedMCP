@@ -35,7 +35,7 @@ import java.util.Properties;
 
 public class DynamicLights {
     private static final DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
-    private static final Map<Class, Integer> mapEntityLightLevels = new HashMap<>();
+    private static final Map<Class<Entity>, Integer> mapEntityLightLevels = new HashMap<>();
     private static final Map<Item, Integer> mapItemLightLevels = new HashMap<>();
     private static long timeUpdateMs = 0L;
     private static boolean initialized;

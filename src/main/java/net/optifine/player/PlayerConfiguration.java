@@ -9,8 +9,8 @@ public class PlayerConfiguration {
     private boolean initialized = false;
 
     public void renderPlayerItems(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
-        if (this.initialized) {
-            for (PlayerItemModel playeritemmodel : this.playerItemModels) {
+        if (initialized) {
+            for (PlayerItemModel playeritemmodel : playerItemModels) {
                 playeritemmodel.render(modelBiped, player, scale, partialTicks);
             }
         }
@@ -21,6 +21,6 @@ public class PlayerConfiguration {
     }
 
     public void addPlayerItemModel(PlayerItemModel playerItemModel) {
-        this.playerItemModels = (PlayerItemModel[]) Config.addObjectToArray(this.playerItemModels, playerItemModel);
+        playerItemModels = (PlayerItemModel[]) Config.addObjectToArray(playerItemModels, playerItemModel);
     }
 }

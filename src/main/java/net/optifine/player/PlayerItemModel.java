@@ -14,8 +14,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PlayerItemModel {
-    private boolean usePlayerTexture;
-    private PlayerItemRenderer[] modelRenderers;
+    private final boolean usePlayerTexture;
+    private final PlayerItemRenderer[] modelRenderers;
     private ResourceLocation textureLocation = null;
     private BufferedImage textureImage = null;
     private DynamicTexture texture = null;
@@ -41,20 +41,20 @@ public class PlayerItemModel {
     public void render(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
         TextureManager texturemanager = Config.getTextureManager();
 
-        if (this.usePlayerTexture) {
+        if (usePlayerTexture) {
             texturemanager.bindTexture(player.getLocationSkin());
-        } else if (this.textureLocation != null) {
-            if (this.texture == null && this.textureImage != null) {
-                this.texture = new DynamicTexture(this.textureImage);
-                Minecraft.getMinecraft().getTextureManager().loadTexture(this.textureLocation, this.texture);
+        } else if (textureLocation != null) {
+            if (texture == null && textureImage != null) {
+                texture = new DynamicTexture(textureImage);
+                Minecraft.getMinecraft().getTextureManager().loadTexture(textureLocation, texture);
             }
 
-            texturemanager.bindTexture(this.textureLocation);
+            texturemanager.bindTexture(textureLocation);
         } else {
-            texturemanager.bindTexture(this.locationMissing);
+            texturemanager.bindTexture(locationMissing);
         }
 
-        for (PlayerItemRenderer playeritemrenderer : this.modelRenderers) {
+        for (PlayerItemRenderer playeritemrenderer : modelRenderers) {
             GlStateManager.pushMatrix();
 
             if (player.isSneaking()) {
@@ -75,6 +75,6 @@ public class PlayerItemModel {
     }
 
     public boolean isUsePlayerTexture() {
-        return this.usePlayerTexture;
+        return usePlayerTexture;
     }
 }

@@ -64,16 +64,16 @@ public class SimpleShaderTexture extends AbstractTexture {
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
-        this.deleteGlTexture();
-        InputStream inputstream = Shaders.getShaderPackResourceStream(this.texturePath);
+        deleteGlTexture();
+        InputStream inputstream = Shaders.getShaderPackResourceStream(texturePath);
 
         if (inputstream == null) {
-            throw new FileNotFoundException("Shader texture not found: " + this.texturePath);
+            throw new FileNotFoundException("Shader texture not found: " + texturePath);
         } else {
             try {
                 BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
-                TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(this.texturePath, new TextureMetadataSection(false, false, new ArrayList<>()));
-                TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, texturemetadatasection.textureBlur(), texturemetadatasection.textureClamp());
+                TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(texturePath, new TextureMetadataSection(false, false, new ArrayList<>()));
+                TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bufferedimage, texturemetadatasection.textureBlur(), texturemetadatasection.textureClamp());
             } finally {
                 IOUtils.closeQuietly(inputstream);
             }

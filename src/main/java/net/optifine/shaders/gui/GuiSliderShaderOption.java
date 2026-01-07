@@ -9,13 +9,13 @@ import net.optifine.shaders.config.ShaderOption;
 public class GuiSliderShaderOption extends GuiButtonShaderOption {
     public boolean dragging;
     private float sliderValue;
-    private ShaderOption shaderOption;
+    private final ShaderOption shaderOption;
 
     public GuiSliderShaderOption(int buttonId, int x, int y, int w, int h, ShaderOption shaderOption, String text) {
         super(buttonId, x, y, w, h, shaderOption, text);
         this.shaderOption = shaderOption;
-        this.sliderValue = shaderOption.getIndexNormalized();
-        this.displayString = GuiShaderOptions.getButtonText(shaderOption, this.width);
+        sliderValue = shaderOption.getIndexNormalized();
+        displayString = GuiShaderOptions.getButtonText(shaderOption, width);
     }
 
     protected int getHoverState(boolean mouseOver) {
@@ -23,29 +23,29 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
     }
 
     protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
-        if (this.visible) {
-            if (this.dragging && !GuiScreen.isShiftKeyDown()) {
-                this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
-                this.sliderValue = MathHelper.clamp_float(this.sliderValue, 0.0F, 1.0F);
-                this.shaderOption.setIndexNormalized(this.sliderValue);
-                this.sliderValue = this.shaderOption.getIndexNormalized();
-                this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
+        if (visible) {
+            if (dragging && !GuiScreen.isShiftKeyDown()) {
+                sliderValue = (float) (mouseX - (xPosition + 4)) / (float) (width - 8);
+                sliderValue = MathHelper.clamp_float(sliderValue, 0.0F, 1.0F);
+                shaderOption.setIndexNormalized(sliderValue);
+                sliderValue = shaderOption.getIndexNormalized();
+                displayString = GuiShaderOptions.getButtonText(shaderOption, width);
             }
 
             mc.getTextureManager().bindTexture(buttonTextures);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            drawTexturedModalRect(xPosition + (int) (sliderValue * (float) (width - 8)), yPosition, 0, 66, 4, 20);
+            drawTexturedModalRect(xPosition + (int) (sliderValue * (float) (width - 8)) + 4, yPosition, 196, 66, 4, 20);
         }
     }
 
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
-            this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
-            this.sliderValue = MathHelper.clamp_float(this.sliderValue, 0.0F, 1.0F);
-            this.shaderOption.setIndexNormalized(this.sliderValue);
-            this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
-            this.dragging = true;
+            sliderValue = (float) (mouseX - (xPosition + 4)) / (float) (width - 8);
+            sliderValue = MathHelper.clamp_float(sliderValue, 0.0F, 1.0F);
+            shaderOption.setIndexNormalized(sliderValue);
+            displayString = GuiShaderOptions.getButtonText(shaderOption, width);
+            dragging = true;
             return true;
         } else {
             return false;
@@ -53,11 +53,11 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
     }
 
     public void mouseReleased(int mouseX, int mouseY) {
-        this.dragging = false;
+        dragging = false;
     }
 
     public void valueChanged() {
-        this.sliderValue = this.shaderOption.getIndexNormalized();
+        sliderValue = shaderOption.getIndexNormalized();
     }
 
     public boolean isSwitchable() {

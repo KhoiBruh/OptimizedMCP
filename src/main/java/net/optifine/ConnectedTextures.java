@@ -631,26 +631,22 @@ public class ConnectedTextures {
                 if (!aboolean[0] || !aboolean[1] || !aboolean[2] || !aboolean[3]) {
                     if (aboolean[0] && aboolean[1] && aboolean[2]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[5], quad, cp.tintIndex), cp.tintBlockState);
-                        dirEdges = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     if (aboolean[0] && aboolean[2] && aboolean[3]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[6], quad, cp.tintIndex), cp.tintBlockState);
-                        dirEdges = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     if (aboolean[1] && aboolean[2] && aboolean[3]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[12], quad, cp.tintIndex), cp.tintBlockState);
-                        dirEdges = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     if (aboolean[0] && aboolean[1] && aboolean[3]) {
                         listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[13], quad, cp.tintIndex), cp.tintBlockState);
-                        dirEdges = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     BlockDir[] ablockdir1 = getEdgeDirections(side, vertAxis);
@@ -670,7 +666,7 @@ public class ConnectedTextures {
                         }
 
                         Object object4 = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     if (aboolean[0] && aboolean[2]) {
@@ -682,7 +678,7 @@ public class ConnectedTextures {
                         }
 
                         Object object3 = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     if (aboolean[1] && aboolean[3]) {
@@ -694,7 +690,7 @@ public class ConnectedTextures {
                         }
 
                         Object object2 = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     if (aboolean[0] && aboolean[3]) {
@@ -706,7 +702,7 @@ public class ConnectedTextures {
                         }
 
                         Object object1 = null;
-                        return (BakedQuad[]) null;
+                        return null;
                     }
 
                     boolean[] aboolean2 = renderEnv.getBorderFlags3();
@@ -749,18 +745,17 @@ public class ConnectedTextures {
                     }
 
                     Object object5 = null;
-                    return (BakedQuad[]) null;
+                    return null;
                 }
 
                 listquadsoverlay.addQuad(getQuadFull(cp.tileIcons[8], quad, cp.tintIndex), cp.tintBlockState);
-                dirEdges = null;
             } finally {
                 if (listquadsoverlay.size() > 0) {
                     renderEnv.setOverlaysRendered(true);
                 }
             }
 
-            return (BakedQuad[]) null;
+            return null;
         }
     }
 
@@ -779,14 +774,13 @@ public class ConnectedTextures {
                     listquadsoverlay.addQuad(getQuadFull(textureatlassprite, quad, cp.tintIndex), cp.tintBlockState);
                 }
 
-                object = null;
             } finally {
                 if (listquadsoverlay.size() > 0) {
                     renderEnv.setOverlaysRendered(true);
                 }
             }
 
-            return (BakedQuad[]) null;
+            return null;
         }
     }
 
@@ -806,14 +800,13 @@ public class ConnectedTextures {
                     listquadsoverlay.addQuad(getQuadFull(textureatlassprite, quad, cp.tintIndex), cp.tintBlockState);
                 }
 
-                object = null;
             } finally {
                 if (listquadsoverlay.size() > 0) {
                     renderEnv.setOverlaysRendered(true);
                 }
             }
 
-            return (BakedQuad[]) null;
+            return null;
         }
     }
 
@@ -832,14 +825,13 @@ public class ConnectedTextures {
                     listquadsoverlay.addQuad(getQuadFull(textureatlassprite, quad, cp.tintIndex), cp.tintBlockState);
                 }
 
-                object = null;
             } finally {
                 if (listquadsoverlay.size() > 0) {
                     renderEnv.setOverlaysRendered(true);
                 }
             }
 
-            return (BakedQuad[]) null;
+            return null;
         }
     }
 
@@ -860,14 +852,13 @@ public class ConnectedTextures {
                     listquadsoverlay.addQuad(getQuadFull(textureatlassprite, quad, cp.tintIndex), cp.tintBlockState);
                 }
 
-                object = null;
             } finally {
                 if (listquadsoverlay.size() > 0) {
                     renderEnv.setOverlaysRendered(true);
                 }
             }
 
-            return (BakedQuad[]) null;
+            return null;
         }
     }
 
@@ -1429,7 +1420,7 @@ public class ConnectedTextures {
         } else {
 
             EnumFacing enumfacing = getFacing(side);
-            List list = ibakedmodel.getFaceQuads(enumfacing);
+            List<BakedQuad> list = ibakedmodel.getFaceQuads(enumfacing);
 
             if (list == null) {
                 return null;
@@ -1439,17 +1430,16 @@ public class ConnectedTextures {
                 }
 
                 if (!list.isEmpty()) {
-                    BakedQuad bakedquad1 = (BakedQuad) list.getFirst();
+                    BakedQuad bakedquad1 = list.getFirst();
                     return bakedquad1.getSprite();
                 } else {
-                    List list1 = ibakedmodel.getGeneralQuads();
+                    List<BakedQuad> list1 = ibakedmodel.getGeneralQuads();
 
                     if (list1 != null) {
-                        for (Object o : list1) {
-                            BakedQuad bakedquad = (BakedQuad) o;
+                        for (BakedQuad o : list1) {
 
-                            if (bakedquad.getFace() == enumfacing) {
-                                return bakedquad.getSprite();
+                            if (o.getFace() == enumfacing) {
+                                return o.getSprite();
                             }
                         }
 
@@ -1768,14 +1758,14 @@ public class ConnectedTextures {
     }
 
     private static List makePropertyList(ConnectedProperties[][] propsArr) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         if (propsArr != null) {
             for (ConnectedProperties[] aconnectedproperties : propsArr) {
                 List list1 = null;
 
                 if (aconnectedproperties != null) {
-                    list1 = new ArrayList(Arrays.asList(aconnectedproperties));
+                    list1 = new ArrayList<>(Arrays.asList(aconnectedproperties));
                 }
 
                 list.add(list1);
@@ -1786,7 +1776,7 @@ public class ConnectedTextures {
     }
 
     private static boolean detectMultipass() {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         for (ConnectedProperties[] aconnectedproperties : tileProperties) {
             if (aconnectedproperties != null) {
@@ -1802,8 +1792,8 @@ public class ConnectedTextures {
 
         ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) list
                 .toArray(new ConnectedProperties[0]);
-        Set set1 = new HashSet();
-        Set set = new HashSet();
+        Set set1 = new HashSet<>();
+        Set set = new HashSet<>();
 
         for (ConnectedProperties connectedproperties : aconnectedproperties1) {
             if (connectedproperties.matchTileIcons != null) {
@@ -1878,7 +1868,7 @@ public class ConnectedTextures {
         List list = (List) lists.get(id);
 
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<>();
             lists.set(id, list);
         }
 
@@ -1886,7 +1876,7 @@ public class ConnectedTextures {
     }
 
     private static String[] getDefaultCtmPaths() {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         String s = "mcpatcher/ctm/default/";
 
         if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass.png"))) {

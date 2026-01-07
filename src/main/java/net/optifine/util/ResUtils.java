@@ -62,10 +62,8 @@ public class ResUtils {
     }
 
     private static String[] collectFilesFixed(IResourcePack rp, String[] paths) {
-        if (paths == null) {
-            return new String[0];
-        } else {
-            List list = new ArrayList();
+        if (paths != null) {
+            List<String> list = new ArrayList<>();
 
             for (String s : paths) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
@@ -75,18 +73,16 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[0]);
-        }
+            return list.toArray(new String[0]);
+        } else return new String[0];
     }
 
     private static String[] collectFilesFolder(File tpFile, String basePath, String[] prefixes, String[] suffixes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String s = "assets/minecraft/";
         File[] afile = tpFile.listFiles();
 
-        if (afile == null) {
-            return new String[0];
-        } else {
+        if (afile != null) {
             for (File file1 : afile) {
                 if (file1.isFile()) {
                     String s3 = basePath + file1.getName();
@@ -106,20 +102,20 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[0]);
-        }
+            return list.toArray(new String[0]);
+        } else return new String[0];
     }
 
     private static String[] collectFilesZIP(File tpFile, String[] prefixes, String[] suffixes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String s = "assets/minecraft/";
 
         try {
             ZipFile zipfile = new ZipFile(tpFile);
-            Enumeration enumeration = zipfile.entries();
+            Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
 
             while (enumeration.hasMoreElements()) {
-                ZipEntry zipentry = (ZipEntry) enumeration.nextElement();
+                ZipEntry zipentry = enumeration.nextElement();
                 String s1 = zipentry.getName();
 
                 if (s1.startsWith(s)) {
@@ -132,7 +128,7 @@ public class ResUtils {
             }
 
             zipfile.close();
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
             return new String[0];
@@ -145,15 +141,13 @@ public class ResUtils {
         try {
             InputStream inputstream = Config.getResourceStream(resourcelocation);
 
-            if (inputstream == null) {
-                return null;
-            } else {
+            if (inputstream != null) {
                 Properties properties = new PropertiesOrdered();
                 properties.load(inputstream);
                 inputstream.close();
                 Config.dbg(module + ": Loading " + path);
                 return properties;
-            }
+            } else return null;
         } catch (FileNotFoundException var5) {
             return null;
         } catch (IOException var6) {
@@ -163,9 +157,7 @@ public class ResUtils {
     }
 
     public static Properties readProperties(InputStream in, String module) {
-        if (in == null) {
-            return null;
-        } else {
+        if (in != null) {
             try {
                 Properties properties = new PropertiesOrdered();
                 properties.load(in);
@@ -174,6 +166,6 @@ public class ResUtils {
             } catch (IOException var4) {
                 return null;
             }
-        }
+        } else return null;
     }
 }

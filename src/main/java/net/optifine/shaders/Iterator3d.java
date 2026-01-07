@@ -18,11 +18,11 @@ public class Iterator3d implements Iterator<BlockPos> {
         boolean flag = posStart.getX() > posEnd.getX();
         boolean flag1 = posStart.getY() > posEnd.getY();
         boolean flag2 = posStart.getZ() > posEnd.getZ();
-        posStart = this.reverseCoord(posStart, flag, flag1, flag2);
-        posEnd = this.reverseCoord(posEnd, flag, flag1, flag2);
-        this.kX = flag ? -1 : 1;
-        this.kY = flag1 ? -1 : 1;
-        this.kZ = flag2 ? -1 : 1;
+        posStart = reverseCoord(posStart, flag, flag1, flag2);
+        posEnd = reverseCoord(posEnd, flag, flag1, flag2);
+        kX = flag ? -1 : 1;
+        kY = flag1 ? -1 : 1;
+        kZ = flag2 ? -1 : 1;
         Vec3 vec3 = new Vec3(posEnd.getX() - posStart.getX(), posEnd.getY() - posStart.getY(), posEnd.getZ() - posStart.getZ());
         Vec3 vec31 = vec3.normalize();
         Vec3 vec32 = new Vec3(1.0D, 0.0D, 0.0D);
@@ -36,29 +36,29 @@ public class Iterator3d implements Iterator<BlockPos> {
         double d5 = Math.abs(d4);
 
         if (d5 >= d3 && d5 >= d1) {
-            this.axis = 2;
+            axis = 2;
             BlockPos blockpos3 = new BlockPos(posStart.getZ(), posStart.getY() - width, posStart.getX() - height);
             BlockPos blockpos5 = new BlockPos(posEnd.getZ(), posStart.getY() + width + 1, posStart.getX() + height + 1);
             int k = posEnd.getZ() - posStart.getZ();
             double d9 = (double) (posEnd.getY() - posStart.getY()) / ((double) k);
             double d11 = (double) (posEnd.getX() - posStart.getX()) / ((double) k);
-            this.iteratorAxis = new IteratorAxis(blockpos3, blockpos5, d9, d11);
+            iteratorAxis = new IteratorAxis(blockpos3, blockpos5, d9, d11);
         } else if (d3 >= d1 && d3 >= d5) {
-            this.axis = 1;
+            axis = 1;
             BlockPos blockpos2 = new BlockPos(posStart.getY(), posStart.getX() - width, posStart.getZ() - height);
             BlockPos blockpos4 = new BlockPos(posEnd.getY(), posStart.getX() + width + 1, posStart.getZ() + height + 1);
             int j = posEnd.getY() - posStart.getY();
             double d8 = (double) (posEnd.getX() - posStart.getX()) / ((double) j);
             double d10 = (double) (posEnd.getZ() - posStart.getZ()) / ((double) j);
-            this.iteratorAxis = new IteratorAxis(blockpos2, blockpos4, d8, d10);
+            iteratorAxis = new IteratorAxis(blockpos2, blockpos4, d8, d10);
         } else {
-            this.axis = 0;
+            axis = 0;
             BlockPos blockpos = new BlockPos(posStart.getX(), posStart.getY() - width, posStart.getZ() - height);
             BlockPos blockpos1 = new BlockPos(posEnd.getX(), posStart.getY() + width + 1, posStart.getZ() + height + 1);
             int i = posEnd.getX() - posStart.getX();
             double d6 = (double) (posEnd.getY() - posStart.getY()) / ((double) i);
             double d7 = (double) (posEnd.getZ() - posStart.getZ()) / ((double) i);
-            this.iteratorAxis = new IteratorAxis(blockpos, blockpos1, d6, d7);
+            iteratorAxis = new IteratorAxis(blockpos, blockpos1, d6, d7);
         }
     }
 
@@ -79,24 +79,24 @@ public class Iterator3d implements Iterator<BlockPos> {
     }
 
     public boolean hasNext() {
-        return this.iteratorAxis.hasNext();
+        return iteratorAxis.hasNext();
     }
 
     public BlockPos next() {
-        BlockPos blockpos = this.iteratorAxis.next();
+        BlockPos blockpos = iteratorAxis.next();
 
-        return switch (this.axis) {
+        return switch (axis) {
             case 1 -> {
-                this.blockPos.setXyz(blockpos.getY() * this.kX, blockpos.getX() * this.kY, blockpos.getZ() * this.kZ);
-                yield this.blockPos;
+                blockPos.setXyz(blockpos.getY() * kX, blockpos.getX() * kY, blockpos.getZ() * kZ);
+                yield blockPos;
             }
             case 2 -> {
-                this.blockPos.setXyz(blockpos.getZ() * this.kX, blockpos.getY() * this.kY, blockpos.getX() * this.kZ);
-                yield this.blockPos;
+                blockPos.setXyz(blockpos.getZ() * kX, blockpos.getY() * kY, blockpos.getX() * kZ);
+                yield blockPos;
             }
             default -> {
-                this.blockPos.setXyz(blockpos.getX() * this.kX, blockpos.getY() * this.kY, blockpos.getZ() * this.kZ);
-                yield this.blockPos;
+                blockPos.setXyz(blockpos.getX() * kX, blockpos.getY() * kY, blockpos.getZ() * kZ);
+                yield blockPos;
             }
         };
     }

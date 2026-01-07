@@ -18,13 +18,11 @@ public class ModelAdapterBanner extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBanner modelbanner)) {
-            return null;
-        } else {
+        if (model instanceof ModelBanner modelbanner) {
             return modelPart.equals("slate") ? modelbanner.bannerSlate
                     : (modelPart.equals("stand") ? modelbanner.bannerStand
                     : (modelPart.equals("top") ? modelbanner.bannerTop : null));
-        }
+        } else return null;
     }
 
     public String[] getModelRendererNames() {
@@ -33,12 +31,10 @@ public class ModelAdapterBanner extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+        TileEntitySpecialRenderer<?> tileentityspecialrenderer = tileentityrendererdispatcher
                 .getSpecialRendererByClass(TileEntityBanner.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityBannerRenderer)) {
-            return null;
-        } else {
+        if (tileentityspecialrenderer instanceof TileEntityBannerRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {
                 tileentityspecialrenderer = new TileEntityBannerRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
@@ -47,6 +43,6 @@ public class ModelAdapterBanner extends ModelAdapter {
             TileEntityBannerRenderer bannerRenderer = (TileEntityBannerRenderer) tileentityspecialrenderer;
             bannerRenderer.bannerModel = (ModelBanner) modelBase;
             return bannerRenderer;
-        }
+        } else return null;
     }
 }

@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EntityUtils {
-    private static final Map<Class, Integer> mapIdByClass = new HashMap<>();
+    private static final Map<Class<? extends Entity>, Integer> mapIdByClass = new HashMap<>();
     private static final Map<String, Integer> mapIdByName = new HashMap<>();
-    private static final Map<String, Class> mapClassByName = new HashMap<>();
+    private static final Map<String, Class<? extends Entity>> mapClassByName = new HashMap<>();
 
     static {
         for (int i = 0; i < 1000; ++i) {
-            Class oclass = EntityList.getClassFromID(i);
+            Class<? extends Entity> oclass = EntityList.getClassFromID(i);
 
             if (oclass != null) {
                 String s = EntityList.getStringFromID(i);
@@ -44,7 +44,7 @@ public class EntityUtils {
         return entity == null ? -1 : getEntityIdByClass(entity.getClass());
     }
 
-    public static int getEntityIdByClass(Class cls) {
+    public static int getEntityIdByClass(Class<? extends Entity> cls) {
         Integer integer = mapIdByClass.get(cls);
         return integer == null ? -1 : integer;
     }
@@ -54,7 +54,7 @@ public class EntityUtils {
         return integer == null ? -1 : integer;
     }
 
-    public static Class getEntityClassByName(String name) {
+    public static Class<? extends Entity> getEntityClassByName(String name) {
         return mapClassByName.get(name);
     }
 }

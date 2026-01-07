@@ -10,16 +10,16 @@ public class ExpressionFloatCached implements IExpressionFloat, IExpressionCache
     }
 
     public float eval() {
-        if (!this.cached) {
-            this.value = this.expression.eval();
-            this.cached = true;
+        if (!cached) {
+            value = expression.eval();
+            cached = true;
         }
 
-        return this.value;
+        return value;
     }
 
     public void reset() {
-        this.cached = false;
+        cached = false;
     }
 
     public ExpressionType getExpressionType() {
@@ -27,6 +27,6 @@ public class ExpressionFloatCached implements IExpressionFloat, IExpressionCache
     }
 
     public String toString() {
-        return "cached(" + this.expression + ")";
+        return "cached(" + expression + ")";
     }
 }

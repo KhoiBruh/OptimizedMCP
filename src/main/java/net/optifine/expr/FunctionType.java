@@ -106,23 +106,23 @@ public enum FunctionType {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public int getPrecedence() {
-        return this.precedence;
+        return precedence;
     }
 
     public ExpressionType getExpressionType() {
-        return this.expressionType;
+        return expressionType;
     }
 
     public int getParameterCount(IExpression[] arguments) {
-        return this.parameters.getParameterTypes(arguments).length;
+        return parameters.getParameterTypes(arguments).length;
     }
 
     public ExpressionType[] getParameterTypes(IExpression[] arguments) {
-        return this.parameters.getParameterTypes(arguments);
+        return parameters.getParameterTypes(arguments);
     }
 
     public float evalFloat(IExpression[] args) {
@@ -147,8 +147,8 @@ public enum FunctionType {
             case ATAN2 -> (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
             case TORAD -> MathUtils.toRad(evalFloat(args, 0));
             case TODEG -> MathUtils.toDeg(evalFloat(args, 0));
-            case MIN -> this.getMin(args);
-            case MAX -> this.getMax(args);
+            case MIN -> getMin(args);
+            case MAX -> getMax(args);
             case CLAMP -> MathHelper.clamp_float(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
             case ABS -> MathHelper.abs(evalFloat(args, 0));
             case EXP -> (float) Math.exp(evalFloat(args, 0));

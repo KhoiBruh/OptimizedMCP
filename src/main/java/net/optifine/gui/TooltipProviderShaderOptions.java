@@ -19,14 +19,14 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
             return null;
         } else {
             ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
-            return this.makeTooltipLines(shaderoption, width);
+            return makeTooltipLines(shaderoption, width);
         }
     }
 
     private String[] makeTooltipLines(ShaderOption so, int width) {
         String s = so.getNameText();
         String s1 = Config.normalize(so.getDescriptionText()).trim();
-        String[] astring = this.splitDescription(s1);
+        String[] astring = splitDescription(s1);
         GameSettings gamesettings = Config.getGameSettings();
         String s2 = null;
 
@@ -63,11 +63,11 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
             list.add(s4);
         }
 
-        return this.makeTooltipLines(width, list);
+        return makeTooltipLines(width, list);
     }
 
     private String[] splitDescription(String desc) {
-        if (desc.length() == 0) {
+        if (desc.isEmpty()) {
             return new String[0];
         } else {
             desc = StrUtils.removePrefix(desc, "//");

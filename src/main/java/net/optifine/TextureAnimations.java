@@ -64,7 +64,7 @@ public class TextureAnimations {
     }
 
     private static TextureAnimation[] getTextureAnimations(IResourcePack[] rps) {
-        List list = new ArrayList();
+        List<TextureAnimation> list = new ArrayList<>();
 
         for (IResourcePack iresourcepack : rps) {
             TextureAnimation[] atextureanimation = getTextureAnimations(iresourcepack);
@@ -74,16 +74,14 @@ public class TextureAnimations {
             }
         }
 
-        return (TextureAnimation[]) list.toArray(new TextureAnimation[0]);
+        return list.toArray(new TextureAnimation[0]);
     }
 
     private static TextureAnimation[] getTextureAnimations(IResourcePack rp) {
         String[] astring = ResUtils.collectFiles(rp, "mcpatcher/anim/", ".properties", null);
 
-        if (astring.length == 0) {
-            return null;
-        } else {
-            List list = new ArrayList();
+        if (astring.length != 0) {
+            List<TextureAnimation> list = new ArrayList<>();
 
             for (String s : astring) {
                 Config.dbg("Texture animation: " + s);
@@ -112,8 +110,8 @@ public class TextureAnimations {
                 }
             }
 
-            return (TextureAnimation[]) list.toArray(new TextureAnimation[0]);
-        }
+            return list.toArray(new TextureAnimation[0]);
+        } else return null;
     }
 
     private static TextureAnimation makeTextureAnimation(Properties props, ResourceLocation propLoc) {

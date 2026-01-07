@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpPipeline {
-    private static final Map mapConnections = new HashMap();
+    private static final Map<String, HttpPipelineConnection> mapConnections = new HashMap<>();
 
     public static void addRequest(String urlStr, HttpListener listener, Proxy proxy) throws IOException {
         HttpRequest httprequest = makeRequest(urlStr, proxy);

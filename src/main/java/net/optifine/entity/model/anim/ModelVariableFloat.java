@@ -20,18 +20,18 @@ public class ModelVariableFloat implements IExpressionFloat {
     }
 
     public float eval() {
-        return this.getValue();
+        return getValue();
     }
 
     public float getValue() {
-        return this.enumModelVariable.getFloat(this.modelRenderer);
+        return enumModelVariable.getFloat(modelRenderer);
     }
 
     public void setValue(float value) {
-        this.enumModelVariable.setFloat(this.modelRenderer, value);
+        enumModelVariable.setFloat(modelRenderer, value);
     }
 
     public String toString() {
-        return this.name;
+        return name;
     }
 }

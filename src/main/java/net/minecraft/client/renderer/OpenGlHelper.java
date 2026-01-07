@@ -277,11 +277,8 @@ public class OpenGlHelper {
             }
         }
 
-        try {
-            CentralProcessor processor = (new SystemInfo()).getHardware().getProcessor();
-            cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier().getName()).replaceAll("\\s+", " ");
-        } catch (Throwable var5) {
-        }
+        CentralProcessor processor = new SystemInfo().getHardware().getProcessor();
+        cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier().getName());
     }
 
     public static boolean areShadersSupported() {

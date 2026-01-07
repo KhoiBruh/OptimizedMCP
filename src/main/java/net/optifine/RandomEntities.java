@@ -59,11 +59,10 @@ public class RandomEntities {
 
     public static void worldChanged(World oldWorld, World newWorld) {
         if (newWorld != null) {
-            List list = newWorld.getLoadedEntityList();
+            List<Entity> list = newWorld.getLoadedEntityList();
 
-            for (Object o : list) {
-                Entity entity = (Entity) o;
-                entityLoaded(entity, newWorld);
+            for (Entity o : list) {
+                entityLoaded(o, newWorld);
             }
         }
 
@@ -188,9 +187,7 @@ public class RandomEntities {
     private static ResourceLocation getLocationProperties(ResourceLocation loc, boolean mcpatcher) {
         ResourceLocation resourcelocation = getLocationRandom(loc, mcpatcher);
 
-        if (resourcelocation == null) {
-            return null;
-        } else {
+        if (resourcelocation != null) {
             String s = resourcelocation.getResourceDomain();
             String s1 = resourcelocation.getResourcePath();
             String s2 = StrUtils.removeSuffix(s1, ".png");
@@ -202,14 +199,12 @@ public class RandomEntities {
             } else {
                 String s4 = getParentTexturePath(s2);
 
-                if (s4 == null) {
-                    return null;
-                } else {
+                if (s4 != null) {
                     ResourceLocation resourcelocation2 = new ResourceLocation(s, s4 + ".properties");
                     return Config.hasResource(resourcelocation2) ? resourcelocation2 : null;
-                }
+                } else return null;
             }
-        }
+        } else return null;
     }
 
     protected static ResourceLocation getLocationRandom(ResourceLocation loc, boolean mcpatcher) {
@@ -223,12 +218,10 @@ public class RandomEntities {
             s3 = "mcpatcher/mob/";
         }
 
-        if (!s1.startsWith(s2)) {
-            return null;
-        } else {
+        if (s1.startsWith(s2)) {
             String s4 = StrUtils.replacePrefix(s1, s2, s3);
             return new ResourceLocation(s, s4);
-        }
+        } else return null;
     }
 
     private static String getPathBase(String pathRandom) {
@@ -240,21 +233,17 @@ public class RandomEntities {
     }
 
     protected static ResourceLocation getLocationIndexed(ResourceLocation loc, int index) {
-        if (loc == null) {
-            return null;
-        } else {
+        if (loc != null) {
             String s = loc.getResourcePath();
             int i = s.lastIndexOf(46);
 
-            if (i < 0) {
-                return null;
-            } else {
+            if (i >= 0) {
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i);
                 String s3 = s1 + index + s2;
                 return new ResourceLocation(loc.getResourceDomain(), s3);
-            }
-        }
+            } else return null;
+        } else return null;
     }
 
     private static String getParentTexturePath(String path) {
@@ -268,13 +257,11 @@ public class RandomEntities {
     }
 
     private static ResourceLocation[] getLocationsVariants(ResourceLocation loc, boolean mcpatcher) {
-        List list = new ArrayList();
+        List<ResourceLocation> list = new ArrayList<>();
         list.add(loc);
         ResourceLocation resourcelocation = getLocationRandom(loc, mcpatcher);
 
-        if (resourcelocation == null) {
-            return null;
-        } else {
+        if (resourcelocation != null) {
             for (int i = 1; i < list.size() + 10; ++i) {
                 int j = i + 1;
                 ResourceLocation resourcelocation1 = getLocationIndexed(resourcelocation, j);
@@ -284,15 +271,12 @@ public class RandomEntities {
                 }
             }
 
-            if (list.size() <= 1) {
-                return null;
-            } else {
-                ResourceLocation[] aresourcelocation = (ResourceLocation[]) list
-                        .toArray(new ResourceLocation[0]);
+            if (list.size() > 1) {
+                ResourceLocation[] aresourcelocation = list.toArray(new ResourceLocation[0]);
                 dbg(loc.getResourcePath() + ", variants: " + aresourcelocation.length);
                 return aresourcelocation;
-            }
-        }
+            } else return null;
+        } else return null;
     }
 
     public static void update() {
@@ -310,7 +294,7 @@ public class RandomEntities {
         String[] astring = new String[]{"optifine/random/", "mcpatcher/mob/"};
         String[] astring1 = new String[]{".png", ".properties"};
         String[] astring2 = ResUtils.collectFiles(astring, astring1);
-        Set set = new HashSet();
+        Set<String> set = new HashSet<>();
 
         for (String string : astring2) {
             String s = string;

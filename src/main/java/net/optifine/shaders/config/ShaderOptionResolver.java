@@ -13,12 +13,12 @@ public class ShaderOptionResolver implements IExpressionResolver {
         for (ShaderOption shaderoption : options) {
             if (shaderoption instanceof ShaderOptionSwitch shaderoptionswitch) {
                 ExpressionShaderOptionSwitch expressionshaderoptionswitch = new ExpressionShaderOptionSwitch(shaderoptionswitch);
-                this.mapOptions.put(shaderoption.getName(), expressionshaderoptionswitch);
+                mapOptions.put(shaderoption.getName(), expressionshaderoptionswitch);
             }
         }
     }
 
     public IExpression getExpression(String name) {
-        return this.mapOptions.get(name);
+        return mapOptions.get(name);
     }
 }

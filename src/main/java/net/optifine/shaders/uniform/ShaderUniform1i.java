@@ -7,32 +7,32 @@ public class ShaderUniform1i extends ShaderUniformBase {
 
     public ShaderUniform1i(String name) {
         super(name);
-        this.resetValue();
+        resetValue();
     }
 
     public int getValue() {
-        int i = this.getProgram();
-        return this.programValues[i];
+        int i = getProgram();
+        return programValues[i];
     }
 
     public void setValue(int valueNew) {
-        int i = this.getProgram();
-        int j = this.programValues[i];
+        int i = getProgram();
+        int j = programValues[i];
 
         if (valueNew != j) {
-            this.programValues[i] = valueNew;
-            int k = this.getLocation();
+            programValues[i] = valueNew;
+            int k = getLocation();
 
             if (k >= 0) {
                 ARBShaderObjects.glUniform1iARB(k, valueNew);
-                this.checkGLError();
+                checkGLError();
             }
         }
     }
 
     protected void onProgramSet(int program) {
-        if (program >= this.programValues.length) {
-            int[] aint = this.programValues;
+        if (program >= programValues.length) {
+            int[] aint = programValues;
             int[] aint1 = new int[program + 10];
             System.arraycopy(aint, 0, aint1, 0, aint.length);
 
@@ -40,11 +40,11 @@ public class ShaderUniform1i extends ShaderUniformBase {
                 aint1[i] = Integer.MIN_VALUE;
             }
 
-            this.programValues = aint1;
+            programValues = aint1;
         }
     }
 
     protected void resetValue() {
-        this.programValues = new int[]{Integer.MIN_VALUE};
+        programValues = new int[]{Integer.MIN_VALUE};
     }
 }

@@ -10,14 +10,14 @@ public class Token {
     }
 
     public TokenType getType() {
-        return this.type;
+        return type;
     }
 
     public String getText() {
-        return this.text;
+        return text;
     }
 
     public String toString() {
-        return this.text;
+        return text;
     }
 }

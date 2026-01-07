@@ -11,15 +11,15 @@ public class PropertyDefaultFastFancyOff extends Property {
     }
 
     public boolean isDefault() {
-        return this.getValue() == 0;
+        return getValue() == 0;
     }
 
     public boolean isFancy() {
-        return this.getValue() == 2;
+        return getValue() == 2;
     }
 
     public boolean isOff() {
-        return this.getValue() == 3;
+        return getValue() == 3;
     }
 
     public boolean setPropertyValue(String propVal) {

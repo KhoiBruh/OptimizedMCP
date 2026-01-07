@@ -22,22 +22,22 @@ public class GlVersion {
     }
 
     public int getMajor() {
-        return this.major;
+        return major;
     }
 
     public int getMinor() {
-        return this.minor;
+        return minor;
     }
 
     public int getRelease() {
-        return this.release;
+        return release;
     }
 
     public int toInt() {
-        return this.minor > 9 ? this.major * 100 + this.minor : (this.release > 9 ? this.major * 100 + this.minor * 10 + 9 : this.major * 100 + this.minor * 10 + this.release);
+        return minor > 9 ? major * 100 + minor : (release > 9 ? major * 100 + minor * 10 + 9 : major * 100 + minor * 10 + release);
     }
 
     public String toString() {
-        return this.suffix == null ? this.major + "." + this.minor + "." + this.release : this.major + "." + this.minor + "." + this.release + this.suffix;
+        return suffix == null ? major + "." + minor + "." + release : major + "." + minor + "." + release + suffix;
     }
 }

@@ -18,12 +18,9 @@ public class ModelAdapterSign extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSign modelsign)) {
-            return null;
-        } else {
-            return modelPart.equals("board") ? modelsign.signBoard
-                    : (modelPart.equals("stick") ? modelsign.signStick : null);
-        }
+        if (model instanceof ModelSign modelsign) {
+            return modelPart.equals("board") ? modelsign.signBoard : (modelPart.equals("stick") ? modelsign.signStick : null);
+        } else return null;
     }
 
     public String[] getModelRendererNames() {
@@ -32,12 +29,10 @@ public class ModelAdapterSign extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+        TileEntitySpecialRenderer<?> tileentityspecialrenderer = tileentityrendererdispatcher
                 .getSpecialRendererByClass(TileEntitySign.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntitySignRenderer)) {
-            return null;
-        } else {
+        if (tileentityspecialrenderer instanceof TileEntitySignRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {
                 tileentityspecialrenderer = new TileEntitySignRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
@@ -46,6 +41,6 @@ public class ModelAdapterSign extends ModelAdapter {
             TileEntitySignRenderer signRenderer = (TileEntitySignRenderer) tileentityspecialrenderer;
             signRenderer.model = (ModelSign) modelBase;
             return signRenderer;
-        }
+        } else return null;
     }
 }

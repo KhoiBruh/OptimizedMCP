@@ -17,18 +17,18 @@ public class CustomModelRenderer {
     }
 
     public ModelRenderer getModelRenderer() {
-        return this.modelRenderer;
+        return modelRenderer;
     }
 
     public String getModelPart() {
-        return this.modelPart;
+        return modelPart;
     }
 
     public boolean isAttach() {
-        return this.attach;
+        return attach;
     }
 
     public ModelUpdater getModelUpdater() {
-        return this.modelUpdater;
+        return modelUpdater;
     }
 }

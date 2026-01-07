@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 public class IteratorAxis implements Iterator<BlockPos> {
     private final double yDelta;
     private final double zDelta;
-    private final int xStart;
     private final int xEnd;
     private double yStart;
     private double yEnd;
@@ -24,51 +23,51 @@ public class IteratorAxis implements Iterator<BlockPos> {
     public IteratorAxis(BlockPos posStart, BlockPos posEnd, double yDelta, double zDelta) {
         this.yDelta = yDelta;
         this.zDelta = zDelta;
-        this.xStart = posStart.getX();
-        this.xEnd = posEnd.getX();
-        this.yStart = posStart.getY();
-        this.yEnd = (double) posEnd.getY() - 0.5D;
-        this.zStart = posStart.getZ();
-        this.zEnd = (double) posEnd.getZ() - 0.5D;
-        this.xNext = this.xStart;
-        this.yNext = this.yStart;
-        this.zNext = this.zStart;
-        this.hasNext = this.xNext < this.xEnd && this.yNext < this.yEnd && this.zNext < this.zEnd;
+        int xStart = posStart.getX();
+        xEnd = posEnd.getX();
+        yStart = posStart.getY();
+        yEnd = (double) posEnd.getY() - 0.5D;
+        zStart = posStart.getZ();
+        zEnd = (double) posEnd.getZ() - 0.5D;
+        xNext = xStart;
+        yNext = yStart;
+        zNext = zStart;
+        hasNext = xNext < xEnd && yNext < yEnd && zNext < zEnd;
     }
 
     public boolean hasNext() {
-        return this.hasNext;
+        return hasNext;
     }
 
     public BlockPos next() {
-        if (!this.hasNext) {
+        if (!hasNext) {
             throw new NoSuchElementException();
         } else {
-            this.pos.setXyz(this.xNext, this.yNext, this.zNext);
-            this.nextPos();
-            this.hasNext = this.xNext < this.xEnd && this.yNext < this.yEnd && this.zNext < this.zEnd;
-            return this.pos;
+            pos.setXyz(xNext, yNext, zNext);
+            nextPos();
+            hasNext = xNext < xEnd && yNext < yEnd && zNext < zEnd;
+            return pos;
         }
     }
 
     private void nextPos() {
-        ++this.zNext;
+        ++zNext;
 
-        if (this.zNext >= this.zEnd) {
-            this.zNext = this.zStart;
-            ++this.yNext;
+        if (zNext >= zEnd) {
+            zNext = zStart;
+            ++yNext;
 
-            if (this.yNext >= this.yEnd) {
-                this.yNext = this.yStart;
-                this.yStart += this.yDelta;
-                this.yEnd += this.yDelta;
-                this.yNext = this.yStart;
-                this.zStart += this.zDelta;
-                this.zEnd += this.zDelta;
-                this.zNext = this.zStart;
-                ++this.xNext;
+            if (yNext >= yEnd) {
+                yNext = yStart;
+                yStart += yDelta;
+                yEnd += yDelta;
+                yNext = yStart;
+                zStart += zDelta;
+                zEnd += zDelta;
+                zNext = zStart;
+                ++xNext;
 
-                if (this.xNext >= this.xEnd) {
+                if (xNext >= xEnd) {
                 }
             }
         }

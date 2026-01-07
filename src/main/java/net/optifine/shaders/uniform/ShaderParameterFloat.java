@@ -67,7 +67,7 @@ public enum ShaderParameterFloat {
     }
 
     ShaderParameterFloat(ShaderUniformBase uniform) {
-        this.name = uniform.getName();
+        name = uniform.getName();
         this.uniform = uniform;
 
         if (!instanceOf(uniform, ShaderUniform1f.class, ShaderUniform1i.class)) {
@@ -76,7 +76,7 @@ public enum ShaderParameterFloat {
     }
 
     ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1) {
-        this.name = uniform.getName();
+        name = uniform.getName();
         this.uniform = uniform;
         this.indexNames1 = indexNames1;
 
@@ -86,7 +86,7 @@ public enum ShaderParameterFloat {
     }
 
     ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1, String[] indexNames2) {
-        this.name = uniform.getName();
+        name = uniform.getName();
         this.uniform = uniform;
         this.indexNames1 = indexNames1;
         this.indexNames2 = indexNames2;
@@ -96,11 +96,11 @@ public enum ShaderParameterFloat {
         }
     }
 
-    private static boolean instanceOf(Object obj, Class... classes) {
+    private static boolean instanceOf(Object obj, Class<?>... classes) {
         if (obj != null) {
-            Class oclass = obj.getClass();
+            Class<?> oclass = obj.getClass();
 
-            for (Class oclass1 : classes) {
+            for (Class<?> oclass1 : classes) {
                 if (oclass1.isAssignableFrom(oclass)) {
                     return true;
                 }
@@ -111,20 +111,20 @@ public enum ShaderParameterFloat {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String[] getIndexNames1() {
-        return this.indexNames1;
+        return indexNames1;
     }
 
     public String[] getIndexNames2() {
-        return this.indexNames2;
+        return indexNames2;
     }
 
     public float eval(int index1, int index2) {
-        if (this.indexNames1 == null || index1 >= 0 && index1 <= this.indexNames1.length) {
-            if (this.indexNames2 == null || index2 >= 0 && index2 <= this.indexNames2.length) {
+        if (indexNames1 == null || index1 >= 0 && index1 <= indexNames1.length) {
+            if (indexNames2 == null || index2 >= 0 && index2 <= indexNames2.length) {
                 switch (this) {
                     case BIOME:
                         BlockPos blockpos2 = Shaders.getCameraPosition();
@@ -142,7 +142,7 @@ public enum ShaderParameterFloat {
                         return biome != null ? biome.getFloatRainfall() : 0.0F;
 
                     default:
-                        return switch (this.uniform) {
+                        return switch (uniform) {
                             case ShaderUniform1f shaderUniform1f -> shaderUniform1f.getValue();
                             case ShaderUniform1i shaderUniform1i -> (float) shaderUniform1i.getValue();
                             case ShaderUniform2i shaderUniform2i -> (float) shaderUniform2i.getValue()[index1];

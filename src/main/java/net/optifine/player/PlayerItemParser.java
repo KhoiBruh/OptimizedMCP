@@ -32,16 +32,15 @@ public class PlayerItemParser {
             boolean flag = Json.getBoolean(obj, "usePlayerTexture", false);
             JsonArray jsonarray = (JsonArray) obj.get("models");
             checkNull(jsonarray, "Missing elements");
-            Map map = new HashMap();
-            List list = new ArrayList();
-            new ArrayList();
+            Map<String, JsonObject> map = new HashMap<>();
+            List<PlayerItemRenderer> list = new ArrayList<>();
 
             for (int i = 0; i < jsonarray.size(); ++i) {
                 JsonObject jsonobject = (JsonObject) jsonarray.get(i);
                 String s1 = Json.getString(jsonobject, "baseId");
 
                 if (s1 != null) {
-                    JsonObject jsonobject1 = (JsonObject) map.get(s1);
+                    JsonObject jsonobject1 = map.get(s1);
 
                     if (jsonobject1 == null) {
                         Config.warn("BaseID not found: " + s1);
@@ -72,7 +71,7 @@ public class PlayerItemParser {
                 }
             }
 
-            PlayerItemRenderer[] aplayeritemrenderer = (PlayerItemRenderer[]) list.toArray(new PlayerItemRenderer[0]);
+            PlayerItemRenderer[] aplayeritemrenderer = list.toArray(new PlayerItemRenderer[0]);
             return new PlayerItemModel(dimension, flag, aplayeritemrenderer);
         }
     }

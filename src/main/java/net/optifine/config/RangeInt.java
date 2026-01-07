@@ -10,14 +10,14 @@ public class RangeInt {
     }
 
     public boolean isInRange(int val) {
-        return val >= this.min && val <= this.max;
+        return val >= min && val <= max;
     }
 
     public int getMin() {
-        return this.min;
+        return min;
     }
 
     public String toString() {
-        return "min: " + this.min + ", max: " + this.max;
+        return "min: " + min + ", max: " + max;
     }
 }

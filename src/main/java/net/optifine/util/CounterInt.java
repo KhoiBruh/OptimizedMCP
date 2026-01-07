@@ -6,18 +6,18 @@ public class CounterInt {
 
     public CounterInt(int startValue) {
         this.startValue = startValue;
-        this.value = startValue;
+        value = startValue;
     }
 
     public synchronized int nextValue() {
-        return this.value++;
+        return value++;
     }
 
     public synchronized void reset() {
-        this.value = this.startValue;
+        value = startValue;
     }
 
     public int getValue() {
-        return this.value;
+        return value;
     }
 }

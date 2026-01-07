@@ -159,15 +159,13 @@ public class Lagometer {
         }
     }
 
-    private static long renderTimeDivider(int frameStart, int frameEnd, long time, int r, int g, int b, float baseHeight, WorldRenderer tessellator) {
+    private static void renderTimeDivider(int frameStart, int frameEnd, long time, int r, int g, int b, float baseHeight, WorldRenderer tessellator) {
         long i = time / 200000L;
 
         if (i < 3L) {
-            return 0L;
         } else {
             tessellator.pos((float) frameStart + 0.5F, baseHeight - (float) i + 0.5F, 0.0D).color(r, g, b, 255).endVertex();
             tessellator.pos((float) frameEnd + 0.5F, baseHeight - (float) i + 0.5F, 0.0D).color(r, g, b, 255).endVertex();
-            return i;
         }
     }
 
@@ -181,24 +179,24 @@ public class Lagometer {
 
         public void start() {
             if (Lagometer.active) {
-                if (this.timeStartNano == 0L) {
-                    this.timeStartNano = System.nanoTime();
+                if (timeStartNano == 0L) {
+                    timeStartNano = System.nanoTime();
                 }
             }
         }
 
         public void end() {
             if (Lagometer.active) {
-                if (this.timeStartNano != 0L) {
-                    this.timeNano += System.nanoTime() - this.timeStartNano;
-                    this.timeStartNano = 0L;
+                if (timeStartNano != 0L) {
+                    timeNano += System.nanoTime() - timeStartNano;
+                    timeStartNano = 0L;
                 }
             }
         }
 
         private void reset() {
-            this.timeNano = 0L;
-            this.timeStartNano = 0L;
+            timeNano = 0L;
+            timeStartNano = 0L;
         }
     }
 }

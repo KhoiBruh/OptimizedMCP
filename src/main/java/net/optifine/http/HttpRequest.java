@@ -1,18 +1,16 @@
 package net.optifine.http;
 
 import java.net.Proxy;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpRequest {
-    private String host;
-    private int port;
-    private Proxy proxy;
-    private String method;
-    private String file;
-    private String http;
-    private Map<String, String> headers;
-    private byte[] body;
+    private final String host;
+    private final int port;
+    private final Proxy proxy;
+    private final String method;
+    private final String file;
+    private final String http;
+    private final Map<String, String> headers;
     private int redirects = 0;
 
     public HttpRequest(String host, int port, Proxy proxy, String method, String file, String http, Map<String, String> headers, byte[] body) {
@@ -23,35 +21,34 @@ public class HttpRequest {
         this.file = file;
         this.http = http;
         this.headers = headers;
-        this.body = body;
     }
 
     public String getHost() {
-        return this.host;
+        return host;
     }
 
     public int getPort() {
-        return this.port;
+        return port;
     }
 
     public String getMethod() {
-        return this.method;
+        return method;
     }
 
     public String getFile() {
-        return this.file;
+        return file;
     }
 
     public String getHttp() {
-        return this.http;
+        return http;
     }
 
     public Map<String, String> getHeaders() {
-        return this.headers;
+        return headers;
     }
 
     public int getRedirects() {
-        return this.redirects;
+        return redirects;
     }
 
     public void setRedirects(int redirects) {
@@ -59,6 +56,6 @@ public class HttpRequest {
     }
 
     public Proxy getProxy() {
-        return this.proxy;
+        return proxy;
     }
 }

@@ -244,11 +244,11 @@ public class TextureUtils {
     }
 
     public static Dimension getImageSize(InputStream in, String suffix) {
-        Iterator iterator = ImageIO.getImageReadersBySuffix(suffix);
+        Iterator<ImageReader> iterator = ImageIO.getImageReadersBySuffix(suffix);
 
         while (true) {
             if (iterator.hasNext()) {
-                ImageReader imagereader = (ImageReader) iterator.next();
+                ImageReader imagereader = iterator.next();
                 Dimension dimension;
 
                 try {

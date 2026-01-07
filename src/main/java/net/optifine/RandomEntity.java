@@ -11,25 +11,25 @@ public class RandomEntity implements IRandomEntity {
     private Entity entity;
 
     public int getId() {
-        UUID uuid = this.entity.getUniqueID();
+        UUID uuid = entity.getUniqueID();
         long i = uuid.getLeastSignificantBits();
         return (int) (i & 2147483647L);
     }
 
     public BlockPos getSpawnPosition() {
-        return this.entity.getDataWatcher().spawnPosition;
+        return entity.getDataWatcher().spawnPosition;
     }
 
     public BiomeGenBase getSpawnBiome() {
-        return this.entity.getDataWatcher().spawnBiome;
+        return entity.getDataWatcher().spawnBiome;
     }
 
     public String getName() {
-        return this.entity.hasCustomName() ? this.entity.getCustomNameTag() : null;
+        return entity.hasCustomName() ? entity.getCustomNameTag() : null;
     }
 
     public int getHealth() {
-        if (!(this.entity instanceof EntityLiving entityliving)) {
+        if (!(entity instanceof EntityLiving entityliving)) {
             return 0;
         } else {
             return (int) entityliving.getHealth();
@@ -37,7 +37,7 @@ public class RandomEntity implements IRandomEntity {
     }
 
     public int getMaxHealth() {
-        if (!(this.entity instanceof EntityLiving entityliving)) {
+        if (!(entity instanceof EntityLiving entityliving)) {
             return 0;
         } else {
             return (int) entityliving.getMaxHealth();
@@ -45,7 +45,7 @@ public class RandomEntity implements IRandomEntity {
     }
 
     public Entity getEntity() {
-        return this.entity;
+        return entity;
     }
 
     public void setEntity(Entity entity) {

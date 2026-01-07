@@ -99,7 +99,6 @@ public class Config {
             stringbuffer.append(", ");
         }
 
-        stringbuffer.append("OptiFine_1.8.9_HD_U_M6_pre2");
         String s = Shaders.getShaderPackName();
 
         if (s != null) {

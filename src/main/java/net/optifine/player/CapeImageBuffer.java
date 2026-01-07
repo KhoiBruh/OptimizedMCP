@@ -18,24 +18,24 @@ public class CapeImageBuffer extends ImageBufferDownload {
 
     public BufferedImage parseUserSkin(BufferedImage imageRaw) {
         BufferedImage bufferedimage = CapeUtils.parseCape(imageRaw);
-        this.elytraOfCape = CapeUtils.isElytraCape(imageRaw, bufferedimage);
+        elytraOfCape = CapeUtils.isElytraCape(imageRaw, bufferedimage);
         return bufferedimage;
     }
 
     public void skinAvailable() {
-        if (this.player != null) {
-            this.player.setLocationOfCape(this.resourceLocation);
-            this.player.setElytraOfCape(this.elytraOfCape);
+        if (player != null) {
+            player.setLocationOfCape(resourceLocation);
+            player.setElytraOfCape(elytraOfCape);
         }
 
-        this.cleanup();
+        cleanup();
     }
 
     public void cleanup() {
-        this.player = null;
+        player = null;
     }
 
     public boolean isElytraOfCape() {
-        return this.elytraOfCape;
+        return elytraOfCape;
     }
 }

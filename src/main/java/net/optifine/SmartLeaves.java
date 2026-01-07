@@ -17,18 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmartLeaves {
-    private static IBakedModel modelLeavesCullAcacia = null;
-    private static IBakedModel modelLeavesCullBirch = null;
-    private static IBakedModel modelLeavesCullDarkOak = null;
-    private static IBakedModel modelLeavesCullJungle = null;
-    private static IBakedModel modelLeavesCullOak = null;
-    private static IBakedModel modelLeavesCullSpruce = null;
-    private static List generalQuadsCullAcacia = null;
-    private static List generalQuadsCullBirch = null;
-    private static List generalQuadsCullDarkOak = null;
-    private static List generalQuadsCullJungle = null;
-    private static List generalQuadsCullOak = null;
-    private static List generalQuadsCullSpruce = null;
+    private static List<BakedQuad> generalQuadsCullAcacia = null;
+    private static List<BakedQuad> generalQuadsCullBirch = null;
+    private static List<BakedQuad> generalQuadsCullDarkOak = null;
+    private static List<BakedQuad> generalQuadsCullJungle = null;
+    private static List<BakedQuad> generalQuadsCullOak = null;
+    private static List<BakedQuad> generalQuadsCullSpruce = null;
     private static IBakedModel modelLeavesDoubleAcacia = null;
     private static IBakedModel modelLeavesDoubleBirch = null;
     private static IBakedModel modelLeavesDoubleDarkOak = null;
@@ -40,7 +34,7 @@ public class SmartLeaves {
         if (!Config.isTreesSmart()) {
             return model;
         } else {
-            List list = model.getGeneralQuads();
+            List<BakedQuad> list = model.getGeneralQuads();
             return list == generalQuadsCullAcacia ? modelLeavesDoubleAcacia : (list == generalQuadsCullBirch ? modelLeavesDoubleBirch : (list == generalQuadsCullDarkOak ? modelLeavesDoubleDarkOak : (list == generalQuadsCullJungle ? modelLeavesDoubleJungle : (list == generalQuadsCullOak ? modelLeavesDoubleOak : (list == generalQuadsCullSpruce ? modelLeavesDoubleSpruce : model)))));
         }
     }
@@ -56,13 +50,13 @@ public class SmartLeaves {
     }
 
     public static void updateLeavesModels() {
-        List list = new ArrayList();
-        modelLeavesCullAcacia = getModelCull("acacia", list);
-        modelLeavesCullBirch = getModelCull("birch", list);
-        modelLeavesCullDarkOak = getModelCull("dark_oak", list);
-        modelLeavesCullJungle = getModelCull("jungle", list);
-        modelLeavesCullOak = getModelCull("oak", list);
-        modelLeavesCullSpruce = getModelCull("spruce", list);
+        List<String> list = new ArrayList<>();
+        IBakedModel modelLeavesCullAcacia = getModelCull("acacia", list);
+        IBakedModel modelLeavesCullBirch = getModelCull("birch", list);
+        IBakedModel modelLeavesCullDarkOak = getModelCull("dark_oak", list);
+        IBakedModel modelLeavesCullJungle = getModelCull("jungle", list);
+        IBakedModel modelLeavesCullOak = getModelCull("oak", list);
+        IBakedModel modelLeavesCullSpruce = getModelCull("spruce", list);
         generalQuadsCullAcacia = getGeneralQuadsSafe(modelLeavesCullAcacia);
         generalQuadsCullBirch = getGeneralQuadsSafe(modelLeavesCullBirch);
         generalQuadsCullDarkOak = getGeneralQuadsSafe(modelLeavesCullDarkOak);
@@ -81,11 +75,11 @@ public class SmartLeaves {
         }
     }
 
-    private static List getGeneralQuadsSafe(IBakedModel model) {
+    private static List<BakedQuad> getGeneralQuadsSafe(IBakedModel model) {
         return model == null ? null : model.getGeneralQuads();
     }
 
-    static IBakedModel getModelCull(String type, List updatedTypes) {
+    static IBakedModel getModelCull(String type, List<String> updatedTypes) {
         ModelManager modelmanager = Config.getModelManager();
 
         if (modelmanager == null) {
@@ -105,22 +99,21 @@ public class SmartLeaves {
                     IBakedModel ibakedmodel = modelmanager.getModel(modelresourcelocation);
 
                     if (ibakedmodel != null && ibakedmodel != modelmanager.getMissingModel()) {
-                        List list = ibakedmodel.getGeneralQuads();
+                        List<BakedQuad> list = ibakedmodel.getGeneralQuads();
 
                         if (list.isEmpty()) {
                             return ibakedmodel;
                         } else if (list.size() != 6) {
                             return null;
                         } else {
-                            for (Object o : list) {
-                                BakedQuad bakedquad = (BakedQuad) o;
-                                List list1 = ibakedmodel.getFaceQuads(bakedquad.getFace());
+                            for (BakedQuad o : list) {
+                                List<BakedQuad> list1 = ibakedmodel.getFaceQuads(o.getFace());
 
                                 if (!list1.isEmpty()) {
                                     return null;
                                 }
 
-                                list1.add(bakedquad);
+                                list1.add(o);
                             }
 
                             list.clear();
@@ -154,7 +147,7 @@ public class SmartLeaves {
             }
 
             IBakedModel ibakedmodel = ModelUtils.duplicateModel(model);
-            List[] alist = new List[aenumfacing.length];
+            List<BakedQuad>[] alist = new List[aenumfacing.length];
 
             for (EnumFacing enumfacing1 : aenumfacing) {
                 List<BakedQuad> list1 = ibakedmodel.getFaceQuads(enumfacing1);

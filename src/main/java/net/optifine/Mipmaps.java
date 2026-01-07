@@ -12,26 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mipmaps {
-    private final String iconName;
-    private final int width;
-    private final int height;
-    private final int[] data;
-    private final boolean direct;
-    private final int[][] mipmapDatas;
-    private IntBuffer[] mipmapBuffers;
-    private final Dimension[] mipmapDimensions;
 
     public Mipmaps(String iconName, int width, int height, int[] data, boolean direct) {
-        this.iconName = iconName;
-        this.width = width;
-        this.height = height;
-        this.data = data;
-        this.direct = direct;
-        this.mipmapDimensions = makeMipmapDimensions(width, height, iconName);
-        this.mipmapDatas = generateMipMapData(data, width, height, this.mipmapDimensions);
+        Dimension[] mipmapDimensions = makeMipmapDimensions(width, height, iconName);
+        int[][] mipmapDatas = generateMipMapData(data, width, height, mipmapDimensions);
 
         if (direct) {
-            this.mipmapBuffers = makeMipmapBuffers(this.mipmapDimensions, this.mipmapDatas);
+            IntBuffer[] mipmapBuffers = makeMipmapBuffers(mipmapDimensions, mipmapDatas);
         }
     }
 
@@ -40,7 +27,7 @@ public class Mipmaps {
         int j = TextureUtils.ceilPowerOfTwo(height);
 
         if (i == width && j == height) {
-            List list = new ArrayList();
+            List<Dimension> list = new ArrayList<>();
             int k = i;
             int l = j;
 
@@ -49,7 +36,7 @@ public class Mipmaps {
                 l /= 2;
 
                 if (k <= 0 && l <= 0) {
-                    return (Dimension[]) list.toArray(new Dimension[0]);
+                    return list.toArray(new Dimension[0]);
                 }
 
                 if (k <= 0) {

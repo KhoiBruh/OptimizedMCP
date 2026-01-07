@@ -36,10 +36,10 @@ public enum BlockDir {
     }
 
     BlockPos offset(BlockPos pos) {
-        pos = pos.offset(this.facing1, 1);
+        pos = pos.offset(facing1, 1);
 
-        if (this.facing2 != null) {
-            pos = pos.offset(this.facing2, 1);
+        if (facing2 != null) {
+            pos = pos.offset(facing2, 1);
         }
 
         return pos;

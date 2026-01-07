@@ -2,36 +2,38 @@ package net.optifine.entity.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ModelAdapter {
-    private final Class entityClass;
+    private final Class<?> entityClass;
     private final String name;
     private final float shadowSize;
     private String[] aliases;
 
-    public ModelAdapter(Class entityClass, String name, float shadowSize) {
+    public ModelAdapter(Class<?> entityClass, String name, float shadowSize) {
         this.entityClass = entityClass;
         this.name = name;
         this.shadowSize = shadowSize;
     }
 
-    public Class getEntityClass() {
-        return this.entityClass;
+    public Class<?> getEntityClass() {
+        return entityClass;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String[] getAliases() {
-        return this.aliases;
+        return aliases;
     }
 
     public float getShadowSize() {
-        return this.shadowSize;
+        return shadowSize;
     }
 
     public abstract ModelBase makeModel();
@@ -43,11 +45,11 @@ public abstract class ModelAdapter {
     public abstract IEntityRenderer makeEntityRender(ModelBase var1, float var2);
 
     public ModelRenderer[] getModelRenderers(ModelBase model) {
-        String[] astring = this.getModelRendererNames();
+        String[] astring = getModelRendererNames();
         List<ModelRenderer> list = new ArrayList<>();
 
         for (String s : astring) {
-            ModelRenderer modelrenderer = this.getModelRenderer(model, s);
+            ModelRenderer modelrenderer = getModelRenderer(model, s);
 
             if (modelrenderer != null) {
                 list.add(modelrenderer);

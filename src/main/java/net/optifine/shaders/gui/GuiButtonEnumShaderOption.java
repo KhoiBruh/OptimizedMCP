@@ -6,7 +6,7 @@ import net.optifine.shaders.Shaders;
 import net.optifine.shaders.config.EnumShaderOption;
 
 public class GuiButtonEnumShaderOption extends GuiButton {
-    private EnumShaderOption enumShaderOption;
+    private final EnumShaderOption enumShaderOption;
 
     public GuiButtonEnumShaderOption(EnumShaderOption enumShaderOption, int x, int y, int widthIn, int heightIn) {
         super(enumShaderOption.ordinal(), x, y, widthIn, heightIn, getButtonText(enumShaderOption));
@@ -33,10 +33,10 @@ public class GuiButtonEnumShaderOption extends GuiButton {
     }
 
     public EnumShaderOption getEnumShaderOption() {
-        return this.enumShaderOption;
+        return enumShaderOption;
     }
 
     public void updateButtonText() {
-        this.displayString = getButtonText(this.enumShaderOption);
+        displayString = getButtonText(enumShaderOption);
     }
 }

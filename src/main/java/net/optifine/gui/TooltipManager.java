@@ -22,16 +22,16 @@ public class TooltipManager {
         this.tooltipProvider = tooltipProvider;
     }
 
-    public void drawTooltips(int x, int y, List buttonList) {
-        if (Math.abs(x - this.lastMouseX) <= 5 && Math.abs(y - this.lastMouseY) <= 5) {
+    public void drawTooltips(int x, int y, List<GuiButton> buttonList) {
+        if (Math.abs(x - lastMouseX) <= 5 && Math.abs(y - lastMouseY) <= 5) {
             int i = 700;
 
-            if (System.currentTimeMillis() >= this.mouseStillTime + (long) i) {
+            if (System.currentTimeMillis() >= mouseStillTime + (long) i) {
                 GuiButton guibutton = GuiScreenOF.getSelectedButton(x, y, buttonList);
 
                 if (guibutton != null) {
-                    Rectangle rectangle = this.tooltipProvider.getTooltipBounds(this.guiScreen, x, y);
-                    String[] astring = this.tooltipProvider.getTooltipLines(guibutton, rectangle.width);
+                    Rectangle rectangle = tooltipProvider.getTooltipBounds(guiScreen, x, y);
+                    String[] astring = tooltipProvider.getTooltipLines(guibutton, rectangle.width);
 
                     if (astring != null) {
                         if (astring.length > 8) {
@@ -39,9 +39,9 @@ public class TooltipManager {
                             astring[astring.length - 1] = astring[astring.length - 1] + " ...";
                         }
 
-                        if (this.tooltipProvider.isRenderBorder()) {
+                        if (tooltipProvider.isRenderBorder()) {
                             int j = -528449408;
-                            this.drawRectBorder(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, j);
+                            drawRectBorder(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, j);
                         }
 
                         Gui.drawRect(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, -536870912);
@@ -61,9 +61,9 @@ public class TooltipManager {
                 }
             }
         } else {
-            this.lastMouseX = x;
-            this.lastMouseY = y;
-            this.mouseStillTime = System.currentTimeMillis();
+            lastMouseX = x;
+            lastMouseY = y;
+            mouseStillTime = System.currentTimeMillis();
         }
     }
 

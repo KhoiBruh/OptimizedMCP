@@ -12,34 +12,34 @@ public class FlipTextures {
     public FlipTextures(IntBuffer textures, int indexFlipped) {
         this.textures = textures;
         this.indexFlipped = indexFlipped;
-        this.flips = new boolean[textures.capacity()];
-        this.changed = new boolean[textures.capacity()];
+        flips = new boolean[textures.capacity()];
+        changed = new boolean[textures.capacity()];
     }
 
     public int getA(int index) {
-        return this.get(index, this.flips[index]);
+        return get(index, flips[index]);
     }
 
     public int getB(int index) {
-        return this.get(index, !this.flips[index]);
+        return get(index, !flips[index]);
     }
 
     private int get(int index, boolean flipped) {
-        int i = flipped ? this.indexFlipped : 0;
-        return this.textures.get(i + index);
+        int i = flipped ? indexFlipped : 0;
+        return textures.get(i + index);
     }
 
     public void flip(int index) {
-        this.flips[index] = !this.flips[index];
-        this.changed[index] = true;
+        flips[index] = !flips[index];
+        changed[index] = true;
     }
 
     public boolean isChanged(int index) {
-        return this.changed[index];
+        return changed[index];
     }
 
     public void reset() {
-        Arrays.fill(this.flips, false);
-        Arrays.fill(this.changed, false);
+        Arrays.fill(flips, false);
+        Arrays.fill(changed, false);
     }
 }

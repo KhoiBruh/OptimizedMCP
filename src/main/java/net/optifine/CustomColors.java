@@ -372,9 +372,9 @@ public class CustomColors {
     }
 
     private static CustomColormap[] readCustomColormaps(Properties props, String fileName) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         String s = "palette.block.";
-        Map map = new HashMap();
+        Map map = new HashMap<>();
 
         for (Object o : props.keySet()) {
             String s1 = (String) o;
@@ -413,7 +413,7 @@ public class CustomColors {
             }
         }
 
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return (CustomColormap[]) list.toArray(new CustomColormap[0]);
@@ -424,7 +424,7 @@ public class CustomColors {
                                                          int height) {
         String[] astring = ResUtils.collectFiles(basePaths, new String[]{".properties"});
         Arrays.sort(astring);
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         for (String s : astring) {
             dbg("Block colormap: " + s);
@@ -459,7 +459,7 @@ public class CustomColors {
             }
         }
 
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return blockListToArray(list);
@@ -490,7 +490,7 @@ public class CustomColors {
         List list = (List) lists.get(id);
 
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<>();
             list.set(id, list);
         }
 
@@ -1054,7 +1054,7 @@ public class CustomColors {
 
     private static int[] readSpawnEggColors(Properties props, String fileName, String prefix, String logName) {
         List<Integer> list = new ArrayList<>();
-        Set set = props.keySet();
+        Set<Object> set = props.keySet();
         int i = 0;
 
         for (Object o : set) {

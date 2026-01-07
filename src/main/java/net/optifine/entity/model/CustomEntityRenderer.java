@@ -3,33 +3,31 @@ package net.optifine.entity.model;
 import net.minecraft.util.ResourceLocation;
 
 public class CustomEntityRenderer {
-    private String name;
-    private String basePath;
-    private ResourceLocation textureLocation;
-    private CustomModelRenderer[] customModelRenderers;
-    private float shadowSize;
+    private final String name;
+    private final ResourceLocation textureLocation;
+    private final CustomModelRenderer[] customModelRenderers;
+    private final float shadowSize;
 
     public CustomEntityRenderer(String name, String basePath, ResourceLocation textureLocation, CustomModelRenderer[] customModelRenderers, float shadowSize) {
         this.name = name;
-        this.basePath = basePath;
         this.textureLocation = textureLocation;
         this.customModelRenderers = customModelRenderers;
         this.shadowSize = shadowSize;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public ResourceLocation getTextureLocation() {
-        return this.textureLocation;
+        return textureLocation;
     }
 
     public CustomModelRenderer[] getCustomModelRenderers() {
-        return this.customModelRenderers;
+        return customModelRenderers;
     }
 
     public float getShadowSize() {
-        return this.shadowSize;
+        return shadowSize;
     }
 }

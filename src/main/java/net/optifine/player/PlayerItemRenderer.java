@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 
 public class PlayerItemRenderer {
-    private int attachTo;
-    private ModelRenderer modelRenderer;
+    private final int attachTo;
+    private final ModelRenderer modelRenderer;
 
     public PlayerItemRenderer(int attachTo, ModelRenderer modelRenderer) {
         this.attachTo = attachTo;
@@ -13,12 +13,12 @@ public class PlayerItemRenderer {
     }
 
     public void render(ModelBiped modelBiped, float scale) {
-        ModelRenderer modelrenderer = PlayerItemModel.getAttachModel(modelBiped, this.attachTo);
+        ModelRenderer modelrenderer = PlayerItemModel.getAttachModel(modelBiped, attachTo);
 
         if (modelrenderer != null) {
             modelrenderer.postRender(scale);
         }
 
-        this.modelRenderer.render(scale);
+        modelRenderer.render(scale);
     }
 }

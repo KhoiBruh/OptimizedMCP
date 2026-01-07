@@ -18,9 +18,7 @@ public class ModelAdapterBook extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBook modelbook)) {
-            return null;
-        } else {
+        if (model instanceof ModelBook modelbook) {
             return modelPart.equals("cover_right") ? modelbook.coverRight
                     : (modelPart.equals("cover_left") ? modelbook.coverLeft
                     : (modelPart.equals("pages_right") ? modelbook.pagesRight
@@ -30,7 +28,7 @@ public class ModelAdapterBook extends ModelAdapter {
                     ? modelbook.flippingPageLeft
                     : (modelPart.equals("book_spine") ? modelbook.bookSpine
                     : null))))));
-        }
+        } else return null;
     }
 
     public String[] getModelRendererNames() {
@@ -40,12 +38,10 @@ public class ModelAdapterBook extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+        TileEntitySpecialRenderer<?> tileentityspecialrenderer = tileentityrendererdispatcher
                 .getSpecialRendererByClass(TileEntityEnchantmentTable.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer)) {
-            return null;
-        } else {
+        if (tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {
                 tileentityspecialrenderer = new TileEntityEnchantmentTableRenderer();
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
@@ -54,6 +50,6 @@ public class ModelAdapterBook extends ModelAdapter {
             TileEntityEnchantmentTableRenderer tableRenderer = (TileEntityEnchantmentTableRenderer) tileentityspecialrenderer;
             tableRenderer.field_147541_c = (ModelBook) modelBase;
             return tableRenderer;
-        }
+        } else return null;
     }
 }

@@ -23,31 +23,31 @@ public class CustomUniforms {
             }
         }
 
-        this.expressionsCached = list.toArray(new IExpressionCached[0]);
+        expressionsCached = list.toArray(new IExpressionCached[0]);
     }
 
     public void setProgram(int program) {
-        for (CustomUniform customuniform : this.uniforms) {
+        for (CustomUniform customuniform : uniforms) {
             customuniform.setProgram(program);
         }
     }
 
     public void update() {
-        this.resetCache();
+        resetCache();
 
-        for (CustomUniform customuniform : this.uniforms) {
+        for (CustomUniform customuniform : uniforms) {
             customuniform.update();
         }
     }
 
     private void resetCache() {
-        for (IExpressionCached iexpressioncached : this.expressionsCached) {
+        for (IExpressionCached iexpressioncached : expressionsCached) {
             iexpressioncached.reset();
         }
     }
 
     public void reset() {
-        for (CustomUniform customuniform : this.uniforms) {
+        for (CustomUniform customuniform : uniforms) {
             customuniform.reset();
         }
     }

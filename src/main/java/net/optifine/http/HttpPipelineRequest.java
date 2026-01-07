@@ -1,9 +1,8 @@
 package net.optifine.http;
 
 public class HttpPipelineRequest {
-    private HttpRequest httpRequest;
-    private HttpListener httpListener;
-    private boolean closed = false;
+    private final HttpRequest httpRequest;
+    private final HttpListener httpListener;
 
     public HttpPipelineRequest(HttpRequest httpRequest, HttpListener httpListener) {
         this.httpRequest = httpRequest;
@@ -11,14 +10,13 @@ public class HttpPipelineRequest {
     }
 
     public HttpRequest getHttpRequest() {
-        return this.httpRequest;
+        return httpRequest;
     }
 
     public HttpListener getHttpListener() {
-        return this.httpListener;
+        return httpListener;
     }
 
     public void setClosed(boolean closed) {
-        this.closed = closed;
     }
 }

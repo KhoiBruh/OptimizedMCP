@@ -3,7 +3,7 @@ package net.optifine.shaders.config;
 import java.util.*;
 
 public class ShaderProfile {
-    private String name;
+    private final String name;
     private final Map<String, String> mapOptionValues = new LinkedHashMap<>();
     private final Set<String> disabledPrograms = new LinkedHashSet<>();
 
@@ -12,45 +12,45 @@ public class ShaderProfile {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void addOptionValue(String option, String value) {
-        this.mapOptionValues.put(option, value);
+        mapOptionValues.put(option, value);
     }
 
     public void addOptionValues(ShaderProfile prof) {
         if (prof != null) {
-            this.mapOptionValues.putAll(prof.mapOptionValues);
+            mapOptionValues.putAll(prof.mapOptionValues);
         }
     }
 
     public String[] getOptions() {
-        Set<String> set = this.mapOptionValues.keySet();
+        Set<String> set = mapOptionValues.keySet();
         return set.toArray(new String[0]);
     }
 
     public String getValue(String key) {
-        return this.mapOptionValues.get(key);
+        return mapOptionValues.get(key);
     }
 
     public void addDisabledProgram(String program) {
-        this.disabledPrograms.add(program);
+        disabledPrograms.add(program);
     }
 
     public void removeDisabledProgram(String program) {
-        this.disabledPrograms.remove(program);
+        disabledPrograms.remove(program);
     }
 
     public Collection<String> getDisabledPrograms() {
-        return new LinkedHashSet<>(this.disabledPrograms);
+        return new LinkedHashSet<>(disabledPrograms);
     }
 
     public void addDisabledPrograms(Collection<String> programs) {
-        this.disabledPrograms.addAll(programs);
+        disabledPrograms.addAll(programs);
     }
 
     public boolean isProgramDisabled(String program) {
-        return this.disabledPrograms.contains(program);
+        return disabledPrograms.contains(program);
     }
 }

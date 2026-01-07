@@ -14,7 +14,7 @@ public class SmoothFloat {
         this.valueLast = valueLast;
         this.timeFadeUpSec = timeFadeUpSec;
         this.timeFadeDownSec = timeFadeDownSec;
-        this.timeLastMs = System.currentTimeMillis();
+        timeLastMs = System.currentTimeMillis();
     }
 
     public static float getSmoothValue(float valPrev, float value, float timeDeltaSec, float timeFadeSec) {
@@ -44,18 +44,18 @@ public class SmoothFloat {
     public float getSmoothValue(float value, float timeFadeUpSec, float timeFadeDownSec) {
         this.timeFadeUpSec = timeFadeUpSec;
         this.timeFadeDownSec = timeFadeDownSec;
-        return this.getSmoothValue(value);
+        return getSmoothValue(value);
     }
 
     public float getSmoothValue(float value) {
         long i = System.currentTimeMillis();
-        float f = this.valueLast;
-        long j = this.timeLastMs;
+        float f = valueLast;
+        long j = timeLastMs;
         float f1 = (float) (i - j) / 1000.0F;
-        float f2 = value >= f ? this.timeFadeUpSec : this.timeFadeDownSec;
+        float f2 = value >= f ? timeFadeUpSec : timeFadeDownSec;
         float f3 = getSmoothValue(f, value, f1, f2);
-        this.valueLast = f3;
-        this.timeLastMs = i;
+        valueLast = f3;
+        timeLastMs = i;
         return f3;
     }
 }

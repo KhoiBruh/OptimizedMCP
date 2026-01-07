@@ -11,7 +11,7 @@ public class ShaderPackFolder implements IShaderPack {
     protected final File packFile;
 
     public ShaderPackFolder(String name, File file) {
-        this.packFile = file;
+        packFile = file;
     }
 
     public void close() {
@@ -20,7 +20,7 @@ public class ShaderPackFolder implements IShaderPack {
     public InputStream getResourceAsStream(String resName) {
         try {
             String s = StrUtils.removePrefixSuffix(resName, "/", "/");
-            File file1 = new File(this.packFile, s);
+            File file1 = new File(packFile, s);
             return !file1.exists() ? null : new BufferedInputStream(new FileInputStream(file1));
         } catch (Exception var4) {
             return null;
@@ -28,11 +28,11 @@ public class ShaderPackFolder implements IShaderPack {
     }
 
     public boolean hasDirectory(String name) {
-        File file1 = new File(this.packFile, name.substring(1));
+        File file1 = new File(packFile, name.substring(1));
         return file1.exists() && file1.isDirectory();
     }
 
     public String getName() {
-        return this.packFile.getName();
+        return packFile.getName();
     }
 }

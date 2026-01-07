@@ -35,27 +35,27 @@ public enum UniformType {
     public void updateUniform(IExpression expression, ShaderUniformBase uniform) {
         switch (this) {
             case BOOL:
-                this.updateUniformBool((IExpressionBool) expression, (ShaderUniform1i) uniform);
+                updateUniformBool((IExpressionBool) expression, (ShaderUniform1i) uniform);
                 return;
 
             case INT:
-                this.updateUniformInt((IExpressionFloat) expression, (ShaderUniform1i) uniform);
+                updateUniformInt((IExpressionFloat) expression, (ShaderUniform1i) uniform);
                 return;
 
             case FLOAT:
-                this.updateUniformFloat((IExpressionFloat) expression, (ShaderUniform1f) uniform);
+                updateUniformFloat((IExpressionFloat) expression, (ShaderUniform1f) uniform);
                 return;
 
             case VEC2:
-                this.updateUniformFloat2((IExpressionFloatArray) expression, (ShaderUniform2f) uniform);
+                updateUniformFloat2((IExpressionFloatArray) expression, (ShaderUniform2f) uniform);
                 return;
 
             case VEC3:
-                this.updateUniformFloat3((IExpressionFloatArray) expression, (ShaderUniform3f) uniform);
+                updateUniformFloat3((IExpressionFloatArray) expression, (ShaderUniform3f) uniform);
                 return;
 
             case VEC4:
-                this.updateUniformFloat4((IExpressionFloatArray) expression, (ShaderUniform4f) uniform);
+                updateUniformFloat4((IExpressionFloatArray) expression, (ShaderUniform4f) uniform);
                 return;
 
             default:

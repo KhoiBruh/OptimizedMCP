@@ -17,19 +17,19 @@ public class LightMap {
     }
 
     public boolean updateLightmap(World world, float torchFlickerX, int[] lmColors, boolean nightvision) {
-        if (this.lightMapRgb == null) {
+        if (lightMapRgb == null) {
             return false;
         } else {
-            int i = this.lightMapRgb.getHeight();
+            int i = lightMapRgb.getHeight();
 
             if (nightvision && i < 64) {
                 return false;
             } else {
-                int j = this.lightMapRgb.getWidth();
+                int j = lightMapRgb.getWidth();
 
                 if (j < 16) {
                     warn("Invalid lightmap width: " + j);
-                    this.lightMapRgb = null;
+                    lightMapRgb = null;
                     return false;
                 } else {
                     int k = 0;
@@ -49,15 +49,15 @@ public class LightMap {
                     float f2 = Config.limitTo1(torchFlickerX + 0.5F) * (float) (j - 1);
                     float f3 = Config.limitTo1(Config.getGameSettings().gammaSetting);
                     boolean flag = f3 > 1.0E-4F;
-                    float[][] afloat = this.lightMapRgb.getColorsRgb();
-                    this.getLightMapColumn(afloat, f1, k, j, this.sunRgbs);
-                    this.getLightMapColumn(afloat, f2, k + 16 * j, j, this.torchRgbs);
+                    float[][] afloat = lightMapRgb.getColorsRgb();
+                    getLightMapColumn(afloat, f1, k, j, sunRgbs);
+                    getLightMapColumn(afloat, f2, k + 16 * j, j, torchRgbs);
                     float[] afloat1 = new float[3];
 
                     for (int l = 0; l < 16; ++l) {
                         for (int i1 = 0; i1 < 16; ++i1) {
                             for (int j1 = 0; j1 < 3; ++j1) {
-                                float f4 = Config.limitTo1(this.sunRgbs[l][j1] + this.torchRgbs[i1][j1]);
+                                float f4 = Config.limitTo1(sunRgbs[l][j1] + torchRgbs[i1][j1]);
 
                                 if (flag) {
                                     float f5 = 1.0F - f4;

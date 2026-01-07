@@ -19,13 +19,13 @@ import java.util.Properties;
 public class RandomEntityRule {
     public int[] sumWeights = null;
     public int sumAllWeights = 1;
-    private String pathProps;
-    private ResourceLocation baseResLoc;
+    private final String pathProps;
+    private final ResourceLocation baseResLoc;
     private final int index;
-    private int[] textures;
+    private final int[] textures;
     private ResourceLocation[] resourceLocations = null;
     private int[] weights;
-    private BiomeGenBase[] biomes;
+    private final BiomeGenBase[] biomes;
     private RangeListInt heights;
     private RangeListInt healthRange = null;
     private boolean healthPercent = false;
@@ -42,31 +42,31 @@ public class RandomEntityRule {
         this.pathProps = pathProps;
         this.baseResLoc = baseResLoc;
         this.index = index;
-        this.textures = cp.parseIntList(valTextures);
-        this.weights = cp.parseIntList(props.getProperty("weights." + index));
-        this.biomes = cp.parseBiomes(props.getProperty("biomes." + index));
-        this.heights = cp.parseRangeListInt(props.getProperty("heights." + index));
+        textures = cp.parseIntList(valTextures);
+        weights = cp.parseIntList(props.getProperty("weights." + index));
+        biomes = cp.parseBiomes(props.getProperty("biomes." + index));
+        heights = cp.parseRangeListInt(props.getProperty("heights." + index));
 
-        if (this.heights == null) {
-            this.heights = this.parseMinMaxHeight(props, index);
+        if (heights == null) {
+            heights = parseMinMaxHeight(props, index);
         }
 
         String s = props.getProperty("health." + index);
 
         if (s != null) {
-            this.healthPercent = s.contains("%");
+            healthPercent = s.contains("%");
             s = s.replace("%", "");
-            this.healthRange = cp.parseRangeListInt(s);
+            healthRange = cp.parseRangeListInt(s);
         }
 
-        this.nbtName = cp.parseNbtTagValue("name", props.getProperty("name." + index));
-        this.professions = cp.parseProfessions(props.getProperty("professions." + index));
-        this.collarColors = cp.parseDyeColors(props.getProperty("collarColors." + index), "collar color",
+        nbtName = cp.parseNbtTagValue("name", props.getProperty("name." + index));
+        professions = cp.parseProfessions(props.getProperty("professions." + index));
+        collarColors = cp.parseDyeColors(props.getProperty("collarColors." + index), "collar color",
                 ConnectedParser.DYE_COLORS_INVALID);
-        this.baby = cp.parseBooleanObject(props.getProperty("baby." + index));
-        this.moonPhases = cp.parseRangeListInt(props.getProperty("moonPhase." + index));
-        this.dayTimes = cp.parseRangeListInt(props.getProperty("dayTime." + index));
-        this.weatherList = cp.parseWeather(props.getProperty("weather." + index), "weather." + index, null);
+        baby = cp.parseBooleanObject(props.getProperty("baby." + index));
+        moonPhases = cp.parseRangeListInt(props.getProperty("moonPhase." + index));
+        dayTimes = cp.parseRangeListInt(props.getProperty("dayTime." + index));
+        weatherList = cp.parseWeather(props.getProperty("weather." + index), "weather." + index, null);
     }
 
     private RangeListInt parseMinMaxHeight(Properties props, int index) {
@@ -105,28 +105,28 @@ public class RandomEntityRule {
     }
 
     public boolean isValid(String path) {
-        if (this.textures != null && this.textures.length != 0) {
-            if (this.resourceLocations != null) {
+        if (textures != null && textures.length != 0) {
+            if (resourceLocations != null) {
                 return true;
             } else {
-                this.resourceLocations = new ResourceLocation[this.textures.length];
-                boolean flag = this.pathProps.startsWith("mcpatcher/mob/");
-                ResourceLocation resourcelocation = RandomEntities.getLocationRandom(this.baseResLoc, flag);
+                resourceLocations = new ResourceLocation[textures.length];
+                boolean flag = pathProps.startsWith("mcpatcher/mob/");
+                ResourceLocation resourcelocation = RandomEntities.getLocationRandom(baseResLoc, flag);
 
                 if (resourcelocation == null) {
-                    Config.warn("Invalid path: " + this.baseResLoc.getResourcePath());
+                    Config.warn("Invalid path: " + baseResLoc.getResourcePath());
                     return false;
                 } else {
-                    for (int i = 0; i < this.resourceLocations.length; ++i) {
-                        int j = this.textures[i];
+                    for (int i = 0; i < resourceLocations.length; ++i) {
+                        int j = textures[i];
 
                         if (j <= 1) {
-                            this.resourceLocations[i] = this.baseResLoc;
+                            resourceLocations[i] = baseResLoc;
                         } else {
                             ResourceLocation resourcelocation1 = RandomEntities.getLocationIndexed(resourcelocation, j);
 
                             if (resourcelocation1 == null) {
-                                Config.warn("Invalid path: " + this.baseResLoc.getResourcePath());
+                                Config.warn("Invalid path: " + baseResLoc.getResourcePath());
                                 return false;
                             }
 
@@ -135,56 +135,56 @@ public class RandomEntityRule {
                                 return false;
                             }
 
-                            this.resourceLocations[i] = resourcelocation1;
+                            resourceLocations[i] = resourcelocation1;
                         }
                     }
 
-                    if (this.weights != null) {
-                        if (this.weights.length > this.resourceLocations.length) {
+                    if (weights != null) {
+                        if (weights.length > resourceLocations.length) {
                             Config.warn("More weights defined than skins, trimming weights: " + path);
-                            int[] aint = new int[this.resourceLocations.length];
-                            System.arraycopy(this.weights, 0, aint, 0, aint.length);
-                            this.weights = aint;
+                            int[] aint = new int[resourceLocations.length];
+                            System.arraycopy(weights, 0, aint, 0, aint.length);
+                            weights = aint;
                         }
 
-                        if (this.weights.length < this.resourceLocations.length) {
+                        if (weights.length < resourceLocations.length) {
                             Config.warn("Less weights defined than skins, expanding weights: " + path);
-                            int[] aint1 = new int[this.resourceLocations.length];
-                            System.arraycopy(this.weights, 0, aint1, 0, this.weights.length);
-                            int l = MathUtils.getAverage(this.weights);
+                            int[] aint1 = new int[resourceLocations.length];
+                            System.arraycopy(weights, 0, aint1, 0, weights.length);
+                            int l = MathUtils.getAverage(weights);
 
-                            for (int j1 = this.weights.length; j1 < aint1.length; ++j1) {
+                            for (int j1 = weights.length; j1 < aint1.length; ++j1) {
                                 aint1[j1] = l;
                             }
 
-                            this.weights = aint1;
+                            weights = aint1;
                         }
 
-                        this.sumWeights = new int[this.weights.length];
+                        sumWeights = new int[weights.length];
                         int k = 0;
 
-                        for (int i1 = 0; i1 < this.weights.length; ++i1) {
-                            if (this.weights[i1] < 0) {
-                                Config.warn("Invalid weight: " + this.weights[i1]);
+                        for (int i1 = 0; i1 < weights.length; ++i1) {
+                            if (weights[i1] < 0) {
+                                Config.warn("Invalid weight: " + weights[i1]);
                                 return false;
                             }
 
-                            k += this.weights[i1];
-                            this.sumWeights[i1] = k;
+                            k += weights[i1];
+                            sumWeights[i1] = k;
                         }
 
-                        this.sumAllWeights = k;
+                        sumAllWeights = k;
 
-                        if (this.sumAllWeights <= 0) {
+                        if (sumAllWeights <= 0) {
                             Config.warn("Invalid sum of all weights: " + k);
-                            this.sumAllWeights = 1;
+                            sumAllWeights = 1;
                         }
                     }
 
-                    if (this.professions == ConnectedParser.PROFESSIONS_INVALID) {
+                    if (professions == ConnectedParser.PROFESSIONS_INVALID) {
                         Config.warn("Invalid professions or careers: " + path);
                         return false;
-                    } else if (this.collarColors == ConnectedParser.DYE_COLORS_INVALID) {
+                    } else if (collarColors == ConnectedParser.DYE_COLORS_INVALID) {
                         Config.warn("Invalid collar colors: " + path);
                         return false;
                     } else {
@@ -193,27 +193,27 @@ public class RandomEntityRule {
                 }
             }
         } else {
-            Config.warn("Invalid skins for rule: " + this.index);
+            Config.warn("Invalid skins for rule: " + index);
             return false;
         }
     }
 
     public boolean matches(IRandomEntity randomEntity) {
-        if (this.biomes != null && !Matches.biome(randomEntity.getSpawnBiome(), this.biomes)) {
+        if (biomes != null && !Matches.biome(randomEntity.getSpawnBiome(), biomes)) {
             return false;
         } else {
-            if (this.heights != null) {
+            if (heights != null) {
                 BlockPos blockpos = randomEntity.getSpawnPosition();
 
-                if (blockpos != null && !this.heights.isInRange(blockpos.getY())) {
+                if (blockpos != null && !heights.isInRange(blockpos.getY())) {
                     return false;
                 }
             }
 
-            if (this.healthRange != null) {
+            if (healthRange != null) {
                 int i1 = randomEntity.getHealth();
 
-                if (this.healthPercent) {
+                if (healthPercent) {
                     int i = randomEntity.getMaxHealth();
 
                     if (i > 0) {
@@ -221,20 +221,20 @@ public class RandomEntityRule {
                     }
                 }
 
-                if (!this.healthRange.isInRange(i1)) {
+                if (!healthRange.isInRange(i1)) {
                     return false;
                 }
             }
 
-            if (this.nbtName != null) {
+            if (nbtName != null) {
                 String s = randomEntity.getName();
 
-                if (!this.nbtName.matchesValue(s)) {
+                if (!nbtName.matchesValue(s)) {
                     return false;
                 }
             }
 
-            if (this.professions != null && randomEntity instanceof RandomEntity randomentity) {
+            if (professions != null && randomEntity instanceof RandomEntity randomentity) {
                 Entity entity = randomentity.getEntity();
 
                 if (entity instanceof EntityVillager entityvillager) {
@@ -247,7 +247,7 @@ public class RandomEntityRule {
 
                     boolean flag = false;
 
-                    for (VillagerProfession villagerprofession : this.professions) {
+                    for (VillagerProfession villagerprofession : professions) {
                         if (villagerprofession.matches(j, k)) {
                             flag = true;
                             break;
@@ -260,7 +260,7 @@ public class RandomEntityRule {
                 }
             }
 
-            if (this.collarColors != null && randomEntity instanceof RandomEntity randomentity1) {
+            if (collarColors != null && randomEntity instanceof RandomEntity randomentity1) {
                 Entity entity1 = randomentity1.getEntity();
 
                 if (entity1 instanceof EntityWolf entitywolf) {
@@ -271,54 +271,54 @@ public class RandomEntityRule {
 
                     EnumDyeColor enumdyecolor = entitywolf.getCollarColor();
 
-                    if (!Config.equalsOne(enumdyecolor, this.collarColors)) {
+                    if (!Config.equalsOne(enumdyecolor, collarColors)) {
                         return false;
                     }
                 }
             }
 
-            if (this.baby != null && randomEntity instanceof RandomEntity randomentity2) {
+            if (baby != null && randomEntity instanceof RandomEntity randomentity2) {
                 Entity entity2 = randomentity2.getEntity();
 
                 if (entity2 instanceof EntityLiving entityliving) {
 
-                    if (entityliving.isChild() != this.baby) {
+                    if (entityliving.isChild() != baby) {
                         return false;
                     }
                 }
             }
 
-            if (this.moonPhases != null) {
+            if (moonPhases != null) {
                 World world = Config.getMinecraft().theWorld;
 
                 if (world != null) {
                     int j1 = world.getMoonPhase();
 
-                    if (!this.moonPhases.isInRange(j1)) {
+                    if (!moonPhases.isInRange(j1)) {
                         return false;
                     }
                 }
             }
 
-            if (this.dayTimes != null) {
+            if (dayTimes != null) {
                 World world1 = Config.getMinecraft().theWorld;
 
                 if (world1 != null) {
                     int k1 = (int) world1.getWorldInfo().getWorldTime();
 
-                    if (!this.dayTimes.isInRange(k1)) {
+                    if (!dayTimes.isInRange(k1)) {
                         return false;
                     }
                 }
             }
 
-            if (this.weatherList != null) {
+            if (weatherList != null) {
                 World world2 = Config.getMinecraft().theWorld;
 
                 if (world2 != null) {
                     Weather weather = Weather.getWeather(world2, 0.0F);
 
-                    return ArrayUtils.contains(this.weatherList, weather);
+                    return ArrayUtils.contains(weatherList, weather);
                 }
             }
 
@@ -327,23 +327,23 @@ public class RandomEntityRule {
     }
 
     public ResourceLocation getTextureLocation(ResourceLocation loc, int randomId) {
-        if (this.resourceLocations != null && this.resourceLocations.length != 0) {
+        if (resourceLocations != null && resourceLocations.length != 0) {
             int i = 0;
 
-            if (this.weights == null) {
-                i = randomId % this.resourceLocations.length;
+            if (weights == null) {
+                i = randomId % resourceLocations.length;
             } else {
-                int j = randomId % this.sumAllWeights;
+                int j = randomId % sumAllWeights;
 
-                for (int k = 0; k < this.sumWeights.length; ++k) {
-                    if (this.sumWeights[k] > j) {
+                for (int k = 0; k < sumWeights.length; ++k) {
+                    if (sumWeights[k] > j) {
                         i = k;
                         break;
                     }
                 }
             }
 
-            return this.resourceLocations[i];
+            return resourceLocations[i];
         } else {
             return loc;
         }

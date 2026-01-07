@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.layers.LayerSheepWool;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.src.Config;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
@@ -26,7 +25,7 @@ public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        Render render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
+        Render<?> render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
 
         if (!(render instanceof RenderSheep)) {
             Config.warn("Not a RenderSheep: " + render);
@@ -38,15 +37,8 @@ public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
 
             RenderSheep rendersheep = (RenderSheep) render;
             List<LayerRenderer<EntitySheep>> list = rendersheep.getLayerRenderers();
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                LayerRenderer layerrenderer = (LayerRenderer) iterator.next();
-
-                if (layerrenderer instanceof LayerSheepWool) {
-                    iterator.remove();
-                }
-            }
+            list.removeIf(layerrenderer -> layerrenderer instanceof LayerSheepWool);
 
             LayerSheepWool layersheepwool = new LayerSheepWool(rendersheep);
             layersheepwool.sheepModel = (ModelSheep1) modelBase;

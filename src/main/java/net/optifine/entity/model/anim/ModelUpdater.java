@@ -8,13 +8,13 @@ public class ModelUpdater {
     }
 
     public void update() {
-        for (ModelVariableUpdater modelvariableupdater : this.modelVariableUpdaters) {
+        for (ModelVariableUpdater modelvariableupdater : modelVariableUpdaters) {
             modelvariableupdater.update();
         }
     }
 
     public boolean initialize(IModelResolver mr) {
-        for (ModelVariableUpdater modelvariableupdater : this.modelVariableUpdaters) {
+        for (ModelVariableUpdater modelvariableupdater : modelVariableUpdaters) {
             if (!modelvariableupdater.initialize(mr)) {
                 return false;
             }

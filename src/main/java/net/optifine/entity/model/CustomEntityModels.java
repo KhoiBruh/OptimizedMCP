@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.entity.model.anim.ModelResolver;
@@ -19,11 +20,11 @@ import java.util.*;
 
 public class CustomEntityModels {
     private static boolean active = false;
-    private static Map<Class, Render> originalEntityRenderMap = null;
+    private static Map<Class<? extends Entity>, Render<? extends Entity>> originalEntityRenderMap = null;
     private static Map<Class, TileEntitySpecialRenderer> originalTileEntityRenderMap = null;
 
     public static void update() {
-        Map<Class, Render> map = getEntityRenderMap();
+        Map<Class<? extends Entity>, Render<? extends Entity>> map = getEntityRenderMap();
         Map<Class, TileEntitySpecialRenderer> map1 = getTileEntityRenderMap();
 
         if (map == null) {
@@ -64,9 +65,9 @@ public class CustomEntityModels {
         }
     }
 
-    private static Map<Class, Render> getEntityRenderMap() {
+    private static Map<Class<? extends Entity>, Render<? extends Entity>> getEntityRenderMap() {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        Map<Class, Render> map = rendermanager.getEntityRenderMap();
+        Map<Class<? extends Entity>, Render<? extends Entity>> map = rendermanager.getEntityRenderMap();
 
         if (map == null) {
             return null;
@@ -203,15 +204,8 @@ public class CustomEntityModels {
                     Set<ModelRenderer> set = Collections.newSetFromMap(new IdentityHashMap<>());
                     set.addAll(Arrays.asList(amodelrenderer));
                     List<ModelRenderer> list = modelrenderer.childModels;
-                    Iterator iterator = list.iterator();
 
-                    while (iterator.hasNext()) {
-                        ModelRenderer modelrenderer1 = (ModelRenderer) iterator.next();
-
-                        if (!set.contains(modelrenderer1)) {
-                            iterator.remove();
-                        }
-                    }
+                    list.removeIf(modelrenderer1 -> !set.contains(modelrenderer1));
                 }
             }
 

@@ -8,14 +8,13 @@ import java.nio.ByteBuffer;
 
 public class HFNoiseTexture implements ICustomTexture {
     private int texID = GL11.glGenTextures();
-    private final int textureUnit = 15;
 
     public HFNoiseTexture(int width, int height) {
-        byte[] abyte = this.genHFNoiseImage(width, height);
+        byte[] abyte = genHFNoiseImage(width, height);
         ByteBuffer bytebuffer = BufferUtils.createByteBuffer(abyte.length);
         bytebuffer.put(abyte);
         bytebuffer.flip();
-        GlStateManager.bindTexture(this.texID);
+        GlStateManager.bindTexture(texID);
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, width, height, 0, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, bytebuffer);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
@@ -25,8 +24,8 @@ public class HFNoiseTexture implements ICustomTexture {
     }
 
     public void deleteTexture() {
-        GlStateManager.deleteTexture(this.texID);
-        this.texID = 0;
+        GlStateManager.deleteTexture(texID);
+        texID = 0;
     }
 
     private int random(int seed) {
@@ -37,8 +36,8 @@ public class HFNoiseTexture implements ICustomTexture {
     }
 
     private byte random(int x, int y, int z) {
-        int i = (this.random(x) + this.random(y * 19)) * this.random(z * 23) - z;
-        return (byte) (this.random(i) % 128);
+        int i = (random(x) + random(y * 19)) * random(z * 23) - z;
+        return (byte) (random(i) % 128);
     }
 
     private byte[] genHFNoiseImage(int width, int height) {
@@ -48,7 +47,7 @@ public class HFNoiseTexture implements ICustomTexture {
         for (int j = 0; j < height; ++j) {
             for (int k = 0; k < width; ++k) {
                 for (int l = 1; l < 4; ++l) {
-                    abyte[i++] = this.random(k, j, l);
+                    abyte[i++] = random(k, j, l);
                 }
             }
         }
@@ -57,11 +56,11 @@ public class HFNoiseTexture implements ICustomTexture {
     }
 
     public int getTextureId() {
-        return this.texID;
+        return texID;
     }
 
     public int getTextureUnit() {
-        return this.textureUnit;
+        return 15;
     }
 
     public int getTarget() {

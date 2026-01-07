@@ -13,6 +13,6 @@ public enum TextureType {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 }

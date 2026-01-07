@@ -35,7 +35,7 @@ public enum ModelVariableType {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public float getFloat(ModelRenderer mr) {

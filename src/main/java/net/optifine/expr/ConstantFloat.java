@@ -8,7 +8,7 @@ public class ConstantFloat implements IExpressionFloat {
     }
 
     public float eval() {
-        return this.value;
+        return value;
     }
 
     public ExpressionType getExpressionType() {
@@ -16,6 +16,6 @@ public class ConstantFloat implements IExpressionFloat {
     }
 
     public String toString() {
-        return "" + this.value;
+        return "" + value;
     }
 }

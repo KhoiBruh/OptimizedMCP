@@ -30,7 +30,7 @@ public enum ShaderParameterBool implements IExpressionBool {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public ExpressionType getExpressionType() {

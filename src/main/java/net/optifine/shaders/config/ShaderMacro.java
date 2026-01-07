@@ -10,18 +10,18 @@ public class ShaderMacro {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     public String getSourceLine() {
-        return "#define " + this.name + " " + this.value;
+        return "#define " + name + " " + value;
     }
 
     public String toString() {
-        return this.getSourceLine();
+        return getSourceLine();
     }
 }

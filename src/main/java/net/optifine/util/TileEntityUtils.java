@@ -56,37 +56,31 @@ public class TileEntityUtils {
         };
     }
 
-    public static boolean setTileEntityRawName(TileEntity te, String name) {
-        return switch (te) {
+    public static void setTileEntityRawName(TileEntity te, String name) {
+        switch (te) {
             case TileEntityBeacon tileEntityBeacon -> {
                 tileEntityBeacon.customName = name;
-                yield true;
             }
             case TileEntityBrewingStand tileEntityBrewingStand -> {
                 tileEntityBrewingStand.customName = name;
-                yield true;
             }
             case TileEntityEnchantmentTable tileEntityEnchantmentTable -> {
                 tileEntityEnchantmentTable.customName = name;
-                yield true;
             }
             case TileEntityFurnace tileEntityFurnace -> {
                 tileEntityFurnace.furnaceCustomName = name;
-                yield true;
             }
             case TileEntityChest tileEntityChest -> {
                 tileEntityChest.setCustomName(name);
-                yield true;
             }
             case TileEntityDispenser tileEntityDispenser -> {
                 tileEntityDispenser.setCustomName(name);
-                yield true;
             }
             case TileEntityHopper tileEntityHopper -> {
                 tileEntityHopper.setCustomName(name);
-                yield true;
             }
-            case null, default -> false;
-        };
+            case null, default -> {
+            }
+        }
     }
 }

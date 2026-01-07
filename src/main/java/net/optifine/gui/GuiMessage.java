@@ -6,11 +6,12 @@ import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.src.Config;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
 public class GuiMessage extends GuiScreen {
-    private final List listLines2 = Lists.newArrayList();
+    private final List<@Nullable Object> listLines2 = Lists.newArrayList();
     protected final String confirmButtonText;
     private final GuiScreen parentScreen;
     private final String messageLine1;
@@ -19,29 +20,29 @@ public class GuiMessage extends GuiScreen {
 
     public GuiMessage(GuiScreen parentScreen, String line1, String line2) {
         this.parentScreen = parentScreen;
-        this.messageLine1 = line1;
-        this.messageLine2 = line2;
-        this.confirmButtonText = I18n.format("gui.done");
+        messageLine1 = line1;
+        messageLine2 = line2;
+        confirmButtonText = I18n.format("gui.done");
     }
 
     public void initGui() {
-        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, this.confirmButtonText));
-        this.listLines2.clear();
-        this.listLines2.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
+        buttonList.add(new GuiOptionButton(0, width / 2 - 74, height / 6 + 96, confirmButtonText));
+        listLines2.clear();
+        listLines2.addAll(fontRendererObj.listFormattedStringToWidth(messageLine2, width - 50));
     }
 
     protected void actionPerformed(GuiButton button) {
-        Config.getMinecraft().displayGuiScreen(this.parentScreen);
+        Config.getMinecraft().displayGuiScreen(parentScreen);
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
+        drawDefaultBackground();
+        drawCenteredString(fontRendererObj, messageLine1, width / 2, 70, 16777215);
         int i = 90;
 
-        for (Object s : this.listLines2) {
-            this.drawCenteredString(this.fontRendererObj, (String) s, this.width / 2, i, 16777215);
-            i += this.fontRendererObj.FONT_HEIGHT;
+        for (Object s : listLines2) {
+            drawCenteredString(fontRendererObj, (String) s, width / 2, i, 16777215);
+            i += fontRendererObj.FONT_HEIGHT;
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -53,8 +54,8 @@ public class GuiMessage extends GuiScreen {
     public void updateScreen() {
         super.updateScreen();
 
-        if (--this.ticksUntilEnable == 0) {
-            for (GuiButton guibutton : this.buttonList) {
+        if (--ticksUntilEnable == 0) {
+            for (GuiButton guibutton : buttonList) {
                 guibutton.enabled = true;
             }
         }

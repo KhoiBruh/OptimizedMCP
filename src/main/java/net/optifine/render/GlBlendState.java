@@ -36,26 +36,26 @@ public class GlBlendState {
     }
 
     public void setState(GlBlendState state) {
-        this.enabled = state.enabled;
-        this.srcFactor = state.srcFactor;
-        this.dstFactor = state.dstFactor;
-        this.srcFactorAlpha = state.srcFactorAlpha;
-        this.dstFactorAlpha = state.dstFactorAlpha;
+        enabled = state.enabled;
+        srcFactor = state.srcFactor;
+        dstFactor = state.dstFactor;
+        srcFactorAlpha = state.srcFactorAlpha;
+        dstFactorAlpha = state.dstFactorAlpha;
     }
 
     public void setEnabled() {
-        this.enabled = true;
+        enabled = true;
     }
 
     public void setDisabled() {
-        this.enabled = false;
+        enabled = false;
     }
 
     public void setFactors(int srcFactor, int dstFactor) {
         this.srcFactor = srcFactor;
         this.dstFactor = dstFactor;
-        this.srcFactorAlpha = srcFactor;
-        this.dstFactorAlpha = dstFactor;
+        srcFactorAlpha = srcFactor;
+        dstFactorAlpha = dstFactor;
     }
 
     public void setFactors(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
@@ -66,30 +66,30 @@ public class GlBlendState {
     }
 
     public boolean isEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     public int getSrcFactor() {
-        return this.srcFactor;
+        return srcFactor;
     }
 
     public int getDstFactor() {
-        return this.dstFactor;
+        return dstFactor;
     }
 
     public int getSrcFactorAlpha() {
-        return this.srcFactorAlpha;
+        return srcFactorAlpha;
     }
 
     public int getDstFactorAlpha() {
-        return this.dstFactorAlpha;
+        return dstFactorAlpha;
     }
 
     public boolean isSeparate() {
-        return this.srcFactor != this.srcFactorAlpha || this.dstFactor != this.dstFactorAlpha;
+        return srcFactor != srcFactorAlpha || dstFactor != dstFactorAlpha;
     }
 
     public String toString() {
-        return "enabled: " + this.enabled + ", src: " + this.srcFactor + ", dst: " + this.dstFactor + ", srcAlpha: " + this.srcFactorAlpha + ", dstAlpha: " + this.dstFactorAlpha;
+        return "enabled: " + enabled + ", src: " + srcFactor + ", dst: " + dstFactor + ", srcAlpha: " + srcFactorAlpha + ", dstAlpha: " + dstFactorAlpha;
     }
 }

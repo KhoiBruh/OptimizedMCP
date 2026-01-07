@@ -21,37 +21,37 @@ public class ShaderPackZip implements IShaderPack {
     protected String baseFolder;
 
     public ShaderPackZip(String name, File file) {
-        this.packFile = file;
-        this.packZipFile = null;
-        this.baseFolder = "";
+        packFile = file;
+        packZipFile = null;
+        baseFolder = "";
     }
 
     public void close() {
-        if (this.packZipFile != null) {
+        if (packZipFile != null) {
             try {
-                this.packZipFile.close();
+                packZipFile.close();
             } catch (Exception var2) {
             }
 
-            this.packZipFile = null;
+            packZipFile = null;
         }
     }
 
     public InputStream getResourceAsStream(String resName) {
         try {
-            if (this.packZipFile == null) {
-                this.packZipFile = new ZipFile(this.packFile);
-                this.baseFolder = this.detectBaseFolder(this.packZipFile);
+            if (packZipFile == null) {
+                packZipFile = new ZipFile(packFile);
+                baseFolder = detectBaseFolder(packZipFile);
             }
 
             String s = StrUtils.removePrefix(resName, "/");
 
             if (s.contains("..")) {
-                s = this.resolveRelative(s);
+                s = resolveRelative(s);
             }
 
-            ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
-            return zipentry == null ? null : this.packZipFile.getInputStream(zipentry);
+            ZipEntry zipentry = packZipFile.getEntry(baseFolder + s);
+            return zipentry == null ? null : packZipFile.getInputStream(zipentry);
         } catch (Exception var4) {
             return null;
         }
@@ -107,13 +107,13 @@ public class ShaderPackZip implements IShaderPack {
 
     public boolean hasDirectory(String resName) {
         try {
-            if (this.packZipFile == null) {
-                this.packZipFile = new ZipFile(this.packFile);
-                this.baseFolder = this.detectBaseFolder(this.packZipFile);
+            if (packZipFile == null) {
+                packZipFile = new ZipFile(packFile);
+                baseFolder = detectBaseFolder(packZipFile);
             }
 
             String s = StrUtils.removePrefix(resName, "/");
-            ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
+            ZipEntry zipentry = packZipFile.getEntry(baseFolder + s);
             return zipentry != null;
         } catch (IOException var4) {
             return false;
@@ -121,6 +121,6 @@ public class ShaderPackZip implements IShaderPack {
     }
 
     public String getName() {
-        return this.packFile.getName();
+        return packFile.getName();
     }
 }

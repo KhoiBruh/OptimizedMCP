@@ -26,9 +26,9 @@ public class GlAlphaState {
     }
 
     public void setState(GlAlphaState state) {
-        this.enabled = state.enabled;
-        this.func = state.func;
-        this.ref = state.ref;
+        enabled = state.enabled;
+        func = state.func;
+        ref = state.ref;
     }
 
     public void setFuncRef(int func, float ref) {
@@ -37,26 +37,26 @@ public class GlAlphaState {
     }
 
     public void setEnabled() {
-        this.enabled = true;
+        enabled = true;
     }
 
     public void setDisabled() {
-        this.enabled = false;
+        enabled = false;
     }
 
     public boolean isEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     public int getFunc() {
-        return this.func;
+        return func;
     }
 
     public float getRef() {
-        return this.ref;
+        return ref;
     }
 
     public String toString() {
-        return "enabled: " + this.enabled + ", func: " + this.func + ", ref: " + this.ref;
+        return "enabled: " + enabled + ", func: " + func + ", ref: " + ref;
     }
 }
