@@ -393,9 +393,7 @@ public class RenderChunk {
         this.renderChunksOffset16Updated = false;
         this.renderChunkNeighboursUpated = false;
 
-        for (int k = 0; k < this.renderChunkNeighbours.length; ++k) {
-            RenderChunk renderchunk = this.renderChunkNeighbours[k];
-
+        for (RenderChunk renderchunk : this.renderChunkNeighbours) {
             if (renderchunk != null) {
                 renderchunk.renderChunkNeighboursUpated = false;
             }

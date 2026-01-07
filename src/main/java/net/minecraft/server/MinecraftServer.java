@@ -343,8 +343,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 logger.info("Saving worlds");
                 this.saveAllWorlds(false);
 
-                for (int i = 0; i < this.worldServers.length; ++i) {
-                    WorldServer worldserver = this.worldServers[i];
+                for (WorldServer worldserver : this.worldServers) {
                     worldserver.flush();
                 }
             }
@@ -581,8 +580,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         this.serverConfigManager.onTick();
         this.theProfiler.endStartSection("tickables");
 
-        for (int k = 0; k < this.playersOnline.size(); ++k) {
-            this.playersOnline.get(k).update();
+        for (ITickable iTickable : this.playersOnline) {
+            iTickable.update();
         }
 
         this.theProfiler.endSection();
@@ -741,9 +740,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
-        for (int i = 0; i < this.worldServers.length; ++i) {
-            World world = this.worldServers[i];
-
+        for (World world : this.worldServers) {
             if (world != null) {
                 if (world.getWorldInfo().isHardcoreModeEnabled()) {
                     world.getWorldInfo().setDifficulty(EnumDifficulty.HARD);
@@ -775,9 +772,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         this.worldIsBeingDeleted = true;
         this.getActiveAnvilConverter().flushCache();
 
-        for (int i = 0; i < this.worldServers.length; ++i) {
-            WorldServer worldserver = this.worldServers[i];
-
+        for (WorldServer worldserver : this.worldServers) {
             if (worldserver != null) {
                 worldserver.flush();
             }
@@ -817,9 +812,9 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         int i = 0;
 
         if (this.worldServers != null) {
-            for (int j = 0; j < this.worldServers.length; ++j) {
-                if (this.worldServers[j] != null) {
-                    WorldServer worldserver = this.worldServers[j];
+            for (WorldServer worldServer : this.worldServers) {
+                if (worldServer != null) {
+                    WorldServer worldserver = worldServer;
                     WorldInfo worldinfo = worldserver.getWorldInfo();
                     playerSnooper.addClientStat("world[" + i + "][dimension]", worldserver.provider.getDimensionId());
                     playerSnooper.addClientStat("world[" + i + "][mode]", worldinfo.getGameType());

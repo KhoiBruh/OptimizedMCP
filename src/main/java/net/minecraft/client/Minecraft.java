@@ -1076,8 +1076,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             GlStateManager.disableBlend();
             double d0 = 0.0D;
 
-            for (int l = 0; l < list.size(); ++l) {
-                Profiler.Result profiler$result1 = list.get(l);
+            for (Profiler.Result profiler$result1 : list) {
                 int i1 = MathHelper.floor_double(profiler$result1.field_76332_a / 4.0D) + 1;
                 worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
                 int j1 = profiler$result1.getColor();

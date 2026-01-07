@@ -379,8 +379,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     }));
             double d2 = d1;
 
-            for (int j = 0; j < list.size(); ++j) {
-                Entity entity1 = list.get(j);
+            for (Entity entity1 : list) {
                 float f1 = entity1.getCollisionBorderSize();
                 AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f1, f1,
                         f1);

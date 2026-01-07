@@ -113,12 +113,12 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        for (int i = 0; i < this.buttonList.size(); ++i) {
-            this.buttonList.get(i).drawButton(this.mc, mouseX, mouseY);
+        for (GuiButton guiButton : this.buttonList) {
+            guiButton.drawButton(this.mc, mouseX, mouseY);
         }
 
-        for (int j = 0; j < this.labelList.size(); ++j) {
-            this.labelList.get(j).drawLabel(this.mc, mouseX, mouseY);
+        for (GuiLabel guiLabel : this.labelList) {
+            guiLabel.drawLabel(this.mc, mouseX, mouseY);
         }
     }
 
@@ -359,9 +359,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
-            for (int i = 0; i < this.buttonList.size(); ++i) {
-                GuiButton guibutton = this.buttonList.get(i);
-
+            for (GuiButton guibutton : this.buttonList) {
                 if (guibutton.mousePressed(this.mc, mouseX, mouseY)) {
                     this.selectedButton = guibutton;
                     guibutton.playPressSound(this.mc.getSoundHandler());
