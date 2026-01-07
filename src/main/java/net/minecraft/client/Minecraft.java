@@ -1968,57 +1968,38 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     return;
                 }
 
-                if (objectMouseOver.entityHit instanceof EntityPainting) {
-                    item = Items.painting;
-                } else if (objectMouseOver.entityHit instanceof EntityLeashKnot) {
-                    item = Items.lead;
-                } else if (objectMouseOver.entityHit instanceof EntityItemFrame entityitemframe) {
-                    ItemStack itemstack = entityitemframe.getDisplayedItem();
+                switch (objectMouseOver.entityHit) {
+                    case EntityPainting entityPainting -> item = Items.painting;
+                    case EntityLeashKnot entityLeashKnot -> item = Items.lead;
+                    case EntityItemFrame entityitemframe -> {
+                        ItemStack itemstack = entityitemframe.getDisplayedItem();
 
-                    if (itemstack == null) {
-                        item = Items.item_frame;
-                    } else {
-                        item = itemstack.getItem();
-                        i = itemstack.getMetadata();
+                        if (itemstack == null) {
+                            item = Items.item_frame;
+                        } else {
+                            item = itemstack.getItem();
+                            i = itemstack.getMetadata();
+                            flag1 = true;
+                        }
+                    }
+                    case EntityMinecart entityminecart -> item = switch (entityminecart.getMinecartType()) {
+                        case FURNACE -> Items.furnace_minecart;
+                        case CHEST -> Items.chest_minecart;
+                        case TNT -> Items.tnt_minecart;
+                        case HOPPER -> Items.hopper_minecart;
+                        case COMMAND_BLOCK -> Items.command_block_minecart;
+                        default -> Items.minecart;
+                    };
+                    case EntityBoat entityBoat -> item = Items.boat;
+                    case EntityArmorStand entityArmorStand -> item = Items.armor_stand;
+                    default -> {
+                        item = Items.spawn_egg;
+                        i = EntityList.getEntityID(objectMouseOver.entityHit);
                         flag1 = true;
-                    }
-                } else if (objectMouseOver.entityHit instanceof EntityMinecart entityminecart) {
 
-                    switch (entityminecart.getMinecartType()) {
-                        case FURNACE:
-                            item = Items.furnace_minecart;
-                            break;
-
-                        case CHEST:
-                            item = Items.chest_minecart;
-                            break;
-
-                        case TNT:
-                            item = Items.tnt_minecart;
-                            break;
-
-                        case HOPPER:
-                            item = Items.hopper_minecart;
-                            break;
-
-                        case COMMAND_BLOCK:
-                            item = Items.command_block_minecart;
-                            break;
-
-                        default:
-                            item = Items.minecart;
-                    }
-                } else if (objectMouseOver.entityHit instanceof EntityBoat) {
-                    item = Items.boat;
-                } else if (objectMouseOver.entityHit instanceof EntityArmorStand) {
-                    item = Items.armor_stand;
-                } else {
-                    item = Items.spawn_egg;
-                    i = EntityList.getEntityID(objectMouseOver.entityHit);
-                    flag1 = true;
-
-                    if (!EntityList.entityEggs.containsKey(i)) {
-                        return;
+                        if (!EntityList.entityEggs.containsKey(i)) {
+                            return;
+                        }
                     }
                 }
             }

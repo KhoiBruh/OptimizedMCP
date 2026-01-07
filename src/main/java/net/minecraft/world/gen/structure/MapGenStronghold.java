@@ -36,12 +36,13 @@ public class MapGenStronghold extends MapGenStructure {
         this();
 
         for (Entry<String, String> entry : p_i2068_1_.entrySet()) {
-            if (entry.getKey().equals("distance")) {
-                field_82671_h = MathHelper.parseDoubleWithDefaultAndMax(entry.getValue(), field_82671_h, 1.0D);
-            } else if (entry.getKey().equals("count")) {
-                structureCoords = new ChunkCoordIntPair[MathHelper.parseIntWithDefaultAndMax(entry.getValue(), structureCoords.length, 1)];
-            } else if (entry.getKey().equals("spread")) {
-                field_82672_i = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_82672_i, 1);
+            switch (entry.getKey()) {
+                case "distance" ->
+                        field_82671_h = MathHelper.parseDoubleWithDefaultAndMax(entry.getValue(), field_82671_h, 1.0D);
+                case "count" ->
+                        structureCoords = new ChunkCoordIntPair[MathHelper.parseIntWithDefaultAndMax(entry.getValue(), structureCoords.length, 1)];
+                case "spread" ->
+                        field_82672_i = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_82672_i, 1);
             }
         }
     }

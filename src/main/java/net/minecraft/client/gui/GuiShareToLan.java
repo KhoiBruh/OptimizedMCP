@@ -43,14 +43,11 @@ public class GuiShareToLan extends GuiScreen {
         if (button.id == 102) {
             mc.displayGuiScreen(field_146598_a);
         } else if (button.id == 104) {
-            if (field_146599_h.equals("spectator")) {
-                field_146599_h = "creative";
-            } else if (field_146599_h.equals("creative")) {
-                field_146599_h = "adventure";
-            } else if (field_146599_h.equals("adventure")) {
-                field_146599_h = "survival";
-            } else {
-                field_146599_h = "spectator";
+            switch (field_146599_h) {
+                case "spectator" -> field_146599_h = "creative";
+                case "creative" -> field_146599_h = "adventure";
+                case "adventure" -> field_146599_h = "survival";
+                default -> field_146599_h = "spectator";
             }
 
             func_146595_g();

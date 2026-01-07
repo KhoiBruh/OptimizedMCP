@@ -155,12 +155,12 @@ public class CrashReport {
         Throwable throwable = cause;
 
         if (throwable.getMessage() == null) {
-            if (throwable instanceof NullPointerException) {
-                throwable = new NullPointerException(description);
-            } else if (throwable instanceof StackOverflowError) {
-                throwable = new StackOverflowError(description);
-            } else if (throwable instanceof OutOfMemoryError) {
-                throwable = new OutOfMemoryError(description);
+            switch (throwable) {
+                case NullPointerException nullPointerException -> throwable = new NullPointerException(description);
+                case StackOverflowError stackOverflowError -> throwable = new StackOverflowError(description);
+                case OutOfMemoryError outOfMemoryError -> throwable = new OutOfMemoryError(description);
+                default -> {
+                }
             }
 
             throwable.setStackTrace(cause.getStackTrace());

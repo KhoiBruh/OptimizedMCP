@@ -244,46 +244,44 @@ public class ModelBakery {
     private ModelBlock loadModel(ResourceLocation p_177594_1_) throws IOException {
         String s = p_177594_1_.getResourcePath();
 
-        if ("builtin/generated".equals(s)) {
-            return MODEL_GENERATED;
-        } else if ("builtin/compass".equals(s)) {
-            return MODEL_COMPASS;
-        } else if ("builtin/clock".equals(s)) {
-            return MODEL_CLOCK;
-        } else if ("builtin/entity".equals(s)) {
-            return MODEL_ENTITY;
-        } else {
-            Reader reader;
+        return switch (s) {
+            case "builtin/generated" -> MODEL_GENERATED;
+            case "builtin/compass" -> MODEL_COMPASS;
+            case "builtin/clock" -> MODEL_CLOCK;
+            case "builtin/entity" -> MODEL_ENTITY;
+            default -> {
+                Reader reader;
 
-            if (s.startsWith("builtin/")) {
-                String s1 = s.substring("builtin/".length());
-                String s2 = BUILT_IN_MODELS.get(s1);
+                if (s.startsWith("builtin/")) {
+                    String s1 = s.substring("builtin/".length());
+                    String s2 = BUILT_IN_MODELS.get(s1);
 
-                if (s2 == null) {
-                    throw new FileNotFoundException(p_177594_1_.toString());
+                    if (s2 == null) {
+                        throw new FileNotFoundException(p_177594_1_.toString());
+                    }
+
+                    reader = new StringReader(s2);
+                } else {
+                    p_177594_1_ = getModelLocation(p_177594_1_);
+                    IResource iresource = resourceManager.getResource(p_177594_1_);
+                    reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8);
                 }
 
-                reader = new StringReader(s2);
-            } else {
-                p_177594_1_ = getModelLocation(p_177594_1_);
-                IResource iresource = resourceManager.getResource(p_177594_1_);
-                reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8);
+                ModelBlock modelblock;
+
+                try {
+                    ModelBlock modelblock1 = ModelBlock.deserialize(reader);
+                    modelblock1.name = p_177594_1_.toString();
+                    modelblock = modelblock1;
+                    String s3 = TextureUtils.getBasePath(p_177594_1_.getResourcePath());
+                    fixModelLocations(modelblock1, s3);
+                } finally {
+                    reader.close();
+                }
+
+                yield modelblock;
             }
-
-            ModelBlock modelblock;
-
-            try {
-                ModelBlock modelblock1 = ModelBlock.deserialize(reader);
-                modelblock1.name = p_177594_1_.toString();
-                modelblock = modelblock1;
-                String s3 = TextureUtils.getBasePath(p_177594_1_.getResourcePath());
-                fixModelLocations(modelblock1, s3);
-            } finally {
-                reader.close();
-            }
-
-            return modelblock;
-        }
+        };
     }
 
     private ResourceLocation getModelLocation(ResourceLocation p_177580_1_) {

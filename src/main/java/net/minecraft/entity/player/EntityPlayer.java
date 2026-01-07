@@ -1346,20 +1346,21 @@ public abstract class EntityPlayer extends EntityLivingBase {
             int i = Math.round(MathHelper.sqrt_double(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100.0F);
 
             if (i > 0) {
-                if (ridingEntity instanceof EntityMinecart) {
-                    addStat(StatList.distanceByMinecartStat, i);
+                switch (ridingEntity) {
+                    case EntityMinecart entityMinecart -> {
+                        addStat(StatList.distanceByMinecartStat, i);
 
-                    if (startMinecartRidingCoordinate == null) {
-                        startMinecartRidingCoordinate = new BlockPos(this);
-                    } else if (startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) >= 1000000.0D) {
-                        triggerAchievement(AchievementList.onARail);
+                        if (startMinecartRidingCoordinate == null) {
+                            startMinecartRidingCoordinate = new BlockPos(this);
+                        } else if (startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) >= 1000000.0D) {
+                            triggerAchievement(AchievementList.onARail);
+                        }
                     }
-                } else if (ridingEntity instanceof EntityBoat) {
-                    addStat(StatList.distanceByBoatStat, i);
-                } else if (ridingEntity instanceof EntityPig) {
-                    addStat(StatList.distanceByPigStat, i);
-                } else if (ridingEntity instanceof EntityHorse) {
-                    addStat(StatList.distanceByHorseStat, i);
+                    case EntityBoat entityBoat -> addStat(StatList.distanceByBoatStat, i);
+                    case EntityPig entityPig -> addStat(StatList.distanceByPigStat, i);
+                    case EntityHorse entityHorse -> addStat(StatList.distanceByHorseStat, i);
+                    default -> {
+                    }
                 }
             }
         }

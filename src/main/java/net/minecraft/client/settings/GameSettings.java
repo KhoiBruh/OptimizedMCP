@@ -717,12 +717,10 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("renderClouds")) {
-                                if (astring[1].equals("true")) {
-                                    clouds = 2;
-                                } else if (astring[1].equals("false")) {
-                                    clouds = 0;
-                                } else if (astring[1].equals("fast")) {
-                                    clouds = 1;
+                                switch (astring[1]) {
+                                    case "true" -> clouds = 2;
+                                    case "false" -> clouds = 0;
+                                    case "fast" -> clouds = 1;
                                 }
                             }
 
