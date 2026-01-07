@@ -33,7 +33,7 @@ public enum EnumChatFormatting {
     RESET("RESET", 'r', -1);
 
     private static final Map<String, EnumChatFormatting> nameMapping = Maps.newHashMap();
-    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
+    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + '§' + "[0-9A-FK-OR]");
 
     static {
         for (EnumChatFormatting enumchatformatting : values()) {
@@ -60,7 +60,7 @@ public enum EnumChatFormatting {
         formattingCode = formattingCodeIn;
         fancyStyling = fancyStylingIn;
         this.colorIndex = colorIndex;
-        controlString = "\u00a7" + formattingCodeIn;
+        controlString = "§" + formattingCodeIn;
     }
 
     private static String func_175745_c(String p_175745_0_) {

@@ -2157,7 +2157,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 String s = "HD_U".replace("HD_U", "HD Ultra").replace("L", "Light");
                 String s1 = s + " " + Config.getNewRelease();
                 ChatComponentText chatcomponenttext = new ChatComponentText(
-                        I18n.format("of.message.newVersion", "\u00a7n" + s1 + "\u00a7r"));
+                        I18n.format("of.message.newVersion", "§n" + s1 + "§r"));
                 chatcomponenttext.setChatStyle((new ChatStyle()).setChatClickEvent(
                         new ClickEvent(ClickEvent.Action.OPEN_URL, "https://optifine.net/downloads")));
                 mc.ingameGUI.getChatGUI().printChatMessage(chatcomponenttext);
