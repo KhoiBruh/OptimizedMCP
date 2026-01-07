@@ -813,7 +813,7 @@ public class Config {
 
     public static IResourcePack[] getResourcePacks() {
         ResourcePackRepository resourcepackrepository = minecraft.getResourcePackRepository();
-        List list = resourcepackrepository.getRepositoryEntries();
+        List<ResourcePackRepository.Entry> list = resourcepackrepository.getRepositoryEntries();
         List list1 = new ArrayList();
 
         for (Object o : list) {

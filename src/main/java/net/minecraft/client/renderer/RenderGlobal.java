@@ -10,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.chunk.*;
@@ -75,7 +74,6 @@ import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.*;
-import java.util.concurrent.Callable;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
     private static final Logger logger = LogManager.getLogger();
@@ -667,7 +665,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 ClassInheritanceMultiMap<Entity> classinheritancemultimap = chunk.getEntityLists()[renderglobal$containerlocalrenderinformation.renderChunk.getPosition().getY() / 16];
 
                 if (!classinheritancemultimap.isEmpty()) {
-                    Iterator iterator = classinheritancemultimap.iterator();
+                    Iterator<Entity> iterator = classinheritancemultimap.iterator();
 
                     while (true) {
                         Entity entity2;
@@ -737,7 +735,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 List<TileEntity> list1 = renderglobal$containerlocalrenderinformation1.renderChunk.getCompiledChunk().getTileEntities();
 
                 if (!list1.isEmpty()) {
-                    Iterator iterator1 = list1.iterator();
+                    Iterator<TileEntity> iterator1 = list1.iterator();
 
                     while (true) {
                         TileEntity tileentity1;

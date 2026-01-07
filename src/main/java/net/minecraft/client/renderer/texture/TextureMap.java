@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
 
 public class TextureMap extends AbstractTexture implements ITickableTextureObject {
     public static final ResourceLocation LOCATION_MISSING_TEXTURE = new ResourceLocation("missingno");
@@ -143,7 +142,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         int k = 1 << mipmapLevels;
         int l = 0;
         int i1 = 0;
-        Iterator iterator = mapRegisteredSprites.entrySet().iterator();
+        Iterator<Entry<String, TextureAtlasSprite>> iterator = mapRegisteredSprites.entrySet().iterator();
 
         while (true) {
             if (iterator.hasNext()) {

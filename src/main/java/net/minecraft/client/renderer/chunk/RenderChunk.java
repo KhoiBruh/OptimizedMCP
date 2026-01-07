@@ -130,7 +130,7 @@ public class RenderChunk {
         }
 
         VisGraph lvt_10_1_ = new VisGraph();
-        HashSet lvt_11_1_ = Sets.newHashSet();
+        HashSet<TileEntity> lvt_11_1_ = Sets.newHashSet();
 
         if (!isChunkRegionEmpty(blockpos)) {
             ++renderChunksUpdated;

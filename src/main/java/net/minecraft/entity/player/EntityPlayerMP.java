@@ -27,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.network.play.server.*;
 import net.minecraft.potion.PotionEffect;
@@ -51,7 +52,6 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -443,7 +443,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         EntityPlayer.EnumStatus entityplayer$enumstatus = super.trySleep(bedLocation);
 
         if (entityplayer$enumstatus == EntityPlayer.EnumStatus.OK) {
-            Packet packet = new S0APacketUseBed(this, bedLocation);
+            Packet<INetHandlerPlayClient> packet = new S0APacketUseBed(this, bedLocation);
             getServerForPlayer().getEntityTracker().sendToAllTrackingEntity(this, packet);
             playerNetServerHandler.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
             playerNetServerHandler.sendPacket(packet);

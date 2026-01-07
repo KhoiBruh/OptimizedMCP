@@ -46,7 +46,7 @@ public class EntityAITasks {
         theProfiler.startSection("goalSetup");
 
         if (tickCount++ % tickRate == 0) {
-            Iterator iterator = taskEntries.iterator();
+            Iterator<EntityAITaskEntry> iterator = taskEntries.iterator();
             label38:
 
             while (true) {

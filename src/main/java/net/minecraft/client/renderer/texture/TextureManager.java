@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
     private static final Logger logger = LogManager.getLogger();
@@ -140,7 +139,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     public void onResourceManagerReload(IResourceManager resourceManager) {
         Config.dbg("*** Reloading textures ***");
         Config.log("Resource packs: " + Config.getResourcePackNames());
-        Iterator iterator = mapTextureObjects.keySet().iterator();
+        Iterator<ResourceLocation> iterator = mapTextureObjects.keySet().iterator();
 
         while (iterator.hasNext()) {
             ResourceLocation resourcelocation = (ResourceLocation) iterator.next();

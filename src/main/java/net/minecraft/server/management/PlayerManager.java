@@ -49,7 +49,7 @@ public class PlayerManager {
 
     public void updatePlayerInstances() {
         Set<Entry<EntityPlayerMP, Set<ChunkCoordIntPair>>> set = mapPlayerPendingEntries.entrySet();
-        Iterator iterator = set.iterator();
+        Iterator<Entry<EntityPlayerMP, Set<ChunkCoordIntPair>>> iterator = set.iterator();
 
         while (iterator.hasNext()) {
             Entry<EntityPlayerMP, Set<ChunkCoordIntPair>> entry = (Entry) iterator.next();
