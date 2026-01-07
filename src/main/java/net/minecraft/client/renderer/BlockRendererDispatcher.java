@@ -52,20 +52,14 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
             if (i == -1) {
                 return false;
             } else {
-                switch (i) {
-                    case 1:
-                        return fluidRenderer.renderFluid(blockAccess, state, pos, worldRendererIn);
-
-                    case 2:
-                        return false;
-
-                    case 3:
+                return switch (i) {
+                    case 1 -> fluidRenderer.renderFluid(blockAccess, state, pos, worldRendererIn);
+                    case 3 -> {
                         IBakedModel ibakedmodel = getModelFromBlockState(state, blockAccess, pos);
-                        return blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn);
-
-                    default:
-                        return false;
-                }
+                        yield blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn);
+                    }
+                    default -> false;
+                };
             }
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Tesselating block in world");

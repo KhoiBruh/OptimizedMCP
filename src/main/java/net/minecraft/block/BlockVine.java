@@ -40,25 +40,14 @@ public class BlockVine extends Block {
     }
 
     public static PropertyBool getPropertyFor(EnumFacing side) {
-        switch (side) {
-            case UP:
-                return UP;
-
-            case NORTH:
-                return NORTH;
-
-            case SOUTH:
-                return SOUTH;
-
-            case EAST:
-                return EAST;
-
-            case WEST:
-                return WEST;
-
-            default:
-                throw new IllegalArgumentException(side + " is an invalid choice");
-        }
+        return switch (side) {
+            case UP -> UP;
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case EAST -> EAST;
+            case WEST -> WEST;
+            default -> throw new IllegalArgumentException(side + " is an invalid choice");
+        };
     }
 
     public static int getNumGrownFaces(IBlockState state) {
@@ -160,19 +149,12 @@ public class BlockVine extends Block {
     }
 
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
-        switch (side) {
-            case UP:
-                return canPlaceOn(worldIn.getBlockState(pos.up()).getBlock());
-
-            case NORTH:
-            case SOUTH:
-            case EAST:
-            case WEST:
-                return canPlaceOn(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
-
-            default:
-                return false;
-        }
+        return switch (side) {
+            case UP -> canPlaceOn(worldIn.getBlockState(pos.up()).getBlock());
+            case NORTH, SOUTH, EAST, WEST ->
+                    canPlaceOn(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
+            default -> false;
+        };
     }
 
     private boolean canPlaceOn(Block blockIn) {

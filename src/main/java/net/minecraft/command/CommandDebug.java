@@ -112,9 +112,7 @@ public class CommandDebug extends CommandBase {
                 Profiler.Result profiler$result = list.get(i);
                 stringBuilder.append(String.format("[%02d] ", p_147202_1_));
 
-                for (int j = 0; j < p_147202_1_; ++j) {
-                    stringBuilder.append(" ");
-                }
+                stringBuilder.append(" ".repeat(Math.max(0, p_147202_1_)));
 
                 stringBuilder.append(profiler$result.field_76331_c).append(" - ").append(String.format("%.2f", profiler$result.field_76332_a)).append("%/").append(String.format("%.2f", profiler$result.field_76330_b)).append("%\n");
 

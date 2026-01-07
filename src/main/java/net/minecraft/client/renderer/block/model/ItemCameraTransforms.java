@@ -58,28 +58,15 @@ public class ItemCameraTransforms {
     }
 
     public ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
-        switch (type) {
-            case THIRD_PERSON:
-                return thirdPerson;
-
-            case FIRST_PERSON:
-                return firstPerson;
-
-            case HEAD:
-                return head;
-
-            case GUI:
-                return gui;
-
-            case GROUND:
-                return ground;
-
-            case FIXED:
-                return fixed;
-
-            default:
-                return ItemTransformVec3f.DEFAULT;
-        }
+        return switch (type) {
+            case THIRD_PERSON -> thirdPerson;
+            case FIRST_PERSON -> firstPerson;
+            case HEAD -> head;
+            case GUI -> gui;
+            case GROUND -> ground;
+            case FIXED -> fixed;
+            default -> ItemTransformVec3f.DEFAULT;
+        };
     }
 
     public boolean func_181687_c(ItemCameraTransforms.TransformType type) {

@@ -187,24 +187,13 @@ public class GuiOverlayDebug extends Gui {
         } else {
             Entity entity = mc.getRenderViewEntity();
             EnumFacing enumfacing = entity.getHorizontalFacing();
-            String s = "Invalid";
-
-            switch (enumfacing) {
-                case NORTH:
-                    s = "Towards negative Z";
-                    break;
-
-                case SOUTH:
-                    s = "Towards positive Z";
-                    break;
-
-                case WEST:
-                    s = "Towards negative X";
-                    break;
-
-                case EAST:
-                    s = "Towards positive X";
-            }
+            String s = switch (enumfacing) {
+                case NORTH -> "Towards negative Z";
+                case SOUTH -> "Towards positive Z";
+                case WEST -> "Towards negative X";
+                case EAST -> "Towards positive X";
+                default -> "Invalid";
+            };
 
             List<String> list = Lists
                     .newArrayList(

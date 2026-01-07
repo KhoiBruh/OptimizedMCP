@@ -123,72 +123,25 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         } catch (NumberFormatException var5) {
         }
 
-        float f1 = 0.0F;
-
-        switch (p_175319_1_) {
-            case 132:
-                f1 = field_175336_F.mainNoiseScaleX = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-                break;
-
-            case 133:
-                f1 = field_175336_F.mainNoiseScaleY = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-                break;
-
-            case 134:
-                f1 = field_175336_F.mainNoiseScaleZ = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-                break;
-
-            case 135:
-                f1 = field_175336_F.depthNoiseScaleX = MathHelper.clamp_float(f, 1.0F, 2000.0F);
-                break;
-
-            case 136:
-                f1 = field_175336_F.depthNoiseScaleZ = MathHelper.clamp_float(f, 1.0F, 2000.0F);
-                break;
-
-            case 137:
-                f1 = field_175336_F.depthNoiseScaleExponent = MathHelper.clamp_float(f, 0.01F, 20.0F);
-                break;
-
-            case 138:
-                f1 = field_175336_F.baseSize = MathHelper.clamp_float(f, 1.0F, 25.0F);
-                break;
-
-            case 139:
-                f1 = field_175336_F.coordinateScale = MathHelper.clamp_float(f, 1.0F, 6000.0F);
-                break;
-
-            case 140:
-                f1 = field_175336_F.heightScale = MathHelper.clamp_float(f, 1.0F, 6000.0F);
-                break;
-
-            case 141:
-                f1 = field_175336_F.stretchY = MathHelper.clamp_float(f, 0.01F, 50.0F);
-                break;
-
-            case 142:
-                f1 = field_175336_F.upperLimitScale = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-                break;
-
-            case 143:
-                f1 = field_175336_F.lowerLimitScale = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-                break;
-
-            case 144:
-                f1 = field_175336_F.biomeDepthWeight = MathHelper.clamp_float(f, 1.0F, 20.0F);
-                break;
-
-            case 145:
-                f1 = field_175336_F.biomeDepthOffset = MathHelper.clamp_float(f, 0.0F, 20.0F);
-                break;
-
-            case 146:
-                f1 = field_175336_F.biomeScaleWeight = MathHelper.clamp_float(f, 1.0F, 20.0F);
-                break;
-
-            case 147:
-                f1 = field_175336_F.biomeScaleOffset = MathHelper.clamp_float(f, 0.0F, 20.0F);
-        }
+        float f1 = switch (p_175319_1_) {
+            case 132 -> field_175336_F.mainNoiseScaleX = MathHelper.clamp_float(f, 1.0F, 5000.0F);
+            case 133 -> field_175336_F.mainNoiseScaleY = MathHelper.clamp_float(f, 1.0F, 5000.0F);
+            case 134 -> field_175336_F.mainNoiseScaleZ = MathHelper.clamp_float(f, 1.0F, 5000.0F);
+            case 135 -> field_175336_F.depthNoiseScaleX = MathHelper.clamp_float(f, 1.0F, 2000.0F);
+            case 136 -> field_175336_F.depthNoiseScaleZ = MathHelper.clamp_float(f, 1.0F, 2000.0F);
+            case 137 -> field_175336_F.depthNoiseScaleExponent = MathHelper.clamp_float(f, 0.01F, 20.0F);
+            case 138 -> field_175336_F.baseSize = MathHelper.clamp_float(f, 1.0F, 25.0F);
+            case 139 -> field_175336_F.coordinateScale = MathHelper.clamp_float(f, 1.0F, 6000.0F);
+            case 140 -> field_175336_F.heightScale = MathHelper.clamp_float(f, 1.0F, 6000.0F);
+            case 141 -> field_175336_F.stretchY = MathHelper.clamp_float(f, 0.01F, 50.0F);
+            case 142 -> field_175336_F.upperLimitScale = MathHelper.clamp_float(f, 1.0F, 5000.0F);
+            case 143 -> field_175336_F.lowerLimitScale = MathHelper.clamp_float(f, 1.0F, 5000.0F);
+            case 144 -> field_175336_F.biomeDepthWeight = MathHelper.clamp_float(f, 1.0F, 20.0F);
+            case 145 -> field_175336_F.biomeDepthOffset = MathHelper.clamp_float(f, 0.0F, 20.0F);
+            case 146 -> field_175336_F.biomeScaleWeight = MathHelper.clamp_float(f, 1.0F, 20.0F);
+            case 147 -> field_175336_F.biomeScaleOffset = MathHelper.clamp_float(f, 0.0F, 20.0F);
+            default -> 0.0F;
+        };
 
         if (f1 != f && f != 0.0F) {
             ((GuiTextField) field_175349_r.func_178061_c(p_175319_1_)).setText(func_175330_b(p_175319_1_, f1));

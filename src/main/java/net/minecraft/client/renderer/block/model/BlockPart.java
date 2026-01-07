@@ -30,26 +30,13 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
     }
 
     private float[] getFaceUvs(EnumFacing p_178236_1_) {
-        float[] afloat;
 
-        switch (p_178236_1_) {
-            case DOWN:
-            case UP:
-                afloat = new float[]{positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
-                break;
-            case NORTH:
-            case SOUTH:
-                afloat = new float[]{positionFrom.x, 16.0F - positionTo.y, positionTo.x, 16.0F - positionFrom.y};
-                break;
-            case WEST:
-            case EAST:
-                afloat = new float[]{positionFrom.z, 16.0F - positionTo.y, positionTo.z, 16.0F - positionFrom.y};
-                break;
-            default:
-                throw new NullPointerException();
-        }
-
-        return afloat;
+        return switch (p_178236_1_) {
+            case DOWN, UP -> new float[]{positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
+            case NORTH, SOUTH ->
+                    new float[]{positionFrom.x, 16.0F - positionTo.y, positionTo.x, 16.0F - positionFrom.y};
+            case WEST, EAST -> new float[]{positionFrom.z, 16.0F - positionTo.y, positionTo.z, 16.0F - positionFrom.y};
+        };
     }
 
     static class Deserializer implements JsonDeserializer<BlockPart> {

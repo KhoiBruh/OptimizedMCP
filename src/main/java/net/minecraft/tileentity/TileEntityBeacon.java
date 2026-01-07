@@ -318,19 +318,12 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
     }
 
     public int getField(int id) {
-        switch (id) {
-            case 0:
-                return levels;
-
-            case 1:
-                return primaryEffect;
-
-            case 2:
-                return secondaryEffect;
-
-            default:
-                return 0;
-        }
+        return switch (id) {
+            case 0 -> levels;
+            case 1 -> primaryEffect;
+            case 2 -> secondaryEffect;
+            default -> 0;
+        };
     }
 
     public void setField(int id, int value) {

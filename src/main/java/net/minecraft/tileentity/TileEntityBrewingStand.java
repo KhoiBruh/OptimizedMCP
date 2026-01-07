@@ -288,13 +288,10 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     public int getField(int id) {
-        switch (id) {
-            case 0:
-                return brewTime;
-
-            default:
-                return 0;
-        }
+        return switch (id) {
+            case 0 -> brewTime;
+            default -> 0;
+        };
     }
 
     public void setField(int id, int value) {

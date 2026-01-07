@@ -28,17 +28,11 @@ public class BlockQuartz extends Block {
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (meta == BlockQuartz.EnumType.LINES_Y.getMetadata()) {
-            switch (facing.getAxis()) {
-                case Z:
-                    return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_Z);
-
-                case X:
-                    return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_X);
-
-                case Y:
-                default:
-                    return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.LINES_Y);
-            }
+            return switch (facing.getAxis()) {
+                case Z -> getDefaultState().withProperty(VARIANT, EnumType.LINES_Z);
+                case X -> getDefaultState().withProperty(VARIANT, EnumType.LINES_X);
+                default -> getDefaultState().withProperty(VARIANT, EnumType.LINES_Y);
+            };
         } else {
             return meta == BlockQuartz.EnumType.CHISELED.getMetadata() ? getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.CHISELED) : getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT);
         }

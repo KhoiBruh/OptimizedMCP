@@ -292,22 +292,12 @@ public abstract class BiomeGenBase {
     }
 
     public List<BiomeGenBase.SpawnListEntry> getSpawnableList(EnumCreatureType creatureType) {
-        switch (creatureType) {
-            case MONSTER:
-                return spawnableMonsterList;
-
-            case CREATURE:
-                return spawnableCreatureList;
-
-            case WATER_CREATURE:
-                return spawnableWaterCreatureList;
-
-            case AMBIENT:
-                return spawnableCaveCreatureList;
-
-            default:
-                return Collections.emptyList();
-        }
+        return switch (creatureType) {
+            case MONSTER -> spawnableMonsterList;
+            case CREATURE -> spawnableCreatureList;
+            case WATER_CREATURE -> spawnableWaterCreatureList;
+            case AMBIENT -> spawnableCaveCreatureList;
+        };
     }
 
     public boolean getEnableSnow() {
