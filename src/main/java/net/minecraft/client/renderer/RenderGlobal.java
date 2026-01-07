@@ -82,7 +82,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private static final ResourceLocation locationCloudsPng = new ResourceLocation("textures/environment/clouds.png");
     private static final ResourceLocation locationEndSkyPng = new ResourceLocation("textures/environment/end_sky.png");
     private static final ResourceLocation locationForcefieldPng = new ResourceLocation("textures/misc/forcefield.png");
-    private static final Set SET_ALL_FACINGS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(EnumFacing.VALUES)));
+    private static final Set SET_ALL_FACINGS = Set.of(EnumFacing.VALUES);
     private static int renderEntitiesCounter = 0;
     public final Minecraft mc;
     public final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();

@@ -18,6 +18,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EntityArrow extends Entity implements IProjectile {
     public int canBePickedUp;
@@ -237,11 +238,7 @@ public class EntityArrow extends Entity implements IProjectile {
 
                     DamageSource damagesource;
 
-                    if (shootingEntity == null) {
-                        damagesource = DamageSource.causeArrowDamage(this, this);
-                    } else {
-                        damagesource = DamageSource.causeArrowDamage(this, shootingEntity);
-                    }
+                    damagesource = DamageSource.causeArrowDamage(this, Objects.requireNonNullElse(shootingEntity, this));
 
                     if (isBurning() && !(movingobjectposition.entityHit instanceof EntityEnderman)) {
                         movingobjectposition.entityHit.setFire(5);
