@@ -57,7 +57,7 @@ public enum EnumParticleTypes {
         List<String> list = Lists.newArrayList();
 
         for (EnumParticleTypes enumparticletypes : values()) {
-            PARTICLES.put(Integer.valueOf(enumparticletypes.getParticleID()), enumparticletypes);
+            PARTICLES.put(enumparticletypes.getParticleID(), enumparticletypes);
 
             if (!enumparticletypes.getParticleName().endsWith("_")) {
                 list.add(enumparticletypes.getParticleName());
@@ -88,7 +88,7 @@ public enum EnumParticleTypes {
     }
 
     public static EnumParticleTypes getParticleFromId(int particleId) {
-        return PARTICLES.get(Integer.valueOf(particleId));
+        return PARTICLES.get(particleId);
     }
 
     public String getParticleName() {

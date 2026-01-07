@@ -64,7 +64,7 @@ public class EntityArmorStand extends EntityLivingBase {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(10, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(10, (byte) 0);
         this.dataWatcher.addObject(11, DEFAULT_HEAD_ROTATION);
         this.dataWatcher.addObject(12, DEFAULT_BODY_ROTATION);
         this.dataWatcher.addObject(13, DEFAULT_LEFTARM_ROTATION);
@@ -595,7 +595,7 @@ public class EntityArmorStand extends EntityLivingBase {
             b0 = (byte) (b0 & -2);
         }
 
-        this.dataWatcher.updateObject(10, Byte.valueOf(b0));
+        this.dataWatcher.updateObject(10, b0);
     }
 
     private void setNoGravity(boolean p_175425_1_) {
@@ -607,7 +607,7 @@ public class EntityArmorStand extends EntityLivingBase {
             b0 = (byte) (b0 & -3);
         }
 
-        this.dataWatcher.updateObject(10, Byte.valueOf(b0));
+        this.dataWatcher.updateObject(10, b0);
     }
 
     public boolean hasNoGravity() {
@@ -627,7 +627,7 @@ public class EntityArmorStand extends EntityLivingBase {
             b0 = (byte) (b0 & -5);
         }
 
-        this.dataWatcher.updateObject(10, Byte.valueOf(b0));
+        this.dataWatcher.updateObject(10, b0);
     }
 
     private void setNoBasePlate(boolean p_175426_1_) {
@@ -639,7 +639,7 @@ public class EntityArmorStand extends EntityLivingBase {
             b0 = (byte) (b0 & -9);
         }
 
-        this.dataWatcher.updateObject(10, Byte.valueOf(b0));
+        this.dataWatcher.updateObject(10, b0);
     }
 
     public boolean hasNoBasePlate() {
@@ -655,7 +655,7 @@ public class EntityArmorStand extends EntityLivingBase {
             b0 = (byte) (b0 & -17);
         }
 
-        this.dataWatcher.updateObject(10, Byte.valueOf(b0));
+        this.dataWatcher.updateObject(10, b0);
     }
 
     public boolean hasMarker() {

@@ -78,7 +78,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 
                 for (int i = 0; i < BlockBrewingStand.HAS_BOTTLE.length; ++i) {
                     iblockstate = iblockstate.withProperty(BlockBrewingStand.HAS_BOTTLE[i],
-                            Boolean.valueOf(aboolean[i]));
+                            aboolean[i]);
                 }
 
                 this.worldObj.setBlockState(this.pos, iblockstate, 2);

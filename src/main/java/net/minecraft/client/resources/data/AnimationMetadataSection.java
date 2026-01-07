@@ -61,7 +61,7 @@ public class AnimationMetadataSection implements IMetadataSection {
         Set<Integer> set = Sets.newHashSet();
 
         for (AnimationFrame animationframe : this.animationFrames) {
-            set.add(Integer.valueOf(animationframe.frameIndex()));
+            set.add(animationframe.frameIndex());
         }
 
         return set;

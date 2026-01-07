@@ -57,7 +57,7 @@ public class ServerStatusResponse {
                 public JsonElement serialize(MinecraftProtocolVersionIdentifier p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
                     JsonObject jsonobject = new JsonObject();
                     jsonobject.addProperty("name", p_serialize_1_.name());
-                    jsonobject.addProperty("protocol", Integer.valueOf(p_serialize_1_.protocol()));
+                    jsonobject.addProperty("protocol", p_serialize_1_.protocol());
                     return jsonobject;
                 }
             }
@@ -115,8 +115,8 @@ public class ServerStatusResponse {
 
             public JsonElement serialize(ServerStatusResponse.PlayerCountData p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
                 JsonObject jsonobject = new JsonObject();
-                jsonobject.addProperty("max", Integer.valueOf(p_serialize_1_.getMaxPlayers()));
-                jsonobject.addProperty("online", Integer.valueOf(p_serialize_1_.getOnlinePlayerCount()));
+                jsonobject.addProperty("max", p_serialize_1_.getMaxPlayers());
+                jsonobject.addProperty("online", p_serialize_1_.getOnlinePlayerCount());
 
                 if (p_serialize_1_.getPlayers() != null && p_serialize_1_.getPlayers().length > 0) {
                     JsonArray jsonarray = new JsonArray();

@@ -30,7 +30,7 @@ public enum ModelRotation {
 
     static {
         for (ModelRotation modelrotation : values()) {
-            mapRotations.put(Integer.valueOf(modelrotation.combinedXY), modelrotation);
+            mapRotations.put(modelrotation.combinedXY, modelrotation);
         }
     }
 
@@ -58,7 +58,7 @@ public enum ModelRotation {
     }
 
     public static ModelRotation getModelRotation(int p_177524_0_, int p_177524_1_) {
-        return mapRotations.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360))));
+        return mapRotations.get(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360)));
     }
 
     public Matrix4f getMatrix4d() {

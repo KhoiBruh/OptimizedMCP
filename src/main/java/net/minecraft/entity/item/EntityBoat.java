@@ -51,9 +51,9 @@ public class EntityBoat extends Entity {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(17, Integer.valueOf(0));
-        this.dataWatcher.addObject(18, Integer.valueOf(1));
-        this.dataWatcher.addObject(19, new Float(0.0F));
+        this.dataWatcher.addObject(17, 0);
+        this.dataWatcher.addObject(18, 1);
+        this.dataWatcher.addObject(19, 0.0F);
     }
 
     public AxisAlignedBB getCollisionBox(Entity entityIn) {
@@ -422,7 +422,7 @@ public class EntityBoat extends Entity {
     }
 
     public void setDamageTaken(float p_70266_1_) {
-        this.dataWatcher.updateObject(19, Float.valueOf(p_70266_1_));
+        this.dataWatcher.updateObject(19, p_70266_1_);
     }
 
     public int getTimeSinceHit() {
@@ -430,7 +430,7 @@ public class EntityBoat extends Entity {
     }
 
     public void setTimeSinceHit(int p_70265_1_) {
-        this.dataWatcher.updateObject(17, Integer.valueOf(p_70265_1_));
+        this.dataWatcher.updateObject(17, p_70265_1_);
     }
 
     public int getForwardDirection() {
@@ -438,7 +438,7 @@ public class EntityBoat extends Entity {
     }
 
     public void setForwardDirection(int p_70269_1_) {
-        this.dataWatcher.updateObject(18, Integer.valueOf(p_70269_1_));
+        this.dataWatcher.updateObject(18, p_70269_1_);
     }
 
     public void setIsBoatEmpty(boolean p_70270_1_) {
