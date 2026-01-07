@@ -160,7 +160,7 @@ public class EffectRenderer {
         long i = System.currentTimeMillis();
         int j = entitiesFX.size();
 
-        for (EntityFX entityfx : entitiesFX) {
+        for (EntityFX entityfx : Lists.newArrayList(entitiesFX)) {
             tickParticle(entityfx);
 
             if (entityfx.isDead) {
@@ -177,8 +177,8 @@ public class EffectRenderer {
         if (j > 0) {
             int l = j;
 
-            for (Iterator iterator = entitiesFX.iterator(); iterator.hasNext() && l > 0; --l) {
-                EntityFX entityfx1 = (EntityFX) iterator.next();
+            for (Iterator<EntityFX> iterator = entitiesFX.iterator(); iterator.hasNext() && l > 0; --l) {
+                EntityFX entityfx1 = iterator.next();
                 entityfx1.setDead();
                 iterator.remove();
             }
