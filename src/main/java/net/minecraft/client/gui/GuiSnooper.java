@@ -28,11 +28,9 @@ public class GuiSnooper extends GuiScreen {
         String s = I18n.format("options.snooper.desc");
         java.util.List<String> list = Lists.newArrayList();
 
-        for (String s1 : this.fontRendererObj.listFormattedStringToWidth(s, this.width - 30)) {
-            list.add(s1);
-        }
+        list.addAll(this.fontRendererObj.listFormattedStringToWidth(s, this.width - 30));
 
-        this.field_146607_r = list.toArray(new String[list.size()]);
+        this.field_146607_r = list.toArray(new String[0]);
         this.field_146604_g.clear();
         this.field_146609_h.clear();
         this.buttonList.add(this.field_146605_t = new GuiButton(1, this.width / 2 - 152, this.height - 30, 150, 20, this.game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED)));

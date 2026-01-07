@@ -132,7 +132,7 @@ public class PlayerProfileCache {
 
     public String[] getUsernames() {
         List<String> list = Lists.newArrayList(this.usernameToProfileEntryMap.keySet());
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     public GameProfile getProfileByUUID(UUID uuid) {

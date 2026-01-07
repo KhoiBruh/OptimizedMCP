@@ -24,7 +24,7 @@ public class CommandHelp extends CommandBase {
     }
 
     public List<String> getCommandAliases() {
-        return Arrays.asList("?");
+        return List.of("?");
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
@@ -82,7 +82,7 @@ public class CommandHelp extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             Set<String> set = this.getCommands().keySet();
-            return getListOfStringsMatchingLastWord(args, set.toArray(new String[set.size()]));
+            return getListOfStringsMatchingLastWord(args, set.toArray(new String[0]));
         } else {
             return null;
         }

@@ -828,7 +828,7 @@ public class Config {
         }
 
         IResourcePack[] airesourcepack = (IResourcePack[]) list1
-                .toArray(new IResourcePack[list1.size()]);
+                .toArray(new IResourcePack[0]);
         return airesourcepack;
     }
 
@@ -1085,7 +1085,7 @@ public class Config {
             list.add(s);
         }
 
-        String[] astring = (String[]) list.toArray(new String[list.size()]);
+        String[] astring = (String[]) list.toArray(new String[0]);
         return astring;
     }
 
@@ -1110,7 +1110,7 @@ public class Config {
                 }
 
                 DisplayMode[] adisplaymode2 = (DisplayMode[]) list
-                        .toArray(new DisplayMode[list.size()]);
+                        .toArray(new DisplayMode[0]);
                 Arrays.sort(adisplaymode2, new DisplayModeComparator());
                 return adisplaymode2;
             } catch (Exception exception) {
@@ -1157,7 +1157,7 @@ public class Config {
             }
         }
 
-        DisplayMode[] adisplaymode = (DisplayMode[]) list.toArray(new DisplayMode[list.size()]);
+        DisplayMode[] adisplaymode = (DisplayMode[]) list.toArray(new DisplayMode[0]);
         return adisplaymode;
     }
 
@@ -1300,7 +1300,7 @@ public class Config {
             String s = bufferedreader.readLine();
 
             if (s == null) {
-                String[] astring = (String[]) list.toArray(new String[list.size()]);
+                String[] astring = (String[]) list.toArray(new String[0]);
                 return astring;
             }
 

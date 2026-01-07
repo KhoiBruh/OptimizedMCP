@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -147,7 +148,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     protected void drawCreativeTabHoveringText(String tabName, int mouseX, int mouseY) {
-        this.drawHoveringText(Arrays.asList(tabName), mouseX, mouseY);
+        this.drawHoveringText(Collections.singletonList(tabName), mouseX, mouseY);
     }
 
     protected void drawHoveringText(List<String> textLines, int x, int y) {

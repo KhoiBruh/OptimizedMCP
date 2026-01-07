@@ -105,7 +105,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     public static String getFormatFromString(String text) {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         int i = -1;
         int j = text.length();
 
@@ -114,14 +114,14 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 char c0 = text.charAt(i + 1);
 
                 if (isFormatColor(c0)) {
-                    s = "\u00a7" + c0;
+                    s = new StringBuilder("\u00a7" + c0);
                 } else if (isFormatSpecial(c0)) {
-                    s = s + "\u00a7" + c0;
+                    s.append("\u00a7").append(c0);
                 }
             }
         }
 
-        return s;
+        return s.toString();
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager) {
