@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentArrowKnockback extends Enchantment {
     public EnchantmentArrowKnockback(int enchID, ResourceLocation enchName, int enchWeight) {
         super(enchID, enchName, enchWeight, EnumEnchantmentType.BOW);
-        this.setName("arrowKnockback");
+        setName("arrowKnockback");
     }
 
     public int getMinEnchantability(int enchantmentLevel) {
@@ -13,7 +13,7 @@ public class EnchantmentArrowKnockback extends Enchantment {
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + 25;
+        return getMinEnchantability(enchantmentLevel) + 25;
     }
 
     public int getMaxLevel() {

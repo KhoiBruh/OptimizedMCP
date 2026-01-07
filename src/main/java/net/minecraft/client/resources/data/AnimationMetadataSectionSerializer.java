@@ -24,7 +24,7 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 
                 for (int j = 0; j < jsonarray.size(); ++j) {
                     JsonElement jsonelement = jsonarray.get(j);
-                    AnimationFrame animationframe = this.parseAnimationFrame(j, jsonelement);
+                    AnimationFrame animationframe = parseAnimationFrame(j, jsonelement);
 
                     if (animationframe != null) {
                         list.add(animationframe);

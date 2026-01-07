@@ -9,12 +9,12 @@ public class LayerBipedArmor extends LayerArmorBase<ModelBiped> {
     }
 
     protected void initArmor() {
-        this.modelLeggings = new ModelBiped(0.5F);
-        this.modelArmor = new ModelBiped(1.0F);
+        modelLeggings = new ModelBiped(0.5F);
+        modelArmor = new ModelBiped(1.0F);
     }
 
     protected void setModelPartVisible(ModelBiped model, int armorSlot) {
-        this.setModelVisible(model);
+        setModelVisible(model);
 
         switch (armorSlot) {
             case 1:

@@ -14,79 +14,79 @@ public class ExtendedBlockStorage {
     private NibbleArray skylightArray;
 
     public ExtendedBlockStorage(int y, boolean storeSkylight) {
-        this.yBase = y;
-        this.data = new char[4096];
-        this.blocklightArray = new NibbleArray();
+        yBase = y;
+        data = new char[4096];
+        blocklightArray = new NibbleArray();
 
         if (storeSkylight) {
-            this.skylightArray = new NibbleArray();
+            skylightArray = new NibbleArray();
         }
     }
 
     public IBlockState get(int x, int y, int z) {
-        IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(this.data[y << 8 | z << 4 | x]);
+        IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(data[y << 8 | z << 4 | x]);
         return iblockstate != null ? iblockstate : Blocks.air.getDefaultState();
     }
 
     public void set(int x, int y, int z, IBlockState state) {
-        IBlockState iblockstate = this.get(x, y, z);
+        IBlockState iblockstate = get(x, y, z);
         Block block = iblockstate.getBlock();
         Block block1 = state.getBlock();
 
         if (block != Blocks.air) {
-            --this.blockRefCount;
+            --blockRefCount;
 
             if (block.getTickRandomly()) {
-                --this.tickRefCount;
+                --tickRefCount;
             }
         }
 
         if (block1 != Blocks.air) {
-            ++this.blockRefCount;
+            ++blockRefCount;
 
             if (block1.getTickRandomly()) {
-                ++this.tickRefCount;
+                ++tickRefCount;
             }
         }
 
-        this.data[y << 8 | z << 4 | x] = (char) Block.BLOCK_STATE_IDS.get(state);
+        data[y << 8 | z << 4 | x] = (char) Block.BLOCK_STATE_IDS.get(state);
     }
 
     public Block getBlockByExtId(int x, int y, int z) {
-        return this.get(x, y, z).getBlock();
+        return get(x, y, z).getBlock();
     }
 
     public int getExtBlockMetadata(int x, int y, int z) {
-        IBlockState iblockstate = this.get(x, y, z);
+        IBlockState iblockstate = get(x, y, z);
         return iblockstate.getBlock().getMetaFromState(iblockstate);
     }
 
     public boolean isEmpty() {
-        return this.blockRefCount == 0;
+        return blockRefCount == 0;
     }
 
     public boolean getNeedsRandomTick() {
-        return this.tickRefCount > 0;
+        return tickRefCount > 0;
     }
 
     public int getYLocation() {
-        return this.yBase;
+        return yBase;
     }
 
     public void setExtSkylightValue(int x, int y, int z, int value) {
-        this.skylightArray.set(x, y, z, value);
+        skylightArray.set(x, y, z, value);
     }
 
     public int getExtSkylightValue(int x, int y, int z) {
-        return this.skylightArray.get(x, y, z);
+        return skylightArray.get(x, y, z);
     }
 
     public void setExtBlocklightValue(int x, int y, int z, int value) {
-        this.blocklightArray.set(x, y, z, value);
+        blocklightArray.set(x, y, z, value);
     }
 
     public int getExtBlocklightValue(int x, int y, int z) {
-        return this.blocklightArray.get(x, y, z);
+        return blocklightArray.get(x, y, z);
     }
 
     public void removeInvalidBlocks() {
@@ -97,7 +97,7 @@ public class ExtendedBlockStorage {
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
                 for (int i1 = 0; i1 < 16; ++i1) {
-                    Block block = this.getBlockByExtId(i1, k, l);
+                    Block block = getBlockByExtId(i1, k, l);
 
                     if (block != Blocks.air) {
                         ++i;
@@ -110,35 +110,35 @@ public class ExtendedBlockStorage {
             }
         }
 
-        this.blockRefCount = i;
-        this.tickRefCount = j;
+        blockRefCount = i;
+        tickRefCount = j;
     }
 
     public char[] getData() {
-        return this.data;
+        return data;
     }
 
     public void setData(char[] dataArray) {
-        this.data = dataArray;
+        data = dataArray;
     }
 
     public NibbleArray getBlocklightArray() {
-        return this.blocklightArray;
+        return blocklightArray;
     }
 
     public void setBlocklightArray(NibbleArray newBlocklightArray) {
-        this.blocklightArray = newBlocklightArray;
+        blocklightArray = newBlocklightArray;
     }
 
     public NibbleArray getSkylightArray() {
-        return this.skylightArray;
+        return skylightArray;
     }
 
     public void setSkylightArray(NibbleArray newSkylightArray) {
-        this.skylightArray = newSkylightArray;
+        skylightArray = newSkylightArray;
     }
 
     public int getBlockRefCount() {
-        return this.blockRefCount;
+        return blockRefCount;
     }
 }

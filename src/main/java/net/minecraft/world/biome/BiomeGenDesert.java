@@ -10,14 +10,14 @@ import java.util.Random;
 public class BiomeGenDesert extends BiomeGenBase {
     public BiomeGenDesert(int id) {
         super(id);
-        this.spawnableCreatureList.clear();
-        this.topBlock = Blocks.sand.getDefaultState();
-        this.fillerBlock = Blocks.sand.getDefaultState();
-        this.theBiomeDecorator.treesPerChunk = -999;
-        this.theBiomeDecorator.deadBushPerChunk = 2;
-        this.theBiomeDecorator.reedsPerChunk = 50;
-        this.theBiomeDecorator.cactiPerChunk = 10;
-        this.spawnableCreatureList.clear();
+        spawnableCreatureList.clear();
+        topBlock = Blocks.sand.getDefaultState();
+        fillerBlock = Blocks.sand.getDefaultState();
+        theBiomeDecorator.treesPerChunk = -999;
+        theBiomeDecorator.deadBushPerChunk = 2;
+        theBiomeDecorator.reedsPerChunk = 50;
+        theBiomeDecorator.cactiPerChunk = 10;
+        spawnableCreatureList.clear();
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos) {

@@ -28,9 +28,9 @@ public class BlockPistonExtension extends Block {
 
     public BlockPistonExtension() {
         super(Material.piston);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.FALSE));
-        this.setStepSound(soundTypePiston);
-        this.setHardness(0.5F);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.FALSE));
+        setStepSound(soundTypePiston);
+        setHardness(0.5F);
     }
 
     public static EnumFacing getFacing(int meta) {
@@ -88,11 +88,11 @@ public class BlockPistonExtension extends Block {
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        this.applyHeadBounds(state);
+        applyHeadBounds(state);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.applyCoreBounds(state);
+        applyCoreBounds(state);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private void applyCoreBounds(IBlockState state) {
@@ -104,32 +104,32 @@ public class BlockPistonExtension extends Block {
 
         switch (state.getValue(FACING)) {
             case DOWN:
-                this.setBlockBounds(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
+                setBlockBounds(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
                 break;
 
             case UP:
-                this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
+                setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
                 break;
 
             case NORTH:
-                this.setBlockBounds(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
+                setBlockBounds(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
                 break;
 
             case SOUTH:
-                this.setBlockBounds(0.25F, 0.375F, 0.0F, 0.75F, 0.625F, 0.75F);
+                setBlockBounds(0.25F, 0.375F, 0.0F, 0.75F, 0.625F, 0.75F);
                 break;
 
             case WEST:
-                this.setBlockBounds(0.375F, 0.25F, 0.25F, 0.625F, 0.75F, 1.0F);
+                setBlockBounds(0.375F, 0.25F, 0.25F, 0.625F, 0.75F, 1.0F);
                 break;
 
             case EAST:
-                this.setBlockBounds(0.0F, 0.375F, 0.25F, 0.75F, 0.625F, 0.75F);
+                setBlockBounds(0.0F, 0.375F, 0.25F, 0.75F, 0.625F, 0.75F);
         }
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.applyHeadBounds(worldIn.getBlockState(pos));
+        applyHeadBounds(worldIn.getBlockState(pos));
     }
 
     public void applyHeadBounds(IBlockState state) {
@@ -139,27 +139,27 @@ public class BlockPistonExtension extends Block {
         if (enumfacing != null) {
             switch (enumfacing) {
                 case DOWN:
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
                     break;
 
                 case UP:
-                    this.setBlockBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
                     break;
 
                 case NORTH:
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
                     break;
 
                 case SOUTH:
-                    this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
                     break;
 
                 case WEST:
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
                     break;
 
                 case EAST:
-                    this.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
             }
         }
     }
@@ -185,7 +185,7 @@ public class BlockPistonExtension extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
+        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -210,15 +210,15 @@ public class BlockPistonExtension extends Block {
         private final String VARIANT;
 
         EnumPistonType(String name) {
-            this.VARIANT = name;
+            VARIANT = name;
         }
 
         public String toString() {
-            return this.VARIANT;
+            return VARIANT;
         }
 
         public String getName() {
-            return this.VARIANT;
+            return VARIANT;
         }
     }
 }

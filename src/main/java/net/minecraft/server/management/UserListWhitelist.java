@@ -15,10 +15,10 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
     }
 
     public String[] getKeys() {
-        String[] astring = new String[this.getValues().size()];
+        String[] astring = new String[getValues().size()];
         int i = 0;
 
-        for (UserListWhitelistEntry userlistwhitelistentry : this.getValues().values()) {
+        for (UserListWhitelistEntry userlistwhitelistentry : getValues().values()) {
             astring[i++] = userlistwhitelistentry.getValue().getName();
         }
 
@@ -30,7 +30,7 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
     }
 
     public GameProfile getBannedProfile(String name) {
-        for (UserListWhitelistEntry userlistwhitelistentry : this.getValues().values()) {
+        for (UserListWhitelistEntry userlistwhitelistentry : getValues().values()) {
             if (name.equalsIgnoreCase(userlistwhitelistentry.getValue().getName())) {
                 return userlistwhitelistentry.getValue();
             }

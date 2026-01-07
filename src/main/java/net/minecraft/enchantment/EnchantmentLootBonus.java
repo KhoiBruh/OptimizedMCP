@@ -7,11 +7,11 @@ public class EnchantmentLootBonus extends Enchantment {
         super(p_i45767_1_, p_i45767_2_, p_i45767_3_, p_i45767_4_);
 
         if (p_i45767_4_ == EnumEnchantmentType.DIGGER) {
-            this.setName("lootBonusDigger");
+            setName("lootBonusDigger");
         } else if (p_i45767_4_ == EnumEnchantmentType.FISHING_ROD) {
-            this.setName("lootBonusFishing");
+            setName("lootBonusFishing");
         } else {
-            this.setName("lootBonus");
+            setName("lootBonus");
         }
     }
 

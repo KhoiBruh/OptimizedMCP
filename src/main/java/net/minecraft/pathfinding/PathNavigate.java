@@ -26,118 +26,118 @@ public abstract class PathNavigate {
     private float heightRequirement = 1.0F;
 
     public PathNavigate(EntityLiving entitylivingIn, World worldIn) {
-        this.theEntity = entitylivingIn;
-        this.worldObj = worldIn;
-        this.pathSearchRange = entitylivingIn.getEntityAttribute(SharedMonsterAttributes.followRange);
-        this.pathFinder = this.getPathFinder();
+        theEntity = entitylivingIn;
+        worldObj = worldIn;
+        pathSearchRange = entitylivingIn.getEntityAttribute(SharedMonsterAttributes.followRange);
+        pathFinder = getPathFinder();
     }
 
     protected abstract PathFinder getPathFinder();
 
     public void setSpeed(double speedIn) {
-        this.speed = speedIn;
+        speed = speedIn;
     }
 
     public float getPathSearchRange() {
-        return (float) this.pathSearchRange.getAttributeValue();
+        return (float) pathSearchRange.getAttributeValue();
     }
 
     public final PathEntity getPathToXYZ(double x, double y, double z) {
-        return this.getPathToPos(new BlockPos(MathHelper.floor_double(x), (int) y, MathHelper.floor_double(z)));
+        return getPathToPos(new BlockPos(MathHelper.floor_double(x), (int) y, MathHelper.floor_double(z)));
     }
 
     public PathEntity getPathToPos(BlockPos pos) {
-        if (!this.canNavigate()) {
+        if (!canNavigate()) {
             return null;
         } else {
-            float f = this.getPathSearchRange();
-            this.worldObj.theProfiler.startSection("pathfind");
-            BlockPos blockpos = new BlockPos(this.theEntity);
+            float f = getPathSearchRange();
+            worldObj.theProfiler.startSection("pathfind");
+            BlockPos blockpos = new BlockPos(theEntity);
             int i = (int) (f + 8.0F);
-            ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
-            PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, pos, f);
-            this.worldObj.theProfiler.endSection();
+            ChunkCache chunkcache = new ChunkCache(worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
+            PathEntity pathentity = pathFinder.createEntityPathTo(chunkcache, theEntity, pos, f);
+            worldObj.theProfiler.endSection();
             return pathentity;
         }
     }
 
     public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
-        PathEntity pathentity = this.getPathToXYZ(MathHelper.floor_double(x), (int) y, MathHelper.floor_double(z));
-        return this.setPath(pathentity, speedIn);
+        PathEntity pathentity = getPathToXYZ(MathHelper.floor_double(x), (int) y, MathHelper.floor_double(z));
+        return setPath(pathentity, speedIn);
     }
 
     public void setHeightRequirement(float jumpHeight) {
-        this.heightRequirement = jumpHeight;
+        heightRequirement = jumpHeight;
     }
 
     public PathEntity getPathToEntityLiving(Entity entityIn) {
-        if (!this.canNavigate()) {
+        if (!canNavigate()) {
             return null;
         } else {
-            float f = this.getPathSearchRange();
-            this.worldObj.theProfiler.startSection("pathfind");
-            BlockPos blockpos = (new BlockPos(this.theEntity)).up();
+            float f = getPathSearchRange();
+            worldObj.theProfiler.startSection("pathfind");
+            BlockPos blockpos = (new BlockPos(theEntity)).up();
             int i = (int) (f + 16.0F);
-            ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
-            PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, entityIn, f);
-            this.worldObj.theProfiler.endSection();
+            ChunkCache chunkcache = new ChunkCache(worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
+            PathEntity pathentity = pathFinder.createEntityPathTo(chunkcache, theEntity, entityIn, f);
+            worldObj.theProfiler.endSection();
             return pathentity;
         }
     }
 
     public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
-        PathEntity pathentity = this.getPathToEntityLiving(entityIn);
-        return pathentity != null && this.setPath(pathentity, speedIn);
+        PathEntity pathentity = getPathToEntityLiving(entityIn);
+        return pathentity != null && setPath(pathentity, speedIn);
     }
 
     public boolean setPath(PathEntity pathentityIn, double speedIn) {
         if (pathentityIn == null) {
-            this.currentPath = null;
+            currentPath = null;
             return false;
         } else {
-            if (!pathentityIn.isSamePath(this.currentPath)) {
-                this.currentPath = pathentityIn;
+            if (!pathentityIn.isSamePath(currentPath)) {
+                currentPath = pathentityIn;
             }
 
-            this.removeSunnyPath();
+            removeSunnyPath();
 
-            if (this.currentPath.getCurrentPathLength() == 0) {
+            if (currentPath.getCurrentPathLength() == 0) {
                 return false;
             } else {
-                this.speed = speedIn;
-                Vec3 vec3 = this.getEntityPosition();
-                this.ticksAtLastPos = this.totalTicks;
-                this.lastPosCheck = vec3;
+                speed = speedIn;
+                Vec3 vec3 = getEntityPosition();
+                ticksAtLastPos = totalTicks;
+                lastPosCheck = vec3;
                 return true;
             }
         }
     }
 
     public PathEntity getPath() {
-        return this.currentPath;
+        return currentPath;
     }
 
     public void onUpdateNavigation() {
-        ++this.totalTicks;
+        ++totalTicks;
 
-        if (!this.noPath()) {
-            if (this.canNavigate()) {
-                this.pathFollow();
-            } else if (this.currentPath != null && this.currentPath.getCurrentPathIndex() < this.currentPath.getCurrentPathLength()) {
-                Vec3 vec3 = this.getEntityPosition();
-                Vec3 vec31 = this.currentPath.getVectorFromIndex(this.theEntity, this.currentPath.getCurrentPathIndex());
+        if (!noPath()) {
+            if (canNavigate()) {
+                pathFollow();
+            } else if (currentPath != null && currentPath.getCurrentPathIndex() < currentPath.getCurrentPathLength()) {
+                Vec3 vec3 = getEntityPosition();
+                Vec3 vec31 = currentPath.getVectorFromIndex(theEntity, currentPath.getCurrentPathIndex());
 
-                if (vec3.yCoord() > vec31.yCoord() && !this.theEntity.onGround && MathHelper.floor_double(vec3.xCoord()) == MathHelper.floor_double(vec31.xCoord()) && MathHelper.floor_double(vec3.zCoord()) == MathHelper.floor_double(vec31.zCoord())) {
-                    this.currentPath.setCurrentPathIndex(this.currentPath.getCurrentPathIndex() + 1);
+                if (vec3.yCoord() > vec31.yCoord() && !theEntity.onGround && MathHelper.floor_double(vec3.xCoord()) == MathHelper.floor_double(vec31.xCoord()) && MathHelper.floor_double(vec3.zCoord()) == MathHelper.floor_double(vec31.zCoord())) {
+                    currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
                 }
             }
 
-            if (!this.noPath()) {
-                Vec3 vec32 = this.currentPath.getPosition(this.theEntity);
+            if (!noPath()) {
+                Vec3 vec32 = currentPath.getPosition(theEntity);
 
                 if (vec32 != null) {
                     AxisAlignedBB axisalignedbb1 = (new AxisAlignedBB(vec32.xCoord(), vec32.yCoord(), vec32.zCoord(), vec32.xCoord(), vec32.yCoord(), vec32.zCoord())).expand(0.5D, 0.5D, 0.5D);
-                    List<AxisAlignedBB> list = this.worldObj.getCollidingBoundingBoxes(this.theEntity, axisalignedbb1.addCoord(0.0D, -1.0D, 0.0D));
+                    List<AxisAlignedBB> list = worldObj.getCollidingBoundingBoxes(theEntity, axisalignedbb1.addCoord(0.0D, -1.0D, 0.0D));
                     double d0 = -1.0D;
                     axisalignedbb1 = axisalignedbb1.offset(0.0D, 1.0D, 0.0D);
 
@@ -145,64 +145,64 @@ public abstract class PathNavigate {
                         d0 = axisalignedbb.calculateYOffset(axisalignedbb1, d0);
                     }
 
-                    this.theEntity.getMoveHelper().setMoveTo(vec32.xCoord(), vec32.yCoord() + d0, vec32.zCoord(), this.speed);
+                    theEntity.getMoveHelper().setMoveTo(vec32.xCoord(), vec32.yCoord() + d0, vec32.zCoord(), speed);
                 }
             }
         }
     }
 
     protected void pathFollow() {
-        Vec3 vec3 = this.getEntityPosition();
-        int i = this.currentPath.getCurrentPathLength();
+        Vec3 vec3 = getEntityPosition();
+        int i = currentPath.getCurrentPathLength();
 
-        for (int j = this.currentPath.getCurrentPathIndex(); j < this.currentPath.getCurrentPathLength(); ++j) {
-            if (this.currentPath.getPathPointFromIndex(j).yCoord != (int) vec3.yCoord()) {
+        for (int j = currentPath.getCurrentPathIndex(); j < currentPath.getCurrentPathLength(); ++j) {
+            if (currentPath.getPathPointFromIndex(j).yCoord != (int) vec3.yCoord()) {
                 i = j;
                 break;
             }
         }
 
-        float f = this.theEntity.width * this.theEntity.width * this.heightRequirement;
+        float f = theEntity.width * theEntity.width * heightRequirement;
 
-        for (int k = this.currentPath.getCurrentPathIndex(); k < i; ++k) {
-            Vec3 vec31 = this.currentPath.getVectorFromIndex(this.theEntity, k);
+        for (int k = currentPath.getCurrentPathIndex(); k < i; ++k) {
+            Vec3 vec31 = currentPath.getVectorFromIndex(theEntity, k);
 
             if (vec3.squareDistanceTo(vec31) < (double) f) {
-                this.currentPath.setCurrentPathIndex(k + 1);
+                currentPath.setCurrentPathIndex(k + 1);
             }
         }
 
-        int j1 = MathHelper.ceiling_float_int(this.theEntity.width);
-        int k1 = (int) this.theEntity.height + 1;
+        int j1 = MathHelper.ceiling_float_int(theEntity.width);
+        int k1 = (int) theEntity.height + 1;
         int l = j1;
 
-        for (int i1 = i - 1; i1 >= this.currentPath.getCurrentPathIndex(); --i1) {
-            if (this.isDirectPathBetweenPoints(vec3, this.currentPath.getVectorFromIndex(this.theEntity, i1), j1, k1, l)) {
-                this.currentPath.setCurrentPathIndex(i1);
+        for (int i1 = i - 1; i1 >= currentPath.getCurrentPathIndex(); --i1) {
+            if (isDirectPathBetweenPoints(vec3, currentPath.getVectorFromIndex(theEntity, i1), j1, k1, l)) {
+                currentPath.setCurrentPathIndex(i1);
                 break;
             }
         }
 
-        this.checkForStuck(vec3);
+        checkForStuck(vec3);
     }
 
     protected void checkForStuck(Vec3 positionVec3) {
-        if (this.totalTicks - this.ticksAtLastPos > 100) {
-            if (positionVec3.squareDistanceTo(this.lastPosCheck) < 2.25D) {
-                this.clearPathEntity();
+        if (totalTicks - ticksAtLastPos > 100) {
+            if (positionVec3.squareDistanceTo(lastPosCheck) < 2.25D) {
+                clearPathEntity();
             }
 
-            this.ticksAtLastPos = this.totalTicks;
-            this.lastPosCheck = positionVec3;
+            ticksAtLastPos = totalTicks;
+            lastPosCheck = positionVec3;
         }
     }
 
     public boolean noPath() {
-        return this.currentPath == null || this.currentPath.isFinished();
+        return currentPath == null || currentPath.isFinished();
     }
 
     public void clearPathEntity() {
-        this.currentPath = null;
+        currentPath = null;
     }
 
     protected abstract Vec3 getEntityPosition();
@@ -210,7 +210,7 @@ public abstract class PathNavigate {
     protected abstract boolean canNavigate();
 
     protected boolean isInLiquid() {
-        return this.theEntity.isInWater() || this.theEntity.isInLava();
+        return theEntity.isInWater() || theEntity.isInLava();
     }
 
     protected void removeSunnyPath() {

@@ -11,24 +11,24 @@ public class EntityAIDefendVillage extends EntityAITarget {
 
     public EntityAIDefendVillage(EntityIronGolem ironGolemIn) {
         super(ironGolemIn, false, true);
-        this.irongolem = ironGolemIn;
-        this.setMutexBits(1);
+        irongolem = ironGolemIn;
+        setMutexBits(1);
     }
 
     public boolean shouldExecute() {
-        Village village = this.irongolem.getVillage();
+        Village village = irongolem.getVillage();
 
         if (village == null) {
             return false;
         } else {
-            this.villageAgressorTarget = village.findNearestVillageAggressor(this.irongolem);
+            villageAgressorTarget = village.findNearestVillageAggressor(irongolem);
 
-            if (this.villageAgressorTarget instanceof EntityCreeper) {
+            if (villageAgressorTarget instanceof EntityCreeper) {
                 return false;
-            } else if (!this.isSuitableTarget(this.villageAgressorTarget, false)) {
-                if (this.taskOwner.getRNG().nextInt(20) == 0) {
-                    this.villageAgressorTarget = village.getNearestTargetPlayer(this.irongolem);
-                    return this.isSuitableTarget(this.villageAgressorTarget, false);
+            } else if (!isSuitableTarget(villageAgressorTarget, false)) {
+                if (taskOwner.getRNG().nextInt(20) == 0) {
+                    villageAgressorTarget = village.getNearestTargetPlayer(irongolem);
+                    return isSuitableTarget(villageAgressorTarget, false);
                 } else {
                     return false;
                 }
@@ -39,7 +39,7 @@ public class EntityAIDefendVillage extends EntityAITarget {
     }
 
     public void startExecuting() {
-        this.irongolem.setAttackTarget(this.villageAgressorTarget);
+        irongolem.setAttackTarget(villageAgressorTarget);
         super.startExecuting();
     }
 }

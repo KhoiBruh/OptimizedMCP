@@ -12,7 +12,7 @@ import java.util.Random;
 public class EnchantmentThorns extends Enchantment {
     public EnchantmentThorns(int p_i45764_1_, ResourceLocation p_i45764_2_, int p_i45764_3_) {
         super(p_i45764_1_, p_i45764_2_, p_i45764_3_, EnumEnchantmentType.ARMOR_TORSO);
-        this.setName("thorns");
+        setName("thorns");
     }
 
     public static boolean func_92094_a(int p_92094_0_, Random p_92094_1_) {

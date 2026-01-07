@@ -15,10 +15,10 @@ public abstract class BanEntry<T> extends UserListEntry<T> {
 
     public BanEntry(T valueIn, Date startDate, String banner, Date endDate, String banReason) {
         super(valueIn);
-        this.banStartDate = startDate == null ? new Date() : startDate;
-        this.bannedBy = banner == null ? "(Unknown)" : banner;
-        this.banEndDate = endDate;
-        this.reason = banReason == null ? "Banned by an operator." : banReason;
+        banStartDate = startDate == null ? new Date() : startDate;
+        bannedBy = banner == null ? "(Unknown)" : banner;
+        banEndDate = endDate;
+        reason = banReason == null ? "Banned by an operator." : banReason;
     }
 
     protected BanEntry(T valueIn, JsonObject json) {
@@ -31,8 +31,8 @@ public abstract class BanEntry<T> extends UserListEntry<T> {
             date = new Date();
         }
 
-        this.banStartDate = date;
-        this.bannedBy = json.has("source") ? json.get("source").getAsString() : "(Unknown)";
+        banStartDate = date;
+        bannedBy = json.has("source") ? json.get("source").getAsString() : "(Unknown)";
         Date date1;
 
         try {
@@ -41,26 +41,26 @@ public abstract class BanEntry<T> extends UserListEntry<T> {
             date1 = null;
         }
 
-        this.banEndDate = date1;
-        this.reason = json.has("reason") ? json.get("reason").getAsString() : "Banned by an operator.";
+        banEndDate = date1;
+        reason = json.has("reason") ? json.get("reason").getAsString() : "Banned by an operator.";
     }
 
     public Date getBanEndDate() {
-        return this.banEndDate;
+        return banEndDate;
     }
 
     public String getBanReason() {
-        return this.reason;
+        return reason;
     }
 
     boolean hasBanExpired() {
-        return this.banEndDate != null && this.banEndDate.before(new Date());
+        return banEndDate != null && banEndDate.before(new Date());
     }
 
     protected void onSerialization(JsonObject data) {
-        data.addProperty("created", dateFormat.format(this.banStartDate));
-        data.addProperty("source", this.bannedBy);
-        data.addProperty("expires", this.banEndDate == null ? "forever" : dateFormat.format(this.banEndDate));
-        data.addProperty("reason", this.reason);
+        data.addProperty("created", dateFormat.format(banStartDate));
+        data.addProperty("source", bannedBy);
+        data.addProperty("expires", banEndDate == null ? "forever" : dateFormat.format(banEndDate));
+        data.addProperty("reason", reason);
     }
 }

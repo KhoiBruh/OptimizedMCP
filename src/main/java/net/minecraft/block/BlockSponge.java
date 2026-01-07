@@ -23,12 +23,12 @@ public class BlockSponge extends Block {
 
     protected BlockSponge() {
         super(Material.sponge);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(WET, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(WET, Boolean.FALSE));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(this.getUnlocalizedName() + ".dry.name");
+        return StatCollector.translateToLocal(getUnlocalizedName() + ".dry.name");
     }
 
     public int damageDropped(IBlockState state) {
@@ -36,16 +36,16 @@ public class BlockSponge extends Block {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.tryAbsorb(worldIn, pos, state);
+        tryAbsorb(worldIn, pos, state);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        this.tryAbsorb(worldIn, pos, state);
+        tryAbsorb(worldIn, pos, state);
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
     }
 
     protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
-        if (!state.getValue(WET) && this.absorb(worldIn, pos)) {
+        if (!state.getValue(WET) && absorb(worldIn, pos)) {
             worldIn.setBlockState(pos, state.withProperty(WET, Boolean.TRUE), 2);
             worldIn.playAuxSFX(2001, pos, Block.getIdFromBlock(Blocks.water));
         }
@@ -94,7 +94,7 @@ public class BlockSponge extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(WET, (meta & 1) == 1);
+        return getDefaultState().withProperty(WET, (meta & 1) == 1);
     }
 
     public int getMetaFromState(IBlockState state) {

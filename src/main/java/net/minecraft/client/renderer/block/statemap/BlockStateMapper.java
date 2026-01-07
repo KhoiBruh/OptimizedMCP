@@ -16,19 +16,19 @@ public class BlockStateMapper {
     private final Set<Block> setBuiltInBlocks = Sets.newIdentityHashSet();
 
     public void registerBlockStateMapper(Block p_178447_1_, IStateMapper p_178447_2_) {
-        this.blockStateMap.put(p_178447_1_, p_178447_2_);
+        blockStateMap.put(p_178447_1_, p_178447_2_);
     }
 
     public void registerBuiltInBlocks(Block... p_178448_1_) {
-        Collections.addAll(this.setBuiltInBlocks, p_178448_1_);
+        Collections.addAll(setBuiltInBlocks, p_178448_1_);
     }
 
     public Map<IBlockState, ModelResourceLocation> putAllStateModelLocations() {
         Map<IBlockState, ModelResourceLocation> map = Maps.newIdentityHashMap();
 
         for (Block block : Block.blockRegistry) {
-            if (!this.setBuiltInBlocks.contains(block)) {
-                map.putAll(MoreObjects.firstNonNull(this.blockStateMap.get(block), new DefaultStateMapper()).putStateModelLocations(block));
+            if (!setBuiltInBlocks.contains(block)) {
+                map.putAll(MoreObjects.firstNonNull(blockStateMap.get(block), new DefaultStateMapper()).putStateModelLocations(block));
             }
         }
 

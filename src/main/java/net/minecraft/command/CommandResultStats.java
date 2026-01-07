@@ -17,12 +17,12 @@ public class CommandResultStats {
     private String[] objectives;
 
     public CommandResultStats() {
-        this.entitiesID = STRING_RESULT_TYPES;
-        this.objectives = STRING_RESULT_TYPES;
+        entitiesID = STRING_RESULT_TYPES;
+        objectives = STRING_RESULT_TYPES;
     }
 
     public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, String entityID, String objectiveName) {
-        if (entityID != null && entityID.length() != 0 && objectiveName != null && objectiveName.length() != 0) {
+        if (entityID != null && !entityID.isEmpty() && objectiveName != null && !objectiveName.isEmpty()) {
             if (stats.entitiesID == STRING_RESULT_TYPES || stats.objectives == STRING_RESULT_TYPES) {
                 stats.entitiesID = new String[NUM_RESULT_TYPES];
                 stats.objectives = new String[NUM_RESULT_TYPES];
@@ -56,7 +56,7 @@ public class CommandResultStats {
     }
 
     public void setCommandStatScore(final ICommandSender sender, CommandResultStats.Type resultTypeIn, int scorePoint) {
-        String s = this.entitiesID[resultTypeIn.getTypeID()];
+        String s = entitiesID[resultTypeIn.getTypeID()];
 
         if (s != null) {
             ICommandSender icommandsender = new ICommandSender() {
@@ -108,7 +108,7 @@ public class CommandResultStats {
                 return;
             }
 
-            String s2 = this.objectives[resultTypeIn.getTypeID()];
+            String s2 = objectives[resultTypeIn.getTypeID()];
 
             if (s2 != null) {
                 Scoreboard scoreboard = sender.getEntityWorld().getScoreboard();
@@ -145,8 +145,8 @@ public class CommandResultStats {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         for (CommandResultStats.Type commandresultstats$type : CommandResultStats.Type.values()) {
-            String s = this.entitiesID[commandresultstats$type.getTypeID()];
-            String s1 = this.objectives[commandresultstats$type.getTypeID()];
+            String s = entitiesID[commandresultstats$type.getTypeID()];
+            String s1 = objectives[commandresultstats$type.getTypeID()];
 
             if (s != null && s1 != null) {
                 nbttagcompound.setString(commandresultstats$type.getTypeName() + "Name", s);
@@ -176,8 +176,8 @@ public class CommandResultStats {
         final String typeName;
 
         Type(int id, String name) {
-            this.typeID = id;
-            this.typeName = name;
+            typeID = id;
+            typeName = name;
         }
 
         public static String[] getTypeNames() {
@@ -202,11 +202,11 @@ public class CommandResultStats {
         }
 
         public int getTypeID() {
-            return this.typeID;
+            return typeID;
         }
 
         public String getTypeName() {
-            return this.typeName;
+            return typeName;
         }
     }
 }

@@ -15,20 +15,20 @@ public class S02PacketLoginSuccess implements Packet<INetHandlerLoginClient> {
     }
 
     public S02PacketLoginSuccess(GameProfile profileIn) {
-        this.profile = profileIn;
+        profile = profileIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
         String s = buf.readStringFromBuffer(36);
         String s1 = buf.readStringFromBuffer(16);
         UUID uuid = UUID.fromString(s);
-        this.profile = new GameProfile(uuid, s1);
+        profile = new GameProfile(uuid, s1);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        UUID uuid = this.profile.getId();
+        UUID uuid = profile.getId();
         buf.writeString(uuid == null ? "" : uuid.toString());
-        buf.writeString(this.profile.getName());
+        buf.writeString(profile.getName());
     }
 
     public void processPacket(INetHandlerLoginClient handler) {
@@ -36,6 +36,6 @@ public class S02PacketLoginSuccess implements Packet<INetHandlerLoginClient> {
     }
 
     public GameProfile getProfile() {
-        return this.profile;
+        return profile;
     }
 }

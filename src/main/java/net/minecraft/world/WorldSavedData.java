@@ -7,7 +7,7 @@ public abstract class WorldSavedData {
     private boolean dirty;
 
     public WorldSavedData(String name) {
-        this.mapName = name;
+        mapName = name;
     }
 
     public abstract void readFromNBT(NBTTagCompound nbt);
@@ -15,14 +15,14 @@ public abstract class WorldSavedData {
     public abstract void writeToNBT(NBTTagCompound nbt);
 
     public void markDirty() {
-        this.setDirty(true);
+        setDirty(true);
     }
 
     public boolean isDirty() {
-        return this.dirty;
+        return dirty;
     }
 
     public void setDirty(boolean isDirty) {
-        this.dirty = isDirty;
+        dirty = isDirty;
     }
 }

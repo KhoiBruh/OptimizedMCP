@@ -18,8 +18,8 @@ public enum EnumDifficulty {
     private final String difficultyResourceKey;
 
     EnumDifficulty(int difficultyIdIn, String difficultyResourceKeyIn) {
-        this.difficultyId = difficultyIdIn;
-        this.difficultyResourceKey = difficultyResourceKeyIn;
+        difficultyId = difficultyIdIn;
+        difficultyResourceKey = difficultyResourceKeyIn;
     }
 
     public static EnumDifficulty getDifficultyEnum(int p_151523_0_) {
@@ -27,10 +27,10 @@ public enum EnumDifficulty {
     }
 
     public int getDifficultyId() {
-        return this.difficultyId;
+        return difficultyId;
     }
 
     public String getDifficultyResourceKey() {
-        return this.difficultyResourceKey;
+        return difficultyResourceKey;
     }
 }

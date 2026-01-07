@@ -13,15 +13,15 @@ public class S01PacketPong implements Packet<INetHandlerStatusClient> {
     }
 
     public S01PacketPong(long time) {
-        this.clientTime = time;
+        clientTime = time;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.clientTime = buf.readLong();
+        clientTime = buf.readLong();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeLong(this.clientTime);
+        buf.writeLong(clientTime);
     }
 
     public void processPacket(INetHandlerStatusClient handler) {

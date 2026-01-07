@@ -27,9 +27,9 @@ public class BlockEnderChest extends BlockContainer {
 
     protected BlockEnderChest() {
         super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setCreativeTab(CreativeTabs.tabDecorations);
+        setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
 
     public boolean isOpaqueCube() {
@@ -57,7 +57,7 @@ public class BlockEnderChest extends BlockContainer {
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -109,7 +109,7 @@ public class BlockEnderChest extends BlockContainer {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     public int getMetaFromState(IBlockState state) {

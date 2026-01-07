@@ -17,19 +17,19 @@ import java.util.Random;
 public class BlockDragonEgg extends Block {
     public BlockDragonEgg() {
         super(Material.dragonEgg, MapColor.blackColor);
-        this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
+        setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.checkFall(worldIn, pos);
+        checkFall(worldIn, pos);
     }
 
     private void checkFall(World worldIn, BlockPos pos) {
@@ -37,7 +37,7 @@ public class BlockDragonEgg extends Block {
             int i = 32;
 
             if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i))) {
-                worldIn.spawnEntityInWorld(new EntityFallingBlock(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, this.getDefaultState()));
+                worldIn.spawnEntityInWorld(new EntityFallingBlock(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, getDefaultState()));
             } else {
                 worldIn.setBlockToAir(pos);
                 BlockPos blockpos;
@@ -46,19 +46,19 @@ public class BlockDragonEgg extends Block {
                 }
 
                 if (blockpos.getY() > 0) {
-                    worldIn.setBlockState(blockpos, this.getDefaultState(), 2);
+                    worldIn.setBlockState(blockpos, getDefaultState(), 2);
                 }
             }
         }
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        this.teleport(worldIn, pos);
+        teleport(worldIn, pos);
         return true;
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        this.teleport(worldIn, pos);
+        teleport(worldIn, pos);
     }
 
     private void teleport(World worldIn, BlockPos pos) {

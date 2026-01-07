@@ -10,8 +10,8 @@ public class GenLayerIsland extends GenLayer {
 
         for (int i = 0; i < areaHeight; ++i) {
             for (int j = 0; j < areaWidth; ++j) {
-                this.initChunkSeed(areaX + j, areaY + i);
-                aint[j + i * areaWidth] = this.nextInt(10) == 0 ? 1 : 0;
+                initChunkSeed(areaX + j, areaY + i);
+                aint[j + i * areaWidth] = nextInt(10) == 0 ? 1 : 0;
             }
         }
 

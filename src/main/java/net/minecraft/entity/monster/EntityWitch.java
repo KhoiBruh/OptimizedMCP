@@ -30,19 +30,19 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 
     public EntityWitch(World worldIn) {
         super(worldIn);
-        this.setSize(0.6F, 1.95F);
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIArrowAttack(this, 1.0D, 60, 10.0F));
-        this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        setSize(0.6F, 1.95F);
+        tasks.addTask(1, new EntityAISwimming(this));
+        tasks.addTask(2, new EntityAIArrowAttack(this, 1.0D, 60, 10.0F));
+        tasks.addTask(2, new EntityAIWander(this, 1.0D));
+        tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(3, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
 
     protected void entityInit() {
         super.entityInit();
-        this.getDataWatcher().addObject(21, (byte) 0);
+        getDataWatcher().addObject(21, (byte) 0);
     }
 
     protected String getLivingSound() {
@@ -58,66 +58,66 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
     }
 
     public boolean getAggressive() {
-        return this.getDataWatcher().getWatchableObjectByte(21) == 1;
+        return getDataWatcher().getWatchableObjectByte(21) == 1;
     }
 
     public void setAggressive(boolean aggressive) {
-        this.getDataWatcher().updateObject(21, (byte) (aggressive ? 1 : 0));
+        getDataWatcher().updateObject(21, (byte) (aggressive ? 1 : 0));
     }
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(26.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(26.0D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
     }
 
     public void onLivingUpdate() {
-        if (!this.worldObj.isRemote) {
-            if (this.getAggressive()) {
-                if (this.witchAttackTimer-- <= 0) {
-                    this.setAggressive(false);
-                    ItemStack itemstack = this.getHeldItem();
-                    this.setCurrentItemOrArmor(0, null);
+        if (!worldObj.isRemote) {
+            if (getAggressive()) {
+                if (witchAttackTimer-- <= 0) {
+                    setAggressive(false);
+                    ItemStack itemstack = getHeldItem();
+                    setCurrentItemOrArmor(0, null);
 
                     if (itemstack != null && itemstack.getItem() == Items.potionitem) {
                         List<PotionEffect> list = Items.potionitem.getEffects(itemstack);
 
                         if (list != null) {
                             for (PotionEffect potioneffect : list) {
-                                this.addPotionEffect(new PotionEffect(potioneffect));
+                                addPotionEffect(new PotionEffect(potioneffect));
                             }
                         }
                     }
 
-                    this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(MODIFIER);
+                    getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(MODIFIER);
                 }
             } else {
                 int i = -1;
 
-                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.water) && !this.isPotionActive(Potion.waterBreathing)) {
+                if (rand.nextFloat() < 0.15F && isInsideOfMaterial(Material.water) && !isPotionActive(Potion.waterBreathing)) {
                     i = 8237;
-                } else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.fireResistance)) {
+                } else if (rand.nextFloat() < 0.15F && isBurning() && !isPotionActive(Potion.fireResistance)) {
                     i = 16307;
-                } else if (this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
+                } else if (rand.nextFloat() < 0.05F && getHealth() < getMaxHealth()) {
                     i = 16341;
-                } else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                } else if (rand.nextFloat() < 0.25F && getAttackTarget() != null && !isPotionActive(Potion.moveSpeed) && getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
                     i = 16274;
-                } else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                } else if (rand.nextFloat() < 0.25F && getAttackTarget() != null && !isPotionActive(Potion.moveSpeed) && getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
                     i = 16274;
                 }
 
                 if (i > -1) {
-                    this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, i));
-                    this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
-                    this.setAggressive(true);
-                    IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+                    setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, i));
+                    witchAttackTimer = getHeldItem().getMaxItemUseDuration();
+                    setAggressive(true);
+                    IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.movementSpeed);
                     iattributeinstance.removeModifier(MODIFIER);
                     iattributeinstance.applyModifier(MODIFIER);
                 }
             }
 
-            if (this.rand.nextFloat() < 7.5E-4F) {
-                this.worldObj.setEntityState(this, (byte) 15);
+            if (rand.nextFloat() < 7.5E-4F) {
+                worldObj.setEntityState(this, (byte) 15);
             }
         }
 
@@ -126,8 +126,8 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 
     public void handleStatusUpdate(byte id) {
         if (id == 15) {
-            for (int i = 0; i < this.rand.nextInt(35) + 10; ++i) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH, this.posX + this.rand.nextGaussian() * 0.12999999523162842D, this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D, this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
+            for (int i = 0; i < rand.nextInt(35) + 10; ++i) {
+                worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
             }
         } else {
             super.handleStatusUpdate(id);
@@ -149,42 +149,42 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        int i = this.rand.nextInt(3) + 1;
+        int i = rand.nextInt(3) + 1;
 
         for (int j = 0; j < i; ++j) {
-            int k = this.rand.nextInt(3);
-            Item item = witchDrops[this.rand.nextInt(witchDrops.length)];
+            int k = rand.nextInt(3);
+            Item item = witchDrops[rand.nextInt(witchDrops.length)];
 
             if (lootingModifier > 0) {
-                k += this.rand.nextInt(lootingModifier + 1);
+                k += rand.nextInt(lootingModifier + 1);
             }
 
             for (int l = 0; l < k; ++l) {
-                this.dropItem(item, 1);
+                dropItem(item, 1);
             }
         }
     }
 
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
-        if (!this.getAggressive()) {
-            EntityPotion entitypotion = new EntityPotion(this.worldObj, this, 32732);
+        if (!getAggressive()) {
+            EntityPotion entitypotion = new EntityPotion(worldObj, this, 32732);
             double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
             entitypotion.rotationPitch -= -20.0F;
-            double d1 = target.posX + target.motionX - this.posX;
-            double d2 = d0 - this.posY;
-            double d3 = target.posZ + target.motionZ - this.posZ;
+            double d1 = target.posX + target.motionX - posX;
+            double d2 = d0 - posY;
+            double d3 = target.posZ + target.motionZ - posZ;
             float f = MathHelper.sqrt_double(d1 * d1 + d3 * d3);
 
             if (f >= 8.0F && !target.isPotionActive(Potion.moveSlowdown)) {
                 entitypotion.setPotionDamage(32698);
             } else if (target.getHealth() >= 8.0F && !target.isPotionActive(Potion.poison)) {
                 entitypotion.setPotionDamage(32660);
-            } else if (f <= 3.0F && !target.isPotionActive(Potion.weakness) && this.rand.nextFloat() < 0.25F) {
+            } else if (f <= 3.0F && !target.isPotionActive(Potion.weakness) && rand.nextFloat() < 0.25F) {
                 entitypotion.setPotionDamage(32696);
             }
 
             entitypotion.setThrowableHeading(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
-            this.worldObj.spawnEntityInWorld(entitypotion);
+            worldObj.spawnEntityInWorld(entitypotion);
         }
     }
 

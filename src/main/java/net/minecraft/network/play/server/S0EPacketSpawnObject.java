@@ -29,14 +29,14 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient> {
     }
 
     public S0EPacketSpawnObject(Entity entityIn, int typeIn, int p_i45166_3_) {
-        this.entityId = entityIn.getEntityId();
-        this.x = MathHelper.floor_double(entityIn.posX * 32.0D);
-        this.y = MathHelper.floor_double(entityIn.posY * 32.0D);
-        this.z = MathHelper.floor_double(entityIn.posZ * 32.0D);
-        this.pitch = MathHelper.floor_float(entityIn.rotationPitch * 256.0F / 360.0F);
-        this.yaw = MathHelper.floor_float(entityIn.rotationYaw * 256.0F / 360.0F);
-        this.type = typeIn;
-        this.field_149020_k = p_i45166_3_;
+        entityId = entityIn.getEntityId();
+        x = MathHelper.floor_double(entityIn.posX * 32.0D);
+        y = MathHelper.floor_double(entityIn.posY * 32.0D);
+        z = MathHelper.floor_double(entityIn.posZ * 32.0D);
+        pitch = MathHelper.floor_float(entityIn.rotationPitch * 256.0F / 360.0F);
+        yaw = MathHelper.floor_float(entityIn.rotationYaw * 256.0F / 360.0F);
+        type = typeIn;
+        field_149020_k = p_i45166_3_;
 
         if (p_i45166_3_ > 0) {
             double d0 = entityIn.motionX;
@@ -68,43 +68,43 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient> {
                 d2 = d3;
             }
 
-            this.speedX = (int) (d0 * 8000.0D);
-            this.speedY = (int) (d1 * 8000.0D);
-            this.speedZ = (int) (d2 * 8000.0D);
+            speedX = (int) (d0 * 8000.0D);
+            speedY = (int) (d1 * 8000.0D);
+            speedZ = (int) (d2 * 8000.0D);
         }
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
-        this.type = buf.readByte();
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
-        this.pitch = buf.readByte();
-        this.yaw = buf.readByte();
-        this.field_149020_k = buf.readInt();
+        entityId = buf.readVarIntFromBuffer();
+        type = buf.readByte();
+        x = buf.readInt();
+        y = buf.readInt();
+        z = buf.readInt();
+        pitch = buf.readByte();
+        yaw = buf.readByte();
+        field_149020_k = buf.readInt();
 
-        if (this.field_149020_k > 0) {
-            this.speedX = buf.readShort();
-            this.speedY = buf.readShort();
-            this.speedZ = buf.readShort();
+        if (field_149020_k > 0) {
+            speedX = buf.readShort();
+            speedY = buf.readShort();
+            speedZ = buf.readShort();
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
-        buf.writeByte(this.type);
-        buf.writeInt(this.x);
-        buf.writeInt(this.y);
-        buf.writeInt(this.z);
-        buf.writeByte(this.pitch);
-        buf.writeByte(this.yaw);
-        buf.writeInt(this.field_149020_k);
+        buf.writeVarIntToBuffer(entityId);
+        buf.writeByte(type);
+        buf.writeInt(x);
+        buf.writeInt(y);
+        buf.writeInt(z);
+        buf.writeByte(pitch);
+        buf.writeByte(yaw);
+        buf.writeInt(field_149020_k);
 
-        if (this.field_149020_k > 0) {
-            buf.writeShort(this.speedX);
-            buf.writeShort(this.speedY);
-            buf.writeShort(this.speedZ);
+        if (field_149020_k > 0) {
+            buf.writeShort(speedX);
+            buf.writeShort(speedY);
+            buf.writeShort(speedZ);
         }
     }
 
@@ -113,74 +113,74 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient> {
     }
 
     public int getEntityID() {
-        return this.entityId;
+        return entityId;
     }
 
     public int getX() {
-        return this.x;
+        return x;
     }
 
     public void setX(int newX) {
-        this.x = newX;
+        x = newX;
     }
 
     public int getY() {
-        return this.y;
+        return y;
     }
 
     public void setY(int newY) {
-        this.y = newY;
+        y = newY;
     }
 
     public int getZ() {
-        return this.z;
+        return z;
     }
 
     public void setZ(int newZ) {
-        this.z = newZ;
+        z = newZ;
     }
 
     public int getSpeedX() {
-        return this.speedX;
+        return speedX;
     }
 
     public void setSpeedX(int newSpeedX) {
-        this.speedX = newSpeedX;
+        speedX = newSpeedX;
     }
 
     public int getSpeedY() {
-        return this.speedY;
+        return speedY;
     }
 
     public void setSpeedY(int newSpeedY) {
-        this.speedY = newSpeedY;
+        speedY = newSpeedY;
     }
 
     public int getSpeedZ() {
-        return this.speedZ;
+        return speedZ;
     }
 
     public void setSpeedZ(int newSpeedZ) {
-        this.speedZ = newSpeedZ;
+        speedZ = newSpeedZ;
     }
 
     public int getPitch() {
-        return this.pitch;
+        return pitch;
     }
 
     public int getYaw() {
-        return this.yaw;
+        return yaw;
     }
 
     public int getType() {
-        return this.type;
+        return type;
     }
 
     public int func_149009_m() {
-        return this.field_149020_k;
+        return field_149020_k;
     }
 
     public void func_149002_g(int p_149002_1_) {
-        this.field_149020_k = p_149002_1_;
+        field_149020_k = p_149002_1_;
     }
 }

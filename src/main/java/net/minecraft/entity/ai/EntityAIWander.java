@@ -17,49 +17,49 @@ public class EntityAIWander extends EntityAIBase {
     }
 
     public EntityAIWander(EntityCreature creatureIn, double speedIn, int chance) {
-        this.entity = creatureIn;
-        this.speed = speedIn;
-        this.executionChance = chance;
-        this.setMutexBits(1);
+        entity = creatureIn;
+        speed = speedIn;
+        executionChance = chance;
+        setMutexBits(1);
     }
 
     public boolean shouldExecute() {
-        if (!this.mustUpdate) {
-            if (this.entity.getAge() >= 100) {
+        if (!mustUpdate) {
+            if (entity.getAge() >= 100) {
                 return false;
             }
 
-            if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
+            if (entity.getRNG().nextInt(executionChance) != 0) {
                 return false;
             }
         }
 
-        Vec3 vec3 = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
+        Vec3 vec3 = RandomPositionGenerator.findRandomTarget(entity, 10, 7);
 
         if (vec3 == null) {
             return false;
         } else {
-            this.xPosition = vec3.xCoord();
-            this.yPosition = vec3.yCoord();
-            this.zPosition = vec3.zCoord();
-            this.mustUpdate = false;
+            xPosition = vec3.xCoord();
+            yPosition = vec3.yCoord();
+            zPosition = vec3.zCoord();
+            mustUpdate = false;
             return true;
         }
     }
 
     public boolean continueExecuting() {
-        return !this.entity.getNavigator().noPath();
+        return !entity.getNavigator().noPath();
     }
 
     public void startExecuting() {
-        this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
+        entity.getNavigator().tryMoveToXYZ(xPosition, yPosition, zPosition, speed);
     }
 
     public void makeUpdate() {
-        this.mustUpdate = true;
+        mustUpdate = true;
     }
 
     public void setExecutionChance(int newchance) {
-        this.executionChance = newchance;
+        executionChance = newchance;
     }
 }

@@ -13,12 +13,12 @@ import net.minecraft.world.World;
 public class EntityCaveSpider extends EntitySpider {
     public EntityCaveSpider(World worldIn) {
         super(worldIn);
-        this.setSize(0.7F, 0.5F);
+        setSize(0.7F, 0.5F);
     }
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(12.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(12.0D);
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
@@ -26,9 +26,9 @@ public class EntityCaveSpider extends EntitySpider {
             if (entityIn instanceof EntityLivingBase) {
                 int i = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
+                if (worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
                     i = 7;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                } else if (worldObj.getDifficulty() == EnumDifficulty.HARD) {
                     i = 15;
                 }
 

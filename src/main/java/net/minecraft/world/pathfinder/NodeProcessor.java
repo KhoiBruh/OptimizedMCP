@@ -14,11 +14,11 @@ public abstract class NodeProcessor {
     protected int entitySizeZ;
 
     public void initProcessor(IBlockAccess iblockaccessIn, Entity entityIn) {
-        this.blockaccess = iblockaccessIn;
-        this.pointMap.clearMap();
-        this.entitySizeX = MathHelper.floor_float(entityIn.width + 1.0F);
-        this.entitySizeY = MathHelper.floor_float(entityIn.height + 1.0F);
-        this.entitySizeZ = MathHelper.floor_float(entityIn.width + 1.0F);
+        blockaccess = iblockaccessIn;
+        pointMap.clearMap();
+        entitySizeX = MathHelper.floor_float(entityIn.width + 1.0F);
+        entitySizeY = MathHelper.floor_float(entityIn.height + 1.0F);
+        entitySizeZ = MathHelper.floor_float(entityIn.width + 1.0F);
     }
 
     public void postProcess() {
@@ -26,11 +26,11 @@ public abstract class NodeProcessor {
 
     protected PathPoint openPoint(int x, int y, int z) {
         int i = PathPoint.makeHash(x, y, z);
-        PathPoint pathpoint = this.pointMap.lookup(i);
+        PathPoint pathpoint = pointMap.lookup(i);
 
         if (pathpoint == null) {
             pathpoint = new PathPoint(x, y, z);
-            this.pointMap.addKey(i, pathpoint);
+            pointMap.addKey(i, pathpoint);
         }
 
         return pathpoint;

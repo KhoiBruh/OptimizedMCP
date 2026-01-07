@@ -26,7 +26,7 @@ public class CommandGameMode extends CommandBase {
         if (args.length <= 0) {
             throw new WrongUsageException("commands.gamemode.usage");
         } else {
-            WorldSettings.GameType worldsettings$gametype = this.getGameModeFromCommand(sender, args[0]);
+            WorldSettings.GameType worldsettings$gametype = getGameModeFromCommand(sender, args[0]);
             EntityPlayer entityplayer = args.length >= 2 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
             entityplayer.setGameType(worldsettings$gametype);
             entityplayer.fallDistance = 0.0F;
@@ -50,7 +50,7 @@ public class CommandGameMode extends CommandBase {
     }
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "survival", "creative", "adventure", "spectator") : (args.length == 2 ? getListOfStringsMatchingLastWord(args, this.getListOfPlayerUsernames()) : null);
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "survival", "creative", "adventure", "spectator") : (args.length == 2 ? getListOfStringsMatchingLastWord(args, getListOfPlayerUsernames()) : null);
     }
 
     protected String[] getListOfPlayerUsernames() {

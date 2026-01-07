@@ -30,7 +30,7 @@ public class ItemArmor extends Item {
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(i, j, k, i + 1, j + 1, k + 1);
             List<EntityLivingBase> list = source.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 EntityLivingBase entitylivingbase = list.get(0);
                 int l = entitylivingbase instanceof EntityPlayer ? 1 : 0;
                 int i1 = EntityLiving.getArmorPosition(stack);
@@ -58,10 +58,10 @@ public class ItemArmor extends Item {
         this.material = material;
         this.armorType = armorType;
         this.renderIndex = renderIndex;
-        this.damageReduceAmount = material.getDamageReductionAmount(armorType);
-        this.setMaxDamage(material.getDurability(armorType));
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        damageReduceAmount = material.getDamageReductionAmount(armorType);
+        setMaxDamage(material.getDurability(armorType));
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.tabCombat);
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
     }
 
@@ -69,7 +69,7 @@ public class ItemArmor extends Item {
         if (renderPass > 0) {
             return 16777215;
         } else {
-            int i = this.getColor(stack);
+            int i = getColor(stack);
 
             if (i < 0) {
                 i = 16777215;
@@ -80,19 +80,19 @@ public class ItemArmor extends Item {
     }
 
     public int getItemEnchantability() {
-        return this.material.getEnchantability();
+        return material.getEnchantability();
     }
 
     public ItemArmor.ArmorMaterial getArmorMaterial() {
-        return this.material;
+        return material;
     }
 
     public boolean hasColor(ItemStack stack) {
-        return this.material == ArmorMaterial.LEATHER && (stack.hasTagCompound() && (stack.getTagCompound().hasKey("display", 10) && stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
+        return material == ArmorMaterial.LEATHER && (stack.hasTagCompound() && (stack.getTagCompound().hasKey("display", 10) && stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
     }
 
     public int getColor(ItemStack stack) {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
+        if (material != ItemArmor.ArmorMaterial.LEATHER) {
             return -1;
         } else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
@@ -110,7 +110,7 @@ public class ItemArmor extends Item {
     }
 
     public void removeColor(ItemStack stack) {
-        if (this.material == ItemArmor.ArmorMaterial.LEATHER) {
+        if (material == ItemArmor.ArmorMaterial.LEATHER) {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
             if (nbttagcompound != null) {
@@ -124,7 +124,7 @@ public class ItemArmor extends Item {
     }
 
     public void setColor(ItemStack stack, int color) {
-        if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
+        if (material != ItemArmor.ArmorMaterial.LEATHER) {
             throw new UnsupportedOperationException("Can't dye non-leather!");
         } else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
@@ -145,7 +145,7 @@ public class ItemArmor extends Item {
     }
 
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return this.material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
+        return material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
@@ -174,21 +174,21 @@ public class ItemArmor extends Item {
 
         ArmorMaterial(String name, int maxDamage, int[] reductionAmounts, int enchantability) {
             this.name = name;
-            this.maxDamageFactor = maxDamage;
-            this.damageReductionAmountArray = reductionAmounts;
+            maxDamageFactor = maxDamage;
+            damageReductionAmountArray = reductionAmounts;
             this.enchantability = enchantability;
         }
 
         public int getDurability(int armorType) {
-            return ItemArmor.maxDamageArray[armorType] * this.maxDamageFactor;
+            return ItemArmor.maxDamageArray[armorType] * maxDamageFactor;
         }
 
         public int getDamageReductionAmount(int armorType) {
-            return this.damageReductionAmountArray[armorType];
+            return damageReductionAmountArray[armorType];
         }
 
         public int getEnchantability() {
-            return this.enchantability;
+            return enchantability;
         }
 
         public Item getRepairItem() {
@@ -196,7 +196,7 @@ public class ItemArmor extends Item {
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

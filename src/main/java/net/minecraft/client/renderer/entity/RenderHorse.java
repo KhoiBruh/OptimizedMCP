@@ -56,7 +56,7 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
                     return skeletonHorseTextures;
             }
         } else {
-            return this.func_110848_b(entity);
+            return func_110848_b(entity);
         }
     }
 

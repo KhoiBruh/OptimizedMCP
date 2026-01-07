@@ -18,17 +18,17 @@ public class ItemTool extends Item {
     private final float damageVsEntity;
 
     protected ItemTool(float attackDamage, Item.ToolMaterial material, Set<Block> effectiveBlocks) {
-        this.toolMaterial = material;
+        toolMaterial = material;
         this.effectiveBlocks = effectiveBlocks;
-        this.maxStackSize = 1;
-        this.setMaxDamage(material.getMaxUses());
-        this.efficiencyOnProperMaterial = material.getEfficiencyOnProperMaterial();
-        this.damageVsEntity = attackDamage + material.getDamageVsEntity();
-        this.setCreativeTab(CreativeTabs.tabTools);
+        maxStackSize = 1;
+        setMaxDamage(material.getMaxUses());
+        efficiencyOnProperMaterial = material.getEfficiencyOnProperMaterial();
+        damageVsEntity = attackDamage + material.getDamageVsEntity();
+        setCreativeTab(CreativeTabs.tabTools);
     }
 
     public float getStrVsBlock(ItemStack stack, Block state) {
-        return this.effectiveBlocks.contains(state) ? this.efficiencyOnProperMaterial : 1.0F;
+        return effectiveBlocks.contains(state) ? efficiencyOnProperMaterial : 1.0F;
     }
 
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
@@ -49,24 +49,24 @@ public class ItemTool extends Item {
     }
 
     public Item.ToolMaterial getToolMaterial() {
-        return this.toolMaterial;
+        return toolMaterial;
     }
 
     public int getItemEnchantability() {
-        return this.toolMaterial.getEnchantability();
+        return toolMaterial.getEnchantability();
     }
 
     public String getToolMaterialName() {
-        return this.toolMaterial.toString();
+        return toolMaterial.toString();
     }
 
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return this.toolMaterial.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
+        return toolMaterial.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", this.damageVsEntity, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", damageVsEntity, 0));
         return multimap;
     }
 }

@@ -46,7 +46,7 @@ public class RecipesBanners {
             if (!flag) {
                 return false;
             } else {
-                return this.func_179533_c(inv) != null;
+                return func_179533_c(inv) != null;
             }
         }
 
@@ -63,7 +63,7 @@ public class RecipesBanners {
                 }
             }
 
-            TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern = this.func_179533_c(inv);
+            TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern = func_179533_c(inv);
 
             if (tileentitybanner$enumbannerpattern != null) {
                 int k = 0;

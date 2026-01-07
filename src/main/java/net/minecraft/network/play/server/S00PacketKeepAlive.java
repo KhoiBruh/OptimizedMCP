@@ -13,7 +13,7 @@ public class S00PacketKeepAlive implements Packet<INetHandlerPlayClient> {
     }
 
     public S00PacketKeepAlive(int idIn) {
-        this.id = idIn;
+        id = idIn;
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -21,14 +21,14 @@ public class S00PacketKeepAlive implements Packet<INetHandlerPlayClient> {
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.id = buf.readVarIntFromBuffer();
+        id = buf.readVarIntFromBuffer();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.id);
+        buf.writeVarIntToBuffer(id);
     }
 
     public int func_149134_c() {
-        return this.id;
+        return id;
     }
 }

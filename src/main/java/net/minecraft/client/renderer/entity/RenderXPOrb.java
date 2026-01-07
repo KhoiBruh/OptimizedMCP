@@ -16,14 +16,14 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 
     public RenderXPOrb(RenderManager renderManagerIn) {
         super(renderManagerIn);
-        this.shadowSize = 0.15F;
-        this.shadowOpaque = 0.75F;
+        shadowSize = 0.15F;
+        shadowOpaque = 0.75F;
     }
 
     public void doRender(EntityXPOrb entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         int i = entity.getTextureByXP();
         float f = (float) (i % 4 * 16) / 64.0F;
         float f1 = (float) (i % 4 * 16 + 16) / 64.0F;
@@ -47,8 +47,8 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         l = (int) ((MathHelper.sin(f8 + 0.0F) + 1.0F) * 0.5F * 255.0F);
         int i1 = 255;
         int j1 = (int) ((MathHelper.sin(f8 + 4.1887903F) + 1.0F) * 0.1F * 255.0F);
-        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         float f9 = 0.3F;
         GlStateManager.scale(0.3F, 0.3F, 0.3F);
         Tessellator tessellator = Tessellator.getInstance();

@@ -21,8 +21,8 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
         GlStateManager.enableAlpha();
-        this.bindEntityTexture(entity);
-        this.leashKnotModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f);
+        bindEntityTexture(entity);
+        leashKnotModel.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f);
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }

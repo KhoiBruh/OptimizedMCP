@@ -13,7 +13,7 @@ public class ItemSeedFood extends ItemFood {
     public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
         super(healAmount, saturation, false);
         this.crops = crops;
-        this.soilId = soil;
+        soilId = soil;
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -21,8 +21,8 @@ public class ItemSeedFood extends ItemFood {
             return false;
         } else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
-        } else if (worldIn.getBlockState(pos).getBlock() == this.soilId && worldIn.isAirBlock(pos.up())) {
-            worldIn.setBlockState(pos.up(), this.crops.getDefaultState());
+        } else if (worldIn.getBlockState(pos).getBlock() == soilId && worldIn.isAirBlock(pos.up())) {
+            worldIn.setBlockState(pos.up(), crops.getDefaultState());
             --stack.stackSize;
             return true;
         } else {

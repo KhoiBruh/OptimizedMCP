@@ -23,7 +23,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
                 set.add(i);
             }
 
-            this.allowedValues = ImmutableSet.copyOf(set);
+            allowedValues = ImmutableSet.copyOf(set);
         }
     }
 
@@ -32,18 +32,18 @@ public class PropertyInteger extends PropertyHelper<Integer> {
     }
 
     public Collection<Integer> getAllowedValues() {
-        return this.allowedValues;
+        return allowedValues;
     }
 
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        } else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
             if (!super.equals(p_equals_1_)) {
                 return false;
             } else {
                 PropertyInteger propertyinteger = (PropertyInteger) p_equals_1_;
-                return this.allowedValues.equals(propertyinteger.allowedValues);
+                return allowedValues.equals(propertyinteger.allowedValues);
             }
         } else {
             return false;
@@ -52,7 +52,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 
     public int hashCode() {
         int i = super.hashCode();
-        i = 31 * i + this.allowedValues.hashCode();
+        i = 31 * i + allowedValues.hashCode();
         return i;
     }
 

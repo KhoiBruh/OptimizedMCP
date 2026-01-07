@@ -28,7 +28,7 @@ public abstract class StructureComponent {
     }
 
     protected StructureComponent(int type) {
-        this.componentType = type;
+        componentType = type;
     }
 
     public static StructureComponent findIntersecting(List<StructureComponent> listIn, StructureBoundingBox boundingboxIn) {
@@ -44,10 +44,10 @@ public abstract class StructureComponent {
     public NBTTagCompound createStructureBaseNBT() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setString("id", MapGenStructureIO.getStructureComponentName(this));
-        nbttagcompound.setTag("BB", this.boundingBox.toNBTTagIntArray());
-        nbttagcompound.setInteger("O", this.coordBaseMode == null ? -1 : this.coordBaseMode.getHorizontalIndex());
-        nbttagcompound.setInteger("GD", this.componentType);
-        this.writeStructureToNBT(nbttagcompound);
+        nbttagcompound.setTag("BB", boundingBox.toNBTTagIntArray());
+        nbttagcompound.setInteger("O", coordBaseMode == null ? -1 : coordBaseMode.getHorizontalIndex());
+        nbttagcompound.setInteger("GD", componentType);
+        writeStructureToNBT(nbttagcompound);
         return nbttagcompound;
     }
 
@@ -55,13 +55,13 @@ public abstract class StructureComponent {
 
     public void readStructureBaseNBT(World worldIn, NBTTagCompound tagCompound) {
         if (tagCompound.hasKey("BB")) {
-            this.boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
+            boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
         }
 
         int i = tagCompound.getInteger("O");
-        this.coordBaseMode = i == -1 ? null : EnumFacing.getHorizontal(i);
-        this.componentType = tagCompound.getInteger("GD");
-        this.readStructureFromNBT(tagCompound);
+        coordBaseMode = i == -1 ? null : EnumFacing.getHorizontal(i);
+        componentType = tagCompound.getInteger("GD");
+        readStructureFromNBT(tagCompound);
     }
 
     protected abstract void readStructureFromNBT(NBTTagCompound tagCompound);
@@ -72,24 +72,24 @@ public abstract class StructureComponent {
     public abstract boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn);
 
     public StructureBoundingBox getBoundingBox() {
-        return this.boundingBox;
+        return boundingBox;
     }
 
     public int getComponentType() {
-        return this.componentType;
+        return componentType;
     }
 
     public BlockPos getBoundingBoxCenter() {
-        return new BlockPos(this.boundingBox.getCenter());
+        return new BlockPos(boundingBox.getCenter());
     }
 
     protected boolean isLiquidInStructureBoundingBox(World worldIn, StructureBoundingBox boundingboxIn) {
-        int i = Math.max(this.boundingBox.minX - 1, boundingboxIn.minX);
-        int j = Math.max(this.boundingBox.minY - 1, boundingboxIn.minY);
-        int k = Math.max(this.boundingBox.minZ - 1, boundingboxIn.minZ);
-        int l = Math.min(this.boundingBox.maxX + 1, boundingboxIn.maxX);
-        int i1 = Math.min(this.boundingBox.maxY + 1, boundingboxIn.maxY);
-        int j1 = Math.min(this.boundingBox.maxZ + 1, boundingboxIn.maxZ);
+        int i = Math.max(boundingBox.minX - 1, boundingboxIn.minX);
+        int j = Math.max(boundingBox.minY - 1, boundingboxIn.minY);
+        int k = Math.max(boundingBox.minZ - 1, boundingboxIn.minZ);
+        int l = Math.min(boundingBox.maxX + 1, boundingboxIn.maxX);
+        int i1 = Math.min(boundingBox.maxY + 1, boundingboxIn.maxY);
+        int j1 = Math.min(boundingBox.maxZ + 1, boundingboxIn.maxZ);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         for (int k1 = i; k1 <= l; ++k1) {
@@ -132,19 +132,19 @@ public abstract class StructureComponent {
     }
 
     protected int getXWithOffset(int x, int z) {
-        if (this.coordBaseMode == null) {
+        if (coordBaseMode == null) {
             return x;
         } else {
-            switch (this.coordBaseMode) {
+            switch (coordBaseMode) {
                 case NORTH:
                 case SOUTH:
-                    return this.boundingBox.minX + x;
+                    return boundingBox.minX + x;
 
                 case WEST:
-                    return this.boundingBox.maxX - z;
+                    return boundingBox.maxX - z;
 
                 case EAST:
-                    return this.boundingBox.minX + z;
+                    return boundingBox.minX + z;
 
                 default:
                     return x;
@@ -153,23 +153,23 @@ public abstract class StructureComponent {
     }
 
     protected int getYWithOffset(int y) {
-        return this.coordBaseMode == null ? y : y + this.boundingBox.minY;
+        return coordBaseMode == null ? y : y + boundingBox.minY;
     }
 
     protected int getZWithOffset(int x, int z) {
-        if (this.coordBaseMode == null) {
+        if (coordBaseMode == null) {
             return z;
         } else {
-            switch (this.coordBaseMode) {
+            switch (coordBaseMode) {
                 case NORTH:
-                    return this.boundingBox.maxZ - z;
+                    return boundingBox.maxZ - z;
 
                 case SOUTH:
-                    return this.boundingBox.minZ + z;
+                    return boundingBox.minZ + z;
 
                 case WEST:
                 case EAST:
-                    return this.boundingBox.minZ + x;
+                    return boundingBox.minZ + x;
 
                 default:
                     return z;
@@ -179,7 +179,7 @@ public abstract class StructureComponent {
 
     protected int getMetadataWithOffset(Block blockIn, int meta) {
         if (blockIn == Blocks.rail) {
-            if (this.coordBaseMode == EnumFacing.WEST || this.coordBaseMode == EnumFacing.EAST) {
+            if (coordBaseMode == EnumFacing.WEST || coordBaseMode == EnumFacing.EAST) {
                 if (meta == 1) {
                     return 0;
                 }
@@ -187,7 +187,7 @@ public abstract class StructureComponent {
                 return 1;
             }
         } else if (blockIn instanceof BlockDoor) {
-            if (this.coordBaseMode == EnumFacing.SOUTH) {
+            if (coordBaseMode == EnumFacing.SOUTH) {
                 if (meta == 0) {
                     return 2;
                 }
@@ -196,17 +196,17 @@ public abstract class StructureComponent {
                     return 0;
                 }
             } else {
-                if (this.coordBaseMode == EnumFacing.WEST) {
+                if (coordBaseMode == EnumFacing.WEST) {
                     return meta + 1 & 3;
                 }
 
-                if (this.coordBaseMode == EnumFacing.EAST) {
+                if (coordBaseMode == EnumFacing.EAST) {
                     return meta + 3 & 3;
                 }
             }
         } else if (blockIn != Blocks.stone_stairs && blockIn != Blocks.oak_stairs && blockIn != Blocks.nether_brick_stairs && blockIn != Blocks.stone_brick_stairs && blockIn != Blocks.sandstone_stairs) {
             if (blockIn == Blocks.ladder) {
-                if (this.coordBaseMode == EnumFacing.SOUTH) {
+                if (coordBaseMode == EnumFacing.SOUTH) {
                     if (meta == EnumFacing.NORTH.getIndex()) {
                         return EnumFacing.SOUTH.getIndex();
                     }
@@ -214,7 +214,7 @@ public abstract class StructureComponent {
                     if (meta == EnumFacing.SOUTH.getIndex()) {
                         return EnumFacing.NORTH.getIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.WEST) {
+                } else if (coordBaseMode == EnumFacing.WEST) {
                     if (meta == EnumFacing.NORTH.getIndex()) {
                         return EnumFacing.WEST.getIndex();
                     }
@@ -230,7 +230,7 @@ public abstract class StructureComponent {
                     if (meta == EnumFacing.EAST.getIndex()) {
                         return EnumFacing.SOUTH.getIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.EAST) {
+                } else if (coordBaseMode == EnumFacing.EAST) {
                     if (meta == EnumFacing.NORTH.getIndex()) {
                         return EnumFacing.EAST.getIndex();
                     }
@@ -248,7 +248,7 @@ public abstract class StructureComponent {
                     }
                 }
             } else if (blockIn == Blocks.stone_button) {
-                if (this.coordBaseMode == EnumFacing.SOUTH) {
+                if (coordBaseMode == EnumFacing.SOUTH) {
                     if (meta == 3) {
                         return 4;
                     }
@@ -256,7 +256,7 @@ public abstract class StructureComponent {
                     if (meta == 4) {
                         return 3;
                     }
-                } else if (this.coordBaseMode == EnumFacing.WEST) {
+                } else if (coordBaseMode == EnumFacing.WEST) {
                     if (meta == 3) {
                         return 1;
                     }
@@ -272,7 +272,7 @@ public abstract class StructureComponent {
                     if (meta == 1) {
                         return 4;
                     }
-                } else if (this.coordBaseMode == EnumFacing.EAST) {
+                } else if (coordBaseMode == EnumFacing.EAST) {
                     if (meta == 3) {
                         return 2;
                     }
@@ -291,11 +291,11 @@ public abstract class StructureComponent {
                 }
             } else if (blockIn != Blocks.tripwire_hook && !(blockIn instanceof BlockDirectional)) {
                 if (blockIn == Blocks.piston || blockIn == Blocks.sticky_piston || blockIn == Blocks.lever || blockIn == Blocks.dispenser) {
-                    if (this.coordBaseMode == EnumFacing.SOUTH) {
+                    if (coordBaseMode == EnumFacing.SOUTH) {
                         if (meta == EnumFacing.NORTH.getIndex() || meta == EnumFacing.SOUTH.getIndex()) {
                             return EnumFacing.getFront(meta).getOpposite().getIndex();
                         }
-                    } else if (this.coordBaseMode == EnumFacing.WEST) {
+                    } else if (coordBaseMode == EnumFacing.WEST) {
                         if (meta == EnumFacing.NORTH.getIndex()) {
                             return EnumFacing.WEST.getIndex();
                         }
@@ -311,7 +311,7 @@ public abstract class StructureComponent {
                         if (meta == EnumFacing.EAST.getIndex()) {
                             return EnumFacing.SOUTH.getIndex();
                         }
-                    } else if (this.coordBaseMode == EnumFacing.EAST) {
+                    } else if (coordBaseMode == EnumFacing.EAST) {
                         if (meta == EnumFacing.NORTH.getIndex()) {
                             return EnumFacing.EAST.getIndex();
                         }
@@ -332,11 +332,11 @@ public abstract class StructureComponent {
             } else {
                 EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
 
-                if (this.coordBaseMode == EnumFacing.SOUTH) {
+                if (coordBaseMode == EnumFacing.SOUTH) {
                     if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
                         return enumfacing.getOpposite().getHorizontalIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.WEST) {
+                } else if (coordBaseMode == EnumFacing.WEST) {
                     if (enumfacing == EnumFacing.NORTH) {
                         return EnumFacing.WEST.getHorizontalIndex();
                     }
@@ -352,7 +352,7 @@ public abstract class StructureComponent {
                     if (enumfacing == EnumFacing.EAST) {
                         return EnumFacing.SOUTH.getHorizontalIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.EAST) {
+                } else if (coordBaseMode == EnumFacing.EAST) {
                     if (enumfacing == EnumFacing.NORTH) {
                         return EnumFacing.EAST.getHorizontalIndex();
                     }
@@ -370,7 +370,7 @@ public abstract class StructureComponent {
                     }
                 }
             }
-        } else if (this.coordBaseMode == EnumFacing.SOUTH) {
+        } else if (coordBaseMode == EnumFacing.SOUTH) {
             if (meta == 2) {
                 return 3;
             }
@@ -378,7 +378,7 @@ public abstract class StructureComponent {
             if (meta == 3) {
                 return 2;
             }
-        } else if (this.coordBaseMode == EnumFacing.WEST) {
+        } else if (coordBaseMode == EnumFacing.WEST) {
             if (meta == 0) {
                 return 2;
             }
@@ -394,7 +394,7 @@ public abstract class StructureComponent {
             if (meta == 3) {
                 return 1;
             }
-        } else if (this.coordBaseMode == EnumFacing.EAST) {
+        } else if (coordBaseMode == EnumFacing.EAST) {
             if (meta == 0) {
                 return 2;
             }
@@ -416,7 +416,7 @@ public abstract class StructureComponent {
     }
 
     protected void setBlockState(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (boundingboxIn.isVecInside(blockpos)) {
             worldIn.setBlockState(blockpos, blockstateIn, 2);
@@ -424,9 +424,9 @@ public abstract class StructureComponent {
     }
 
     protected IBlockState getBlockStateFromPos(World worldIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-        int i = this.getXWithOffset(x, z);
-        int j = this.getYWithOffset(y);
-        int k = this.getZWithOffset(x, z);
+        int i = getXWithOffset(x, z);
+        int j = getYWithOffset(y);
+        int k = getZWithOffset(x, z);
         BlockPos blockpos = new BlockPos(i, j, k);
         return !boundingboxIn.isVecInside(blockpos) ? Blocks.air.getDefaultState() : worldIn.getBlockState(blockpos);
     }
@@ -435,7 +435,7 @@ public abstract class StructureComponent {
         for (int i = minY; i <= maxY; ++i) {
             for (int j = minX; j <= maxX; ++j) {
                 for (int k = minZ; k <= maxZ; ++k) {
-                    this.setBlockState(worldIn, Blocks.air.getDefaultState(), j, i, k, structurebb);
+                    setBlockState(worldIn, Blocks.air.getDefaultState(), j, i, k, structurebb);
                 }
             }
         }
@@ -445,11 +445,11 @@ public abstract class StructureComponent {
         for (int i = yMin; i <= yMax; ++i) {
             for (int j = xMin; j <= xMax; ++j) {
                 for (int k = zMin; k <= zMax; ++k) {
-                    if (!existingOnly || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
+                    if (!existingOnly || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
                         if (i != yMin && i != yMax && j != xMin && j != xMax && k != zMin && k != zMax) {
-                            this.setBlockState(worldIn, insideBlockState, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, insideBlockState, j, i, k, boundingboxIn);
                         } else {
-                            this.setBlockState(worldIn, boundaryBlockState, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, boundaryBlockState, j, i, k, boundingboxIn);
                         }
                     }
                 }
@@ -461,9 +461,9 @@ public abstract class StructureComponent {
         for (int i = minY; i <= maxY; ++i) {
             for (int j = minX; j <= maxX; ++j) {
                 for (int k = minZ; k <= maxZ; ++k) {
-                    if (!alwaysReplace || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
+                    if (!alwaysReplace || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
                         blockselector.selectBlocks(rand, j, i, k, i == minY || i == maxY || j == minX || j == maxX || k == minZ || k == maxZ);
-                        this.setBlockState(worldIn, blockselector.getBlockState(), j, i, k, boundingboxIn);
+                        setBlockState(worldIn, blockselector.getBlockState(), j, i, k, boundingboxIn);
                     }
                 }
             }
@@ -474,11 +474,11 @@ public abstract class StructureComponent {
         for (int i = minY; i <= maxY; ++i) {
             for (int j = minX; j <= maxX; ++j) {
                 for (int k = minZ; k <= maxZ; ++k) {
-                    if (rand.nextFloat() <= chance && (!p_175805_13_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)) {
+                    if (rand.nextFloat() <= chance && (!p_175805_13_ || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)) {
                         if (i != minY && i != maxY && j != minX && j != maxX && k != minZ && k != maxZ) {
-                            this.setBlockState(worldIn, blockstate2, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, blockstate2, j, i, k, boundingboxIn);
                         } else {
-                            this.setBlockState(worldIn, blockstate1, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, blockstate1, j, i, k, boundingboxIn);
                         }
                     }
                 }
@@ -488,7 +488,7 @@ public abstract class StructureComponent {
 
     protected void randomlyPlaceBlock(World worldIn, StructureBoundingBox boundingboxIn, Random rand, float chance, int x, int y, int z, IBlockState blockstateIn) {
         if (rand.nextFloat() < chance) {
-            this.setBlockState(worldIn, blockstateIn, x, y, z, boundingboxIn);
+            setBlockState(worldIn, blockstateIn, x, y, z, boundingboxIn);
         }
     }
 
@@ -508,11 +508,11 @@ public abstract class StructureComponent {
                 for (int k = minZ; k <= maxZ; ++k) {
                     float f7 = ((float) k - f4) / (f2 * 0.5F);
 
-                    if (!p_180777_10_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
+                    if (!p_180777_10_ || getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
                         float f8 = f6 * f6 + f5 * f5 + f7 * f7;
 
                         if (f8 <= 1.05F) {
-                            this.setBlockState(worldIn, blockstateIn, j, i, k, boundingboxIn);
+                            setBlockState(worldIn, blockstateIn, j, i, k, boundingboxIn);
                         }
                     }
                 }
@@ -521,7 +521,7 @@ public abstract class StructureComponent {
     }
 
     protected void clearCurrentPositionBlocksUpwards(World worldIn, int x, int y, int z, StructureBoundingBox structurebb) {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (structurebb.isVecInside(blockpos)) {
             while (!worldIn.isAirBlock(blockpos) && blockpos.getY() < 255) {
@@ -532,9 +532,9 @@ public abstract class StructureComponent {
     }
 
     protected void replaceAirAndLiquidDownwards(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-        int i = this.getXWithOffset(x, z);
-        int j = this.getYWithOffset(y);
-        int k = this.getZWithOffset(x, z);
+        int i = getXWithOffset(x, z);
+        int j = getYWithOffset(y);
+        int k = getZWithOffset(x, z);
 
         if (boundingboxIn.isVecInside(new BlockPos(i, j, k))) {
             while ((worldIn.isAirBlock(new BlockPos(i, j, k)) || worldIn.getBlockState(new BlockPos(i, j, k)).getBlock().getMaterial().isLiquid()) && j > 1) {
@@ -545,7 +545,7 @@ public abstract class StructureComponent {
     }
 
     protected boolean generateChestContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, List<WeightedRandomChestContent> listIn, int max) {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock() != Blocks.chest) {
             IBlockState iblockstate = Blocks.chest.getDefaultState();
@@ -563,10 +563,10 @@ public abstract class StructureComponent {
     }
 
     protected boolean generateDispenserContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, int meta, List<WeightedRandomChestContent> listIn, int max) {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock() != Blocks.dispenser) {
-            worldIn.setBlockState(blockpos, Blocks.dispenser.getStateFromMeta(this.getMetadataWithOffset(Blocks.dispenser, meta)), 2);
+            worldIn.setBlockState(blockpos, Blocks.dispenser.getStateFromMeta(getMetadataWithOffset(Blocks.dispenser, meta)), 2);
             TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
             if (tileentity instanceof TileEntityDispenser) {
@@ -580,7 +580,7 @@ public abstract class StructureComponent {
     }
 
     protected void placeDoorCurrentPosition(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, EnumFacing facing) {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
         if (boundingBoxIn.isVecInside(blockpos)) {
             ItemDoor.placeDoor(worldIn, blockpos, facing.rotateYCCW(), Blocks.oak_door);
@@ -588,7 +588,7 @@ public abstract class StructureComponent {
     }
 
     public void func_181138_a(int p_181138_1_, int p_181138_2_, int p_181138_3_) {
-        this.boundingBox.offset(p_181138_1_, p_181138_2_, p_181138_3_);
+        boundingBox.offset(p_181138_1_, p_181138_2_, p_181138_3_);
     }
 
     public abstract static class BlockSelector {
@@ -597,7 +597,7 @@ public abstract class StructureComponent {
         public abstract void selectBlocks(Random rand, int x, int y, int z, boolean p_75062_5_);
 
         public IBlockState getBlockState() {
-            return this.blockstate;
+            return blockstate;
         }
     }
 }

@@ -17,20 +17,20 @@ public class S25PacketBlockBreakAnim implements Packet<INetHandlerPlayClient> {
 
     public S25PacketBlockBreakAnim(int breakerId, BlockPos pos, int progress) {
         this.breakerId = breakerId;
-        this.position = pos;
+        position = pos;
         this.progress = progress;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.breakerId = buf.readVarIntFromBuffer();
-        this.position = buf.readBlockPos();
-        this.progress = buf.readUnsignedByte();
+        breakerId = buf.readVarIntFromBuffer();
+        position = buf.readBlockPos();
+        progress = buf.readUnsignedByte();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.breakerId);
-        buf.writeBlockPos(this.position);
-        buf.writeByte(this.progress);
+        buf.writeVarIntToBuffer(breakerId);
+        buf.writeBlockPos(position);
+        buf.writeByte(progress);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -38,14 +38,14 @@ public class S25PacketBlockBreakAnim implements Packet<INetHandlerPlayClient> {
     }
 
     public int getBreakerId() {
-        return this.breakerId;
+        return breakerId;
     }
 
     public BlockPos getPosition() {
-        return this.position;
+        return position;
     }
 
     public int getProgress() {
-        return this.progress;
+        return progress;
     }
 }

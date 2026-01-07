@@ -34,30 +34,30 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.type = buf.readEnumValue(Type.class);
+        type = buf.readEnumValue(Type.class);
 
-        if (this.type == S45PacketTitle.Type.TITLE || this.type == S45PacketTitle.Type.SUBTITLE) {
-            this.message = buf.readChatComponent();
+        if (type == S45PacketTitle.Type.TITLE || type == S45PacketTitle.Type.SUBTITLE) {
+            message = buf.readChatComponent();
         }
 
-        if (this.type == S45PacketTitle.Type.TIMES) {
-            this.fadeInTime = buf.readInt();
-            this.displayTime = buf.readInt();
-            this.fadeOutTime = buf.readInt();
+        if (type == S45PacketTitle.Type.TIMES) {
+            fadeInTime = buf.readInt();
+            displayTime = buf.readInt();
+            fadeOutTime = buf.readInt();
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.type);
+        buf.writeEnumValue(type);
 
-        if (this.type == S45PacketTitle.Type.TITLE || this.type == S45PacketTitle.Type.SUBTITLE) {
-            buf.writeChatComponent(this.message);
+        if (type == S45PacketTitle.Type.TITLE || type == S45PacketTitle.Type.SUBTITLE) {
+            buf.writeChatComponent(message);
         }
 
-        if (this.type == S45PacketTitle.Type.TIMES) {
-            buf.writeInt(this.fadeInTime);
-            buf.writeInt(this.displayTime);
-            buf.writeInt(this.fadeOutTime);
+        if (type == S45PacketTitle.Type.TIMES) {
+            buf.writeInt(fadeInTime);
+            buf.writeInt(displayTime);
+            buf.writeInt(fadeOutTime);
         }
     }
 
@@ -66,23 +66,23 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     }
 
     public S45PacketTitle.Type getType() {
-        return this.type;
+        return type;
     }
 
     public IChatComponent getMessage() {
-        return this.message;
+        return message;
     }
 
     public int getFadeInTime() {
-        return this.fadeInTime;
+        return fadeInTime;
     }
 
     public int getDisplayTime() {
-        return this.displayTime;
+        return displayTime;
     }
 
     public int getFadeOutTime() {
-        return this.fadeOutTime;
+        return fadeOutTime;
     }
 
     public enum Type {

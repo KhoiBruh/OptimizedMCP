@@ -68,16 +68,16 @@ public abstract class NBTBase {
         if (!(p_equals_1_ instanceof NBTBase nbtbase)) {
             return false;
         } else {
-            return this.getId() == nbtbase.getId();
+            return getId() == nbtbase.getId();
         }
     }
 
     public int hashCode() {
-        return this.getId();
+        return getId();
     }
 
     protected String getString() {
-        return this.toString();
+        return toString();
     }
 
     public abstract static class NBTPrimitive extends NBTBase {

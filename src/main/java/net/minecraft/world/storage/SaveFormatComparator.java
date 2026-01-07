@@ -13,49 +13,49 @@ public class SaveFormatComparator implements Comparable<SaveFormatComparator> {
     private final boolean cheatsEnabled;
 
     public SaveFormatComparator(String fileNameIn, String displayNameIn, long lastTimePlayedIn, long sizeOnDiskIn, WorldSettings.GameType theEnumGameTypeIn, boolean requiresConversionIn, boolean hardcoreIn, boolean cheatsEnabledIn) {
-        this.fileName = fileNameIn;
-        this.displayName = displayNameIn;
-        this.lastTimePlayed = lastTimePlayedIn;
-        this.sizeOnDisk = sizeOnDiskIn;
-        this.theEnumGameType = theEnumGameTypeIn;
-        this.requiresConversion = requiresConversionIn;
-        this.hardcore = hardcoreIn;
-        this.cheatsEnabled = cheatsEnabledIn;
+        fileName = fileNameIn;
+        displayName = displayNameIn;
+        lastTimePlayed = lastTimePlayedIn;
+        sizeOnDisk = sizeOnDiskIn;
+        theEnumGameType = theEnumGameTypeIn;
+        requiresConversion = requiresConversionIn;
+        hardcore = hardcoreIn;
+        cheatsEnabled = cheatsEnabledIn;
     }
 
     public String getFileName() {
-        return this.fileName;
+        return fileName;
     }
 
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
     public long getSizeOnDisk() {
-        return this.sizeOnDisk;
+        return sizeOnDisk;
     }
 
     public boolean requiresConversion() {
-        return this.requiresConversion;
+        return requiresConversion;
     }
 
     public long getLastTimePlayed() {
-        return this.lastTimePlayed;
+        return lastTimePlayed;
     }
 
     public int compareTo(SaveFormatComparator p_compareTo_1_) {
-        return this.lastTimePlayed < p_compareTo_1_.lastTimePlayed ? 1 : (this.lastTimePlayed > p_compareTo_1_.lastTimePlayed ? -1 : this.fileName.compareTo(p_compareTo_1_.fileName));
+        return lastTimePlayed < p_compareTo_1_.lastTimePlayed ? 1 : (lastTimePlayed > p_compareTo_1_.lastTimePlayed ? -1 : fileName.compareTo(p_compareTo_1_.fileName));
     }
 
     public WorldSettings.GameType getEnumGameType() {
-        return this.theEnumGameType;
+        return theEnumGameType;
     }
 
     public boolean isHardcoreModeEnabled() {
-        return this.hardcore;
+        return hardcore;
     }
 
     public boolean getCheatsEnabled() {
-        return this.cheatsEnabled;
+        return cheatsEnabled;
     }
 }

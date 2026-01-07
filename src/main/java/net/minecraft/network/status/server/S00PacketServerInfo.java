@@ -20,15 +20,15 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
     }
 
     public S00PacketServerInfo(ServerStatusResponse responseIn) {
-        this.response = responseIn;
+        response = responseIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.response = GSON.fromJson(buf.readStringFromBuffer(32767), ServerStatusResponse.class);
+        response = GSON.fromJson(buf.readStringFromBuffer(32767), ServerStatusResponse.class);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeString(GSON.toJson(this.response));
+        buf.writeString(GSON.toJson(response));
     }
 
     public void processPacket(INetHandlerStatusClient handler) {
@@ -36,6 +36,6 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
     }
 
     public ServerStatusResponse getResponse() {
-        return this.response;
+        return response;
     }
 }

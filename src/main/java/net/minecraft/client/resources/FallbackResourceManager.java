@@ -16,7 +16,7 @@ public class FallbackResourceManager implements IResourceManager {
     private final IMetadataSerializer frmMetadataSerializer;
 
     public FallbackResourceManager(IMetadataSerializer frmMetadataSerializerIn) {
-        this.frmMetadataSerializer = frmMetadataSerializerIn;
+        frmMetadataSerializer = frmMetadataSerializerIn;
     }
 
     static ResourceLocation getLocationMcmeta(ResourceLocation location) {
@@ -24,7 +24,7 @@ public class FallbackResourceManager implements IResourceManager {
     }
 
     public void addResourcePack(IResourcePack resourcePack) {
-        this.resourcePacks.add(resourcePack);
+        resourcePacks.add(resourcePack);
     }
 
     public Set<String> getResourceDomains() {
@@ -35,8 +35,8 @@ public class FallbackResourceManager implements IResourceManager {
         IResourcePack iresourcepack = null;
         ResourceLocation resourcelocation = getLocationMcmeta(location);
 
-        for (int i = this.resourcePacks.size() - 1; i >= 0; --i) {
-            IResourcePack iresourcepack1 = this.resourcePacks.get(i);
+        for (int i = resourcePacks.size() - 1; i >= 0; --i) {
+            IResourcePack iresourcepack1 = resourcePacks.get(i);
 
             if (iresourcepack == null && iresourcepack1.resourceExists(resourcelocation)) {
                 iresourcepack = iresourcepack1;
@@ -46,10 +46,10 @@ public class FallbackResourceManager implements IResourceManager {
                 InputStream inputstream = null;
 
                 if (iresourcepack != null) {
-                    inputstream = this.getInputStream(resourcelocation, iresourcepack);
+                    inputstream = getInputStream(resourcelocation, iresourcepack);
                 }
 
-                return new SimpleResource(iresourcepack1.getPackName(), location, this.getInputStream(location, iresourcepack1), inputstream, this.frmMetadataSerializer);
+                return new SimpleResource(iresourcepack1.getPackName(), location, getInputStream(location, iresourcepack1), inputstream, frmMetadataSerializer);
             }
         }
 
@@ -65,10 +65,10 @@ public class FallbackResourceManager implements IResourceManager {
         List<IResource> list = Lists.newArrayList();
         ResourceLocation resourcelocation = getLocationMcmeta(location);
 
-        for (IResourcePack iresourcepack : this.resourcePacks) {
+        for (IResourcePack iresourcepack : resourcePacks) {
             if (iresourcepack.resourceExists(location)) {
-                InputStream inputstream = iresourcepack.resourceExists(resourcelocation) ? this.getInputStream(resourcelocation, iresourcepack) : null;
-                list.add(new SimpleResource(iresourcepack.getPackName(), location, this.getInputStream(location, iresourcepack), inputstream, this.frmMetadataSerializer));
+                InputStream inputstream = iresourcepack.resourceExists(resourcelocation) ? getInputStream(resourcelocation, iresourcepack) : null;
+                list.add(new SimpleResource(iresourcepack.getPackName(), location, getInputStream(location, iresourcepack), inputstream, frmMetadataSerializer));
             }
         }
 
@@ -85,19 +85,19 @@ public class FallbackResourceManager implements IResourceManager {
         private boolean isClosed = false;
 
         public InputStreamLeakedResourceLogger(InputStream p_i46093_1_, ResourceLocation location, String resourcePack) {
-            this.inputStream = p_i46093_1_;
+            inputStream = p_i46093_1_;
             ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
             (new Exception()).printStackTrace(new PrintStream(bytearrayoutputstream));
-            this.message = "Leaked resource: '" + location + "' loaded from pack: '" + resourcePack + "'\n" + bytearrayoutputstream;
+            message = "Leaked resource: '" + location + "' loaded from pack: '" + resourcePack + "'\n" + bytearrayoutputstream;
         }
 
         public void close() throws IOException {
-            this.inputStream.close();
-            this.isClosed = true;
+            inputStream.close();
+            isClosed = true;
         }
 
         public int read() throws IOException {
-            return this.inputStream.read();
+            return inputStream.read();
         }
     }
 }

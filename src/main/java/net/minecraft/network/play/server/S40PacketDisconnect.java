@@ -14,15 +14,15 @@ public class S40PacketDisconnect implements Packet<INetHandlerPlayClient> {
     }
 
     public S40PacketDisconnect(IChatComponent reasonIn) {
-        this.reason = reasonIn;
+        reason = reasonIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.reason = buf.readChatComponent();
+        reason = buf.readChatComponent();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeChatComponent(this.reason);
+        buf.writeChatComponent(reason);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -30,6 +30,6 @@ public class S40PacketDisconnect implements Packet<INetHandlerPlayClient> {
     }
 
     public IChatComponent getReason() {
-        return this.reason;
+        return reason;
     }
 }

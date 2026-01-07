@@ -21,7 +21,7 @@ public class S12PacketEntityVelocity implements Packet<INetHandlerPlayClient> {
     }
 
     public S12PacketEntityVelocity(int entityIDIn, double motionXIn, double motionYIn, double motionZIn) {
-        this.entityID = entityIDIn;
+        entityID = entityIDIn;
         double d0 = 3.9D;
 
         if (motionXIn < -d0) {
@@ -48,23 +48,23 @@ public class S12PacketEntityVelocity implements Packet<INetHandlerPlayClient> {
             motionZIn = d0;
         }
 
-        this.motionX = (int) (motionXIn * 8000.0D);
-        this.motionY = (int) (motionYIn * 8000.0D);
-        this.motionZ = (int) (motionZIn * 8000.0D);
+        motionX = (int) (motionXIn * 8000.0D);
+        motionY = (int) (motionYIn * 8000.0D);
+        motionZ = (int) (motionZIn * 8000.0D);
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityID = buf.readVarIntFromBuffer();
-        this.motionX = buf.readShort();
-        this.motionY = buf.readShort();
-        this.motionZ = buf.readShort();
+        entityID = buf.readVarIntFromBuffer();
+        motionX = buf.readShort();
+        motionY = buf.readShort();
+        motionZ = buf.readShort();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityID);
-        buf.writeShort(this.motionX);
-        buf.writeShort(this.motionY);
-        buf.writeShort(this.motionZ);
+        buf.writeVarIntToBuffer(entityID);
+        buf.writeShort(motionX);
+        buf.writeShort(motionY);
+        buf.writeShort(motionZ);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -72,18 +72,18 @@ public class S12PacketEntityVelocity implements Packet<INetHandlerPlayClient> {
     }
 
     public int getEntityID() {
-        return this.entityID;
+        return entityID;
     }
 
     public int getMotionX() {
-        return this.motionX;
+        return motionX;
     }
 
     public int getMotionY() {
-        return this.motionY;
+        return motionY;
     }
 
     public int getMotionZ() {
-        return this.motionZ;
+        return motionZ;
     }
 }

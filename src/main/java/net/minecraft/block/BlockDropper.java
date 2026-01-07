@@ -16,7 +16,7 @@ public class BlockDropper extends BlockDispenser {
     private final IBehaviorDispenseItem dropBehavior = new BehaviorDefaultDispenseItem();
 
     protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
-        return this.dropBehavior;
+        return dropBehavior;
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -42,7 +42,7 @@ public class BlockDropper extends BlockDispenser {
                     ItemStack itemstack1;
 
                     if (iinventory == null) {
-                        itemstack1 = this.dropBehavior.dispense(blocksourceimpl, itemstack);
+                        itemstack1 = dropBehavior.dispense(blocksourceimpl, itemstack);
 
                         if (itemstack1 != null && itemstack1.stackSize <= 0) {
                             itemstack1 = null;

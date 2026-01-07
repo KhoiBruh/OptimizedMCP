@@ -19,16 +19,16 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
 
     public ResourcePackListEntryDefault(GuiScreenResourcePacks resourcePacksGUIIn) {
         super(resourcePacksGUIIn);
-        this.field_148320_d = this.mc.getResourcePackRepository().rprDefaultResourcePack;
+        field_148320_d = mc.getResourcePackRepository().rprDefaultResourcePack;
         DynamicTexture dynamictexture;
 
         try {
-            dynamictexture = new DynamicTexture(this.field_148320_d.getPackImage());
+            dynamictexture = new DynamicTexture(field_148320_d.getPackImage());
         } catch (IOException var4) {
             dynamictexture = TextureUtil.missingTexture;
         }
 
-        this.resourcePackIcon = this.mc.getTextureManager().getDynamicTextureLocation("texturepackicon", dynamictexture);
+        resourcePackIcon = mc.getTextureManager().getDynamicTextureLocation("texturepackicon", dynamictexture);
     }
 
     protected int func_183019_a() {
@@ -37,7 +37,7 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
 
     protected String func_148311_a() {
         try {
-            PackMetadataSection packmetadatasection = this.field_148320_d.getPackMetadata(this.mc.getResourcePackRepository().rprMetadataSerializer, "pack");
+            PackMetadataSection packmetadatasection = field_148320_d.getPackMetadata(mc.getResourcePackRepository().rprMetadataSerializer, "pack");
 
             if (packmetadatasection != null) {
                 return packmetadatasection.packDescription().getFormattedText();
@@ -72,7 +72,7 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
     }
 
     protected void func_148313_c() {
-        this.mc.getTextureManager().bindTexture(this.resourcePackIcon);
+        mc.getTextureManager().bindTexture(resourcePackIcon);
     }
 
     protected boolean func_148310_d() {

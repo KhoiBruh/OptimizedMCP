@@ -33,7 +33,7 @@ public class CommandGameRule extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        GameRules gamerules = this.getGameRules();
+        GameRules gamerules = getGameRules();
         String s = args.length > 0 ? args[0] : "";
         String s1 = args.length > 1 ? buildString(args, 1) : "";
 
@@ -65,10 +65,10 @@ public class CommandGameRule extends CommandBase {
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, this.getGameRules().getRules());
+            return getListOfStringsMatchingLastWord(args, getGameRules().getRules());
         } else {
             if (args.length == 2) {
-                GameRules gamerules = this.getGameRules();
+                GameRules gamerules = getGameRules();
 
                 if (gamerules.areSameType(args[0], GameRules.ValueType.BOOLEAN_VALUE)) {
                     return getListOfStringsMatchingLastWord(args, "true", "false");

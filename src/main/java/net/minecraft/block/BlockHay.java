@@ -16,8 +16,8 @@ import net.minecraft.world.World;
 public class BlockHay extends BlockRotatedPillar {
     public BlockHay() {
         super(Material.grass, MapColor.yellowColor);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public IBlockState getStateFromMeta(int meta) {
@@ -30,7 +30,7 @@ public class BlockHay extends BlockRotatedPillar {
             enumfacing$axis = EnumFacing.Axis.Z;
         }
 
-        return this.getDefaultState().withProperty(AXIS, enumfacing$axis);
+        return getDefaultState().withProperty(AXIS, enumfacing$axis);
     }
 
     public int getMetaFromState(IBlockState state) {

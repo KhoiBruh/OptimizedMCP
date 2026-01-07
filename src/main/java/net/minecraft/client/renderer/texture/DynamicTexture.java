@@ -12,25 +12,25 @@ public class DynamicTexture extends AbstractTexture {
 
     public DynamicTexture(BufferedImage bufferedImage) {
         this(bufferedImage.getWidth(), bufferedImage.getHeight());
-        bufferedImage.getRGB(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), this.dynamicTextureData, 0, bufferedImage.getWidth());
-        this.updateDynamicTexture();
+        bufferedImage.getRGB(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), dynamicTextureData, 0, bufferedImage.getWidth());
+        updateDynamicTexture();
     }
 
     public DynamicTexture(int textureWidth, int textureHeight) {
-        this.width = textureWidth;
-        this.height = textureHeight;
-        this.dynamicTextureData = new int[textureWidth * textureHeight];
-        TextureUtil.allocateTexture(this.getGlTextureId(), textureWidth, textureHeight);
+        width = textureWidth;
+        height = textureHeight;
+        dynamicTextureData = new int[textureWidth * textureHeight];
+        TextureUtil.allocateTexture(getGlTextureId(), textureWidth, textureHeight);
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
     }
 
     public void updateDynamicTexture() {
-        TextureUtil.uploadTexture(this.getGlTextureId(), this.dynamicTextureData, this.width, this.height);
+        TextureUtil.uploadTexture(getGlTextureId(), dynamicTextureData, width, height);
     }
 
     public int[] getTextureData() {
-        return this.dynamicTextureData;
+        return dynamicTextureData;
     }
 }

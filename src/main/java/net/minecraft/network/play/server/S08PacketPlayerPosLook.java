@@ -20,30 +20,30 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
     }
 
     public S08PacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<S08PacketPlayerPosLook.EnumFlags> p_i45993_9_) {
-        this.x = xIn;
-        this.y = yIn;
-        this.z = zIn;
-        this.yaw = yawIn;
-        this.pitch = pitchIn;
-        this.field_179835_f = p_i45993_9_;
+        x = xIn;
+        y = yIn;
+        z = zIn;
+        yaw = yawIn;
+        pitch = pitchIn;
+        field_179835_f = p_i45993_9_;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.x = buf.readDouble();
-        this.y = buf.readDouble();
-        this.z = buf.readDouble();
-        this.yaw = buf.readFloat();
-        this.pitch = buf.readFloat();
-        this.field_179835_f = S08PacketPlayerPosLook.EnumFlags.func_180053_a(buf.readUnsignedByte());
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        yaw = buf.readFloat();
+        pitch = buf.readFloat();
+        field_179835_f = S08PacketPlayerPosLook.EnumFlags.func_180053_a(buf.readUnsignedByte());
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeDouble(this.x);
-        buf.writeDouble(this.y);
-        buf.writeDouble(this.z);
-        buf.writeFloat(this.yaw);
-        buf.writeFloat(this.pitch);
-        buf.writeByte(S08PacketPlayerPosLook.EnumFlags.func_180056_a(this.field_179835_f));
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeFloat(yaw);
+        buf.writeFloat(pitch);
+        buf.writeByte(S08PacketPlayerPosLook.EnumFlags.func_180056_a(field_179835_f));
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -51,27 +51,27 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
     }
 
     public double getX() {
-        return this.x;
+        return x;
     }
 
     public double getY() {
-        return this.y;
+        return y;
     }
 
     public double getZ() {
-        return this.z;
+        return z;
     }
 
     public float getYaw() {
-        return this.yaw;
+        return yaw;
     }
 
     public float getPitch() {
-        return this.pitch;
+        return pitch;
     }
 
     public Set<S08PacketPlayerPosLook.EnumFlags> func_179834_f() {
-        return this.field_179835_f;
+        return field_179835_f;
     }
 
     public enum EnumFlags {
@@ -84,7 +84,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         private final int field_180058_f;
 
         EnumFlags(int p_i45992_3_) {
-            this.field_180058_f = p_i45992_3_;
+            field_180058_f = p_i45992_3_;
         }
 
         public static Set<S08PacketPlayerPosLook.EnumFlags> func_180053_a(int p_180053_0_) {
@@ -110,11 +110,11 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         }
 
         private int func_180055_a() {
-            return 1 << this.field_180058_f;
+            return 1 << field_180058_f;
         }
 
         private boolean func_180054_b(int p_180054_1_) {
-            return (p_180054_1_ & this.func_180055_a()) == this.func_180055_a();
+            return (p_180054_1_ & func_180055_a()) == func_180055_a();
         }
     }
 }

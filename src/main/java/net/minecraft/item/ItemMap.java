@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ItemMap extends ItemMapBase {
     protected ItemMap() {
-        this.setHasSubtypes(true);
+        setHasSubtypes(true);
     }
 
     public static MapData loadMapData(int mapId, World worldIn) {
@@ -196,20 +196,20 @@ public class ItemMap extends ItemMapBase {
 
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (!worldIn.isRemote) {
-            MapData mapdata = this.getMapData(stack, worldIn);
+            MapData mapdata = getMapData(stack, worldIn);
 
             if (entityIn instanceof EntityPlayer entityplayer) {
                 mapdata.updateVisiblePlayers(entityplayer, stack);
             }
 
             if (isSelected) {
-                this.updateMapData(worldIn, entityIn, mapdata);
+                updateMapData(worldIn, entityIn, mapdata);
             }
         }
     }
 
     public Packet createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
-        return this.getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
+        return getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
     }
 
     public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
@@ -231,7 +231,7 @@ public class ItemMap extends ItemMapBase {
     }
 
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        MapData mapdata = this.getMapData(stack, playerIn.worldObj);
+        MapData mapdata = getMapData(stack, playerIn.worldObj);
 
         if (advanced) {
             if (mapdata == null) {

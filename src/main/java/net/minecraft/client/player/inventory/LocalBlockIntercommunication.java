@@ -11,8 +11,8 @@ public class LocalBlockIntercommunication implements IInteractionObject {
     private final IChatComponent displayName;
 
     public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn) {
-        this.guiID = guiIdIn;
-        this.displayName = displayNameIn;
+        guiID = guiIdIn;
+        displayName = displayNameIn;
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
@@ -20,7 +20,7 @@ public class LocalBlockIntercommunication implements IInteractionObject {
     }
 
     public String getName() {
-        return this.displayName.getUnformattedText();
+        return displayName.getUnformattedText();
     }
 
     public boolean hasCustomName() {
@@ -28,10 +28,10 @@ public class LocalBlockIntercommunication implements IInteractionObject {
     }
 
     public String getGuiID() {
-        return this.guiID;
+        return guiID;
     }
 
     public IChatComponent getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 }

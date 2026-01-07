@@ -22,16 +22,16 @@ public class BiomeGenHills extends BiomeGenBase {
 
     protected BiomeGenHills(int id, boolean p_i45373_2_) {
         super(id);
-        this.field_150638_aH = this.field_150635_aE;
+        field_150638_aH = field_150635_aE;
 
         if (p_i45373_2_) {
-            this.theBiomeDecorator.treesPerChunk = 3;
-            this.field_150638_aH = this.field_150636_aF;
+            theBiomeDecorator.treesPerChunk = 3;
+            field_150638_aH = field_150636_aF;
         }
     }
 
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
-        return rand.nextInt(3) > 0 ? this.field_150634_aD : super.genBigTreeChance(rand);
+        return rand.nextInt(3) > 0 ? field_150634_aD : super.genBigTreeChance(rand);
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos) {
@@ -53,31 +53,31 @@ public class BiomeGenHills extends BiomeGenBase {
             int j1 = rand.nextInt(16);
             int k1 = rand.nextInt(64);
             int l1 = rand.nextInt(16);
-            this.theWorldGenerator.generate(worldIn, rand, pos.add(j1, k1, l1));
+            theWorldGenerator.generate(worldIn, rand, pos.add(j1, k1, l1));
         }
     }
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-        this.topBlock = Blocks.grass.getDefaultState();
-        this.fillerBlock = Blocks.dirt.getDefaultState();
+        topBlock = Blocks.grass.getDefaultState();
+        fillerBlock = Blocks.dirt.getDefaultState();
 
-        if ((noiseVal < -1.0D || noiseVal > 2.0D) && this.field_150638_aH == this.field_150637_aG) {
-            this.topBlock = Blocks.gravel.getDefaultState();
-            this.fillerBlock = Blocks.gravel.getDefaultState();
-        } else if (noiseVal > 1.0D && this.field_150638_aH != this.field_150636_aF) {
-            this.topBlock = Blocks.stone.getDefaultState();
-            this.fillerBlock = Blocks.stone.getDefaultState();
+        if ((noiseVal < -1.0D || noiseVal > 2.0D) && field_150638_aH == field_150637_aG) {
+            topBlock = Blocks.gravel.getDefaultState();
+            fillerBlock = Blocks.gravel.getDefaultState();
+        } else if (noiseVal > 1.0D && field_150638_aH != field_150636_aF) {
+            topBlock = Blocks.stone.getDefaultState();
+            fillerBlock = Blocks.stone.getDefaultState();
         }
 
-        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
     private BiomeGenHills mutateHills(BiomeGenBase p_150633_1_) {
-        this.field_150638_aH = this.field_150637_aG;
-        this.func_150557_a(p_150633_1_.color, true);
-        this.setBiomeName(p_150633_1_.biomeName + " M");
-        this.setHeight(new BiomeGenBase.Height(p_150633_1_.minHeight, p_150633_1_.maxHeight));
-        this.setTemperatureRainfall(p_150633_1_.temperature, p_150633_1_.rainfall);
+        field_150638_aH = field_150637_aG;
+        func_150557_a(p_150633_1_.color, true);
+        setBiomeName(p_150633_1_.biomeName + " M");
+        setHeight(new BiomeGenBase.Height(p_150633_1_.minHeight, p_150633_1_.maxHeight));
+        setTemperatureRainfall(p_150633_1_.temperature, p_150633_1_.rainfall);
         return this;
     }
 

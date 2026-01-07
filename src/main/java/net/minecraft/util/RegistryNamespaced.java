@@ -11,12 +11,12 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
     protected final Map<V, K> inverseObjectRegistry;
 
     public RegistryNamespaced() {
-        this.inverseObjectRegistry = ((BiMap) this.registryObjects).inverse();
+        inverseObjectRegistry = ((BiMap) registryObjects).inverse();
     }
 
     public void register(int id, K key, V value) {
-        this.underlyingIntegerMap.put(value, id);
-        this.putObject(key, value);
+        underlyingIntegerMap.put(value, id);
+        putObject(key, value);
     }
 
     protected Map<K, V> createUnderlyingMap() {
@@ -28,7 +28,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
     }
 
     public K getNameForObject(V value) {
-        return this.inverseObjectRegistry.get(value);
+        return inverseObjectRegistry.get(value);
     }
 
     public boolean containsKey(K key) {
@@ -36,14 +36,14 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
     }
 
     public int getIDForObject(V value) {
-        return this.underlyingIntegerMap.get(value);
+        return underlyingIntegerMap.get(value);
     }
 
     public V getObjectById(int id) {
-        return this.underlyingIntegerMap.getByValue(id);
+        return underlyingIntegerMap.getByValue(id);
     }
 
     public Iterator<V> iterator() {
-        return this.underlyingIntegerMap.iterator();
+        return underlyingIntegerMap.iterator();
     }
 }

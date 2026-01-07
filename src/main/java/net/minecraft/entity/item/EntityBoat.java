@@ -29,21 +29,21 @@ public class EntityBoat extends Entity {
 
     public EntityBoat(World worldIn) {
         super(worldIn);
-        this.isBoatEmpty = true;
-        this.speedMultiplier = 0.07D;
-        this.preventEntitySpawning = true;
-        this.setSize(1.5F, 0.6F);
+        isBoatEmpty = true;
+        speedMultiplier = 0.07D;
+        preventEntitySpawning = true;
+        setSize(1.5F, 0.6F);
     }
 
     public EntityBoat(World worldIn, double p_i1705_2_, double p_i1705_4_, double p_i1705_6_) {
         this(worldIn);
-        this.setPosition(p_i1705_2_, p_i1705_4_, p_i1705_6_);
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
-        this.prevPosX = p_i1705_2_;
-        this.prevPosY = p_i1705_4_;
-        this.prevPosZ = p_i1705_6_;
+        setPosition(p_i1705_2_, p_i1705_4_, p_i1705_6_);
+        motionX = 0.0D;
+        motionY = 0.0D;
+        motionZ = 0.0D;
+        prevPosX = p_i1705_2_;
+        prevPosY = p_i1705_4_;
+        prevPosZ = p_i1705_6_;
     }
 
     protected boolean canTriggerWalking() {
@@ -51,9 +51,9 @@ public class EntityBoat extends Entity {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(17, 0);
-        this.dataWatcher.addObject(18, 1);
-        this.dataWatcher.addObject(19, 0.0F);
+        dataWatcher.addObject(17, 0);
+        dataWatcher.addObject(18, 1);
+        dataWatcher.addObject(19, 0.0F);
     }
 
     public AxisAlignedBB getCollisionBox(Entity entityIn) {
@@ -61,7 +61,7 @@ public class EntityBoat extends Entity {
     }
 
     public AxisAlignedBB getCollisionBoundingBox() {
-        return this.getEntityBoundingBox();
+        return getEntityBoundingBox();
     }
 
     public boolean canBePushed() {
@@ -73,28 +73,28 @@ public class EntityBoat extends Entity {
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
-        } else if (!this.worldObj.isRemote && !this.isDead) {
-            if (this.riddenByEntity != null && this.riddenByEntity == source.getEntity() && source instanceof EntityDamageSourceIndirect) {
+        } else if (!worldObj.isRemote && !isDead) {
+            if (riddenByEntity != null && riddenByEntity == source.getEntity() && source instanceof EntityDamageSourceIndirect) {
                 return false;
             } else {
-                this.setForwardDirection(-this.getForwardDirection());
-                this.setTimeSinceHit(10);
-                this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
-                this.setBeenAttacked();
+                setForwardDirection(-getForwardDirection());
+                setTimeSinceHit(10);
+                setDamageTaken(getDamageTaken() + amount * 10.0F);
+                setBeenAttacked();
                 boolean flag = source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode;
 
-                if (flag || this.getDamageTaken() > 40.0F) {
-                    if (this.riddenByEntity != null) {
-                        this.riddenByEntity.mountEntity(this);
+                if (flag || getDamageTaken() > 40.0F) {
+                    if (riddenByEntity != null) {
+                        riddenByEntity.mountEntity(this);
                     }
 
-                    if (!flag && this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-                        this.dropItemWithOffset(Items.boat, 1, 0.0F);
+                    if (!flag && worldObj.getGameRules().getBoolean("doEntityDrops")) {
+                        dropItemWithOffset(Items.boat, 1, 0.0F);
                     }
 
-                    this.setDead();
+                    setDead();
                 }
 
                 return true;
@@ -105,234 +105,234 @@ public class EntityBoat extends Entity {
     }
 
     public void performHurtAnimation() {
-        this.setForwardDirection(-this.getForwardDirection());
-        this.setTimeSinceHit(10);
-        this.setDamageTaken(this.getDamageTaken() * 11.0F);
+        setForwardDirection(-getForwardDirection());
+        setTimeSinceHit(10);
+        setDamageTaken(getDamageTaken() * 11.0F);
     }
 
     public boolean canBeCollidedWith() {
-        return !this.isDead;
+        return !isDead;
     }
 
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
-        if (p_180426_10_ && this.riddenByEntity != null) {
-            this.prevPosX = this.posX = x;
-            this.prevPosY = this.posY = y;
-            this.prevPosZ = this.posZ = z;
-            this.rotationYaw = yaw;
-            this.rotationPitch = pitch;
-            this.boatPosRotationIncrements = 0;
-            this.setPosition(x, y, z);
-            this.motionX = this.velocityX = 0.0D;
-            this.motionY = this.velocityY = 0.0D;
-            this.motionZ = this.velocityZ = 0.0D;
+        if (p_180426_10_ && riddenByEntity != null) {
+            prevPosX = posX = x;
+            prevPosY = posY = y;
+            prevPosZ = posZ = z;
+            rotationYaw = yaw;
+            rotationPitch = pitch;
+            boatPosRotationIncrements = 0;
+            setPosition(x, y, z);
+            motionX = velocityX = 0.0D;
+            motionY = velocityY = 0.0D;
+            motionZ = velocityZ = 0.0D;
         } else {
-            if (this.isBoatEmpty) {
-                this.boatPosRotationIncrements = posRotationIncrements + 5;
+            if (isBoatEmpty) {
+                boatPosRotationIncrements = posRotationIncrements + 5;
             } else {
-                double d0 = x - this.posX;
-                double d1 = y - this.posY;
-                double d2 = z - this.posZ;
+                double d0 = x - posX;
+                double d1 = y - posY;
+                double d2 = z - posZ;
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
                 if (d3 <= 1.0D) {
                     return;
                 }
 
-                this.boatPosRotationIncrements = 3;
+                boatPosRotationIncrements = 3;
             }
 
-            this.boatX = x;
-            this.boatY = y;
-            this.boatZ = z;
-            this.boatYaw = yaw;
-            this.boatPitch = pitch;
-            this.motionX = this.velocityX;
-            this.motionY = this.velocityY;
-            this.motionZ = this.velocityZ;
+            boatX = x;
+            boatY = y;
+            boatZ = z;
+            boatYaw = yaw;
+            boatPitch = pitch;
+            motionX = velocityX;
+            motionY = velocityY;
+            motionZ = velocityZ;
         }
     }
 
     public void setVelocity(double x, double y, double z) {
-        this.velocityX = this.motionX = x;
-        this.velocityY = this.motionY = y;
-        this.velocityZ = this.motionZ = z;
+        velocityX = motionX = x;
+        velocityY = motionY = y;
+        velocityZ = motionZ = z;
     }
 
     public void onUpdate() {
         super.onUpdate();
 
-        if (this.getTimeSinceHit() > 0) {
-            this.setTimeSinceHit(this.getTimeSinceHit() - 1);
+        if (getTimeSinceHit() > 0) {
+            setTimeSinceHit(getTimeSinceHit() - 1);
         }
 
-        if (this.getDamageTaken() > 0.0F) {
-            this.setDamageTaken(this.getDamageTaken() - 1.0F);
+        if (getDamageTaken() > 0.0F) {
+            setDamageTaken(getDamageTaken() - 1.0F);
         }
 
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
         int i = 5;
         double d0 = 0.0D;
 
         for (int j = 0; j < i; ++j) {
-            double d1 = this.getEntityBoundingBox().minY + (this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) * (double) (j) / (double) i - 0.125D;
-            double d3 = this.getEntityBoundingBox().minY + (this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) * (double) (j + 1) / (double) i - 0.125D;
-            AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.getEntityBoundingBox().minX, d1, this.getEntityBoundingBox().minZ, this.getEntityBoundingBox().maxX, d3, this.getEntityBoundingBox().maxZ);
+            double d1 = getEntityBoundingBox().minY + (getEntityBoundingBox().maxY - getEntityBoundingBox().minY) * (double) (j) / (double) i - 0.125D;
+            double d3 = getEntityBoundingBox().minY + (getEntityBoundingBox().maxY - getEntityBoundingBox().minY) * (double) (j + 1) / (double) i - 0.125D;
+            AxisAlignedBB axisalignedbb = new AxisAlignedBB(getEntityBoundingBox().minX, d1, getEntityBoundingBox().minZ, getEntityBoundingBox().maxX, d3, getEntityBoundingBox().maxZ);
 
-            if (this.worldObj.isAABBInMaterial(axisalignedbb, Material.water)) {
+            if (worldObj.isAABBInMaterial(axisalignedbb, Material.water)) {
                 d0 += 1.0D / (double) i;
             }
         }
 
-        double d9 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        double d9 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 
         if (d9 > 0.2975D) {
-            double d2 = Math.cos((double) this.rotationYaw * Math.PI / 180.0D);
-            double d4 = Math.sin((double) this.rotationYaw * Math.PI / 180.0D);
+            double d2 = Math.cos((double) rotationYaw * Math.PI / 180.0D);
+            double d4 = Math.sin((double) rotationYaw * Math.PI / 180.0D);
 
             for (int k = 0; (double) k < 1.0D + d9 * 60.0D; ++k) {
-                double d5 = this.rand.nextFloat() * 2.0F - 1.0F;
-                double d6 = (double) (this.rand.nextInt(2) * 2 - 1) * 0.7D;
+                double d5 = rand.nextFloat() * 2.0F - 1.0F;
+                double d6 = (double) (rand.nextInt(2) * 2 - 1) * 0.7D;
 
-                if (this.rand.nextBoolean()) {
-                    double d7 = this.posX - d2 * d5 * 0.8D + d4 * d6;
-                    double d8 = this.posZ - d4 * d5 * 0.8D - d2 * d6;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d7, this.posY - 0.125D, d8, this.motionX, this.motionY, this.motionZ);
+                if (rand.nextBoolean()) {
+                    double d7 = posX - d2 * d5 * 0.8D + d4 * d6;
+                    double d8 = posZ - d4 * d5 * 0.8D - d2 * d6;
+                    worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d7, posY - 0.125D, d8, motionX, motionY, motionZ);
                 } else {
-                    double d24 = this.posX + d2 + d4 * d5 * 0.7D;
-                    double d25 = this.posZ + d4 - d2 * d5 * 0.7D;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d24, this.posY - 0.125D, d25, this.motionX, this.motionY, this.motionZ);
+                    double d24 = posX + d2 + d4 * d5 * 0.7D;
+                    double d25 = posZ + d4 - d2 * d5 * 0.7D;
+                    worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d24, posY - 0.125D, d25, motionX, motionY, motionZ);
                 }
             }
         }
 
-        if (this.worldObj.isRemote && this.isBoatEmpty) {
-            if (this.boatPosRotationIncrements > 0) {
-                double d12 = this.posX + (this.boatX - this.posX) / (double) this.boatPosRotationIncrements;
-                double d16 = this.posY + (this.boatY - this.posY) / (double) this.boatPosRotationIncrements;
-                double d19 = this.posZ + (this.boatZ - this.posZ) / (double) this.boatPosRotationIncrements;
-                double d22 = MathHelper.wrapAngleTo180_double(this.boatYaw - (double) this.rotationYaw);
-                this.rotationYaw = (float) ((double) this.rotationYaw + d22 / (double) this.boatPosRotationIncrements);
-                this.rotationPitch = (float) ((double) this.rotationPitch + (this.boatPitch - (double) this.rotationPitch) / (double) this.boatPosRotationIncrements);
-                --this.boatPosRotationIncrements;
-                this.setPosition(d12, d16, d19);
-                this.setRotation(this.rotationYaw, this.rotationPitch);
+        if (worldObj.isRemote && isBoatEmpty) {
+            if (boatPosRotationIncrements > 0) {
+                double d12 = posX + (boatX - posX) / (double) boatPosRotationIncrements;
+                double d16 = posY + (boatY - posY) / (double) boatPosRotationIncrements;
+                double d19 = posZ + (boatZ - posZ) / (double) boatPosRotationIncrements;
+                double d22 = MathHelper.wrapAngleTo180_double(boatYaw - (double) rotationYaw);
+                rotationYaw = (float) ((double) rotationYaw + d22 / (double) boatPosRotationIncrements);
+                rotationPitch = (float) ((double) rotationPitch + (boatPitch - (double) rotationPitch) / (double) boatPosRotationIncrements);
+                --boatPosRotationIncrements;
+                setPosition(d12, d16, d19);
+                setRotation(rotationYaw, rotationPitch);
             } else {
-                double d13 = this.posX + this.motionX;
-                double d17 = this.posY + this.motionY;
-                double d20 = this.posZ + this.motionZ;
-                this.setPosition(d13, d17, d20);
+                double d13 = posX + motionX;
+                double d17 = posY + motionY;
+                double d20 = posZ + motionZ;
+                setPosition(d13, d17, d20);
 
-                if (this.onGround) {
-                    this.motionX *= 0.5D;
-                    this.motionY *= 0.5D;
-                    this.motionZ *= 0.5D;
+                if (onGround) {
+                    motionX *= 0.5D;
+                    motionY *= 0.5D;
+                    motionZ *= 0.5D;
                 }
 
-                this.motionX *= 0.9900000095367432D;
-                this.motionY *= 0.949999988079071D;
-                this.motionZ *= 0.9900000095367432D;
+                motionX *= 0.9900000095367432D;
+                motionY *= 0.949999988079071D;
+                motionZ *= 0.9900000095367432D;
             }
         } else {
             if (d0 < 1.0D) {
                 double d10 = d0 * 2.0D - 1.0D;
-                this.motionY += 0.03999999910593033D * d10;
+                motionY += 0.03999999910593033D * d10;
             } else {
-                if (this.motionY < 0.0D) {
-                    this.motionY /= 2.0D;
+                if (motionY < 0.0D) {
+                    motionY /= 2.0D;
                 }
 
-                this.motionY += 0.007000000216066837D;
+                motionY += 0.007000000216066837D;
             }
 
-            if (this.riddenByEntity instanceof EntityLivingBase entitylivingbase) {
-                float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
-                this.motionX += -Math.sin(f * (float) Math.PI / 180.0F) * this.speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
-                this.motionZ += Math.cos(f * (float) Math.PI / 180.0F) * this.speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
+            if (riddenByEntity instanceof EntityLivingBase entitylivingbase) {
+                float f = riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
+                motionX += -Math.sin(f * (float) Math.PI / 180.0F) * speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
+                motionZ += Math.cos(f * (float) Math.PI / 180.0F) * speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
             }
 
-            double d11 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+            double d11 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 
             if (d11 > 0.35D) {
                 double d14 = 0.35D / d11;
-                this.motionX *= d14;
-                this.motionZ *= d14;
+                motionX *= d14;
+                motionZ *= d14;
                 d11 = 0.35D;
             }
 
-            if (d11 > d9 && this.speedMultiplier < 0.35D) {
-                this.speedMultiplier += (0.35D - this.speedMultiplier) / 35.0D;
+            if (d11 > d9 && speedMultiplier < 0.35D) {
+                speedMultiplier += (0.35D - speedMultiplier) / 35.0D;
 
-                if (this.speedMultiplier > 0.35D) {
-                    this.speedMultiplier = 0.35D;
+                if (speedMultiplier > 0.35D) {
+                    speedMultiplier = 0.35D;
                 }
             } else {
-                this.speedMultiplier -= (this.speedMultiplier - 0.07D) / 35.0D;
+                speedMultiplier -= (speedMultiplier - 0.07D) / 35.0D;
 
-                if (this.speedMultiplier < 0.07D) {
-                    this.speedMultiplier = 0.07D;
+                if (speedMultiplier < 0.07D) {
+                    speedMultiplier = 0.07D;
                 }
             }
 
             for (int i1 = 0; i1 < 4; ++i1) {
-                int l1 = MathHelper.floor_double(this.posX + ((double) (i1 % 2) - 0.5D) * 0.8D);
-                int i2 = MathHelper.floor_double(this.posZ + ((double) (i1 / 2) - 0.5D) * 0.8D);
+                int l1 = MathHelper.floor_double(posX + ((double) (i1 % 2) - 0.5D) * 0.8D);
+                int i2 = MathHelper.floor_double(posZ + ((double) (i1 / 2) - 0.5D) * 0.8D);
 
                 for (int j2 = 0; j2 < 2; ++j2) {
-                    int l = MathHelper.floor_double(this.posY) + j2;
+                    int l = MathHelper.floor_double(posY) + j2;
                     BlockPos blockpos = new BlockPos(l1, l, i2);
-                    Block block = this.worldObj.getBlockState(blockpos).getBlock();
+                    Block block = worldObj.getBlockState(blockpos).getBlock();
 
                     if (block == Blocks.snow_layer) {
-                        this.worldObj.setBlockToAir(blockpos);
-                        this.isCollidedHorizontally = false;
+                        worldObj.setBlockToAir(blockpos);
+                        isCollidedHorizontally = false;
                     } else if (block == Blocks.waterlily) {
-                        this.worldObj.destroyBlock(blockpos, true);
-                        this.isCollidedHorizontally = false;
+                        worldObj.destroyBlock(blockpos, true);
+                        isCollidedHorizontally = false;
                     }
                 }
             }
 
-            if (this.onGround) {
-                this.motionX *= 0.5D;
-                this.motionY *= 0.5D;
-                this.motionZ *= 0.5D;
+            if (onGround) {
+                motionX *= 0.5D;
+                motionY *= 0.5D;
+                motionZ *= 0.5D;
             }
 
-            this.moveEntity(this.motionX, this.motionY, this.motionZ);
+            moveEntity(motionX, motionY, motionZ);
 
-            if (this.isCollidedHorizontally && d9 > 0.2975D) {
-                if (!this.worldObj.isRemote && !this.isDead) {
-                    this.setDead();
+            if (isCollidedHorizontally && d9 > 0.2975D) {
+                if (!worldObj.isRemote && !isDead) {
+                    setDead();
 
-                    if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
+                    if (worldObj.getGameRules().getBoolean("doEntityDrops")) {
                         for (int j1 = 0; j1 < 3; ++j1) {
-                            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
+                            dropItemWithOffset(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
                         }
 
                         for (int k1 = 0; k1 < 2; ++k1) {
-                            this.dropItemWithOffset(Items.stick, 1, 0.0F);
+                            dropItemWithOffset(Items.stick, 1, 0.0F);
                         }
                     }
                 }
             } else {
-                this.motionX *= 0.9900000095367432D;
-                this.motionY *= 0.949999988079071D;
-                this.motionZ *= 0.9900000095367432D;
+                motionX *= 0.9900000095367432D;
+                motionY *= 0.949999988079071D;
+                motionZ *= 0.9900000095367432D;
             }
 
-            this.rotationPitch = 0.0F;
-            double d15 = this.rotationYaw;
-            double d18 = this.prevPosX - this.posX;
-            double d21 = this.prevPosZ - this.posZ;
+            rotationPitch = 0.0F;
+            double d15 = rotationYaw;
+            double d18 = prevPosX - posX;
+            double d21 = prevPosZ - posZ;
 
             if (d18 * d18 + d21 * d21 > 0.001D) {
                 d15 = (float) (MathHelper.atan2(d21, d18) * 180.0D / Math.PI);
             }
 
-            double d23 = MathHelper.wrapAngleTo180_double(d15 - (double) this.rotationYaw);
+            double d23 = MathHelper.wrapAngleTo180_double(d15 - (double) rotationYaw);
 
             if (d23 > 20.0D) {
                 d23 = 20.0D;
@@ -342,32 +342,32 @@ public class EntityBoat extends Entity {
                 d23 = -20.0D;
             }
 
-            this.rotationYaw = (float) ((double) this.rotationYaw + d23);
-            this.setRotation(this.rotationYaw, this.rotationPitch);
+            rotationYaw = (float) ((double) rotationYaw + d23);
+            setRotation(rotationYaw, rotationPitch);
 
-            if (!this.worldObj.isRemote) {
-                List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            if (!worldObj.isRemote) {
+                List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
                 if (list != null && !list.isEmpty()) {
                     for (Entity entity : list) {
-                        if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
+                        if (entity != riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
                             entity.applyEntityCollision(this);
                         }
                     }
                 }
 
-                if (this.riddenByEntity != null && this.riddenByEntity.isDead) {
-                    this.riddenByEntity = null;
+                if (riddenByEntity != null && riddenByEntity.isDead) {
+                    riddenByEntity = null;
                 }
             }
         }
     }
 
     public void updateRiderPosition() {
-        if (this.riddenByEntity != null) {
-            double d0 = Math.cos((double) this.rotationYaw * Math.PI / 180.0D) * 0.4D;
-            double d1 = Math.sin((double) this.rotationYaw * Math.PI / 180.0D) * 0.4D;
-            this.riddenByEntity.setPosition(this.posX + d0, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset(), this.posZ + d1);
+        if (riddenByEntity != null) {
+            double d0 = Math.cos((double) rotationYaw * Math.PI / 180.0D) * 0.4D;
+            double d1 = Math.sin((double) rotationYaw * Math.PI / 180.0D) * 0.4D;
+            riddenByEntity.setPosition(posX + d0, posY + getMountedYOffset() + riddenByEntity.getYOffset(), posZ + d1);
         }
     }
 
@@ -378,10 +378,10 @@ public class EntityBoat extends Entity {
     }
 
     public boolean interactFirst(EntityPlayer playerIn) {
-        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != playerIn) {
+        if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer && riddenByEntity != playerIn) {
             return true;
         } else {
-            if (!this.worldObj.isRemote) {
+            if (!worldObj.isRemote) {
                 playerIn.mountEntity(this);
             }
 
@@ -391,55 +391,55 @@ public class EntityBoat extends Entity {
 
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
         if (onGroundIn) {
-            if (this.fallDistance > 3.0F) {
-                this.fall(this.fallDistance, 1.0F);
+            if (fallDistance > 3.0F) {
+                fall(fallDistance, 1.0F);
 
-                if (!this.worldObj.isRemote && !this.isDead) {
-                    this.setDead();
+                if (!worldObj.isRemote && !isDead) {
+                    setDead();
 
-                    if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
+                    if (worldObj.getGameRules().getBoolean("doEntityDrops")) {
                         for (int i = 0; i < 3; ++i) {
-                            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
+                            dropItemWithOffset(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
                         }
 
                         for (int j = 0; j < 2; ++j) {
-                            this.dropItemWithOffset(Items.stick, 1, 0.0F);
+                            dropItemWithOffset(Items.stick, 1, 0.0F);
                         }
                     }
                 }
 
-                this.fallDistance = 0.0F;
+                fallDistance = 0.0F;
             }
-        } else if (this.worldObj.getBlockState((new BlockPos(this)).down()).getBlock().getMaterial() != Material.water && y < 0.0D) {
-            this.fallDistance = (float) ((double) this.fallDistance - y);
+        } else if (worldObj.getBlockState((new BlockPos(this)).down()).getBlock().getMaterial() != Material.water && y < 0.0D) {
+            fallDistance = (float) ((double) fallDistance - y);
         }
     }
 
     public float getDamageTaken() {
-        return this.dataWatcher.getWatchableObjectFloat(19);
+        return dataWatcher.getWatchableObjectFloat(19);
     }
 
     public void setDamageTaken(float p_70266_1_) {
-        this.dataWatcher.updateObject(19, p_70266_1_);
+        dataWatcher.updateObject(19, p_70266_1_);
     }
 
     public int getTimeSinceHit() {
-        return this.dataWatcher.getWatchableObjectInt(17);
+        return dataWatcher.getWatchableObjectInt(17);
     }
 
     public void setTimeSinceHit(int p_70265_1_) {
-        this.dataWatcher.updateObject(17, p_70265_1_);
+        dataWatcher.updateObject(17, p_70265_1_);
     }
 
     public int getForwardDirection() {
-        return this.dataWatcher.getWatchableObjectInt(18);
+        return dataWatcher.getWatchableObjectInt(18);
     }
 
     public void setForwardDirection(int p_70269_1_) {
-        this.dataWatcher.updateObject(18, p_70269_1_);
+        dataWatcher.updateObject(18, p_70269_1_);
     }
 
     public void setIsBoatEmpty(boolean p_70270_1_) {
-        this.isBoatEmpty = p_70270_1_;
+        isBoatEmpty = p_70270_1_;
     }
 }

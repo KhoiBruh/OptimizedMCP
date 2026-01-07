@@ -19,19 +19,19 @@ public class MapStorage {
     private final Map<String, Short> idCounts = Maps.newHashMap();
 
     public MapStorage(ISaveHandler saveHandlerIn) {
-        this.saveHandler = saveHandlerIn;
-        this.loadIdCounts();
+        saveHandler = saveHandlerIn;
+        loadIdCounts();
     }
 
     public WorldSavedData loadData(Class<? extends WorldSavedData> clazz, String dataIdentifier) {
-        WorldSavedData worldsaveddata = this.loadedDataMap.get(dataIdentifier);
+        WorldSavedData worldsaveddata = loadedDataMap.get(dataIdentifier);
 
         if (worldsaveddata != null) {
             return worldsaveddata;
         } else {
-            if (this.saveHandler != null) {
+            if (saveHandler != null) {
                 try {
-                    File file1 = this.saveHandler.getMapFileFromName(dataIdentifier);
+                    File file1 = saveHandler.getMapFileFromName(dataIdentifier);
 
                     if (file1 != null && file1.exists()) {
                         try {
@@ -51,8 +51,8 @@ public class MapStorage {
             }
 
             if (worldsaveddata != null) {
-                this.loadedDataMap.put(dataIdentifier, worldsaveddata);
-                this.loadedDataList.add(worldsaveddata);
+                loadedDataMap.put(dataIdentifier, worldsaveddata);
+                loadedDataList.add(worldsaveddata);
             }
 
             return worldsaveddata;
@@ -60,27 +60,27 @@ public class MapStorage {
     }
 
     public void setData(String dataIdentifier, WorldSavedData data) {
-        if (this.loadedDataMap.containsKey(dataIdentifier)) {
-            this.loadedDataList.remove(this.loadedDataMap.remove(dataIdentifier));
+        if (loadedDataMap.containsKey(dataIdentifier)) {
+            loadedDataList.remove(loadedDataMap.remove(dataIdentifier));
         }
 
-        this.loadedDataMap.put(dataIdentifier, data);
-        this.loadedDataList.add(data);
+        loadedDataMap.put(dataIdentifier, data);
+        loadedDataList.add(data);
     }
 
     public void saveAllData() {
-        for (WorldSavedData worldsaveddata : this.loadedDataList) {
+        for (WorldSavedData worldsaveddata : loadedDataList) {
             if (worldsaveddata.isDirty()) {
-                this.saveData(worldsaveddata);
+                saveData(worldsaveddata);
                 worldsaveddata.setDirty(false);
             }
         }
     }
 
     private void saveData(WorldSavedData p_75747_1_) {
-        if (this.saveHandler != null) {
+        if (saveHandler != null) {
             try {
-                File file1 = this.saveHandler.getMapFileFromName(p_75747_1_.mapName);
+                File file1 = saveHandler.getMapFileFromName(p_75747_1_.mapName);
 
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -99,13 +99,13 @@ public class MapStorage {
 
     private void loadIdCounts() {
         try {
-            this.idCounts.clear();
+            idCounts.clear();
 
-            if (this.saveHandler == null) {
+            if (saveHandler == null) {
                 return;
             }
 
-            File file1 = this.saveHandler.getMapFileFromName("idcounts");
+            File file1 = saveHandler.getMapFileFromName("idcounts");
 
             if (file1 != null && file1.exists()) {
                 DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
@@ -117,7 +117,7 @@ public class MapStorage {
 
                     if (nbtbase instanceof NBTTagShort nbttagshort) {
                         short short1 = nbttagshort.getShort();
-                        this.idCounts.put(s, short1);
+                        idCounts.put(s, short1);
                     }
                 }
             }
@@ -127,7 +127,7 @@ public class MapStorage {
     }
 
     public int getUniqueDataId(String key) {
-        Short oshort = this.idCounts.get(key);
+        Short oshort = idCounts.get(key);
 
         if (oshort == null) {
             oshort = (short) 0;
@@ -135,19 +135,19 @@ public class MapStorage {
             oshort = (short) (oshort.shortValue() + 1);
         }
 
-        this.idCounts.put(key, oshort);
+        idCounts.put(key, oshort);
 
-        if (this.saveHandler == null) {
+        if (saveHandler == null) {
             return oshort;
         } else {
             try {
-                File file1 = this.saveHandler.getMapFileFromName("idcounts");
+                File file1 = saveHandler.getMapFileFromName("idcounts");
 
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-                    for (String s : this.idCounts.keySet()) {
-                        short short1 = this.idCounts.get(s);
+                    for (String s : idCounts.keySet()) {
+                        short short1 = idCounts.get(s);
                         nbttagcompound.setShort(s, short1);
                     }
 

@@ -44,7 +44,7 @@ public class OldServerPinger {
     public void ping(final ServerData server) throws UnknownHostException {
         ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
         final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
-        this.pingDestinations.add(networkmanager);
+        pingDestinations.add(networkmanager);
         server.serverMOTD = "Pinging...";
         server.pingToServer = -1L;
         server.playerList = null;
@@ -54,10 +54,10 @@ public class OldServerPinger {
             private long field_175092_e = 0L;
 
             public void handleServerInfo(S00PacketServerInfo packetIn) {
-                if (this.field_183009_e) {
+                if (field_183009_e) {
                     networkmanager.closeChannel(new ChatComponentText("Received unrequested status"));
                 } else {
-                    this.field_183009_e = true;
+                    field_183009_e = true;
                     ServerStatusResponse serverstatusresponse = packetIn.getResponse();
 
                     if (serverstatusresponse.getServerDescription() != null) {
@@ -81,7 +81,7 @@ public class OldServerPinger {
                             StringBuilder stringbuilder = new StringBuilder();
 
                             for (GameProfile gameprofile : serverstatusresponse.getPlayerCountData().getPlayers()) {
-                                if (stringbuilder.length() > 0) {
+                                if (!stringbuilder.isEmpty()) {
                                     stringbuilder.append("\n");
                                 }
 
@@ -89,7 +89,7 @@ public class OldServerPinger {
                             }
 
                             if (serverstatusresponse.getPlayerCountData().getPlayers().length < serverstatusresponse.getPlayerCountData().getOnlinePlayerCount()) {
-                                if (stringbuilder.length() > 0) {
+                                if (!stringbuilder.isEmpty()) {
                                     stringbuilder.append("\n");
                                 }
 
@@ -114,25 +114,25 @@ public class OldServerPinger {
                         server.setBase64EncodedIconData(null);
                     }
 
-                    this.field_175092_e = Minecraft.getSystemTime();
-                    networkmanager.sendPacket(new C01PacketPing(this.field_175092_e));
-                    this.field_147403_d = true;
+                    field_175092_e = Minecraft.getSystemTime();
+                    networkmanager.sendPacket(new C01PacketPing(field_175092_e));
+                    field_147403_d = true;
                 }
             }
 
             public void handlePong(S01PacketPong packetIn) {
-                long i = this.field_175092_e;
+                long i = field_175092_e;
                 long j = Minecraft.getSystemTime();
                 server.pingToServer = j - i;
                 networkmanager.closeChannel(new ChatComponentText("Finished"));
             }
 
             public void onDisconnect(IChatComponent reason) {
-                if (!this.field_147403_d) {
+                if (!field_147403_d) {
                     OldServerPinger.logger.error("Can't ping " + server.serverIP + ": " + reason.getUnformattedText());
                     server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
                     server.populationInfo = "";
-                    OldServerPinger.this.tryCompatibilityPing(server);
+                    tryCompatibilityPing(server);
                 }
             }
         });
@@ -218,8 +218,8 @@ public class OldServerPinger {
     }
 
     public void pingPendingNetworks() {
-        synchronized (this.pingDestinations) {
-            Iterator<NetworkManager> iterator = this.pingDestinations.iterator();
+        synchronized (pingDestinations) {
+            Iterator<NetworkManager> iterator = pingDestinations.iterator();
 
             while (iterator.hasNext()) {
                 NetworkManager networkmanager = iterator.next();
@@ -235,8 +235,8 @@ public class OldServerPinger {
     }
 
     public void clearPendingNetworks() {
-        synchronized (this.pingDestinations) {
-            Iterator<NetworkManager> iterator = this.pingDestinations.iterator();
+        synchronized (pingDestinations) {
+            Iterator<NetworkManager> iterator = pingDestinations.iterator();
 
             while (iterator.hasNext()) {
                 NetworkManager networkmanager = iterator.next();

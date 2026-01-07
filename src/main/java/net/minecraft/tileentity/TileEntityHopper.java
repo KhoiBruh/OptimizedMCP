@@ -218,7 +218,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         if (iinventory == null) {
             List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
             }
         }
@@ -233,20 +233,20 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
-        this.inventory = new ItemStack[this.getSizeInventory()];
+        inventory = new ItemStack[getSizeInventory()];
 
         if (compound.hasKey("CustomName", 8)) {
-            this.customName = compound.getString("CustomName");
+            customName = compound.getString("CustomName");
         }
 
-        this.transferCooldown = compound.getInteger("TransferCooldown");
+        transferCooldown = compound.getInteger("TransferCooldown");
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
             int j = nbttagcompound.getByte("Slot");
 
-            if (j >= 0 && j < this.inventory.length) {
-                this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+            if (j >= 0 && j < inventory.length) {
+                inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
             }
         }
     }
@@ -255,20 +255,20 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         super.writeToNBT(compound);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.inventory.length; ++i) {
-            if (this.inventory[i] != null) {
+        for (int i = 0; i < inventory.length; ++i) {
+            if (inventory[i] != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Slot", (byte) i);
-                this.inventory[i].writeToNBT(nbttagcompound);
+                inventory[i].writeToNBT(nbttagcompound);
                 nbttaglist.appendTag(nbttagcompound);
             }
         }
 
         compound.setTag("Items", nbttaglist);
-        compound.setInteger("TransferCooldown", this.transferCooldown);
+        compound.setInteger("TransferCooldown", transferCooldown);
 
-        if (this.hasCustomName()) {
-            compound.setString("CustomName", this.customName);
+        if (hasCustomName()) {
+            compound.setString("CustomName", customName);
         }
     }
 
@@ -277,24 +277,24 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public int getSizeInventory() {
-        return this.inventory.length;
+        return inventory.length;
     }
 
     public ItemStack getStackInSlot(int index) {
-        return this.inventory[index];
+        return inventory[index];
     }
 
     public ItemStack decrStackSize(int index, int count) {
-        if (this.inventory[index] != null) {
-            if (this.inventory[index].stackSize <= count) {
-                ItemStack itemstack1 = this.inventory[index];
-                this.inventory[index] = null;
+        if (inventory[index] != null) {
+            if (inventory[index].stackSize <= count) {
+                ItemStack itemstack1 = inventory[index];
+                inventory[index] = null;
                 return itemstack1;
             } else {
-                ItemStack itemstack = this.inventory[index].splitStack(count);
+                ItemStack itemstack = inventory[index].splitStack(count);
 
-                if (this.inventory[index].stackSize == 0) {
-                    this.inventory[index] = null;
+                if (inventory[index].stackSize == 0) {
+                    inventory[index] = null;
                 }
 
                 return itemstack;
@@ -305,9 +305,9 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public ItemStack removeStackFromSlot(int index) {
-        if (this.inventory[index] != null) {
-            ItemStack itemstack = this.inventory[index];
-            this.inventory[index] = null;
+        if (inventory[index] != null) {
+            ItemStack itemstack = inventory[index];
+            inventory[index] = null;
             return itemstack;
         } else {
             return null;
@@ -315,23 +315,23 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.inventory[index] = stack;
+        inventory[index] = stack;
 
-        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-            stack.stackSize = this.getInventoryStackLimit();
+        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+            stack.stackSize = getInventoryStackLimit();
         }
     }
 
     public String getName() {
-        return this.hasCustomName() ? this.customName : "container.hopper";
+        return hasCustomName() ? customName : "container.hopper";
     }
 
     public boolean hasCustomName() {
-        return this.customName != null && this.customName.length() > 0;
+        return customName != null && !customName.isEmpty();
     }
 
     public void setCustomName(String customNameIn) {
-        this.customName = customNameIn;
+        customName = customNameIn;
     }
 
     public int getInventoryStackLimit() {
@@ -339,7 +339,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return worldObj.getTileEntity(pos) == this && player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {
@@ -353,32 +353,32 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public void update() {
-        if (this.worldObj != null && !this.worldObj.isRemote) {
-            --this.transferCooldown;
+        if (worldObj != null && !worldObj.isRemote) {
+            --transferCooldown;
 
-            if (!this.isOnTransferCooldown()) {
-                this.setTransferCooldown(0);
-                this.updateHopper();
+            if (!isOnTransferCooldown()) {
+                setTransferCooldown(0);
+                updateHopper();
             }
         }
     }
 
     public boolean updateHopper() {
-        if (this.worldObj != null && !this.worldObj.isRemote) {
-            if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata())) {
+        if (worldObj != null && !worldObj.isRemote) {
+            if (!isOnTransferCooldown() && BlockHopper.isEnabled(getBlockMetadata())) {
                 boolean flag = false;
 
-                if (!this.isEmpty()) {
-                    flag = this.transferItemsOut();
+                if (!isEmpty()) {
+                    flag = transferItemsOut();
                 }
 
-                if (!this.isFull()) {
+                if (!isFull()) {
                     flag = captureDroppedItems(this) || flag;
                 }
 
                 if (flag) {
-                    this.setTransferCooldown(8);
-                    this.markDirty();
+                    setTransferCooldown(8);
+                    markDirty();
                     return true;
                 }
             }
@@ -390,7 +390,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     private boolean isEmpty() {
-        for (ItemStack itemstack : this.inventory) {
+        for (ItemStack itemstack : inventory) {
             if (itemstack != null) {
                 return false;
             }
@@ -400,7 +400,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     private boolean isFull() {
-        for (ItemStack itemstack : this.inventory) {
+        for (ItemStack itemstack : inventory) {
             if (itemstack == null || itemstack.stackSize != itemstack.getMaxStackSize()) {
                 return false;
             }
@@ -410,27 +410,27 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     private boolean transferItemsOut() {
-        IInventory iinventory = this.getInventoryForHopperTransfer();
+        IInventory iinventory = getInventoryForHopperTransfer();
 
         if (iinventory == null) {
             return false;
         } else {
-            EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata()).getOpposite();
+            EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata()).getOpposite();
 
-            if (this.isInventoryFull(iinventory, enumfacing)) {
+            if (isInventoryFull(iinventory, enumfacing)) {
                 return false;
             } else {
-                for (int i = 0; i < this.getSizeInventory(); ++i) {
-                    if (this.getStackInSlot(i) != null) {
-                        ItemStack itemstack = this.getStackInSlot(i).copy();
-                        ItemStack itemstack1 = putStackInInventoryAllSlots(iinventory, this.decrStackSize(i, 1), enumfacing);
+                for (int i = 0; i < getSizeInventory(); ++i) {
+                    if (getStackInSlot(i) != null) {
+                        ItemStack itemstack = getStackInSlot(i).copy();
+                        ItemStack itemstack1 = putStackInInventoryAllSlots(iinventory, decrStackSize(i, 1), enumfacing);
 
                         if (itemstack1 == null || itemstack1.stackSize == 0) {
                             iinventory.markDirty();
                             return true;
                         }
 
-                        this.setInventorySlotContents(i, itemstack);
+                        setInventorySlotContents(i, itemstack);
                     }
                 }
 
@@ -466,32 +466,32 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     private IInventory getInventoryForHopperTransfer() {
-        EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
-        return getInventoryAtPosition(this.getWorld(), this.pos.getX() + enumfacing.getFrontOffsetX(), this.pos.getY() + enumfacing.getFrontOffsetY(), this.pos.getZ() + enumfacing.getFrontOffsetZ());
+        EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata());
+        return getInventoryAtPosition(getWorld(), pos.getX() + enumfacing.getFrontOffsetX(), pos.getY() + enumfacing.getFrontOffsetY(), pos.getZ() + enumfacing.getFrontOffsetZ());
     }
 
     public double getXPos() {
-        return (double) this.pos.getX() + 0.5D;
+        return (double) pos.getX() + 0.5D;
     }
 
     public double getYPos() {
-        return (double) this.pos.getY() + 0.5D;
+        return (double) pos.getY() + 0.5D;
     }
 
     public double getZPos() {
-        return (double) this.pos.getZ() + 0.5D;
+        return (double) pos.getZ() + 0.5D;
     }
 
     public void setTransferCooldown(int ticks) {
-        this.transferCooldown = ticks;
+        transferCooldown = ticks;
     }
 
     public boolean isOnTransferCooldown() {
-        return this.transferCooldown > 0;
+        return transferCooldown > 0;
     }
 
     public boolean mayTransfer() {
-        return this.transferCooldown <= 1;
+        return transferCooldown <= 1;
     }
 
     public String getGuiID() {
@@ -514,8 +514,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public void clear() {
-        for (int i = 0; i < this.inventory.length; ++i) {
-            this.inventory[i] = null;
+        for (int i = 0; i < inventory.length; ++i) {
+            inventory[i] = null;
         }
     }
 }

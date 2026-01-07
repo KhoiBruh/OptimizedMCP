@@ -11,159 +11,159 @@ public class DerivedWorldInfo extends WorldInfo {
     private final WorldInfo theWorldInfo;
 
     public DerivedWorldInfo(WorldInfo p_i2145_1_) {
-        this.theWorldInfo = p_i2145_1_;
+        theWorldInfo = p_i2145_1_;
     }
 
     public NBTTagCompound getNBTTagCompound() {
-        return this.theWorldInfo.getNBTTagCompound();
+        return theWorldInfo.getNBTTagCompound();
     }
 
     public NBTTagCompound cloneNBTCompound(NBTTagCompound nbt) {
-        return this.theWorldInfo.cloneNBTCompound(nbt);
+        return theWorldInfo.cloneNBTCompound(nbt);
     }
 
     public long getSeed() {
-        return this.theWorldInfo.getSeed();
+        return theWorldInfo.getSeed();
     }
 
     public int getSpawnX() {
-        return this.theWorldInfo.getSpawnX();
+        return theWorldInfo.getSpawnX();
     }
 
     public void setSpawnX(int x) {
     }
 
     public int getSpawnY() {
-        return this.theWorldInfo.getSpawnY();
+        return theWorldInfo.getSpawnY();
     }
 
     public void setSpawnY(int y) {
     }
 
     public int getSpawnZ() {
-        return this.theWorldInfo.getSpawnZ();
+        return theWorldInfo.getSpawnZ();
     }
 
     public void setSpawnZ(int z) {
     }
 
     public long getWorldTotalTime() {
-        return this.theWorldInfo.getWorldTotalTime();
+        return theWorldInfo.getWorldTotalTime();
     }
 
     public void setWorldTotalTime(long time) {
     }
 
     public long getWorldTime() {
-        return this.theWorldInfo.getWorldTime();
+        return theWorldInfo.getWorldTime();
     }
 
     public void setWorldTime(long time) {
     }
 
     public long getSizeOnDisk() {
-        return this.theWorldInfo.getSizeOnDisk();
+        return theWorldInfo.getSizeOnDisk();
     }
 
     public NBTTagCompound getPlayerNBTTagCompound() {
-        return this.theWorldInfo.getPlayerNBTTagCompound();
+        return theWorldInfo.getPlayerNBTTagCompound();
     }
 
     public String getWorldName() {
-        return this.theWorldInfo.getWorldName();
+        return theWorldInfo.getWorldName();
     }
 
     public void setWorldName(String worldName) {
     }
 
     public int getSaveVersion() {
-        return this.theWorldInfo.getSaveVersion();
+        return theWorldInfo.getSaveVersion();
     }
 
     public void setSaveVersion(int version) {
     }
 
     public long getLastTimePlayed() {
-        return this.theWorldInfo.getLastTimePlayed();
+        return theWorldInfo.getLastTimePlayed();
     }
 
     public boolean isThundering() {
-        return this.theWorldInfo.isThundering();
+        return theWorldInfo.isThundering();
     }
 
     public void setThundering(boolean thunderingIn) {
     }
 
     public int getThunderTime() {
-        return this.theWorldInfo.getThunderTime();
+        return theWorldInfo.getThunderTime();
     }
 
     public void setThunderTime(int time) {
     }
 
     public boolean isRaining() {
-        return this.theWorldInfo.isRaining();
+        return theWorldInfo.isRaining();
     }
 
     public void setRaining(boolean isRaining) {
     }
 
     public int getRainTime() {
-        return this.theWorldInfo.getRainTime();
+        return theWorldInfo.getRainTime();
     }
 
     public void setRainTime(int time) {
     }
 
     public WorldSettings.GameType getGameType() {
-        return this.theWorldInfo.getGameType();
+        return theWorldInfo.getGameType();
     }
 
     public void setSpawn(BlockPos spawnPoint) {
     }
 
     public boolean isMapFeaturesEnabled() {
-        return this.theWorldInfo.isMapFeaturesEnabled();
+        return theWorldInfo.isMapFeaturesEnabled();
     }
 
     public boolean isHardcoreModeEnabled() {
-        return this.theWorldInfo.isHardcoreModeEnabled();
+        return theWorldInfo.isHardcoreModeEnabled();
     }
 
     public WorldType getTerrainType() {
-        return this.theWorldInfo.getTerrainType();
+        return theWorldInfo.getTerrainType();
     }
 
     public void setTerrainType(WorldType type) {
     }
 
     public boolean areCommandsAllowed() {
-        return this.theWorldInfo.areCommandsAllowed();
+        return theWorldInfo.areCommandsAllowed();
     }
 
     public void setAllowCommands(boolean allow) {
     }
 
     public boolean isInitialized() {
-        return this.theWorldInfo.isInitialized();
+        return theWorldInfo.isInitialized();
     }
 
     public void setServerInitialized(boolean initializedIn) {
     }
 
     public GameRules getGameRulesInstance() {
-        return this.theWorldInfo.getGameRulesInstance();
+        return theWorldInfo.getGameRulesInstance();
     }
 
     public EnumDifficulty getDifficulty() {
-        return this.theWorldInfo.getDifficulty();
+        return theWorldInfo.getDifficulty();
     }
 
     public void setDifficulty(EnumDifficulty newDifficulty) {
     }
 
     public boolean isDifficultyLocked() {
-        return this.theWorldInfo.isDifficultyLocked();
+        return theWorldInfo.isDifficultyLocked();
     }
 
     public void setDifficultyLocked(boolean locked) {

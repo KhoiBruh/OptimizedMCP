@@ -11,30 +11,30 @@ public class EntityDamageSource extends DamageSource {
 
     public EntityDamageSource(String damageTypeIn, Entity damageSourceEntityIn) {
         super(damageTypeIn);
-        this.damageSourceEntity = damageSourceEntityIn;
+        damageSourceEntity = damageSourceEntityIn;
     }
 
     public EntityDamageSource setIsThornsDamage() {
-        this.isThornsDamage = true;
+        isThornsDamage = true;
         return this;
     }
 
     public boolean getIsThornsDamage() {
-        return this.isThornsDamage;
+        return isThornsDamage;
     }
 
     public Entity getEntity() {
-        return this.damageSourceEntity;
+        return damageSourceEntity;
     }
 
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-        ItemStack itemstack = this.damageSourceEntity instanceof EntityLivingBase ? ((EntityLivingBase) this.damageSourceEntity).getHeldItem() : null;
-        String s = "death.attack." + this.damageType;
+        ItemStack itemstack = damageSourceEntity instanceof EntityLivingBase ? ((EntityLivingBase) damageSourceEntity).getHeldItem() : null;
+        String s = "death.attack." + damageType;
         String s1 = s + ".item";
-        return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), this.damageSourceEntity.getDisplayName(), itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), this.damageSourceEntity.getDisplayName());
+        return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), damageSourceEntity.getDisplayName(), itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), damageSourceEntity.getDisplayName());
     }
 
     public boolean isDifficultyScaled() {
-        return this.damageSourceEntity != null && this.damageSourceEntity instanceof EntityLivingBase && !(this.damageSourceEntity instanceof EntityPlayer);
+        return damageSourceEntity != null && damageSourceEntity instanceof EntityLivingBase && !(damageSourceEntity instanceof EntityPlayer);
     }
 }

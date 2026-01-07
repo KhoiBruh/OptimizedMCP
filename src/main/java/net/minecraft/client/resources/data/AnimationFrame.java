@@ -6,6 +6,6 @@ public record AnimationFrame(int frameIndex, int frameTime) {
     }
 
     public boolean hasNoTime() {
-        return this.frameTime == -1;
+        return frameTime == -1;
     }
 }

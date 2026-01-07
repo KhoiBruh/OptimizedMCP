@@ -33,7 +33,7 @@ public class ChunkProviderDebug implements IChunkProvider {
     private final World world;
 
     public ChunkProviderDebug(World worldIn) {
-        this.world = worldIn;
+        world = worldIn;
     }
 
     public static IBlockState func_177461_b(int p_177461_0_, int p_177461_1_) {
@@ -71,9 +71,9 @@ public class ChunkProviderDebug implements IChunkProvider {
             }
         }
 
-        Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
+        Chunk chunk = new Chunk(world, chunkprimer, x, z);
         chunk.generateSkylightMap();
-        BiomeGenBase[] abiomegenbase = this.world.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
+        BiomeGenBase[] abiomegenbase = world.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i1 = 0; i1 < abyte.length; ++i1) {
@@ -115,7 +115,7 @@ public class ChunkProviderDebug implements IChunkProvider {
     }
 
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
-        BiomeGenBase biomegenbase = this.world.getBiomeGenForCoords(pos);
+        BiomeGenBase biomegenbase = world.getBiomeGenForCoords(pos);
         return biomegenbase.getSpawnableList(creatureType);
     }
 
@@ -131,6 +131,6 @@ public class ChunkProviderDebug implements IChunkProvider {
     }
 
     public Chunk provideChunk(BlockPos blockPosIn) {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }
 }

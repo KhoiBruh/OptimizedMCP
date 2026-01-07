@@ -14,14 +14,14 @@ public class RenderBiped<T extends EntityLiving> extends RenderLiving<T> {
 
     public RenderBiped(RenderManager renderManagerIn, ModelBiped modelBipedIn, float shadowSize) {
         this(renderManagerIn, modelBipedIn, shadowSize, 1.0F);
-        this.addLayer(new LayerHeldItem(this));
+        addLayer(new LayerHeldItem(this));
     }
 
     public RenderBiped(RenderManager renderManagerIn, ModelBiped modelBipedIn, float shadowSize, float p_i46169_4_) {
         super(renderManagerIn, modelBipedIn, shadowSize);
-        this.modelBipedMain = modelBipedIn;
-        this.field_77070_b = p_i46169_4_;
-        this.addLayer(new LayerCustomHead(modelBipedIn.bipedHead));
+        modelBipedMain = modelBipedIn;
+        field_77070_b = p_i46169_4_;
+        addLayer(new LayerCustomHead(modelBipedIn.bipedHead));
     }
 
     protected ResourceLocation getEntityTexture(T entity) {

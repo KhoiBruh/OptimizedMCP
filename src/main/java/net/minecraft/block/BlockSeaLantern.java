@@ -13,7 +13,7 @@ import java.util.Random;
 public class BlockSeaLantern extends Block {
     public BlockSeaLantern(Material materialIn) {
         super(materialIn);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int quantityDropped(Random random) {
@@ -21,7 +21,7 @@ public class BlockSeaLantern extends Block {
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {
-        return MathHelper.clamp_int(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
+        return MathHelper.clamp_int(quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

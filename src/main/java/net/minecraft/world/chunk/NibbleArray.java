@@ -14,11 +14,11 @@ public record NibbleArray(byte[] data) {
     }
 
     public int get(int x, int y, int z) {
-        return this.getFromIndex(this.getCoordinateIndex(x, y, z));
+        return getFromIndex(getCoordinateIndex(x, y, z));
     }
 
     public void set(int x, int y, int z, int value) {
-        this.setIndex(this.getCoordinateIndex(x, y, z), value);
+        setIndex(getCoordinateIndex(x, y, z), value);
     }
 
     private int getCoordinateIndex(int x, int y, int z) {
@@ -26,17 +26,17 @@ public record NibbleArray(byte[] data) {
     }
 
     public int getFromIndex(int index) {
-        int i = this.getNibbleIndex(index);
-        return this.isLowerNibble(index) ? this.data[i] & 15 : this.data[i] >> 4 & 15;
+        int i = getNibbleIndex(index);
+        return isLowerNibble(index) ? data[i] & 15 : data[i] >> 4 & 15;
     }
 
     public void setIndex(int index, int value) {
-        int i = this.getNibbleIndex(index);
+        int i = getNibbleIndex(index);
 
-        if (this.isLowerNibble(index)) {
-            this.data[i] = (byte) (this.data[i] & 240 | value & 15);
+        if (isLowerNibble(index)) {
+            data[i] = (byte) (data[i] & 240 | value & 15);
         } else {
-            this.data[i] = (byte) (this.data[i] & 15 | (value & 15) << 4);
+            data[i] = (byte) (data[i] & 15 | (value & 15) << 4);
         }
     }
 

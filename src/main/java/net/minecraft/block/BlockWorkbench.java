@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class BlockWorkbench extends Block {
     protected BlockWorkbench() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -37,8 +37,8 @@ public class BlockWorkbench extends Block {
         private final BlockPos position;
 
         public InterfaceCraftingTable(World worldIn, BlockPos pos) {
-            this.world = worldIn;
-            this.position = pos;
+            world = worldIn;
+            position = pos;
         }
 
         public String getName() {
@@ -54,7 +54,7 @@ public class BlockWorkbench extends Block {
         }
 
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-            return new ContainerWorkbench(playerInventory, this.world, this.position);
+            return new ContainerWorkbench(playerInventory, world, position);
         }
 
         public String getGuiID() {

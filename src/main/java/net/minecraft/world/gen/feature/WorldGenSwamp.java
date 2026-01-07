@@ -65,7 +65,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
                 Block block1 = worldIn.getBlockState(position.down()).getBlock();
 
                 if ((block1 == Blocks.grass || block1 == Blocks.dirt) && position.getY() < 256 - i - 1) {
-                    this.func_175921_a(worldIn, position.down());
+                    func_175921_a(worldIn, position.down());
 
                     for (int l1 = position.getY() - 3 + i; l1 <= position.getY() + i; ++l1) {
                         int k2 = l1 - (position.getY() + i);
@@ -81,7 +81,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
                                     BlockPos blockpos = new BlockPos(k3, l1, j1);
 
                                     if (!worldIn.getBlockState(blockpos).getBlock().isFullBlock()) {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, field_181649_b);
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, field_181649_b);
                                     }
                                 }
                             }
@@ -92,7 +92,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
                         Block block2 = worldIn.getBlockState(position.up(i2)).getBlock();
 
                         if (block2.getMaterial() == Material.air || block2.getMaterial() == Material.leaves || block2 == Blocks.flowing_water || block2 == Blocks.water) {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(i2), field_181648_a);
+                            setBlockAndNotifyAdequately(worldIn, position.up(i2), field_181648_a);
                         }
                     }
 
@@ -112,19 +112,19 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
                                     BlockPos blockpos2 = blockpos$mutableblockpos1.south();
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3).getBlock().getMaterial() == Material.air) {
-                                        this.func_181647_a(worldIn, blockpos3, BlockVine.EAST);
+                                        func_181647_a(worldIn, blockpos3, BlockVine.EAST);
                                     }
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos4).getBlock().getMaterial() == Material.air) {
-                                        this.func_181647_a(worldIn, blockpos4, BlockVine.WEST);
+                                        func_181647_a(worldIn, blockpos4, BlockVine.WEST);
                                     }
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.air) {
-                                        this.func_181647_a(worldIn, blockpos1, BlockVine.SOUTH);
+                                        func_181647_a(worldIn, blockpos1, BlockVine.SOUTH);
                                     }
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos2).getBlock().getMaterial() == Material.air) {
-                                        this.func_181647_a(worldIn, blockpos2, BlockVine.NORTH);
+                                        func_181647_a(worldIn, blockpos2, BlockVine.NORTH);
                                     }
                                 }
                             }
@@ -143,11 +143,11 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
 
     private void func_181647_a(World p_181647_1_, BlockPos p_181647_2_, PropertyBool p_181647_3_) {
         IBlockState iblockstate = Blocks.vine.getDefaultState().withProperty(p_181647_3_, Boolean.TRUE);
-        this.setBlockAndNotifyAdequately(p_181647_1_, p_181647_2_, iblockstate);
+        setBlockAndNotifyAdequately(p_181647_1_, p_181647_2_, iblockstate);
         int i = 4;
 
         for (p_181647_2_ = p_181647_2_.down(); p_181647_1_.getBlockState(p_181647_2_).getBlock().getMaterial() == Material.air && i > 0; --i) {
-            this.setBlockAndNotifyAdequately(p_181647_1_, p_181647_2_, iblockstate);
+            setBlockAndNotifyAdequately(p_181647_1_, p_181647_2_, iblockstate);
             p_181647_2_ = p_181647_2_.down();
         }
     }

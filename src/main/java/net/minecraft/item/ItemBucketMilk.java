@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 
 public class ItemBucketMilk extends Item {
     public ItemBucketMilk() {
-        this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        setMaxStackSize(1);
+        setCreativeTab(CreativeTabs.tabMisc);
     }
 
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
@@ -34,7 +34,7 @@ public class ItemBucketMilk extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+        playerIn.setItemInUse(itemStackIn, getMaxItemUseDuration(itemStackIn));
         return itemStackIn;
     }
 }

@@ -8,36 +8,36 @@ import java.util.*;
 
 public class RegistrySimple<K, V> implements IRegistry<K, V> {
     private static final Logger logger = LogManager.getLogger();
-    protected final Map<K, V> registryObjects = this.createUnderlyingMap();
+    protected final Map<K, V> registryObjects = createUnderlyingMap();
 
     protected Map<K, V> createUnderlyingMap() {
         return Maps.newHashMap();
     }
 
     public V getObject(K name) {
-        return this.registryObjects.get(name);
+        return registryObjects.get(name);
     }
 
     public void putObject(K key, V value) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(value);
 
-        if (this.registryObjects.containsKey(key)) {
+        if (registryObjects.containsKey(key)) {
             logger.debug("Adding duplicate key '" + key + "' to registry");
         }
 
-        this.registryObjects.put(key, value);
+        registryObjects.put(key, value);
     }
 
     public Set<K> getKeys() {
-        return Collections.unmodifiableSet(this.registryObjects.keySet());
+        return Collections.unmodifiableSet(registryObjects.keySet());
     }
 
     public boolean containsKey(K key) {
-        return this.registryObjects.containsKey(key);
+        return registryObjects.containsKey(key);
     }
 
     public Iterator<V> iterator() {
-        return this.registryObjects.values().iterator();
+        return registryObjects.values().iterator();
     }
 }

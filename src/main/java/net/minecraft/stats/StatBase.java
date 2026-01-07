@@ -49,11 +49,11 @@ public class StatBase {
     private Class<? extends IJsonSerializable> field_150956_d;
 
     public StatBase(String statIdIn, IChatComponent statNameIn, IStatType typeIn) {
-        this.statId = statIdIn;
-        this.statName = statNameIn;
-        this.type = typeIn;
-        this.objectiveCriteria = new ObjectiveStat(this);
-        IScoreObjectiveCriteria.INSTANCES.put(this.objectiveCriteria.getName(), this.objectiveCriteria);
+        statId = statIdIn;
+        statName = statNameIn;
+        type = typeIn;
+        objectiveCriteria = new ObjectiveStat(this);
+        IScoreObjectiveCriteria.INSTANCES.put(objectiveCriteria.getName(), objectiveCriteria);
     }
 
     public StatBase(String statIdIn, IChatComponent statNameIn) {
@@ -61,16 +61,16 @@ public class StatBase {
     }
 
     public StatBase initIndependentStat() {
-        this.isIndependent = true;
+        isIndependent = true;
         return this;
     }
 
     public StatBase registerStat() {
-        if (StatList.oneShotStats.containsKey(this.statId)) {
-            throw new RuntimeException("Duplicate stat id: \"" + ((StatBase) StatList.oneShotStats.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+        if (StatList.oneShotStats.containsKey(statId)) {
+            throw new RuntimeException("Duplicate stat id: \"" + ((StatBase) StatList.oneShotStats.get(statId)).statName + "\" and \"" + statName + "\" at id " + statId);
         } else {
             StatList.allStats.add(this);
-            StatList.oneShotStats.put(this.statId, this);
+            StatList.oneShotStats.put(statId, this);
             return this;
         }
     }
@@ -80,18 +80,18 @@ public class StatBase {
     }
 
     public String format(int p_75968_1_) {
-        return this.type.format(p_75968_1_);
+        return type.format(p_75968_1_);
     }
 
     public IChatComponent getStatName() {
-        IChatComponent ichatcomponent = this.statName.createCopy();
+        IChatComponent ichatcomponent = statName.createCopy();
         ichatcomponent.getChatStyle().setColor(EnumChatFormatting.GRAY);
-        ichatcomponent.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ACHIEVEMENT, new ChatComponentText(this.statId)));
+        ichatcomponent.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ACHIEVEMENT, new ChatComponentText(statId)));
         return ichatcomponent;
     }
 
     public IChatComponent createChatComponent() {
-        IChatComponent ichatcomponent = this.getStatName();
+        IChatComponent ichatcomponent = getStatName();
         IChatComponent ichatcomponent1 = (new ChatComponentText("[")).appendSibling(ichatcomponent).appendText("]");
         ichatcomponent1.setChatStyle(ichatcomponent.getChatStyle());
         return ichatcomponent1;
@@ -100,32 +100,32 @@ public class StatBase {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        } else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
             StatBase statbase = (StatBase) p_equals_1_;
-            return this.statId.equals(statbase.statId);
+            return statId.equals(statbase.statId);
         } else {
             return false;
         }
     }
 
     public int hashCode() {
-        return this.statId.hashCode();
+        return statId.hashCode();
     }
 
     public String toString() {
-        return "Stat{id=" + this.statId + ", nameId=" + this.statName + ", awardLocallyOnly=" + this.isIndependent + ", formatter=" + this.type + ", objectiveCriteria=" + this.objectiveCriteria + '}';
+        return "Stat{id=" + statId + ", nameId=" + statName + ", awardLocallyOnly=" + isIndependent + ", formatter=" + type + ", objectiveCriteria=" + objectiveCriteria + '}';
     }
 
     public IScoreObjectiveCriteria getCriteria() {
-        return this.objectiveCriteria;
+        return objectiveCriteria;
     }
 
     public Class<? extends IJsonSerializable> func_150954_l() {
-        return this.field_150956_d;
+        return field_150956_d;
     }
 
     public StatBase func_150953_b(Class<? extends IJsonSerializable> p_150953_1_) {
-        this.field_150956_d = p_150953_1_;
+        field_150956_d = p_150953_1_;
         return this;
     }
 }

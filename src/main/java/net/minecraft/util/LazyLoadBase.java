@@ -5,12 +5,12 @@ public abstract class LazyLoadBase<T> {
     private boolean isLoaded = false;
 
     public T getValue() {
-        if (!this.isLoaded) {
-            this.isLoaded = true;
-            this.value = this.load();
+        if (!isLoaded) {
+            isLoaded = true;
+            value = load();
         }
 
-        return this.value;
+        return value;
     }
 
     protected abstract T load();

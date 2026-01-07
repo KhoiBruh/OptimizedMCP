@@ -37,7 +37,7 @@ public class CommandBanIp extends CommandBase {
             Matcher matcher = field_147211_a.matcher(args[0]);
 
             if (matcher.matches()) {
-                this.func_147210_a(sender, args[0], ichatcomponent == null ? null : ichatcomponent.getUnformattedText());
+                func_147210_a(sender, args[0], ichatcomponent == null ? null : ichatcomponent.getUnformattedText());
             } else {
                 EntityPlayerMP entityplayermp = MinecraftServer.getServer().getConfigurationManager().getPlayerByUsername(args[0]);
 
@@ -45,7 +45,7 @@ public class CommandBanIp extends CommandBase {
                     throw new PlayerNotFoundException("commands.banip.invalid");
                 }
 
-                this.func_147210_a(sender, entityplayermp.getPlayerIP(), ichatcomponent == null ? null : ichatcomponent.getUnformattedText());
+                func_147210_a(sender, entityplayermp.getPlayerIP(), ichatcomponent == null ? null : ichatcomponent.getUnformattedText());
             }
         } else {
             throw new WrongUsageException("commands.banip.usage");

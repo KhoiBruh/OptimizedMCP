@@ -11,21 +11,21 @@ public class EntityAIFollowParent extends EntityAIBase {
     private int delayCounter;
 
     public EntityAIFollowParent(EntityAnimal animal, double speed) {
-        this.childAnimal = animal;
-        this.moveSpeed = speed;
+        childAnimal = animal;
+        moveSpeed = speed;
     }
 
     public boolean shouldExecute() {
-        if (this.childAnimal.getGrowingAge() >= 0) {
+        if (childAnimal.getGrowingAge() >= 0) {
             return false;
         } else {
-            List<EntityAnimal> list = this.childAnimal.worldObj.getEntitiesWithinAABB(this.childAnimal.getClass(), this.childAnimal.getEntityBoundingBox().expand(8.0D, 4.0D, 8.0D));
+            List<EntityAnimal> list = childAnimal.worldObj.getEntitiesWithinAABB(childAnimal.getClass(), childAnimal.getEntityBoundingBox().expand(8.0D, 4.0D, 8.0D));
             EntityAnimal entityanimal = null;
             double d0 = Double.MAX_VALUE;
 
             for (EntityAnimal entityanimal1 : list) {
                 if (entityanimal1.getGrowingAge() >= 0) {
-                    double d1 = this.childAnimal.getDistanceSqToEntity(entityanimal1);
+                    double d1 = childAnimal.getDistanceSqToEntity(entityanimal1);
 
                     if (d1 <= d0) {
                         d0 = d1;
@@ -39,35 +39,35 @@ public class EntityAIFollowParent extends EntityAIBase {
             } else if (d0 < 9.0D) {
                 return false;
             } else {
-                this.parentAnimal = entityanimal;
+                parentAnimal = entityanimal;
                 return true;
             }
         }
     }
 
     public boolean continueExecuting() {
-        if (this.childAnimal.getGrowingAge() >= 0) {
+        if (childAnimal.getGrowingAge() >= 0) {
             return false;
-        } else if (!this.parentAnimal.isEntityAlive()) {
+        } else if (!parentAnimal.isEntityAlive()) {
             return false;
         } else {
-            double d0 = this.childAnimal.getDistanceSqToEntity(this.parentAnimal);
+            double d0 = childAnimal.getDistanceSqToEntity(parentAnimal);
             return d0 >= 9.0D && d0 <= 256.0D;
         }
     }
 
     public void startExecuting() {
-        this.delayCounter = 0;
+        delayCounter = 0;
     }
 
     public void resetTask() {
-        this.parentAnimal = null;
+        parentAnimal = null;
     }
 
     public void updateTask() {
-        if (--this.delayCounter <= 0) {
-            this.delayCounter = 10;
-            this.childAnimal.getNavigator().tryMoveToEntityLiving(this.parentAnimal, this.moveSpeed);
+        if (--delayCounter <= 0) {
+            delayCounter = 10;
+            childAnimal.getNavigator().tryMoveToEntityLiving(parentAnimal, moveSpeed);
         }
     }
 }

@@ -18,8 +18,8 @@ public class BlockColored extends Block {
 
     public BlockColored(Material materialIn) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int damageDropped(IBlockState state) {
@@ -37,7 +37,7 @@ public class BlockColored extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

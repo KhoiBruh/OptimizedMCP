@@ -43,8 +43,8 @@ public class BlockSkull extends BlockContainer {
 
     protected BlockSkull() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.FALSE));
-        this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.FALSE));
+        setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
     }
 
     public String getLocalizedName() {
@@ -63,33 +63,33 @@ public class BlockSkull extends BlockContainer {
         switch (worldIn.getBlockState(pos).getValue(FACING)) {
             case UP:
             default:
-                this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
+                setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
                 break;
 
             case NORTH:
-                this.setBlockBounds(0.25F, 0.25F, 0.5F, 0.75F, 0.75F, 1.0F);
+                setBlockBounds(0.25F, 0.25F, 0.5F, 0.75F, 0.75F, 1.0F);
                 break;
 
             case SOUTH:
-                this.setBlockBounds(0.25F, 0.25F, 0.0F, 0.75F, 0.75F, 0.5F);
+                setBlockBounds(0.25F, 0.25F, 0.0F, 0.75F, 0.75F, 0.5F);
                 break;
 
             case WEST:
-                this.setBlockBounds(0.5F, 0.25F, 0.25F, 1.0F, 0.75F, 0.75F);
+                setBlockBounds(0.5F, 0.25F, 0.25F, 1.0F, 0.75F, 0.75F);
                 break;
 
             case EAST:
-                this.setBlockBounds(0.0F, 0.25F, 0.25F, 0.5F, 0.75F, 0.75F);
+                setBlockBounds(0.0F, 0.25F, 0.25F, 0.5F, 0.75F, 0.75F);
         }
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.FALSE);
+        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.FALSE);
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -123,7 +123,7 @@ public class BlockSkull extends BlockContainer {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
                 if (tileentity instanceof TileEntitySkull tileentityskull) {
-                    ItemStack itemstack = new ItemStack(Items.skull, 1, this.getDamageValue(worldIn, pos));
+                    ItemStack itemstack = new ItemStack(Items.skull, 1, getDamageValue(worldIn, pos));
 
                     if (tileentityskull.getSkullType() == 3 && tileentityskull.getPlayerProfile() != null) {
                         itemstack.setTagCompound(new NBTTagCompound());
@@ -145,12 +145,12 @@ public class BlockSkull extends BlockContainer {
     }
 
     public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
-        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote && this.getWitherBasePattern().match(worldIn, pos) != null;
+        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote && getWitherBasePattern().match(worldIn, pos) != null;
     }
 
     public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te) {
         if (te.getSkullType() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote) {
-            BlockPattern blockpattern = this.getWitherPattern();
+            BlockPattern blockpattern = getWitherPattern();
             BlockPattern.PatternHelper blockpattern$patternhelper = blockpattern.match(worldIn, pos);
 
             if (blockpattern$patternhelper != null) {
@@ -194,7 +194,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(NODROP, (meta & 8) > 0);
+        return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(NODROP, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -213,18 +213,18 @@ public class BlockSkull extends BlockContainer {
     }
 
     protected BlockPattern getWitherBasePattern() {
-        if (this.witherBasePattern == null) {
-            this.witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+        if (witherBasePattern == null) {
+            witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
         }
 
-        return this.witherBasePattern;
+        return witherBasePattern;
     }
 
     protected BlockPattern getWitherPattern() {
-        if (this.witherPattern == null) {
-            this.witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+        if (witherPattern == null) {
+            witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
         }
 
-        return this.witherPattern;
+        return witherPattern;
     }
 }

@@ -17,7 +17,7 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> implements
     public abstract void renderTileEntityAt(T te, double x, double y, double z, float partialTicks, int destroyStage);
 
     protected void bindTexture(ResourceLocation location) {
-        TextureManager texturemanager = this.rendererDispatcher.renderEngine;
+        TextureManager texturemanager = rendererDispatcher.renderEngine;
 
         if (texturemanager != null) {
             texturemanager.bindTexture(location);
@@ -25,15 +25,15 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> implements
     }
 
     protected World getWorld() {
-        return this.rendererDispatcher.worldObj;
+        return rendererDispatcher.worldObj;
     }
 
     public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
-        this.rendererDispatcher = rendererDispatcherIn;
+        rendererDispatcher = rendererDispatcherIn;
     }
 
     public FontRenderer getFontRenderer() {
-        return this.rendererDispatcher.getFontRenderer();
+        return rendererDispatcher.getFontRenderer();
     }
 
     public boolean forceTileEntityRender() {
@@ -44,14 +44,14 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> implements
     }
 
     public Class getEntityClass() {
-        return this.tileEntityClass;
+        return tileEntityClass;
     }
 
     public void setEntityClass(Class p_setEntityClass_1_) {
-        this.tileEntityClass = p_setEntityClass_1_;
+        tileEntityClass = p_setEntityClass_1_;
     }
 
     public void setLocationTextureCustom(ResourceLocation p_setLocationTextureCustom_1_) {
-        this.locationTextureCustom = p_setLocationTextureCustom_1_;
+        locationTextureCustom = p_setLocationTextureCustom_1_;
     }
 }

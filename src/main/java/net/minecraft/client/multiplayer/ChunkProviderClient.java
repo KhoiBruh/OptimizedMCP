@@ -24,8 +24,8 @@ public class ChunkProviderClient implements IChunkProvider {
     private final World worldObj;
 
     public ChunkProviderClient(World worldIn) {
-        this.blankChunk = new EmptyChunk(worldIn, 0, 0);
-        this.worldObj = worldIn;
+        blankChunk = new EmptyChunk(worldIn, 0, 0);
+        worldObj = worldIn;
     }
 
     public boolean chunkExists(int x, int z) {
@@ -33,27 +33,27 @@ public class ChunkProviderClient implements IChunkProvider {
     }
 
     public void unloadChunk(int x, int z) {
-        Chunk chunk = this.provideChunk(x, z);
+        Chunk chunk = provideChunk(x, z);
 
         if (!chunk.isEmpty()) {
             chunk.onChunkUnload();
         }
 
-        this.chunkMapping.remove(ChunkCoordIntPair.chunkXZ2Int(x, z));
-        this.chunkListing.remove(chunk);
+        chunkMapping.remove(ChunkCoordIntPair.chunkXZ2Int(x, z));
+        chunkListing.remove(chunk);
     }
 
     public Chunk loadChunk(int chunkX, int chunkZ) {
-        Chunk chunk = new Chunk(this.worldObj, chunkX, chunkZ);
-        this.chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ), chunk);
-        this.chunkListing.add(chunk);
+        Chunk chunk = new Chunk(worldObj, chunkX, chunkZ);
+        chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ), chunk);
+        chunkListing.add(chunk);
         chunk.setChunkLoaded(true);
         return chunk;
     }
 
     public Chunk provideChunk(int x, int z) {
-        Chunk chunk = this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
-        return chunk == null ? this.blankChunk : chunk;
+        Chunk chunk = chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
+        return chunk == null ? blankChunk : chunk;
     }
 
     public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
@@ -66,7 +66,7 @@ public class ChunkProviderClient implements IChunkProvider {
     public boolean unloadQueuedChunks() {
         long i = System.currentTimeMillis();
 
-        for (Chunk chunk : this.chunkListing) {
+        for (Chunk chunk : chunkListing) {
             chunk.func_150804_b(System.currentTimeMillis() - i > 5L);
         }
 
@@ -89,7 +89,7 @@ public class ChunkProviderClient implements IChunkProvider {
     }
 
     public String makeString() {
-        return "MultiplayerChunkCache: " + this.chunkMapping.getNumHashElements() + ", " + this.chunkListing.size();
+        return "MultiplayerChunkCache: " + chunkMapping.getNumHashElements() + ", " + chunkListing.size();
     }
 
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
@@ -101,13 +101,13 @@ public class ChunkProviderClient implements IChunkProvider {
     }
 
     public int getLoadedChunkCount() {
-        return this.chunkListing.size();
+        return chunkListing.size();
     }
 
     public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
     public Chunk provideChunk(BlockPos blockPosIn) {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }
 }

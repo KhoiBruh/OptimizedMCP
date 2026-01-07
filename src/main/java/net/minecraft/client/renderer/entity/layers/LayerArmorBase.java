@@ -31,19 +31,19 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     private boolean skipRenderGlint;
 
     public LayerArmorBase(RendererLivingEntity<?> rendererIn) {
-        this.renderer = rendererIn;
-        this.initArmor();
+        renderer = rendererIn;
+        initArmor();
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_,
                               float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-        this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
+        renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
                 p_177141_7_, scale, 4);
-        this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
+        renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
                 p_177141_7_, scale, 3);
-        this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
+        renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
                 p_177141_7_, scale, 2);
-        this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
+        renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_,
                 p_177141_7_, scale, 1);
     }
 
@@ -53,19 +53,19 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     private void renderLayer(EntityLivingBase entitylivingbaseIn, float p_177182_2_, float p_177182_3_,
                              float partialTicks, float p_177182_5_, float p_177182_6_, float p_177182_7_, float scale, int armorSlot) {
-        ItemStack itemstack = this.getCurrentArmor(entitylivingbaseIn, armorSlot);
+        ItemStack itemstack = getCurrentArmor(entitylivingbaseIn, armorSlot);
 
         if (itemstack != null && itemstack.getItem() instanceof ItemArmor itemarmor) {
-            T t = this.getArmorModel(armorSlot);
-            t.setModelAttributes(this.renderer.getMainModel());
+            T t = getArmorModel(armorSlot);
+            t.setModelAttributes(renderer.getMainModel());
             t.setLivingAnimations(entitylivingbaseIn, p_177182_2_, p_177182_3_, partialTicks);
 
-            this.setModelPartVisible(t, armorSlot);
-            boolean flag = this.isSlotForLeggings(armorSlot);
+            setModelPartVisible(t, armorSlot);
+            boolean flag = isSlotForLeggings(armorSlot);
 
             if (!Config.isCustomItems()
                     || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, null)) {
-                this.renderer.bindTexture(this.getArmorResource(itemarmor, flag));
+                renderer.bindTexture(getArmorResource(itemarmor, flag));
             }
 
             switch (itemarmor.getArmorMaterial()) {
@@ -74,28 +74,28 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                     float f = (float) (i >> 16 & 255) / 255.0F;
                     float f1 = (float) (i >> 8 & 255) / 255.0F;
                     float f2 = (float) (i & 255) / 255.0F;
-                    GlStateManager.color(this.colorR * f, this.colorG * f1, this.colorB * f2, this.alpha);
+                    GlStateManager.color(colorR * f, colorG * f1, colorB * f2, alpha);
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_,
                             scale);
 
                     if (!Config.isCustomItems()
                             || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, "overlay")) {
-                        this.renderer.bindTexture(this.getArmorResource(itemarmor, flag, "overlay"));
+                        renderer.bindTexture(getArmorResource(itemarmor, flag, "overlay"));
                     }
 
                 case CHAIN:
                 case IRON:
                 case GOLD:
                 case DIAMOND:
-                    GlStateManager.color(this.colorR, this.colorG, this.colorB, this.alpha);
+                    GlStateManager.color(colorR, colorG, colorB, alpha);
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_,
                             scale);
             }
 
-            if (!this.skipRenderGlint && itemstack.isItemEnchanted()
+            if (!skipRenderGlint && itemstack.isItemEnchanted()
                     && (!Config.isCustomItems() || !CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack,
                     t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_, p_177182_6_, p_177182_7_, scale))) {
-                this.renderGlint(entitylivingbaseIn, t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_,
+                renderGlint(entitylivingbaseIn, t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_,
                         p_177182_6_, p_177182_7_, scale);
             }
         }
@@ -106,7 +106,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     }
 
     public T getArmorModel(int armorSlot) {
-        return this.isSlotForLeggings(armorSlot) ? this.modelLeggings : this.modelArmor;
+        return isSlotForLeggings(armorSlot) ? modelLeggings : modelArmor;
     }
 
     private boolean isSlotForLeggings(int armorSlot) {
@@ -117,7 +117,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                              float partialTicks, float p_177183_6_, float p_177183_7_, float p_177183_8_, float scale) {
         if (!Config.isShaders() || !Shaders.isShadowPass) {
             float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
-            this.renderer.bindTexture(ENCHANTED_ITEM_GLINT_RES);
+            renderer.bindTexture(ENCHANTED_ITEM_GLINT_RES);
 
             if (Config.isShaders()) {
                 ShadersRender.renderEnchantedGlintBegin();
@@ -160,7 +160,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     }
 
     private ResourceLocation getArmorResource(ItemArmor p_177181_1_, boolean p_177181_2_) {
-        return this.getArmorResource(p_177181_1_, p_177181_2_, null);
+        return getArmorResource(p_177181_1_, p_177181_2_, null);
     }
 
     private ResourceLocation getArmorResource(ItemArmor p_177178_1_, boolean p_177178_2_, String p_177178_3_) {
@@ -199,7 +199,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
         }
 
         String s2 = String.format("%s:textures/models/armor/%s_layer_%d%s.png", s1, s,
-                this.isSlotForLeggings(p_getArmorResource_3_) ? 2 : 1,
+                isSlotForLeggings(p_getArmorResource_3_) ? 2 : 1,
                 p_getArmorResource_4_ == null ? "" : String.format("_%s", p_getArmorResource_4_));
 
         ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s2);

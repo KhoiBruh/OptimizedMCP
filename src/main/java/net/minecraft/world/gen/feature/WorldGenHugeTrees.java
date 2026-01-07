@@ -17,17 +17,17 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 
     public WorldGenHugeTrees(boolean p_i46447_1_, int p_i46447_2_, int p_i46447_3_, IBlockState p_i46447_4_, IBlockState p_i46447_5_) {
         super(p_i46447_1_);
-        this.baseHeight = p_i46447_2_;
-        this.extraRandomHeight = p_i46447_3_;
-        this.woodMetadata = p_i46447_4_;
-        this.leavesMetadata = p_i46447_5_;
+        baseHeight = p_i46447_2_;
+        extraRandomHeight = p_i46447_3_;
+        woodMetadata = p_i46447_4_;
+        leavesMetadata = p_i46447_5_;
     }
 
     protected int func_150533_a(Random p_150533_1_) {
-        int i = p_150533_1_.nextInt(3) + this.baseHeight;
+        int i = p_150533_1_.nextInt(3) + baseHeight;
 
-        if (this.extraRandomHeight > 1) {
-            i += p_150533_1_.nextInt(this.extraRandomHeight);
+        if (extraRandomHeight > 1) {
+            i += p_150533_1_.nextInt(extraRandomHeight);
         }
 
         return i;
@@ -48,7 +48,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 
                 for (int k = -j; k <= j && flag; ++k) {
                     for (int l = -j; l <= j && flag; ++l) {
-                        if (p_175926_2_.getY() + i < 0 || p_175926_2_.getY() + i >= 256 || !this.func_150523_a(worldIn.getBlockState(p_175926_2_.add(k, i, l)).getBlock())) {
+                        if (p_175926_2_.getY() + i < 0 || p_175926_2_.getY() + i >= 256 || !func_150523_a(worldIn.getBlockState(p_175926_2_.add(k, i, l)).getBlock())) {
                             flag = false;
                         }
                     }
@@ -66,10 +66,10 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
         Block block = worldIn.getBlockState(blockpos).getBlock();
 
         if ((block == Blocks.grass || block == Blocks.dirt) && p_175927_1_.getY() >= 2) {
-            this.func_175921_a(worldIn, blockpos);
-            this.func_175921_a(worldIn, blockpos.east());
-            this.func_175921_a(worldIn, blockpos.south());
-            this.func_175921_a(worldIn, blockpos.south().east());
+            func_175921_a(worldIn, blockpos);
+            func_175921_a(worldIn, blockpos.east());
+            func_175921_a(worldIn, blockpos.south());
+            func_175921_a(worldIn, blockpos.south().east());
             return true;
         } else {
             return false;
@@ -77,7 +77,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
     }
 
     protected boolean func_175929_a(World worldIn, Random p_175929_2_, BlockPos p_175929_3_, int p_175929_4_) {
-        return this.func_175926_c(worldIn, p_175929_3_, p_175929_4_) && this.func_175927_a(p_175929_3_, worldIn);
+        return func_175926_c(worldIn, p_175929_3_, p_175929_4_) && func_175927_a(p_175929_3_, worldIn);
     }
 
     protected void func_175925_a(World worldIn, BlockPos p_175925_2_, int p_175925_3_) {
@@ -93,7 +93,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
                     Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
                     if (material == Material.air || material == Material.leaves) {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos, this.leavesMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
                     }
                 }
             }
@@ -110,7 +110,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
                     Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
                     if (material == Material.air || material == Material.leaves) {
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos, this.leavesMetadata);
+                        setBlockAndNotifyAdequately(worldIn, blockpos, leavesMetadata);
                     }
                 }
             }

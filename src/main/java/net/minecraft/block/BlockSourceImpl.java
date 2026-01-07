@@ -11,36 +11,36 @@ public class BlockSourceImpl implements IBlockSource {
     private final BlockPos pos;
 
     public BlockSourceImpl(World worldIn, BlockPos posIn) {
-        this.worldObj = worldIn;
-        this.pos = posIn;
+        worldObj = worldIn;
+        pos = posIn;
     }
 
     public World getWorld() {
-        return this.worldObj;
+        return worldObj;
     }
 
     public double x() {
-        return (double) this.pos.getX() + 0.5D;
+        return (double) pos.getX() + 0.5D;
     }
 
     public double y() {
-        return (double) this.pos.getY() + 0.5D;
+        return (double) pos.getY() + 0.5D;
     }
 
     public double z() {
-        return (double) this.pos.getZ() + 0.5D;
+        return (double) pos.getZ() + 0.5D;
     }
 
     public BlockPos getBlockPos() {
-        return this.pos;
+        return pos;
     }
 
     public int getBlockMetadata() {
-        IBlockState iblockstate = this.worldObj.getBlockState(this.pos);
+        IBlockState iblockstate = worldObj.getBlockState(pos);
         return iblockstate.getBlock().getMetaFromState(iblockstate);
     }
 
     public <T extends TileEntity> T getBlockTileEntity() {
-        return (T) this.worldObj.getTileEntity(this.pos);
+        return (T) worldObj.getTileEntity(pos);
     }
 }

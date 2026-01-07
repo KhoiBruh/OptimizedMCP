@@ -70,7 +70,7 @@ public class ItemBlock extends Item {
         } else if (!playerIn.canPlayerEdit(pos, side, stack)) {
             return false;
         } else if (worldIn.canBlockBePlaced(this.block, pos, false, side, null, stack)) {
-            int i = this.getMetadata(stack.getMetadata());
+            int i = getMetadata(stack.getMetadata());
             IBlockState iblockstate1 = this.block.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, i, playerIn);
 
             if (worldIn.setBlockState(pos, iblockstate1, 3)) {
@@ -104,11 +104,11 @@ public class ItemBlock extends Item {
     }
 
     public String getUnlocalizedName(ItemStack stack) {
-        return this.block.getUnlocalizedName();
+        return block.getUnlocalizedName();
     }
 
     public String getUnlocalizedName() {
-        return this.block.getUnlocalizedName();
+        return block.getUnlocalizedName();
     }
 
     public ItemBlock setUnlocalizedName(String unlocalizedName) {
@@ -117,14 +117,14 @@ public class ItemBlock extends Item {
     }
 
     public CreativeTabs getCreativeTab() {
-        return this.block.getCreativeTabToDisplayOn();
+        return block.getCreativeTabToDisplayOn();
     }
 
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        this.block.getSubBlocks(itemIn, tab, subItems);
+        block.getSubBlocks(itemIn, tab, subItems);
     }
 
     public Block getBlock() {
-        return this.block;
+        return block;
     }
 }

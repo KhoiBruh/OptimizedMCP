@@ -9,7 +9,7 @@ public class ModelMagmaCube extends ModelBase {
     public ModelRenderer core;
 
     public ModelMagmaCube() {
-        for (int i = 0; i < this.segments.length; ++i) {
+        for (int i = 0; i < segments.length; ++i) {
             int j = 0;
             int k = i;
 
@@ -21,12 +21,12 @@ public class ModelMagmaCube extends ModelBase {
                 k = 19;
             }
 
-            this.segments[i] = new ModelRenderer(this, j, k);
-            this.segments[i].addBox(-4.0F, (float) (16 + i), -4.0F, 8, 1, 8);
+            segments[i] = new ModelRenderer(this, j, k);
+            segments[i].addBox(-4.0F, (float) (16 + i), -4.0F, 8, 1, 8);
         }
 
-        this.core = new ModelRenderer(this, 0, 16);
-        this.core.addBox(-2.0F, 18.0F, -2.0F, 4, 4, 4);
+        core = new ModelRenderer(this, 0, 16);
+        core.addBox(-2.0F, 18.0F, -2.0F, 4, 4, 4);
     }
 
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_,
@@ -39,17 +39,17 @@ public class ModelMagmaCube extends ModelBase {
             f = 0.0F;
         }
 
-        for (int i = 0; i < this.segments.length; ++i) {
-            this.segments[i].rotationPointY = (float) (-(4 - i)) * f * 1.7F;
+        for (int i = 0; i < segments.length; ++i) {
+            segments[i].rotationPointY = (float) (-(4 - i)) * f * 1.7F;
         }
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
                        float p_78088_6_, float scale) {
-        this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
-        this.core.render(scale);
+        setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
+        core.render(scale);
 
-        for (ModelRenderer segment : this.segments) {
+        for (ModelRenderer segment : segments) {
             segment.render(scale);
         }
     }

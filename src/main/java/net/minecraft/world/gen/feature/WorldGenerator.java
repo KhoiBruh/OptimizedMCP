@@ -14,7 +14,7 @@ public abstract class WorldGenerator {
     }
 
     public WorldGenerator(boolean notify) {
-        this.doBlockNotify = notify;
+        doBlockNotify = notify;
     }
 
     public abstract boolean generate(World worldIn, Random rand, BlockPos position);
@@ -23,7 +23,7 @@ public abstract class WorldGenerator {
     }
 
     protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state) {
-        if (this.doBlockNotify) {
+        if (doBlockNotify) {
             worldIn.setBlockState(pos, state, 3);
         } else {
             worldIn.setBlockState(pos, state, 2);

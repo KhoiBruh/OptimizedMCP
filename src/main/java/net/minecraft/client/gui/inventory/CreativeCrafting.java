@@ -19,7 +19,7 @@ public class CreativeCrafting implements ICrafting {
     }
 
     public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
-        this.mc.playerController.sendSlotPacket(stack, slotInd);
+        mc.playerController.sendSlotPacket(stack, slotInd);
     }
 
     public void sendProgressBarUpdate(Container containerIn, int varToUpdate, int newValue) {

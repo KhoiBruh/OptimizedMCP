@@ -144,15 +144,15 @@ public final class SpawnerAnimals {
             if (worldServerIn.playerEntities.size() == 1) {
                 entityplayer = worldServerIn.playerEntities.get(0);
 
-                if (this.eligibleChunksForSpawning.size() > 0 && entityplayer != null
-                        && entityplayer.chunkCoordX == this.lastPlayerChunkX
-                        && entityplayer.chunkCoordZ == this.lastPlayerChunkZ) {
+                if (!eligibleChunksForSpawning.isEmpty() && entityplayer != null
+                        && entityplayer.chunkCoordX == lastPlayerChunkX
+                        && entityplayer.chunkCoordZ == lastPlayerChunkZ) {
                     flag = false;
                 }
             }
 
             if (flag) {
-                this.eligibleChunksForSpawning.clear();
+                eligibleChunksForSpawning.clear();
                 int i = 0;
 
                 for (EntityPlayer entityplayer1 : worldServerIn.playerEntities) {
@@ -166,11 +166,11 @@ public final class SpawnerAnimals {
                                 boolean flag1 = i1 == -l || i1 == l || j1 == -l || j1 == l;
                                 ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i1 + j, j1 + k);
 
-                                if (!this.eligibleChunksForSpawning.contains(chunkcoordintpair)) {
+                                if (!eligibleChunksForSpawning.contains(chunkcoordintpair)) {
                                     ++i;
 
                                     if (!flag1 && worldServerIn.getWorldBorder().contains(chunkcoordintpair)) {
-                                        this.eligibleChunksForSpawning.add(chunkcoordintpair);
+                                        eligibleChunksForSpawning.add(chunkcoordintpair);
                                     }
                                 }
                             }
@@ -178,11 +178,11 @@ public final class SpawnerAnimals {
                     }
                 }
 
-                this.countChunkPos = i;
+                countChunkPos = i;
 
                 if (entityplayer != null) {
-                    this.lastPlayerChunkX = entityplayer.chunkCoordX;
-                    this.lastPlayerChunkZ = entityplayer.chunkCoordZ;
+                    lastPlayerChunkX = entityplayer.chunkCoordX;
+                    lastPlayerChunkZ = entityplayer.chunkCoordZ;
                 }
             }
 
@@ -196,10 +196,10 @@ public final class SpawnerAnimals {
                         && (enumcreaturetype.getPeacefulCreature() || spawnHostileMobs)
                         && (!enumcreaturetype.getAnimal() || p_77192_4_)) {
                     int k4 = worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
-                    int l4 = enumcreaturetype.getMaxNumberOfCreature() * this.countChunkPos / MOB_COUNT_DIV;
+                    int l4 = enumcreaturetype.getMaxNumberOfCreature() * countChunkPos / MOB_COUNT_DIV;
 
                     if (k4 <= l4) {
-                        Collection<ChunkCoordIntPair> collection = this.eligibleChunksForSpawning;
+                        Collection<ChunkCoordIntPair> collection = eligibleChunksForSpawning;
 
                         label561:
 
@@ -252,14 +252,14 @@ public final class SpawnerAnimals {
                                                 EntityLiving entityliving;
 
                                                 try {
-                                                    entityliving = this.mapSampleEntitiesByClass
+                                                    entityliving = mapSampleEntitiesByClass
                                                             .get(biomegenbase$spawnlistentry.entityClass);
 
                                                     if (entityliving == null) {
                                                         entityliving = biomegenbase$spawnlistentry.entityClass
                                                                 .getConstructor(new Class[]{World.class})
                                                                 .newInstance(new Object[]{worldServerIn});
-                                                        this.mapSampleEntitiesByClass.put(
+                                                        mapSampleEntitiesByClass.put(
                                                                 biomegenbase$spawnlistentry.entityClass, entityliving);
                                                     }
                                                 } catch (Exception exception1) {
@@ -273,7 +273,7 @@ public final class SpawnerAnimals {
                                                         && entityliving.isNotColliding();
 
                                                 if (flag2) {
-                                                    this.mapSampleEntitiesByClass
+                                                    mapSampleEntitiesByClass
                                                             .remove(biomegenbase$spawnlistentry.entityClass);
 
                                                     ientitylivingdata = entityliving

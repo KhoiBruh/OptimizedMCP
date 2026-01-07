@@ -22,8 +22,8 @@ public class BlockLever extends Block {
 
     protected BlockLever() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.EnumOrientation.NORTH).withProperty(POWERED, Boolean.FALSE));
+        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     protected static boolean func_181090_a(World p_181090_0_, BlockPos p_181090_1_, EnumFacing p_181090_2_) {
@@ -82,7 +82,7 @@ public class BlockLever extends Block {
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(POWERED, Boolean.FALSE);
+        IBlockState iblockstate = getDefaultState().withProperty(POWERED, Boolean.FALSE);
 
         if (func_181090_a(worldIn, pos, facing.getOpposite())) {
             return iblockstate.withProperty(FACING, BlockLever.EnumOrientation.forFacings(facing, placer.getHorizontalFacing()));
@@ -102,17 +102,17 @@ public class BlockLever extends Block {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        if (this.func_181091_e(worldIn, pos, state) && !func_181090_a(worldIn, pos, state.getValue(FACING).getFacing().getOpposite())) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+        if (func_181091_e(worldIn, pos, state) && !func_181090_a(worldIn, pos, state.getValue(FACING).getFacing().getOpposite())) {
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
 
     private boolean func_181091_e(World p_181091_1_, BlockPos p_181091_2_, IBlockState p_181091_3_) {
-        if (this.canPlaceBlockAt(p_181091_1_, p_181091_2_)) {
+        if (canPlaceBlockAt(p_181091_1_, p_181091_2_)) {
             return true;
         } else {
-            this.dropBlockAsItem(p_181091_1_, p_181091_2_, p_181091_3_, 0);
+            dropBlockAsItem(p_181091_1_, p_181091_2_, p_181091_3_, 0);
             p_181091_1_.setBlockToAir(p_181091_2_);
             return false;
         }
@@ -123,31 +123,31 @@ public class BlockLever extends Block {
 
         switch (worldIn.getBlockState(pos).getValue(FACING)) {
             case EAST:
-                this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
+                setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
                 break;
 
             case WEST:
-                this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
+                setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
                 break;
 
             case SOUTH:
-                this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
+                setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
                 break;
 
             case NORTH:
-                this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
+                setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
                 break;
 
             case UP_Z:
             case UP_X:
                 f = 0.25F;
-                this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
+                setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
                 break;
 
             case DOWN_X:
             case DOWN_Z:
                 f = 0.25F;
-                this.setBlockBounds(0.5F - f, 0.4F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
+                setBlockBounds(0.5F - f, 0.4F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
         }
     }
 
@@ -188,7 +188,7 @@ public class BlockLever extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, BlockLever.EnumOrientation.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+        return getDefaultState().withProperty(FACING, BlockLever.EnumOrientation.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -286,19 +286,19 @@ public class BlockLever extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public EnumFacing getFacing() {
-            return this.facing;
+            return facing;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

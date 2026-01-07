@@ -19,39 +19,39 @@ public abstract class ChunkRenderContainer {
     private BitSet animatedSpritesRendered;
 
     public void initialize(double viewEntityXIn, double viewEntityYIn, double viewEntityZIn) {
-        this.initialized = true;
-        this.renderChunks.clear();
-        this.viewEntityX = viewEntityXIn;
-        this.viewEntityY = viewEntityYIn;
-        this.viewEntityZ = viewEntityZIn;
+        initialized = true;
+        renderChunks.clear();
+        viewEntityX = viewEntityXIn;
+        viewEntityY = viewEntityYIn;
+        viewEntityZ = viewEntityZIn;
 
         if (SmartAnimations.isActive()) {
-            if (this.animatedSpritesRendered != null) {
-                SmartAnimations.spritesRendered(this.animatedSpritesRendered);
+            if (animatedSpritesRendered != null) {
+                SmartAnimations.spritesRendered(animatedSpritesRendered);
             } else {
-                this.animatedSpritesRendered = this.animatedSpritesCached;
+                animatedSpritesRendered = animatedSpritesCached;
             }
 
-            this.animatedSpritesRendered.clear();
-        } else if (this.animatedSpritesRendered != null) {
-            SmartAnimations.spritesRendered(this.animatedSpritesRendered);
-            this.animatedSpritesRendered = null;
+            animatedSpritesRendered.clear();
+        } else if (animatedSpritesRendered != null) {
+            SmartAnimations.spritesRendered(animatedSpritesRendered);
+            animatedSpritesRendered = null;
         }
     }
 
     public void preRenderChunk(RenderChunk renderChunkIn) {
         BlockPos blockpos = renderChunkIn.getPosition();
-        GlStateManager.translate((float) ((double) blockpos.getX() - this.viewEntityX), (float) ((double) blockpos.getY() - this.viewEntityY), (float) ((double) blockpos.getZ() - this.viewEntityZ));
+        GlStateManager.translate((float) ((double) blockpos.getX() - viewEntityX), (float) ((double) blockpos.getY() - viewEntityY), (float) ((double) blockpos.getZ() - viewEntityZ));
     }
 
     public void addRenderChunk(RenderChunk renderChunkIn, EnumWorldBlockLayer layer) {
-        this.renderChunks.add(renderChunkIn);
+        renderChunks.add(renderChunkIn);
 
-        if (this.animatedSpritesRendered != null) {
+        if (animatedSpritesRendered != null) {
             BitSet bitset = renderChunkIn.compiledChunk.getAnimatedSprites(layer);
 
             if (bitset != null) {
-                this.animatedSpritesRendered.or(bitset);
+                animatedSpritesRendered.or(bitset);
             }
         }
     }

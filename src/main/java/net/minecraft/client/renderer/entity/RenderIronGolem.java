@@ -11,7 +11,7 @@ public class RenderIronGolem extends RenderLiving<EntityIronGolem> {
 
     public RenderIronGolem(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelIronGolem(), 0.5F);
-        this.addLayer(new LayerIronGolemFlower(this));
+        addLayer(new LayerIronGolemFlower(this));
     }
 
     protected ResourceLocation getEntityTexture(EntityIronGolem entity) {

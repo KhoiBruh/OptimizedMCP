@@ -40,14 +40,14 @@ public class WorldGenIceSpike extends WorldGenerator {
                             Block block = worldIn.getBlockState(position.add(i1, k, j1)).getBlock();
 
                             if (block.getMaterial() == Material.air || block == Blocks.dirt || block == Blocks.snow || block == Blocks.ice) {
-                                this.setBlockAndNotifyAdequately(worldIn, position.add(i1, k, j1), Blocks.packed_ice.getDefaultState());
+                                setBlockAndNotifyAdequately(worldIn, position.add(i1, k, j1), Blocks.packed_ice.getDefaultState());
                             }
 
                             if (k != 0 && l > 1) {
                                 block = worldIn.getBlockState(position.add(i1, -k, j1)).getBlock();
 
                                 if (block.getMaterial() == Material.air || block == Blocks.dirt || block == Blocks.snow || block == Blocks.ice) {
-                                    this.setBlockAndNotifyAdequately(worldIn, position.add(i1, -k, j1), Blocks.packed_ice.getDefaultState());
+                                    setBlockAndNotifyAdequately(worldIn, position.add(i1, -k, j1), Blocks.packed_ice.getDefaultState());
                                 }
                             }
                         }
@@ -79,7 +79,7 @@ public class WorldGenIceSpike extends WorldGenerator {
                             break;
                         }
 
-                        this.setBlockAndNotifyAdequately(worldIn, blockpos, Blocks.packed_ice.getDefaultState());
+                        setBlockAndNotifyAdequately(worldIn, blockpos, Blocks.packed_ice.getDefaultState());
                         blockpos = blockpos.down();
                         --j2;
 

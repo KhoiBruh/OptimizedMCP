@@ -23,8 +23,8 @@ public class BlockPortal extends BlockBreakable {
 
     public BlockPortal() {
         super(Material.portal, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X));
+        setTickRandomly(true);
     }
 
     public static int getMetaForAxis(EnumFacing.Axis axis) {
@@ -68,7 +68,7 @@ public class BlockPortal extends BlockBreakable {
             f1 = 0.5F;
         }
 
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
     }
 
     public boolean isFullCube() {
@@ -185,7 +185,7 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
+        return getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -250,34 +250,34 @@ public class BlockPortal extends BlockBreakable {
         private int field_150868_h;
 
         public Size(World worldIn, BlockPos p_i45694_2_, EnumFacing.Axis p_i45694_3_) {
-            this.world = worldIn;
-            this.axis = p_i45694_3_;
+            world = worldIn;
+            axis = p_i45694_3_;
 
             if (p_i45694_3_ == EnumFacing.Axis.X) {
-                this.field_150863_d = EnumFacing.EAST;
-                this.field_150866_c = EnumFacing.WEST;
+                field_150863_d = EnumFacing.EAST;
+                field_150866_c = EnumFacing.WEST;
             } else {
-                this.field_150863_d = EnumFacing.NORTH;
-                this.field_150866_c = EnumFacing.SOUTH;
+                field_150863_d = EnumFacing.NORTH;
+                field_150866_c = EnumFacing.SOUTH;
             }
 
-            for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && this.func_150857_a(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down()) {
+            for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && func_150857_a(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down()) {
             }
 
-            int i = this.func_180120_a(p_i45694_2_, this.field_150863_d) - 1;
+            int i = func_180120_a(p_i45694_2_, field_150863_d) - 1;
 
             if (i >= 0) {
-                this.field_150861_f = p_i45694_2_.offset(this.field_150863_d, i);
-                this.field_150868_h = this.func_180120_a(this.field_150861_f, this.field_150866_c);
+                field_150861_f = p_i45694_2_.offset(field_150863_d, i);
+                field_150868_h = func_180120_a(field_150861_f, field_150866_c);
 
-                if (this.field_150868_h < 2 || this.field_150868_h > 21) {
-                    this.field_150861_f = null;
-                    this.field_150868_h = 0;
+                if (field_150868_h < 2 || field_150868_h > 21) {
+                    field_150861_f = null;
+                    field_150868_h = 0;
                 }
             }
 
-            if (this.field_150861_f != null) {
-                this.field_150862_g = this.func_150858_a();
+            if (field_150861_f != null) {
+                field_150862_g = func_150858_a();
             }
         }
 
@@ -287,47 +287,47 @@ public class BlockPortal extends BlockBreakable {
             for (i = 0; i < 22; ++i) {
                 BlockPos blockpos = p_180120_1_.offset(p_180120_2_, i);
 
-                if (!this.func_150857_a(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != Blocks.obsidian) {
+                if (!func_150857_a(world.getBlockState(blockpos).getBlock()) || world.getBlockState(blockpos.down()).getBlock() != Blocks.obsidian) {
                     break;
                 }
             }
 
-            Block block = this.world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
+            Block block = world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
             return block == Blocks.obsidian ? i : 0;
         }
 
         public int func_181100_a() {
-            return this.field_150862_g;
+            return field_150862_g;
         }
 
         public int func_181101_b() {
-            return this.field_150868_h;
+            return field_150868_h;
         }
 
         protected int func_150858_a() {
             label24:
 
-            for (this.field_150862_g = 0; this.field_150862_g < 21; ++this.field_150862_g) {
-                for (int i = 0; i < this.field_150868_h; ++i) {
-                    BlockPos blockpos = this.field_150861_f.offset(this.field_150866_c, i).up(this.field_150862_g);
-                    Block block = this.world.getBlockState(blockpos).getBlock();
+            for (field_150862_g = 0; field_150862_g < 21; ++field_150862_g) {
+                for (int i = 0; i < field_150868_h; ++i) {
+                    BlockPos blockpos = field_150861_f.offset(field_150866_c, i).up(field_150862_g);
+                    Block block = world.getBlockState(blockpos).getBlock();
 
-                    if (!this.func_150857_a(block)) {
+                    if (!func_150857_a(block)) {
                         break label24;
                     }
 
                     if (block == Blocks.portal) {
-                        ++this.field_150864_e;
+                        ++field_150864_e;
                     }
 
                     if (i == 0) {
-                        block = this.world.getBlockState(blockpos.offset(this.field_150863_d)).getBlock();
+                        block = world.getBlockState(blockpos.offset(field_150863_d)).getBlock();
 
                         if (block != Blocks.obsidian) {
                             break label24;
                         }
-                    } else if (i == this.field_150868_h - 1) {
-                        block = this.world.getBlockState(blockpos.offset(this.field_150866_c)).getBlock();
+                    } else if (i == field_150868_h - 1) {
+                        block = world.getBlockState(blockpos.offset(field_150866_c)).getBlock();
 
                         if (block != Blocks.obsidian) {
                             break label24;
@@ -336,19 +336,19 @@ public class BlockPortal extends BlockBreakable {
                 }
             }
 
-            for (int j = 0; j < this.field_150868_h; ++j) {
-                if (this.world.getBlockState(this.field_150861_f.offset(this.field_150866_c, j).up(this.field_150862_g)).getBlock() != Blocks.obsidian) {
-                    this.field_150862_g = 0;
+            for (int j = 0; j < field_150868_h; ++j) {
+                if (world.getBlockState(field_150861_f.offset(field_150866_c, j).up(field_150862_g)).getBlock() != Blocks.obsidian) {
+                    field_150862_g = 0;
                     break;
                 }
             }
 
-            if (this.field_150862_g <= 21 && this.field_150862_g >= 3) {
-                return this.field_150862_g;
+            if (field_150862_g <= 21 && field_150862_g >= 3) {
+                return field_150862_g;
             } else {
-                this.field_150861_f = null;
-                this.field_150868_h = 0;
-                this.field_150862_g = 0;
+                field_150861_f = null;
+                field_150868_h = 0;
+                field_150862_g = 0;
                 return 0;
             }
         }
@@ -358,15 +358,15 @@ public class BlockPortal extends BlockBreakable {
         }
 
         public boolean func_150860_b() {
-            return this.field_150861_f != null && this.field_150868_h >= 2 && this.field_150868_h <= 21 && this.field_150862_g >= 3 && this.field_150862_g <= 21;
+            return field_150861_f != null && field_150868_h >= 2 && field_150868_h <= 21 && field_150862_g >= 3 && field_150862_g <= 21;
         }
 
         public void func_150859_c() {
-            for (int i = 0; i < this.field_150868_h; ++i) {
-                BlockPos blockpos = this.field_150861_f.offset(this.field_150866_c, i);
+            for (int i = 0; i < field_150868_h; ++i) {
+                BlockPos blockpos = field_150861_f.offset(field_150866_c, i);
 
-                for (int j = 0; j < this.field_150862_g; ++j) {
-                    this.world.setBlockState(blockpos.up(j), Blocks.portal.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
+                for (int j = 0; j < field_150862_g; ++j) {
+                    world.setBlockState(blockpos.up(j), Blocks.portal.getDefaultState().withProperty(BlockPortal.AXIS, axis), 2);
                 }
             }
         }

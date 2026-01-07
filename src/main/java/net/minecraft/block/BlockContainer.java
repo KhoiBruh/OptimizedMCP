@@ -15,7 +15,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 
     protected BlockContainer(Material p_i46402_1_, MapColor p_i46402_2_) {
         super(p_i46402_1_, p_i46402_2_);
-        this.isBlockContainer = true;
+        isBlockContainer = true;
     }
 
     protected boolean isInvalidNeighbor(World p_181086_1_, BlockPos p_181086_2_, EnumFacing p_181086_3_) {
@@ -23,7 +23,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
     }
 
     protected boolean hasInvalidNeighbor(World p_181087_1_, BlockPos p_181087_2_) {
-        return this.isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.NORTH) || this.isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.SOUTH) || this.isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.WEST) || this.isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.EAST);
+        return isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.NORTH) || isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.SOUTH) || isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.WEST) || isInvalidNeighbor(p_181087_1_, p_181087_2_, EnumFacing.EAST);
     }
 
     public int getRenderType() {

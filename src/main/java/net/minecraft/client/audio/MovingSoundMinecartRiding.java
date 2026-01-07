@@ -11,24 +11,24 @@ public class MovingSoundMinecartRiding extends MovingSound {
 
     public MovingSoundMinecartRiding(EntityPlayer playerRiding, EntityMinecart minecart) {
         super(new ResourceLocation("minecraft:minecart.inside"));
-        this.player = playerRiding;
+        player = playerRiding;
         this.minecart = minecart;
-        this.attenuationType = ISound.AttenuationType.NONE;
-        this.repeat = true;
-        this.repeatDelay = 0;
+        attenuationType = ISound.AttenuationType.NONE;
+        repeat = true;
+        repeatDelay = 0;
     }
 
     public void update() {
-        if (!this.minecart.isDead && this.player.isRiding() && this.player.ridingEntity == this.minecart) {
-            float f = MathHelper.sqrt_double(this.minecart.motionX * this.minecart.motionX + this.minecart.motionZ * this.minecart.motionZ);
+        if (!minecart.isDead && player.isRiding() && player.ridingEntity == minecart) {
+            float f = MathHelper.sqrt_double(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
             if ((double) f >= 0.01D) {
-                this.volume = 0.0F + MathHelper.clamp_float(f, 0.0F, 1.0F) * 0.75F;
+                volume = 0.0F + MathHelper.clamp_float(f, 0.0F, 1.0F) * 0.75F;
             } else {
-                this.volume = 0.0F;
+                volume = 0.0F;
             }
         } else {
-            this.donePlaying = true;
+            donePlaying = true;
         }
     }
 }

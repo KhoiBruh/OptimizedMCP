@@ -20,7 +20,7 @@ public class EntityEnderPearl extends EntityThrowable {
 
     public EntityEnderPearl(World worldIn, EntityLivingBase p_i1783_2_) {
         super(worldIn, p_i1783_2_);
-        this.field_181555_c = p_i1783_2_;
+        field_181555_c = p_i1783_2_;
     }
 
     public EntityEnderPearl(World worldIn, double x, double y, double z) {
@@ -28,10 +28,10 @@ public class EntityEnderPearl extends EntityThrowable {
     }
 
     protected void onImpact(MovingObjectPosition p_70184_1_) {
-        EntityLivingBase entitylivingbase = this.getThrower();
+        EntityLivingBase entitylivingbase = getThrower();
 
         if (p_70184_1_.entityHit != null) {
-            if (p_70184_1_.entityHit == this.field_181555_c) {
+            if (p_70184_1_.entityHit == field_181555_c) {
                 return;
             }
 
@@ -39,42 +39,42 @@ public class EntityEnderPearl extends EntityThrowable {
         }
 
         for (int i = 0; i < 32; ++i) {
-            this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+            worldObj.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2.0D, posZ, rand.nextGaussian(), 0.0D, rand.nextGaussian());
         }
 
-        if (!this.worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             if (entitylivingbase instanceof EntityPlayerMP entityplayermp) {
 
-                if (entityplayermp.playerNetServerHandler.getNetworkManager().isChannelOpen() && entityplayermp.worldObj == this.worldObj && !entityplayermp.isPlayerSleeping()) {
-                    if (this.rand.nextFloat() < 0.05F && this.worldObj.getGameRules().getBoolean("doMobSpawning")) {
-                        EntityEndermite entityendermite = new EntityEndermite(this.worldObj);
+                if (entityplayermp.playerNetServerHandler.getNetworkManager().isChannelOpen() && entityplayermp.worldObj == worldObj && !entityplayermp.isPlayerSleeping()) {
+                    if (rand.nextFloat() < 0.05F && worldObj.getGameRules().getBoolean("doMobSpawning")) {
+                        EntityEndermite entityendermite = new EntityEndermite(worldObj);
                         entityendermite.setSpawnedByPlayer(true);
                         entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
-                        this.worldObj.spawnEntityInWorld(entityendermite);
+                        worldObj.spawnEntityInWorld(entityendermite);
                     }
 
                     if (entitylivingbase.isRiding()) {
                         entitylivingbase.mountEntity(null);
                     }
 
-                    entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);
+                    entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
                     entitylivingbase.fallDistance = 0.0F;
                     entitylivingbase.attackEntityFrom(DamageSource.fall, 5.0F);
                 }
             } else if (entitylivingbase != null) {
-                entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);
+                entitylivingbase.setPositionAndUpdate(posX, posY, posZ);
                 entitylivingbase.fallDistance = 0.0F;
             }
 
-            this.setDead();
+            setDead();
         }
     }
 
     public void onUpdate() {
-        EntityLivingBase entitylivingbase = this.getThrower();
+        EntityLivingBase entitylivingbase = getThrower();
 
         if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive()) {
-            this.setDead();
+            setDead();
         } else {
             super.onUpdate();
         }

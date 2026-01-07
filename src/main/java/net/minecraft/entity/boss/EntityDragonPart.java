@@ -11,8 +11,8 @@ public class EntityDragonPart extends Entity {
 
     public EntityDragonPart(IEntityMultiPart parent, String partName, float base, float sizeHeight) {
         super(parent.getWorld());
-        this.setSize(base, sizeHeight);
-        this.entityDragonObj = parent;
+        setSize(base, sizeHeight);
+        entityDragonObj = parent;
         this.partName = partName;
     }
 
@@ -30,10 +30,10 @@ public class EntityDragonPart extends Entity {
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        return !this.isEntityInvulnerable(source) && this.entityDragonObj.attackEntityFromPart(this, source, amount);
+        return !isEntityInvulnerable(source) && entityDragonObj.attackEntityFromPart(this, source, amount);
     }
 
     public boolean isEntityEqual(Entity entityIn) {
-        return this == entityIn || this.entityDragonObj == entityIn;
+        return this == entityIn || entityDragonObj == entityIn;
     }
 }

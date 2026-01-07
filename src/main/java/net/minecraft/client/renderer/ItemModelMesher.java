@@ -25,27 +25,27 @@ public class ItemModelMesher {
     }
 
     public TextureAtlasSprite getParticleIcon(Item item) {
-        return this.getParticleIcon(item, 0);
+        return getParticleIcon(item, 0);
     }
 
     public TextureAtlasSprite getParticleIcon(Item item, int meta) {
-        return this.getItemModel(new ItemStack(item, 1, meta)).getParticleTexture();
+        return getItemModel(new ItemStack(item, 1, meta)).getParticleTexture();
     }
 
     public IBakedModel getItemModel(ItemStack stack) {
         Item item = stack.getItem();
-        IBakedModel ibakedmodel = this.getItemModel(item, this.getMetadata(stack));
+        IBakedModel ibakedmodel = getItemModel(item, getMetadata(stack));
 
         if (ibakedmodel == null) {
-            ItemMeshDefinition itemmeshdefinition = this.shapers.get(item);
+            ItemMeshDefinition itemmeshdefinition = shapers.get(item);
 
             if (itemmeshdefinition != null) {
-                ibakedmodel = this.modelManager.getModel(itemmeshdefinition.getModelLocation(stack));
+                ibakedmodel = modelManager.getModel(itemmeshdefinition.getModelLocation(stack));
             }
         }
 
         if (ibakedmodel == null) {
-            ibakedmodel = this.modelManager.getMissingModel();
+            ibakedmodel = modelManager.getMissingModel();
         }
 
         if (Config.isCustomItems()) {
@@ -60,7 +60,7 @@ public class ItemModelMesher {
     }
 
     protected IBakedModel getItemModel(Item item, int meta) {
-        return this.simpleShapesCache.get(this.getIndex(item, meta));
+        return simpleShapesCache.get(getIndex(item, meta));
     }
 
     private int getIndex(Item item, int meta) {
@@ -68,23 +68,23 @@ public class ItemModelMesher {
     }
 
     public void register(Item item, int meta, ModelResourceLocation location) {
-        this.simpleShapes.put(this.getIndex(item, meta), location);
-        this.simpleShapesCache.put(this.getIndex(item, meta), this.modelManager.getModel(location));
+        simpleShapes.put(getIndex(item, meta), location);
+        simpleShapesCache.put(getIndex(item, meta), modelManager.getModel(location));
     }
 
     public void register(Item item, ItemMeshDefinition definition) {
-        this.shapers.put(item, definition);
+        shapers.put(item, definition);
     }
 
     public ModelManager getModelManager() {
-        return this.modelManager;
+        return modelManager;
     }
 
     public void rebuildCache() {
-        this.simpleShapesCache.clear();
+        simpleShapesCache.clear();
 
-        for (Entry<Integer, ModelResourceLocation> entry : this.simpleShapes.entrySet()) {
-            this.simpleShapesCache.put(entry.getKey(), this.modelManager.getModel(entry.getValue()));
+        for (Entry<Integer, ModelResourceLocation> entry : simpleShapes.entrySet()) {
+            simpleShapesCache.put(entry.getKey(), modelManager.getModel(entry.getValue()));
         }
     }
 }

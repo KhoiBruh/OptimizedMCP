@@ -15,15 +15,15 @@ public class EntityEnderCrystal extends Entity {
 
     public EntityEnderCrystal(World worldIn) {
         super(worldIn);
-        this.preventEntitySpawning = true;
-        this.setSize(2.0F, 2.0F);
-        this.health = 5;
-        this.innerRotation = this.rand.nextInt(100000);
+        preventEntitySpawning = true;
+        setSize(2.0F, 2.0F);
+        health = 5;
+        innerRotation = rand.nextInt(100000);
     }
 
     public EntityEnderCrystal(World worldIn, double x, double y, double z) {
         this(worldIn);
-        this.setPosition(x, y, z);
+        setPosition(x, y, z);
     }
 
     protected boolean canTriggerWalking() {
@@ -31,21 +31,21 @@ public class EntityEnderCrystal extends Entity {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(8, this.health);
+        dataWatcher.addObject(8, health);
     }
 
     public void onUpdate() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        ++this.innerRotation;
-        this.dataWatcher.updateObject(8, this.health);
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.posY);
-        int k = MathHelper.floor_double(this.posZ);
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        ++innerRotation;
+        dataWatcher.updateObject(8, health);
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(posY);
+        int k = MathHelper.floor_double(posZ);
 
-        if (this.worldObj.provider instanceof WorldProviderEnd && this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock() != Blocks.fire) {
-            this.worldObj.setBlockState(new BlockPos(i, j, k), Blocks.fire.getDefaultState());
+        if (worldObj.provider instanceof WorldProviderEnd && worldObj.getBlockState(new BlockPos(i, j, k)).getBlock() != Blocks.fire) {
+            worldObj.setBlockState(new BlockPos(i, j, k), Blocks.fire.getDefaultState());
         }
     }
 
@@ -60,17 +60,17 @@ public class EntityEnderCrystal extends Entity {
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
         } else {
-            if (!this.isDead && !this.worldObj.isRemote) {
-                this.health = 0;
+            if (!isDead && !worldObj.isRemote) {
+                health = 0;
 
-                if (this.health <= 0) {
-                    this.setDead();
+                if (health <= 0) {
+                    setDead();
 
-                    if (!this.worldObj.isRemote) {
-                        this.worldObj.createExplosion(null, this.posX, this.posY, this.posZ, 6.0F, true);
+                    if (!worldObj.isRemote) {
+                        worldObj.createExplosion(null, posX, posY, posZ, 6.0F, true);
                     }
                 }
             }

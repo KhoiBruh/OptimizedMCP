@@ -18,8 +18,8 @@ public class BlockPlanks extends Block {
 
     public BlockPlanks() {
         super(Material.wood);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int damageDropped(IBlockState state) {
@@ -33,7 +33,7 @@ public class BlockPlanks extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta));
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -74,10 +74,10 @@ public class BlockPlanks extends Block {
         }
 
         EnumType(int p_i46389_3_, String p_i46389_4_, String p_i46389_5_, MapColor p_i46389_6_) {
-            this.meta = p_i46389_3_;
-            this.name = p_i46389_4_;
-            this.unlocalizedName = p_i46389_5_;
-            this.mapColor = p_i46389_6_;
+            meta = p_i46389_3_;
+            name = p_i46389_4_;
+            unlocalizedName = p_i46389_5_;
+            mapColor = p_i46389_6_;
         }
 
         public static BlockPlanks.EnumType byMetadata(int meta) {
@@ -89,23 +89,23 @@ public class BlockPlanks extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public MapColor getMapColor() {
-            return this.mapColor;
+            return mapColor;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

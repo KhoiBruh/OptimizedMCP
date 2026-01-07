@@ -15,8 +15,8 @@ public class C10PacketCreativeInventoryAction implements Packet<INetHandlerPlayS
     }
 
     public C10PacketCreativeInventoryAction(int slotIdIn, ItemStack stackIn) {
-        this.slotId = slotIdIn;
-        this.stack = stackIn != null ? stackIn.copy() : null;
+        slotId = slotIdIn;
+        stack = stackIn != null ? stackIn.copy() : null;
     }
 
     public void processPacket(INetHandlerPlayServer handler) {
@@ -24,20 +24,20 @@ public class C10PacketCreativeInventoryAction implements Packet<INetHandlerPlayS
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.slotId = buf.readShort();
-        this.stack = buf.readItemStackFromBuffer();
+        slotId = buf.readShort();
+        stack = buf.readItemStackFromBuffer();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeShort(this.slotId);
-        buf.writeItemStackToBuffer(this.stack);
+        buf.writeShort(slotId);
+        buf.writeItemStackToBuffer(stack);
     }
 
     public int getSlotId() {
-        return this.slotId;
+        return slotId;
     }
 
     public ItemStack getStack() {
-        return this.stack;
+        return stack;
     }
 }

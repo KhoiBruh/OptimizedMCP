@@ -19,7 +19,7 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
     }
 
     protected boolean canRenderName(T entity) {
-        return super.canRenderName(entity) && (entity.getAlwaysRenderNameTagForRender() || entity.hasCustomName() && entity == this.renderManager.pointedEntity);
+        return super.canRenderName(entity) && (entity.getAlwaysRenderNameTagForRender() || entity.hasCustomName() && entity == renderManager.pointedEntity);
     }
 
     public boolean shouldRender(T livingEntity, ICamera camera, double camX, double camY, double camZ) {
@@ -35,7 +35,7 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
 
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
-        this.renderLeash(entity, x, y, z, entityYaw, partialTicks);
+        renderLeash(entity, x, y, z, entityYaw, partialTicks);
     }
 
     public void setLightmap(T entityLivingIn, float partialTicks) {
@@ -57,8 +57,8 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
                 y = y - (1.6D - (double) entityLivingIn.height) * 0.5D;
                 Tessellator tessellator = Tessellator.getInstance();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                double d0 = this.interpolateValue(entity.prevRotationYaw, entity.rotationYaw, partialTicks * 0.5F) * 0.01745329238474369D;
-                double d1 = this.interpolateValue(entity.prevRotationPitch, entity.rotationPitch, partialTicks * 0.5F) * 0.01745329238474369D;
+                double d0 = interpolateValue(entity.prevRotationYaw, entity.rotationYaw, partialTicks * 0.5F) * 0.01745329238474369D;
+                double d1 = interpolateValue(entity.prevRotationPitch, entity.rotationPitch, partialTicks * 0.5F) * 0.01745329238474369D;
                 double d2 = Math.cos(d0);
                 double d3 = Math.sin(d0);
                 double d4 = Math.sin(d1);
@@ -70,15 +70,15 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
                 }
 
                 double d5 = Math.cos(d1);
-                double d6 = this.interpolateValue(entity.prevPosX, entity.posX, partialTicks) - d2 * 0.7D - d3 * 0.5D * d5;
-                double d7 = this.interpolateValue(entity.prevPosY + (double) entity.getEyeHeight() * 0.7D, entity.posY + (double) entity.getEyeHeight() * 0.7D, partialTicks) - d4 * 0.5D - 0.25D;
-                double d8 = this.interpolateValue(entity.prevPosZ, entity.posZ, partialTicks) - d3 * 0.7D + d2 * 0.5D * d5;
-                double d9 = this.interpolateValue(entityLivingIn.prevRenderYawOffset, entityLivingIn.renderYawOffset, partialTicks) * 0.01745329238474369D + (Math.PI / 2D);
+                double d6 = interpolateValue(entity.prevPosX, entity.posX, partialTicks) - d2 * 0.7D - d3 * 0.5D * d5;
+                double d7 = interpolateValue(entity.prevPosY + (double) entity.getEyeHeight() * 0.7D, entity.posY + (double) entity.getEyeHeight() * 0.7D, partialTicks) - d4 * 0.5D - 0.25D;
+                double d8 = interpolateValue(entity.prevPosZ, entity.posZ, partialTicks) - d3 * 0.7D + d2 * 0.5D * d5;
+                double d9 = interpolateValue(entityLivingIn.prevRenderYawOffset, entityLivingIn.renderYawOffset, partialTicks) * 0.01745329238474369D + (Math.PI / 2D);
                 d2 = Math.cos(d9) * (double) entityLivingIn.width * 0.4D;
                 d3 = Math.sin(d9) * (double) entityLivingIn.width * 0.4D;
-                double d10 = this.interpolateValue(entityLivingIn.prevPosX, entityLivingIn.posX, partialTicks) + d2;
-                double d11 = this.interpolateValue(entityLivingIn.prevPosY, entityLivingIn.posY, partialTicks);
-                double d12 = this.interpolateValue(entityLivingIn.prevPosZ, entityLivingIn.posZ, partialTicks) + d3;
+                double d10 = interpolateValue(entityLivingIn.prevPosX, entityLivingIn.posX, partialTicks) + d2;
+                double d11 = interpolateValue(entityLivingIn.prevPosY, entityLivingIn.posY, partialTicks);
+                double d12 = interpolateValue(entityLivingIn.prevPosZ, entityLivingIn.posZ, partialTicks) + d3;
                 x = x + d2;
                 z = z + d3;
                 double d13 = (float) (d6 - d10);

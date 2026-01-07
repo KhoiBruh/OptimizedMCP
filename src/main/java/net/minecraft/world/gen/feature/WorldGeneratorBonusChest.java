@@ -17,8 +17,8 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
     private final int itemsToGenerateInBonusChest;
 
     public WorldGeneratorBonusChest(List<WeightedRandomChestContent> p_i45634_1_, int p_i45634_2_) {
-        this.chestItems = p_i45634_1_;
-        this.itemsToGenerateInBonusChest = p_i45634_2_;
+        chestItems = p_i45634_1_;
+        itemsToGenerateInBonusChest = p_i45634_2_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
@@ -41,7 +41,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
                     if (tileentity instanceof TileEntityChest) {
-                        WeightedRandomChestContent.generateChestContents(rand, this.chestItems, (TileEntityChest) tileentity, this.itemsToGenerateInBonusChest);
+                        WeightedRandomChestContent.generateChestContents(rand, chestItems, (TileEntityChest) tileentity, itemsToGenerateInBonusChest);
                     }
 
                     BlockPos blockpos1 = blockpos.east();

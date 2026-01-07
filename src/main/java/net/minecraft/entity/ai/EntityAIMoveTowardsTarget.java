@@ -14,42 +14,42 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
     private final float maxTargetDistance;
 
     public EntityAIMoveTowardsTarget(EntityCreature creature, double speedIn, float targetMaxDistance) {
-        this.theEntity = creature;
-        this.speed = speedIn;
-        this.maxTargetDistance = targetMaxDistance;
-        this.setMutexBits(1);
+        theEntity = creature;
+        speed = speedIn;
+        maxTargetDistance = targetMaxDistance;
+        setMutexBits(1);
     }
 
     public boolean shouldExecute() {
-        this.targetEntity = this.theEntity.getAttackTarget();
+        targetEntity = theEntity.getAttackTarget();
 
-        if (this.targetEntity == null) {
+        if (targetEntity == null) {
             return false;
-        } else if (this.targetEntity.getDistanceSqToEntity(this.theEntity) > (double) (this.maxTargetDistance * this.maxTargetDistance)) {
+        } else if (targetEntity.getDistanceSqToEntity(theEntity) > (double) (maxTargetDistance * maxTargetDistance)) {
             return false;
         } else {
-            Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 16, 7, new Vec3(this.targetEntity.posX, this.targetEntity.posY, this.targetEntity.posZ));
+            Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(theEntity, 16, 7, new Vec3(targetEntity.posX, targetEntity.posY, targetEntity.posZ));
 
             if (vec3 == null) {
                 return false;
             } else {
-                this.movePosX = vec3.xCoord();
-                this.movePosY = vec3.yCoord();
-                this.movePosZ = vec3.zCoord();
+                movePosX = vec3.xCoord();
+                movePosY = vec3.yCoord();
+                movePosZ = vec3.zCoord();
                 return true;
             }
         }
     }
 
     public boolean continueExecuting() {
-        return !this.theEntity.getNavigator().noPath() && this.targetEntity.isEntityAlive() && this.targetEntity.getDistanceSqToEntity(this.theEntity) < (double) (this.maxTargetDistance * this.maxTargetDistance);
+        return !theEntity.getNavigator().noPath() && targetEntity.isEntityAlive() && targetEntity.getDistanceSqToEntity(theEntity) < (double) (maxTargetDistance * maxTargetDistance);
     }
 
     public void resetTask() {
-        this.targetEntity = null;
+        targetEntity = null;
     }
 
     public void startExecuting() {
-        this.theEntity.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);
+        theEntity.getNavigator().tryMoveToXYZ(movePosX, movePosY, movePosZ, speed);
     }
 }

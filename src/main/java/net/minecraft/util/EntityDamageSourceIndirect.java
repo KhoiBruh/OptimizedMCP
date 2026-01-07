@@ -9,21 +9,21 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 
     public EntityDamageSourceIndirect(String damageTypeIn, Entity source, Entity indirectEntityIn) {
         super(damageTypeIn, source);
-        this.indirectEntity = indirectEntityIn;
+        indirectEntity = indirectEntityIn;
     }
 
     public Entity getSourceOfDamage() {
-        return this.damageSourceEntity;
+        return damageSourceEntity;
     }
 
     public Entity getEntity() {
-        return this.indirectEntity;
+        return indirectEntity;
     }
 
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-        IChatComponent ichatcomponent = this.indirectEntity == null ? this.damageSourceEntity.getDisplayName() : this.indirectEntity.getDisplayName();
-        ItemStack itemstack = this.indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase) this.indirectEntity).getHeldItem() : null;
-        String s = "death.attack." + this.damageType;
+        IChatComponent ichatcomponent = indirectEntity == null ? damageSourceEntity.getDisplayName() : indirectEntity.getDisplayName();
+        ItemStack itemstack = indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase) indirectEntity).getHeldItem() : null;
+        String s = "death.attack." + damageType;
         String s1 = s + ".item";
         return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), ichatcomponent, itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), ichatcomponent);
     }

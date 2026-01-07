@@ -13,10 +13,10 @@ public class NBTSizeTracker {
     }
 
     public void read(long bits) {
-        this.read += bits / 8L;
+        read += bits / 8L;
 
-        if (this.read > this.max) {
-            throw new RuntimeException("Tried to read NBT tag that was too big; tried to allocate: " + this.read + "bytes where max allowed: " + this.max);
+        if (read > max) {
+            throw new RuntimeException("Tried to read NBT tag that was too big; tried to allocate: " + read + "bytes where max allowed: " + max);
         }
     }
 }

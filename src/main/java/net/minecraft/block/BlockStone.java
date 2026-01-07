@@ -21,12 +21,12 @@ public class BlockStone extends Block {
 
     public BlockStone() {
         super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockStone.EnumType.STONE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStone.EnumType.STONE));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + BlockStone.EnumType.STONE.getUnlocalizedName() + ".name");
+        return StatCollector.translateToLocal(getUnlocalizedName() + "." + BlockStone.EnumType.STONE.getUnlocalizedName() + ".name");
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -48,7 +48,7 @@ public class BlockStone extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockStone.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockStone.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -86,10 +86,10 @@ public class BlockStone extends Block {
         }
 
         EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_) {
-            this.meta = p_i46384_3_;
-            this.name = p_i46384_5_;
-            this.unlocalizedName = p_i46384_6_;
-            this.field_181073_l = p_i46384_4_;
+            meta = p_i46384_3_;
+            name = p_i46384_5_;
+            unlocalizedName = p_i46384_6_;
+            field_181073_l = p_i46384_4_;
         }
 
         public static BlockStone.EnumType byMetadata(int meta) {
@@ -101,23 +101,23 @@ public class BlockStone extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public MapColor func_181072_c() {
-            return this.field_181073_l;
+            return field_181073_l;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

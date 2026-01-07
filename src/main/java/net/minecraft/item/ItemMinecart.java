@@ -37,7 +37,7 @@ public class ItemMinecart extends Item {
                 }
             } else {
                 if (iblockstate.getBlock().getMaterial() != Material.air || !BlockRailBase.isRailBlock(world.getBlockState(blockpos.down()))) {
-                    return this.behaviourDefaultDispenseItem.dispense(source, stack);
+                    return behaviourDefaultDispenseItem.dispense(source, stack);
                 }
 
                 IBlockState iblockstate1 = world.getBlockState(blockpos.down());
@@ -68,9 +68,9 @@ public class ItemMinecart extends Item {
     private final EntityMinecart.EnumMinecartType minecartType;
 
     public ItemMinecart(EntityMinecart.EnumMinecartType type) {
-        this.maxStackSize = 1;
-        this.minecartType = type;
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        maxStackSize = 1;
+        minecartType = type;
+        setCreativeTab(CreativeTabs.tabTransport);
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserMinecartBehavior);
     }
 
@@ -86,7 +86,7 @@ public class ItemMinecart extends Item {
                     d0 = 0.5D;
                 }
 
-                EntityMinecart entityminecart = EntityMinecart.getMinecart(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.0625D + d0, (double) pos.getZ() + 0.5D, this.minecartType);
+                EntityMinecart entityminecart = EntityMinecart.getMinecart(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.0625D + d0, (double) pos.getZ() + 0.5D, minecartType);
 
                 if (stack.hasDisplayName()) {
                     entityminecart.setCustomNameTag(stack.getDisplayName());

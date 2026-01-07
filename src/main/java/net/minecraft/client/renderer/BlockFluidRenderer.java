@@ -21,15 +21,15 @@ public class BlockFluidRenderer {
     private final TextureAtlasSprite[] atlasSpritesWater = new TextureAtlasSprite[2];
 
     public BlockFluidRenderer() {
-        this.initAtlasSprites();
+        initAtlasSprites();
     }
 
     protected void initAtlasSprites() {
         TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
-        this.atlasSpritesLava[0] = texturemap.getAtlasSprite("minecraft:blocks/lava_still");
-        this.atlasSpritesLava[1] = texturemap.getAtlasSprite("minecraft:blocks/lava_flow");
-        this.atlasSpritesWater[0] = texturemap.getAtlasSprite("minecraft:blocks/water_still");
-        this.atlasSpritesWater[1] = texturemap.getAtlasSprite("minecraft:blocks/water_flow");
+        atlasSpritesLava[0] = texturemap.getAtlasSprite("minecraft:blocks/lava_still");
+        atlasSpritesLava[1] = texturemap.getAtlasSprite("minecraft:blocks/lava_flow");
+        atlasSpritesWater[0] = texturemap.getAtlasSprite("minecraft:blocks/water_still");
+        atlasSpritesWater[1] = texturemap.getAtlasSprite("minecraft:blocks/water_flow");
     }
 
     public boolean renderFluid(IBlockAccess blockAccess, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
@@ -42,7 +42,7 @@ public class BlockFluidRenderer {
 
             BlockLiquid blockliquid = (BlockLiquid) blockStateIn.getBlock();
             blockliquid.setBlockBoundsBasedOnState(blockAccess, blockPosIn);
-            TextureAtlasSprite[] atextureatlassprite = blockliquid.getMaterial() == Material.lava ? this.atlasSpritesLava : this.atlasSpritesWater;
+            TextureAtlasSprite[] atextureatlassprite = blockliquid.getMaterial() == Material.lava ? atlasSpritesLava : atlasSpritesWater;
             RenderEnv renderenv = worldRendererIn.getRenderEnv(blockStateIn, blockPosIn);
             int i = CustomColors.getFluidColor(blockAccess, blockStateIn, blockPosIn, renderenv);
             float f = (float) (i >> 16 & 255) / 255.0F;
@@ -63,10 +63,10 @@ public class BlockFluidRenderer {
                 float f5 = 0.8F;
                 float f6 = 0.6F;
                 Material material = blockliquid.getMaterial();
-                float f7 = this.getFluidHeight(blockAccess, blockPosIn, material);
-                float f8 = this.getFluidHeight(blockAccess, blockPosIn.south(), material);
-                float f9 = this.getFluidHeight(blockAccess, blockPosIn.east().south(), material);
-                float f10 = this.getFluidHeight(blockAccess, blockPosIn.east(), material);
+                float f7 = getFluidHeight(blockAccess, blockPosIn, material);
+                float f8 = getFluidHeight(blockAccess, blockPosIn.south(), material);
+                float f9 = getFluidHeight(blockAccess, blockPosIn.east().south(), material);
+                float f10 = getFluidHeight(blockAccess, blockPosIn.east(), material);
                 double d0 = blockPosIn.getX();
                 double d1 = blockPosIn.getY();
                 double d2 = blockPosIn.getZ();

@@ -27,7 +27,7 @@ public class BlockBrewingStand extends BlockContainer {
 
     public BlockBrewingStand() {
         super(Material.iron);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(HAS_BOTTLE[0], Boolean.FALSE).withProperty(HAS_BOTTLE[1], Boolean.FALSE).withProperty(HAS_BOTTLE[2], Boolean.FALSE));
+        setDefaultState(blockState.getBaseState().withProperty(HAS_BOTTLE[0], Boolean.FALSE).withProperty(HAS_BOTTLE[1], Boolean.FALSE).withProperty(HAS_BOTTLE[2], Boolean.FALSE));
     }
 
     public String getLocalizedName() {
@@ -51,14 +51,14 @@ public class BlockBrewingStand extends BlockContainer {
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        this.setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 0.875F, 0.5625F);
+        setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 0.875F, 0.5625F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.setBlockBoundsForItemRender();
+        setBlockBoundsForItemRender();
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
     }
 
     public void setBlockBoundsForItemRender() {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -124,7 +124,7 @@ public class BlockBrewingStand extends BlockContainer {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState();
+        IBlockState iblockstate = getDefaultState();
 
         for (int i = 0; i < 3; ++i) {
             iblockstate = iblockstate.withProperty(HAS_BOTTLE[i], (meta & 1 << i) > 0);

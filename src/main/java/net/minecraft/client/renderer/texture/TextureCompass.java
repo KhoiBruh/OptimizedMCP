@@ -19,14 +19,14 @@ public class TextureCompass extends TextureAtlasSprite {
         Minecraft minecraft = Minecraft.getMinecraft();
 
         if (minecraft.theWorld != null && minecraft.thePlayer != null) {
-            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, minecraft.thePlayer.rotationYaw, false, false);
+            updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, minecraft.thePlayer.rotationYaw, false, false);
         } else {
-            this.updateCompass(null, 0.0D, 0.0D, 0.0D, true, false);
+            updateCompass(null, 0.0D, 0.0D, 0.0D, true, false);
         }
     }
 
     public void updateCompass(World worldIn, double p_94241_2_, double p_94241_4_, double p_94241_6_, boolean p_94241_8_, boolean p_94241_9_) {
-        if (!this.framesTextureData.isEmpty()) {
+        if (!framesTextureData.isEmpty()) {
             double d0 = 0.0D;
 
             if (worldIn != null && !p_94241_8_) {
@@ -42,11 +42,11 @@ public class TextureCompass extends TextureAtlasSprite {
             }
 
             if (p_94241_9_) {
-                this.currentAngle = d0;
+                currentAngle = d0;
             } else {
                 double d3;
 
-                for (d3 = d0 - this.currentAngle; d3 < -Math.PI; d3 += (Math.PI * 2D)) {
+                for (d3 = d0 - currentAngle; d3 < -Math.PI; d3 += (Math.PI * 2D)) {
                 }
 
                 while (d3 >= Math.PI) {
@@ -54,19 +54,19 @@ public class TextureCompass extends TextureAtlasSprite {
                 }
 
                 d3 = MathHelper.clamp_double(d3, -1.0D, 1.0D);
-                this.angleDelta += d3 * 0.1D;
-                this.angleDelta *= 0.8D;
-                this.currentAngle += this.angleDelta;
+                angleDelta += d3 * 0.1D;
+                angleDelta *= 0.8D;
+                currentAngle += angleDelta;
             }
 
             int i;
 
-            for (i = (int) ((this.currentAngle / (Math.PI * 2D) + 1.0D) * (double) this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
+            for (i = (int) ((currentAngle / (Math.PI * 2D) + 1.0D) * (double) framesTextureData.size()) % framesTextureData.size(); i < 0; i = (i + framesTextureData.size()) % framesTextureData.size()) {
             }
 
-            if (i != this.frameCounter) {
-                this.frameCounter = i;
-                TextureUtil.uploadTextureMipmap(this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
+            if (i != frameCounter) {
+                frameCounter = i;
+                TextureUtil.uploadTextureMipmap(framesTextureData.get(frameCounter), width, height, originX, originY, false, false);
             }
         }
     }

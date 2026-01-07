@@ -11,14 +11,14 @@ public class UserListOpsEntry extends UserListEntry<GameProfile> {
 
     public UserListOpsEntry(GameProfile player, int permissionLevelIn, boolean bypassesPlayerLimitIn) {
         super(player);
-        this.permissionLevel = permissionLevelIn;
-        this.bypassesPlayerLimit = bypassesPlayerLimitIn;
+        permissionLevel = permissionLevelIn;
+        bypassesPlayerLimit = bypassesPlayerLimitIn;
     }
 
     public UserListOpsEntry(JsonObject p_i1150_1_) {
         super(constructProfile(p_i1150_1_), p_i1150_1_);
-        this.permissionLevel = p_i1150_1_.has("level") ? p_i1150_1_.get("level").getAsInt() : 0;
-        this.bypassesPlayerLimit = p_i1150_1_.has("bypassesPlayerLimit") && p_i1150_1_.get("bypassesPlayerLimit").getAsBoolean();
+        permissionLevel = p_i1150_1_.has("level") ? p_i1150_1_.get("level").getAsInt() : 0;
+        bypassesPlayerLimit = p_i1150_1_.has("bypassesPlayerLimit") && p_i1150_1_.get("bypassesPlayerLimit").getAsBoolean();
     }
 
     private static GameProfile constructProfile(JsonObject p_152643_0_) {
@@ -39,20 +39,20 @@ public class UserListOpsEntry extends UserListEntry<GameProfile> {
     }
 
     public int getPermissionLevel() {
-        return this.permissionLevel;
+        return permissionLevel;
     }
 
     public boolean bypassesPlayerLimit() {
-        return this.bypassesPlayerLimit;
+        return bypassesPlayerLimit;
     }
 
     protected void onSerialization(JsonObject data) {
-        if (this.getValue() != null) {
-            data.addProperty("uuid", this.getValue().getId() == null ? "" : this.getValue().getId().toString());
-            data.addProperty("name", this.getValue().getName());
+        if (getValue() != null) {
+            data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
+            data.addProperty("name", getValue().getName());
             super.onSerialization(data);
-            data.addProperty("level", this.permissionLevel);
-            data.addProperty("bypassesPlayerLimit", this.bypassesPlayerLimit);
+            data.addProperty("level", permissionLevel);
+            data.addProperty("bypassesPlayerLimit", bypassesPlayerLimit);
         }
     }
 }

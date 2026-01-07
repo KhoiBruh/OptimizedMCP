@@ -14,7 +14,7 @@ public class ItemDoor extends Item {
 
     public ItemDoor(Block block) {
         this.block = block;
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     public static void placeDoor(World worldIn, BlockPos pos, EnumFacing facing, Block door) {

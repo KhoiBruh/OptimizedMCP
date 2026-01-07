@@ -15,35 +15,35 @@ public class ServerStatusResponse {
     private String favicon;
 
     public IChatComponent getServerDescription() {
-        return this.serverMotd;
+        return serverMotd;
     }
 
     public void setServerDescription(IChatComponent motd) {
-        this.serverMotd = motd;
+        serverMotd = motd;
     }
 
     public ServerStatusResponse.PlayerCountData getPlayerCountData() {
-        return this.playerCount;
+        return playerCount;
     }
 
     public void setPlayerCountData(ServerStatusResponse.PlayerCountData countData) {
-        this.playerCount = countData;
+        playerCount = countData;
     }
 
     public ServerStatusResponse.MinecraftProtocolVersionIdentifier getProtocolVersionInfo() {
-        return this.protocolVersion;
+        return protocolVersion;
     }
 
     public void setProtocolVersionInfo(ServerStatusResponse.MinecraftProtocolVersionIdentifier protocolVersionData) {
-        this.protocolVersion = protocolVersionData;
+        protocolVersion = protocolVersionData;
     }
 
     public String getFavicon() {
-        return this.favicon;
+        return favicon;
     }
 
     public void setFavicon(String faviconBlob) {
-        this.favicon = faviconBlob;
+        favicon = faviconBlob;
     }
 
     public record MinecraftProtocolVersionIdentifier(String name, int protocol) {
@@ -69,24 +69,24 @@ public class ServerStatusResponse {
         private GameProfile[] players;
 
         public PlayerCountData(int maxOnlinePlayers, int onlinePlayers) {
-            this.maxPlayers = maxOnlinePlayers;
-            this.onlinePlayerCount = onlinePlayers;
+            maxPlayers = maxOnlinePlayers;
+            onlinePlayerCount = onlinePlayers;
         }
 
         public int getMaxPlayers() {
-            return this.maxPlayers;
+            return maxPlayers;
         }
 
         public int getOnlinePlayerCount() {
-            return this.onlinePlayerCount;
+            return onlinePlayerCount;
         }
 
         public GameProfile[] getPlayers() {
-            return this.players;
+            return players;
         }
 
         public void setPlayers(GameProfile[] playersIn) {
-            this.players = playersIn;
+            players = playersIn;
         }
 
         public static class Serializer implements JsonDeserializer<ServerStatusResponse.PlayerCountData>, JsonSerializer<ServerStatusResponse.PlayerCountData> {
@@ -97,7 +97,7 @@ public class ServerStatusResponse {
                 if (JsonUtils.isJsonArray(jsonobject, "sample")) {
                     JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "sample");
 
-                    if (jsonarray.size() > 0) {
+                    if (!jsonarray.isEmpty()) {
                         GameProfile[] agameprofile = new GameProfile[jsonarray.size()];
 
                         for (int i = 0; i < agameprofile.length; ++i) {

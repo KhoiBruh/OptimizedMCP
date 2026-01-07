@@ -12,34 +12,34 @@ public class EntityPortalFX extends EntityFX {
 
     protected EntityPortalFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-        this.motionX = xSpeedIn;
-        this.motionY = ySpeedIn;
-        this.motionZ = zSpeedIn;
-        this.portalPosX = this.posX = xCoordIn;
-        this.portalPosY = this.posY = yCoordIn;
-        this.portalPosZ = this.posZ = zCoordIn;
-        float f = this.rand.nextFloat() * 0.6F + 0.4F;
-        this.portalParticleScale = this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
-        this.particleRed = this.particleGreen = this.particleBlue = f;
-        this.particleGreen *= 0.3F;
-        this.particleRed *= 0.9F;
-        this.particleMaxAge = (int) (Math.random() * 10.0D) + 40;
-        this.noClip = true;
-        this.setParticleTextureIndex((int) (Math.random() * 8.0D));
+        motionX = xSpeedIn;
+        motionY = ySpeedIn;
+        motionZ = zSpeedIn;
+        portalPosX = posX = xCoordIn;
+        portalPosY = posY = yCoordIn;
+        portalPosZ = posZ = zCoordIn;
+        float f = rand.nextFloat() * 0.6F + 0.4F;
+        portalParticleScale = particleScale = rand.nextFloat() * 0.2F + 0.5F;
+        particleRed = particleGreen = particleBlue = f;
+        particleGreen *= 0.3F;
+        particleRed *= 0.9F;
+        particleMaxAge = (int) (Math.random() * 10.0D) + 40;
+        noClip = true;
+        setParticleTextureIndex((int) (Math.random() * 8.0D));
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
         f = 1.0F - f;
         f = f * f;
         f = 1.0F - f;
-        this.particleScale = this.portalParticleScale * f;
+        particleScale = portalParticleScale * f;
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
     public int getBrightnessForRender(float partialTicks) {
         int i = super.getBrightnessForRender(partialTicks);
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        float f = (float) particleAge / (float) particleMaxAge;
         f = f * f;
         f = f * f;
         int j = i & 255;
@@ -55,24 +55,24 @@ public class EntityPortalFX extends EntityFX {
 
     public float getBrightness(float partialTicks) {
         float f = super.getBrightness(partialTicks);
-        float f1 = (float) this.particleAge / (float) this.particleMaxAge;
+        float f1 = (float) particleAge / (float) particleMaxAge;
         f1 = f1 * f1 * f1 * f1;
         return f * (1.0F - f1) + f1;
     }
 
     public void onUpdate() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        float f = (float) particleAge / (float) particleMaxAge;
         f = -f + f * f * 2.0F;
         f = 1.0F - f;
-        this.posX = this.portalPosX + this.motionX * (double) f;
-        this.posY = this.portalPosY + this.motionY * (double) f + (double) (1.0F - f);
-        this.posZ = this.portalPosZ + this.motionZ * (double) f;
+        posX = portalPosX + motionX * (double) f;
+        posY = portalPosY + motionY * (double) f + (double) (1.0F - f);
+        posZ = portalPosZ + motionZ * (double) f;
 
-        if (this.particleAge++ >= this.particleMaxAge) {
-            this.setDead();
+        if (particleAge++ >= particleMaxAge) {
+            setDead();
         }
     }
 

@@ -17,16 +17,16 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
 
     public WeightedRandomChestContent(Item p_i45311_1_, int p_i45311_2_, int minimumChance, int maximumChance, int itemWeightIn) {
         super(itemWeightIn);
-        this.theItemId = new ItemStack(p_i45311_1_, 1, p_i45311_2_);
-        this.minStackSize = minimumChance;
-        this.maxStackSize = maximumChance;
+        theItemId = new ItemStack(p_i45311_1_, 1, p_i45311_2_);
+        minStackSize = minimumChance;
+        maxStackSize = maximumChance;
     }
 
     public WeightedRandomChestContent(ItemStack stack, int minimumChance, int maximumChance, int itemWeightIn) {
         super(itemWeightIn);
-        this.theItemId = stack;
-        this.minStackSize = minimumChance;
-        this.maxStackSize = maximumChance;
+        theItemId = stack;
+        minStackSize = minimumChance;
+        maxStackSize = maximumChance;
     }
 
     public static void generateChestContents(Random random, List<WeightedRandomChestContent> listIn, IInventory inv, int max) {

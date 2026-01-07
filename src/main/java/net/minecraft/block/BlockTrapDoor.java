@@ -22,11 +22,11 @@ public class BlockTrapDoor extends Block {
 
     protected BlockTrapDoor(Material materialIn) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
         float f = 0.5F;
         float f1 = 1.0F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     protected static EnumFacing getFacing(int meta) {
@@ -80,22 +80,22 @@ public class BlockTrapDoor extends Block {
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.setBounds(worldIn.getBlockState(pos));
+        setBounds(worldIn.getBlockState(pos));
     }
 
     public void setBlockBoundsForItemRender() {
         float f = 0.1875F;
-        this.setBlockBounds(0.0F, 0.40625F, 0.0F, 1.0F, 0.59375F, 1.0F);
+        setBlockBounds(0.0F, 0.40625F, 0.0F, 1.0F, 0.59375F, 1.0F);
     }
 
     public void setBounds(IBlockState state) {
@@ -106,33 +106,33 @@ public class BlockTrapDoor extends Block {
             float f = 0.1875F;
 
             if (flag) {
-                this.setBlockBounds(0.0F, 0.8125F, 0.0F, 1.0F, 1.0F, 1.0F);
+                setBlockBounds(0.0F, 0.8125F, 0.0F, 1.0F, 1.0F, 1.0F);
             } else {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.1875F, 1.0F);
+                setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.1875F, 1.0F);
             }
 
             if (obool) {
                 if (enumfacing == EnumFacing.NORTH) {
-                    this.setBlockBounds(0.0F, 0.0F, 0.8125F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.8125F, 1.0F, 1.0F, 1.0F);
                 }
 
                 if (enumfacing == EnumFacing.SOUTH) {
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.1875F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.1875F);
                 }
 
                 if (enumfacing == EnumFacing.WEST) {
-                    this.setBlockBounds(0.8125F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.8125F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 }
 
                 if (enumfacing == EnumFacing.EAST) {
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.1875F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 0.1875F, 1.0F, 1.0F);
                 }
             }
         }
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (this.blockMaterial == Material.iron) {
+        if (blockMaterial == Material.iron) {
             return true;
         } else {
             state = state.cycleProperty(OPEN);
@@ -148,7 +148,7 @@ public class BlockTrapDoor extends Block {
 
             if (!isValidSupportBlock(worldIn.getBlockState(blockpos).getBlock())) {
                 worldIn.setBlockToAir(pos);
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
             } else {
                 boolean flag = worldIn.isBlockPowered(pos);
 
@@ -165,12 +165,12 @@ public class BlockTrapDoor extends Block {
     }
 
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.collisionRayTrace(worldIn, pos, start, end);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        IBlockState iblockstate = this.getDefaultState();
+        IBlockState iblockstate = getDefaultState();
 
         if (facing.getAxis().isHorizontal()) {
             iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.FALSE);
@@ -189,7 +189,7 @@ public class BlockTrapDoor extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -222,11 +222,11 @@ public class BlockTrapDoor extends Block {
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

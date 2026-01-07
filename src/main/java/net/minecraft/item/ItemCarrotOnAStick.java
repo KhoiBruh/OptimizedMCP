@@ -9,9 +9,9 @@ import net.minecraft.world.World;
 
 public class ItemCarrotOnAStick extends Item {
     public ItemCarrotOnAStick() {
-        this.setCreativeTab(CreativeTabs.tabTransport);
-        this.setMaxStackSize(1);
-        this.setMaxDamage(25);
+        setCreativeTab(CreativeTabs.tabTransport);
+        setMaxStackSize(1);
+        setMaxDamage(25);
     }
 
     public boolean isFull3D() {

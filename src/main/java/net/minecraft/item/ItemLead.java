@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class ItemLead extends Item {
     public ItemLead() {
-        this.setCreativeTab(CreativeTabs.tabTools);
+        setCreativeTab(CreativeTabs.tabTools);
     }
 
     public static boolean attachToFence(EntityPlayer player, World worldIn, BlockPos fence) {

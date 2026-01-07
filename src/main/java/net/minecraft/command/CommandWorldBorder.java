@@ -25,7 +25,7 @@ public class CommandWorldBorder extends CommandBase {
         if (args.length < 1) {
             throw new WrongUsageException("commands.worldborder.usage");
         } else {
-            WorldBorder worldborder = this.getWorldBorder();
+            WorldBorder worldborder = getWorldBorder();
 
             if (args[0].equals("set")) {
                 if (args.length != 2 && args.length != 3) {

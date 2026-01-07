@@ -7,6 +7,6 @@ public class ObjectiveStat extends ScoreDummyCriteria {
 
     public ObjectiveStat(StatBase statIn) {
         super(statIn.statId);
-        this.stat = statIn;
+        stat = statIn;
     }
 }

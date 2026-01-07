@@ -22,12 +22,12 @@ public class BlockPrismarine extends Block {
 
     public BlockPrismarine() {
         super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPrismarine.EnumType.ROUGH));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPrismarine.EnumType.ROUGH));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + BlockPrismarine.EnumType.ROUGH.getUnlocalizedName() + ".name");
+        return StatCollector.translateToLocal(getUnlocalizedName() + "." + BlockPrismarine.EnumType.ROUGH.getUnlocalizedName() + ".name");
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -47,7 +47,7 @@ public class BlockPrismarine extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockPrismarine.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockPrismarine.EnumType.byMetadata(meta));
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
@@ -88,19 +88,19 @@ public class BlockPrismarine extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

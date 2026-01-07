@@ -19,17 +19,17 @@ public class BlockLadder extends Block {
 
     protected BlockLadder() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
@@ -41,20 +41,20 @@ public class BlockLadder extends Block {
 
             switch (iblockstate.getValue(FACING)) {
                 case NORTH:
-                    this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
                     break;
 
                 case SOUTH:
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
                     break;
 
                 case WEST:
-                    this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                     break;
 
                 case EAST:
                 default:
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
             }
         }
     }
@@ -72,24 +72,24 @@ public class BlockLadder extends Block {
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        if (facing.getAxis().isHorizontal() && this.canBlockStay(worldIn, pos, facing)) {
-            return this.getDefaultState().withProperty(FACING, facing);
+        if (facing.getAxis().isHorizontal() && canBlockStay(worldIn, pos, facing)) {
+            return getDefaultState().withProperty(FACING, facing);
         } else {
             for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-                if (this.canBlockStay(worldIn, pos, enumfacing)) {
-                    return this.getDefaultState().withProperty(FACING, enumfacing);
+                if (canBlockStay(worldIn, pos, enumfacing)) {
+                    return getDefaultState().withProperty(FACING, enumfacing);
                 }
             }
 
-            return this.getDefaultState();
+            return getDefaultState();
         }
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         EnumFacing enumfacing = state.getValue(FACING);
 
-        if (!this.canBlockStay(worldIn, pos, enumfacing)) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+        if (!canBlockStay(worldIn, pos, enumfacing)) {
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
 
@@ -111,7 +111,7 @@ public class BlockLadder extends Block {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     public int getMetaFromState(IBlockState state) {

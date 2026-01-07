@@ -11,15 +11,15 @@ public record Session(String username, String playerID, String token, String ses
 
 
     public String getSessionID() {
-        return "token:" + this.token + ":" + this.playerID;
+        return "token:" + token + ":" + playerID;
     }
 
     public GameProfile getProfile() {
         try {
-            UUID uuid = UUIDTypeAdapter.fromString(this.playerID());
-            return new GameProfile(uuid, this.username());
+            UUID uuid = UUIDTypeAdapter.fromString(playerID());
+            return new GameProfile(uuid, username());
         } catch (IllegalArgumentException var2) {
-            return new GameProfile(null, this.username());
+            return new GameProfile(null, username());
         }
     }
 
@@ -38,7 +38,7 @@ public record Session(String username, String playerID, String token, String ses
         private final String sessionType;
 
         Type(String sessionTypeIn) {
-            this.sessionType = sessionTypeIn;
+            sessionType = sessionTypeIn;
         }
 
         public static Type setSessionType(String sessionTypeIn) {

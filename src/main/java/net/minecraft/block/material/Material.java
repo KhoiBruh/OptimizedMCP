@@ -49,7 +49,7 @@ public class Material {
     private boolean isAdventureModeExempt;
 
     public Material(MapColor color) {
-        this.materialMapColor = color;
+        materialMapColor = color;
     }
 
     public boolean isLiquid() {
@@ -69,61 +69,61 @@ public class Material {
     }
 
     private Material setTranslucent() {
-        this.isTranslucent = true;
+        isTranslucent = true;
         return this;
     }
 
     protected Material setRequiresTool() {
-        this.requiresNoTool = false;
+        requiresNoTool = false;
         return this;
     }
 
     protected Material setBurning() {
-        this.canBurn = true;
+        canBurn = true;
         return this;
     }
 
     public boolean getCanBurn() {
-        return this.canBurn;
+        return canBurn;
     }
 
     public Material setReplaceable() {
-        this.replaceable = true;
+        replaceable = true;
         return this;
     }
 
     public boolean isReplaceable() {
-        return this.replaceable;
+        return replaceable;
     }
 
     public boolean isOpaque() {
-        return !this.isTranslucent && this.blocksMovement();
+        return !isTranslucent && blocksMovement();
     }
 
     public boolean isToolNotRequired() {
-        return this.requiresNoTool;
+        return requiresNoTool;
     }
 
     public int getMaterialMobility() {
-        return this.mobilityFlag;
+        return mobilityFlag;
     }
 
     protected Material setNoPushMobility() {
-        this.mobilityFlag = 1;
+        mobilityFlag = 1;
         return this;
     }
 
     protected Material setImmovableMobility() {
-        this.mobilityFlag = 2;
+        mobilityFlag = 2;
         return this;
     }
 
     protected Material setAdventureModeExempt() {
-        this.isAdventureModeExempt = true;
+        isAdventureModeExempt = true;
         return this;
     }
 
     public MapColor getMaterialMapColor() {
-        return this.materialMapColor;
+        return materialMapColor;
     }
 }

@@ -38,21 +38,21 @@ public class Explosion {
 
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking, List<BlockPos> affectedPositions) {
         this(worldIn, entityIn, x, y, z, size, flaming, smoking);
-        this.affectedBlockPositions.addAll(affectedPositions);
+        affectedBlockPositions.addAll(affectedPositions);
     }
 
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking) {
-        this.explosionRNG = new Random();
-        this.affectedBlockPositions = Lists.newArrayList();
-        this.playerKnockbackMap = Maps.newHashMap();
-        this.worldObj = worldIn;
-        this.exploder = entityIn;
-        this.explosionSize = size;
-        this.explosionX = x;
-        this.explosionY = y;
-        this.explosionZ = z;
-        this.isFlaming = flaming;
-        this.isSmoking = smoking;
+        explosionRNG = new Random();
+        affectedBlockPositions = Lists.newArrayList();
+        playerKnockbackMap = Maps.newHashMap();
+        worldObj = worldIn;
+        exploder = entityIn;
+        explosionSize = size;
+        explosionX = x;
+        explosionY = y;
+        explosionZ = z;
+        isFlaming = flaming;
+        isSmoking = smoking;
     }
 
     public void doExplosionA() {
@@ -70,21 +70,21 @@ public class Explosion {
                         d0 = d0 / d3;
                         d1 = d1 / d3;
                         d2 = d2 / d3;
-                        float f = this.explosionSize * (0.7F + this.worldObj.rand.nextFloat() * 0.6F);
-                        double d4 = this.explosionX;
-                        double d6 = this.explosionY;
-                        double d8 = this.explosionZ;
+                        float f = explosionSize * (0.7F + worldObj.rand.nextFloat() * 0.6F);
+                        double d4 = explosionX;
+                        double d6 = explosionY;
+                        double d8 = explosionZ;
 
                         for (float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
                             BlockPos blockpos = new BlockPos(d4, d6, d8);
-                            IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+                            IBlockState iblockstate = worldObj.getBlockState(blockpos);
 
                             if (iblockstate.getBlock().getMaterial() != Material.air) {
-                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(null);
+                                float f2 = exploder != null ? exploder.getExplosionResistance(this, worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(null);
                                 f -= (f2 + 0.3F) * 0.3F;
                             }
 
-                            if (f > 0.0F && (this.exploder == null || this.exploder.verifyExplosion(this, this.worldObj, blockpos, iblockstate, f))) {
+                            if (f > 0.0F && (exploder == null || exploder.verifyExplosion(this, worldObj, blockpos, iblockstate, f))) {
                                 set.add(blockpos);
                             }
 
@@ -97,32 +97,32 @@ public class Explosion {
             }
         }
 
-        this.affectedBlockPositions.addAll(set);
-        float f3 = this.explosionSize * 2.0F;
-        int k1 = MathHelper.floor_double(this.explosionX - (double) f3 - 1.0D);
-        int l1 = MathHelper.floor_double(this.explosionX + (double) f3 + 1.0D);
-        int i2 = MathHelper.floor_double(this.explosionY - (double) f3 - 1.0D);
-        int i1 = MathHelper.floor_double(this.explosionY + (double) f3 + 1.0D);
-        int j2 = MathHelper.floor_double(this.explosionZ - (double) f3 - 1.0D);
-        int j1 = MathHelper.floor_double(this.explosionZ + (double) f3 + 1.0D);
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
-        Vec3 vec3 = new Vec3(this.explosionX, this.explosionY, this.explosionZ);
+        affectedBlockPositions.addAll(set);
+        float f3 = explosionSize * 2.0F;
+        int k1 = MathHelper.floor_double(explosionX - (double) f3 - 1.0D);
+        int l1 = MathHelper.floor_double(explosionX + (double) f3 + 1.0D);
+        int i2 = MathHelper.floor_double(explosionY - (double) f3 - 1.0D);
+        int i1 = MathHelper.floor_double(explosionY + (double) f3 + 1.0D);
+        int j2 = MathHelper.floor_double(explosionZ - (double) f3 - 1.0D);
+        int j1 = MathHelper.floor_double(explosionZ + (double) f3 + 1.0D);
+        List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
+        Vec3 vec3 = new Vec3(explosionX, explosionY, explosionZ);
 
         for (Entity entity : list) {
             if (!entity.isImmuneToExplosions()) {
-                double d12 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / (double) f3;
+                double d12 = entity.getDistance(explosionX, explosionY, explosionZ) / (double) f3;
 
                 if (d12 <= 1.0D) {
-                    double d5 = entity.posX - this.explosionX;
-                    double d7 = entity.posY + (double) entity.getEyeHeight() - this.explosionY;
-                    double d9 = entity.posZ - this.explosionZ;
+                    double d5 = entity.posX - explosionX;
+                    double d7 = entity.posY + (double) entity.getEyeHeight() - explosionY;
+                    double d9 = entity.posZ - explosionZ;
                     double d13 = MathHelper.sqrt_double(d5 * d5 + d7 * d7 + d9 * d9);
 
                     if (d13 != 0.0D) {
                         d5 = d5 / d13;
                         d7 = d7 / d13;
                         d9 = d9 / d13;
-                        double d14 = this.worldObj.getBlockDensity(vec3, entity.getEntityBoundingBox());
+                        double d14 = worldObj.getBlockDensity(vec3, entity.getEntityBoundingBox());
                         double d10 = (1.0D - d12) * d14;
                         entity.attackEntityFrom(DamageSource.setExplosionSource(this), (float) ((int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) f3 + 1.0D)));
                         double d11 = EnchantmentProtection.func_92092_a(entity, d10);
@@ -131,7 +131,7 @@ public class Explosion {
                         entity.motionZ += d9 * d11;
 
                         if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.disableDamage) {
-                            this.playerKnockbackMap.put((EntityPlayer) entity, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                            playerKnockbackMap.put((EntityPlayer) entity, new Vec3(d5 * d10, d7 * d10, d9 * d10));
                         }
                     }
                 }
@@ -140,71 +140,71 @@ public class Explosion {
     }
 
     public void doExplosionB(boolean spawnParticles) {
-        this.worldObj.playSoundEffect(this.explosionX, this.explosionY, this.explosionZ, "random.explode", 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+        worldObj.playSoundEffect(explosionX, explosionY, explosionZ, "random.explode", 4.0F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
-        if (this.explosionSize >= 2.0F && this.isSmoking) {
-            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
+        if (explosionSize >= 2.0F && isSmoking) {
+            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, explosionX, explosionY, explosionZ, 1.0D, 0.0D, 0.0D);
         } else {
-            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, explosionX, explosionY, explosionZ, 1.0D, 0.0D, 0.0D);
         }
 
-        if (this.isSmoking) {
-            for (BlockPos blockpos : this.affectedBlockPositions) {
-                Block block = this.worldObj.getBlockState(blockpos).getBlock();
+        if (isSmoking) {
+            for (BlockPos blockpos : affectedBlockPositions) {
+                Block block = worldObj.getBlockState(blockpos).getBlock();
 
                 if (spawnParticles) {
-                    double d0 = (float) blockpos.getX() + this.worldObj.rand.nextFloat();
-                    double d1 = (float) blockpos.getY() + this.worldObj.rand.nextFloat();
-                    double d2 = (float) blockpos.getZ() + this.worldObj.rand.nextFloat();
-                    double d3 = d0 - this.explosionX;
-                    double d4 = d1 - this.explosionY;
-                    double d5 = d2 - this.explosionZ;
+                    double d0 = (float) blockpos.getX() + worldObj.rand.nextFloat();
+                    double d1 = (float) blockpos.getY() + worldObj.rand.nextFloat();
+                    double d2 = (float) blockpos.getZ() + worldObj.rand.nextFloat();
+                    double d3 = d0 - explosionX;
+                    double d4 = d1 - explosionY;
+                    double d5 = d2 - explosionZ;
                     double d6 = MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
                     d3 = d3 / d6;
                     d4 = d4 / d6;
                     d5 = d5 / d6;
-                    double d7 = 0.5D / (d6 / (double) this.explosionSize + 0.1D);
-                    d7 = d7 * (double) (this.worldObj.rand.nextFloat() * this.worldObj.rand.nextFloat() + 0.3F);
+                    double d7 = 0.5D / (d6 / (double) explosionSize + 0.1D);
+                    d7 = d7 * (double) (worldObj.rand.nextFloat() * worldObj.rand.nextFloat() + 0.3F);
                     d3 = d3 * d7;
                     d4 = d4 * d7;
                     d5 = d5 * d7;
-                    this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + this.explosionX) / 2.0D, (d1 + this.explosionY) / 2.0D, (d2 + this.explosionZ) / 2.0D, d3, d4, d5);
-                    this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
+                    worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + explosionX) / 2.0D, (d1 + explosionY) / 2.0D, (d2 + explosionZ) / 2.0D, d3, d4, d5);
+                    worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
                 }
 
                 if (block.getMaterial() != Material.air) {
                     if (block.canDropFromExplosion(this)) {
-                        block.dropBlockAsItemWithChance(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 1.0F / this.explosionSize, 0);
+                        block.dropBlockAsItemWithChance(worldObj, blockpos, worldObj.getBlockState(blockpos), 1.0F / explosionSize, 0);
                     }
 
-                    this.worldObj.setBlockState(blockpos, Blocks.air.getDefaultState(), 3);
-                    block.onBlockDestroyedByExplosion(this.worldObj, blockpos, this);
+                    worldObj.setBlockState(blockpos, Blocks.air.getDefaultState(), 3);
+                    block.onBlockDestroyedByExplosion(worldObj, blockpos, this);
                 }
             }
         }
 
-        if (this.isFlaming) {
-            for (BlockPos blockpos1 : this.affectedBlockPositions) {
-                if (this.worldObj.getBlockState(blockpos1).getBlock().getMaterial() == Material.air && this.worldObj.getBlockState(blockpos1.down()).getBlock().isFullBlock() && this.explosionRNG.nextInt(3) == 0) {
-                    this.worldObj.setBlockState(blockpos1, Blocks.fire.getDefaultState());
+        if (isFlaming) {
+            for (BlockPos blockpos1 : affectedBlockPositions) {
+                if (worldObj.getBlockState(blockpos1).getBlock().getMaterial() == Material.air && worldObj.getBlockState(blockpos1.down()).getBlock().isFullBlock() && explosionRNG.nextInt(3) == 0) {
+                    worldObj.setBlockState(blockpos1, Blocks.fire.getDefaultState());
                 }
             }
         }
     }
 
     public Map<EntityPlayer, Vec3> getPlayerKnockbackMap() {
-        return this.playerKnockbackMap;
+        return playerKnockbackMap;
     }
 
     public EntityLivingBase getExplosivePlacedBy() {
-        return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy() : (this.exploder instanceof EntityLivingBase ? (EntityLivingBase) this.exploder : null));
+        return exploder == null ? null : (exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) exploder).getTntPlacedBy() : (exploder instanceof EntityLivingBase ? (EntityLivingBase) exploder : null));
     }
 
     public void clearAffectedBlockPositions() {
-        this.affectedBlockPositions.clear();
+        affectedBlockPositions.clear();
     }
 
     public List<BlockPos> getAffectedBlockPositions() {
-        return this.affectedBlockPositions;
+        return affectedBlockPositions;
     }
 }

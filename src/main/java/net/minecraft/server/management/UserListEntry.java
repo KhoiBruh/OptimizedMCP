@@ -6,15 +6,15 @@ public class UserListEntry<T> {
     private final T value;
 
     public UserListEntry(T valueIn) {
-        this.value = valueIn;
+        value = valueIn;
     }
 
     protected UserListEntry(T valueIn, JsonObject json) {
-        this.value = valueIn;
+        value = valueIn;
     }
 
     T getValue() {
-        return this.value;
+        return value;
     }
 
     boolean hasBanExpired() {

@@ -13,7 +13,7 @@ public class BlockWallSign extends BlockSign {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockWallSign() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -24,23 +24,23 @@ public class BlockWallSign extends BlockSign {
         float f2 = 0.0F;
         float f3 = 1.0F;
         float f4 = 0.125F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
         switch (enumfacing) {
             case NORTH:
-                this.setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
+                setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
                 break;
 
             case SOUTH:
-                this.setBlockBounds(f2, f, 0.0F, f3, f1, f4);
+                setBlockBounds(f2, f, 0.0F, f3, f1, f4);
                 break;
 
             case WEST:
-                this.setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
+                setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
                 break;
 
             case EAST:
-                this.setBlockBounds(0.0F, f, f2, f4, f1, f3);
+                setBlockBounds(0.0F, f, f2, f4, f1, f3);
         }
     }
 
@@ -48,7 +48,7 @@ public class BlockWallSign extends BlockSign {
         EnumFacing enumfacing = state.getValue(FACING);
 
         if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid()) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
 
@@ -62,7 +62,7 @@ public class BlockWallSign extends BlockSign {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     public int getMetaFromState(IBlockState state) {

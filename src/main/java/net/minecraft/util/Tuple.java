@@ -5,15 +5,15 @@ public class Tuple<A, B> {
     private final B b;
 
     public Tuple(A aIn, B bIn) {
-        this.a = aIn;
-        this.b = bIn;
+        a = aIn;
+        b = bIn;
     }
 
     public A getFirst() {
-        return this.a;
+        return a;
     }
 
     public B getSecond() {
-        return this.b;
+        return b;
     }
 }

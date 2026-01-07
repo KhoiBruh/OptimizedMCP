@@ -12,7 +12,7 @@ public class EnchantmentNameParts {
     }
 
     public String generateNewRandomName() {
-        int i = this.rand.nextInt(2) + 3;
+        int i = rand.nextInt(2) + 3;
         StringBuilder s = new StringBuilder();
 
         for (int j = 0; j < i; ++j) {
@@ -27,6 +27,6 @@ public class EnchantmentNameParts {
     }
 
     public void reseedRandomGenerator(long seed) {
-        this.rand.setSeed(seed);
+        rand.setSeed(seed);
     }
 }

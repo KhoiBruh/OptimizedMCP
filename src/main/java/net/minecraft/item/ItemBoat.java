@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ItemBoat extends Item {
     public ItemBoat() {
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.tabTransport);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

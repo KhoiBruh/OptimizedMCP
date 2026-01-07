@@ -8,10 +8,10 @@ import net.minecraft.world.World;
 public class BlockBarrier extends Block {
     protected BlockBarrier() {
         super(Material.barrier);
-        this.setBlockUnbreakable();
-        this.setResistance(6000001.0F);
-        this.disableStats();
-        this.translucent = true;
+        setBlockUnbreakable();
+        setResistance(6000001.0F);
+        disableStats();
+        translucent = true;
     }
 
     public int getRenderType() {

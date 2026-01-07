@@ -15,9 +15,9 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
     public BlockLog() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabBlock);
-        this.setHardness(2.0F);
-        this.setStepSound(soundTypeWood);
+        setCreativeTab(CreativeTabs.tabBlock);
+        setHardness(2.0F);
+        setStepSound(soundTypeWood);
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
@@ -68,11 +68,11 @@ public abstract class BlockLog extends BlockRotatedPillar {
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

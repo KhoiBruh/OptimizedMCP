@@ -28,11 +28,11 @@ public interface ISound {
         private final int type;
 
         AttenuationType(int typeIn) {
-            this.type = typeIn;
+            type = typeIn;
         }
 
         public int getTypeInt() {
-            return this.type;
+            return type;
         }
     }
 }

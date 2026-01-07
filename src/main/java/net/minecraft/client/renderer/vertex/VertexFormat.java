@@ -19,88 +19,88 @@ public class VertexFormat {
         this();
 
         for (int i = 0; i < vertexFormatIn.getElementCount(); ++i) {
-            this.addElement(vertexFormatIn.getElement(i));
+            addElement(vertexFormatIn.getElement(i));
         }
 
-        this.nextOffset = vertexFormatIn.getNextOffset();
+        nextOffset = vertexFormatIn.getNextOffset();
     }
 
     public VertexFormat() {
-        this.elements = Lists.newArrayList();
-        this.offsets = Lists.newArrayList();
-        this.nextOffset = 0;
-        this.colorElementOffset = -1;
-        this.uvOffsetsById = Lists.newArrayList();
-        this.normalElementOffset = -1;
+        elements = Lists.newArrayList();
+        offsets = Lists.newArrayList();
+        nextOffset = 0;
+        colorElementOffset = -1;
+        uvOffsetsById = Lists.newArrayList();
+        normalElementOffset = -1;
     }
 
     public void clear() {
-        this.elements.clear();
-        this.offsets.clear();
-        this.colorElementOffset = -1;
-        this.uvOffsetsById.clear();
-        this.normalElementOffset = -1;
-        this.nextOffset = 0;
+        elements.clear();
+        offsets.clear();
+        colorElementOffset = -1;
+        uvOffsetsById.clear();
+        normalElementOffset = -1;
+        nextOffset = 0;
     }
 
     @SuppressWarnings("incomplete-switch")
     public VertexFormat addElement(VertexFormatElement element) {
-        if (element.isPositionElement() && this.hasPosition()) {
+        if (element.isPositionElement() && hasPosition()) {
             LOGGER.warn("VertexFormat error: Trying to add a position VertexFormatElement when one already exists, ignoring.");
             return this;
         } else {
-            this.elements.add(element);
-            this.offsets.add(this.nextOffset);
+            elements.add(element);
+            offsets.add(nextOffset);
 
             switch (element.getUsage()) {
                 case NORMAL:
-                    this.normalElementOffset = this.nextOffset;
+                    normalElementOffset = nextOffset;
                     break;
 
                 case COLOR:
-                    this.colorElementOffset = this.nextOffset;
+                    colorElementOffset = nextOffset;
                     break;
 
                 case UV:
-                    this.uvOffsetsById.add(element.getIndex(), this.nextOffset);
+                    uvOffsetsById.add(element.getIndex(), nextOffset);
             }
 
-            this.nextOffset += element.getSize();
+            nextOffset += element.getSize();
             return this;
         }
     }
 
     public boolean hasNormal() {
-        return this.normalElementOffset >= 0;
+        return normalElementOffset >= 0;
     }
 
     public int getNormalOffset() {
-        return this.normalElementOffset;
+        return normalElementOffset;
     }
 
     public boolean hasColor() {
-        return this.colorElementOffset >= 0;
+        return colorElementOffset >= 0;
     }
 
     public int getColorOffset() {
-        return this.colorElementOffset;
+        return colorElementOffset;
     }
 
     public boolean hasUvOffset(int id) {
-        return this.uvOffsetsById.size() - 1 >= id;
+        return uvOffsetsById.size() - 1 >= id;
     }
 
     public int getUvOffsetById(int id) {
-        return this.uvOffsetsById.get(id);
+        return uvOffsetsById.get(id);
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder("format: " + this.elements.size() + " elements: ");
 
-        for (int i = 0; i < this.elements.size(); ++i) {
+        for (int i = 0; i < elements.size(); ++i) {
             s.append(this.elements.get(i).toString());
 
-            if (i != this.elements.size() - 1) {
+            if (i != elements.size() - 1) {
                 s.append(" ");
             }
         }
@@ -111,8 +111,8 @@ public class VertexFormat {
     private boolean hasPosition() {
         int i = 0;
 
-        for (int j = this.elements.size(); i < j; ++i) {
-            VertexFormatElement vertexformatelement = this.elements.get(i);
+        for (int j = elements.size(); i < j; ++i) {
+            VertexFormatElement vertexformatelement = elements.get(i);
 
             if (vertexformatelement.isPositionElement()) {
                 return true;
@@ -123,44 +123,44 @@ public class VertexFormat {
     }
 
     public int getIntegerSize() {
-        return this.getNextOffset() / 4;
+        return getNextOffset() / 4;
     }
 
     public int getNextOffset() {
-        return this.nextOffset;
+        return nextOffset;
     }
 
     public List<VertexFormatElement> getElements() {
-        return this.elements;
+        return elements;
     }
 
     public int getElementCount() {
-        return this.elements.size();
+        return elements.size();
     }
 
     public VertexFormatElement getElement(int index) {
-        return this.elements.get(index);
+        return elements.get(index);
     }
 
     public int getOffset(int p_181720_1_) {
-        return this.offsets.get(p_181720_1_);
+        return offsets.get(p_181720_1_);
     }
 
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        } else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
             VertexFormat vertexformat = (VertexFormat) p_equals_1_;
-            return this.nextOffset == vertexformat.nextOffset && (this.elements.equals(vertexformat.elements) && this.offsets.equals(vertexformat.offsets));
+            return nextOffset == vertexformat.nextOffset && (elements.equals(vertexformat.elements) && offsets.equals(vertexformat.offsets));
         } else {
             return false;
         }
     }
 
     public int hashCode() {
-        int i = this.elements.hashCode();
-        i = 31 * i + this.offsets.hashCode();
-        i = 31 * i + this.nextOffset;
+        int i = elements.hashCode();
+        i = 31 * i + offsets.hashCode();
+        i = 31 * i + nextOffset;
         return i;
     }
 }

@@ -83,59 +83,59 @@ public abstract class TileEntity {
     }
 
     public World getWorld() {
-        return this.worldObj;
+        return worldObj;
     }
 
     public void setWorldObj(World worldIn) {
-        this.worldObj = worldIn;
+        worldObj = worldIn;
     }
 
     public boolean hasWorldObj() {
-        return this.worldObj != null;
+        return worldObj != null;
     }
 
     public void readFromNBT(NBTTagCompound compound) {
-        this.pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+        pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
     }
 
     public void writeToNBT(NBTTagCompound compound) {
-        String s = classToNameMap.get(this.getClass());
+        String s = classToNameMap.get(getClass());
 
         if (s == null) {
-            throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
+            throw new RuntimeException(getClass() + " is missing a mapping! This is a bug!");
         } else {
             compound.setString("id", s);
-            compound.setInteger("x", this.pos.getX());
-            compound.setInteger("y", this.pos.getY());
-            compound.setInteger("z", this.pos.getZ());
+            compound.setInteger("x", pos.getX());
+            compound.setInteger("y", pos.getY());
+            compound.setInteger("z", pos.getZ());
         }
     }
 
     public int getBlockMetadata() {
-        if (this.blockMetadata == -1) {
-            IBlockState iblockstate = this.worldObj.getBlockState(this.pos);
-            this.blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
+        if (blockMetadata == -1) {
+            IBlockState iblockstate = worldObj.getBlockState(pos);
+            blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
         }
 
-        return this.blockMetadata;
+        return blockMetadata;
     }
 
     public void markDirty() {
-        if (this.worldObj != null) {
-            IBlockState iblockstate = this.worldObj.getBlockState(this.pos);
-            this.blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
-            this.worldObj.markChunkDirty(this.pos, this);
+        if (worldObj != null) {
+            IBlockState iblockstate = worldObj.getBlockState(pos);
+            blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
+            worldObj.markChunkDirty(pos, this);
 
-            if (this.getBlockType() != Blocks.air) {
-                this.worldObj.updateComparatorOutputLevel(this.pos, this.getBlockType());
+            if (getBlockType() != Blocks.air) {
+                worldObj.updateComparatorOutputLevel(pos, getBlockType());
             }
         }
     }
 
     public double getDistanceSq(double x, double y, double z) {
-        double d0 = (double) this.pos.getX() + 0.5D - x;
-        double d1 = (double) this.pos.getY() + 0.5D - y;
-        double d2 = (double) this.pos.getZ() + 0.5D - z;
+        double d0 = (double) pos.getX() + 0.5D - x;
+        double d1 = (double) pos.getY() + 0.5D - y;
+        double d2 = (double) pos.getZ() + 0.5D - z;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
@@ -144,19 +144,19 @@ public abstract class TileEntity {
     }
 
     public BlockPos getPos() {
-        return this.pos;
+        return pos;
     }
 
     public void setPos(BlockPos posIn) {
-        this.pos = posIn;
+        pos = posIn;
     }
 
     public Block getBlockType() {
-        if (this.blockType == null) {
-            this.blockType = this.worldObj.getBlockState(this.pos).getBlock();
+        if (blockType == null) {
+            blockType = worldObj.getBlockState(pos).getBlock();
         }
 
-        return this.blockType;
+        return blockType;
     }
 
     public Packet getDescriptionPacket() {
@@ -164,15 +164,15 @@ public abstract class TileEntity {
     }
 
     public boolean isInvalid() {
-        return this.tileEntityInvalid;
+        return tileEntityInvalid;
     }
 
     public void invalidate() {
-        this.tileEntityInvalid = true;
+        tileEntityInvalid = true;
     }
 
     public void validate() {
-        this.tileEntityInvalid = false;
+        tileEntityInvalid = false;
     }
 
     public boolean receiveClientEvent(int id, int type) {
@@ -180,8 +180,8 @@ public abstract class TileEntity {
     }
 
     public void updateContainingBlockInfo() {
-        this.blockType = null;
-        this.blockMetadata = -1;
+        blockType = null;
+        blockMetadata = -1;
     }
 
     public void addInfoToCrashReport(CrashReportCategory reportCategory) {
@@ -191,11 +191,11 @@ public abstract class TileEntity {
             }
         });
 
-        if (this.worldObj != null) {
-            CrashReportCategory.addBlockInfo(reportCategory, this.pos, this.getBlockType(), this.getBlockMetadata());
+        if (worldObj != null) {
+            CrashReportCategory.addBlockInfo(reportCategory, pos, getBlockType(), getBlockMetadata());
             reportCategory.addCrashSectionCallable("Actual block type", new Callable<String>() {
                 public String call() throws Exception {
-                    int i = Block.getIdFromBlock(TileEntity.this.worldObj.getBlockState(TileEntity.this.pos).getBlock());
+                    int i = Block.getIdFromBlock(worldObj.getBlockState(pos).getBlock());
 
                     try {
                         return String.format("ID #%d (%s // %s)", i, Block.getBlockById(i).getUnlocalizedName(), Block.getBlockById(i).getClass().getCanonicalName());
@@ -206,7 +206,7 @@ public abstract class TileEntity {
             });
             reportCategory.addCrashSectionCallable("Actual block data value", new Callable<String>() {
                 public String call() throws Exception {
-                    IBlockState iblockstate = TileEntity.this.worldObj.getBlockState(TileEntity.this.pos);
+                    IBlockState iblockstate = worldObj.getBlockState(pos);
                     int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 
                     if (i < 0) {

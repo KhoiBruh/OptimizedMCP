@@ -24,7 +24,7 @@ public enum EnumFaceDirection {
     private final EnumFaceDirection.VertexInformation[] vertexInfos;
 
     EnumFaceDirection(EnumFaceDirection.VertexInformation[] vertexInfosIn) {
-        this.vertexInfos = vertexInfosIn;
+        vertexInfos = vertexInfosIn;
     }
 
     public static EnumFaceDirection getFacing(EnumFacing facing) {
@@ -32,7 +32,7 @@ public enum EnumFaceDirection {
     }
 
     public EnumFaceDirection.VertexInformation getVertexInformation(int index) {
-        return this.vertexInfos[index];
+        return vertexInfos[index];
     }
 
     public static final class Constants {
@@ -50,9 +50,9 @@ public enum EnumFaceDirection {
         public final int zIndex;
 
         private VertexInformation(int xIndexIn, int yIndexIn, int zIndexIn) {
-            this.xIndex = xIndexIn;
-            this.yIndex = yIndexIn;
-            this.zIndex = zIndexIn;
+            xIndex = xIndexIn;
+            yIndex = yIndexIn;
+            zIndex = zIndexIn;
         }
     }
 }

@@ -20,26 +20,26 @@ public enum EnumCreatureType {
     private final boolean isAnimal;
 
     EnumCreatureType(Class<? extends IAnimals> creatureClassIn, int maxNumberOfCreatureIn, Material creatureMaterialIn, boolean isPeacefulCreatureIn, boolean isAnimalIn) {
-        this.creatureClass = creatureClassIn;
-        this.maxNumberOfCreature = maxNumberOfCreatureIn;
-        this.creatureMaterial = creatureMaterialIn;
-        this.isPeacefulCreature = isPeacefulCreatureIn;
-        this.isAnimal = isAnimalIn;
+        creatureClass = creatureClassIn;
+        maxNumberOfCreature = maxNumberOfCreatureIn;
+        creatureMaterial = creatureMaterialIn;
+        isPeacefulCreature = isPeacefulCreatureIn;
+        isAnimal = isAnimalIn;
     }
 
     public Class<? extends IAnimals> getCreatureClass() {
-        return this.creatureClass;
+        return creatureClass;
     }
 
     public int getMaxNumberOfCreature() {
-        return this.maxNumberOfCreature;
+        return maxNumberOfCreature;
     }
 
     public boolean getPeacefulCreature() {
-        return this.isPeacefulCreature;
+        return isPeacefulCreature;
     }
 
     public boolean getAnimal() {
-        return this.isAnimal;
+        return isAnimal;
     }
 }

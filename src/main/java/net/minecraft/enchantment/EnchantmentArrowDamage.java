@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentArrowDamage extends Enchantment {
     public EnchantmentArrowDamage(int enchID, ResourceLocation enchName, int enchWeight) {
         super(enchID, enchName, enchWeight, EnumEnchantmentType.BOW);
-        this.setName("arrowDamage");
+        setName("arrowDamage");
     }
 
     public int getMinEnchantability(int enchantmentLevel) {
@@ -13,7 +13,7 @@ public class EnchantmentArrowDamage extends Enchantment {
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + 15;
+        return getMinEnchantability(enchantmentLevel) + 15;
     }
 
     public int getMaxLevel() {

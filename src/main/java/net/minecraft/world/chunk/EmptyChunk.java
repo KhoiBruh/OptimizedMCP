@@ -19,7 +19,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public boolean isAtLocation(int x, int z) {
-        return x == this.xPosition && z == this.zPosition;
+        return x == xPosition && z == zPosition;
     }
 
     public int getHeightValue(int x, int z) {
@@ -101,7 +101,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Random getRandomWithSeed(long seed) {
-        return new Random(this.getWorld().getSeed() + (long) ((long) this.xPosition * this.xPosition * 4987142) + (long) (this.xPosition * 5947611L) + (long) ((long) this.zPosition * this.zPosition) * 4392871L + (long) (this.zPosition * 389711L) ^ seed);
+        return new Random(getWorld().getSeed() + (long) ((long) xPosition * xPosition * 4987142) + (long) (xPosition * 5947611L) + (long) ((long) zPosition * zPosition) * 4392871L + (long) (zPosition * 389711L) ^ seed);
     }
 
     public boolean isEmpty() {

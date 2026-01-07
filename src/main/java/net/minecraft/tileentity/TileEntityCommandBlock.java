@@ -14,24 +14,24 @@ import net.minecraft.world.World;
 public class TileEntityCommandBlock extends TileEntity {
     private final CommandBlockLogic commandBlockLogic = new CommandBlockLogic() {
         public BlockPos getPosition() {
-            return TileEntityCommandBlock.this.pos;
+            return pos;
         }
 
         public Vec3 getPositionVector() {
-            return new Vec3((double) TileEntityCommandBlock.this.pos.getX() + 0.5D, (double) TileEntityCommandBlock.this.pos.getY() + 0.5D, (double) TileEntityCommandBlock.this.pos.getZ() + 0.5D);
+            return new Vec3((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
         }
 
         public World getEntityWorld() {
-            return TileEntityCommandBlock.this.getWorld();
+            return getWorld();
         }
 
         public void setCommand(String command) {
             super.setCommand(command);
-            TileEntityCommandBlock.this.markDirty();
+            markDirty();
         }
 
         public void updateCommand() {
-            TileEntityCommandBlock.this.getWorld().markBlockForUpdate(TileEntityCommandBlock.this.pos);
+            getWorld().markBlockForUpdate(pos);
         }
 
         public int func_145751_f() {
@@ -39,9 +39,9 @@ public class TileEntityCommandBlock extends TileEntity {
         }
 
         public void func_145757_a(ByteBuf p_145757_1_) {
-            p_145757_1_.writeInt(TileEntityCommandBlock.this.pos.getX());
-            p_145757_1_.writeInt(TileEntityCommandBlock.this.pos.getY());
-            p_145757_1_.writeInt(TileEntityCommandBlock.this.pos.getZ());
+            p_145757_1_.writeInt(pos.getX());
+            p_145757_1_.writeInt(pos.getY());
+            p_145757_1_.writeInt(pos.getZ());
         }
 
         public Entity getCommandSenderEntity() {
@@ -51,18 +51,18 @@ public class TileEntityCommandBlock extends TileEntity {
 
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        this.commandBlockLogic.writeDataToNBT(compound);
+        commandBlockLogic.writeDataToNBT(compound);
     }
 
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        this.commandBlockLogic.readDataFromNBT(compound);
+        commandBlockLogic.readDataFromNBT(compound);
     }
 
     public Packet getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        this.writeToNBT(nbttagcompound);
-        return new S35PacketUpdateTileEntity(this.pos, 2, nbttagcompound);
+        writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(pos, 2, nbttagcompound);
     }
 
     public boolean func_183000_F() {
@@ -70,10 +70,10 @@ public class TileEntityCommandBlock extends TileEntity {
     }
 
     public CommandBlockLogic getCommandBlockLogic() {
-        return this.commandBlockLogic;
+        return commandBlockLogic;
     }
 
     public CommandResultStats getCommandResultStats() {
-        return this.commandBlockLogic.getCommandResultStats();
+        return commandBlockLogic.getCommandResultStats();
     }
 }

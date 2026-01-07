@@ -19,10 +19,10 @@ public class ThreadLanServerPing extends Thread {
 
     public ThreadLanServerPing(String p_i1321_1_, String p_i1321_2_) throws IOException {
         super("LanServerPinger #" + field_148658_a.incrementAndGet());
-        this.motd = p_i1321_1_;
-        this.address = p_i1321_2_;
-        this.setDaemon(true);
-        this.socket = new DatagramSocket();
+        motd = p_i1321_1_;
+        address = p_i1321_2_;
+        setDaemon(true);
+        socket = new DatagramSocket();
     }
 
     public static String getPingResponse(String p_77525_0_, String p_77525_1_) {
@@ -64,14 +64,14 @@ public class ThreadLanServerPing extends Thread {
     }
 
     public void run() {
-        String s = getPingResponse(this.motd, this.address);
+        String s = getPingResponse(motd, address);
         byte[] abyte = s.getBytes();
 
-        while (!this.isInterrupted() && this.isStopping) {
+        while (!isInterrupted() && isStopping) {
             try {
                 InetAddress inetaddress = InetAddress.getByName("224.0.2.60");
                 DatagramPacket datagrampacket = new DatagramPacket(abyte, abyte.length, inetaddress, 4445);
-                this.socket.send(datagrampacket);
+                socket.send(datagrampacket);
             } catch (IOException ioexception) {
                 logger.warn("LanServerPinger: " + ioexception.getMessage());
                 break;
@@ -86,6 +86,6 @@ public class ThreadLanServerPing extends Thread {
 
     public void interrupt() {
         super.interrupt();
-        this.isStopping = false;
+        isStopping = false;
     }
 }

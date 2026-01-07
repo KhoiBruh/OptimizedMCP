@@ -4,22 +4,22 @@ public class ChatComponentSelector extends ChatComponentStyle {
     private final String selector;
 
     public ChatComponentSelector(String selectorIn) {
-        this.selector = selectorIn;
+        selector = selectorIn;
     }
 
     public String getSelector() {
-        return this.selector;
+        return selector;
     }
 
     public String getUnformattedTextForChat() {
-        return this.selector;
+        return selector;
     }
 
     public ChatComponentSelector createCopy() {
-        ChatComponentSelector chatcomponentselector = new ChatComponentSelector(this.selector);
-        chatcomponentselector.setChatStyle(this.getChatStyle().createShallowCopy());
+        ChatComponentSelector chatcomponentselector = new ChatComponentSelector(selector);
+        chatcomponentselector.setChatStyle(getChatStyle().createShallowCopy());
 
-        for (IChatComponent ichatcomponent : this.getSiblings()) {
+        for (IChatComponent ichatcomponent : getSiblings()) {
             chatcomponentselector.appendSibling(ichatcomponent.createCopy());
         }
 
@@ -32,11 +32,11 @@ public class ChatComponentSelector extends ChatComponentStyle {
         } else if (!(p_equals_1_ instanceof ChatComponentSelector chatcomponentselector)) {
             return false;
         } else {
-            return this.selector.equals(chatcomponentselector.selector) && super.equals(p_equals_1_);
+            return selector.equals(chatcomponentselector.selector) && super.equals(p_equals_1_);
         }
     }
 
     public String toString() {
-        return "SelectorComponent{pattern='" + this.selector + '\'' + ", siblings=" + this.siblings + ", style=" + this.getChatStyle() + '}';
+        return "SelectorComponent{pattern='" + selector + '\'' + ", siblings=" + siblings + ", style=" + getChatStyle() + '}';
     }
 }

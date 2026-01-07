@@ -14,18 +14,18 @@ public class ImageBufferDownload implements IImageBuffer {
         if (image == null) {
             return null;
         } else {
-            this.imageWidth = 64;
-            this.imageHeight = 64;
+            imageWidth = 64;
+            imageHeight = 64;
             int i = image.getWidth();
             int j = image.getHeight();
             int k;
 
-            for (k = 1; this.imageWidth < i || this.imageHeight < j; k *= 2) {
-                this.imageWidth *= 2;
-                this.imageHeight *= 2;
+            for (k = 1; imageWidth < i || imageHeight < j; k *= 2) {
+                imageWidth *= 2;
+                imageHeight *= 2;
             }
 
-            BufferedImage bufferedimage = new BufferedImage(this.imageWidth, this.imageHeight, 2);
+            BufferedImage bufferedimage = new BufferedImage(imageWidth, imageHeight, 2);
             Graphics graphics = bufferedimage.getGraphics();
             graphics.drawImage(image, 0, 0, null);
 
@@ -45,16 +45,16 @@ public class ImageBufferDownload implements IImageBuffer {
             }
 
             graphics.dispose();
-            this.imageData = ((DataBufferInt) bufferedimage.getRaster().getDataBuffer()).getData();
-            this.setAreaOpaque(0, 0, 32 * k, 16 * k);
-            this.setAreaTransparent(32 * k, 0, 64 * k, 32 * k);
-            this.setAreaOpaque(0, 16 * k, 64 * k, 32 * k);
-            this.setAreaTransparent(0, 32 * k, 16 * k, 48 * k);
-            this.setAreaTransparent(16 * k, 32 * k, 40 * k, 48 * k);
-            this.setAreaTransparent(40 * k, 32 * k, 56 * k, 48 * k);
-            this.setAreaTransparent(0, 48 * k, 16 * k, 64 * k);
-            this.setAreaOpaque(16 * k, 48 * k, 48 * k, 64 * k);
-            this.setAreaTransparent(48 * k, 48 * k, 64 * k, 64 * k);
+            imageData = ((DataBufferInt) bufferedimage.getRaster().getDataBuffer()).getData();
+            setAreaOpaque(0, 0, 32 * k, 16 * k);
+            setAreaTransparent(32 * k, 0, 64 * k, 32 * k);
+            setAreaOpaque(0, 16 * k, 64 * k, 32 * k);
+            setAreaTransparent(0, 32 * k, 16 * k, 48 * k);
+            setAreaTransparent(16 * k, 32 * k, 40 * k, 48 * k);
+            setAreaTransparent(40 * k, 32 * k, 56 * k, 48 * k);
+            setAreaTransparent(0, 48 * k, 16 * k, 64 * k);
+            setAreaOpaque(16 * k, 48 * k, 48 * k, 64 * k);
+            setAreaTransparent(48 * k, 48 * k, 64 * k, 64 * k);
             return bufferedimage;
         }
     }
@@ -63,10 +63,10 @@ public class ImageBufferDownload implements IImageBuffer {
     }
 
     private void setAreaTransparent(int p_78434_1_, int p_78434_2_, int p_78434_3_, int p_78434_4_) {
-        if (!this.hasTransparency(p_78434_1_, p_78434_2_, p_78434_3_, p_78434_4_)) {
+        if (!hasTransparency(p_78434_1_, p_78434_2_, p_78434_3_, p_78434_4_)) {
             for (int i = p_78434_1_; i < p_78434_3_; ++i) {
                 for (int j = p_78434_2_; j < p_78434_4_; ++j) {
-                    this.imageData[i + j * this.imageWidth] &= 16777215;
+                    imageData[i + j * imageWidth] &= 16777215;
                 }
             }
         }
@@ -75,7 +75,7 @@ public class ImageBufferDownload implements IImageBuffer {
     private void setAreaOpaque(int p_78433_1_, int p_78433_2_, int p_78433_3_, int p_78433_4_) {
         for (int i = p_78433_1_; i < p_78433_3_; ++i) {
             for (int j = p_78433_2_; j < p_78433_4_; ++j) {
-                this.imageData[i + j * this.imageWidth] |= -16777216;
+                imageData[i + j * imageWidth] |= -16777216;
             }
         }
     }
@@ -83,7 +83,7 @@ public class ImageBufferDownload implements IImageBuffer {
     private boolean hasTransparency(int p_78435_1_, int p_78435_2_, int p_78435_3_, int p_78435_4_) {
         for (int i = p_78435_1_; i < p_78435_3_; ++i) {
             for (int j = p_78435_2_; j < p_78435_4_; ++j) {
-                int k = this.imageData[i + j * this.imageWidth];
+                int k = imageData[i + j * imageWidth];
 
                 if ((k >> 24 & 255) < 128) {
                     return true;

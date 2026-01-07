@@ -23,7 +23,7 @@ public class CommandPlaySound extends CommandBase {
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 2) {
-            throw new WrongUsageException(this.getCommandUsage(sender));
+            throw new WrongUsageException(getCommandUsage(sender));
         } else {
             int i = 0;
             String s = args[i++];

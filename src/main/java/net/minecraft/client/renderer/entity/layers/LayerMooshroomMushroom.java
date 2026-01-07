@@ -20,16 +20,16 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
     private final ModelRenderer modelRendererMushroom;
 
     public LayerMooshroomMushroom(RenderMooshroom mooshroomRendererIn) {
-        this.mooshroomRenderer = mooshroomRendererIn;
-        this.modelRendererMushroom = new ModelRenderer(this.mooshroomRenderer.mainModel);
-        this.modelRendererMushroom.setTextureSize(16, 16);
-        this.modelRendererMushroom.rotationPointX = -6.0F;
-        this.modelRendererMushroom.rotationPointZ = -8.0F;
-        this.modelRendererMushroom.rotateAngleY = MathHelper.PI / 4.0F;
+        mooshroomRenderer = mooshroomRendererIn;
+        modelRendererMushroom = new ModelRenderer(mooshroomRenderer.mainModel);
+        modelRendererMushroom.setTextureSize(16, 16);
+        modelRendererMushroom.rotationPointX = -6.0F;
+        modelRendererMushroom.rotationPointZ = -8.0F;
+        modelRendererMushroom.rotateAngleY = MathHelper.PI / 4.0F;
         int[][] aint = new int[][]{null, null, {16, 16, 0, 0}, {16, 16, 0, 0}, null, null};
-        this.modelRendererMushroom.addBox(aint, 0.0F, 0.0F, 10.0F, 20.0F, 16.0F, 0.0F, 0.0F);
+        modelRendererMushroom.addBox(aint, 0.0F, 0.0F, 10.0F, 20.0F, 16.0F, 0.0F, 0.0F);
         int[][] aint1 = new int[][]{null, null, null, null, {16, 16, 0, 0}, {16, 16, 0, 0}};
-        this.modelRendererMushroom.addBox(aint1, 10.0F, 0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 0.0F);
+        modelRendererMushroom.addBox(aint1, 10.0F, 0.0F, 0.0F, 0.0F, 16.0F, 20.0F, 0.0F);
     }
 
     public static void update() {
@@ -41,9 +41,9 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 
             if (hasTextureMushroom) {
-                this.mooshroomRenderer.bindTexture(LOCATION_MUSHROOM_RED);
+                mooshroomRenderer.bindTexture(LOCATION_MUSHROOM_RED);
             } else {
-                this.mooshroomRenderer.bindTexture(TextureMap.locationBlocksTexture);
+                mooshroomRenderer.bindTexture(TextureMap.locationBlocksTexture);
             }
 
             GlStateManager.enableCull();
@@ -56,7 +56,7 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 
             if (hasTextureMushroom) {
-                this.modelRendererMushroom.render(0.0625F);
+                modelRendererMushroom.render(0.0625F);
             } else {
                 blockrendererdispatcher.renderBlockBrightness(Blocks.red_mushroom.getDefaultState(), 1.0F);
             }
@@ -68,7 +68,7 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 
             if (hasTextureMushroom) {
-                this.modelRendererMushroom.render(0.0625F);
+                modelRendererMushroom.render(0.0625F);
             } else {
                 blockrendererdispatcher.renderBlockBrightness(Blocks.red_mushroom.getDefaultState(), 1.0F);
             }
@@ -76,14 +76,14 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             GlStateManager.popMatrix();
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
-            ((ModelQuadruped) this.mooshroomRenderer.getMainModel()).head.postRender(0.0625F);
+            ((ModelQuadruped) mooshroomRenderer.getMainModel()).head.postRender(0.0625F);
             GlStateManager.scale(1.0F, -1.0F, 1.0F);
             GlStateManager.translate(0.0F, 0.7F, -0.2F);
             GlStateManager.rotate(12.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 
             if (hasTextureMushroom) {
-                this.modelRendererMushroom.render(0.0625F);
+                modelRendererMushroom.render(0.0625F);
             } else {
                 blockrendererdispatcher.renderBlockBrightness(Blocks.red_mushroom.getDefaultState(), 1.0F);
             }

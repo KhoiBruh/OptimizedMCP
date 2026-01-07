@@ -28,7 +28,7 @@ public class CommandHelp extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        List<ICommand> list = this.getSortedPossibleCommands(sender);
+        List<ICommand> list = getSortedPossibleCommands(sender);
         int i = 7;
         int j = (list.size() - 1) / 7;
         int k = 0;
@@ -36,7 +36,7 @@ public class CommandHelp extends CommandBase {
         try {
             k = args.length == 0 ? 0 : parseInt(args[0], 1, j + 1) - 1;
         } catch (NumberInvalidException numberinvalidexception) {
-            Map<String, ICommand> map = this.getCommands();
+            Map<String, ICommand> map = getCommands();
             ICommand icommand = map.get(args[0]);
 
             if (icommand != null) {
@@ -81,7 +81,7 @@ public class CommandHelp extends CommandBase {
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
-            Set<String> set = this.getCommands().keySet();
+            Set<String> set = getCommands().keySet();
             return getListOfStringsMatchingLastWord(args, set.toArray(new String[0]));
         } else {
             return null;

@@ -19,7 +19,7 @@ public class ServersideAttributeMap extends BaseAttributeMap {
         IAttributeInstance iattributeinstance = super.getAttributeInstanceByName(attributeName);
 
         if (iattributeinstance == null) {
-            iattributeinstance = this.descriptionToAttributeInstanceMap.get(attributeName);
+            iattributeinstance = descriptionToAttributeInstanceMap.get(attributeName);
         }
 
         return (ModifiableAttributeInstance) iattributeinstance;
@@ -29,7 +29,7 @@ public class ServersideAttributeMap extends BaseAttributeMap {
         IAttributeInstance iattributeinstance = super.registerAttribute(attribute);
 
         if (attribute instanceof RangedAttribute && ((RangedAttribute) attribute).getDescription() != null) {
-            this.descriptionToAttributeInstanceMap.put(((RangedAttribute) attribute).getDescription(), iattributeinstance);
+            descriptionToAttributeInstanceMap.put(((RangedAttribute) attribute).getDescription(), iattributeinstance);
         }
 
         return iattributeinstance;
@@ -41,11 +41,11 @@ public class ServersideAttributeMap extends BaseAttributeMap {
 
     public void func_180794_a(IAttributeInstance instance) {
         if (instance.getAttribute().getShouldWatch()) {
-            this.attributeInstanceSet.add(instance);
+            attributeInstanceSet.add(instance);
         }
 
-        for (IAttribute iattribute : this.field_180377_c.get(instance.getAttribute())) {
-            ModifiableAttributeInstance modifiableattributeinstance = this.getAttributeInstance(iattribute);
+        for (IAttribute iattribute : field_180377_c.get(instance.getAttribute())) {
+            ModifiableAttributeInstance modifiableattributeinstance = getAttributeInstance(iattribute);
 
             if (modifiableattributeinstance != null) {
                 modifiableattributeinstance.flagForUpdate();
@@ -54,13 +54,13 @@ public class ServersideAttributeMap extends BaseAttributeMap {
     }
 
     public Set<IAttributeInstance> getAttributeInstanceSet() {
-        return this.attributeInstanceSet;
+        return attributeInstanceSet;
     }
 
     public Collection<IAttributeInstance> getWatchedAttributes() {
         Set<IAttributeInstance> set = Sets.newHashSet();
 
-        for (IAttributeInstance iattributeinstance : this.getAllAttributes()) {
+        for (IAttributeInstance iattributeinstance : getAllAttributes()) {
             if (iattributeinstance.getAttribute().getShouldWatch()) {
                 set.add(iattributeinstance);
             }

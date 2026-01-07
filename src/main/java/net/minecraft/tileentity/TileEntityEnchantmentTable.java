@@ -27,8 +27,8 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
-        if (this.hasCustomName()) {
-            compound.setString("CustomName", this.customName);
+        if (hasCustomName()) {
+            compound.setString("CustomName", customName);
         }
     }
 
@@ -36,93 +36,93 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         super.readFromNBT(compound);
 
         if (compound.hasKey("CustomName", 8)) {
-            this.customName = compound.getString("CustomName");
+            customName = compound.getString("CustomName");
         }
     }
 
     public void update() {
-        this.bookSpreadPrev = this.bookSpread;
-        this.bookRotationPrev = this.bookRotation;
-        EntityPlayer entityplayer = this.worldObj.getClosestPlayer((float) this.pos.getX() + 0.5F,
-                (float) this.pos.getY() + 0.5F, (float) this.pos.getZ() + 0.5F, 3.0D);
+        bookSpreadPrev = bookSpread;
+        bookRotationPrev = bookRotation;
+        EntityPlayer entityplayer = worldObj.getClosestPlayer((float) pos.getX() + 0.5F,
+                (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, 3.0D);
 
         if (entityplayer != null) {
-            double d0 = entityplayer.posX - (double) ((float) this.pos.getX() + 0.5F);
-            double d1 = entityplayer.posZ - (double) ((float) this.pos.getZ() + 0.5F);
-            this.field_145924_q = (float) MathHelper.atan2(d1, d0);
-            this.bookSpread += 0.1F;
+            double d0 = entityplayer.posX - (double) ((float) pos.getX() + 0.5F);
+            double d1 = entityplayer.posZ - (double) ((float) pos.getZ() + 0.5F);
+            field_145924_q = (float) MathHelper.atan2(d1, d0);
+            bookSpread += 0.1F;
 
-            if (this.bookSpread < 0.5F || rand.nextInt(40) == 0) {
-                float f1 = this.field_145932_k;
+            if (bookSpread < 0.5F || rand.nextInt(40) == 0) {
+                float f1 = field_145932_k;
 
                 while (true) {
-                    this.field_145932_k += (float) (rand.nextInt(4) - rand.nextInt(4));
+                    field_145932_k += (float) (rand.nextInt(4) - rand.nextInt(4));
 
-                    if (f1 != this.field_145932_k) {
+                    if (f1 != field_145932_k) {
                         break;
                     }
                 }
             }
         } else {
-            this.field_145924_q += 0.02F;
-            this.bookSpread -= 0.1F;
+            field_145924_q += 0.02F;
+            bookSpread -= 0.1F;
         }
 
-        while (this.bookRotation >= (float) Math.PI) {
-            this.bookRotation -= ((float) Math.PI * 2F);
+        while (bookRotation >= (float) Math.PI) {
+            bookRotation -= ((float) Math.PI * 2F);
         }
 
-        while (this.bookRotation < -(float) Math.PI) {
-            this.bookRotation += ((float) Math.PI * 2F);
+        while (bookRotation < -(float) Math.PI) {
+            bookRotation += ((float) Math.PI * 2F);
         }
 
-        while (this.field_145924_q >= (float) Math.PI) {
-            this.field_145924_q -= ((float) Math.PI * 2F);
+        while (field_145924_q >= (float) Math.PI) {
+            field_145924_q -= ((float) Math.PI * 2F);
         }
 
-        while (this.field_145924_q < -(float) Math.PI) {
-            this.field_145924_q += ((float) Math.PI * 2F);
+        while (field_145924_q < -(float) Math.PI) {
+            field_145924_q += ((float) Math.PI * 2F);
         }
 
         float f2;
 
-        for (f2 = this.field_145924_q - this.bookRotation; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2F)) {
+        for (f2 = field_145924_q - bookRotation; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2F)) {
         }
 
         while (f2 < -(float) Math.PI) {
             f2 += ((float) Math.PI * 2F);
         }
 
-        this.bookRotation += f2 * 0.4F;
-        this.bookSpread = MathHelper.clamp_float(this.bookSpread, 0.0F, 1.0F);
-        ++this.tickCount;
-        this.pageFlipPrev = this.pageFlip;
-        float f = (this.field_145932_k - this.pageFlip) * 0.4F;
+        bookRotation += f2 * 0.4F;
+        bookSpread = MathHelper.clamp_float(bookSpread, 0.0F, 1.0F);
+        ++tickCount;
+        pageFlipPrev = pageFlip;
+        float f = (field_145932_k - pageFlip) * 0.4F;
         float f3 = 0.2F;
         f = MathHelper.clamp_float(f, -f3, f3);
-        this.field_145929_l += (f - this.field_145929_l) * 0.9F;
-        this.pageFlip += this.field_145929_l;
+        field_145929_l += (f - field_145929_l) * 0.9F;
+        pageFlip += field_145929_l;
     }
 
     public String getName() {
-        return this.hasCustomName() ? this.customName : "container.enchant";
+        return hasCustomName() ? customName : "container.enchant";
     }
 
     public boolean hasCustomName() {
-        return this.customName != null && this.customName.length() > 0;
+        return customName != null && !customName.isEmpty();
     }
 
     public void setCustomName(String customNameIn) {
-        this.customName = customNameIn;
+        customName = customNameIn;
     }
 
     public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName())
-                : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName())
+                : new ChatComponentTranslation(getName(), new Object[0]);
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-        return new ContainerEnchantment(playerInventory, this.worldObj, this.pos);
+        return new ContainerEnchantment(playerInventory, worldObj, pos);
     }
 
     public String getGuiID() {

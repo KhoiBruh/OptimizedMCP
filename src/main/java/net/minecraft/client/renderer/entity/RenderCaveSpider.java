@@ -9,7 +9,7 @@ public class RenderCaveSpider extends RenderSpider<EntityCaveSpider> {
 
     public RenderCaveSpider(RenderManager renderManagerIn) {
         super(renderManagerIn);
-        this.shadowSize *= 0.7F;
+        shadowSize *= 0.7F;
     }
 
     protected void preRenderCallback(EntityCaveSpider entitylivingbaseIn, float partialTickTime) {

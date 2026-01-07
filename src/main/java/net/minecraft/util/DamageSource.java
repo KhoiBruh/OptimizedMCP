@@ -35,7 +35,7 @@ public class DamageSource {
     private boolean explosion;
 
     protected DamageSource(String damageTypeIn) {
-        this.damageType = damageTypeIn;
+        damageType = damageTypeIn;
     }
 
     public static DamageSource causeMobDamage(EntityLivingBase mob) {
@@ -71,41 +71,41 @@ public class DamageSource {
     }
 
     public boolean isProjectile() {
-        return this.projectile;
+        return projectile;
     }
 
     public DamageSource setProjectile() {
-        this.projectile = true;
+        projectile = true;
         return this;
     }
 
     public boolean isExplosion() {
-        return this.explosion;
+        return explosion;
     }
 
     public DamageSource setExplosion() {
-        this.explosion = true;
+        explosion = true;
         return this;
     }
 
     public boolean isUnblockable() {
-        return this.isUnblockable;
+        return isUnblockable;
     }
 
     public float getHungerDamage() {
-        return this.hungerDamage;
+        return hungerDamage;
     }
 
     public boolean canHarmInCreative() {
-        return this.isDamageAllowedInCreativeMode;
+        return isDamageAllowedInCreativeMode;
     }
 
     public boolean isDamageAbsolute() {
-        return this.damageIsAbsolute;
+        return damageIsAbsolute;
     }
 
     public Entity getSourceOfDamage() {
-        return this.getEntity();
+        return getEntity();
     }
 
     public Entity getEntity() {
@@ -113,62 +113,62 @@ public class DamageSource {
     }
 
     protected DamageSource setDamageBypassesArmor() {
-        this.isUnblockable = true;
-        this.hungerDamage = 0.0F;
+        isUnblockable = true;
+        hungerDamage = 0.0F;
         return this;
     }
 
     protected DamageSource setDamageAllowedInCreativeMode() {
-        this.isDamageAllowedInCreativeMode = true;
+        isDamageAllowedInCreativeMode = true;
         return this;
     }
 
     protected DamageSource setDamageIsAbsolute() {
-        this.damageIsAbsolute = true;
-        this.hungerDamage = 0.0F;
+        damageIsAbsolute = true;
+        hungerDamage = 0.0F;
         return this;
     }
 
     protected DamageSource setFireDamage() {
-        this.fireDamage = true;
+        fireDamage = true;
         return this;
     }
 
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
         EntityLivingBase entitylivingbase = entityLivingBaseIn.getAttackingEntity();
-        String s = "death.attack." + this.damageType;
+        String s = "death.attack." + damageType;
         String s1 = s + ".player";
         return entitylivingbase != null && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), entitylivingbase.getDisplayName()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName());
     }
 
     public boolean isFireDamage() {
-        return this.fireDamage;
+        return fireDamage;
     }
 
     public String getDamageType() {
-        return this.damageType;
+        return damageType;
     }
 
     public DamageSource setDifficultyScaled() {
-        this.difficultyScaled = true;
+        difficultyScaled = true;
         return this;
     }
 
     public boolean isDifficultyScaled() {
-        return this.difficultyScaled;
+        return difficultyScaled;
     }
 
     public boolean isMagicDamage() {
-        return this.magicDamage;
+        return magicDamage;
     }
 
     public DamageSource setMagicDamage() {
-        this.magicDamage = true;
+        magicDamage = true;
         return this;
     }
 
     public boolean isCreativePlayer() {
-        Entity entity = this.getEntity();
+        Entity entity = getEntity();
         return entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode;
     }
 }

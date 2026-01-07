@@ -17,10 +17,10 @@ public class InventoryBasic implements IInventory {
     private boolean hasCustomName;
 
     public InventoryBasic(String title, boolean customName, int slotCount) {
-        this.inventoryTitle = title;
-        this.hasCustomName = customName;
-        this.slotsCount = slotCount;
-        this.inventoryContents = new ItemStack[slotCount];
+        inventoryTitle = title;
+        hasCustomName = customName;
+        slotsCount = slotCount;
+        inventoryContents = new ItemStack[slotCount];
     }
 
     public InventoryBasic(IChatComponent title, int slotCount) {
@@ -28,36 +28,36 @@ public class InventoryBasic implements IInventory {
     }
 
     public void addInventoryChangeListener(IInvBasic listener) {
-        if (this.changeListeners == null) {
-            this.changeListeners = Lists.newArrayList();
+        if (changeListeners == null) {
+            changeListeners = Lists.newArrayList();
         }
 
-        this.changeListeners.add(listener);
+        changeListeners.add(listener);
     }
 
     public void removeInventoryChangeListener(IInvBasic listener) {
-        this.changeListeners.remove(listener);
+        changeListeners.remove(listener);
     }
 
     public ItemStack getStackInSlot(int index) {
-        return index >= 0 && index < this.inventoryContents.length ? this.inventoryContents[index] : null;
+        return index >= 0 && index < inventoryContents.length ? inventoryContents[index] : null;
     }
 
     public ItemStack decrStackSize(int index, int count) {
-        if (this.inventoryContents[index] != null) {
-            if (this.inventoryContents[index].stackSize <= count) {
-                ItemStack itemstack1 = this.inventoryContents[index];
-                this.inventoryContents[index] = null;
-                this.markDirty();
+        if (inventoryContents[index] != null) {
+            if (inventoryContents[index].stackSize <= count) {
+                ItemStack itemstack1 = inventoryContents[index];
+                inventoryContents[index] = null;
+                markDirty();
                 return itemstack1;
             } else {
-                ItemStack itemstack = this.inventoryContents[index].splitStack(count);
+                ItemStack itemstack = inventoryContents[index].splitStack(count);
 
-                if (this.inventoryContents[index].stackSize == 0) {
-                    this.inventoryContents[index] = null;
+                if (inventoryContents[index].stackSize == 0) {
+                    inventoryContents[index] = null;
                 }
 
-                this.markDirty();
+                markDirty();
                 return itemstack;
             }
         } else {
@@ -68,17 +68,17 @@ public class InventoryBasic implements IInventory {
     public ItemStack func_174894_a(ItemStack stack) {
         ItemStack itemstack = stack.copy();
 
-        for (int i = 0; i < this.slotsCount; ++i) {
-            ItemStack itemstack1 = this.getStackInSlot(i);
+        for (int i = 0; i < slotsCount; ++i) {
+            ItemStack itemstack1 = getStackInSlot(i);
 
             if (itemstack1 == null) {
-                this.setInventorySlotContents(i, itemstack);
-                this.markDirty();
+                setInventorySlotContents(i, itemstack);
+                markDirty();
                 return null;
             }
 
             if (ItemStack.areItemsEqual(itemstack1, itemstack)) {
-                int j = Math.min(this.getInventoryStackLimit(), itemstack1.getMaxStackSize());
+                int j = Math.min(getInventoryStackLimit(), itemstack1.getMaxStackSize());
                 int k = Math.min(itemstack.stackSize, j - itemstack1.stackSize);
 
                 if (k > 0) {
@@ -86,7 +86,7 @@ public class InventoryBasic implements IInventory {
                     itemstack.stackSize -= k;
 
                     if (itemstack.stackSize <= 0) {
-                        this.markDirty();
+                        markDirty();
                         return null;
                     }
                 }
@@ -94,16 +94,16 @@ public class InventoryBasic implements IInventory {
         }
 
         if (itemstack.stackSize != stack.stackSize) {
-            this.markDirty();
+            markDirty();
         }
 
         return itemstack;
     }
 
     public ItemStack removeStackFromSlot(int index) {
-        if (this.inventoryContents[index] != null) {
-            ItemStack itemstack = this.inventoryContents[index];
-            this.inventoryContents[index] = null;
+        if (inventoryContents[index] != null) {
+            ItemStack itemstack = inventoryContents[index];
+            inventoryContents[index] = null;
             return itemstack;
         } else {
             return null;
@@ -111,34 +111,34 @@ public class InventoryBasic implements IInventory {
     }
 
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.inventoryContents[index] = stack;
+        inventoryContents[index] = stack;
 
-        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-            stack.stackSize = this.getInventoryStackLimit();
+        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+            stack.stackSize = getInventoryStackLimit();
         }
 
-        this.markDirty();
+        markDirty();
     }
 
     public int getSizeInventory() {
-        return this.slotsCount;
+        return slotsCount;
     }
 
     public String getName() {
-        return this.inventoryTitle;
+        return inventoryTitle;
     }
 
     public boolean hasCustomName() {
-        return this.hasCustomName;
+        return hasCustomName;
     }
 
     public void setCustomName(String inventoryTitleIn) {
-        this.hasCustomName = true;
-        this.inventoryTitle = inventoryTitleIn;
+        hasCustomName = true;
+        inventoryTitle = inventoryTitleIn;
     }
 
     public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
     }
 
     public int getInventoryStackLimit() {
@@ -146,8 +146,8 @@ public class InventoryBasic implements IInventory {
     }
 
     public void markDirty() {
-        if (this.changeListeners != null) {
-            for (IInvBasic changeListener : this.changeListeners) {
+        if (changeListeners != null) {
+            for (IInvBasic changeListener : changeListeners) {
                 changeListener.onInventoryChanged(this);
             }
         }
@@ -179,8 +179,8 @@ public class InventoryBasic implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.inventoryContents.length; ++i) {
-            this.inventoryContents[i] = null;
+        for (int i = 0; i < inventoryContents.length; ++i) {
+            inventoryContents[i] = null;
         }
     }
 }

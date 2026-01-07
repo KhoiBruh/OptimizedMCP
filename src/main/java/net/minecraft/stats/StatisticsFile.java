@@ -34,8 +34,8 @@ public class StatisticsFile extends StatFileWriter {
     private boolean field_150886_g = false;
 
     public StatisticsFile(MinecraftServer serverIn, File statsFileIn) {
-        this.mcServer = serverIn;
-        this.statsFile = statsFileIn;
+        mcServer = serverIn;
+        statsFile = statsFileIn;
     }
 
     public static String dumpJson(Map<StatBase, TupleIntJsonSerializable> p_150880_0_) {
@@ -62,52 +62,52 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public void readStatFile() {
-        if (this.statsFile.isFile()) {
+        if (statsFile.isFile()) {
             try {
-                this.statsData.clear();
-                this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile, StandardCharsets.UTF_8)));
+                statsData.clear();
+                statsData.putAll(parseJson(FileUtils.readFileToString(statsFile, StandardCharsets.UTF_8)));
             } catch (IOException ioexception) {
-                logger.error("Couldn't read statistics file " + this.statsFile, ioexception);
+                logger.error("Couldn't read statistics file " + statsFile, ioexception);
             } catch (JsonParseException jsonparseexception) {
-                logger.error("Couldn't parse statistics file " + this.statsFile, jsonparseexception);
+                logger.error("Couldn't parse statistics file " + statsFile, jsonparseexception);
             }
         }
     }
 
     public void saveStatFile() {
         try {
-            FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData), StandardCharsets.UTF_8);
+            FileUtils.writeStringToFile(statsFile, dumpJson(statsData), StandardCharsets.UTF_8);
         } catch (IOException ioexception) {
             logger.error("Couldn't save stats", ioexception);
         }
     }
 
     public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_) {
-        int i = statIn.isAchievement() ? this.readStat(statIn) : 0;
+        int i = statIn.isAchievement() ? readStat(statIn) : 0;
         super.unlockAchievement(playerIn, statIn, p_150873_3_);
-        this.field_150888_e.add(statIn);
+        field_150888_e.add(statIn);
 
         if (statIn.isAchievement() && i == 0 && p_150873_3_ > 0) {
-            this.field_150886_g = true;
+            field_150886_g = true;
 
-            if (this.mcServer.isAnnouncingPlayerAchievements()) {
-                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement", playerIn.getDisplayName(), statIn.createChatComponent()));
+            if (mcServer.isAnnouncingPlayerAchievements()) {
+                mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement", playerIn.getDisplayName(), statIn.createChatComponent()));
             }
         }
 
         if (statIn.isAchievement() && i > 0 && p_150873_3_ == 0) {
-            this.field_150886_g = true;
+            field_150886_g = true;
 
-            if (this.mcServer.isAnnouncingPlayerAchievements()) {
-                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement.taken", playerIn.getDisplayName(), statIn.createChatComponent()));
+            if (mcServer.isAnnouncingPlayerAchievements()) {
+                mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement.taken", playerIn.getDisplayName(), statIn.createChatComponent()));
             }
         }
     }
 
     public Set<StatBase> func_150878_c() {
-        Set<StatBase> set = Sets.newHashSet(this.field_150888_e);
-        this.field_150888_e.clear();
-        this.field_150886_g = false;
+        Set<StatBase> set = Sets.newHashSet(field_150888_e);
+        field_150888_e.clear();
+        field_150886_g = false;
         return set;
     }
 
@@ -142,14 +142,14 @@ public class StatisticsFile extends StatFileWriter {
                                 ijsonserializable.fromJson(jsonobject1.get("progress"));
                                 tupleintjsonserializable.setJsonSerializableValue(ijsonserializable);
                             } catch (Throwable throwable) {
-                                logger.warn("Invalid statistic progress in " + this.statsFile, throwable);
+                                logger.warn("Invalid statistic progress in " + statsFile, throwable);
                             }
                         }
                     }
 
                     map.put(statbase, tupleintjsonserializable);
                 } else {
-                    logger.warn("Invalid statistic in " + this.statsFile + ": Don't know what " + entry.getKey() + " is");
+                    logger.warn("Invalid statistic in " + statsFile + ": Don't know what " + entry.getKey() + " is");
                 }
             }
 
@@ -162,14 +162,14 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public void func_150876_a(EntityPlayerMP p_150876_1_) {
-        int i = this.mcServer.getTickCounter();
+        int i = mcServer.getTickCounter();
         Map<StatBase, Integer> map = Maps.newHashMap();
 
-        if (this.field_150886_g || i - this.field_150885_f > 300) {
-            this.field_150885_f = i;
+        if (field_150886_g || i - field_150885_f > 300) {
+            field_150885_f = i;
 
-            for (StatBase statbase : this.func_150878_c()) {
-                map.put(statbase, this.readStat(statbase));
+            for (StatBase statbase : func_150878_c()) {
+                map.put(statbase, readStat(statbase));
             }
         }
 
@@ -180,9 +180,9 @@ public class StatisticsFile extends StatFileWriter {
         Map<StatBase, Integer> map = Maps.newHashMap();
 
         for (Achievement achievement : AchievementList.achievementList) {
-            if (this.hasAchievementUnlocked(achievement)) {
-                map.put(achievement, this.readStat(achievement));
-                this.field_150888_e.remove(achievement);
+            if (hasAchievementUnlocked(achievement)) {
+                map.put(achievement, readStat(achievement));
+                field_150888_e.remove(achievement);
             }
         }
 
@@ -190,6 +190,6 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public boolean func_150879_e() {
-        return this.field_150886_g;
+        return field_150886_g;
     }
 }

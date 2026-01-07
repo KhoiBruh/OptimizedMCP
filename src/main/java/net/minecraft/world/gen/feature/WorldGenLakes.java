@@ -14,7 +14,7 @@ public class WorldGenLakes extends WorldGenerator {
     private final Block block;
 
     public WorldGenLakes(Block blockIn) {
-        this.block = blockIn;
+        block = blockIn;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
@@ -64,7 +64,7 @@ public class WorldGenLakes extends WorldGenerator {
                                 return false;
                             }
 
-                            if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)).getBlock() != this.block) {
+                            if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)).getBlock() != block) {
                                 return false;
                             }
                         }
@@ -76,7 +76,7 @@ public class WorldGenLakes extends WorldGenerator {
                 for (int i3 = 0; i3 < 16; ++i3) {
                     for (int i4 = 0; i4 < 8; ++i4) {
                         if (aboolean[(l1 * 16 + i3) * 8 + i4]) {
-                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.air.getDefaultState() : this.block.getDefaultState(), 2);
+                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.air.getDefaultState() : block.getDefaultState(), 2);
                         }
                     }
                 }
@@ -102,7 +102,7 @@ public class WorldGenLakes extends WorldGenerator {
                 }
             }
 
-            if (this.block.getMaterial() == Material.lava) {
+            if (block.getMaterial() == Material.lava) {
                 for (int j2 = 0; j2 < 16; ++j2) {
                     for (int k3 = 0; k3 < 16; ++k3) {
                         for (int k4 = 0; k4 < 8; ++k4) {
@@ -116,7 +116,7 @@ public class WorldGenLakes extends WorldGenerator {
                 }
             }
 
-            if (this.block.getMaterial() == Material.water) {
+            if (block.getMaterial() == Material.water) {
                 for (int k2 = 0; k2 < 16; ++k2) {
                     for (int l3 = 0; l3 < 16; ++l3) {
                         int l4 = 4;

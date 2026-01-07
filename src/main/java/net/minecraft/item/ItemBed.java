@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class ItemBed extends Item {
     public ItemBed() {
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {

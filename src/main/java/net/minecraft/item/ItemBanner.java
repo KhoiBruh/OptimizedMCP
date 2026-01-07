@@ -20,10 +20,10 @@ import java.util.List;
 public class ItemBanner extends ItemBlock {
     public ItemBanner() {
         super(Blocks.standing_banner);
-        this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        maxStackSize = 16;
+        setCreativeTab(CreativeTabs.tabDecorations);
+        setHasSubtypes(true);
+        setMaxDamage(0);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -62,7 +62,7 @@ public class ItemBanner extends ItemBlock {
 
     public String getItemStackDisplayName(ItemStack stack) {
         String s = "item.banner.";
-        EnumDyeColor enumdyecolor = this.getBaseColor(stack);
+        EnumDyeColor enumdyecolor = getBaseColor(stack);
         s = s + enumdyecolor.getUnlocalizedName() + ".name";
         return StatCollector.translateToLocal(s);
     }
@@ -89,7 +89,7 @@ public class ItemBanner extends ItemBlock {
         if (renderPass == 0) {
             return 16777215;
         } else {
-            EnumDyeColor enumdyecolor = this.getBaseColor(stack);
+            EnumDyeColor enumdyecolor = getBaseColor(stack);
             return enumdyecolor.getMapColor().colorValue;
         }
     }

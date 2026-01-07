@@ -24,28 +24,28 @@ public class ThreadedFileIOBase implements Runnable {
 
     public void run() {
         while (true) {
-            this.processQueue();
+            processQueue();
         }
     }
 
     private void processQueue() {
-        for (int i = 0; i < this.threadedIOQueue.size(); ++i) {
-            IThreadedFileIO ithreadedfileio = this.threadedIOQueue.get(i);
+        for (int i = 0; i < threadedIOQueue.size(); ++i) {
+            IThreadedFileIO ithreadedfileio = threadedIOQueue.get(i);
             boolean flag = ithreadedfileio.writeNextIO();
 
             if (!flag) {
-                this.threadedIOQueue.remove(i--);
-                ++this.savedIOCounter;
+                threadedIOQueue.remove(i--);
+                ++savedIOCounter;
             }
 
             try {
-                Thread.sleep(this.isThreadWaiting ? 0L : 10L);
+                Thread.sleep(isThreadWaiting ? 0L : 10L);
             } catch (InterruptedException interruptedexception1) {
                 interruptedexception1.printStackTrace();
             }
         }
 
-        if (this.threadedIOQueue.isEmpty()) {
+        if (threadedIOQueue.isEmpty()) {
             try {
                 Thread.sleep(25L);
             } catch (InterruptedException interruptedexception) {
@@ -55,19 +55,19 @@ public class ThreadedFileIOBase implements Runnable {
     }
 
     public void queueIO(IThreadedFileIO p_75735_1_) {
-        if (!this.threadedIOQueue.contains(p_75735_1_)) {
-            ++this.writeQueuedCounter;
-            this.threadedIOQueue.add(p_75735_1_);
+        if (!threadedIOQueue.contains(p_75735_1_)) {
+            ++writeQueuedCounter;
+            threadedIOQueue.add(p_75735_1_);
         }
     }
 
     public void waitForFinish() throws InterruptedException {
-        this.isThreadWaiting = true;
+        isThreadWaiting = true;
 
-        while (this.writeQueuedCounter != this.savedIOCounter) {
+        while (writeQueuedCounter != savedIOCounter) {
             Thread.sleep(10L);
         }
 
-        this.isThreadWaiting = false;
+        isThreadWaiting = false;
     }
 }

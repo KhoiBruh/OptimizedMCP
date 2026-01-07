@@ -40,21 +40,21 @@ public class VisGraph {
     }
 
     public void func_178606_a(BlockPos pos) {
-        this.field_178612_d.set(getIndex(pos), true);
-        --this.field_178611_f;
+        field_178612_d.set(getIndex(pos), true);
+        --field_178611_f;
     }
 
     public SetVisibility computeVisibility() {
         SetVisibility setvisibility = new SetVisibility();
 
-        if (4096 - this.field_178611_f < 256) {
+        if (4096 - field_178611_f < 256) {
             setvisibility.setAllVisible(true);
-        } else if (this.field_178611_f == 0) {
+        } else if (field_178611_f == 0) {
             setvisibility.setAllVisible(false);
         } else {
             for (int i : field_178613_e) {
-                if (!this.field_178612_d.get(i)) {
-                    setvisibility.setManyVisible(this.func_178604_a(i));
+                if (!field_178612_d.get(i)) {
+                    setvisibility.setManyVisible(func_178604_a(i));
                 }
             }
         }
@@ -63,24 +63,24 @@ public class VisGraph {
     }
 
     public Set<EnumFacing> func_178609_b(BlockPos pos) {
-        return this.func_178604_a(getIndex(pos));
+        return func_178604_a(getIndex(pos));
     }
 
     private Set<EnumFacing> func_178604_a(int p_178604_1_) {
         Set<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
         Queue<Integer> queue = new ArrayDeque(384);
         queue.add(IntegerCache.getInteger(p_178604_1_));
-        this.field_178612_d.set(p_178604_1_, true);
+        field_178612_d.set(p_178604_1_, true);
 
         while (!queue.isEmpty()) {
             int i = queue.poll();
-            this.func_178610_a(i, set);
+            func_178610_a(i, set);
 
             for (EnumFacing enumfacing : EnumFacing.VALUES) {
-                int j = this.func_178603_a(i, enumfacing);
+                int j = func_178603_a(i, enumfacing);
 
-                if (j >= 0 && !this.field_178612_d.get(j)) {
-                    this.field_178612_d.set(j, true);
+                if (j >= 0 && !field_178612_d.get(j)) {
+                    field_178612_d.set(j, true);
                     queue.add(IntegerCache.getInteger(j));
                 }
             }

@@ -11,7 +11,7 @@ import java.util.Random;
 public class BlockBookshelf extends Block {
     public BlockBookshelf() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int quantityDropped(Random random) {

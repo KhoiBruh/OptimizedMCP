@@ -23,12 +23,12 @@ public class EntityItemFrame extends EntityHanging {
 
     public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, EnumFacing p_i45852_3_) {
         super(worldIn, p_i45852_2_);
-        this.updateFacingWithBoundingBox(p_i45852_3_);
+        updateFacingWithBoundingBox(p_i45852_3_);
     }
 
     protected void entityInit() {
-        this.getDataWatcher().addObjectByDataType(8, 5);
-        this.getDataWatcher().addObject(9, (byte) 0);
+        getDataWatcher().addObjectByDataType(8, 5);
+        getDataWatcher().addObject(9, (byte) 0);
     }
 
     public float getCollisionBorderSize() {
@@ -36,12 +36,12 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
-        } else if (!source.isExplosion() && this.getDisplayedItem() != null) {
-            if (!this.worldObj.isRemote) {
-                this.dropItemOrSelf(source.getEntity(), false);
-                this.setDisplayedItem(null);
+        } else if (!source.isExplosion() && getDisplayedItem() != null) {
+            if (!worldObj.isRemote) {
+                dropItemOrSelf(source.getEntity(), false);
+                setDisplayedItem(null);
             }
 
             return true;
@@ -60,34 +60,34 @@ public class EntityItemFrame extends EntityHanging {
 
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = 16.0D;
-        d0 = d0 * 64.0D * this.renderDistanceWeight;
+        d0 = d0 * 64.0D * renderDistanceWeight;
         return distance < d0 * d0;
     }
 
     public void onBroken(Entity brokenEntity) {
-        this.dropItemOrSelf(brokenEntity, true);
+        dropItemOrSelf(brokenEntity, true);
     }
 
     public void dropItemOrSelf(Entity p_146065_1_, boolean p_146065_2_) {
-        if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            ItemStack itemstack = this.getDisplayedItem();
+        if (worldObj.getGameRules().getBoolean("doEntityDrops")) {
+            ItemStack itemstack = getDisplayedItem();
 
             if (p_146065_1_ instanceof EntityPlayer entityplayer) {
 
                 if (entityplayer.capabilities.isCreativeMode) {
-                    this.removeFrameFromMap(itemstack);
+                    removeFrameFromMap(itemstack);
                     return;
                 }
             }
 
             if (p_146065_2_) {
-                this.entityDropItem(new ItemStack(Items.item_frame), 0.0F);
+                entityDropItem(new ItemStack(Items.item_frame), 0.0F);
             }
 
-            if (itemstack != null && this.rand.nextFloat() < this.itemDropChance) {
+            if (itemstack != null && rand.nextFloat() < itemDropChance) {
                 itemstack = itemstack.copy();
-                this.removeFrameFromMap(itemstack);
-                this.entityDropItem(itemstack, 0.0F);
+                removeFrameFromMap(itemstack);
+                entityDropItem(itemstack, 0.0F);
             }
         }
     }
@@ -95,8 +95,8 @@ public class EntityItemFrame extends EntityHanging {
     private void removeFrameFromMap(ItemStack p_110131_1_) {
         if (p_110131_1_ != null) {
             if (p_110131_1_.getItem() == Items.filled_map) {
-                MapData mapdata = ((ItemMap) p_110131_1_.getItem()).getMapData(p_110131_1_, this.worldObj);
-                mapdata.mapDecorations.remove("frame-" + this.getEntityId());
+                MapData mapdata = ((ItemMap) p_110131_1_.getItem()).getMapData(p_110131_1_, worldObj);
+                mapdata.mapDecorations.remove("frame-" + getEntityId());
             }
 
             p_110131_1_.setItemFrame(null);
@@ -104,11 +104,11 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public ItemStack getDisplayedItem() {
-        return this.getDataWatcher().getWatchableObjectItemStack(8);
+        return getDataWatcher().getWatchableObjectItemStack(8);
     }
 
     public void setDisplayedItem(ItemStack p_82334_1_) {
-        this.setDisplayedItemWithUpdate(p_82334_1_, true);
+        setDisplayedItemWithUpdate(p_82334_1_, true);
     }
 
     private void setDisplayedItemWithUpdate(ItemStack p_174864_1_, boolean p_174864_2_) {
@@ -118,35 +118,35 @@ public class EntityItemFrame extends EntityHanging {
             p_174864_1_.setItemFrame(this);
         }
 
-        this.getDataWatcher().updateObject(8, p_174864_1_);
-        this.getDataWatcher().setObjectWatched(8);
+        getDataWatcher().updateObject(8, p_174864_1_);
+        getDataWatcher().setObjectWatched(8);
 
-        if (p_174864_2_ && this.hangingPosition != null) {
-            this.worldObj.updateComparatorOutputLevel(this.hangingPosition, Blocks.air);
+        if (p_174864_2_ && hangingPosition != null) {
+            worldObj.updateComparatorOutputLevel(hangingPosition, Blocks.air);
         }
     }
 
     public int getRotation() {
-        return this.getDataWatcher().getWatchableObjectByte(9);
+        return getDataWatcher().getWatchableObjectByte(9);
     }
 
     public void setItemRotation(int p_82336_1_) {
-        this.func_174865_a(p_82336_1_, true);
+        func_174865_a(p_82336_1_, true);
     }
 
     private void func_174865_a(int p_174865_1_, boolean p_174865_2_) {
-        this.getDataWatcher().updateObject(9, (byte) (p_174865_1_ % 8));
+        getDataWatcher().updateObject(9, (byte) (p_174865_1_ % 8));
 
-        if (p_174865_2_ && this.hangingPosition != null) {
-            this.worldObj.updateComparatorOutputLevel(this.hangingPosition, Blocks.air);
+        if (p_174865_2_ && hangingPosition != null) {
+            worldObj.updateComparatorOutputLevel(hangingPosition, Blocks.air);
         }
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
-        if (this.getDisplayedItem() != null) {
-            tagCompound.setTag("Item", this.getDisplayedItem().writeToNBT(new NBTTagCompound()));
-            tagCompound.setByte("ItemRotation", (byte) this.getRotation());
-            tagCompound.setFloat("ItemDropChance", this.itemDropChance);
+        if (getDisplayedItem() != null) {
+            tagCompound.setTag("Item", getDisplayedItem().writeToNBT(new NBTTagCompound()));
+            tagCompound.setByte("ItemRotation", (byte) getRotation());
+            tagCompound.setFloat("ItemDropChance", itemDropChance);
         }
 
         super.writeEntityToNBT(tagCompound);
@@ -156,15 +156,15 @@ public class EntityItemFrame extends EntityHanging {
         NBTTagCompound nbttagcompound = tagCompund.getCompoundTag("Item");
 
         if (nbttagcompound != null && !nbttagcompound.hasNoTags()) {
-            this.setDisplayedItemWithUpdate(ItemStack.loadItemStackFromNBT(nbttagcompound), false);
-            this.func_174865_a(tagCompund.getByte("ItemRotation"), false);
+            setDisplayedItemWithUpdate(ItemStack.loadItemStackFromNBT(nbttagcompound), false);
+            func_174865_a(tagCompund.getByte("ItemRotation"), false);
 
             if (tagCompund.hasKey("ItemDropChance", 99)) {
-                this.itemDropChance = tagCompund.getFloat("ItemDropChance");
+                itemDropChance = tagCompund.getFloat("ItemDropChance");
             }
 
             if (tagCompund.hasKey("Direction")) {
-                this.func_174865_a(this.getRotation() * 2, false);
+                func_174865_a(getRotation() * 2, false);
             }
         }
 
@@ -172,24 +172,24 @@ public class EntityItemFrame extends EntityHanging {
     }
 
     public boolean interactFirst(EntityPlayer playerIn) {
-        if (this.getDisplayedItem() == null) {
+        if (getDisplayedItem() == null) {
             ItemStack itemstack = playerIn.getHeldItem();
 
-            if (itemstack != null && !this.worldObj.isRemote) {
-                this.setDisplayedItem(itemstack);
+            if (itemstack != null && !worldObj.isRemote) {
+                setDisplayedItem(itemstack);
 
                 if (!playerIn.capabilities.isCreativeMode && --itemstack.stackSize <= 0) {
                     playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
                 }
             }
-        } else if (!this.worldObj.isRemote) {
-            this.setItemRotation(this.getRotation() + 1);
+        } else if (!worldObj.isRemote) {
+            setItemRotation(getRotation() + 1);
         }
 
         return true;
     }
 
     public int func_174866_q() {
-        return this.getDisplayedItem() == null ? 0 : this.getRotation() % 8 + 1;
+        return getDisplayedItem() == null ? 0 : getRotation() % 8 + 1;
     }
 }

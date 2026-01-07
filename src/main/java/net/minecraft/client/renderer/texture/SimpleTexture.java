@@ -21,15 +21,15 @@ public class SimpleTexture extends AbstractTexture {
     public boolean isEmissive;
 
     public SimpleTexture(ResourceLocation textureResourceLocation) {
-        this.textureLocation = textureResourceLocation;
+        textureLocation = textureResourceLocation;
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
-        this.deleteGlTexture();
+        deleteGlTexture();
         InputStream inputstream = null;
 
         try {
-            IResource iresource = resourceManager.getResource(this.textureLocation);
+            IResource iresource = resourceManager.getResource(textureLocation);
             inputstream = iresource.getInputStream();
             BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
             boolean flag = false;
@@ -44,18 +44,18 @@ public class SimpleTexture extends AbstractTexture {
                         flag1 = texturemetadatasection.textureClamp();
                     }
                 } catch (RuntimeException runtimeexception) {
-                    logger.warn("Failed reading metadata of: " + this.textureLocation, runtimeexception);
+                    logger.warn("Failed reading metadata of: " + textureLocation, runtimeexception);
                 }
             }
 
             if (Config.isShaders()) {
-                ShadersTex.loadSimpleTexture(this.getGlTextureId(), bufferedimage, flag, flag1, resourceManager, this.textureLocation, this.getMultiTexID());
+                ShadersTex.loadSimpleTexture(getGlTextureId(), bufferedimage, flag, flag1, resourceManager, textureLocation, getMultiTexID());
             } else {
-                TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, flag, flag1);
+                TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bufferedimage, flag, flag1);
             }
 
             if (EmissiveTextures.isActive()) {
-                EmissiveTextures.loadTexture(this.textureLocation, this);
+                EmissiveTextures.loadTexture(textureLocation, this);
             }
         } finally {
             if (inputstream != null) {

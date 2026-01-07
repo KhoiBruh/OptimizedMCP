@@ -19,13 +19,13 @@ public class WorldGenForest extends WorldGenAbstractTree {
 
     public WorldGenForest(boolean p_i45449_1_, boolean p_i45449_2_) {
         super(p_i45449_1_);
-        this.useExtraRandomHeight = p_i45449_2_;
+        useExtraRandomHeight = p_i45449_2_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = rand.nextInt(3) + 5;
 
-        if (this.useExtraRandomHeight) {
+        if (useExtraRandomHeight) {
             i += rand.nextInt(7);
         }
 
@@ -48,7 +48,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
                 for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
                     for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
                         if (j >= 0 && j < 256) {
-                            if (!this.func_150523_a(worldIn.getBlockState(blockpos$mutableblockpos.set(l, j, i1)).getBlock())) {
+                            if (!func_150523_a(worldIn.getBlockState(blockpos$mutableblockpos.set(l, j, i1)).getBlock())) {
                                 flag = false;
                             }
                         } else {
@@ -64,7 +64,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
                 Block block1 = worldIn.getBlockState(position.down()).getBlock();
 
                 if ((block1 == Blocks.grass || block1 == Blocks.dirt || block1 == Blocks.farmland) && position.getY() < 256 - i - 1) {
-                    this.func_175921_a(worldIn, position.down());
+                    func_175921_a(worldIn, position.down());
 
                     for (int i2 = position.getY() - 3 + i; i2 <= position.getY() + i; ++i2) {
                         int k2 = i2 - (position.getY() + i);
@@ -81,7 +81,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
                                     Block block = worldIn.getBlockState(blockpos).getBlock();
 
                                     if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves) {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, field_181630_b);
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, field_181630_b);
                                     }
                                 }
                             }
@@ -92,7 +92,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
                         Block block2 = worldIn.getBlockState(position.up(j2)).getBlock();
 
                         if (block2.getMaterial() == Material.air || block2.getMaterial() == Material.leaves) {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(j2), field_181629_a);
+                            setBlockAndNotifyAdequately(worldIn, position.up(j2), field_181629_a);
                         }
                     }
 

@@ -14,26 +14,26 @@ public class S03PacketTimeUpdate implements Packet<INetHandlerPlayClient> {
     }
 
     public S03PacketTimeUpdate(long totalWorldTimeIn, long totalTimeIn, boolean doDayLightCycle) {
-        this.totalWorldTime = totalWorldTimeIn;
-        this.worldTime = totalTimeIn;
+        totalWorldTime = totalWorldTimeIn;
+        worldTime = totalTimeIn;
 
         if (!doDayLightCycle) {
-            this.worldTime = -this.worldTime;
+            worldTime = -worldTime;
 
-            if (this.worldTime == 0L) {
-                this.worldTime = -1L;
+            if (worldTime == 0L) {
+                worldTime = -1L;
             }
         }
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.totalWorldTime = buf.readLong();
-        this.worldTime = buf.readLong();
+        totalWorldTime = buf.readLong();
+        worldTime = buf.readLong();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeLong(this.totalWorldTime);
-        buf.writeLong(this.worldTime);
+        buf.writeLong(totalWorldTime);
+        buf.writeLong(worldTime);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -41,10 +41,10 @@ public class S03PacketTimeUpdate implements Packet<INetHandlerPlayClient> {
     }
 
     public long getTotalWorldTime() {
-        return this.totalWorldTime;
+        return totalWorldTime;
     }
 
     public long getWorldTime() {
-        return this.worldTime;
+        return worldTime;
     }
 }

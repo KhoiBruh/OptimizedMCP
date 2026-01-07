@@ -23,7 +23,7 @@ public abstract class WorldGenAbstractTree extends WorldGenerator {
 
     protected void func_175921_a(World worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos).getBlock() != Blocks.dirt) {
-            this.setBlockAndNotifyAdequately(worldIn, pos, Blocks.dirt.getDefaultState());
+            setBlockAndNotifyAdequately(worldIn, pos, Blocks.dirt.getDefaultState());
         }
     }
 }

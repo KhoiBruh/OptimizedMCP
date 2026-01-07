@@ -18,25 +18,25 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     }
 
     public S33PacketUpdateSign(World worldIn, BlockPos blockPosIn, IChatComponent[] linesIn) {
-        this.world = worldIn;
-        this.blockPos = blockPosIn;
-        this.lines = new IChatComponent[]{linesIn[0], linesIn[1], linesIn[2], linesIn[3]};
+        world = worldIn;
+        blockPos = blockPosIn;
+        lines = new IChatComponent[]{linesIn[0], linesIn[1], linesIn[2], linesIn[3]};
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.blockPos = buf.readBlockPos();
-        this.lines = new IChatComponent[4];
+        blockPos = buf.readBlockPos();
+        lines = new IChatComponent[4];
 
         for (int i = 0; i < 4; ++i) {
-            this.lines[i] = buf.readChatComponent();
+            lines[i] = buf.readChatComponent();
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeBlockPos(this.blockPos);
+        buf.writeBlockPos(blockPos);
 
         for (int i = 0; i < 4; ++i) {
-            buf.writeChatComponent(this.lines[i]);
+            buf.writeChatComponent(lines[i]);
         }
     }
 
@@ -45,10 +45,10 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     }
 
     public BlockPos getPos() {
-        return this.blockPos;
+        return blockPos;
     }
 
     public IChatComponent[] getLines() {
-        return this.lines;
+        return lines;
     }
 }

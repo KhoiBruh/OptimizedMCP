@@ -14,22 +14,22 @@ import java.util.Random;
 public class BiomeGenSwamp extends BiomeGenBase {
     protected BiomeGenSwamp(int id) {
         super(id);
-        this.theBiomeDecorator.treesPerChunk = 2;
-        this.theBiomeDecorator.flowersPerChunk = 1;
-        this.theBiomeDecorator.deadBushPerChunk = 1;
-        this.theBiomeDecorator.mushroomsPerChunk = 8;
-        this.theBiomeDecorator.reedsPerChunk = 10;
-        this.theBiomeDecorator.clayPerChunk = 1;
-        this.theBiomeDecorator.waterlilyPerChunk = 4;
-        this.theBiomeDecorator.sandPerChunk2 = 0;
-        this.theBiomeDecorator.sandPerChunk = 0;
-        this.theBiomeDecorator.grassPerChunk = 5;
-        this.waterColorMultiplier = 14745518;
-        this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntitySlime.class, 1, 1, 1));
+        theBiomeDecorator.treesPerChunk = 2;
+        theBiomeDecorator.flowersPerChunk = 1;
+        theBiomeDecorator.deadBushPerChunk = 1;
+        theBiomeDecorator.mushroomsPerChunk = 8;
+        theBiomeDecorator.reedsPerChunk = 10;
+        theBiomeDecorator.clayPerChunk = 1;
+        theBiomeDecorator.waterlilyPerChunk = 4;
+        theBiomeDecorator.sandPerChunk2 = 0;
+        theBiomeDecorator.sandPerChunk = 0;
+        theBiomeDecorator.grassPerChunk = 5;
+        waterColorMultiplier = 14745518;
+        spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntitySlime.class, 1, 1, 1));
     }
 
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
-        return this.worldGeneratorSwamp;
+        return worldGeneratorSwamp;
     }
 
     public int getGrassColorAtPos(BlockPos pos) {
@@ -67,6 +67,6 @@ public class BiomeGenSwamp extends BiomeGenBase {
             }
         }
 
-        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 }

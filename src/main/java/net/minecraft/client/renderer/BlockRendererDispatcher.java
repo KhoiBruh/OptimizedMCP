@@ -25,12 +25,12 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
     private final BlockModelShapes blockModelShapes;
 
     public BlockRendererDispatcher(BlockModelShapes blockModelShapesIn, GameSettings gameSettingsIn) {
-        this.blockModelShapes = blockModelShapesIn;
-        this.gameSettings = gameSettingsIn;
+        blockModelShapes = blockModelShapesIn;
+        gameSettings = gameSettingsIn;
     }
 
     public BlockModelShapes getBlockModelShapes() {
-        return this.blockModelShapes;
+        return blockModelShapes;
     }
 
     public void renderBlockDamage(IBlockState state, BlockPos pos, TextureAtlasSprite texture, IBlockAccess blockAccess) {
@@ -39,9 +39,9 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 
         if (i == 3) {
             state = block.getActualState(state, blockAccess, pos);
-            IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
+            IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
             IBakedModel ibakedmodel1 = (new SimpleBakedModel.Builder(ibakedmodel, texture)).makeBakedModel();
-            this.blockModelRenderer.renderModel(blockAccess, ibakedmodel1, state, pos, Tessellator.getInstance().getWorldRenderer());
+            blockModelRenderer.renderModel(blockAccess, ibakedmodel1, state, pos, Tessellator.getInstance().getWorldRenderer());
         }
     }
 
@@ -54,14 +54,14 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
             } else {
                 switch (i) {
                     case 1:
-                        return this.fluidRenderer.renderFluid(blockAccess, state, pos, worldRendererIn);
+                        return fluidRenderer.renderFluid(blockAccess, state, pos, worldRendererIn);
 
                     case 2:
                         return false;
 
                     case 3:
-                        IBakedModel ibakedmodel = this.getModelFromBlockState(state, blockAccess, pos);
-                        return this.blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn);
+                        IBakedModel ibakedmodel = getModelFromBlockState(state, blockAccess, pos);
+                        return blockModelRenderer.renderModel(blockAccess, ibakedmodel, state, pos, worldRendererIn);
 
                     default:
                         return false;
@@ -76,13 +76,13 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
     }
 
     public BlockModelRenderer getBlockModelRenderer() {
-        return this.blockModelRenderer;
+        return blockModelRenderer;
     }
 
     private IBakedModel getBakedModel(IBlockState state, BlockPos pos) {
-        IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
+        IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
 
-        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel) {
+        if (pos != null && gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel) {
             ibakedmodel = ((WeightedBakedModel) ibakedmodel).getAlternativeModel(MathHelper.getPositionRandom(pos));
         }
 
@@ -99,9 +99,9 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
             }
         }
 
-        IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
+        IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
 
-        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel) {
+        if (pos != null && gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel) {
             ibakedmodel = ((WeightedBakedModel) ibakedmodel).getAlternativeModel(MathHelper.getPositionRandom(pos));
         }
 
@@ -118,12 +118,12 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
                     break;
 
                 case 2:
-                    this.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
+                    chestRenderer.renderChestBrightness(state.getBlock(), brightness);
                     break;
 
                 case 3:
-                    IBakedModel ibakedmodel = this.getBakedModel(state, null);
-                    this.blockModelRenderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                    IBakedModel ibakedmodel = getBakedModel(state, null);
+                    blockModelRenderer.renderModelBrightness(ibakedmodel, state, brightness, true);
             }
         }
     }
@@ -138,6 +138,6 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager) {
-        this.fluidRenderer.initAtlasSprites();
+        fluidRenderer.initAtlasSprites();
     }
 }

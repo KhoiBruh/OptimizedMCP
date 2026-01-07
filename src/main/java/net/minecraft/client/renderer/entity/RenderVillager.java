@@ -16,7 +16,7 @@ public class RenderVillager extends RenderLiving<EntityVillager> {
 
     public RenderVillager(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelVillager(0.0F), 0.5F);
-        this.addLayer(new LayerCustomHead(this.getMainModel().villagerHead));
+        addLayer(new LayerCustomHead(getMainModel().villagerHead));
     }
 
     public ModelVillager getMainModel() {
@@ -50,9 +50,9 @@ public class RenderVillager extends RenderLiving<EntityVillager> {
 
         if (entitylivingbaseIn.getGrowingAge() < 0) {
             f = (float) ((double) f * 0.5D);
-            this.shadowSize = 0.25F;
+            shadowSize = 0.25F;
         } else {
-            this.shadowSize = 0.5F;
+            shadowSize = 0.5F;
         }
 
         GlStateManager.scale(f, f, f);

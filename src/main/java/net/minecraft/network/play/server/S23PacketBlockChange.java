@@ -18,18 +18,18 @@ public class S23PacketBlockChange implements Packet<INetHandlerPlayClient> {
     }
 
     public S23PacketBlockChange(World worldIn, BlockPos blockPositionIn) {
-        this.blockPosition = blockPositionIn;
-        this.blockState = worldIn.getBlockState(blockPositionIn);
+        blockPosition = blockPositionIn;
+        blockState = worldIn.getBlockState(blockPositionIn);
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.blockPosition = buf.readBlockPos();
-        this.blockState = Block.BLOCK_STATE_IDS.getByValue(buf.readVarIntFromBuffer());
+        blockPosition = buf.readBlockPos();
+        blockState = Block.BLOCK_STATE_IDS.getByValue(buf.readVarIntFromBuffer());
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeBlockPos(this.blockPosition);
-        buf.writeVarIntToBuffer(Block.BLOCK_STATE_IDS.get(this.blockState));
+        buf.writeBlockPos(blockPosition);
+        buf.writeVarIntToBuffer(Block.BLOCK_STATE_IDS.get(blockState));
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -37,10 +37,10 @@ public class S23PacketBlockChange implements Packet<INetHandlerPlayClient> {
     }
 
     public IBlockState getBlockState() {
-        return this.blockState;
+        return blockState;
     }
 
     public BlockPos getBlockPosition() {
-        return this.blockPosition;
+        return blockPosition;
     }
 }

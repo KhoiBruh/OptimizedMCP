@@ -34,17 +34,17 @@ public class AnvilSaveConverter extends SaveFormatOld {
     }
 
     public List<SaveFormatComparator> getSaveList() throws AnvilConverterException {
-        if (this.savesDirectory != null && this.savesDirectory.exists() && this.savesDirectory.isDirectory()) {
+        if (savesDirectory != null && savesDirectory.exists() && savesDirectory.isDirectory()) {
             List<SaveFormatComparator> list = Lists.newArrayList();
-            File[] afile = this.savesDirectory.listFiles();
+            File[] afile = savesDirectory.listFiles();
 
             for (File file1 : afile) {
                 if (file1.isDirectory()) {
                     String s = file1.getName();
-                    WorldInfo worldinfo = this.getWorldInfo(s);
+                    WorldInfo worldinfo = getWorldInfo(s);
 
                     if (worldinfo != null && (worldinfo.getSaveVersion() == 19132 || worldinfo.getSaveVersion() == 19133)) {
-                        boolean flag = worldinfo.getSaveVersion() != this.getSaveVersion();
+                        boolean flag = worldinfo.getSaveVersion() != getSaveVersion();
                         String s1 = worldinfo.getWorldName();
 
                         if (StringUtils.isEmpty(s1)) {
@@ -72,17 +72,17 @@ public class AnvilSaveConverter extends SaveFormatOld {
     }
 
     public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata) {
-        return new AnvilSaveHandler(this.savesDirectory, saveName, storePlayerdata);
+        return new AnvilSaveHandler(savesDirectory, saveName, storePlayerdata);
     }
 
     public boolean isConvertible(String saveName) {
-        WorldInfo worldinfo = this.getWorldInfo(saveName);
+        WorldInfo worldinfo = getWorldInfo(saveName);
         return worldinfo != null && worldinfo.getSaveVersion() == 19132;
     }
 
     public boolean isOldMapFormat(String saveName) {
-        WorldInfo worldinfo = this.getWorldInfo(saveName);
-        return worldinfo != null && worldinfo.getSaveVersion() != this.getSaveVersion();
+        WorldInfo worldinfo = getWorldInfo(saveName);
+        return worldinfo != null && worldinfo.getSaveVersion() != getSaveVersion();
     }
 
     public boolean convertMapFormat(String filename, IProgressUpdate progressCallback) {
@@ -90,23 +90,23 @@ public class AnvilSaveConverter extends SaveFormatOld {
         List<File> list = Lists.newArrayList();
         List<File> list1 = Lists.newArrayList();
         List<File> list2 = Lists.newArrayList();
-        File file1 = new File(this.savesDirectory, filename);
+        File file1 = new File(savesDirectory, filename);
         File file2 = new File(file1, "DIM-1");
         File file3 = new File(file1, "DIM1");
         logger.info("Scanning folders...");
-        this.addRegionFilesToCollection(file1, list);
+        addRegionFilesToCollection(file1, list);
 
         if (file2.exists()) {
-            this.addRegionFilesToCollection(file2, list1);
+            addRegionFilesToCollection(file2, list1);
         }
 
         if (file3.exists()) {
-            this.addRegionFilesToCollection(file3, list2);
+            addRegionFilesToCollection(file3, list2);
         }
 
         int i = list.size() + list1.size() + list2.size();
         logger.info("Total conversion count is " + i);
-        WorldInfo worldinfo = this.getWorldInfo(filename);
+        WorldInfo worldinfo = getWorldInfo(filename);
         WorldChunkManager worldchunkmanager = null;
 
         if (worldinfo.getTerrainType() == WorldType.FLAT) {
@@ -115,23 +115,23 @@ public class AnvilSaveConverter extends SaveFormatOld {
             worldchunkmanager = new WorldChunkManager(worldinfo.getSeed(), worldinfo.getTerrainType(), worldinfo.getGeneratorOptions());
         }
 
-        this.convertFile(new File(file1, "region"), list, worldchunkmanager, 0, i, progressCallback);
-        this.convertFile(new File(file2, "region"), list1, new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F), list.size(), i, progressCallback);
-        this.convertFile(new File(file3, "region"), list2, new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F), list.size() + list1.size(), i, progressCallback);
+        convertFile(new File(file1, "region"), list, worldchunkmanager, 0, i, progressCallback);
+        convertFile(new File(file2, "region"), list1, new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F), list.size(), i, progressCallback);
+        convertFile(new File(file3, "region"), list2, new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F), list.size() + list1.size(), i, progressCallback);
         worldinfo.setSaveVersion(19133);
 
         if (worldinfo.getTerrainType() == WorldType.DEFAULT_1_1) {
             worldinfo.setTerrainType(WorldType.DEFAULT);
         }
 
-        this.createFile(filename);
-        ISaveHandler isavehandler = this.getSaveLoader(filename, false);
+        createFile(filename);
+        ISaveHandler isavehandler = getSaveLoader(filename, false);
         isavehandler.saveWorldInfo(worldinfo);
         return true;
     }
 
     private void createFile(String filename) {
-        File file1 = new File(this.savesDirectory, filename);
+        File file1 = new File(savesDirectory, filename);
 
         if (!file1.exists()) {
             logger.warn("Unable to create level.dat_mcr backup");
@@ -152,7 +152,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
 
     private void convertFile(File p_75813_1_, Iterable<File> p_75813_2_, WorldChunkManager p_75813_3_, int p_75813_4_, int p_75813_5_, IProgressUpdate p_75813_6_) {
         for (File file1 : p_75813_2_) {
-            this.convertChunks(p_75813_1_, file1, p_75813_3_, p_75813_4_, p_75813_5_, p_75813_6_);
+            convertChunks(p_75813_1_, file1, p_75813_3_, p_75813_4_, p_75813_5_, p_75813_6_);
             ++p_75813_4_;
             int i = (int) Math.round(100.0D * (double) p_75813_4_ / (double) p_75813_5_);
             p_75813_6_.setLoadingProgress(i);

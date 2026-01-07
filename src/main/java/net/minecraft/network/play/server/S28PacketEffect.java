@@ -17,24 +17,24 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient> {
     }
 
     public S28PacketEffect(int soundTypeIn, BlockPos soundPosIn, int soundDataIn, boolean serverWideIn) {
-        this.soundType = soundTypeIn;
-        this.soundPos = soundPosIn;
-        this.soundData = soundDataIn;
-        this.serverWide = serverWideIn;
+        soundType = soundTypeIn;
+        soundPos = soundPosIn;
+        soundData = soundDataIn;
+        serverWide = serverWideIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.soundType = buf.readInt();
-        this.soundPos = buf.readBlockPos();
-        this.soundData = buf.readInt();
-        this.serverWide = buf.readBoolean();
+        soundType = buf.readInt();
+        soundPos = buf.readBlockPos();
+        soundData = buf.readInt();
+        serverWide = buf.readBoolean();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeInt(this.soundType);
-        buf.writeBlockPos(this.soundPos);
-        buf.writeInt(this.soundData);
-        buf.writeBoolean(this.serverWide);
+        buf.writeInt(soundType);
+        buf.writeBlockPos(soundPos);
+        buf.writeInt(soundData);
+        buf.writeBoolean(serverWide);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -42,18 +42,18 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient> {
     }
 
     public boolean isSoundServerwide() {
-        return this.serverWide;
+        return serverWide;
     }
 
     public int getSoundType() {
-        return this.soundType;
+        return soundType;
     }
 
     public int getSoundData() {
-        return this.soundData;
+        return soundData;
     }
 
     public BlockPos getSoundPos() {
-        return this.soundPos;
+        return soundPos;
     }
 }

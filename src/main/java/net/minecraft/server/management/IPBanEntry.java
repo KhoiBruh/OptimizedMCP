@@ -22,8 +22,8 @@ public class IPBanEntry extends BanEntry<String> {
     }
 
     protected void onSerialization(JsonObject data) {
-        if (this.getValue() != null) {
-            data.addProperty("ip", this.getValue());
+        if (getValue() != null) {
+            data.addProperty("ip", getValue());
             super.onSerialization(data);
         }
     }

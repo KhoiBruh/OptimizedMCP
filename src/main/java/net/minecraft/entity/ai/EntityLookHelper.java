@@ -15,59 +15,59 @@ public class EntityLookHelper {
     private double posZ;
 
     public EntityLookHelper(EntityLiving entitylivingIn) {
-        this.entity = entitylivingIn;
+        entity = entitylivingIn;
     }
 
     public void setLookPositionWithEntity(Entity entityIn, float deltaYaw, float deltaPitch) {
-        this.posX = entityIn.posX;
+        posX = entityIn.posX;
 
         if (entityIn instanceof EntityLivingBase) {
-            this.posY = entityIn.posY + (double) entityIn.getEyeHeight();
+            posY = entityIn.posY + (double) entityIn.getEyeHeight();
         } else {
-            this.posY = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D;
+            posY = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D;
         }
 
-        this.posZ = entityIn.posZ;
-        this.deltaLookYaw = deltaYaw;
-        this.deltaLookPitch = deltaPitch;
-        this.isLooking = true;
+        posZ = entityIn.posZ;
+        deltaLookYaw = deltaYaw;
+        deltaLookPitch = deltaPitch;
+        isLooking = true;
     }
 
     public void setLookPosition(double x, double y, double z, float deltaYaw, float deltaPitch) {
-        this.posX = x;
-        this.posY = y;
-        this.posZ = z;
-        this.deltaLookYaw = deltaYaw;
-        this.deltaLookPitch = deltaPitch;
-        this.isLooking = true;
+        posX = x;
+        posY = y;
+        posZ = z;
+        deltaLookYaw = deltaYaw;
+        deltaLookPitch = deltaPitch;
+        isLooking = true;
     }
 
     public void onUpdateLook() {
-        this.entity.rotationPitch = 0.0F;
+        entity.rotationPitch = 0.0F;
 
-        if (this.isLooking) {
-            this.isLooking = false;
-            double d0 = this.posX - this.entity.posX;
-            double d1 = this.posY - (this.entity.posY + (double) this.entity.getEyeHeight());
-            double d2 = this.posZ - this.entity.posZ;
+        if (isLooking) {
+            isLooking = false;
+            double d0 = posX - entity.posX;
+            double d1 = posY - (entity.posY + (double) entity.getEyeHeight());
+            double d2 = posZ - entity.posZ;
             double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
             float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * 180.0D / Math.PI));
-            this.entity.rotationPitch = this.updateRotation(this.entity.rotationPitch, f1, this.deltaLookPitch);
-            this.entity.rotationYawHead = this.updateRotation(this.entity.rotationYawHead, f, this.deltaLookYaw);
+            entity.rotationPitch = updateRotation(entity.rotationPitch, f1, deltaLookPitch);
+            entity.rotationYawHead = updateRotation(entity.rotationYawHead, f, deltaLookYaw);
         } else {
-            this.entity.rotationYawHead = this.updateRotation(this.entity.rotationYawHead, this.entity.renderYawOffset, 10.0F);
+            entity.rotationYawHead = updateRotation(entity.rotationYawHead, entity.renderYawOffset, 10.0F);
         }
 
-        float f2 = MathHelper.wrapAngleTo180_float(this.entity.rotationYawHead - this.entity.renderYawOffset);
+        float f2 = MathHelper.wrapAngleTo180_float(entity.rotationYawHead - entity.renderYawOffset);
 
-        if (!this.entity.getNavigator().noPath()) {
+        if (!entity.getNavigator().noPath()) {
             if (f2 < -75.0F) {
-                this.entity.rotationYawHead = this.entity.renderYawOffset - 75.0F;
+                entity.rotationYawHead = entity.renderYawOffset - 75.0F;
             }
 
             if (f2 > 75.0F) {
-                this.entity.rotationYawHead = this.entity.renderYawOffset + 75.0F;
+                entity.rotationYawHead = entity.renderYawOffset + 75.0F;
             }
         }
     }
@@ -87,18 +87,18 @@ public class EntityLookHelper {
     }
 
     public boolean getIsLooking() {
-        return this.isLooking;
+        return isLooking;
     }
 
     public double getLookPosX() {
-        return this.posX;
+        return posX;
     }
 
     public double getLookPosY() {
-        return this.posY;
+        return posY;
     }
 
     public double getLookPosZ() {
-        return this.posZ;
+        return posZ;
     }
 }

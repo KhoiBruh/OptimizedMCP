@@ -21,10 +21,10 @@ public class WorldType {
     }
 
     private WorldType(int id, String name, int version) {
-        this.worldType = name;
-        this.generatorVersion = version;
-        this.canBeCreated = true;
-        this.worldTypeId = id;
+        worldType = name;
+        generatorVersion = version;
+        canBeCreated = true;
+        worldTypeId = id;
         worldTypes[id] = this;
     }
 
@@ -39,19 +39,19 @@ public class WorldType {
     }
 
     public String getWorldTypeName() {
-        return this.worldType;
+        return worldType;
     }
 
     public String getTranslateName() {
-        return "generator." + this.worldType;
+        return "generator." + worldType;
     }
 
     public String getTranslatedInfo() {
-        return this.getTranslateName() + ".info";
+        return getTranslateName() + ".info";
     }
 
     public int getGeneratorVersion() {
-        return this.generatorVersion;
+        return generatorVersion;
     }
 
     public WorldType getWorldTypeForGeneratorVersion(int version) {
@@ -59,33 +59,33 @@ public class WorldType {
     }
 
     public boolean getCanBeCreated() {
-        return this.canBeCreated;
+        return canBeCreated;
     }
 
     private WorldType setCanBeCreated(boolean enable) {
-        this.canBeCreated = enable;
+        canBeCreated = enable;
         return this;
     }
 
     private WorldType setVersioned() {
-        this.isWorldTypeVersioned = true;
+        isWorldTypeVersioned = true;
         return this;
     }
 
     public boolean isVersioned() {
-        return this.isWorldTypeVersioned;
+        return isWorldTypeVersioned;
     }
 
     public int getWorldTypeID() {
-        return this.worldTypeId;
+        return worldTypeId;
     }
 
     public boolean showWorldInfoNotice() {
-        return this.hasNotificationData;
+        return hasNotificationData;
     }
 
     private WorldType setNotificationData() {
-        this.hasNotificationData = true;
+        hasNotificationData = true;
         return this;
     }
 }

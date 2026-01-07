@@ -497,7 +497,7 @@ public abstract class CommandBase implements ICommand {
     }
 
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return sender.canCommandSenderUseCommand(this.getRequiredPermissionLevel(), this.getCommandName());
+        return sender.canCommandSenderUseCommand(getRequiredPermissionLevel(), getCommandName());
     }
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
@@ -509,7 +509,7 @@ public abstract class CommandBase implements ICommand {
     }
 
     public int compareTo(ICommand p_compareTo_1_) {
-        return this.getCommandName().compareTo(p_compareTo_1_.getCommandName());
+        return getCommandName().compareTo(p_compareTo_1_.getCommandName());
     }
 
     public static class CoordinateArg {
@@ -518,21 +518,21 @@ public abstract class CommandBase implements ICommand {
         private final boolean field_179632_c;
 
         protected CoordinateArg(double p_i46051_1_, double p_i46051_3_, boolean p_i46051_5_) {
-            this.field_179633_a = p_i46051_1_;
-            this.field_179631_b = p_i46051_3_;
-            this.field_179632_c = p_i46051_5_;
+            field_179633_a = p_i46051_1_;
+            field_179631_b = p_i46051_3_;
+            field_179632_c = p_i46051_5_;
         }
 
         public double func_179628_a() {
-            return this.field_179633_a;
+            return field_179633_a;
         }
 
         public double func_179629_b() {
-            return this.field_179631_b;
+            return field_179631_b;
         }
 
         public boolean func_179630_c() {
-            return this.field_179632_c;
+            return field_179632_c;
         }
     }
 }

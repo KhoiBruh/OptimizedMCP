@@ -44,7 +44,7 @@ public final class EntitySelectors {
             } else if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                 return false;
             } else {
-                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) == null && (entitylivingbase instanceof EntityLiving ? ((EntityLiving) entitylivingbase).canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand || entitylivingbase instanceof EntityPlayer));
+                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(armor)) == null && (entitylivingbase instanceof EntityLiving ? ((EntityLiving) entitylivingbase).canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand || entitylivingbase instanceof EntityPlayer));
             }
         }
     }

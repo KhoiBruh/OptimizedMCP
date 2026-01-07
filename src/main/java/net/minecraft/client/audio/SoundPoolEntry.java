@@ -9,40 +9,40 @@ public class SoundPoolEntry {
     private double volume;
 
     public SoundPoolEntry(ResourceLocation locationIn, double pitchIn, double volumeIn, boolean streamingSoundIn) {
-        this.location = locationIn;
-        this.pitch = pitchIn;
-        this.volume = volumeIn;
-        this.streamingSound = streamingSoundIn;
+        location = locationIn;
+        pitch = pitchIn;
+        volume = volumeIn;
+        streamingSound = streamingSoundIn;
     }
 
     public SoundPoolEntry(SoundPoolEntry locationIn) {
-        this.location = locationIn.location;
-        this.pitch = locationIn.pitch;
-        this.volume = locationIn.volume;
-        this.streamingSound = locationIn.streamingSound;
+        location = locationIn.location;
+        pitch = locationIn.pitch;
+        volume = locationIn.volume;
+        streamingSound = locationIn.streamingSound;
     }
 
     public ResourceLocation getSoundPoolEntryLocation() {
-        return this.location;
+        return location;
     }
 
     public double getPitch() {
-        return this.pitch;
+        return pitch;
     }
 
     public void setPitch(double pitchIn) {
-        this.pitch = pitchIn;
+        pitch = pitchIn;
     }
 
     public double getVolume() {
-        return this.volume;
+        return volume;
     }
 
     public void setVolume(double volumeIn) {
-        this.volume = volumeIn;
+        volume = volumeIn;
     }
 
     public boolean isStreamingSound() {
-        return this.streamingSound;
+        return streamingSound;
     }
 }

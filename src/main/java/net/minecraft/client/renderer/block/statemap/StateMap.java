@@ -27,21 +27,21 @@ public class StateMap extends StateMapperBase {
         Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
         String s;
 
-        if (this.name == null) {
+        if (name == null) {
             s = Block.blockRegistry.getNameForObject(state.getBlock()).toString();
         } else {
-            s = ((IProperty) this.name).getName(map.remove(this.name));
+            s = ((IProperty) name).getName(map.remove(name));
         }
 
-        if (this.suffix != null) {
-            s = s + this.suffix;
+        if (suffix != null) {
+            s = s + suffix;
         }
 
-        for (IProperty<?> iproperty : this.ignored) {
+        for (IProperty<?> iproperty : ignored) {
             map.remove(iproperty);
         }
 
-        return new ModelResourceLocation(s, this.getPropertyString(map));
+        return new ModelResourceLocation(s, getPropertyString(map));
     }
 
     public static class Builder {
@@ -50,22 +50,22 @@ public class StateMap extends StateMapperBase {
         private String suffix;
 
         public StateMap.Builder withName(IProperty<?> builderPropertyIn) {
-            this.name = builderPropertyIn;
+            name = builderPropertyIn;
             return this;
         }
 
         public StateMap.Builder withSuffix(String builderSuffixIn) {
-            this.suffix = builderSuffixIn;
+            suffix = builderSuffixIn;
             return this;
         }
 
         public StateMap.Builder ignore(IProperty<?>... p_178442_1_) {
-            Collections.addAll(this.ignored, p_178442_1_);
+            Collections.addAll(ignored, p_178442_1_);
             return this;
         }
 
         public StateMap build() {
-            return new StateMap(this.name, this.suffix, this.ignored);
+            return new StateMap(name, suffix, ignored);
         }
     }
 }

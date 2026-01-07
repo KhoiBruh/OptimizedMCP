@@ -13,23 +13,23 @@ public abstract class TileEntityLockable extends TileEntity implements IInteract
 
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        this.code = LockCode.fromNBT(compound);
+        code = LockCode.fromNBT(compound);
     }
 
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
-        if (this.code != null) {
-            this.code.toNBT(compound);
+        if (code != null) {
+            code.toNBT(compound);
         }
     }
 
     public boolean isLocked() {
-        return this.code != null && !this.code.isEmpty();
+        return code != null && !code.isEmpty();
     }
 
     public LockCode getLockCode() {
-        return this.code;
+        return code;
     }
 
     public void setLockCode(LockCode code) {
@@ -37,6 +37,6 @@ public abstract class TileEntityLockable extends TileEntity implements IInteract
     }
 
     public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
     }
 }

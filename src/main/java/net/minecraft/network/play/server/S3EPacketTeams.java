@@ -22,87 +22,87 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     private int friendlyFlags;
 
     public S3EPacketTeams() {
-        this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
-        this.color = -1;
-        this.players = Lists.newArrayList();
+        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        color = -1;
+        players = Lists.newArrayList();
     }
 
     public S3EPacketTeams(ScorePlayerTeam teamIn, int actionIn) {
-        this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
-        this.color = -1;
-        this.players = Lists.newArrayList();
-        this.name = teamIn.getRegisteredName();
-        this.action = actionIn;
+        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        color = -1;
+        players = Lists.newArrayList();
+        name = teamIn.getRegisteredName();
+        action = actionIn;
 
         if (actionIn == 0 || actionIn == 2) {
-            this.displayName = teamIn.getTeamName();
-            this.prefix = teamIn.getColorPrefix();
-            this.suffix = teamIn.getColorSuffix();
-            this.friendlyFlags = teamIn.func_98299_i();
-            this.nameTagVisibility = teamIn.getNameTagVisibility().internalName;
-            this.color = teamIn.getChatFormat().getColorIndex();
+            displayName = teamIn.getTeamName();
+            prefix = teamIn.getColorPrefix();
+            suffix = teamIn.getColorSuffix();
+            friendlyFlags = teamIn.func_98299_i();
+            nameTagVisibility = teamIn.getNameTagVisibility().internalName;
+            color = teamIn.getChatFormat().getColorIndex();
         }
 
         if (actionIn == 0) {
-            this.players.addAll(teamIn.getMembershipCollection());
+            players.addAll(teamIn.getMembershipCollection());
         }
     }
 
     public S3EPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn) {
-        this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
-        this.color = -1;
-        this.players = Lists.newArrayList();
+        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        color = -1;
+        players = Lists.newArrayList();
 
         if (actionIn != 3 && actionIn != 4) {
             throw new IllegalArgumentException("Method must be join or leave for player constructor");
         } else if (playersIn != null && !playersIn.isEmpty()) {
-            this.action = actionIn;
-            this.name = teamIn.getRegisteredName();
-            this.players.addAll(playersIn);
+            action = actionIn;
+            name = teamIn.getRegisteredName();
+            players.addAll(playersIn);
         } else {
             throw new IllegalArgumentException("Players cannot be null/empty");
         }
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.name = buf.readStringFromBuffer(16);
-        this.action = buf.readByte();
+        name = buf.readStringFromBuffer(16);
+        action = buf.readByte();
 
-        if (this.action == 0 || this.action == 2) {
-            this.displayName = buf.readStringFromBuffer(32);
-            this.prefix = buf.readStringFromBuffer(16);
-            this.suffix = buf.readStringFromBuffer(16);
-            this.friendlyFlags = buf.readByte();
-            this.nameTagVisibility = buf.readStringFromBuffer(32);
-            this.color = buf.readByte();
+        if (action == 0 || action == 2) {
+            displayName = buf.readStringFromBuffer(32);
+            prefix = buf.readStringFromBuffer(16);
+            suffix = buf.readStringFromBuffer(16);
+            friendlyFlags = buf.readByte();
+            nameTagVisibility = buf.readStringFromBuffer(32);
+            color = buf.readByte();
         }
 
-        if (this.action == 0 || this.action == 3 || this.action == 4) {
+        if (action == 0 || action == 3 || action == 4) {
             int i = buf.readVarIntFromBuffer();
 
             for (int j = 0; j < i; ++j) {
-                this.players.add(buf.readStringFromBuffer(40));
+                players.add(buf.readStringFromBuffer(40));
             }
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeString(this.name);
-        buf.writeByte(this.action);
+        buf.writeString(name);
+        buf.writeByte(action);
 
-        if (this.action == 0 || this.action == 2) {
-            buf.writeString(this.displayName);
-            buf.writeString(this.prefix);
-            buf.writeString(this.suffix);
-            buf.writeByte(this.friendlyFlags);
-            buf.writeString(this.nameTagVisibility);
-            buf.writeByte(this.color);
+        if (action == 0 || action == 2) {
+            buf.writeString(displayName);
+            buf.writeString(prefix);
+            buf.writeString(suffix);
+            buf.writeByte(friendlyFlags);
+            buf.writeString(nameTagVisibility);
+            buf.writeByte(color);
         }
 
-        if (this.action == 0 || this.action == 3 || this.action == 4) {
-            buf.writeVarIntToBuffer(this.players.size());
+        if (action == 0 || action == 3 || action == 4) {
+            buf.writeVarIntToBuffer(players.size());
 
-            for (String s : this.players) {
+            for (String s : players) {
                 buf.writeString(s);
             }
         }
@@ -113,38 +113,38 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
     public String getPrefix() {
-        return this.prefix;
+        return prefix;
     }
 
     public String getSuffix() {
-        return this.suffix;
+        return suffix;
     }
 
     public Collection<String> getPlayers() {
-        return this.players;
+        return players;
     }
 
     public int getAction() {
-        return this.action;
+        return action;
     }
 
     public int getFriendlyFlags() {
-        return this.friendlyFlags;
+        return friendlyFlags;
     }
 
     public int getColor() {
-        return this.color;
+        return color;
     }
 
     public String getNameTagVisibility() {
-        return this.nameTagVisibility;
+        return nameTagVisibility;
     }
 }

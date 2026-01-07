@@ -17,7 +17,7 @@ public class ItemLilyPad extends ItemColored {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
+        MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
         if (movingobjectposition == null) {
             return itemStackIn;

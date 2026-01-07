@@ -19,26 +19,26 @@ public class BiomeGenJungle extends BiomeGenBase {
 
     public BiomeGenJungle(int id, boolean p_i45379_2_) {
         super(id);
-        this.field_150614_aC = p_i45379_2_;
+        field_150614_aC = p_i45379_2_;
 
         if (p_i45379_2_) {
-            this.theBiomeDecorator.treesPerChunk = 2;
+            theBiomeDecorator.treesPerChunk = 2;
         } else {
-            this.theBiomeDecorator.treesPerChunk = 50;
+            theBiomeDecorator.treesPerChunk = 50;
         }
 
-        this.theBiomeDecorator.grassPerChunk = 25;
-        this.theBiomeDecorator.flowersPerChunk = 4;
+        theBiomeDecorator.grassPerChunk = 25;
+        theBiomeDecorator.flowersPerChunk = 4;
 
         if (!p_i45379_2_) {
-            this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityOcelot.class, 2, 1, 1));
+            spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityOcelot.class, 2, 1, 1));
         }
 
-        this.spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityChicken.class, 10, 4, 4));
+        spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityChicken.class, 10, 4, 4));
     }
 
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
-        return rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : (rand.nextInt(2) == 0 ? new WorldGenShrub(field_181620_aE, field_181622_aG) : (!this.field_150614_aC && rand.nextInt(3) == 0 ? new WorldGenMegaJungle(false, 10, 20, field_181620_aE, field_181621_aF) : new WorldGenTrees(false, 4 + rand.nextInt(7), field_181620_aE, field_181621_aF, true)));
+        return rand.nextInt(10) == 0 ? worldGeneratorBigTree : (rand.nextInt(2) == 0 ? new WorldGenShrub(field_181620_aE, field_181622_aG) : (!field_150614_aC && rand.nextInt(3) == 0 ? new WorldGenMegaJungle(false, 10, 20, field_181620_aE, field_181621_aF) : new WorldGenTrees(false, 4 + rand.nextInt(7), field_181620_aE, field_181621_aF, true)));
     }
 
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {

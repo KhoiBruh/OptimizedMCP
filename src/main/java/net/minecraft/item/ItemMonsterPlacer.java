@@ -18,8 +18,8 @@ import java.util.List;
 
 public class ItemMonsterPlacer extends Item {
     public ItemMonsterPlacer() {
-        this.setHasSubtypes(true);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        setHasSubtypes(true);
+        setCreativeTab(CreativeTabs.tabMisc);
     }
 
     public static Entity spawnCreature(World worldIn, int entityID, double x, double y, double z) {
@@ -47,7 +47,7 @@ public class ItemMonsterPlacer extends Item {
     }
 
     public String getItemStackDisplayName(ItemStack stack) {
-        String s = (StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
+        String s = (StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
         String s1 = EntityList.getStringFromID(stack.getMetadata());
 
         if (s1 != null) {
@@ -114,7 +114,7 @@ public class ItemMonsterPlacer extends Item {
         if (worldIn.isRemote) {
             return itemStackIn;
         } else {
-            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
+            MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
             if (movingobjectposition == null) {
                 return itemStackIn;

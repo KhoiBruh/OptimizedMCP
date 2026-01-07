@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class MapGenCaves extends MapGenBase {
     protected void func_180703_a(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_) {
-        this.func_180702_a(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+        func_180702_a(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
     protected void func_180702_a(long p_180702_1_, int p_180702_3_, int p_180702_4_, ChunkPrimer p_180702_5_, double p_180702_6_, double p_180702_8_, double p_180702_10_, float p_180702_12_, float p_180702_13_, float p_180702_14_, int p_180702_15_, int p_180702_16_, double p_180702_17_) {
@@ -25,7 +25,7 @@ public class MapGenCaves extends MapGenBase {
         Random random = new Random(p_180702_1_);
 
         if (p_180702_16_ <= 0) {
-            int i = this.range * 16 - 16;
+            int i = range * 16 - 16;
             p_180702_16_ = i - random.nextInt(i / 4);
         }
 
@@ -61,8 +61,8 @@ public class MapGenCaves extends MapGenBase {
             f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 
             if (!flag2 && p_180702_15_ == j && p_180702_12_ > 1.0F && p_180702_16_ > 0) {
-                this.func_180702_a(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float) Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
-                this.func_180702_a(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float) Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
+                func_180702_a(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float) Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
+                func_180702_a(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float) Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
                 return;
             }
 
@@ -150,7 +150,7 @@ public class MapGenCaves extends MapGenBase {
                                                 flag1 = true;
                                             }
 
-                                            if (this.func_175793_a(iblockstate1, iblockstate2)) {
+                                            if (func_175793_a(iblockstate1, iblockstate2)) {
                                                 if (j2 - 1 < 10) {
                                                     p_180702_5_.setBlockState(j3, j2, i2, Blocks.lava.getDefaultState());
                                                 } else {
@@ -162,7 +162,7 @@ public class MapGenCaves extends MapGenBase {
 
                                                     if (flag1 && p_180702_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.dirt) {
                                                         blockpos$mutableblockpos.set(j3 + p_180702_3_ * 16, 0, i2 + p_180702_4_ * 16);
-                                                        p_180702_5_.setBlockState(j3, j2 - 1, i2, this.worldObj.getBiomeGenForCoords(blockpos$mutableblockpos).topBlock.getBlock().getDefaultState());
+                                                        p_180702_5_.setBlockState(j3, j2 - 1, i2, worldObj.getBiomeGenForCoords(blockpos$mutableblockpos).topBlock.getBlock().getDefaultState());
                                                     }
                                                 }
                                             }
@@ -186,33 +186,33 @@ public class MapGenCaves extends MapGenBase {
     }
 
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
-        int i = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(15) + 1) + 1);
+        int i = rand.nextInt(rand.nextInt(rand.nextInt(15) + 1) + 1);
 
-        if (this.rand.nextInt(7) != 0) {
+        if (rand.nextInt(7) != 0) {
             i = 0;
         }
 
         for (int j = 0; j < i; ++j) {
-            double d0 = chunkX * 16 + this.rand.nextInt(16);
-            double d1 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            double d2 = chunkZ * 16 + this.rand.nextInt(16);
+            double d0 = chunkX * 16 + rand.nextInt(16);
+            double d1 = rand.nextInt(rand.nextInt(120) + 8);
+            double d2 = chunkZ * 16 + rand.nextInt(16);
             int k = 1;
 
-            if (this.rand.nextInt(4) == 0) {
-                this.func_180703_a(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2);
-                k += this.rand.nextInt(4);
+            if (rand.nextInt(4) == 0) {
+                func_180703_a(rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2);
+                k += rand.nextInt(4);
             }
 
             for (int l = 0; l < k; ++l) {
-                float f = this.rand.nextFloat() * (float) Math.PI * 2.0F;
-                float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-                float f2 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
+                float f = rand.nextFloat() * (float) Math.PI * 2.0F;
+                float f1 = (rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = rand.nextFloat() * 2.0F + rand.nextFloat();
 
-                if (this.rand.nextInt(10) == 0) {
-                    f2 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0F + 1.0F;
+                if (rand.nextInt(10) == 0) {
+                    f2 *= rand.nextFloat() * rand.nextFloat() * 3.0F + 1.0F;
                 }
 
-                this.func_180702_a(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+                func_180702_a(rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }

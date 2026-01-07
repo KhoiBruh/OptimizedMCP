@@ -8,33 +8,33 @@ public class EntityAISit extends EntityAIBase {
     private boolean isSitting;
 
     public EntityAISit(EntityTameable entityIn) {
-        this.theEntity = entityIn;
-        this.setMutexBits(5);
+        theEntity = entityIn;
+        setMutexBits(5);
     }
 
     public boolean shouldExecute() {
-        if (!this.theEntity.isTamed()) {
+        if (!theEntity.isTamed()) {
             return false;
-        } else if (this.theEntity.isInWater()) {
+        } else if (theEntity.isInWater()) {
             return false;
-        } else if (!this.theEntity.onGround) {
+        } else if (!theEntity.onGround) {
             return false;
         } else {
-            EntityLivingBase entitylivingbase = this.theEntity.getOwner();
-            return entitylivingbase == null || ((!(this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D) || entitylivingbase.getAITarget() == null) && this.isSitting);
+            EntityLivingBase entitylivingbase = theEntity.getOwner();
+            return entitylivingbase == null || ((!(theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D) || entitylivingbase.getAITarget() == null) && isSitting);
         }
     }
 
     public void startExecuting() {
-        this.theEntity.getNavigator().clearPathEntity();
-        this.theEntity.setSitting(true);
+        theEntity.getNavigator().clearPathEntity();
+        theEntity.setSitting(true);
     }
 
     public void resetTask() {
-        this.theEntity.setSitting(false);
+        theEntity.setSitting(false);
     }
 
     public void setSitting(boolean sitting) {
-        this.isSitting = sitting;
+        isSitting = sitting;
     }
 }

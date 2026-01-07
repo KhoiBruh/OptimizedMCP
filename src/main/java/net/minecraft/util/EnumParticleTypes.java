@@ -73,10 +73,10 @@ public enum EnumParticleTypes {
     private final int argumentCount;
 
     EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
-        this.particleName = particleNameIn;
-        this.particleID = particleIDIn;
-        this.shouldIgnoreRange = p_i46011_5_;
-        this.argumentCount = argumentCountIn;
+        particleName = particleNameIn;
+        particleID = particleIDIn;
+        shouldIgnoreRange = p_i46011_5_;
+        argumentCount = argumentCountIn;
     }
 
     EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
@@ -92,22 +92,22 @@ public enum EnumParticleTypes {
     }
 
     public String getParticleName() {
-        return this.particleName;
+        return particleName;
     }
 
     public int getParticleID() {
-        return this.particleID;
+        return particleID;
     }
 
     public int getArgumentCount() {
-        return this.argumentCount;
+        return argumentCount;
     }
 
     public boolean getShouldIgnoreRange() {
-        return this.shouldIgnoreRange;
+        return shouldIgnoreRange;
     }
 
     public boolean hasArguments() {
-        return this.argumentCount > 0;
+        return argumentCount > 0;
     }
 }

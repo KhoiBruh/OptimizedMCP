@@ -18,14 +18,14 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
         }
 
         if (destroyStage >= 0) {
-            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0F, 4.0F, 1.0F);
             GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
             GlStateManager.matrixMode(5888);
         } else {
-            this.bindTexture(ENDER_CHEST_TEXTURE);
+            bindTexture(ENDER_CHEST_TEXTURE);
         }
 
         GlStateManager.pushMatrix();
@@ -57,8 +57,8 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
         float f = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * partialTicks;
         f = 1.0F - f;
         f = 1.0F - f * f * f;
-        this.field_147521_c.chestLid.rotateAngleX = -(f * (float) Math.PI / 2.0F);
-        this.field_147521_c.renderAll();
+        field_147521_c.chestLid.rotateAngleX = -(f * (float) Math.PI / 2.0F);
+        field_147521_c.renderAll();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

@@ -20,7 +20,7 @@ public class IntHashMap<V> {
     public V lookup(int p_76041_1_) {
         int i = computeHash(p_76041_1_);
 
-        for (IntHashMap.Entry<V> entry = this.slots[getSlotIndex(i, this.slots.length)]; entry != null; entry = entry.nextEntry) {
+        for (IntHashMap.Entry<V> entry = slots[getSlotIndex(i, slots.length)]; entry != null; entry = entry.nextEntry) {
             if (entry.hashEntry == p_76041_1_) {
                 return entry.valueEntry;
             }
@@ -30,13 +30,13 @@ public class IntHashMap<V> {
     }
 
     public boolean containsItem(int p_76037_1_) {
-        return this.lookupEntry(p_76037_1_) != null;
+        return lookupEntry(p_76037_1_) != null;
     }
 
     final IntHashMap.Entry<V> lookupEntry(int p_76045_1_) {
         int i = computeHash(p_76045_1_);
 
-        for (IntHashMap.Entry<V> entry = this.slots[getSlotIndex(i, this.slots.length)]; entry != null; entry = entry.nextEntry) {
+        for (IntHashMap.Entry<V> entry = slots[getSlotIndex(i, slots.length)]; entry != null; entry = entry.nextEntry) {
             if (entry.hashEntry == p_76045_1_) {
                 return entry;
             }
@@ -47,34 +47,34 @@ public class IntHashMap<V> {
 
     public void addKey(int p_76038_1_, V p_76038_2_) {
         int i = computeHash(p_76038_1_);
-        int j = getSlotIndex(i, this.slots.length);
+        int j = getSlotIndex(i, slots.length);
 
-        for (IntHashMap.Entry<V> entry = this.slots[j]; entry != null; entry = entry.nextEntry) {
+        for (IntHashMap.Entry<V> entry = slots[j]; entry != null; entry = entry.nextEntry) {
             if (entry.hashEntry == p_76038_1_) {
                 entry.valueEntry = p_76038_2_;
                 return;
             }
         }
 
-        this.insert(i, p_76038_1_, p_76038_2_, j);
+        insert(i, p_76038_1_, p_76038_2_, j);
     }
 
     private void grow(int p_76047_1_) {
-        IntHashMap.Entry<V>[] entry = this.slots;
+        IntHashMap.Entry<V>[] entry = slots;
         int i = entry.length;
 
         if (i == 1073741824) {
-            this.threshold = Integer.MAX_VALUE;
+            threshold = Integer.MAX_VALUE;
         } else {
             IntHashMap.Entry<V>[] entry1 = new IntHashMap.Entry[p_76047_1_];
-            this.copyTo(entry1);
-            this.slots = entry1;
-            this.threshold = (int) ((float) p_76047_1_ * this.growFactor);
+            copyTo(entry1);
+            slots = entry1;
+            threshold = (int) ((float) p_76047_1_ * growFactor);
         }
     }
 
     private void copyTo(IntHashMap.Entry<V>[] p_76048_1_) {
-        IntHashMap.Entry<V>[] entry = this.slots;
+        IntHashMap.Entry<V>[] entry = slots;
         int i = p_76048_1_.length;
 
         for (int j = 0; j < entry.length; ++j) {
@@ -99,14 +99,14 @@ public class IntHashMap<V> {
     }
 
     public V removeObject(int p_76049_1_) {
-        IntHashMap.Entry<V> entry = this.removeEntry(p_76049_1_);
+        IntHashMap.Entry<V> entry = removeEntry(p_76049_1_);
         return entry == null ? null : entry.valueEntry;
     }
 
     final IntHashMap.Entry<V> removeEntry(int p_76036_1_) {
         int i = computeHash(p_76036_1_);
-        int j = getSlotIndex(i, this.slots.length);
-        IntHashMap.Entry<V> entry = this.slots[j];
+        int j = getSlotIndex(i, slots.length);
+        IntHashMap.Entry<V> entry = slots[j];
         IntHashMap.Entry<V> entry1;
         IntHashMap.Entry<V> entry2;
 
@@ -114,10 +114,10 @@ public class IntHashMap<V> {
             entry2 = entry1.nextEntry;
 
             if (entry1.hashEntry == p_76036_1_) {
-                --this.count;
+                --count;
 
                 if (entry == entry1) {
-                    this.slots[j] = entry2;
+                    slots[j] = entry2;
                 } else {
                     entry.nextEntry = entry2;
                 }
@@ -132,21 +132,21 @@ public class IntHashMap<V> {
     }
 
     public void clearMap() {
-        IntHashMap.Entry<V>[] entry = this.slots;
+        IntHashMap.Entry<V>[] entry = slots;
 
         for (int i = 0; i < entry.length; ++i) {
             entry[i] = null;
         }
 
-        this.count = 0;
+        count = 0;
     }
 
     private void insert(int p_76040_1_, int p_76040_2_, V p_76040_3_, int p_76040_4_) {
-        IntHashMap.Entry<V> entry = this.slots[p_76040_4_];
-        this.slots[p_76040_4_] = new IntHashMap.Entry(p_76040_1_, p_76040_2_, p_76040_3_, entry);
+        IntHashMap.Entry<V> entry = slots[p_76040_4_];
+        slots[p_76040_4_] = new IntHashMap.Entry(p_76040_1_, p_76040_2_, p_76040_3_, entry);
 
-        if (this.count++ >= this.threshold) {
-            this.grow(2 * this.slots.length);
+        if (count++ >= threshold) {
+            grow(2 * slots.length);
         }
     }
 
@@ -157,18 +157,18 @@ public class IntHashMap<V> {
         IntHashMap.Entry<V> nextEntry;
 
         Entry(int p_i1552_1_, int p_i1552_2_, V p_i1552_3_, IntHashMap.Entry<V> p_i1552_4_) {
-            this.valueEntry = p_i1552_3_;
-            this.nextEntry = p_i1552_4_;
-            this.hashEntry = p_i1552_2_;
-            this.slotHash = p_i1552_1_;
+            valueEntry = p_i1552_3_;
+            nextEntry = p_i1552_4_;
+            hashEntry = p_i1552_2_;
+            slotHash = p_i1552_1_;
         }
 
         public final int getHash() {
-            return this.hashEntry;
+            return hashEntry;
         }
 
         public final V getValue() {
-            return this.valueEntry;
+            return valueEntry;
         }
 
         public final boolean equals(Object p_equals_1_) {
@@ -176,11 +176,11 @@ public class IntHashMap<V> {
                 return false;
             } else {
                 IntHashMap.Entry<V> entry = (IntHashMap.Entry) p_equals_1_;
-                Object object = this.getHash();
+                Object object = getHash();
                 Object object1 = entry.getHash();
 
                 if (Objects.equals(object, object1)) {
-                    Object object2 = this.getValue();
+                    Object object2 = getValue();
                     Object object3 = entry.getValue();
 
                     return Objects.equals(object2, object3);
@@ -191,11 +191,11 @@ public class IntHashMap<V> {
         }
 
         public final int hashCode() {
-            return IntHashMap.computeHash(this.hashEntry);
+            return IntHashMap.computeHash(hashEntry);
         }
 
         public final String toString() {
-            return this.getHash() + "=" + this.getValue();
+            return getHash() + "=" + getValue();
         }
     }
 }

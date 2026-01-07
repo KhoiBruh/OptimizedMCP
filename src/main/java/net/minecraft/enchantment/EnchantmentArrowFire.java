@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentArrowFire extends Enchantment {
     public EnchantmentArrowFire(int enchID, ResourceLocation enchName, int enchWeight) {
         super(enchID, enchName, enchWeight, EnumEnchantmentType.BOW);
-        this.setName("arrowFire");
+        setName("arrowFire");
     }
 
     public int getMinEnchantability(int enchantmentLevel) {

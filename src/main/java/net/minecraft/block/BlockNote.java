@@ -20,7 +20,7 @@ public class BlockNote extends BlockContainer {
 
     public BlockNote() {
         super(Material.wood);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -80,7 +80,7 @@ public class BlockNote extends BlockContainer {
 
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
         float f = (float) Math.pow(2.0D, (double) (eventParam - 12) / 12.0D);
-        worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "note." + this.getInstrument(eventID), 3.0F, f);
+        worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "note." + getInstrument(eventID), 3.0F, f);
         worldIn.spawnParticle(EnumParticleTypes.NOTE, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.2D, (double) pos.getZ() + 0.5D, (double) eventParam / 24.0D, 0.0D, 0.0D);
         return true;
     }

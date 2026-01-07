@@ -5,18 +5,18 @@ public class TupleIntJsonSerializable {
     private IJsonSerializable jsonSerializableValue;
 
     public int getIntegerValue() {
-        return this.integerValue;
+        return integerValue;
     }
 
     public void setIntegerValue(int integerValueIn) {
-        this.integerValue = integerValueIn;
+        integerValue = integerValueIn;
     }
 
     public <T extends IJsonSerializable> T getJsonSerializableValue() {
-        return (T) this.jsonSerializableValue;
+        return (T) jsonSerializableValue;
     }
 
     public void setJsonSerializableValue(IJsonSerializable jsonSerializableValueIn) {
-        this.jsonSerializableValue = jsonSerializableValueIn;
+        jsonSerializableValue = jsonSerializableValueIn;
     }
 }

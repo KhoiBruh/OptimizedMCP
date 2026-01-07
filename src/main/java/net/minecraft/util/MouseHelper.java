@@ -9,8 +9,8 @@ public class MouseHelper {
 
     public void grabMouseCursor() {
         Mouse.setGrabbed(true);
-        this.deltaX = 0;
-        this.deltaY = 0;
+        deltaX = 0;
+        deltaY = 0;
     }
 
     public void ungrabMouseCursor() {
@@ -19,7 +19,7 @@ public class MouseHelper {
     }
 
     public void mouseXYChange() {
-        this.deltaX = Mouse.getDX();
-        this.deltaY = Mouse.getDY();
+        deltaX = Mouse.getDX();
+        deltaY = Mouse.getDY();
     }
 }

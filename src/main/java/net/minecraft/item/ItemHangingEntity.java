@@ -13,8 +13,8 @@ public class ItemHangingEntity extends Item {
     private final Class<? extends EntityHanging> hangingEntityClass;
 
     public ItemHangingEntity(Class<? extends EntityHanging> entityClass) {
-        this.hangingEntityClass = entityClass;
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        hangingEntityClass = entityClass;
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -28,7 +28,7 @@ public class ItemHangingEntity extends Item {
             if (!playerIn.canPlayerEdit(blockpos, side, stack)) {
                 return false;
             } else {
-                EntityHanging entityhanging = this.createEntity(worldIn, blockpos, side);
+                EntityHanging entityhanging = createEntity(worldIn, blockpos, side);
 
                 if (entityhanging != null && entityhanging.onValidSurface()) {
                     if (!worldIn.isRemote) {
@@ -44,6 +44,6 @@ public class ItemHangingEntity extends Item {
     }
 
     private EntityHanging createEntity(World worldIn, BlockPos pos, EnumFacing clickedSide) {
-        return this.hangingEntityClass == EntityPainting.class ? new EntityPainting(worldIn, pos, clickedSide) : (this.hangingEntityClass == EntityItemFrame.class ? new EntityItemFrame(worldIn, pos, clickedSide) : null);
+        return hangingEntityClass == EntityPainting.class ? new EntityPainting(worldIn, pos, clickedSide) : (hangingEntityClass == EntityItemFrame.class ? new EntityItemFrame(worldIn, pos, clickedSide) : null);
     }
 }

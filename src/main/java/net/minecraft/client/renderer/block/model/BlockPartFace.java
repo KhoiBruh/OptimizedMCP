@@ -12,9 +12,9 @@ public record BlockPartFace(EnumFacing cullFace, int tintIndex, String texture, 
     static class Deserializer implements JsonDeserializer<BlockPartFace> {
         public BlockPartFace deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            EnumFacing enumfacing = this.parseCullFace(jsonobject);
-            int i = this.parseTintIndex(jsonobject);
-            String s = this.parseTexture(jsonobject);
+            EnumFacing enumfacing = parseCullFace(jsonobject);
+            int i = parseTintIndex(jsonobject);
+            String s = parseTexture(jsonobject);
             BlockFaceUV blockfaceuv = p_deserialize_3_.deserialize(jsonobject, BlockFaceUV.class);
             return new BlockPartFace(enumfacing, i, s, blockfaceuv);
         }

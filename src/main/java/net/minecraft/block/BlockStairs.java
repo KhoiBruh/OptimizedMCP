@@ -32,14 +32,14 @@ public class BlockStairs extends Block {
 
     protected BlockStairs(IBlockState modelState) {
         super(modelState.getBlock().blockMaterial);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT));
-        this.modelBlock = modelState.getBlock();
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT));
+        modelBlock = modelState.getBlock();
         this.modelState = modelState;
-        this.setHardness(this.modelBlock.blockHardness);
-        this.setResistance(this.modelBlock.blockResistance / 3.0F);
-        this.setStepSound(this.modelBlock.stepSound);
-        this.setLightOpacity(255);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setHardness(modelBlock.blockHardness);
+        setResistance(modelBlock.blockResistance / 3.0F);
+        setStepSound(modelBlock.stepSound);
+        setLightOpacity(255);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public static boolean isBlockStairs(Block blockIn) {
@@ -53,10 +53,10 @@ public class BlockStairs extends Block {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        if (this.hasRaytraced) {
-            this.setBlockBounds(0.5F * (float) (this.rayTracePass % 2), 0.5F * (float) (this.rayTracePass / 4 % 2), 0.5F * (float) (this.rayTracePass / 2 % 2), 0.5F + 0.5F * (float) (this.rayTracePass % 2), 0.5F + 0.5F * (float) (this.rayTracePass / 4 % 2), 0.5F + 0.5F * (float) (this.rayTracePass / 2 % 2));
+        if (hasRaytraced) {
+            setBlockBounds(0.5F * (float) (rayTracePass % 2), 0.5F * (float) (rayTracePass / 4 % 2), 0.5F * (float) (rayTracePass / 2 % 2), 0.5F + 0.5F * (float) (rayTracePass % 2), 0.5F + 0.5F * (float) (rayTracePass / 4 % 2), 0.5F + 0.5F * (float) (rayTracePass / 2 % 2));
         } else {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 
@@ -70,9 +70,9 @@ public class BlockStairs extends Block {
 
     public void setBaseCollisionBounds(IBlockAccess worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos).getValue(HALF) == BlockStairs.EnumHalf.TOP) {
-            this.setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
+            setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
         } else {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
     }
 
@@ -305,7 +305,7 @@ public class BlockStairs extends Block {
             }
         }
 
-        this.setBlockBounds(f2, f, f4, f3, f1, f5);
+        setBlockBounds(f2, f, f4, f3, f1, f5);
         return flag1;
     }
 
@@ -399,100 +399,100 @@ public class BlockStairs extends Block {
         }
 
         if (flag1) {
-            this.setBlockBounds(f2, f, f4, f3, f1, f5);
+            setBlockBounds(f2, f, f4, f3, f1, f5);
         }
 
         return flag1;
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        this.setBaseCollisionBounds(worldIn, pos);
+        setBaseCollisionBounds(worldIn, pos);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        boolean flag = this.func_176306_h(worldIn, pos);
+        boolean flag = func_176306_h(worldIn, pos);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 
-        if (flag && this.func_176304_i(worldIn, pos)) {
+        if (flag && func_176304_i(worldIn, pos)) {
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
 
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.modelBlock.randomDisplayTick(worldIn, pos, state, rand);
+        modelBlock.randomDisplayTick(worldIn, pos, state, rand);
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        this.modelBlock.onBlockClicked(worldIn, pos, playerIn);
+        modelBlock.onBlockClicked(worldIn, pos, playerIn);
     }
 
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-        this.modelBlock.onBlockDestroyedByPlayer(worldIn, pos, state);
+        modelBlock.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
-        return this.modelBlock.getMixedBrightnessForBlock(worldIn, pos);
+        return modelBlock.getMixedBrightnessForBlock(worldIn, pos);
     }
 
     public float getExplosionResistance(Entity exploder) {
-        return this.modelBlock.getExplosionResistance(exploder);
+        return modelBlock.getExplosionResistance(exploder);
     }
 
     public EnumWorldBlockLayer getBlockLayer() {
-        return this.modelBlock.getBlockLayer();
+        return modelBlock.getBlockLayer();
     }
 
     public int tickRate(World worldIn) {
-        return this.modelBlock.tickRate(worldIn);
+        return modelBlock.tickRate(worldIn);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        return this.modelBlock.getSelectedBoundingBox(worldIn, pos);
+        return modelBlock.getSelectedBoundingBox(worldIn, pos);
     }
 
     public Vec3 modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3 motion) {
-        return this.modelBlock.modifyAcceleration(worldIn, pos, entityIn, motion);
+        return modelBlock.modifyAcceleration(worldIn, pos, entityIn, motion);
     }
 
     public boolean isCollidable() {
-        return this.modelBlock.isCollidable();
+        return modelBlock.isCollidable();
     }
 
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
-        return this.modelBlock.canCollideCheck(state, hitIfLiquid);
+        return modelBlock.canCollideCheck(state, hitIfLiquid);
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return this.modelBlock.canPlaceBlockAt(worldIn, pos);
+        return modelBlock.canPlaceBlockAt(worldIn, pos);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.onNeighborBlockChange(worldIn, pos, this.modelState, Blocks.air);
-        this.modelBlock.onBlockAdded(worldIn, pos, this.modelState);
+        onNeighborBlockChange(worldIn, pos, modelState, Blocks.air);
+        modelBlock.onBlockAdded(worldIn, pos, modelState);
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        this.modelBlock.breakBlock(worldIn, pos, this.modelState);
+        modelBlock.breakBlock(worldIn, pos, modelState);
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn) {
-        this.modelBlock.onEntityCollidedWithBlock(worldIn, pos, entityIn);
+        modelBlock.onEntityCollidedWithBlock(worldIn, pos, entityIn);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.modelBlock.updateTick(worldIn, pos, state, rand);
+        modelBlock.updateTick(worldIn, pos, state, rand);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return this.modelBlock.onBlockActivated(worldIn, pos, this.modelState, playerIn, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F);
+        return modelBlock.onBlockActivated(worldIn, pos, modelState, playerIn, EnumFacing.DOWN, 0.0F, 0.0F, 0.0F);
     }
 
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
-        this.modelBlock.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
+        modelBlock.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return this.modelBlock.getMapColor(this.modelState);
+        return modelBlock.getMapColor(modelState);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
@@ -507,10 +507,10 @@ public class BlockStairs extends Block {
         int i = iblockstate.getValue(FACING).getHorizontalIndex();
         boolean flag = iblockstate.getValue(HALF) == BlockStairs.EnumHalf.TOP;
         int[] aint = field_150150_a[i + (flag ? 4 : 0)];
-        this.hasRaytraced = true;
+        hasRaytraced = true;
 
         for (int j = 0; j < 8; ++j) {
-            this.rayTracePass = j;
+            rayTracePass = j;
 
             if (Arrays.binarySearch(aint, j) < 0) {
                 amovingobjectposition[j] = super.collisionRayTrace(worldIn, pos, start, end);
@@ -539,7 +539,7 @@ public class BlockStairs extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(HALF, (meta & 4) > 0 ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
+        IBlockState iblockstate = getDefaultState().withProperty(HALF, (meta & 4) > 0 ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
         iblockstate = iblockstate.withProperty(FACING, EnumFacing.getFront(5 - (meta & 3)));
         return iblockstate;
     }
@@ -556,8 +556,8 @@ public class BlockStairs extends Block {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        if (this.func_176306_h(worldIn, pos)) {
-            switch (this.func_176305_g(worldIn, pos)) {
+        if (func_176306_h(worldIn, pos)) {
+            switch (func_176305_g(worldIn, pos)) {
                 case 0:
                     state = state.withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT);
                     break;
@@ -570,7 +570,7 @@ public class BlockStairs extends Block {
                     state = state.withProperty(SHAPE, BlockStairs.EnumShape.INNER_LEFT);
             }
         } else {
-            switch (this.func_176307_f(worldIn, pos)) {
+            switch (func_176307_f(worldIn, pos)) {
                 case 0:
                     state = state.withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT);
                     break;
@@ -602,11 +602,11 @@ public class BlockStairs extends Block {
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 
@@ -624,11 +624,11 @@ public class BlockStairs extends Block {
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

@@ -11,45 +11,45 @@ import net.minecraft.world.World;
 public class EntityRainFX extends EntityFX {
     protected EntityRainFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.motionX *= 0.30000001192092896D;
-        this.motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
-        this.motionZ *= 0.30000001192092896D;
-        this.particleRed = 1.0F;
-        this.particleGreen = 1.0F;
-        this.particleBlue = 1.0F;
-        this.setParticleTextureIndex(19 + this.rand.nextInt(4));
-        this.setSize(0.01F, 0.01F);
-        this.particleGravity = 0.06F;
-        this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
+        motionX *= 0.30000001192092896D;
+        motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
+        motionZ *= 0.30000001192092896D;
+        particleRed = 1.0F;
+        particleGreen = 1.0F;
+        particleBlue = 1.0F;
+        setParticleTextureIndex(19 + rand.nextInt(4));
+        setSize(0.01F, 0.01F);
+        particleGravity = 0.06F;
+        particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
     }
 
     public void onUpdate() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        this.motionY -= this.particleGravity;
-        this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.motionX *= 0.9800000190734863D;
-        this.motionY *= 0.9800000190734863D;
-        this.motionZ *= 0.9800000190734863D;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        motionY -= particleGravity;
+        moveEntity(motionX, motionY, motionZ);
+        motionX *= 0.9800000190734863D;
+        motionY *= 0.9800000190734863D;
+        motionZ *= 0.9800000190734863D;
 
-        if (this.particleMaxAge-- <= 0) {
-            this.setDead();
+        if (particleMaxAge-- <= 0) {
+            setDead();
         }
 
-        if (this.onGround) {
+        if (onGround) {
             if (Math.random() < 0.5D) {
-                this.setDead();
+                setDead();
             }
 
-            this.motionX *= 0.699999988079071D;
-            this.motionZ *= 0.699999988079071D;
+            motionX *= 0.699999988079071D;
+            motionZ *= 0.699999988079071D;
         }
 
         BlockPos blockpos = new BlockPos(this);
-        IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+        IBlockState iblockstate = worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
-        block.setBlockBoundsBasedOnState(this.worldObj, blockpos);
+        block.setBlockBoundsBasedOnState(worldObj, blockpos);
         Material material = iblockstate.getBlock().getMaterial();
 
         if (material.isLiquid() || material.isSolid()) {
@@ -61,10 +61,10 @@ public class EntityRainFX extends EntityFX {
                 d0 = block.getBlockBoundsMaxY();
             }
 
-            double d1 = (double) MathHelper.floor_double(this.posY) + d0;
+            double d1 = (double) MathHelper.floor_double(posY) + d0;
 
-            if (this.posY < d1) {
-                this.setDead();
+            if (posY < d1) {
+                setDead();
             }
         }
     }

@@ -23,9 +23,9 @@ public abstract class EntityAITarget extends EntityAIBase {
     }
 
     public EntityAITarget(EntityCreature creature, boolean checkSight, boolean onlyNearby) {
-        this.taskOwner = creature;
-        this.shouldCheckSight = checkSight;
-        this.nearbyOnly = onlyNearby;
+        taskOwner = creature;
+        shouldCheckSight = checkSight;
+        nearbyOnly = onlyNearby;
     }
 
     public static boolean isSuitableTarget(EntityLiving attacker, EntityLivingBase target, boolean includeInvincibles, boolean checkSight) {
@@ -62,28 +62,28 @@ public abstract class EntityAITarget extends EntityAIBase {
     }
 
     public boolean continueExecuting() {
-        EntityLivingBase entitylivingbase = this.taskOwner.getAttackTarget();
+        EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
 
         if (entitylivingbase == null) {
             return false;
         } else if (!entitylivingbase.isEntityAlive()) {
             return false;
         } else {
-            Team team = this.taskOwner.getTeam();
+            Team team = taskOwner.getTeam();
             Team team1 = entitylivingbase.getTeam();
 
             if (team != null && team1 == team) {
                 return false;
             } else {
-                double d0 = this.getTargetDistance();
+                double d0 = getTargetDistance();
 
-                if (this.taskOwner.getDistanceSqToEntity(entitylivingbase) > d0 * d0) {
+                if (taskOwner.getDistanceSqToEntity(entitylivingbase) > d0 * d0) {
                     return false;
                 } else {
-                    if (this.shouldCheckSight) {
-                        if (this.taskOwner.getEntitySenses().canSee(entitylivingbase)) {
-                            this.targetUnseenTicks = 0;
-                        } else if (++this.targetUnseenTicks > 60) {
+                    if (shouldCheckSight) {
+                        if (taskOwner.getEntitySenses().canSee(entitylivingbase)) {
+                            targetUnseenTicks = 0;
+                        } else if (++targetUnseenTicks > 60) {
                             return false;
                         }
                     }
@@ -95,36 +95,36 @@ public abstract class EntityAITarget extends EntityAIBase {
     }
 
     protected double getTargetDistance() {
-        IAttributeInstance iattributeinstance = this.taskOwner.getEntityAttribute(SharedMonsterAttributes.followRange);
+        IAttributeInstance iattributeinstance = taskOwner.getEntityAttribute(SharedMonsterAttributes.followRange);
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 
     public void startExecuting() {
-        this.targetSearchStatus = 0;
-        this.targetSearchDelay = 0;
-        this.targetUnseenTicks = 0;
+        targetSearchStatus = 0;
+        targetSearchDelay = 0;
+        targetUnseenTicks = 0;
     }
 
     public void resetTask() {
-        this.taskOwner.setAttackTarget(null);
+        taskOwner.setAttackTarget(null);
     }
 
     protected boolean isSuitableTarget(EntityLivingBase target, boolean includeInvincibles) {
-        if (!isSuitableTarget(this.taskOwner, target, includeInvincibles, this.shouldCheckSight)) {
+        if (!isSuitableTarget(taskOwner, target, includeInvincibles, shouldCheckSight)) {
             return false;
-        } else if (!this.taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(target))) {
+        } else if (!taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(target))) {
             return false;
         } else {
-            if (this.nearbyOnly) {
-                if (--this.targetSearchDelay <= 0) {
-                    this.targetSearchStatus = 0;
+            if (nearbyOnly) {
+                if (--targetSearchDelay <= 0) {
+                    targetSearchStatus = 0;
                 }
 
-                if (this.targetSearchStatus == 0) {
-                    this.targetSearchStatus = this.canEasilyReach(target) ? 1 : 2;
+                if (targetSearchStatus == 0) {
+                    targetSearchStatus = canEasilyReach(target) ? 1 : 2;
                 }
 
-                return this.targetSearchStatus != 2;
+                return targetSearchStatus != 2;
             }
 
             return true;
@@ -132,8 +132,8 @@ public abstract class EntityAITarget extends EntityAIBase {
     }
 
     private boolean canEasilyReach(EntityLivingBase target) {
-        this.targetSearchDelay = 10 + this.taskOwner.getRNG().nextInt(5);
-        PathEntity pathentity = this.taskOwner.getNavigator().getPathToEntityLiving(target);
+        targetSearchDelay = 10 + taskOwner.getRNG().nextInt(5);
+        PathEntity pathentity = taskOwner.getNavigator().getPathToEntityLiving(target);
 
         if (pathentity == null) {
             return false;

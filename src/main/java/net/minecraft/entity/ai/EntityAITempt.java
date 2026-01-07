@@ -22,11 +22,11 @@ public class EntityAITempt extends EntityAIBase {
     private boolean avoidWater;
 
     public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn) {
-        this.temptedEntity = temptedEntityIn;
-        this.speed = speedIn;
-        this.temptItem = temptItemIn;
-        this.scaredByPlayerMovement = scaredByPlayerMovementIn;
-        this.setMutexBits(3);
+        temptedEntity = temptedEntityIn;
+        speed = speedIn;
+        temptItem = temptItemIn;
+        scaredByPlayerMovement = scaredByPlayerMovementIn;
+        setMutexBits(3);
 
         if (!(temptedEntityIn.getNavigator() instanceof PathNavigateGround)) {
             throw new IllegalArgumentException("Unsupported mob type for TemptGoal");
@@ -34,72 +34,72 @@ public class EntityAITempt extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if (this.delayTemptCounter > 0) {
-            --this.delayTemptCounter;
+        if (delayTemptCounter > 0) {
+            --delayTemptCounter;
             return false;
         } else {
-            this.temptingPlayer = this.temptedEntity.worldObj.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
+            temptingPlayer = temptedEntity.worldObj.getClosestPlayerToEntity(temptedEntity, 10.0D);
 
-            if (this.temptingPlayer == null) {
+            if (temptingPlayer == null) {
                 return false;
             } else {
-                ItemStack itemstack = this.temptingPlayer.getCurrentEquippedItem();
-                return itemstack != null && itemstack.getItem() == this.temptItem;
+                ItemStack itemstack = temptingPlayer.getCurrentEquippedItem();
+                return itemstack != null && itemstack.getItem() == temptItem;
             }
         }
     }
 
     public boolean continueExecuting() {
-        if (this.scaredByPlayerMovement) {
-            if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 36.0D) {
-                if (this.temptingPlayer.getDistanceSq(this.targetX, this.targetY, this.targetZ) > 0.010000000000000002D) {
+        if (scaredByPlayerMovement) {
+            if (temptedEntity.getDistanceSqToEntity(temptingPlayer) < 36.0D) {
+                if (temptingPlayer.getDistanceSq(targetX, targetY, targetZ) > 0.010000000000000002D) {
                     return false;
                 }
 
-                if (Math.abs((double) this.temptingPlayer.rotationPitch - this.pitch) > 5.0D || Math.abs((double) this.temptingPlayer.rotationYaw - this.yaw) > 5.0D) {
+                if (Math.abs((double) temptingPlayer.rotationPitch - pitch) > 5.0D || Math.abs((double) temptingPlayer.rotationYaw - yaw) > 5.0D) {
                     return false;
                 }
             } else {
-                this.targetX = this.temptingPlayer.posX;
-                this.targetY = this.temptingPlayer.posY;
-                this.targetZ = this.temptingPlayer.posZ;
+                targetX = temptingPlayer.posX;
+                targetY = temptingPlayer.posY;
+                targetZ = temptingPlayer.posZ;
             }
 
-            this.pitch = this.temptingPlayer.rotationPitch;
-            this.yaw = this.temptingPlayer.rotationYaw;
+            pitch = temptingPlayer.rotationPitch;
+            yaw = temptingPlayer.rotationYaw;
         }
 
-        return this.shouldExecute();
+        return shouldExecute();
     }
 
     public void startExecuting() {
-        this.targetX = this.temptingPlayer.posX;
-        this.targetY = this.temptingPlayer.posY;
-        this.targetZ = this.temptingPlayer.posZ;
-        this.isRunning = true;
-        this.avoidWater = ((PathNavigateGround) this.temptedEntity.getNavigator()).getAvoidsWater();
-        ((PathNavigateGround) this.temptedEntity.getNavigator()).setAvoidsWater(false);
+        targetX = temptingPlayer.posX;
+        targetY = temptingPlayer.posY;
+        targetZ = temptingPlayer.posZ;
+        isRunning = true;
+        avoidWater = ((PathNavigateGround) temptedEntity.getNavigator()).getAvoidsWater();
+        ((PathNavigateGround) temptedEntity.getNavigator()).setAvoidsWater(false);
     }
 
     public void resetTask() {
-        this.temptingPlayer = null;
-        this.temptedEntity.getNavigator().clearPathEntity();
-        this.delayTemptCounter = 100;
-        this.isRunning = false;
-        ((PathNavigateGround) this.temptedEntity.getNavigator()).setAvoidsWater(this.avoidWater);
+        temptingPlayer = null;
+        temptedEntity.getNavigator().clearPathEntity();
+        delayTemptCounter = 100;
+        isRunning = false;
+        ((PathNavigateGround) temptedEntity.getNavigator()).setAvoidsWater(avoidWater);
     }
 
     public void updateTask() {
-        this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, 30.0F, (float) this.temptedEntity.getVerticalFaceSpeed());
+        temptedEntity.getLookHelper().setLookPositionWithEntity(temptingPlayer, 30.0F, (float) temptedEntity.getVerticalFaceSpeed());
 
-        if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 6.25D) {
-            this.temptedEntity.getNavigator().clearPathEntity();
+        if (temptedEntity.getDistanceSqToEntity(temptingPlayer) < 6.25D) {
+            temptedEntity.getNavigator().clearPathEntity();
         } else {
-            this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
+            temptedEntity.getNavigator().tryMoveToEntityLiving(temptingPlayer, speed);
         }
     }
 
     public boolean isRunning() {
-        return this.isRunning;
+        return isRunning;
     }
 }

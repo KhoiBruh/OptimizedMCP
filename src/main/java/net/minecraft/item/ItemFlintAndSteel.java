@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 
 public class ItemFlintAndSteel extends Item {
     public ItemFlintAndSteel() {
-        this.maxStackSize = 1;
-        this.setMaxDamage(64);
-        this.setCreativeTab(CreativeTabs.tabTools);
+        maxStackSize = 1;
+        setMaxDamage(64);
+        setCreativeTab(CreativeTabs.tabTools);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {

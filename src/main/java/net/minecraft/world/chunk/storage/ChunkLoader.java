@@ -126,8 +126,8 @@ public class ChunkLoader {
         public NBTTagList tileTicks;
 
         public AnvilConverterData(int xIn, int zIn) {
-            this.x = xIn;
-            this.z = zIn;
+            x = xIn;
+            z = zIn;
         }
     }
 }

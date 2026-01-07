@@ -37,9 +37,9 @@ public class BlockHopper extends BlockContainer {
 
     public BlockHopper() {
         super(Material.iron, MapColor.stoneColor);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.TRUE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.TRUE));
+        setCreativeTab(CreativeTabs.tabRedstone);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public static EnumFacing getFacing(int meta) {
@@ -51,22 +51,22 @@ public class BlockHopper extends BlockContainer {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         float f = 0.125F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
@@ -76,7 +76,7 @@ public class BlockHopper extends BlockContainer {
             enumfacing = EnumFacing.DOWN;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.TRUE);
+        return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.TRUE);
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -96,7 +96,7 @@ public class BlockHopper extends BlockContainer {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.updateState(worldIn, pos, state);
+        updateState(worldIn, pos, state);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -115,7 +115,7 @@ public class BlockHopper extends BlockContainer {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        this.updateState(worldIn, pos, state);
+        updateState(worldIn, pos, state);
     }
 
     private void updateState(World worldIn, BlockPos pos, IBlockState state) {
@@ -166,7 +166,7 @@ public class BlockHopper extends BlockContainer {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, isEnabled(meta));
+        return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, isEnabled(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

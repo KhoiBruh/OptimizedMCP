@@ -38,15 +38,15 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
     private boolean field_183014_e = false;
 
     public AnvilChunkLoader(File chunkSaveLocationIn) {
-        this.chunkSaveLocation = chunkSaveLocationIn;
+        chunkSaveLocation = chunkSaveLocationIn;
     }
 
     public Chunk loadChunk(World worldIn, int x, int z) throws IOException {
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(x, z);
-        NBTTagCompound nbttagcompound = this.chunksToRemove.get(chunkcoordintpair);
+        NBTTagCompound nbttagcompound = chunksToRemove.get(chunkcoordintpair);
 
         if (nbttagcompound == null) {
-            DataInputStream datainputstream = RegionFileCache.getChunkInputStream(this.chunkSaveLocation, x, z);
+            DataInputStream datainputstream = RegionFileCache.getChunkInputStream(chunkSaveLocation, x, z);
 
             if (datainputstream == null) {
                 return null;
@@ -55,7 +55,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
             nbttagcompound = CompressedStreamTools.read(datainputstream);
         }
 
-        return this.checkedReadChunkFromNBT(worldIn, x, z, nbttagcompound);
+        return checkedReadChunkFromNBT(worldIn, x, z, nbttagcompound);
     }
 
     protected Chunk checkedReadChunkFromNBT(World worldIn, int x, int z, NBTTagCompound p_75822_4_) {
@@ -69,13 +69,13 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
                 logger.error("Chunk file at " + x + "," + z + " is missing block data, skipping");
                 return null;
             } else {
-                Chunk chunk = this.readChunkFromNBT(worldIn, nbttagcompound);
+                Chunk chunk = readChunkFromNBT(worldIn, nbttagcompound);
 
                 if (!chunk.isAtLocation(x, z)) {
                     logger.error("Chunk file at " + x + "," + z + " is in the wrong location; relocating. (Expected " + x + ", " + z + ", got " + chunk.xPosition + ", " + chunk.zPosition + ")");
                     nbttagcompound.setInteger("xPos", x);
                     nbttagcompound.setInteger("zPos", z);
-                    chunk = this.readChunkFromNBT(worldIn, nbttagcompound);
+                    chunk = readChunkFromNBT(worldIn, nbttagcompound);
                 }
 
                 return chunk;
@@ -90,39 +90,39 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             nbttagcompound.setTag("Level", nbttagcompound1);
-            this.writeChunkToNBT(chunkIn, worldIn, nbttagcompound1);
-            this.addChunkToPending(chunkIn.getChunkCoordIntPair(), nbttagcompound);
+            writeChunkToNBT(chunkIn, worldIn, nbttagcompound1);
+            addChunkToPending(chunkIn.getChunkCoordIntPair(), nbttagcompound);
         } catch (Exception exception) {
             logger.error("Failed to save chunk", exception);
         }
     }
 
     protected void addChunkToPending(ChunkCoordIntPair p_75824_1_, NBTTagCompound p_75824_2_) {
-        if (!this.pendingAnvilChunksCoordinates.contains(p_75824_1_)) {
-            this.chunksToRemove.put(p_75824_1_, p_75824_2_);
+        if (!pendingAnvilChunksCoordinates.contains(p_75824_1_)) {
+            chunksToRemove.put(p_75824_1_, p_75824_2_);
         }
 
         ThreadedFileIOBase.getThreadedIOInstance().queueIO(this);
     }
 
     public boolean writeNextIO() {
-        if (this.chunksToRemove.isEmpty()) {
-            if (this.field_183014_e) {
-                logger.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", new Object[]{this.chunkSaveLocation.getName()});
+        if (chunksToRemove.isEmpty()) {
+            if (field_183014_e) {
+                logger.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", new Object[]{chunkSaveLocation.getName()});
             }
 
             return false;
         } else {
-            ChunkCoordIntPair chunkcoordintpair = this.chunksToRemove.keySet().iterator().next();
+            ChunkCoordIntPair chunkcoordintpair = chunksToRemove.keySet().iterator().next();
             boolean lvt_3_1_;
 
             try {
-                this.pendingAnvilChunksCoordinates.add(chunkcoordintpair);
-                NBTTagCompound nbttagcompound = this.chunksToRemove.remove(chunkcoordintpair);
+                pendingAnvilChunksCoordinates.add(chunkcoordintpair);
+                NBTTagCompound nbttagcompound = chunksToRemove.remove(chunkcoordintpair);
 
                 if (nbttagcompound != null) {
                     try {
-                        this.func_183013_b(chunkcoordintpair, nbttagcompound);
+                        func_183013_b(chunkcoordintpair, nbttagcompound);
                     } catch (Exception exception) {
                         logger.error("Failed to save chunk", exception);
                     }
@@ -130,7 +130,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
                 lvt_3_1_ = true;
             } finally {
-                this.pendingAnvilChunksCoordinates.remove(chunkcoordintpair);
+                pendingAnvilChunksCoordinates.remove(chunkcoordintpair);
             }
 
             return lvt_3_1_;
@@ -138,7 +138,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
     }
 
     private void func_183013_b(ChunkCoordIntPair p_183013_1_, NBTTagCompound p_183013_2_) throws IOException {
-        DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(this.chunkSaveLocation, p_183013_1_.chunkXPos, p_183013_1_.chunkZPos);
+        DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(chunkSaveLocation, p_183013_1_.chunkXPos, p_183013_1_.chunkZPos);
         CompressedStreamTools.write(p_183013_2_, dataoutputstream);
         dataoutputstream.close();
     }
@@ -151,15 +151,15 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
     public void saveExtraData() {
         try {
-            this.field_183014_e = true;
+            field_183014_e = true;
 
             while (true) {
-                if (this.writeNextIO()) {
+                if (writeNextIO()) {
                     continue;
                 }
             }
         } finally {
-            this.field_183014_e = false;
+            field_183014_e = false;
         }
     }
 

@@ -14,7 +14,7 @@ public class JsonSerializableSet extends ForwardingSet<String> implements IJsonS
     public void fromJson(JsonElement json) {
         if (json.isJsonArray()) {
             for (JsonElement jsonelement : json.getAsJsonArray()) {
-                this.add(jsonelement.getAsString());
+                add(jsonelement.getAsString());
             }
         }
     }
@@ -30,6 +30,6 @@ public class JsonSerializableSet extends ForwardingSet<String> implements IJsonS
     }
 
     protected Set<String> delegate() {
-        return this.underlyingSet;
+        return underlyingSet;
     }
 }

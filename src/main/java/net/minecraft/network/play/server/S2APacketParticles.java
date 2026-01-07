@@ -24,103 +24,103 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
     }
 
     public S2APacketParticles(EnumParticleTypes particleTypeIn, boolean longDistanceIn, float x, float y, float z, float xOffsetIn, float yOffset, float zOffset, float particleSpeedIn, int particleCountIn, int... particleArgumentsIn) {
-        this.particleType = particleTypeIn;
-        this.longDistance = longDistanceIn;
-        this.xCoord = x;
-        this.yCoord = y;
-        this.zCoord = z;
-        this.xOffset = xOffsetIn;
+        particleType = particleTypeIn;
+        longDistance = longDistanceIn;
+        xCoord = x;
+        yCoord = y;
+        zCoord = z;
+        xOffset = xOffsetIn;
         this.yOffset = yOffset;
         this.zOffset = zOffset;
-        this.particleSpeed = particleSpeedIn;
-        this.particleCount = particleCountIn;
-        this.particleArguments = particleArgumentsIn;
+        particleSpeed = particleSpeedIn;
+        particleCount = particleCountIn;
+        particleArguments = particleArgumentsIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.particleType = EnumParticleTypes.getParticleFromId(buf.readInt());
+        particleType = EnumParticleTypes.getParticleFromId(buf.readInt());
 
-        if (this.particleType == null) {
-            this.particleType = EnumParticleTypes.BARRIER;
+        if (particleType == null) {
+            particleType = EnumParticleTypes.BARRIER;
         }
 
-        this.longDistance = buf.readBoolean();
-        this.xCoord = buf.readFloat();
-        this.yCoord = buf.readFloat();
-        this.zCoord = buf.readFloat();
-        this.xOffset = buf.readFloat();
-        this.yOffset = buf.readFloat();
-        this.zOffset = buf.readFloat();
-        this.particleSpeed = buf.readFloat();
-        this.particleCount = buf.readInt();
-        int i = this.particleType.getArgumentCount();
-        this.particleArguments = new int[i];
+        longDistance = buf.readBoolean();
+        xCoord = buf.readFloat();
+        yCoord = buf.readFloat();
+        zCoord = buf.readFloat();
+        xOffset = buf.readFloat();
+        yOffset = buf.readFloat();
+        zOffset = buf.readFloat();
+        particleSpeed = buf.readFloat();
+        particleCount = buf.readInt();
+        int i = particleType.getArgumentCount();
+        particleArguments = new int[i];
 
         for (int j = 0; j < i; ++j) {
-            this.particleArguments[j] = buf.readVarIntFromBuffer();
+            particleArguments[j] = buf.readVarIntFromBuffer();
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeInt(this.particleType.getParticleID());
-        buf.writeBoolean(this.longDistance);
-        buf.writeFloat(this.xCoord);
-        buf.writeFloat(this.yCoord);
-        buf.writeFloat(this.zCoord);
-        buf.writeFloat(this.xOffset);
-        buf.writeFloat(this.yOffset);
-        buf.writeFloat(this.zOffset);
-        buf.writeFloat(this.particleSpeed);
-        buf.writeInt(this.particleCount);
-        int i = this.particleType.getArgumentCount();
+        buf.writeInt(particleType.getParticleID());
+        buf.writeBoolean(longDistance);
+        buf.writeFloat(xCoord);
+        buf.writeFloat(yCoord);
+        buf.writeFloat(zCoord);
+        buf.writeFloat(xOffset);
+        buf.writeFloat(yOffset);
+        buf.writeFloat(zOffset);
+        buf.writeFloat(particleSpeed);
+        buf.writeInt(particleCount);
+        int i = particleType.getArgumentCount();
 
         for (int j = 0; j < i; ++j) {
-            buf.writeVarIntToBuffer(this.particleArguments[j]);
+            buf.writeVarIntToBuffer(particleArguments[j]);
         }
     }
 
     public EnumParticleTypes getParticleType() {
-        return this.particleType;
+        return particleType;
     }
 
     public boolean isLongDistance() {
-        return this.longDistance;
+        return longDistance;
     }
 
     public double getXCoordinate() {
-        return this.xCoord;
+        return xCoord;
     }
 
     public double getYCoordinate() {
-        return this.yCoord;
+        return yCoord;
     }
 
     public double getZCoordinate() {
-        return this.zCoord;
+        return zCoord;
     }
 
     public float getXOffset() {
-        return this.xOffset;
+        return xOffset;
     }
 
     public float getYOffset() {
-        return this.yOffset;
+        return yOffset;
     }
 
     public float getZOffset() {
-        return this.zOffset;
+        return zOffset;
     }
 
     public float getParticleSpeed() {
-        return this.particleSpeed;
+        return particleSpeed;
     }
 
     public int getParticleCount() {
-        return this.particleCount;
+        return particleCount;
     }
 
     public int[] getParticleArgs() {
-        return this.particleArguments;
+        return particleArguments;
     }
 
     public void processPacket(INetHandlerPlayClient handler) {

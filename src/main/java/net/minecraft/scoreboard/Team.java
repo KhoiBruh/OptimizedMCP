@@ -42,8 +42,8 @@ public abstract class Team {
         public final int id;
 
         EnumVisible(String p_i45550_3_, int p_i45550_4_) {
-            this.internalName = p_i45550_3_;
-            this.id = p_i45550_4_;
+            internalName = p_i45550_3_;
+            id = p_i45550_4_;
         }
 
         public static String[] func_178825_a() {

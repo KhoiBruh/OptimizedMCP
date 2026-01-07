@@ -13,7 +13,7 @@ public class S2EPacketCloseWindow implements Packet<INetHandlerPlayClient> {
     }
 
     public S2EPacketCloseWindow(int windowIdIn) {
-        this.windowId = windowIdIn;
+        windowId = windowIdIn;
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -21,10 +21,10 @@ public class S2EPacketCloseWindow implements Packet<INetHandlerPlayClient> {
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.windowId = buf.readUnsignedByte();
+        windowId = buf.readUnsignedByte();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeByte(this.windowId);
+        buf.writeByte(windowId);
     }
 }

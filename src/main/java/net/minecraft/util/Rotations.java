@@ -15,16 +15,16 @@ public class Rotations {
     }
 
     public Rotations(NBTTagList nbt) {
-        this.x = nbt.getFloatAt(0);
-        this.y = nbt.getFloatAt(1);
-        this.z = nbt.getFloatAt(2);
+        x = nbt.getFloatAt(0);
+        y = nbt.getFloatAt(1);
+        z = nbt.getFloatAt(2);
     }
 
     public NBTTagList writeToNBT() {
         NBTTagList nbttaglist = new NBTTagList();
-        nbttaglist.appendTag(new NBTTagFloat(this.x));
-        nbttaglist.appendTag(new NBTTagFloat(this.y));
-        nbttaglist.appendTag(new NBTTagFloat(this.z));
+        nbttaglist.appendTag(new NBTTagFloat(x));
+        nbttaglist.appendTag(new NBTTagFloat(y));
+        nbttaglist.appendTag(new NBTTagFloat(z));
         return nbttaglist;
     }
 
@@ -32,19 +32,19 @@ public class Rotations {
         if (!(p_equals_1_ instanceof Rotations rotations)) {
             return false;
         } else {
-            return this.x == rotations.x && this.y == rotations.y && this.z == rotations.z;
+            return x == rotations.x && y == rotations.y && z == rotations.z;
         }
     }
 
     public float getX() {
-        return this.x;
+        return x;
     }
 
     public float getY() {
-        return this.y;
+        return y;
     }
 
     public float getZ() {
-        return this.z;
+        return z;
     }
 }

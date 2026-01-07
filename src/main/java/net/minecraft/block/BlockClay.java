@@ -11,7 +11,7 @@ import java.util.Random;
 public class BlockClay extends Block {
     public BlockClay() {
         super(Material.clay);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

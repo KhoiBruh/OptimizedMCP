@@ -24,8 +24,8 @@ public class BlockDirt extends Block {
 
     protected BlockDirt() {
         super(Material.ground);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.FALSE));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -53,7 +53,7 @@ public class BlockDirt extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -97,10 +97,10 @@ public class BlockDirt extends Block {
         }
 
         DirtType(int p_i46397_3_, String p_i46397_4_, String p_i46397_5_, MapColor p_i46397_6_) {
-            this.metadata = p_i46397_3_;
-            this.name = p_i46397_4_;
-            this.unlocalizedName = p_i46397_5_;
-            this.field_181067_h = p_i46397_6_;
+            metadata = p_i46397_3_;
+            name = p_i46397_4_;
+            unlocalizedName = p_i46397_5_;
+            field_181067_h = p_i46397_6_;
         }
 
         public static BlockDirt.DirtType byMetadata(int metadata) {
@@ -112,23 +112,23 @@ public class BlockDirt extends Block {
         }
 
         public int getMetadata() {
-            return this.metadata;
+            return metadata;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
 
         public MapColor func_181066_d() {
-            return this.field_181067_h;
+            return field_181067_h;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

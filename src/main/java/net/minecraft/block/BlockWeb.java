@@ -16,7 +16,7 @@ import java.util.Random;
 public class BlockWeb extends Block {
     public BlockWeb() {
         super(Material.web);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {

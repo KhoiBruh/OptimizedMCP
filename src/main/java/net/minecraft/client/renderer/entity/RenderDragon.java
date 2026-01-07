@@ -21,9 +21,9 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 
     public RenderDragon(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelDragon(0.0F), 0.5F);
-        this.modelDragon = (ModelDragon) this.mainModel;
-        this.addLayer(new LayerEnderDragonEyes(this));
-        this.addLayer(new LayerEnderDragonDeath());
+        modelDragon = (ModelDragon) mainModel;
+        addLayer(new LayerEnderDragonEyes(this));
+        addLayer(new LayerEnderDragonDeath());
     }
 
     protected void rotateCorpse(EntityDragon bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
@@ -41,7 +41,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
                 f2 = 1.0F;
             }
 
-            GlStateManager.rotate(f2 * this.getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(f2 * getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
         }
     }
 
@@ -51,14 +51,14 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
             GlStateManager.depthFunc(515);
             GlStateManager.enableAlpha();
             GlStateManager.alphaFunc(516, f);
-            this.bindTexture(enderDragonExplodingTextures);
-            this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
+            bindTexture(enderDragonExplodingTextures);
+            mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
             GlStateManager.alphaFunc(516, 0.1F);
             GlStateManager.depthFunc(514);
         }
 
-        this.bindEntityTexture(entitylivingbaseIn);
-        this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
+        bindEntityTexture(entitylivingbaseIn);
+        mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
 
         if (entitylivingbaseIn.hurtTime > 0) {
             GlStateManager.depthFunc(514);
@@ -66,7 +66,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
             GlStateManager.color(1.0F, 0.0F, 0.0F, 0.5F);
-            this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
+            mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
             GlStateManager.enableTexture2D();
             GlStateManager.disableBlend();
             GlStateManager.depthFunc(515);
@@ -78,7 +78,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
         if (entity.healingEnderCrystal != null) {
-            this.drawRechargeRay(entity, x, y, z, partialTicks);
+            drawRechargeRay(entity, x, y, z, partialTicks);
         }
     }
 
@@ -99,7 +99,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.disableCull();
-        this.bindTexture(enderDragonCrystalBeamTextures);
+        bindTexture(enderDragonCrystalBeamTextures);
         GlStateManager.shadeModel(7425);
         float f7 = 0.0F - ((float) dragon.ticksExisted + p_180574_8_) * 0.01F;
         float f8 = MathHelper.sqrt_float(f2 * f2 + f3 * f3 + f4 * f4) / 32.0F - ((float) dragon.ticksExisted + p_180574_8_) * 0.01F;

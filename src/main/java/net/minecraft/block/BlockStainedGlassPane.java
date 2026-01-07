@@ -21,8 +21,8 @@ public class BlockStainedGlassPane extends BlockPane {
 
     public BlockStainedGlassPane() {
         super(Material.glass, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, EnumDyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, EnumDyeColor.WHITE));
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public int damageDropped(IBlockState state) {
@@ -44,7 +44,7 @@ public class BlockStainedGlassPane extends BlockPane {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

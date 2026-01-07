@@ -15,18 +15,18 @@ public class S2BPacketChangeGameState implements Packet<INetHandlerPlayClient> {
     }
 
     public S2BPacketChangeGameState(int stateIn, float p_i45194_2_) {
-        this.state = stateIn;
-        this.field_149141_c = p_i45194_2_;
+        state = stateIn;
+        field_149141_c = p_i45194_2_;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.state = buf.readUnsignedByte();
-        this.field_149141_c = buf.readFloat();
+        state = buf.readUnsignedByte();
+        field_149141_c = buf.readFloat();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeByte(this.state);
-        buf.writeFloat(this.field_149141_c);
+        buf.writeByte(state);
+        buf.writeFloat(field_149141_c);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -34,10 +34,10 @@ public class S2BPacketChangeGameState implements Packet<INetHandlerPlayClient> {
     }
 
     public int getGameState() {
-        return this.state;
+        return state;
     }
 
     public float func_149137_d() {
-        return this.field_149141_c;
+        return field_149141_c;
     }
 }

@@ -15,7 +15,7 @@ public class BlockFalling extends Block {
 
     public BlockFalling() {
         super(Material.sand);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public BlockFalling(Material materialIn) {
@@ -29,16 +29,16 @@ public class BlockFalling extends Block {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
-            this.checkFallable(worldIn, pos);
+            checkFallable(worldIn, pos);
         }
     }
 
@@ -49,7 +49,7 @@ public class BlockFalling extends Block {
             if (!fallInstantly && worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i))) {
                 if (!worldIn.isRemote) {
                     EntityFallingBlock entityfallingblock = new EntityFallingBlock(worldIn, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, worldIn.getBlockState(pos));
-                    this.onStartFalling(entityfallingblock);
+                    onStartFalling(entityfallingblock);
                     worldIn.spawnEntityInWorld(entityfallingblock);
                 }
             } else {
@@ -60,7 +60,7 @@ public class BlockFalling extends Block {
                 }
 
                 if (blockpos.getY() > 0) {
-                    worldIn.setBlockState(blockpos.up(), this.getDefaultState());
+                    worldIn.setBlockState(blockpos.up(), getDefaultState());
                 }
             }
         }

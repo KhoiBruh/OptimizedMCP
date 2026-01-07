@@ -24,17 +24,17 @@ public class LayeredColorMaskTexture extends AbstractTexture {
     private final List<EnumDyeColor> field_174950_i;
 
     public LayeredColorMaskTexture(ResourceLocation textureLocationIn, List<String> p_i46101_2_, List<EnumDyeColor> p_i46101_3_) {
-        this.textureLocation = textureLocationIn;
-        this.field_174949_h = p_i46101_2_;
-        this.field_174950_i = p_i46101_3_;
+        textureLocation = textureLocationIn;
+        field_174949_h = p_i46101_2_;
+        field_174950_i = p_i46101_3_;
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
-        this.deleteGlTexture();
+        deleteGlTexture();
         BufferedImage bufferedimage;
 
         try {
-            BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(resourceManager.getResource(this.textureLocation).getInputStream());
+            BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(resourceManager.getResource(textureLocation).getInputStream());
             int i = bufferedimage1.getType();
 
             if (i == 0) {
@@ -45,9 +45,9 @@ public class LayeredColorMaskTexture extends AbstractTexture {
             Graphics graphics = bufferedimage.getGraphics();
             graphics.drawImage(bufferedimage1, 0, 0, null);
 
-            for (int j = 0; j < 17 && j < this.field_174949_h.size() && j < this.field_174950_i.size(); ++j) {
-                String s = this.field_174949_h.get(j);
-                MapColor mapcolor = this.field_174950_i.get(j).getMapColor();
+            for (int j = 0; j < 17 && j < field_174949_h.size() && j < field_174950_i.size(); ++j) {
+                String s = field_174949_h.get(j);
+                MapColor mapcolor = field_174950_i.get(j).getMapColor();
 
                 if (s != null) {
                     InputStream inputstream = resourceManager.getResource(new ResourceLocation(s)).getInputStream();
@@ -77,9 +77,9 @@ public class LayeredColorMaskTexture extends AbstractTexture {
         }
 
         if (Config.isShaders()) {
-            ShadersTex.loadSimpleTexture(this.getGlTextureId(), bufferedimage, false, false, resourceManager, this.textureLocation, this.getMultiTexID());
+            ShadersTex.loadSimpleTexture(getGlTextureId(), bufferedimage, false, false, resourceManager, textureLocation, getMultiTexID());
         } else {
-            TextureUtil.uploadTextureImage(this.getGlTextureId(), bufferedimage);
+            TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
         }
     }
 }

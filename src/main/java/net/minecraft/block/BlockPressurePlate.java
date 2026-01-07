@@ -19,8 +19,8 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 
     protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
-        this.sensitivity = sensitivityIn;
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
+        sensitivity = sensitivityIn;
     }
 
     protected int getRedstoneStrength(IBlockState state) {
@@ -32,10 +32,10 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
     }
 
     protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
-        AxisAlignedBB axisalignedbb = this.getSensitiveAABB(pos);
+        AxisAlignedBB axisalignedbb = getSensitiveAABB(pos);
         List<? extends Entity> list;
 
-        switch (this.sensitivity) {
+        switch (sensitivity) {
             case EVERYTHING:
                 list = worldIn.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
                 break;
@@ -60,7 +60,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(POWERED, meta == 1);
+        return getDefaultState().withProperty(POWERED, meta == 1);
     }
 
     public int getMetaFromState(IBlockState state) {

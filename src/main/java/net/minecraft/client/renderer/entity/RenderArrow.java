@@ -17,7 +17,7 @@ public class RenderArrow extends Render<EntityArrow> {
     }
 
     public void doRender(EntityArrow entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);

@@ -16,15 +16,15 @@ public class RenderFireball extends Render<EntityFireball> {
 
     public RenderFireball(RenderManager renderManagerIn, float scaleIn) {
         super(renderManagerIn);
-        this.scale = scaleIn;
+        scale = scaleIn;
     }
 
     public void doRender(EntityFireball entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
-        this.bindEntityTexture(entity);
+        bindEntityTexture(entity);
         GlStateManager.translate((float) x, (float) y, (float) z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(this.scale, this.scale, this.scale);
+        GlStateManager.scale(scale, scale, scale);
         TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(Items.fire_charge);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
@@ -35,8 +35,8 @@ public class RenderFireball extends Render<EntityFireball> {
         float f4 = 1.0F;
         float f5 = 0.5F;
         float f6 = 0.25F;
-        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
         worldrenderer.pos(-0.5D, -0.25D, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
         worldrenderer.pos(0.5D, -0.25D, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();

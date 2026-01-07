@@ -12,12 +12,12 @@ public class BlockRail extends BlockRailBase {
 
     protected BlockRail() {
         super(false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+        setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
     }
 
     protected void onNeighborChangedInternal(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (neighborBlock.canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3) {
-            this.func_176564_a(worldIn, pos, state, false);
+            func_176564_a(worldIn, pos, state, false);
         }
     }
 
@@ -26,7 +26,7 @@ public class BlockRail extends BlockRailBase {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
+        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

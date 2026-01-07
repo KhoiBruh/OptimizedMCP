@@ -43,44 +43,44 @@ public class UserList<K, V extends UserListEntry<K>> {
         this.saveFile = saveFile;
         GsonBuilder gsonbuilder = (new GsonBuilder()).setPrettyPrinting();
         gsonbuilder.registerTypeHierarchyAdapter(UserListEntry.class, new UserList.Serializer());
-        this.gson = gsonbuilder.create();
+        gson = gsonbuilder.create();
     }
 
     public boolean isLanServer() {
-        return this.lanServer;
+        return lanServer;
     }
 
     public void setLanServer(boolean state) {
-        this.lanServer = state;
+        lanServer = state;
     }
 
     public void addEntry(V entry) {
-        this.values.put(this.getObjectKey(entry.getValue()), entry);
+        values.put(getObjectKey(entry.getValue()), entry);
 
         try {
-            this.writeChanges();
+            writeChanges();
         } catch (IOException ioexception) {
             logger.warn("Could not save the list after adding a user.", ioexception);
         }
     }
 
     public V getEntry(K obj) {
-        this.removeExpired();
-        return this.values.get(this.getObjectKey(obj));
+        removeExpired();
+        return values.get(getObjectKey(obj));
     }
 
     public void removeEntry(K entry) {
-        this.values.remove(this.getObjectKey(entry));
+        values.remove(getObjectKey(entry));
 
         try {
-            this.writeChanges();
+            writeChanges();
         } catch (IOException ioexception) {
             logger.warn("Could not save the list after removing a user.", ioexception);
         }
     }
 
     public String[] getKeys() {
-        return this.values.keySet().toArray(new String[0]);
+        return values.keySet().toArray(new String[0]);
     }
 
     protected String getObjectKey(K obj) {
@@ -88,20 +88,20 @@ public class UserList<K, V extends UserListEntry<K>> {
     }
 
     protected boolean hasEntry(K entry) {
-        return this.values.containsKey(this.getObjectKey(entry));
+        return values.containsKey(getObjectKey(entry));
     }
 
     private void removeExpired() {
         List<K> list = Lists.newArrayList();
 
-        for (V v : this.values.values()) {
+        for (V v : values.values()) {
             if (v.hasBanExpired()) {
                 list.add(v.getValue());
             }
         }
 
         for (K k : list) {
-            this.values.remove(k);
+            values.remove(k);
         }
     }
 
@@ -110,16 +110,16 @@ public class UserList<K, V extends UserListEntry<K>> {
     }
 
     protected Map<String, V> getValues() {
-        return this.values;
+        return values;
     }
 
     public void writeChanges() throws IOException {
-        Collection<V> collection = this.values.values();
-        String s = this.gson.toJson(collection);
+        Collection<V> collection = values.values();
+        String s = gson.toJson(collection);
         BufferedWriter bufferedwriter = null;
 
         try {
-            bufferedwriter = Files.newWriter(this.saveFile, StandardCharsets.UTF_8);
+            bufferedwriter = Files.newWriter(saveFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
         } finally {
             IOUtils.closeQuietly(bufferedwriter);
@@ -139,7 +139,7 @@ public class UserList<K, V extends UserListEntry<K>> {
         public UserListEntry<K> deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
             if (p_deserialize_1_.isJsonObject()) {
                 JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-                UserListEntry<K> userlistentry = UserList.this.createEntry(jsonobject);
+                UserListEntry<K> userlistentry = createEntry(jsonobject);
                 return userlistentry;
             } else {
                 return null;

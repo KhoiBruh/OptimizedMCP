@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class ItemArmorStand extends Item {
     public ItemArmorStand() {
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -38,7 +38,7 @@ public class ItemArmorStand extends Item {
                     double d2 = blockpos.getZ();
                     List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.fromBounds(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
 
-                    if (list.size() > 0) {
+                    if (!list.isEmpty()) {
                         return false;
                     } else {
                         if (!worldIn.isRemote) {
@@ -47,7 +47,7 @@ public class ItemArmorStand extends Item {
                             EntityArmorStand entityarmorstand = new EntityArmorStand(worldIn, d0 + 0.5D, d1, d2 + 0.5D);
                             float f = (float) MathHelper.floor_float((MathHelper.wrapAngleTo180_float(playerIn.rotationYaw - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                             entityarmorstand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f, 0.0F);
-                            this.applyRandomRotations(entityarmorstand, worldIn.rand);
+                            applyRandomRotations(entityarmorstand, worldIn.rand);
                             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
                             if (nbttagcompound != null && nbttagcompound.hasKey("EntityTag", 10)) {

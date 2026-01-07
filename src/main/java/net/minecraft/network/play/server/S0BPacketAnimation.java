@@ -15,18 +15,18 @@ public class S0BPacketAnimation implements Packet<INetHandlerPlayClient> {
     }
 
     public S0BPacketAnimation(Entity ent, int animationType) {
-        this.entityId = ent.getEntityId();
-        this.type = animationType;
+        entityId = ent.getEntityId();
+        type = animationType;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
-        this.type = buf.readUnsignedByte();
+        entityId = buf.readVarIntFromBuffer();
+        type = buf.readUnsignedByte();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
-        buf.writeByte(this.type);
+        buf.writeVarIntToBuffer(entityId);
+        buf.writeByte(type);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -34,10 +34,10 @@ public class S0BPacketAnimation implements Packet<INetHandlerPlayClient> {
     }
 
     public int getEntityID() {
-        return this.entityId;
+        return entityId;
     }
 
     public int getAnimationType() {
-        return this.type;
+        return type;
     }
 }

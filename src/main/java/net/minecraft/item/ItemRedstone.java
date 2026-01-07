@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class ItemRedstone extends Item {
     public ItemRedstone() {
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {

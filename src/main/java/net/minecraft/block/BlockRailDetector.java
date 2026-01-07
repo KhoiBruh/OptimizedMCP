@@ -31,8 +31,8 @@ public class BlockRailDetector extends BlockRailBase {
 
     public BlockRailDetector() {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+        setTickRandomly(true);
     }
 
     public int tickRate(World worldIn) {
@@ -46,7 +46,7 @@ public class BlockRailDetector extends BlockRailBase {
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             if (!state.getValue(POWERED)) {
-                this.updatePoweredState(worldIn, pos, state);
+                updatePoweredState(worldIn, pos, state);
             }
         }
     }
@@ -56,7 +56,7 @@ public class BlockRailDetector extends BlockRailBase {
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote && state.getValue(POWERED)) {
-            this.updatePoweredState(worldIn, pos, state);
+            updatePoweredState(worldIn, pos, state);
         }
     }
 
@@ -71,7 +71,7 @@ public class BlockRailDetector extends BlockRailBase {
     private void updatePoweredState(World worldIn, BlockPos pos, IBlockState state) {
         boolean flag = state.getValue(POWERED);
         boolean flag1 = false;
-        List<EntityMinecart> list = this.findMinecarts(worldIn, pos, EntityMinecart.class);
+        List<EntityMinecart> list = findMinecarts(worldIn, pos, EntityMinecart.class);
 
         if (!list.isEmpty()) {
             flag1 = true;
@@ -92,7 +92,7 @@ public class BlockRailDetector extends BlockRailBase {
         }
 
         if (flag1) {
-            worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
         }
 
         worldIn.updateComparatorOutputLevel(pos, this);
@@ -100,7 +100,7 @@ public class BlockRailDetector extends BlockRailBase {
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
-        this.updatePoweredState(worldIn, pos, state);
+        updatePoweredState(worldIn, pos, state);
     }
 
     public IProperty<BlockRailBase.EnumRailDirection> getShapeProperty() {
@@ -113,13 +113,13 @@ public class BlockRailDetector extends BlockRailBase {
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos).getValue(POWERED)) {
-            List<EntityMinecartCommandBlock> list = this.findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
+            List<EntityMinecartCommandBlock> list = findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
 
             if (!list.isEmpty()) {
                 return list.get(0).getCommandBlockLogic().getSuccessCount();
             }
 
-            List<EntityMinecart> list1 = this.findMinecarts(worldIn, pos, EntityMinecart.class, EntitySelectors.selectInventories);
+            List<EntityMinecart> list1 = findMinecarts(worldIn, pos, EntityMinecart.class, EntitySelectors.selectInventories);
 
             if (!list1.isEmpty()) {
                 return Container.calcRedstoneFromInventory((IInventory) list1.get(0));
@@ -130,7 +130,7 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     protected <T extends EntityMinecart> List<T> findMinecarts(World worldIn, BlockPos pos, Class<T> clazz, Predicate<Entity>... filter) {
-        AxisAlignedBB axisalignedbb = this.getDectectionBox(pos);
+        AxisAlignedBB axisalignedbb = getDectectionBox(pos);
         return filter.length != 1 ? worldIn.getEntitiesWithinAABB(clazz, axisalignedbb) : worldIn.getEntitiesWithinAABB(clazz, axisalignedbb, filter[0]);
     }
 
@@ -140,7 +140,7 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {

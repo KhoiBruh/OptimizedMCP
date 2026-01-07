@@ -20,7 +20,7 @@ public abstract class AbstractResourcePack implements IResourcePack {
     public final File resourcePackFile;
 
     public AbstractResourcePack(File resourcePackFileIn) {
-        this.resourcePackFile = resourcePackFileIn;
+        resourcePackFile = resourcePackFileIn;
     }
 
     private static String locationToName(ResourceLocation location) {
@@ -48,11 +48,11 @@ public abstract class AbstractResourcePack implements IResourcePack {
     }
 
     public InputStream getInputStream(ResourceLocation location) throws IOException {
-        return this.getInputStreamByName(locationToName(location));
+        return getInputStreamByName(locationToName(location));
     }
 
     public boolean resourceExists(ResourceLocation location) {
-        return this.hasResourceName(locationToName(location));
+        return hasResourceName(locationToName(location));
     }
 
     protected abstract InputStream getInputStreamByName(String name) throws IOException;
@@ -60,18 +60,18 @@ public abstract class AbstractResourcePack implements IResourcePack {
     protected abstract boolean hasResourceName(String name);
 
     protected void logNameNotLowercase(String name) {
-        resourceLog.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", new Object[]{name, this.resourcePackFile});
+        resourceLog.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", new Object[]{name, resourcePackFile});
     }
 
     public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
-        return readMetadata(metadataSerializer, this.getInputStreamByName("pack.mcmeta"), metadataSectionName);
+        return readMetadata(metadataSerializer, getInputStreamByName("pack.mcmeta"), metadataSectionName);
     }
 
     public BufferedImage getPackImage() throws IOException {
-        return TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
+        return TextureUtil.readBufferedImage(getInputStreamByName("pack.png"));
     }
 
     public String getPackName() {
-        return this.resourcePackFile.getName();
+        return resourcePackFile.getName();
     }
 }

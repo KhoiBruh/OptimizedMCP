@@ -14,32 +14,32 @@ public class GuiDownloadTerrain extends GuiScreen {
     private final CustomLoadingScreen customLoadingScreen = CustomLoadingScreens.getCustomLoadingScreen();
 
     public GuiDownloadTerrain(NetHandlerPlayClient netHandler) {
-        this.netHandlerPlayClient = netHandler;
+        netHandlerPlayClient = netHandler;
     }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
     public void initGui() {
-        this.buttonList.clear();
+        buttonList.clear();
     }
 
     public void updateScreen() {
-        ++this.progress;
+        ++progress;
 
-        if (this.progress % 20 == 0) {
-            this.netHandlerPlayClient.addToSendQueue(new C00PacketKeepAlive());
+        if (progress % 20 == 0) {
+            netHandlerPlayClient.addToSendQueue(new C00PacketKeepAlive());
         }
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (this.customLoadingScreen != null) {
-            this.customLoadingScreen.drawBackground(this.width, this.height);
+        if (customLoadingScreen != null) {
+            customLoadingScreen.drawBackground(width, height);
         } else {
-            this.drawBackground(0);
+            drawBackground(0);
         }
 
-        this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingTerrain"), this.width / 2, this.height / 2 - 50, 16777215);
+        drawCenteredString(fontRendererObj, I18n.format("multiplayer.downloadingTerrain"), width / 2, height / 2 - 50, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

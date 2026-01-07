@@ -21,44 +21,44 @@ public class EntityPig extends EntityAnimal {
 
     public EntityPig(World worldIn) {
         super(worldIn);
-        this.setSize(0.9F, 0.9F);
-        ((PathNavigateGround) this.getNavigator()).setAvoidsWater(true);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
-        this.tasks.addTask(2, this.aiControlledByPlayer = new EntityAIControlledByPlayer(this, 0.3F));
-        this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.carrot_on_a_stick, false));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.carrot, false));
-        this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
-        this.tasks.addTask(6, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
+        setSize(0.9F, 0.9F);
+        ((PathNavigateGround) getNavigator()).setAvoidsWater(true);
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIPanic(this, 1.25D));
+        tasks.addTask(2, aiControlledByPlayer = new EntityAIControlledByPlayer(this, 0.3F));
+        tasks.addTask(3, new EntityAIMate(this, 1.0D));
+        tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.carrot_on_a_stick, false));
+        tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.carrot, false));
+        tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
+        tasks.addTask(6, new EntityAIWander(this, 1.0D));
+        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
     }
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
     }
 
     public boolean canBeSteered() {
-        ItemStack itemstack = ((EntityPlayer) this.riddenByEntity).getHeldItem();
+        ItemStack itemstack = ((EntityPlayer) riddenByEntity).getHeldItem();
         return itemstack != null && itemstack.getItem() == Items.carrot_on_a_stick;
     }
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, (byte) 0);
+        dataWatcher.addObject(16, (byte) 0);
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
-        tagCompound.setBoolean("Saddle", this.getSaddled());
+        tagCompound.setBoolean("Saddle", getSaddled());
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
-        this.setSaddled(tagCompund.getBoolean("Saddle"));
+        setSaddled(tagCompund.getBoolean("Saddle"));
     }
 
     protected String getLivingSound() {
@@ -74,13 +74,13 @@ public class EntityPig extends EntityAnimal {
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound("mob.pig.step", 0.15F, 1.0F);
+        playSound("mob.pig.step", 0.15F, 1.0F);
     }
 
     public boolean interact(EntityPlayer player) {
         if (super.interact(player)) {
             return true;
-        } else if (!this.getSaddled() || this.worldObj.isRemote || this.riddenByEntity != null && this.riddenByEntity != player) {
+        } else if (!getSaddled() || worldObj.isRemote || riddenByEntity != null && riddenByEntity != player) {
             return false;
         } else {
             player.mountEntity(this);
@@ -89,64 +89,64 @@ public class EntityPig extends EntityAnimal {
     }
 
     protected Item getDropItem() {
-        return this.isBurning() ? Items.cooked_porkchop : Items.porkchop;
+        return isBurning() ? Items.cooked_porkchop : Items.porkchop;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        int i = this.rand.nextInt(3) + 1 + this.rand.nextInt(1 + lootingModifier);
+        int i = rand.nextInt(3) + 1 + rand.nextInt(1 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            if (this.isBurning()) {
-                this.dropItem(Items.cooked_porkchop, 1);
+            if (isBurning()) {
+                dropItem(Items.cooked_porkchop, 1);
             } else {
-                this.dropItem(Items.porkchop, 1);
+                dropItem(Items.porkchop, 1);
             }
         }
 
-        if (this.getSaddled()) {
-            this.dropItem(Items.saddle, 1);
+        if (getSaddled()) {
+            dropItem(Items.saddle, 1);
         }
     }
 
     public boolean getSaddled() {
-        return (this.dataWatcher.getWatchableObjectByte(16) & 1) != 0;
+        return (dataWatcher.getWatchableObjectByte(16) & 1) != 0;
     }
 
     public void setSaddled(boolean saddled) {
         if (saddled) {
-            this.dataWatcher.updateObject(16, (byte) 1);
+            dataWatcher.updateObject(16, (byte) 1);
         } else {
-            this.dataWatcher.updateObject(16, (byte) 0);
+            dataWatcher.updateObject(16, (byte) 0);
         }
     }
 
     public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-        if (!this.worldObj.isRemote && !this.isDead) {
-            EntityPigZombie entitypigzombie = new EntityPigZombie(this.worldObj);
+        if (!worldObj.isRemote && !isDead) {
+            EntityPigZombie entitypigzombie = new EntityPigZombie(worldObj);
             entitypigzombie.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
-            entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            entitypigzombie.setNoAI(this.isAIDisabled());
+            entitypigzombie.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
+            entitypigzombie.setNoAI(isAIDisabled());
 
-            if (this.hasCustomName()) {
-                entitypigzombie.setCustomNameTag(this.getCustomNameTag());
-                entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
+            if (hasCustomName()) {
+                entitypigzombie.setCustomNameTag(getCustomNameTag());
+                entitypigzombie.setAlwaysRenderNameTag(getAlwaysRenderNameTag());
             }
 
-            this.worldObj.spawnEntityInWorld(entitypigzombie);
-            this.setDead();
+            worldObj.spawnEntityInWorld(entitypigzombie);
+            setDead();
         }
     }
 
     public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
 
-        if (distance > 5.0F && this.riddenByEntity instanceof EntityPlayer) {
-            ((EntityPlayer) this.riddenByEntity).triggerAchievement(AchievementList.flyPig);
+        if (distance > 5.0F && riddenByEntity instanceof EntityPlayer) {
+            ((EntityPlayer) riddenByEntity).triggerAchievement(AchievementList.flyPig);
         }
     }
 
     public EntityPig createChild(EntityAgeable ageable) {
-        return new EntityPig(this.worldObj);
+        return new EntityPig(worldObj);
     }
 
     public boolean isBreedingItem(ItemStack stack) {
@@ -154,6 +154,6 @@ public class EntityPig extends EntityAnimal {
     }
 
     public EntityAIControlledByPlayer getAIControlledByPlayer() {
-        return this.aiControlledByPlayer;
+        return aiControlledByPlayer;
     }
 }

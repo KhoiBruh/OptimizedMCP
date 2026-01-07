@@ -16,18 +16,18 @@ public class S19PacketEntityHeadLook implements Packet<INetHandlerPlayClient> {
     }
 
     public S19PacketEntityHeadLook(Entity entityIn, byte p_i45214_2_) {
-        this.entityId = entityIn.getEntityId();
-        this.yaw = p_i45214_2_;
+        entityId = entityIn.getEntityId();
+        yaw = p_i45214_2_;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
-        this.yaw = buf.readByte();
+        entityId = buf.readVarIntFromBuffer();
+        yaw = buf.readByte();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
-        buf.writeByte(this.yaw);
+        buf.writeVarIntToBuffer(entityId);
+        buf.writeByte(yaw);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -35,10 +35,10 @@ public class S19PacketEntityHeadLook implements Packet<INetHandlerPlayClient> {
     }
 
     public Entity getEntity(World worldIn) {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 
     public byte getYaw() {
-        return this.yaw;
+        return yaw;
     }
 }

@@ -57,15 +57,15 @@ public class TextureAtlasSprite {
     private boolean animationActive = false;
 
     private TextureAtlasSprite(String p_i7_1_, boolean p_i7_2_) {
-        this.iconName = p_i7_1_;
-        this.isSpriteSingle = p_i7_2_;
+        iconName = p_i7_1_;
+        isSpriteSingle = p_i7_2_;
     }
 
     public TextureAtlasSprite(String spriteName) {
-        this.iconName = spriteName;
+        iconName = spriteName;
 
         if (Config.isMultiTexture()) {
-            this.spriteSingle = new TextureAtlasSprite(this.getIconName() + ".spriteSingle", true);
+            spriteSingle = new TextureAtlasSprite(getIconName() + ".spriteSingle", true);
         }
     }
 
@@ -98,170 +98,170 @@ public class TextureAtlasSprite {
     }
 
     public void initSprite(int inX, int inY, int originInX, int originInY, boolean rotatedIn) {
-        this.originX = originInX;
-        this.originY = originInY;
-        this.rotated = rotatedIn;
+        originX = originInX;
+        originY = originInY;
+        rotated = rotatedIn;
         float f = (float) (0.009999999776482582D / (double) inX);
         float f1 = (float) (0.009999999776482582D / (double) inY);
-        this.minU = (float) originInX / (float) ((double) inX) + f;
-        this.maxU = (float) (originInX + this.width) / (float) ((double) inX) - f;
-        this.minV = (float) originInY / (float) inY + f1;
-        this.maxV = (float) (originInY + this.height) / (float) inY - f1;
-        this.baseU = Math.min(this.minU, this.maxU);
-        this.baseV = Math.min(this.minV, this.maxV);
+        minU = (float) originInX / (float) ((double) inX) + f;
+        maxU = (float) (originInX + width) / (float) ((double) inX) - f;
+        minV = (float) originInY / (float) inY + f1;
+        maxV = (float) (originInY + height) / (float) inY - f1;
+        baseU = Math.min(minU, maxU);
+        baseV = Math.min(minV, maxV);
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.initSprite(this.width, this.height, 0, 0, false);
+        if (spriteSingle != null) {
+            spriteSingle.initSprite(width, height, 0, 0, false);
         }
 
-        if (this.spriteNormal != null) {
-            this.spriteNormal.copyFrom(this);
+        if (spriteNormal != null) {
+            spriteNormal.copyFrom(this);
         }
 
-        if (this.spriteSpecular != null) {
-            this.spriteSpecular.copyFrom(this);
+        if (spriteSpecular != null) {
+            spriteSpecular.copyFrom(this);
         }
     }
 
     public void copyFrom(TextureAtlasSprite atlasSpirit) {
-        this.originX = atlasSpirit.originX;
-        this.originY = atlasSpirit.originY;
-        this.width = atlasSpirit.width;
-        this.height = atlasSpirit.height;
-        this.rotated = atlasSpirit.rotated;
-        this.minU = atlasSpirit.minU;
-        this.maxU = atlasSpirit.maxU;
-        this.minV = atlasSpirit.minV;
-        this.maxV = atlasSpirit.maxV;
+        originX = atlasSpirit.originX;
+        originY = atlasSpirit.originY;
+        width = atlasSpirit.width;
+        height = atlasSpirit.height;
+        rotated = atlasSpirit.rotated;
+        minU = atlasSpirit.minU;
+        maxU = atlasSpirit.maxU;
+        minV = atlasSpirit.minV;
+        maxV = atlasSpirit.maxV;
 
         if (atlasSpirit != Config.getTextureMap().getMissingSprite()) {
-            this.indexInMap = atlasSpirit.indexInMap;
+            indexInMap = atlasSpirit.indexInMap;
         }
 
-        this.baseU = atlasSpirit.baseU;
-        this.baseV = atlasSpirit.baseV;
-        this.sheetWidth = atlasSpirit.sheetWidth;
-        this.sheetHeight = atlasSpirit.sheetHeight;
-        this.glSpriteTextureId = atlasSpirit.glSpriteTextureId;
-        this.mipmapLevels = atlasSpirit.mipmapLevels;
+        baseU = atlasSpirit.baseU;
+        baseV = atlasSpirit.baseV;
+        sheetWidth = atlasSpirit.sheetWidth;
+        sheetHeight = atlasSpirit.sheetHeight;
+        glSpriteTextureId = atlasSpirit.glSpriteTextureId;
+        mipmapLevels = atlasSpirit.mipmapLevels;
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.initSprite(this.width, this.height, 0, 0, false);
+        if (spriteSingle != null) {
+            spriteSingle.initSprite(width, height, 0, 0, false);
         }
 
-        this.animationIndex = atlasSpirit.animationIndex;
+        animationIndex = atlasSpirit.animationIndex;
     }
 
     public int getOriginX() {
-        return this.originX;
+        return originX;
     }
 
     public int getOriginY() {
-        return this.originY;
+        return originY;
     }
 
     public int getIconWidth() {
-        return this.width;
+        return width;
     }
 
     public void setIconWidth(int newWidth) {
-        this.width = newWidth;
+        width = newWidth;
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.setIconWidth(this.width);
+        if (spriteSingle != null) {
+            spriteSingle.setIconWidth(width);
         }
     }
 
     public int getIconHeight() {
-        return this.height;
+        return height;
     }
 
     public void setIconHeight(int newHeight) {
-        this.height = newHeight;
+        height = newHeight;
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.setIconHeight(this.height);
+        if (spriteSingle != null) {
+            spriteSingle.setIconHeight(height);
         }
     }
 
     public float getMinU() {
-        return this.minU;
+        return minU;
     }
 
     public float getMaxU() {
-        return this.maxU;
+        return maxU;
     }
 
     public float getInterpolatedU(double u) {
-        float f = this.maxU - this.minU;
-        return this.minU + f * (float) u / 16.0F;
+        float f = maxU - minU;
+        return minU + f * (float) u / 16.0F;
     }
 
     public float getMinV() {
-        return this.minV;
+        return minV;
     }
 
     public float getMaxV() {
-        return this.maxV;
+        return maxV;
     }
 
     public float getInterpolatedV(double v) {
-        float f = this.maxV - this.minV;
-        return this.minV + f * ((float) v / 16.0F);
+        float f = maxV - minV;
+        return minV + f * ((float) v / 16.0F);
     }
 
     public String getIconName() {
-        return this.iconName;
+        return iconName;
     }
 
     public void updateAnimation() {
-        if (this.animationMetadata != null) {
-            this.animationActive = !SmartAnimations.isActive() || SmartAnimations.isSpriteRendered(this.animationIndex);
-            ++this.tickCounter;
+        if (animationMetadata != null) {
+            animationActive = !SmartAnimations.isActive() || SmartAnimations.isSpriteRendered(animationIndex);
+            ++tickCounter;
 
-            if (this.tickCounter >= this.animationMetadata.getFrameTimeSingle(this.frameCounter)) {
-                int i = this.animationMetadata.getFrameIndex(this.frameCounter);
-                int j = this.animationMetadata.getFrameCount() == 0 ? this.framesTextureData.size() : this.animationMetadata.getFrameCount();
-                this.frameCounter = (this.frameCounter + 1) % j;
-                this.tickCounter = 0;
-                int k = this.animationMetadata.getFrameIndex(this.frameCounter);
+            if (tickCounter >= animationMetadata.getFrameTimeSingle(frameCounter)) {
+                int i = animationMetadata.getFrameIndex(frameCounter);
+                int j = animationMetadata.getFrameCount() == 0 ? framesTextureData.size() : animationMetadata.getFrameCount();
+                frameCounter = (frameCounter + 1) % j;
+                tickCounter = 0;
+                int k = animationMetadata.getFrameIndex(frameCounter);
                 boolean flag = false;
-                boolean flag1 = this.isSpriteSingle;
+                boolean flag1 = isSpriteSingle;
 
-                if (!this.animationActive) {
+                if (!animationActive) {
                     return;
                 }
 
-                if (i != k && k >= 0 && k < this.framesTextureData.size()) {
-                    TextureUtil.uploadTextureMipmap(this.framesTextureData.get(k), this.width, this.height, this.originX, this.originY, flag, flag1);
+                if (i != k && k >= 0 && k < framesTextureData.size()) {
+                    TextureUtil.uploadTextureMipmap(framesTextureData.get(k), width, height, originX, originY, flag, flag1);
                 }
-            } else if (this.animationMetadata.isInterpolate()) {
-                if (!this.animationActive) {
+            } else if (animationMetadata.isInterpolate()) {
+                if (!animationActive) {
                     return;
                 }
 
-                this.updateAnimationInterpolated();
+                updateAnimationInterpolated();
             }
         }
     }
 
     private void updateAnimationInterpolated() {
-        double d0 = 1.0D - (double) this.tickCounter / (double) this.animationMetadata.getFrameTimeSingle(this.frameCounter);
-        int i = this.animationMetadata.getFrameIndex(this.frameCounter);
-        int j = this.animationMetadata.getFrameCount() == 0 ? this.framesTextureData.size() : this.animationMetadata.getFrameCount();
-        int k = this.animationMetadata.getFrameIndex((this.frameCounter + 1) % j);
+        double d0 = 1.0D - (double) tickCounter / (double) animationMetadata.getFrameTimeSingle(frameCounter);
+        int i = animationMetadata.getFrameIndex(frameCounter);
+        int j = animationMetadata.getFrameCount() == 0 ? framesTextureData.size() : animationMetadata.getFrameCount();
+        int k = animationMetadata.getFrameIndex((frameCounter + 1) % j);
 
-        if (i != k && k >= 0 && k < this.framesTextureData.size()) {
-            int[][] aint = this.framesTextureData.get(i);
-            int[][] aint1 = this.framesTextureData.get(k);
+        if (i != k && k >= 0 && k < framesTextureData.size()) {
+            int[][] aint = framesTextureData.get(i);
+            int[][] aint1 = framesTextureData.get(k);
 
-            if (this.interpolatedFrameData == null || this.interpolatedFrameData.length != aint.length) {
-                this.interpolatedFrameData = new int[aint.length][];
+            if (interpolatedFrameData == null || interpolatedFrameData.length != aint.length) {
+                interpolatedFrameData = new int[aint.length][];
             }
 
             for (int l = 0; l < aint.length; ++l) {
-                if (this.interpolatedFrameData[l] == null) {
-                    this.interpolatedFrameData[l] = new int[aint[l].length];
+                if (interpolatedFrameData[l] == null) {
+                    interpolatedFrameData[l] = new int[aint[l].length];
                 }
 
                 if (l < aint1.length && aint1[l].length == aint[l].length) {
@@ -271,33 +271,33 @@ public class TextureAtlasSprite {
                         int l1 = (int) ((double) ((j1 & 16711680) >> 16) * d0 + (double) ((k1 & 16711680) >> 16) * (1.0D - d0));
                         int i2 = (int) ((double) ((j1 & 65280) >> 8) * d0 + (double) ((k1 & 65280) >> 8) * (1.0D - d0));
                         int j2 = (int) ((double) (j1 & 255) * d0 + (double) (k1 & 255) * (1.0D - d0));
-                        this.interpolatedFrameData[l][i1] = j1 & -16777216 | l1 << 16 | i2 << 8 | j2;
+                        interpolatedFrameData[l][i1] = j1 & -16777216 | l1 << 16 | i2 << 8 | j2;
                     }
                 }
             }
 
-            TextureUtil.uploadTextureMipmap(this.interpolatedFrameData, this.width, this.height, this.originX, this.originY, false, false);
+            TextureUtil.uploadTextureMipmap(interpolatedFrameData, width, height, originX, originY, false, false);
         }
     }
 
     public int[][] getFrameTextureData(int index) {
-        return this.framesTextureData.get(index);
+        return framesTextureData.get(index);
     }
 
     public int getFrameCount() {
-        return this.framesTextureData.size();
+        return framesTextureData.size();
     }
 
     public void loadSprite(BufferedImage[] images, AnimationMetadataSection meta) throws IOException {
-        this.resetSprite();
+        resetSprite();
         int i = images[0].getWidth();
         int j = images[0].getHeight();
-        this.width = i;
-        this.height = j;
+        width = i;
+        height = j;
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.width = this.width;
-            this.spriteSingle.height = this.height;
+        if (spriteSingle != null) {
+            spriteSingle.width = width;
+            spriteSingle.height = height;
         }
 
         int[][] aint = new int[images.length][];
@@ -306,8 +306,8 @@ public class TextureAtlasSprite {
             BufferedImage bufferedimage = images[k];
 
             if (bufferedimage != null) {
-                if (this.width >> k != bufferedimage.getWidth()) {
-                    bufferedimage = TextureUtils.scaleImage(bufferedimage, this.width >> k);
+                if (width >> k != bufferedimage.getWidth()) {
+                    bufferedimage = TextureUtils.scaleImage(bufferedimage, width >> k);
                 }
 
                 if (k > 0 && (bufferedimage.getWidth() != i >> k || bufferedimage.getHeight() != j >> k)) {
@@ -324,12 +324,12 @@ public class TextureAtlasSprite {
                 throw new RuntimeException("broken aspect ratio and not an animation");
             }
 
-            this.framesTextureData.add(aint);
+            framesTextureData.add(aint);
         } else {
             int j1 = j / i;
             int l1 = i;
             int l = i;
-            this.height = this.width;
+            height = width;
 
             if (meta.getFrameCount() > 0) {
                 Iterator iterator = meta.getFrameIndexSet().iterator();
@@ -341,38 +341,38 @@ public class TextureAtlasSprite {
                         throw new RuntimeException("invalid frameindex " + i1);
                     }
 
-                    this.allocateFrameTextureData(i1);
-                    this.framesTextureData.set(i1, getFrameTextureData(aint, l1, l, i1));
+                    allocateFrameTextureData(i1);
+                    framesTextureData.set(i1, getFrameTextureData(aint, l1, l, i1));
                 }
 
-                this.animationMetadata = meta;
+                animationMetadata = meta;
             } else {
                 List<AnimationFrame> list = Lists.newArrayList();
 
                 for (int j2 = 0; j2 < j1; ++j2) {
-                    this.framesTextureData.add(getFrameTextureData(aint, l1, l, j2));
+                    framesTextureData.add(getFrameTextureData(aint, l1, l, j2));
                     list.add(new AnimationFrame(j2, -1));
                 }
 
-                this.animationMetadata = new AnimationMetadataSection(list, this.width, this.height, meta.getFrameTime(), meta.isInterpolate());
+                animationMetadata = new AnimationMetadataSection(list, width, height, meta.getFrameTime(), meta.isInterpolate());
             }
         }
 
-        if (!this.isShadersSprite) {
+        if (!isShadersSprite) {
             if (Config.isShaders()) {
-                this.loadShadersSprites();
+                loadShadersSprites();
             }
 
-            for (int[][] aint1 : this.framesTextureData) {
-                if (aint1 != null && !this.iconName.startsWith("minecraft:blocks/leaves_")) {
+            for (int[][] aint1 : framesTextureData) {
+                if (aint1 != null && !iconName.startsWith("minecraft:blocks/leaves_")) {
                     for (int[] aint2 : aint1) {
-                        this.fixTransparentColor(aint2);
+                        fixTransparentColor(aint2);
                     }
                 }
             }
 
-            if (this.spriteSingle != null) {
-                this.spriteSingle.loadSprite(images, meta);
+            if (spriteSingle != null) {
+                spriteSingle.loadSprite(images, meta);
             }
         }
     }
@@ -380,12 +380,12 @@ public class TextureAtlasSprite {
     public void generateMipmaps(int level) {
         List<int[][]> list = Lists.newArrayList();
 
-        for (int i = 0; i < this.framesTextureData.size(); ++i) {
-            final int[][] aint = this.framesTextureData.get(i);
+        for (int i = 0; i < framesTextureData.size(); ++i) {
+            final int[][] aint = framesTextureData.get(i);
 
             if (aint != null) {
                 try {
-                    list.add(TextureUtil.generateMipmapData(level, this.width, aint));
+                    list.add(TextureUtil.generateMipmapData(level, width, aint));
                 } catch (Throwable throwable) {
                     CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Generating mipmaps for frame");
                     CrashReportCategory crashreportcategory = crashreport.makeCategory("Frame being iterated");
@@ -395,7 +395,7 @@ public class TextureAtlasSprite {
                             StringBuilder stringbuilder = new StringBuilder();
 
                             for (int[] aint1 : aint) {
-                                if (stringbuilder.length() > 0) {
+                                if (!stringbuilder.isEmpty()) {
                                     stringbuilder.append(", ");
                                 }
 
@@ -410,50 +410,50 @@ public class TextureAtlasSprite {
             }
         }
 
-        this.setFramesTextureData(list);
+        setFramesTextureData(list);
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.generateMipmaps(level);
+        if (spriteSingle != null) {
+            spriteSingle.generateMipmaps(level);
         }
     }
 
     private void allocateFrameTextureData(int index) {
-        if (this.framesTextureData.size() <= index) {
-            for (int i = this.framesTextureData.size(); i <= index; ++i) {
-                this.framesTextureData.add(null);
+        if (framesTextureData.size() <= index) {
+            for (int i = framesTextureData.size(); i <= index; ++i) {
+                framesTextureData.add(null);
             }
         }
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.allocateFrameTextureData(index);
+        if (spriteSingle != null) {
+            spriteSingle.allocateFrameTextureData(index);
         }
     }
 
     public void clearFramesTextureData() {
-        this.framesTextureData.clear();
+        framesTextureData.clear();
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.clearFramesTextureData();
+        if (spriteSingle != null) {
+            spriteSingle.clearFramesTextureData();
         }
     }
 
     public boolean hasAnimationMetadata() {
-        return this.animationMetadata != null;
+        return animationMetadata != null;
     }
 
     private void resetSprite() {
-        this.animationMetadata = null;
-        this.setFramesTextureData(Lists.newArrayList());
-        this.frameCounter = 0;
-        this.tickCounter = 0;
+        animationMetadata = null;
+        setFramesTextureData(Lists.newArrayList());
+        frameCounter = 0;
+        tickCounter = 0;
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.resetSprite();
+        if (spriteSingle != null) {
+            spriteSingle.resetSprite();
         }
     }
 
     public String toString() {
-        return "TextureAtlasSprite{name='" + this.iconName + '\'' + ", frameCount=" + this.framesTextureData.size() + ", rotated=" + this.rotated + ", x=" + this.originX + ", y=" + this.originY + ", height=" + this.height + ", width=" + this.width + ", u0=" + this.minU + ", u1=" + this.maxU + ", v0=" + this.minV + ", v1=" + this.maxV + '}';
+        return "TextureAtlasSprite{name='" + iconName + '\'' + ", frameCount=" + framesTextureData.size() + ", rotated=" + rotated + ", x=" + originX + ", y=" + originY + ", height=" + height + ", width=" + width + ", u0=" + minU + ", u1=" + maxU + ", v0=" + minV + ", v1=" + maxV + '}';
     }
 
     public boolean hasCustomLoader(IResourceManager p_hasCustomLoader_1_, ResourceLocation p_hasCustomLoader_2_) {
@@ -465,37 +465,37 @@ public class TextureAtlasSprite {
     }
 
     public int getIndexInMap() {
-        return this.indexInMap;
+        return indexInMap;
     }
 
     public void setIndexInMap(int p_setIndexInMap_1_) {
-        this.indexInMap = p_setIndexInMap_1_;
+        indexInMap = p_setIndexInMap_1_;
     }
 
     public void updateIndexInMap(CounterInt p_updateIndexInMap_1_) {
-        if (this.indexInMap < 0) {
-            this.indexInMap = p_updateIndexInMap_1_.nextValue();
+        if (indexInMap < 0) {
+            indexInMap = p_updateIndexInMap_1_.nextValue();
         }
     }
 
     public int getAnimationIndex() {
-        return this.animationIndex;
+        return animationIndex;
     }
 
     public void setAnimationIndex(int p_setAnimationIndex_1_) {
-        this.animationIndex = p_setAnimationIndex_1_;
+        animationIndex = p_setAnimationIndex_1_;
 
-        if (this.spriteNormal != null) {
-            this.spriteNormal.setAnimationIndex(p_setAnimationIndex_1_);
+        if (spriteNormal != null) {
+            spriteNormal.setAnimationIndex(p_setAnimationIndex_1_);
         }
 
-        if (this.spriteSpecular != null) {
-            this.spriteSpecular.setAnimationIndex(p_setAnimationIndex_1_);
+        if (spriteSpecular != null) {
+            spriteSpecular.setAnimationIndex(p_setAnimationIndex_1_);
         }
     }
 
     public boolean isAnimationActive() {
-        return this.animationActive;
+        return animationActive;
     }
 
     private void fixTransparentColor(int[] p_fixTransparentColor_1_) {
@@ -538,91 +538,91 @@ public class TextureAtlasSprite {
     }
 
     public double getSpriteU16(float p_getSpriteU16_1_) {
-        float f = this.maxU - this.minU;
-        return (p_getSpriteU16_1_ - this.minU) / f * 16.0F;
+        float f = maxU - minU;
+        return (p_getSpriteU16_1_ - minU) / f * 16.0F;
     }
 
     public double getSpriteV16(float p_getSpriteV16_1_) {
-        float f = this.maxV - this.minV;
-        return (p_getSpriteV16_1_ - this.minV) / f * 16.0F;
+        float f = maxV - minV;
+        return (p_getSpriteV16_1_ - minV) / f * 16.0F;
     }
 
     public void bindSpriteTexture() {
-        if (this.glSpriteTextureId < 0) {
-            this.glSpriteTextureId = TextureUtil.glGenTextures();
-            TextureUtil.allocateTextureImpl(this.glSpriteTextureId, this.mipmapLevels, this.width, this.height);
+        if (glSpriteTextureId < 0) {
+            glSpriteTextureId = TextureUtil.glGenTextures();
+            TextureUtil.allocateTextureImpl(glSpriteTextureId, mipmapLevels, width, height);
             TextureUtils.applyAnisotropicLevel();
         }
 
-        TextureUtils.bindTexture(this.glSpriteTextureId);
+        TextureUtils.bindTexture(glSpriteTextureId);
     }
 
     public void deleteSpriteTexture() {
-        if (this.glSpriteTextureId >= 0) {
-            TextureUtil.deleteTexture(this.glSpriteTextureId);
-            this.glSpriteTextureId = -1;
+        if (glSpriteTextureId >= 0) {
+            TextureUtil.deleteTexture(glSpriteTextureId);
+            glSpriteTextureId = -1;
         }
     }
 
     public float toSingleU(float p_toSingleU_1_) {
-        p_toSingleU_1_ = p_toSingleU_1_ - this.baseU;
-        float f = (float) this.sheetWidth / (float) this.width;
+        p_toSingleU_1_ = p_toSingleU_1_ - baseU;
+        float f = (float) sheetWidth / (float) width;
         p_toSingleU_1_ = p_toSingleU_1_ * f;
         return p_toSingleU_1_;
     }
 
     public float toSingleV(float p_toSingleV_1_) {
-        p_toSingleV_1_ = p_toSingleV_1_ - this.baseV;
-        float f = (float) this.sheetHeight / (float) this.height;
+        p_toSingleV_1_ = p_toSingleV_1_ - baseV;
+        float f = (float) sheetHeight / (float) height;
         p_toSingleV_1_ = p_toSingleV_1_ * f;
         return p_toSingleV_1_;
     }
 
     public List<int[][]> getFramesTextureData() {
-        List<int[][]> list = new ArrayList(this.framesTextureData);
+        List<int[][]> list = new ArrayList(framesTextureData);
         return list;
     }
 
     public void setFramesTextureData(List<int[][]> newFramesTextureData) {
-        this.framesTextureData = newFramesTextureData;
+        framesTextureData = newFramesTextureData;
 
-        if (this.spriteSingle != null) {
-            this.spriteSingle.setFramesTextureData(newFramesTextureData);
+        if (spriteSingle != null) {
+            spriteSingle.setFramesTextureData(newFramesTextureData);
         }
     }
 
     public AnimationMetadataSection getAnimationMetadata() {
-        return this.animationMetadata;
+        return animationMetadata;
     }
 
     public void setAnimationMetadata(AnimationMetadataSection p_setAnimationMetadata_1_) {
-        this.animationMetadata = p_setAnimationMetadata_1_;
+        animationMetadata = p_setAnimationMetadata_1_;
     }
 
     private void loadShadersSprites() {
         if (Shaders.configNormalMap) {
-            String s = this.iconName + "_n";
+            String s = iconName + "_n";
             ResourceLocation resourcelocation = new ResourceLocation(s);
             resourcelocation = Config.getTextureMap().completeResourceLocation(resourcelocation);
 
             if (Config.hasResource(resourcelocation)) {
-                this.spriteNormal = new TextureAtlasSprite(s);
-                this.spriteNormal.isShadersSprite = true;
-                this.spriteNormal.copyFrom(this);
-                this.spriteNormal.generateMipmaps(this.mipmapLevels);
+                spriteNormal = new TextureAtlasSprite(s);
+                spriteNormal.isShadersSprite = true;
+                spriteNormal.copyFrom(this);
+                spriteNormal.generateMipmaps(mipmapLevels);
             }
         }
 
         if (Shaders.configSpecularMap) {
-            String s1 = this.iconName + "_s";
+            String s1 = iconName + "_s";
             ResourceLocation resourcelocation1 = new ResourceLocation(s1);
             resourcelocation1 = Config.getTextureMap().completeResourceLocation(resourcelocation1);
 
             if (Config.hasResource(resourcelocation1)) {
-                this.spriteSpecular = new TextureAtlasSprite(s1);
-                this.spriteSpecular.isShadersSprite = true;
-                this.spriteSpecular.copyFrom(this);
-                this.spriteSpecular.generateMipmaps(this.mipmapLevels);
+                spriteSpecular = new TextureAtlasSprite(s1);
+                spriteSpecular.isShadersSprite = true;
+                spriteSpecular.copyFrom(this);
+                spriteSpecular.generateMipmaps(mipmapLevels);
             }
         }
     }

@@ -13,15 +13,15 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
     }
 
     public C16PacketClientStatus(C16PacketClientStatus.EnumState statusIn) {
-        this.status = statusIn;
+        status = statusIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.status = buf.readEnumValue(EnumState.class);
+        status = buf.readEnumValue(EnumState.class);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.status);
+        buf.writeEnumValue(status);
     }
 
     public void processPacket(INetHandlerPlayServer handler) {
@@ -29,7 +29,7 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
     }
 
     public C16PacketClientStatus.EnumState getStatus() {
-        return this.status;
+        return status;
     }
 
     public enum EnumState {

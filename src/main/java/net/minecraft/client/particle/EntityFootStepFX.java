@@ -19,13 +19,13 @@ public class EntityFootStepFX extends EntityFX {
 
     protected EntityFootStepFX(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.currentFootSteps = currentFootStepsIn;
-        this.motionX = this.motionY = this.motionZ = 0.0D;
-        this.footstepMaxAge = 200;
+        currentFootSteps = currentFootStepsIn;
+        motionX = motionY = motionZ = 0.0D;
+        footstepMaxAge = 200;
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.footstepAge + partialTicks) / (float) this.footstepMaxAge;
+        float f = ((float) footstepAge + partialTicks) / (float) footstepMaxAge;
         f = f * f;
         float f1 = 2.0F - f * 2.0F;
 
@@ -36,11 +36,11 @@ public class EntityFootStepFX extends EntityFX {
         f1 = f1 * 0.2F;
         GlStateManager.disableLighting();
         float f2 = 0.125F;
-        float f3 = (float) (this.posX - interpPosX);
-        float f4 = (float) (this.posY - interpPosY);
-        float f5 = (float) (this.posZ - interpPosZ);
-        float f6 = this.worldObj.getLightBrightness(new BlockPos(this));
-        this.currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
+        float f3 = (float) (posX - interpPosX);
+        float f4 = (float) (posY - interpPosY);
+        float f5 = (float) (posZ - interpPosZ);
+        float f6 = worldObj.getLightBrightness(new BlockPos(this));
+        currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         worldRendererIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -54,10 +54,10 @@ public class EntityFootStepFX extends EntityFX {
     }
 
     public void onUpdate() {
-        ++this.footstepAge;
+        ++footstepAge;
 
-        if (this.footstepAge == this.footstepMaxAge) {
-            this.setDead();
+        if (footstepAge == footstepMaxAge) {
+            setDead();
         }
     }
 

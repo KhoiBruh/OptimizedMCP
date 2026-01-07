@@ -11,11 +11,11 @@ import net.minecraft.world.World;
 
 public class ItemGlassBottle extends Item {
     public ItemGlassBottle() {
-        this.setCreativeTab(CreativeTabs.tabBrewing);
+        setCreativeTab(CreativeTabs.tabBrewing);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
+        MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
         if (movingobjectposition == null) {
             return itemStackIn;

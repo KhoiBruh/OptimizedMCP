@@ -8,12 +8,12 @@ public class ScoreDummyCriteria implements IScoreObjectiveCriteria {
     private final String dummyName;
 
     public ScoreDummyCriteria(String name) {
-        this.dummyName = name;
+        dummyName = name;
         IScoreObjectiveCriteria.INSTANCES.put(name, this);
     }
 
     public String getName() {
-        return this.dummyName;
+        return dummyName;
     }
 
     public int setScore(List<EntityPlayer> p_96635_1_) {

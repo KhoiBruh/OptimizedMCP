@@ -20,22 +20,22 @@ public abstract class BlockBasePressurePlate extends Block {
 
     protected BlockBasePressurePlate(Material p_i46401_1_, MapColor p_i46401_2_) {
         super(p_i46401_1_, p_i46401_2_);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
-        this.setTickRandomly(true);
+        setCreativeTab(CreativeTabs.tabRedstone);
+        setTickRandomly(true);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.setBlockBoundsBasedOnState0(worldIn.getBlockState(pos));
+        setBlockBoundsBasedOnState0(worldIn.getBlockState(pos));
     }
 
     protected void setBlockBoundsBasedOnState0(IBlockState state) {
-        boolean flag = this.getRedstoneStrength(state) > 0;
+        boolean flag = getRedstoneStrength(state) > 0;
         float f = 0.0625F;
 
         if (flag) {
-            this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.03125F, 0.9375F);
+            setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.03125F, 0.9375F);
         } else {
-            this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.0625F, 0.9375F);
+            setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.0625F, 0.9375F);
         }
     }
 
@@ -64,12 +64,12 @@ public abstract class BlockBasePressurePlate extends Block {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return this.canBePlacedOn(worldIn, pos.down());
+        return canBePlacedOn(worldIn, pos.down());
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        if (!this.canBePlacedOn(worldIn, pos.down())) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+        if (!canBePlacedOn(worldIn, pos.down())) {
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -83,33 +83,33 @@ public abstract class BlockBasePressurePlate extends Block {
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
-            int i = this.getRedstoneStrength(state);
+            int i = getRedstoneStrength(state);
 
             if (i > 0) {
-                this.updateState(worldIn, pos, state, i);
+                updateState(worldIn, pos, state, i);
             }
         }
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
-            int i = this.getRedstoneStrength(state);
+            int i = getRedstoneStrength(state);
 
             if (i == 0) {
-                this.updateState(worldIn, pos, state, i);
+                updateState(worldIn, pos, state, i);
             }
         }
     }
 
     protected void updateState(World worldIn, BlockPos pos, IBlockState state, int oldRedstoneStrength) {
-        int i = this.computeRedstoneStrength(worldIn, pos);
+        int i = computeRedstoneStrength(worldIn, pos);
         boolean flag = oldRedstoneStrength > 0;
         boolean flag1 = i > 0;
 
         if (oldRedstoneStrength != i) {
-            state = this.setRedstoneStrength(state, i);
+            state = setRedstoneStrength(state, i);
             worldIn.setBlockState(pos, state, 2);
-            this.updateNeighbors(worldIn, pos);
+            updateNeighbors(worldIn, pos);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
         }
 
@@ -120,7 +120,7 @@ public abstract class BlockBasePressurePlate extends Block {
         }
 
         if (flag1) {
-            worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
         }
     }
 
@@ -130,8 +130,8 @@ public abstract class BlockBasePressurePlate extends Block {
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (this.getRedstoneStrength(state) > 0) {
-            this.updateNeighbors(worldIn, pos);
+        if (getRedstoneStrength(state) > 0) {
+            updateNeighbors(worldIn, pos);
         }
 
         super.breakBlock(worldIn, pos, state);
@@ -143,11 +143,11 @@ public abstract class BlockBasePressurePlate extends Block {
     }
 
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return this.getRedstoneStrength(state);
+        return getRedstoneStrength(state);
     }
 
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return side == EnumFacing.UP ? this.getRedstoneStrength(state) : 0;
+        return side == EnumFacing.UP ? getRedstoneStrength(state) : 0;
     }
 
     public boolean canProvidePower() {
@@ -158,7 +158,7 @@ public abstract class BlockBasePressurePlate extends Block {
         float f = 0.5F;
         float f1 = 0.125F;
         float f2 = 0.5F;
-        this.setBlockBounds(0.0F, 0.375F, 0.0F, 1.0F, 0.625F, 1.0F);
+        setBlockBounds(0.0F, 0.375F, 0.0F, 1.0F, 0.625F, 1.0F);
     }
 
     public int getMobilityFlag() {

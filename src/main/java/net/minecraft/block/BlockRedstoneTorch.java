@@ -22,8 +22,8 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     protected BlockRedstoneTorch(boolean isOn) {
         this.isOn = isOn;
-        this.setTickRandomly(true);
-        this.setCreativeTab(null);
+        setTickRandomly(true);
+        setCreativeTab(null);
     }
 
     private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
@@ -57,7 +57,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        if (this.isOn) {
+        if (isOn) {
             for (EnumFacing enumfacing : EnumFacing.values()) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
             }
@@ -65,7 +65,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (this.isOn) {
+        if (isOn) {
             for (EnumFacing enumfacing : EnumFacing.values()) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
             }
@@ -73,7 +73,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return this.isOn && state.getValue(FACING) != side ? 15 : 0;
+        return isOn && state.getValue(FACING) != side ? 15 : 0;
     }
 
     private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state) {
@@ -85,18 +85,18 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        boolean flag = this.shouldBeOff(worldIn, pos, state);
+        boolean flag = shouldBeOff(worldIn, pos, state);
         List<BlockRedstoneTorch.Toggle> list = toggles.get(worldIn);
 
         while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - list.get(0).time > 60L) {
             list.remove(0);
         }
 
-        if (this.isOn) {
+        if (isOn) {
             if (flag) {
                 worldIn.setBlockState(pos, Blocks.unlit_redstone_torch.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
 
-                if (this.isBurnedOut(worldIn, pos, true)) {
+                if (isBurnedOut(worldIn, pos, true)) {
                     worldIn.playSoundEffect((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
                     for (int i = 0; i < 5; ++i) {
@@ -109,21 +109,21 @@ public class BlockRedstoneTorch extends BlockTorch {
                     worldIn.scheduleUpdate(pos, worldIn.getBlockState(pos).getBlock(), 160);
                 }
             }
-        } else if (!flag && !this.isBurnedOut(worldIn, pos, false)) {
+        } else if (!flag && !isBurnedOut(worldIn, pos, false)) {
             worldIn.setBlockState(pos, Blocks.redstone_torch.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
         }
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        if (!this.onNeighborChangeInternal(worldIn, pos, state)) {
-            if (this.isOn == this.shouldBeOff(worldIn, pos, state)) {
-                worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        if (!onNeighborChangeInternal(worldIn, pos, state)) {
+            if (isOn == shouldBeOff(worldIn, pos, state)) {
+                worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
             }
         }
     }
 
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return side == EnumFacing.DOWN ? this.getWeakPower(worldIn, pos, state, side) : 0;
+        return side == EnumFacing.DOWN ? getWeakPower(worldIn, pos, state, side) : 0;
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -135,7 +135,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (this.isOn) {
+        if (isOn) {
             double d0 = (double) pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d1 = (double) pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d2 = (double) pos.getZ() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;

@@ -17,18 +17,18 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
     }
 
     public S0APacketUseBed(EntityPlayer player, BlockPos bedPosIn) {
-        this.playerID = player.getEntityId();
-        this.bedPos = bedPosIn;
+        playerID = player.getEntityId();
+        bedPos = bedPosIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.playerID = buf.readVarIntFromBuffer();
-        this.bedPos = buf.readBlockPos();
+        playerID = buf.readVarIntFromBuffer();
+        bedPos = buf.readBlockPos();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.playerID);
-        buf.writeBlockPos(this.bedPos);
+        buf.writeVarIntToBuffer(playerID);
+        buf.writeBlockPos(bedPos);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -36,10 +36,10 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
     }
 
     public EntityPlayer getPlayer(World worldIn) {
-        return (EntityPlayer) worldIn.getEntityByID(this.playerID);
+        return (EntityPlayer) worldIn.getEntityByID(playerID);
     }
 
     public BlockPos getBedPosition() {
-        return this.bedPos;
+        return bedPos;
     }
 }

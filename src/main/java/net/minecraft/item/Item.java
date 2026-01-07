@@ -517,7 +517,7 @@ public class Item {
     }
 
     public int getItemStackLimit() {
-        return this.maxStackSize;
+        return maxStackSize;
     }
 
     public int getMetadata(int damage) {
@@ -525,7 +525,7 @@ public class Item {
     }
 
     public boolean getHasSubtypes() {
-        return this.hasSubtypes;
+        return hasSubtypes;
     }
 
     protected Item setHasSubtypes(boolean hasSubtypes) {
@@ -534,16 +534,16 @@ public class Item {
     }
 
     public int getMaxDamage() {
-        return this.maxDamage;
+        return maxDamage;
     }
 
     protected Item setMaxDamage(int maxDamageIn) {
-        this.maxDamage = maxDamageIn;
+        maxDamage = maxDamageIn;
         return this;
     }
 
     public boolean isDamageable() {
-        return this.maxDamage > 0 && !this.hasSubtypes;
+        return maxDamage > 0 && !hasSubtypes;
     }
 
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
@@ -563,12 +563,12 @@ public class Item {
     }
 
     public Item setFull3D() {
-        this.bFull3D = true;
+        bFull3D = true;
         return this;
     }
 
     public boolean isFull3D() {
-        return this.bFull3D;
+        return bFull3D;
     }
 
     public boolean shouldRotateAroundWhenRendering() {
@@ -576,12 +576,12 @@ public class Item {
     }
 
     public String getUnlocalizedNameInefficiently(ItemStack stack) {
-        String s = this.getUnlocalizedName(stack);
+        String s = getUnlocalizedName(stack);
         return s == null ? "" : StatCollector.translateToLocal(s);
     }
 
     public String getUnlocalizedName() {
-        return "item." + this.unlocalizedName;
+        return "item." + unlocalizedName;
     }
 
     public Item setUnlocalizedName(String unlocalizedName) {
@@ -590,7 +590,7 @@ public class Item {
     }
 
     public String getUnlocalizedName(ItemStack stack) {
-        return "item." + this.unlocalizedName;
+        return "item." + unlocalizedName;
     }
 
     public boolean getShareTag() {
@@ -598,7 +598,7 @@ public class Item {
     }
 
     public Item getContainerItem() {
-        return this.containerItem;
+        return containerItem;
     }
 
     public Item setContainerItem(Item containerItem) {
@@ -607,7 +607,7 @@ public class Item {
     }
 
     public boolean hasContainerItem() {
-        return this.containerItem != null;
+        return containerItem != null;
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
@@ -641,18 +641,18 @@ public class Item {
     }
 
     public String getPotionEffect(ItemStack stack) {
-        return this.potionEffect;
+        return potionEffect;
     }
 
     public boolean isPotionIngredient(ItemStack stack) {
-        return this.getPotionEffect(stack) != null;
+        return getPotionEffect(stack) != null;
     }
 
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     }
 
     public String getItemStackDisplayName(ItemStack stack) {
-        return (StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+        return (StatCollector.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name")).trim();
     }
 
     public boolean hasEffect(ItemStack stack) {
@@ -664,7 +664,7 @@ public class Item {
     }
 
     public boolean isItemTool(ItemStack stack) {
-        return this.getItemStackLimit() == 1 && this.isDamageable();
+        return getItemStackLimit() == 1 && isDamageable();
     }
 
     protected MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
@@ -694,11 +694,11 @@ public class Item {
     }
 
     public CreativeTabs getCreativeTab() {
-        return this.tabToDisplayOn;
+        return tabToDisplayOn;
     }
 
     public Item setCreativeTab(CreativeTabs tab) {
-        this.tabToDisplayOn = tab;
+        tabToDisplayOn = tab;
         return this;
     }
 
@@ -730,29 +730,29 @@ public class Item {
         ToolMaterial(int harvestLevel, int maxUses, float efficiency, float damageVsEntity, int enchantability) {
             this.harvestLevel = harvestLevel;
             this.maxUses = maxUses;
-            this.efficiencyOnProperMaterial = efficiency;
+            efficiencyOnProperMaterial = efficiency;
             this.damageVsEntity = damageVsEntity;
             this.enchantability = enchantability;
         }
 
         public int getMaxUses() {
-            return this.maxUses;
+            return maxUses;
         }
 
         public float getEfficiencyOnProperMaterial() {
-            return this.efficiencyOnProperMaterial;
+            return efficiencyOnProperMaterial;
         }
 
         public float getDamageVsEntity() {
-            return this.damageVsEntity;
+            return damageVsEntity;
         }
 
         public int getHarvestLevel() {
-            return this.harvestLevel;
+            return harvestLevel;
         }
 
         public int getEnchantability() {
-            return this.enchantability;
+            return enchantability;
         }
 
         public Item getRepairItem() {

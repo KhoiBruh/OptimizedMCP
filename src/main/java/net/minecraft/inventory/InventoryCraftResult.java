@@ -14,7 +14,7 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public ItemStack getStackInSlot(int index) {
-        return this.stackResult[0];
+        return stackResult[0];
     }
 
     public String getName() {
@@ -26,13 +26,13 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
     }
 
     public ItemStack decrStackSize(int index, int count) {
-        if (this.stackResult[0] != null) {
-            ItemStack itemstack = this.stackResult[0];
-            this.stackResult[0] = null;
+        if (stackResult[0] != null) {
+            ItemStack itemstack = stackResult[0];
+            stackResult[0] = null;
             return itemstack;
         } else {
             return null;
@@ -40,9 +40,9 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public ItemStack removeStackFromSlot(int index) {
-        if (this.stackResult[0] != null) {
-            ItemStack itemstack = this.stackResult[0];
-            this.stackResult[0] = null;
+        if (stackResult[0] != null) {
+            ItemStack itemstack = stackResult[0];
+            stackResult[0] = null;
             return itemstack;
         } else {
             return null;
@@ -50,7 +50,7 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.stackResult[0] = stack;
+        stackResult[0] = stack;
     }
 
     public int getInventoryStackLimit() {
@@ -86,8 +86,8 @@ public class InventoryCraftResult implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.stackResult.length; ++i) {
-            this.stackResult[i] = null;
+        for (int i = 0; i < stackResult.length; ++i) {
+            stackResult[i] = null;
         }
     }
 }

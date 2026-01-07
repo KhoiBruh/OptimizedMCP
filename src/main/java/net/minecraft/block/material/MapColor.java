@@ -43,8 +43,8 @@ public class MapColor {
 
     private MapColor(int index, int color) {
         if (index >= 0 && index <= 63) {
-            this.colorIndex = index;
-            this.colorValue = color;
+            colorIndex = index;
+            colorValue = color;
             mapColorArray[index] = this;
         } else {
             throw new IndexOutOfBoundsException("Map colour ID must be between 0 and 63 (inclusive)");
@@ -70,9 +70,9 @@ public class MapColor {
             i = 180;
         }
 
-        int j = (this.colorValue >> 16 & 255) * i / 255;
-        int k = (this.colorValue >> 8 & 255) * i / 255;
-        int l = (this.colorValue & 255) * i / 255;
+        int j = (colorValue >> 16 & 255) * i / 255;
+        int k = (colorValue >> 8 & 255) * i / 255;
+        int l = (colorValue & 255) * i / 255;
         return -16777216 | j << 16 | k << 8 | l;
     }
 }

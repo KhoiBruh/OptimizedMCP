@@ -40,17 +40,17 @@ public enum ModelRotation {
     private final int quartersY;
 
     ModelRotation(int p_i46087_3_, int p_i46087_4_) {
-        this.combinedXY = combineXY(p_i46087_3_, p_i46087_4_);
-        this.matrix4d = new Matrix4f();
+        combinedXY = combineXY(p_i46087_3_, p_i46087_4_);
+        matrix4d = new Matrix4f();
         Matrix4f matrix4f = new Matrix4f();
         matrix4f.identity();
         matrix4f.rotate((float) (-p_i46087_3_) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f);
-        this.quartersX = MathHelper.abs_int(p_i46087_3_ / 90);
+        quartersX = MathHelper.abs_int(p_i46087_3_ / 90);
         Matrix4f matrix4f1 = new Matrix4f();
         matrix4f1.identity();
         matrix4f1.rotate((float) (-p_i46087_4_) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1);
-        this.quartersY = MathHelper.abs_int(p_i46087_4_ / 90);
-        matrix4f1.mul(matrix4f, this.matrix4d);
+        quartersY = MathHelper.abs_int(p_i46087_4_ / 90);
+        matrix4f1.mul(matrix4f, matrix4d);
     }
 
     private static int combineXY(int p_177521_0_, int p_177521_1_) {
@@ -62,18 +62,18 @@ public enum ModelRotation {
     }
 
     public Matrix4f getMatrix4d() {
-        return this.matrix4d;
+        return matrix4d;
     }
 
     public EnumFacing rotateFace(EnumFacing p_177523_1_) {
         EnumFacing enumfacing = p_177523_1_;
 
-        for (int i = 0; i < this.quartersX; ++i) {
+        for (int i = 0; i < quartersX; ++i) {
             enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
         }
 
         if (enumfacing.getAxis() != EnumFacing.Axis.Y) {
-            for (int j = 0; j < this.quartersY; ++j) {
+            for (int j = 0; j < quartersY; ++j) {
                 enumfacing = enumfacing.rotateAround(EnumFacing.Axis.Y);
             }
         }
@@ -85,31 +85,31 @@ public enum ModelRotation {
         int i = vertexIndex;
 
         if (facing.getAxis() == EnumFacing.Axis.X) {
-            i = (vertexIndex + this.quartersX) % 4;
+            i = (vertexIndex + quartersX) % 4;
         }
 
         EnumFacing enumfacing = facing;
 
-        for (int j = 0; j < this.quartersX; ++j) {
+        for (int j = 0; j < quartersX; ++j) {
             enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
         }
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-            i = (i + this.quartersY) % 4;
+            i = (i + quartersY) % 4;
         }
 
         return i;
     }
 
     public Matrix4f getMatrix() {
-        return this.getMatrix4d();
+        return getMatrix4d();
     }
 
     public EnumFacing rotate(EnumFacing p_rotate_1_) {
-        return this.rotateFace(p_rotate_1_);
+        return rotateFace(p_rotate_1_);
     }
 
     public int rotate(EnumFacing p_rotate_1_, int p_rotate_2_) {
-        return this.rotateVertex(p_rotate_1_, p_rotate_2_);
+        return rotateVertex(p_rotate_1_, p_rotate_2_);
     }
 }

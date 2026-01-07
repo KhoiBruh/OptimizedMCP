@@ -23,8 +23,8 @@ public class BlockBed extends BlockDirectional {
 
     public BlockBed() {
         super(Material.cloth);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
-        this.setBedBounds();
+        setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
+        setBedBounds();
     }
 
     public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
@@ -76,7 +76,7 @@ public class BlockBed extends BlockDirectional {
 
             if (worldIn.provider.canRespawnHere() && worldIn.getBiomeGenForCoords(pos) != BiomeGenBase.hell) {
                 if (state.getValue(OCCUPIED)) {
-                    EntityPlayer entityplayer = this.getPlayerInBed(worldIn, pos);
+                    EntityPlayer entityplayer = getPlayerInBed(worldIn, pos);
 
                     if (entityplayer != null) {
                         playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied"));
@@ -135,7 +135,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.setBedBounds();
+        setBedBounds();
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -149,7 +149,7 @@ public class BlockBed extends BlockDirectional {
             worldIn.setBlockToAir(pos);
 
             if (!worldIn.isRemote) {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
             }
         }
     }
@@ -159,7 +159,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     private void setBedBounds() {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
@@ -192,7 +192,7 @@ public class BlockBed extends BlockDirectional {
 
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
-        return (meta & 8) > 0 ? this.getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : this.getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
+        return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -237,11 +237,11 @@ public class BlockBed extends BlockDirectional {
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

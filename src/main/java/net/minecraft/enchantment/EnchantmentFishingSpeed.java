@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentFishingSpeed extends Enchantment {
     protected EnchantmentFishingSpeed(int enchID, ResourceLocation enchName, int enchWeight, EnumEnchantmentType enchType) {
         super(enchID, enchName, enchWeight, enchType);
-        this.setName("fishingSpeed");
+        setName("fishingSpeed");
     }
 
     public int getMinEnchantability(int enchantmentLevel) {

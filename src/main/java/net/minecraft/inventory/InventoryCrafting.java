@@ -14,22 +14,22 @@ public class InventoryCrafting implements IInventory {
 
     public InventoryCrafting(Container eventHandlerIn, int width, int height) {
         int i = width * height;
-        this.stackList = new ItemStack[i];
-        this.eventHandler = eventHandlerIn;
-        this.inventoryWidth = width;
-        this.inventoryHeight = height;
+        stackList = new ItemStack[i];
+        eventHandler = eventHandlerIn;
+        inventoryWidth = width;
+        inventoryHeight = height;
     }
 
     public int getSizeInventory() {
-        return this.stackList.length;
+        return stackList.length;
     }
 
     public ItemStack getStackInSlot(int index) {
-        return index >= this.getSizeInventory() ? null : this.stackList[index];
+        return index >= getSizeInventory() ? null : stackList[index];
     }
 
     public ItemStack getStackInRowAndColumn(int row, int column) {
-        return row >= 0 && row < this.inventoryWidth && column >= 0 && column <= this.inventoryHeight ? this.getStackInSlot(row + column * this.inventoryWidth) : null;
+        return row >= 0 && row < inventoryWidth && column >= 0 && column <= inventoryHeight ? getStackInSlot(row + column * inventoryWidth) : null;
     }
 
     public String getName() {
@@ -41,13 +41,13 @@ public class InventoryCrafting implements IInventory {
     }
 
     public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return hasCustomName() ? new ChatComponentText(getName()) : new ChatComponentTranslation(getName(), new Object[0]);
     }
 
     public ItemStack removeStackFromSlot(int index) {
-        if (this.stackList[index] != null) {
-            ItemStack itemstack = this.stackList[index];
-            this.stackList[index] = null;
+        if (stackList[index] != null) {
+            ItemStack itemstack = stackList[index];
+            stackList[index] = null;
             return itemstack;
         } else {
             return null;
@@ -55,20 +55,20 @@ public class InventoryCrafting implements IInventory {
     }
 
     public ItemStack decrStackSize(int index, int count) {
-        if (this.stackList[index] != null) {
-            if (this.stackList[index].stackSize <= count) {
-                ItemStack itemstack1 = this.stackList[index];
-                this.stackList[index] = null;
-                this.eventHandler.onCraftMatrixChanged(this);
+        if (stackList[index] != null) {
+            if (stackList[index].stackSize <= count) {
+                ItemStack itemstack1 = stackList[index];
+                stackList[index] = null;
+                eventHandler.onCraftMatrixChanged(this);
                 return itemstack1;
             } else {
-                ItemStack itemstack = this.stackList[index].splitStack(count);
+                ItemStack itemstack = stackList[index].splitStack(count);
 
-                if (this.stackList[index].stackSize == 0) {
-                    this.stackList[index] = null;
+                if (stackList[index].stackSize == 0) {
+                    stackList[index] = null;
                 }
 
-                this.eventHandler.onCraftMatrixChanged(this);
+                eventHandler.onCraftMatrixChanged(this);
                 return itemstack;
             }
         } else {
@@ -77,8 +77,8 @@ public class InventoryCrafting implements IInventory {
     }
 
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.stackList[index] = stack;
-        this.eventHandler.onCraftMatrixChanged(this);
+        stackList[index] = stack;
+        eventHandler.onCraftMatrixChanged(this);
     }
 
     public int getInventoryStackLimit() {
@@ -114,16 +114,16 @@ public class InventoryCrafting implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.stackList.length; ++i) {
-            this.stackList[i] = null;
+        for (int i = 0; i < stackList.length; ++i) {
+            stackList[i] = null;
         }
     }
 
     public int getHeight() {
-        return this.inventoryHeight;
+        return inventoryHeight;
     }
 
     public int getWidth() {
-        return this.inventoryWidth;
+        return inventoryWidth;
     }
 }

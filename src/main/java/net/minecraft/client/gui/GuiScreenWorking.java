@@ -12,17 +12,17 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
     private final CustomLoadingScreen customLoadingScreen = CustomLoadingScreens.getCustomLoadingScreen();
 
     public void displaySavingString(String message) {
-        this.resetProgressAndMessage(message);
+        resetProgressAndMessage(message);
     }
 
     public void resetProgressAndMessage(String message) {
-        this.field_146591_a = message;
-        this.displayLoadingString("Working...");
+        field_146591_a = message;
+        displayLoadingString("Working...");
     }
 
     public void displayLoadingString(String message) {
-        this.field_146589_f = message;
-        this.setLoadingProgress(0);
+        field_146589_f = message;
+        setLoadingProgress(0);
     }
 
     public void setLoadingProgress(int progress) {
@@ -30,22 +30,22 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
     }
 
     public void setDoneWorking() {
-        this.doneWorking = true;
+        doneWorking = true;
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (this.doneWorking) {
-            this.mc.displayGuiScreen(null);
+        if (doneWorking) {
+            mc.displayGuiScreen(null);
         } else {
-            if (this.customLoadingScreen != null && this.mc.theWorld == null) {
-                this.customLoadingScreen.drawBackground(this.width, this.height);
+            if (customLoadingScreen != null && mc.theWorld == null) {
+                customLoadingScreen.drawBackground(width, height);
             } else {
-                this.drawDefaultBackground();
+                drawDefaultBackground();
             }
 
-            if (this.progress > 0) {
-                this.drawCenteredString(this.fontRendererObj, this.field_146591_a, this.width / 2, 70, 16777215);
-                this.drawCenteredString(this.fontRendererObj, this.field_146589_f + " " + this.progress + "%", this.width / 2, 90, 16777215);
+            if (progress > 0) {
+                drawCenteredString(fontRendererObj, field_146591_a, width / 2, 70, 16777215);
+                drawCenteredString(fontRendererObj, field_146589_f + " " + progress + "%", width / 2, 90, 16777215);
             }
 
             super.drawScreen(mouseX, mouseY, partialTicks);

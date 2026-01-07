@@ -23,28 +23,28 @@ public class EntityLargeFireball extends EntityFireball {
     }
 
     protected void onImpact(MovingObjectPosition movingObject) {
-        if (!this.worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             if (movingObject.entityHit != null) {
-                movingObject.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, this.shootingEntity), 6.0F);
-                this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
+                movingObject.entityHit.attackEntityFrom(DamageSource.causeFireballDamage(this, shootingEntity), 6.0F);
+                applyEnchantments(shootingEntity, movingObject.entityHit);
             }
 
-            boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
-            this.worldObj.newExplosion(null, this.posX, this.posY, this.posZ, (float) this.explosionPower, flag, flag);
-            this.setDead();
+            boolean flag = worldObj.getGameRules().getBoolean("mobGriefing");
+            worldObj.newExplosion(null, posX, posY, posZ, (float) explosionPower, flag, flag);
+            setDead();
         }
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
-        tagCompound.setInteger("ExplosionPower", this.explosionPower);
+        tagCompound.setInteger("ExplosionPower", explosionPower);
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
         if (tagCompund.hasKey("ExplosionPower", 99)) {
-            this.explosionPower = tagCompund.getInteger("ExplosionPower");
+            explosionPower = tagCompund.getInteger("ExplosionPower");
         }
     }
 }

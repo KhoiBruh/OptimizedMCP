@@ -26,26 +26,26 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
-        if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            InventoryHelper.dropInventoryItems(this.worldObj, this, this);
+        if (worldObj.getGameRules().getBoolean("doEntityDrops")) {
+            InventoryHelper.dropInventoryItems(worldObj, this, this);
         }
     }
 
     public ItemStack getStackInSlot(int index) {
-        return this.minecartContainerItems[index];
+        return minecartContainerItems[index];
     }
 
     public ItemStack decrStackSize(int index, int count) {
-        if (this.minecartContainerItems[index] != null) {
-            if (this.minecartContainerItems[index].stackSize <= count) {
-                ItemStack itemstack1 = this.minecartContainerItems[index];
-                this.minecartContainerItems[index] = null;
+        if (minecartContainerItems[index] != null) {
+            if (minecartContainerItems[index].stackSize <= count) {
+                ItemStack itemstack1 = minecartContainerItems[index];
+                minecartContainerItems[index] = null;
                 return itemstack1;
             } else {
-                ItemStack itemstack = this.minecartContainerItems[index].splitStack(count);
+                ItemStack itemstack = minecartContainerItems[index].splitStack(count);
 
-                if (this.minecartContainerItems[index].stackSize == 0) {
-                    this.minecartContainerItems[index] = null;
+                if (minecartContainerItems[index].stackSize == 0) {
+                    minecartContainerItems[index] = null;
                 }
 
                 return itemstack;
@@ -56,9 +56,9 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public ItemStack removeStackFromSlot(int index) {
-        if (this.minecartContainerItems[index] != null) {
-            ItemStack itemstack = this.minecartContainerItems[index];
-            this.minecartContainerItems[index] = null;
+        if (minecartContainerItems[index] != null) {
+            ItemStack itemstack = minecartContainerItems[index];
+            minecartContainerItems[index] = null;
             return itemstack;
         } else {
             return null;
@@ -66,10 +66,10 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.minecartContainerItems[index] = stack;
+        minecartContainerItems[index] = stack;
 
-        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-            stack.stackSize = this.getInventoryStackLimit();
+        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+            stack.stackSize = getInventoryStackLimit();
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return !this.isDead && player.getDistanceSqToEntity(this) <= 64.0D;
+        return !isDead && player.getDistanceSqToEntity(this) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {
@@ -91,7 +91,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public String getName() {
-        return this.hasCustomName() ? this.getCustomNameTag() : "container.minecart";
+        return hasCustomName() ? getCustomNameTag() : "container.minecart";
     }
 
     public int getInventoryStackLimit() {
@@ -99,13 +99,13 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public void travelToDimension(int dimensionId) {
-        this.dropContentsWhenDead = false;
+        dropContentsWhenDead = false;
         super.travelToDimension(dimensionId);
     }
 
     public void setDead() {
-        if (this.dropContentsWhenDead) {
-            InventoryHelper.dropInventoryItems(this.worldObj, this, this);
+        if (dropContentsWhenDead) {
+            InventoryHelper.dropInventoryItems(worldObj, this, this);
         }
 
         super.setDead();
@@ -115,11 +115,11 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         super.writeEntityToNBT(tagCompound);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.minecartContainerItems.length; ++i) {
-            if (this.minecartContainerItems[i] != null) {
+        for (int i = 0; i < minecartContainerItems.length; ++i) {
+            if (minecartContainerItems[i] != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Slot", (byte) i);
-                this.minecartContainerItems[i].writeToNBT(nbttagcompound);
+                minecartContainerItems[i].writeToNBT(nbttagcompound);
                 nbttaglist.appendTag(nbttagcompound);
             }
         }
@@ -130,20 +130,20 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         NBTTagList nbttaglist = tagCompund.getTagList("Items", 10);
-        this.minecartContainerItems = new ItemStack[this.getSizeInventory()];
+        minecartContainerItems = new ItemStack[getSizeInventory()];
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
             int j = nbttagcompound.getByte("Slot") & 255;
 
-            if (j >= 0 && j < this.minecartContainerItems.length) {
-                this.minecartContainerItems[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+            if (j >= 0 && j < minecartContainerItems.length) {
+                minecartContainerItems[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
             }
         }
     }
 
     public boolean interactFirst(EntityPlayer playerIn) {
-        if (!this.worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             playerIn.displayGUIChest(this);
         }
 
@@ -153,9 +153,9 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     protected void applyDrag() {
         int i = 15 - Container.calcRedstoneFromInventory(this);
         float f = 0.98F + (float) i * 0.001F;
-        this.motionX *= f;
-        this.motionY *= 0.0D;
-        this.motionZ *= f;
+        motionX *= f;
+        motionY *= 0.0D;
+        motionZ *= f;
     }
 
     public int getField(int id) {
@@ -181,8 +181,8 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public void clear() {
-        for (int i = 0; i < this.minecartContainerItems.length; ++i) {
-            this.minecartContainerItems[i] = null;
+        for (int i = 0; i < minecartContainerItems.length; ++i) {
+            minecartContainerItems[i] = null;
         }
     }
 }

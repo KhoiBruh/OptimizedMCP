@@ -22,28 +22,28 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
     private int maxSpeedBoostTime;
 
     public EntityAIControlledByPlayer(EntityLiving entitylivingIn, float maxspeed) {
-        this.thisEntity = entitylivingIn;
-        this.maxSpeed = maxspeed;
-        this.setMutexBits(7);
+        thisEntity = entitylivingIn;
+        maxSpeed = maxspeed;
+        setMutexBits(7);
     }
 
     public void startExecuting() {
-        this.currentSpeed = 0.0F;
+        currentSpeed = 0.0F;
     }
 
     public void resetTask() {
-        this.speedBoosted = false;
-        this.currentSpeed = 0.0F;
+        speedBoosted = false;
+        currentSpeed = 0.0F;
     }
 
     public boolean shouldExecute() {
-        return this.thisEntity.isEntityAlive() && this.thisEntity.riddenByEntity != null && this.thisEntity.riddenByEntity instanceof EntityPlayer && (this.speedBoosted || this.thisEntity.canBeSteered());
+        return thisEntity.isEntityAlive() && thisEntity.riddenByEntity != null && thisEntity.riddenByEntity instanceof EntityPlayer && (speedBoosted || thisEntity.canBeSteered());
     }
 
     public void updateTask() {
-        EntityPlayer entityplayer = (EntityPlayer) this.thisEntity.riddenByEntity;
-        EntityCreature entitycreature = (EntityCreature) this.thisEntity;
-        float f = MathHelper.wrapAngleTo180_float(entityplayer.rotationYaw - this.thisEntity.rotationYaw) * 0.5F;
+        EntityPlayer entityplayer = (EntityPlayer) thisEntity.riddenByEntity;
+        EntityCreature entitycreature = (EntityCreature) thisEntity;
+        float f = MathHelper.wrapAngleTo180_float(entityplayer.rotationYaw - thisEntity.rotationYaw) * 0.5F;
 
         if (f > 5.0F) {
             f = 5.0F;
@@ -53,33 +53,33 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             f = -5.0F;
         }
 
-        this.thisEntity.rotationYaw = MathHelper.wrapAngleTo180_float(this.thisEntity.rotationYaw + f);
+        thisEntity.rotationYaw = MathHelper.wrapAngleTo180_float(thisEntity.rotationYaw + f);
 
-        if (this.currentSpeed < this.maxSpeed) {
-            this.currentSpeed += (this.maxSpeed - this.currentSpeed) * 0.01F;
+        if (currentSpeed < maxSpeed) {
+            currentSpeed += (maxSpeed - currentSpeed) * 0.01F;
         }
 
-        if (this.currentSpeed > this.maxSpeed) {
-            this.currentSpeed = this.maxSpeed;
+        if (currentSpeed > maxSpeed) {
+            currentSpeed = maxSpeed;
         }
 
-        int i = MathHelper.floor_double(this.thisEntity.posX);
-        int j = MathHelper.floor_double(this.thisEntity.posY);
-        int k = MathHelper.floor_double(this.thisEntity.posZ);
-        float f1 = this.currentSpeed;
+        int i = MathHelper.floor_double(thisEntity.posX);
+        int j = MathHelper.floor_double(thisEntity.posY);
+        int k = MathHelper.floor_double(thisEntity.posZ);
+        float f1 = currentSpeed;
 
-        if (this.speedBoosted) {
-            if (this.speedBoostTime++ > this.maxSpeedBoostTime) {
-                this.speedBoosted = false;
+        if (speedBoosted) {
+            if (speedBoostTime++ > maxSpeedBoostTime) {
+                speedBoosted = false;
             }
 
-            f1 += f1 * 1.15F * MathHelper.sin((float) this.speedBoostTime / (float) this.maxSpeedBoostTime * (float) Math.PI);
+            f1 += f1 * 1.15F * MathHelper.sin((float) speedBoostTime / (float) maxSpeedBoostTime * (float) Math.PI);
         }
 
         float f2 = 0.91F;
 
-        if (this.thisEntity.onGround) {
-            f2 = this.thisEntity.worldObj.getBlockState(new BlockPos(MathHelper.floor_float((float) i), MathHelper.floor_float((float) j) - 1, MathHelper.floor_float((float) k))).getBlock().slipperiness * 0.91F;
+        if (thisEntity.onGround) {
+            f2 = thisEntity.worldObj.getBlockState(new BlockPos(MathHelper.floor_float((float) i), MathHelper.floor_float((float) j) - 1, MathHelper.floor_float((float) k))).getBlock().slipperiness * 0.91F;
         }
 
         float f3 = 0.16277136F / (f2 * f2 * f2);
@@ -94,11 +94,11 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
 
         if (MathHelper.abs(f9) > MathHelper.abs(f10)) {
             if (f9 < 0.0F) {
-                f9 -= this.thisEntity.width / 2.0F;
+                f9 -= thisEntity.width / 2.0F;
             }
 
             if (f9 > 0.0F) {
-                f9 += this.thisEntity.width / 2.0F;
+                f9 += thisEntity.width / 2.0F;
             }
 
             f10 = 0.0F;
@@ -106,30 +106,30 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             f9 = 0.0F;
 
             if (f10 < 0.0F) {
-                f10 -= this.thisEntity.width / 2.0F;
+                f10 -= thisEntity.width / 2.0F;
             }
 
             if (f10 > 0.0F) {
-                f10 += this.thisEntity.width / 2.0F;
+                f10 += thisEntity.width / 2.0F;
             }
         }
 
-        int l = MathHelper.floor_double(this.thisEntity.posX + (double) f9);
-        int i1 = MathHelper.floor_double(this.thisEntity.posZ + (double) f10);
-        int j1 = MathHelper.floor_float(this.thisEntity.width + 1.0F);
-        int k1 = MathHelper.floor_float(this.thisEntity.height + entityplayer.height + 1.0F);
-        int l1 = MathHelper.floor_float(this.thisEntity.width + 1.0F);
+        int l = MathHelper.floor_double(thisEntity.posX + (double) f9);
+        int i1 = MathHelper.floor_double(thisEntity.posZ + (double) f10);
+        int j1 = MathHelper.floor_float(thisEntity.width + 1.0F);
+        int k1 = MathHelper.floor_float(thisEntity.height + entityplayer.height + 1.0F);
+        int l1 = MathHelper.floor_float(thisEntity.width + 1.0F);
 
         if (i != l || k != i1) {
-            Block block = this.thisEntity.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
-            boolean flag = !this.isStairOrSlab(block) && (block.getMaterial() != Material.air || !this.isStairOrSlab(this.thisEntity.worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock()));
+            Block block = thisEntity.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
+            boolean flag = !isStairOrSlab(block) && (block.getMaterial() != Material.air || !isStairOrSlab(thisEntity.worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock()));
 
-            if (flag && 0 == WalkNodeProcessor.func_176170_a(this.thisEntity.worldObj, this.thisEntity, l, j, i1, j1, k1, l1, false, false, true) && 1 == WalkNodeProcessor.func_176170_a(this.thisEntity.worldObj, this.thisEntity, i, j + 1, k, j1, k1, l1, false, false, true) && 1 == WalkNodeProcessor.func_176170_a(this.thisEntity.worldObj, this.thisEntity, l, j + 1, i1, j1, k1, l1, false, false, true)) {
+            if (flag && 0 == WalkNodeProcessor.func_176170_a(thisEntity.worldObj, thisEntity, l, j, i1, j1, k1, l1, false, false, true) && 1 == WalkNodeProcessor.func_176170_a(thisEntity.worldObj, thisEntity, i, j + 1, k, j1, k1, l1, false, false, true) && 1 == WalkNodeProcessor.func_176170_a(thisEntity.worldObj, thisEntity, l, j + 1, i1, j1, k1, l1, false, false, true)) {
                 entitycreature.getJumpHelper().setJumping();
             }
         }
 
-        if (!entityplayer.capabilities.isCreativeMode && this.currentSpeed >= this.maxSpeed * 0.5F && this.thisEntity.getRNG().nextFloat() < 0.006F && !this.speedBoosted) {
+        if (!entityplayer.capabilities.isCreativeMode && currentSpeed >= maxSpeed * 0.5F && thisEntity.getRNG().nextFloat() < 0.006F && !speedBoosted) {
             ItemStack itemstack = entityplayer.getHeldItem();
 
             if (itemstack != null && itemstack.getItem() == Items.carrot_on_a_stick) {
@@ -143,7 +143,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             }
         }
 
-        this.thisEntity.moveEntityWithHeading(0.0F, f1);
+        thisEntity.moveEntityWithHeading(0.0F, f1);
     }
 
     private boolean isStairOrSlab(Block blockIn) {
@@ -151,16 +151,16 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
     }
 
     public boolean isSpeedBoosted() {
-        return this.speedBoosted;
+        return speedBoosted;
     }
 
     public void boostSpeed() {
-        this.speedBoosted = true;
-        this.speedBoostTime = 0;
-        this.maxSpeedBoostTime = this.thisEntity.getRNG().nextInt(841) + 140;
+        speedBoosted = true;
+        speedBoostTime = 0;
+        maxSpeedBoostTime = thisEntity.getRNG().nextInt(841) + 140;
     }
 
     public boolean isControlledByPlayer() {
-        return !this.isSpeedBoosted() && this.currentSpeed > this.maxSpeed * 0.3F;
+        return !isSpeedBoosted() && currentSpeed > maxSpeed * 0.3F;
     }
 }

@@ -16,34 +16,34 @@ public class VertexBuffer {
     private int drawMode;
 
     public VertexBuffer(VertexFormat vertexFormatIn) {
-        this.vertexFormat = vertexFormatIn;
-        this.glBufferId = OpenGlHelper.glGenBuffers();
+        vertexFormat = vertexFormatIn;
+        glBufferId = OpenGlHelper.glGenBuffers();
     }
 
     public void bindBuffer() {
-        OpenGlHelper.glBindBuffer(OpenGlHelper.GL_ARRAY_BUFFER, this.glBufferId);
+        OpenGlHelper.glBindBuffer(OpenGlHelper.GL_ARRAY_BUFFER, glBufferId);
     }
 
     public void bufferData(ByteBuffer p_181722_1_) {
-        if (this.vboRegion != null) {
-            this.vboRegion.bufferData(p_181722_1_, this.vboRange);
+        if (vboRegion != null) {
+            vboRegion.bufferData(p_181722_1_, vboRange);
         } else {
-            this.bindBuffer();
+            bindBuffer();
             OpenGlHelper.glBufferData(OpenGlHelper.GL_ARRAY_BUFFER, p_181722_1_, 35044);
-            this.unbindBuffer();
-            this.count = p_181722_1_.limit() / this.vertexFormat.getNextOffset();
+            unbindBuffer();
+            count = p_181722_1_.limit() / vertexFormat.getNextOffset();
         }
     }
 
     public void drawArrays(int mode) {
-        if (this.drawMode > 0) {
-            mode = this.drawMode;
+        if (drawMode > 0) {
+            mode = drawMode;
         }
 
-        if (this.vboRegion != null) {
-            this.vboRegion.drawArrays(mode, this.vboRange);
+        if (vboRegion != null) {
+            vboRegion.drawArrays(mode, vboRange);
         } else {
-            GL11.glDrawArrays(mode, 0, this.count);
+            GL11.glDrawArrays(mode, 0, count);
         }
     }
 
@@ -52,33 +52,33 @@ public class VertexBuffer {
     }
 
     public void deleteGlBuffers() {
-        if (this.glBufferId >= 0) {
-            OpenGlHelper.glDeleteBuffers(this.glBufferId);
-            this.glBufferId = -1;
+        if (glBufferId >= 0) {
+            OpenGlHelper.glDeleteBuffers(glBufferId);
+            glBufferId = -1;
         }
     }
 
     public VboRegion getVboRegion() {
-        return this.vboRegion;
+        return vboRegion;
     }
 
     public void setVboRegion(VboRegion p_setVboRegion_1_) {
         if (p_setVboRegion_1_ != null) {
-            this.deleteGlBuffers();
-            this.vboRegion = p_setVboRegion_1_;
-            this.vboRange = new VboRange();
+            deleteGlBuffers();
+            vboRegion = p_setVboRegion_1_;
+            vboRange = new VboRange();
         }
     }
 
     public VboRange getVboRange() {
-        return this.vboRange;
+        return vboRange;
     }
 
     public int getDrawMode() {
-        return this.drawMode;
+        return drawMode;
     }
 
     public void setDrawMode(int p_setDrawMode_1_) {
-        this.drawMode = p_setDrawMode_1_;
+        drawMode = p_setDrawMode_1_;
     }
 }

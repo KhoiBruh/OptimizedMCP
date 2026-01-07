@@ -12,7 +12,7 @@ public class TextureClock extends TextureAtlasSprite {
     }
 
     public void updateAnimation() {
-        if (!this.framesTextureData.isEmpty()) {
+        if (!framesTextureData.isEmpty()) {
             Minecraft minecraft = Minecraft.getMinecraft();
             double d0 = 0.0D;
 
@@ -26,7 +26,7 @@ public class TextureClock extends TextureAtlasSprite {
 
             double d1;
 
-            for (d1 = d0 - this.currentAngle; d1 < -0.5D; ++d1) {
+            for (d1 = d0 - currentAngle; d1 < -0.5D; ++d1) {
             }
 
             while (d1 >= 0.5D) {
@@ -34,17 +34,17 @@ public class TextureClock extends TextureAtlasSprite {
             }
 
             d1 = MathHelper.clamp_double(d1, -1.0D, 1.0D);
-            this.angleDelta += d1 * 0.1D;
-            this.angleDelta *= 0.8D;
-            this.currentAngle += this.angleDelta;
+            angleDelta += d1 * 0.1D;
+            angleDelta *= 0.8D;
+            currentAngle += angleDelta;
             int i;
 
-            for (i = (int) ((this.currentAngle + 1.0D) * (double) this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
+            for (i = (int) ((currentAngle + 1.0D) * (double) framesTextureData.size()) % framesTextureData.size(); i < 0; i = (i + framesTextureData.size()) % framesTextureData.size()) {
             }
 
-            if (i != this.frameCounter) {
-                this.frameCounter = i;
-                TextureUtil.uploadTextureMipmap(this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
+            if (i != frameCounter) {
+                frameCounter = i;
+                TextureUtil.uploadTextureMipmap(framesTextureData.get(frameCounter), width, height, originX, originY, false, false);
             }
         }
     }

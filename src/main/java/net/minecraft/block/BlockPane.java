@@ -28,17 +28,17 @@ public class BlockPane extends Block {
 
     protected BlockPane(Material materialIn, boolean canDrop) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+        setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
         this.canDrop = canDrop;
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(NORTH, this.canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock())).withProperty(SOUTH, this.canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock())).withProperty(WEST, this.canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock())).withProperty(EAST, this.canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock()));
+        return state.withProperty(NORTH, canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock())).withProperty(SOUTH, canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock())).withProperty(WEST, canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock())).withProperty(EAST, canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock()));
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return !this.canDrop ? null : super.getItemDropped(state, rand, fortune);
+        return !canDrop ? null : super.getItemDropped(state, rand, fortune);
     }
 
     public boolean isOpaqueCube() {
@@ -54,40 +54,40 @@ public class BlockPane extends Block {
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        boolean flag = this.canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock());
-        boolean flag1 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock());
-        boolean flag2 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock());
-        boolean flag3 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock());
+        boolean flag = canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock());
+        boolean flag1 = canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock());
+        boolean flag2 = canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock());
+        boolean flag3 = canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock());
 
         if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1)) {
             if (flag2) {
-                this.setBlockBounds(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
+                setBlockBounds(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
                 super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
             } else if (flag3) {
-                this.setBlockBounds(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+                setBlockBounds(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
                 super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
             }
         } else {
-            this.setBlockBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            setBlockBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
 
         if ((!flag || !flag1) && (flag2 || flag3 || flag || flag1)) {
             if (flag) {
-                this.setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
+                setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
                 super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
             } else if (flag1) {
-                this.setBlockBounds(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
+                setBlockBounds(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
                 super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
             }
         } else {
-            this.setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
+            setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
     }
 
     public void setBlockBoundsForItemRender() {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
@@ -95,10 +95,10 @@ public class BlockPane extends Block {
         float f1 = 0.5625F;
         float f2 = 0.4375F;
         float f3 = 0.5625F;
-        boolean flag = this.canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock());
-        boolean flag1 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock());
-        boolean flag2 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock());
-        boolean flag3 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock());
+        boolean flag = canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock());
+        boolean flag1 = canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock());
+        boolean flag2 = canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock());
+        boolean flag3 = canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock());
 
         if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1)) {
             if (flag2) {
@@ -122,7 +122,7 @@ public class BlockPane extends Block {
             f3 = 1.0F;
         }
 
-        this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
+        setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
     public final boolean canPaneConnectToBlock(Block blockIn) {

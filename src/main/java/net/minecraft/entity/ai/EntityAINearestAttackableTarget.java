@@ -29,17 +29,17 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 
     public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, final Predicate<? super T> targetSelector) {
         super(creature, checkSight, onlyNearby);
-        this.targetClass = classTarget;
-        this.targetChance = chance;
-        this.theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(creature);
-        this.setMutexBits(1);
-        this.targetEntitySelector = new Predicate<T>() {
+        targetClass = classTarget;
+        targetChance = chance;
+        theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(creature);
+        setMutexBits(1);
+        targetEntitySelector = new Predicate<T>() {
             public boolean apply(T p_apply_1_) {
                 if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {
                     return false;
                 } else {
                     if (p_apply_1_ instanceof EntityPlayer) {
-                        double d0 = EntityAINearestAttackableTarget.this.getTargetDistance();
+                        double d0 = getTargetDistance();
 
                         if (p_apply_1_.isSneaking()) {
                             d0 *= 0.800000011920929D;
@@ -55,36 +55,36 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
                             d0 *= 0.7F * f;
                         }
 
-                        if ((double) p_apply_1_.getDistanceToEntity(EntityAINearestAttackableTarget.this.taskOwner) > d0) {
+                        if ((double) p_apply_1_.getDistanceToEntity(taskOwner) > d0) {
                             return false;
                         }
                     }
 
-                    return EntityAINearestAttackableTarget.this.isSuitableTarget(p_apply_1_, false);
+                    return isSuitableTarget(p_apply_1_, false);
                 }
             }
         };
     }
 
     public boolean shouldExecute() {
-        if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0) {
+        if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
             return false;
         } else {
-            double d0 = this.getTargetDistance();
-            List<T> list = this.taskOwner.worldObj.getEntitiesWithinAABB(this.targetClass, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), Predicates.and(this.targetEntitySelector, EntitySelectors.NOT_SPECTATING));
-            Collections.sort(list, this.theNearestAttackableTargetSorter);
+            double d0 = getTargetDistance();
+            List<T> list = taskOwner.worldObj.getEntitiesWithinAABB(targetClass, taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), Predicates.and(targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+            Collections.sort(list, theNearestAttackableTargetSorter);
 
             if (list.isEmpty()) {
                 return false;
             } else {
-                this.targetEntity = list.get(0);
+                targetEntity = list.get(0);
                 return true;
             }
         }
     }
 
     public void startExecuting() {
-        this.taskOwner.setAttackTarget(this.targetEntity);
+        taskOwner.setAttackTarget(targetEntity);
         super.startExecuting();
     }
 
@@ -92,12 +92,12 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         private final Entity theEntity;
 
         public Sorter(Entity theEntityIn) {
-            this.theEntity = theEntityIn;
+            theEntity = theEntityIn;
         }
 
         public int compare(Entity p_compare_1_, Entity p_compare_2_) {
-            double d0 = this.theEntity.getDistanceSqToEntity(p_compare_1_);
-            double d1 = this.theEntity.getDistanceSqToEntity(p_compare_2_);
+            double d0 = theEntity.getDistanceSqToEntity(p_compare_1_);
+            double d1 = theEntity.getDistanceSqToEntity(p_compare_2_);
             return d0 < d1 ? -1 : (d0 > d1 ? 1 : 0);
         }
     }

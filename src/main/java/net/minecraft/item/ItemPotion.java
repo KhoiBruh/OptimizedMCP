@@ -30,10 +30,10 @@ public class ItemPotion extends Item {
     private final Map<Integer, List<PotionEffect>> effectCache = Maps.newHashMap();
 
     public ItemPotion() {
-        this.setMaxStackSize(1);
-        this.setHasSubtypes(true);
-        this.setMaxDamage(0);
-        this.setCreativeTab(CreativeTabs.tabBrewing);
+        setMaxStackSize(1);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setCreativeTab(CreativeTabs.tabBrewing);
     }
 
     public static boolean isSplash(int meta) {
@@ -56,11 +56,11 @@ public class ItemPotion extends Item {
 
             return list1;
         } else {
-            List<PotionEffect> list = this.effectCache.get(stack.getMetadata());
+            List<PotionEffect> list = effectCache.get(stack.getMetadata());
 
             if (list == null) {
                 list = PotionHelper.getPotionEffects(stack.getMetadata(), false);
-                this.effectCache.put(stack.getMetadata(), list);
+                effectCache.put(stack.getMetadata(), list);
             }
 
             return list;
@@ -68,11 +68,11 @@ public class ItemPotion extends Item {
     }
 
     public List<PotionEffect> getEffects(int meta) {
-        List<PotionEffect> list = this.effectCache.get(meta);
+        List<PotionEffect> list = effectCache.get(meta);
 
         if (list == null) {
             list = PotionHelper.getPotionEffects(meta, false);
-            this.effectCache.put(meta, list);
+            effectCache.put(meta, list);
         }
 
         return list;
@@ -84,7 +84,7 @@ public class ItemPotion extends Item {
         }
 
         if (!worldIn.isRemote) {
-            List<PotionEffect> list = this.getEffects(stack);
+            List<PotionEffect> list = getEffects(stack);
 
             if (list != null) {
                 for (PotionEffect potioneffect : list) {
@@ -129,7 +129,7 @@ public class ItemPotion extends Item {
             playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
             return itemStackIn;
         } else {
-            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+            playerIn.setItemInUse(itemStackIn, getMaxItemUseDuration(itemStackIn));
             return itemStackIn;
         }
     }
@@ -139,11 +139,11 @@ public class ItemPotion extends Item {
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        return renderPass > 0 ? 16777215 : this.getColorFromDamage(stack.getMetadata());
+        return renderPass > 0 ? 16777215 : getColorFromDamage(stack.getMetadata());
     }
 
     public boolean isEffectInstant(int meta) {
-        List<PotionEffect> list = this.getEffects(meta);
+        List<PotionEffect> list = getEffects(meta);
 
         if (list != null && !list.isEmpty()) {
             for (PotionEffect potioneffect : list) {
@@ -192,7 +192,7 @@ public class ItemPotion extends Item {
                     Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
                     Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
 
-                    if (map != null && map.size() > 0) {
+                    if (map != null && !map.isEmpty()) {
                         for (Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
                             AttributeModifier attributemodifier = entry.getValue();
                             AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
@@ -246,7 +246,7 @@ public class ItemPotion extends Item {
     }
 
     public boolean hasEffect(ItemStack stack) {
-        List<PotionEffect> list = this.getEffects(stack);
+        List<PotionEffect> list = getEffects(stack);
         return list != null && !list.isEmpty();
     }
 

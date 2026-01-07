@@ -18,15 +18,15 @@ public class EnchantmentDamage extends Enchantment {
 
     public EnchantmentDamage(int enchID, ResourceLocation enchName, int enchWeight, int classification) {
         super(enchID, enchName, enchWeight, EnumEnchantmentType.WEAPON);
-        this.damageType = classification;
+        damageType = classification;
     }
 
     public int getMinEnchantability(int enchantmentLevel) {
-        return baseEnchantability[this.damageType] + (enchantmentLevel - 1) * levelEnchantability[this.damageType];
+        return baseEnchantability[damageType] + (enchantmentLevel - 1) * levelEnchantability[damageType];
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + thresholdEnchantability[this.damageType];
+        return getMinEnchantability(enchantmentLevel) + thresholdEnchantability[damageType];
     }
 
     public int getMaxLevel() {
@@ -34,11 +34,11 @@ public class EnchantmentDamage extends Enchantment {
     }
 
     public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
-        return this.damageType == 0 ? (float) level * 1.25F : (this.damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD ? (float) level * 2.5F : (this.damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0.0F));
+        return damageType == 0 ? (float) level * 1.25F : (damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD ? (float) level * 2.5F : (damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0.0F));
     }
 
     public String getName() {
-        return "enchantment.damage." + protectionName[this.damageType];
+        return "enchantment.damage." + protectionName[damageType];
     }
 
     public boolean canApplyTogether(Enchantment ench) {
@@ -52,7 +52,7 @@ public class EnchantmentDamage extends Enchantment {
     public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
         if (target instanceof EntityLivingBase entitylivingbase) {
 
-            if (this.damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
+            if (damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
                 int i = 20 + user.getRNG().nextInt(10 * level);
                 entitylivingbase.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, i, 3));
             }

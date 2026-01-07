@@ -17,8 +17,8 @@ public class ServerList {
     private final List<ServerData> servers = Lists.newArrayList();
 
     public ServerList(Minecraft mcIn) {
-        this.mc = mcIn;
-        this.loadServerList();
+        mc = mcIn;
+        loadServerList();
     }
 
     public static void func_147414_b(ServerData p_147414_0_) {
@@ -39,8 +39,8 @@ public class ServerList {
 
     public void loadServerList() {
         try {
-            this.servers.clear();
-            NBTTagCompound nbttagcompound = CompressedStreamTools.read(new File(this.mc.mcDataDir, "servers.dat"));
+            servers.clear();
+            NBTTagCompound nbttagcompound = CompressedStreamTools.read(new File(mc.mcDataDir, "servers.dat"));
 
             if (nbttagcompound == null) {
                 return;
@@ -49,7 +49,7 @@ public class ServerList {
             NBTTagList nbttaglist = nbttagcompound.getTagList("servers", 10);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-                this.servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
+                servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
             }
         } catch (Exception exception) {
             logger.error("Couldn't load server list", exception);
@@ -60,42 +60,42 @@ public class ServerList {
         try {
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (ServerData serverdata : this.servers) {
+            for (ServerData serverdata : servers) {
                 nbttaglist.appendTag(serverdata.getNBTCompound());
             }
 
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             nbttagcompound.setTag("servers", nbttaglist);
-            CompressedStreamTools.safeWrite(nbttagcompound, new File(this.mc.mcDataDir, "servers.dat"));
+            CompressedStreamTools.safeWrite(nbttagcompound, new File(mc.mcDataDir, "servers.dat"));
         } catch (Exception exception) {
             logger.error("Couldn't save server list", exception);
         }
     }
 
     public ServerData getServerData(int index) {
-        return this.servers.get(index);
+        return servers.get(index);
     }
 
     public void removeServerData(int index) {
-        this.servers.remove(index);
+        servers.remove(index);
     }
 
     public void addServerData(ServerData server) {
-        this.servers.add(server);
+        servers.add(server);
     }
 
     public int countServers() {
-        return this.servers.size();
+        return servers.size();
     }
 
     public void swapServers(int p_78857_1_, int p_78857_2_) {
-        ServerData serverdata = this.getServerData(p_78857_1_);
-        this.servers.set(p_78857_1_, this.getServerData(p_78857_2_));
-        this.servers.set(p_78857_2_, serverdata);
-        this.saveServerList();
+        ServerData serverdata = getServerData(p_78857_1_);
+        servers.set(p_78857_1_, getServerData(p_78857_2_));
+        servers.set(p_78857_2_, serverdata);
+        saveServerList();
     }
 
     public void func_147413_a(int index, ServerData server) {
-        this.servers.set(index, server);
+        servers.set(index, server);
     }
 }

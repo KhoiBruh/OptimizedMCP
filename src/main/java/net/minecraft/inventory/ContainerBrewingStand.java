@@ -12,78 +12,78 @@ public class ContainerBrewingStand extends Container {
     private int brewTime;
 
     public ContainerBrewingStand(InventoryPlayer playerInventory, IInventory tileBrewingStandIn) {
-        this.tileBrewingStand = tileBrewingStandIn;
-        this.addSlotToContainer(new ContainerBrewingStand.Potion(playerInventory.player, tileBrewingStandIn, 0, 56, 46));
-        this.addSlotToContainer(new ContainerBrewingStand.Potion(playerInventory.player, tileBrewingStandIn, 1, 79, 53));
-        this.addSlotToContainer(new ContainerBrewingStand.Potion(playerInventory.player, tileBrewingStandIn, 2, 102, 46));
-        this.theSlot = this.addSlotToContainer(new ContainerBrewingStand.Ingredient(tileBrewingStandIn, 3, 79, 17));
+        tileBrewingStand = tileBrewingStandIn;
+        addSlotToContainer(new ContainerBrewingStand.Potion(playerInventory.player, tileBrewingStandIn, 0, 56, 46));
+        addSlotToContainer(new ContainerBrewingStand.Potion(playerInventory.player, tileBrewingStandIn, 1, 79, 53));
+        addSlotToContainer(new ContainerBrewingStand.Potion(playerInventory.player, tileBrewingStandIn, 2, 102, 46));
+        theSlot = addSlotToContainer(new ContainerBrewingStand.Ingredient(tileBrewingStandIn, 3, 79, 17));
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (int k = 0; k < 9; ++k) {
-            this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+            addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
     }
 
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
-        listener.sendAllWindowProperties(this, this.tileBrewingStand);
+        listener.sendAllWindowProperties(this, tileBrewingStand);
     }
 
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        for (ICrafting icrafting : this.crafters) {
-            if (this.brewTime != this.tileBrewingStand.getField(0)) {
-                icrafting.sendProgressBarUpdate(this, 0, this.tileBrewingStand.getField(0));
+        for (ICrafting icrafting : crafters) {
+            if (brewTime != tileBrewingStand.getField(0)) {
+                icrafting.sendProgressBarUpdate(this, 0, tileBrewingStand.getField(0));
             }
         }
 
-        this.brewTime = this.tileBrewingStand.getField(0);
+        brewTime = tileBrewingStand.getField(0);
     }
 
     public void updateProgressBar(int id, int data) {
-        this.tileBrewingStand.setField(id, data);
+        tileBrewingStand.setField(id, data);
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.tileBrewingStand.isUseableByPlayer(playerIn);
+        return tileBrewingStand.isUseableByPlayer(playerIn);
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
             if ((index < 0 || index > 2) && index != 3) {
-                if (!this.theSlot.getHasStack() && this.theSlot.isItemValid(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 3, 4, false)) {
+                if (!theSlot.getHasStack() && theSlot.isItemValid(itemstack1)) {
+                    if (!mergeItemStack(itemstack1, 3, 4, false)) {
                         return null;
                     }
                 } else if (ContainerBrewingStand.Potion.canHoldPotion(itemstack)) {
-                    if (!this.mergeItemStack(itemstack1, 0, 3, false)) {
+                    if (!mergeItemStack(itemstack1, 0, 3, false)) {
                         return null;
                     }
                 } else if (index >= 4 && index < 31) {
-                    if (!this.mergeItemStack(itemstack1, 31, 40, false)) {
+                    if (!mergeItemStack(itemstack1, 31, 40, false)) {
                         return null;
                     }
                 } else if (index >= 31 && index < 40) {
-                    if (!this.mergeItemStack(itemstack1, 4, 31, false)) {
+                    if (!mergeItemStack(itemstack1, 4, 31, false)) {
                         return null;
                     }
-                } else if (!this.mergeItemStack(itemstack1, 4, 40, false)) {
+                } else if (!mergeItemStack(itemstack1, 4, 40, false)) {
                     return null;
                 }
             } else {
-                if (!this.mergeItemStack(itemstack1, 4, 40, true)) {
+                if (!mergeItemStack(itemstack1, 4, 40, true)) {
                     return null;
                 }
 
@@ -111,7 +111,7 @@ public class ContainerBrewingStand extends Container {
 
         public Potion(EntityPlayer playerIn, IInventory inventoryIn, int index, int xPosition, int yPosition) {
             super(inventoryIn, index, xPosition, yPosition);
-            this.player = playerIn;
+            player = playerIn;
         }
 
         public static boolean canHoldPotion(ItemStack stack) {
@@ -128,7 +128,7 @@ public class ContainerBrewingStand extends Container {
 
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
             if (stack.getItem() == Items.potionitem && stack.getMetadata() > 0) {
-                this.player.triggerAchievement(AchievementList.potion);
+                player.triggerAchievement(AchievementList.potion);
             }
 
             super.onPickupFromSlot(playerIn, stack);

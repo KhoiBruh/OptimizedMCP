@@ -20,7 +20,7 @@ public class BlockSign extends BlockContainer {
         super(Material.wood);
         float f = 0.25F;
         float f1 = 1.0F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
@@ -28,7 +28,7 @@ public class BlockSign extends BlockContainer {
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
@@ -70,6 +70,6 @@ public class BlockSign extends BlockContainer {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return !this.hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
+        return !hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
     }
 }

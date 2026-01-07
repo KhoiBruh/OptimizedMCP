@@ -12,12 +12,12 @@ public class BaseSpectatorGroup implements ISpectatorMenuView {
     private final List<ISpectatorMenuObject> field_178671_a = Lists.newArrayList();
 
     public BaseSpectatorGroup() {
-        this.field_178671_a.add(new TeleportToPlayer());
-        this.field_178671_a.add(new TeleportToTeam());
+        field_178671_a.add(new TeleportToPlayer());
+        field_178671_a.add(new TeleportToTeam());
     }
 
     public List<ISpectatorMenuObject> func_178669_a() {
-        return this.field_178671_a;
+        return field_178671_a;
     }
 
     public IChatComponent func_178670_b() {

@@ -6,6 +6,6 @@ public class Vector3d {
     public double z;
 
     public Vector3d() {
-        this.x = this.y = this.z = 0.0D;
+        x = y = z = 0.0D;
     }
 }

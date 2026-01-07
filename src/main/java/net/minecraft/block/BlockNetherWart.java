@@ -21,11 +21,11 @@ public class BlockNetherWart extends BlockBush {
 
     protected BlockNetherWart() {
         super(Material.plants, MapColor.redColor);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
+        setTickRandomly(true);
         float f = 0.5F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-        this.setCreativeTab(null);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
+        setCreativeTab(null);
     }
 
     protected boolean canPlaceBlockOn(Block ground) {
@@ -33,7 +33,7 @@ public class BlockNetherWart extends BlockBush {
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-        return this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
+        return canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -78,7 +78,7 @@ public class BlockNetherWart extends BlockBush {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AGE, meta);
+        return getDefaultState().withProperty(AGE, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

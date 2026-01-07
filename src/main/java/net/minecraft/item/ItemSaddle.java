@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ItemSaddle extends Item {
     public ItemSaddle() {
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.tabTransport);
     }
 
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
@@ -27,7 +27,7 @@ public class ItemSaddle extends Item {
     }
 
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        this.itemInteractionForEntity(stack, null, target);
+        itemInteractionForEntity(stack, null, target);
         return true;
     }
 }

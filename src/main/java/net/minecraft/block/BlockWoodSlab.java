@@ -21,14 +21,14 @@ public abstract class BlockWoodSlab extends BlockSlab {
 
     public BlockWoodSlab() {
         super(Material.wood);
-        IBlockState iblockstate = this.blockState.getBaseState();
+        IBlockState iblockstate = blockState.getBaseState();
 
-        if (!this.isDouble()) {
+        if (!isDouble()) {
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -64,9 +64,9 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
+        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
 
-        if (!this.isDouble()) {
+        if (!isDouble()) {
             iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
         }
 
@@ -77,7 +77,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
 
-        if (!this.isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+        if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
             i |= 8;
         }
 
@@ -85,7 +85,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     protected BlockState createBlockState() {
-        return this.isDouble() ? new BlockState(this, VARIANT) : new BlockState(this, HALF, VARIANT);
+        return isDouble() ? new BlockState(this, VARIANT) : new BlockState(this, HALF, VARIANT);
     }
 
     public int damageDropped(IBlockState state) {

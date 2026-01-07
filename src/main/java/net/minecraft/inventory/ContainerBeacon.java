@@ -9,40 +9,40 @@ public class ContainerBeacon extends Container {
     private final IInventory tileBeacon;
 
     public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn) {
-        this.tileBeacon = tileBeaconIn;
-        this.addSlotToContainer(this.beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110));
+        tileBeacon = tileBeaconIn;
+        addSlotToContainer(beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110));
         int i = 36;
         int j = 137;
 
         for (int k = 0; k < 3; ++k) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlotToContainer(new Slot(playerInventory, l + k * 9 + 9, i + l * 18, j + k * 18));
+                addSlotToContainer(new Slot(playerInventory, l + k * 9 + 9, i + l * 18, j + k * 18));
             }
         }
 
         for (int i1 = 0; i1 < 9; ++i1) {
-            this.addSlotToContainer(new Slot(playerInventory, i1, i + i1 * 18, 58 + j));
+            addSlotToContainer(new Slot(playerInventory, i1, i + i1 * 18, 58 + j));
         }
     }
 
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
-        listener.sendAllWindowProperties(this, this.tileBeacon);
+        listener.sendAllWindowProperties(this, tileBeacon);
     }
 
     public void updateProgressBar(int id, int data) {
-        this.tileBeacon.setField(id, data);
+        tileBeacon.setField(id, data);
     }
 
     public IInventory func_180611_e() {
-        return this.tileBeacon;
+        return tileBeacon;
     }
 
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
         if (playerIn != null && !playerIn.worldObj.isRemote) {
-            ItemStack itemstack = this.beaconSlot.decrStackSize(this.beaconSlot.getSlotStackLimit());
+            ItemStack itemstack = beaconSlot.decrStackSize(beaconSlot.getSlotStackLimit());
 
             if (itemstack != null) {
                 playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
@@ -51,36 +51,36 @@ public class ContainerBeacon extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.tileBeacon.isUseableByPlayer(playerIn);
+        return tileBeacon.isUseableByPlayer(playerIn);
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
             if (index == 0) {
-                if (!this.mergeItemStack(itemstack1, 1, 37, true)) {
+                if (!mergeItemStack(itemstack1, 1, 37, true)) {
                     return null;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
-            } else if (!this.beaconSlot.getHasStack() && this.beaconSlot.isItemValid(itemstack1) && itemstack1.stackSize == 1) {
-                if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+            } else if (!beaconSlot.getHasStack() && beaconSlot.isItemValid(itemstack1) && itemstack1.stackSize == 1) {
+                if (!mergeItemStack(itemstack1, 0, 1, false)) {
                     return null;
                 }
             } else if (index >= 1 && index < 28) {
-                if (!this.mergeItemStack(itemstack1, 28, 37, false)) {
+                if (!mergeItemStack(itemstack1, 28, 37, false)) {
                     return null;
                 }
             } else if (index >= 28 && index < 37) {
-                if (!this.mergeItemStack(itemstack1, 1, 28, false)) {
+                if (!mergeItemStack(itemstack1, 1, 28, false)) {
                     return null;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 1, 37, false)) {
+            } else if (!mergeItemStack(itemstack1, 1, 37, false)) {
                 return null;
             }
 

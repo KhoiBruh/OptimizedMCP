@@ -34,48 +34,48 @@ public class ContainerRepair extends Container {
     }
 
     public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPos blockPosIn, EntityPlayer player) {
-        this.outputSlot = new InventoryCraftResult();
-        this.inputSlots = new InventoryBasic("Repair", true, 2) {
+        outputSlot = new InventoryCraftResult();
+        inputSlots = new InventoryBasic("Repair", true, 2) {
             public void markDirty() {
                 super.markDirty();
-                ContainerRepair.this.onCraftMatrixChanged(this);
+                onCraftMatrixChanged(this);
             }
         };
-        this.selfPosition = blockPosIn;
-        this.theWorld = worldIn;
-        this.thePlayer = player;
-        this.addSlotToContainer(new Slot(this.inputSlots, 0, 27, 47));
-        this.addSlotToContainer(new Slot(this.inputSlots, 1, 76, 47));
-        this.addSlotToContainer(new Slot(this.outputSlot, 2, 134, 47) {
+        selfPosition = blockPosIn;
+        theWorld = worldIn;
+        thePlayer = player;
+        addSlotToContainer(new Slot(inputSlots, 0, 27, 47));
+        addSlotToContainer(new Slot(inputSlots, 1, 76, 47));
+        addSlotToContainer(new Slot(outputSlot, 2, 134, 47) {
             public boolean isItemValid(ItemStack stack) {
                 return false;
             }
 
             public boolean canTakeStack(EntityPlayer playerIn) {
-                return (playerIn.capabilities.isCreativeMode || playerIn.experienceLevel >= ContainerRepair.this.maximumCost) && ContainerRepair.this.maximumCost > 0 && this.getHasStack();
+                return (playerIn.capabilities.isCreativeMode || playerIn.experienceLevel >= maximumCost) && maximumCost > 0 && getHasStack();
             }
 
             public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
                 if (!playerIn.capabilities.isCreativeMode) {
-                    playerIn.addExperienceLevel(-ContainerRepair.this.maximumCost);
+                    playerIn.addExperienceLevel(-maximumCost);
                 }
 
-                ContainerRepair.this.inputSlots.setInventorySlotContents(0, null);
+                inputSlots.setInventorySlotContents(0, null);
 
-                if (ContainerRepair.this.materialCost > 0) {
-                    ItemStack itemstack = ContainerRepair.this.inputSlots.getStackInSlot(1);
+                if (materialCost > 0) {
+                    ItemStack itemstack = inputSlots.getStackInSlot(1);
 
-                    if (itemstack != null && itemstack.stackSize > ContainerRepair.this.materialCost) {
-                        itemstack.stackSize -= ContainerRepair.this.materialCost;
-                        ContainerRepair.this.inputSlots.setInventorySlotContents(1, itemstack);
+                    if (itemstack != null && itemstack.stackSize > materialCost) {
+                        itemstack.stackSize -= materialCost;
+                        inputSlots.setInventorySlotContents(1, itemstack);
                     } else {
-                        ContainerRepair.this.inputSlots.setInventorySlotContents(1, null);
+                        inputSlots.setInventorySlotContents(1, null);
                     }
                 } else {
-                    ContainerRepair.this.inputSlots.setInventorySlotContents(1, null);
+                    inputSlots.setInventorySlotContents(1, null);
                 }
 
-                ContainerRepair.this.maximumCost = 0;
+                maximumCost = 0;
                 IBlockState iblockstate = worldIn.getBlockState(blockPosIn);
 
                 if (!playerIn.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.anvil && playerIn.getRNG().nextFloat() < 0.12F) {
@@ -97,20 +97,20 @@ public class ContainerRepair extends Container {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (int k = 0; k < 9; ++k) {
-            this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+            addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
 
-        if (inventoryIn == this.inputSlots) {
-            this.updateRepairOutput();
+        if (inventoryIn == inputSlots) {
+            updateRepairOutput();
         }
     }
 
@@ -122,22 +122,22 @@ public class ContainerRepair extends Container {
         int i1 = 2;
         int j1 = 1;
         int k1 = 1;
-        ItemStack itemstack = this.inputSlots.getStackInSlot(0);
-        this.maximumCost = 1;
+        ItemStack itemstack = inputSlots.getStackInSlot(0);
+        maximumCost = 1;
         int l1 = 0;
         int i2 = 0;
         int j2 = 0;
 
         if (itemstack == null) {
-            this.outputSlot.setInventorySlotContents(0, null);
-            this.maximumCost = 0;
+            outputSlot.setInventorySlotContents(0, null);
+            maximumCost = 0;
         } else {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
+            ItemStack itemstack2 = inputSlots.getStackInSlot(1);
             Map<Integer, Integer> map = EnchantmentHelper.getEnchantments(itemstack1);
             boolean flag = false;
             i2 = i2 + itemstack.getRepairCost() + (itemstack2 == null ? 0 : itemstack2.getRepairCost());
-            this.materialCost = 0;
+            materialCost = 0;
 
             if (itemstack2 != null) {
                 flag = itemstack2.getItem() == Items.enchanted_book && Items.enchanted_book.getEnchantments(itemstack2).tagCount() > 0;
@@ -146,8 +146,8 @@ public class ContainerRepair extends Container {
                     int j4 = Math.min(itemstack1.getItemDamage(), itemstack1.getMaxDamage() / 4);
 
                     if (j4 <= 0) {
-                        this.outputSlot.setInventorySlotContents(0, null);
-                        this.maximumCost = 0;
+                        outputSlot.setInventorySlotContents(0, null);
+                        maximumCost = 0;
                         return;
                     }
 
@@ -160,11 +160,11 @@ public class ContainerRepair extends Container {
                         j4 = Math.min(itemstack1.getItemDamage(), itemstack1.getMaxDamage() / 4);
                     }
 
-                    this.materialCost = l4;
+                    materialCost = l4;
                 } else {
                     if (!flag && (itemstack1.getItem() != itemstack2.getItem() || !itemstack1.isItemStackDamageable())) {
-                        this.outputSlot.setInventorySlotContents(0, null);
-                        this.maximumCost = 0;
+                        outputSlot.setInventorySlotContents(0, null);
+                        maximumCost = 0;
                         return;
                     }
 
@@ -207,7 +207,7 @@ public class ContainerRepair extends Container {
                             l3 = i6;
                             boolean flag1 = enchantment.canApply(itemstack);
 
-                            if (this.thePlayer.capabilities.isCreativeMode || itemstack.getItem() == Items.enchanted_book) {
+                            if (thePlayer.capabilities.isCreativeMode || itemstack.getItem() == Items.enchanted_book) {
                                 flag1 = true;
                             }
 
@@ -266,29 +266,29 @@ public class ContainerRepair extends Container {
                 }
             }
 
-            if (StringUtils.isBlank(this.repairedItemName)) {
+            if (StringUtils.isBlank(repairedItemName)) {
                 if (itemstack.hasDisplayName()) {
                     j2 = 1;
                     l1 += j2;
                     itemstack1.clearCustomName();
                 }
-            } else if (!this.repairedItemName.equals(itemstack.getDisplayName())) {
+            } else if (!repairedItemName.equals(itemstack.getDisplayName())) {
                 j2 = 1;
                 l1 += j2;
-                itemstack1.setStackDisplayName(this.repairedItemName);
+                itemstack1.setStackDisplayName(repairedItemName);
             }
 
-            this.maximumCost = i2 + l1;
+            maximumCost = i2 + l1;
 
             if (l1 <= 0) {
                 itemstack1 = null;
             }
 
-            if (j2 == l1 && j2 > 0 && this.maximumCost >= 40) {
-                this.maximumCost = 39;
+            if (j2 == l1 && j2 > 0 && maximumCost >= 40) {
+                maximumCost = 39;
             }
 
-            if (this.maximumCost >= 40 && !this.thePlayer.capabilities.isCreativeMode) {
+            if (maximumCost >= 40 && !thePlayer.capabilities.isCreativeMode) {
                 itemstack1 = null;
             }
 
@@ -304,28 +304,28 @@ public class ContainerRepair extends Container {
                 EnchantmentHelper.setEnchantments(map, itemstack1);
             }
 
-            this.outputSlot.setInventorySlotContents(0, itemstack1);
-            this.detectAndSendChanges();
+            outputSlot.setInventorySlotContents(0, itemstack1);
+            detectAndSendChanges();
         }
     }
 
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
-        listener.sendProgressBarUpdate(this, 0, this.maximumCost);
+        listener.sendProgressBarUpdate(this, 0, maximumCost);
     }
 
     public void updateProgressBar(int id, int data) {
         if (id == 0) {
-            this.maximumCost = data;
+            maximumCost = data;
         }
     }
 
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
-        if (!this.theWorld.isRemote) {
-            for (int i = 0; i < this.inputSlots.getSizeInventory(); ++i) {
-                ItemStack itemstack = this.inputSlots.removeStackFromSlot(i);
+        if (!theWorld.isRemote) {
+            for (int i = 0; i < inputSlots.getSizeInventory(); ++i) {
+                ItemStack itemstack = inputSlots.removeStackFromSlot(i);
 
                 if (itemstack != null) {
                     playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
@@ -335,28 +335,28 @@ public class ContainerRepair extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.theWorld.getBlockState(this.selfPosition).getBlock() == Blocks.anvil && playerIn.getDistanceSq((double) this.selfPosition.getX() + 0.5D, (double) this.selfPosition.getY() + 0.5D, (double) this.selfPosition.getZ() + 0.5D) <= 64.0D;
+        return theWorld.getBlockState(selfPosition).getBlock() == Blocks.anvil && playerIn.getDistanceSq((double) selfPosition.getX() + 0.5D, (double) selfPosition.getY() + 0.5D, (double) selfPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
             if (index == 2) {
-                if (!this.mergeItemStack(itemstack1, 3, 39, true)) {
+                if (!mergeItemStack(itemstack1, 3, 39, true)) {
                     return null;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
             } else if (index != 0 && index != 1) {
-                if (index >= 3 && index < 39 && !this.mergeItemStack(itemstack1, 0, 2, false)) {
+                if (index >= 3 && index < 39 && !mergeItemStack(itemstack1, 0, 2, false)) {
                     return null;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 3, 39, false)) {
+            } else if (!mergeItemStack(itemstack1, 3, 39, false)) {
                 return null;
             }
 
@@ -377,18 +377,18 @@ public class ContainerRepair extends Container {
     }
 
     public void updateItemName(String newName) {
-        this.repairedItemName = newName;
+        repairedItemName = newName;
 
-        if (this.getSlot(2).getHasStack()) {
-            ItemStack itemstack = this.getSlot(2).getStack();
+        if (getSlot(2).getHasStack()) {
+            ItemStack itemstack = getSlot(2).getStack();
 
             if (StringUtils.isBlank(newName)) {
                 itemstack.clearCustomName();
             } else {
-                itemstack.setStackDisplayName(this.repairedItemName);
+                itemstack.setStackDisplayName(repairedItemName);
             }
         }
 
-        this.updateRepairOutput();
+        updateRepairOutput();
     }
 }

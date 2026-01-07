@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 public class ItemEnderEye extends Item {
     public ItemEnderEye() {
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(CreativeTabs.tabMisc);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -112,7 +112,7 @@ public class ItemEnderEye extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, false);
+        MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(worldIn, playerIn, false);
 
         if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldIn.getBlockState(movingobjectposition.getBlockPos()).getBlock() == Blocks.end_portal_frame) {
             return itemStackIn;

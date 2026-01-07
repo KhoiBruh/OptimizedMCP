@@ -7,8 +7,8 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
     private final Minecraft mc = Minecraft.getMinecraft();
 
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
-        int i = y + slotHeight / 2 - this.mc.fontRendererObj.FONT_HEIGHT / 2;
-        this.mc.fontRendererObj.drawString(I18n.format("lanServer.scanning"), this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
+        int i = y + slotHeight / 2 - mc.fontRendererObj.FONT_HEIGHT / 2;
+        mc.fontRendererObj.drawString(I18n.format("lanServer.scanning"), mc.currentScreen.width / 2 - mc.fontRendererObj.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
         String s;
 
         switch ((int) (Minecraft.getSystemTime() / 300L % 4L)) {
@@ -26,7 +26,7 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
                 s = "o o O";
         }
 
-        this.mc.fontRendererObj.drawString(s, this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2, i + this.mc.fontRendererObj.FONT_HEIGHT, 8421504);
+        mc.fontRendererObj.drawString(s, mc.currentScreen.width / 2 - mc.fontRendererObj.getStringWidth(s) / 2, i + mc.fontRendererObj.FONT_HEIGHT, 8421504);
     }
 
     public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {

@@ -22,7 +22,7 @@ public class ItemEnchantedBook extends Item {
     }
 
     public EnumRarity getRarity(ItemStack stack) {
-        return this.getEnchantments(stack).tagCount() > 0 ? EnumRarity.UNCOMMON : super.getRarity(stack);
+        return getEnchantments(stack).tagCount() > 0 ? EnumRarity.UNCOMMON : super.getRarity(stack);
     }
 
     public NBTTagList getEnchantments(ItemStack stack) {
@@ -32,7 +32,7 @@ public class ItemEnchantedBook extends Item {
 
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         super.addInformation(stack, playerIn, tooltip, advanced);
-        NBTTagList nbttaglist = this.getEnchantments(stack);
+        NBTTagList nbttaglist = getEnchantments(stack);
 
         if (nbttaglist != null) {
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -47,7 +47,7 @@ public class ItemEnchantedBook extends Item {
     }
 
     public void addEnchantment(ItemStack stack, EnchantmentData enchantment) {
-        NBTTagList nbttaglist = this.getEnchantments(stack);
+        NBTTagList nbttaglist = getEnchantments(stack);
         boolean flag = true;
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -79,18 +79,18 @@ public class ItemEnchantedBook extends Item {
 
     public ItemStack getEnchantedItemStack(EnchantmentData data) {
         ItemStack itemstack = new ItemStack(this);
-        this.addEnchantment(itemstack, data);
+        addEnchantment(itemstack, data);
         return itemstack;
     }
 
     public void getAll(Enchantment enchantment, List<ItemStack> list) {
         for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i) {
-            list.add(this.getEnchantedItemStack(new EnchantmentData(enchantment, i)));
+            list.add(getEnchantedItemStack(new EnchantmentData(enchantment, i)));
         }
     }
 
     public WeightedRandomChestContent getRandom(Random rand) {
-        return this.getRandom(rand, 1, 1, 1);
+        return getRandom(rand, 1, 1, 1);
     }
 
     public WeightedRandomChestContent getRandom(Random rand, int minChance, int maxChance, int weight) {

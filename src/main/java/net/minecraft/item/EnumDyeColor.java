@@ -44,7 +44,7 @@ public enum EnumDyeColor implements IStringSerializable {
         this.dyeDamage = dyeDamage;
         this.name = name;
         this.unlocalizedName = unlocalizedName;
-        this.mapColor = mapColorIn;
+        mapColor = mapColorIn;
         this.chatColor = chatColor;
     }
 
@@ -65,26 +65,26 @@ public enum EnumDyeColor implements IStringSerializable {
     }
 
     public int getMetadata() {
-        return this.meta;
+        return meta;
     }
 
     public int getDyeDamage() {
-        return this.dyeDamage;
+        return dyeDamage;
     }
 
     public String getUnlocalizedName() {
-        return this.unlocalizedName;
+        return unlocalizedName;
     }
 
     public MapColor getMapColor() {
-        return this.mapColor;
+        return mapColor;
     }
 
     public String toString() {
-        return this.unlocalizedName;
+        return unlocalizedName;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 }

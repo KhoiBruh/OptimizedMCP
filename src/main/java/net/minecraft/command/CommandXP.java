@@ -63,7 +63,7 @@ public class CommandXP extends CommandBase {
     }
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return args.length == 2 ? getListOfStringsMatchingLastWord(args, this.getAllUsernames()) : null;
+        return args.length == 2 ? getListOfStringsMatchingLastWord(args, getAllUsernames()) : null;
     }
 
     protected String[] getAllUsernames() {

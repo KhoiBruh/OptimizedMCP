@@ -25,11 +25,11 @@ public class RegionRenderCache extends ChunkCache {
 
     public RegionRenderCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn) {
         super(worldIn, posFromIn, posToIn, subIn);
-        this.position = posFromIn.subtract(new Vec3i(subIn, subIn, subIn));
+        position = posFromIn.subtract(new Vec3i(subIn, subIn, subIn));
         int i = 8000;
-        this.combinedLights = allocateLights(8000);
-        Arrays.fill(this.combinedLights, -1);
-        this.blockStates = allocateStates(8000);
+        combinedLights = allocateLights(8000);
+        Arrays.fill(combinedLights, -1);
+        blockStates = allocateStates(8000);
     }
 
     private static int[] allocateLights(int p_allocateLights_0_) {
@@ -75,35 +75,35 @@ public class RegionRenderCache extends ChunkCache {
     }
 
     public TileEntity getTileEntity(BlockPos pos) {
-        int i = (pos.getX() >> 4) - this.chunkX;
-        int j = (pos.getZ() >> 4) - this.chunkZ;
-        return this.chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.QUEUED);
+        int i = (pos.getX() >> 4) - chunkX;
+        int j = (pos.getZ() >> 4) - chunkZ;
+        return chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.QUEUED);
     }
 
     public int getCombinedLight(BlockPos pos, int lightValue) {
-        int i = this.getPositionIndex(pos);
-        int j = this.combinedLights[i];
+        int i = getPositionIndex(pos);
+        int j = combinedLights[i];
 
         if (j == -1) {
             j = super.getCombinedLight(pos, lightValue);
 
-            if (Config.isDynamicLights() && !this.getBlockState(pos).getBlock().isOpaqueCube()) {
+            if (Config.isDynamicLights() && !getBlockState(pos).getBlock().isOpaqueCube()) {
                 j = DynamicLights.getCombinedLight(pos, j);
             }
 
-            this.combinedLights[i] = j;
+            combinedLights[i] = j;
         }
 
         return j;
     }
 
     public IBlockState getBlockState(BlockPos pos) {
-        int i = this.getPositionIndex(pos);
-        IBlockState iblockstate = this.blockStates[i];
+        int i = getPositionIndex(pos);
+        IBlockState iblockstate = blockStates[i];
 
         if (iblockstate == null) {
-            iblockstate = this.getBlockStateRaw(pos);
-            this.blockStates[i] = iblockstate;
+            iblockstate = getBlockStateRaw(pos);
+            blockStates[i] = iblockstate;
         }
 
         return iblockstate;
@@ -114,14 +114,14 @@ public class RegionRenderCache extends ChunkCache {
     }
 
     private int getPositionIndex(BlockPos p_175630_1_) {
-        int i = p_175630_1_.getX() - this.position.getX();
-        int j = p_175630_1_.getY() - this.position.getY();
-        int k = p_175630_1_.getZ() - this.position.getZ();
+        int i = p_175630_1_.getX() - position.getX();
+        int j = p_175630_1_.getY() - position.getY();
+        int k = p_175630_1_.getZ() - position.getZ();
         return i * 400 + k * 20 + j;
     }
 
     public void freeBuffers() {
-        freeLights(this.combinedLights);
-        freeStates(this.blockStates);
+        freeLights(combinedLights);
+        freeStates(blockStates);
     }
 }

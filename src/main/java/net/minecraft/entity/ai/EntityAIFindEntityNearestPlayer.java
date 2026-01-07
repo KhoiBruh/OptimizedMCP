@@ -20,20 +20,20 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
     private EntityLivingBase entityTarget;
 
     public EntityAIFindEntityNearestPlayer(EntityLiving entityLivingIn) {
-        this.entityLiving = entityLivingIn;
+        entityLiving = entityLivingIn;
 
         if (entityLivingIn instanceof EntityCreature) {
             LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
         }
 
-        this.predicate = new Predicate<Entity>() {
+        predicate = new Predicate<Entity>() {
             public boolean apply(Entity p_apply_1_) {
                 if (!(p_apply_1_ instanceof EntityPlayer)) {
                     return false;
                 } else if (((EntityPlayer) p_apply_1_).capabilities.disableDamage) {
                     return false;
                 } else {
-                    double d0 = EntityAIFindEntityNearestPlayer.this.maxTargetRange();
+                    double d0 = maxTargetRange();
 
                     if (p_apply_1_.isSneaking()) {
                         d0 *= 0.800000011920929D;
@@ -49,28 +49,28 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
                         d0 *= 0.7F * f;
                     }
 
-                    return !((double) p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearestPlayer.this.entityLiving) > d0) && EntityAITarget.isSuitableTarget(EntityAIFindEntityNearestPlayer.this.entityLiving, (EntityLivingBase) p_apply_1_, false, true);
+                    return !((double) p_apply_1_.getDistanceToEntity(entityLiving) > d0) && EntityAITarget.isSuitableTarget(entityLiving, (EntityLivingBase) p_apply_1_, false, true);
                 }
             }
         };
-        this.sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);
+        sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);
     }
 
     public boolean shouldExecute() {
-        double d0 = this.maxTargetRange();
-        List<EntityPlayer> list = this.entityLiving.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.entityLiving.getEntityBoundingBox().expand(d0, 4.0D, d0), this.predicate);
-        Collections.sort(list, this.sorter);
+        double d0 = maxTargetRange();
+        List<EntityPlayer> list = entityLiving.worldObj.getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().expand(d0, 4.0D, d0), predicate);
+        Collections.sort(list, sorter);
 
         if (list.isEmpty()) {
             return false;
         } else {
-            this.entityTarget = list.get(0);
+            entityTarget = list.get(0);
             return true;
         }
     }
 
     public boolean continueExecuting() {
-        EntityLivingBase entitylivingbase = this.entityLiving.getAttackTarget();
+        EntityLivingBase entitylivingbase = entityLiving.getAttackTarget();
 
         if (entitylivingbase == null) {
             return false;
@@ -79,30 +79,30 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
         } else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer) entitylivingbase).capabilities.disableDamage) {
             return false;
         } else {
-            Team team = this.entityLiving.getTeam();
+            Team team = entityLiving.getTeam();
             Team team1 = entitylivingbase.getTeam();
 
             if (team != null && team1 == team) {
                 return false;
             } else {
-                double d0 = this.maxTargetRange();
-                return !(this.entityLiving.getDistanceSqToEntity(entitylivingbase) > d0 * d0) && (!(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
+                double d0 = maxTargetRange();
+                return !(entityLiving.getDistanceSqToEntity(entitylivingbase) > d0 * d0) && (!(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
             }
         }
     }
 
     public void startExecuting() {
-        this.entityLiving.setAttackTarget(this.entityTarget);
+        entityLiving.setAttackTarget(entityTarget);
         super.startExecuting();
     }
 
     public void resetTask() {
-        this.entityLiving.setAttackTarget(null);
+        entityLiving.setAttackTarget(null);
         super.startExecuting();
     }
 
     protected double maxTargetRange() {
-        IAttributeInstance iattributeinstance = this.entityLiving.getEntityAttribute(SharedMonsterAttributes.followRange);
+        IAttributeInstance iattributeinstance = entityLiving.getEntityAttribute(SharedMonsterAttributes.followRange);
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 }

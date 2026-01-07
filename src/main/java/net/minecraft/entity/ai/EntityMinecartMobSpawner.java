@@ -11,11 +11,11 @@ import net.minecraft.world.World;
 public class EntityMinecartMobSpawner extends EntityMinecart {
     private final MobSpawnerBaseLogic mobSpawnerLogic = new MobSpawnerBaseLogic() {
         public void func_98267_a(int id) {
-            EntityMinecartMobSpawner.this.worldObj.setEntityState(EntityMinecartMobSpawner.this, (byte) id);
+            worldObj.setEntityState(EntityMinecartMobSpawner.this, (byte) id);
         }
 
         public World getSpawnerWorld() {
-            return EntityMinecartMobSpawner.this.worldObj;
+            return worldObj;
         }
 
         public BlockPos getSpawnerPosition() {
@@ -41,24 +41,24 @@ public class EntityMinecartMobSpawner extends EntityMinecart {
 
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
-        this.mobSpawnerLogic.readFromNBT(tagCompund);
+        mobSpawnerLogic.readFromNBT(tagCompund);
     }
 
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
-        this.mobSpawnerLogic.writeToNBT(tagCompound);
+        mobSpawnerLogic.writeToNBT(tagCompound);
     }
 
     public void handleStatusUpdate(byte id) {
-        this.mobSpawnerLogic.setDelayToMin(id);
+        mobSpawnerLogic.setDelayToMin(id);
     }
 
     public void onUpdate() {
         super.onUpdate();
-        this.mobSpawnerLogic.updateSpawner();
+        mobSpawnerLogic.updateSpawner();
     }
 
     public MobSpawnerBaseLogic func_98039_d() {
-        return this.mobSpawnerLogic;
+        return mobSpawnerLogic;
     }
 }

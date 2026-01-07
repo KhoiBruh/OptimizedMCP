@@ -23,7 +23,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
             final Map<String, T> map = Maps.newHashMap();
 
             for (T t : oclass.getEnumConstants()) {
-                map.put(this.func_151232_a(t), t);
+                map.put(func_151232_a(t), t);
             }
 
             return new TypeAdapter<T>() {
@@ -31,7 +31,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
                     if (p_write_2_ == null) {
                         p_write_1_.nullValue();
                     } else {
-                        p_write_1_.value(EnumTypeAdapterFactory.this.func_151232_a(p_write_2_));
+                        p_write_1_.value(func_151232_a(p_write_2_));
                     }
                 }
 

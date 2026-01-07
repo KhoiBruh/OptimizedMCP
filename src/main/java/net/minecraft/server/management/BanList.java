@@ -15,13 +15,13 @@ public class BanList extends UserList<String, IPBanEntry> {
     }
 
     public boolean isBanned(SocketAddress address) {
-        String s = this.addressToString(address);
-        return this.hasEntry(s);
+        String s = addressToString(address);
+        return hasEntry(s);
     }
 
     public IPBanEntry getBanEntry(SocketAddress address) {
-        String s = this.addressToString(address);
-        return this.getEntry(s);
+        String s = addressToString(address);
+        return getEntry(s);
     }
 
     private String addressToString(SocketAddress address) {

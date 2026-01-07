@@ -15,60 +15,60 @@ public class FlatLayerInfo {
     }
 
     public FlatLayerInfo(int p_i45627_1_, int height, Block layerMaterialIn) {
-        this.layerCount = 1;
-        this.field_175902_a = p_i45627_1_;
-        this.layerCount = height;
-        this.layerMaterial = layerMaterialIn.getDefaultState();
+        layerCount = 1;
+        field_175902_a = p_i45627_1_;
+        layerCount = height;
+        layerMaterial = layerMaterialIn.getDefaultState();
     }
 
     public FlatLayerInfo(int p_i45628_1_, int p_i45628_2_, Block p_i45628_3_, int p_i45628_4_) {
         this(p_i45628_1_, p_i45628_2_, p_i45628_3_);
-        this.layerMaterial = p_i45628_3_.getStateFromMeta(p_i45628_4_);
+        layerMaterial = p_i45628_3_.getStateFromMeta(p_i45628_4_);
     }
 
     public int getLayerCount() {
-        return this.layerCount;
+        return layerCount;
     }
 
     public IBlockState getLayerMaterial() {
-        return this.layerMaterial;
+        return layerMaterial;
     }
 
     private Block getLayerMaterialBlock() {
-        return this.layerMaterial.getBlock();
+        return layerMaterial.getBlock();
     }
 
     private int getFillBlockMeta() {
-        return this.layerMaterial.getBlock().getMetaFromState(this.layerMaterial);
+        return layerMaterial.getBlock().getMetaFromState(layerMaterial);
     }
 
     public int getMinY() {
-        return this.layerMinimumY;
+        return layerMinimumY;
     }
 
     public void setMinY(int minY) {
-        this.layerMinimumY = minY;
+        layerMinimumY = minY;
     }
 
     public String toString() {
         String s;
 
-        if (this.field_175902_a >= 3) {
-            ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(this.getLayerMaterialBlock());
+        if (field_175902_a >= 3) {
+            ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(getLayerMaterialBlock());
             s = resourcelocation == null ? "null" : resourcelocation.toString();
 
-            if (this.layerCount > 1) {
-                s = this.layerCount + "*" + s;
+            if (layerCount > 1) {
+                s = layerCount + "*" + s;
             }
         } else {
-            s = Integer.toString(Block.getIdFromBlock(this.getLayerMaterialBlock()));
+            s = Integer.toString(Block.getIdFromBlock(getLayerMaterialBlock()));
 
-            if (this.layerCount > 1) {
-                s = this.layerCount + "x" + s;
+            if (layerCount > 1) {
+                s = layerCount + "x" + s;
             }
         }
 
-        int i = this.getFillBlockMeta();
+        int i = getFillBlockMeta();
 
         if (i > 0) {
             s = s + ":" + i;

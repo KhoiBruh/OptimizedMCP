@@ -24,7 +24,7 @@ public class CommandDifficulty extends CommandBase {
         if (args.length <= 0) {
             throw new WrongUsageException("commands.difficulty.usage");
         } else {
-            EnumDifficulty enumdifficulty = this.getDifficultyFromCommand(args[0]);
+            EnumDifficulty enumdifficulty = getDifficultyFromCommand(args[0]);
             MinecraftServer.getServer().setDifficultyForAllWorlds(enumdifficulty);
             notifyOperators(sender, this, "commands.difficulty.success", new ChatComponentTranslation(enumdifficulty.getDifficultyResourceKey()));
         }

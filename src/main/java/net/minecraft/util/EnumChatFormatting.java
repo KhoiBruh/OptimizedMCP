@@ -56,11 +56,11 @@ public enum EnumChatFormatting {
     }
 
     EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
-        this.name = formattingName;
-        this.formattingCode = formattingCodeIn;
-        this.fancyStyling = fancyStylingIn;
+        name = formattingName;
+        formattingCode = formattingCodeIn;
+        fancyStyling = fancyStylingIn;
         this.colorIndex = colorIndex;
-        this.controlString = "\u00a7" + formattingCodeIn;
+        controlString = "\u00a7" + formattingCodeIn;
     }
 
     private static String func_175745_c(String p_175745_0_) {
@@ -102,22 +102,22 @@ public enum EnumChatFormatting {
     }
 
     public int getColorIndex() {
-        return this.colorIndex;
+        return colorIndex;
     }
 
     public boolean isFancyStyling() {
-        return this.fancyStyling;
+        return fancyStyling;
     }
 
     public boolean isColor() {
-        return !this.fancyStyling && this != RESET;
+        return !fancyStyling && this != RESET;
     }
 
     public String getFriendlyName() {
-        return this.name().toLowerCase();
+        return name().toLowerCase();
     }
 
     public String toString() {
-        return this.controlString;
+        return controlString;
     }
 }

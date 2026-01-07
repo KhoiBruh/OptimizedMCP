@@ -15,10 +15,10 @@ public class ItemHoe extends Item {
     protected Item.ToolMaterial theToolMaterial;
 
     public ItemHoe(Item.ToolMaterial material) {
-        this.theToolMaterial = material;
-        this.maxStackSize = 1;
-        this.setMaxDamage(material.getMaxUses());
-        this.setCreativeTab(CreativeTabs.tabTools);
+        theToolMaterial = material;
+        maxStackSize = 1;
+        setMaxDamage(material.getMaxUses());
+        setCreativeTab(CreativeTabs.tabTools);
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -31,16 +31,16 @@ public class ItemHoe extends Item {
 
             if (side != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.air) {
                 if (block == Blocks.grass) {
-                    return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
+                    return useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
                 }
 
                 if (block == Blocks.dirt) {
                     switch (iblockstate.getValue(BlockDirt.VARIANT)) {
                         case DIRT:
-                            return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
+                            return useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
 
                         case COARSE_DIRT:
-                            return this.useHoe(stack, playerIn, worldIn, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                            return useHoe(stack, playerIn, worldIn, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                     }
                 }
             }
@@ -66,6 +66,6 @@ public class ItemHoe extends Item {
     }
 
     public String getMaterialName() {
-        return this.theToolMaterial.toString();
+        return theToolMaterial.toString();
     }
 }

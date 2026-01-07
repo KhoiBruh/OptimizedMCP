@@ -17,7 +17,7 @@ public class BlockBreakable extends Block {
 
     protected BlockBreakable(Material p_i46393_1_, boolean p_i46393_2_, MapColor p_i46393_3_) {
         super(p_i46393_1_, p_i46393_3_);
-        this.ignoreSimilarity = p_i46393_2_;
+        ignoreSimilarity = p_i46393_2_;
     }
 
     public boolean isOpaqueCube() {
@@ -38,6 +38,6 @@ public class BlockBreakable extends Block {
             }
         }
 
-        return (this.ignoreSimilarity || block != this) && super.shouldSideBeRendered(worldIn, pos, side);
+        return (ignoreSimilarity || block != this) && super.shouldSideBeRendered(worldIn, pos, side);
     }
 }

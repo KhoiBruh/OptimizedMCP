@@ -36,8 +36,8 @@ public class CommandHandler implements ICommandManager {
         String[] astring = rawCommand.split(" ");
         String s = astring[0];
         astring = dropFirstString(astring);
-        ICommand icommand = this.commandMap.get(s);
-        int i = this.getUsernameIndex(icommand, astring);
+        ICommand icommand = commandMap.get(s);
+        int i = getUsernameIndex(icommand, astring);
         int j = 0;
 
         if (icommand == null) {
@@ -53,7 +53,7 @@ public class CommandHandler implements ICommandManager {
                 for (Entity entity : list) {
                     astring[i] = entity.getUniqueID().toString();
 
-                    if (this.tryExecute(sender, astring, icommand, rawCommand)) {
+                    if (tryExecute(sender, astring, icommand, rawCommand)) {
                         ++j;
                     }
                 }
@@ -62,7 +62,7 @@ public class CommandHandler implements ICommandManager {
             } else {
                 sender.setCommandStat(CommandResultStats.Type.AFFECTED_ENTITIES, 1);
 
-                if (this.tryExecute(sender, astring, icommand, rawCommand)) {
+                if (tryExecute(sender, astring, icommand, rawCommand)) {
                     ++j;
                 }
             }
@@ -99,14 +99,14 @@ public class CommandHandler implements ICommandManager {
     }
 
     public ICommand registerCommand(ICommand command) {
-        this.commandMap.put(command.getCommandName(), command);
-        this.commandSet.add(command);
+        commandMap.put(command.getCommandName(), command);
+        commandSet.add(command);
 
         for (String s : command.getCommandAliases()) {
-            ICommand icommand = this.commandMap.get(s);
+            ICommand icommand = commandMap.get(s);
 
             if (icommand == null || !icommand.getCommandName().equals(s)) {
-                this.commandMap.put(s, command);
+                commandMap.put(s, command);
             }
         }
 
@@ -120,7 +120,7 @@ public class CommandHandler implements ICommandManager {
         if (astring.length == 1) {
             List<String> list = Lists.newArrayList();
 
-            for (Entry<String, ICommand> entry : this.commandMap.entrySet()) {
+            for (Entry<String, ICommand> entry : commandMap.entrySet()) {
                 if (CommandBase.doesStringStartWith(s, entry.getKey()) && entry.getValue().canCommandSenderUseCommand(sender)) {
                     list.add(entry.getKey());
                 }
@@ -129,7 +129,7 @@ public class CommandHandler implements ICommandManager {
             return list;
         } else {
             if (astring.length > 1) {
-                ICommand icommand = this.commandMap.get(s);
+                ICommand icommand = commandMap.get(s);
 
                 if (icommand != null && icommand.canCommandSenderUseCommand(sender)) {
                     return icommand.addTabCompletionOptions(sender, dropFirstString(astring), pos);
@@ -143,7 +143,7 @@ public class CommandHandler implements ICommandManager {
     public List<ICommand> getPossibleCommands(ICommandSender sender) {
         List<ICommand> list = Lists.newArrayList();
 
-        for (ICommand icommand : this.commandSet) {
+        for (ICommand icommand : commandSet) {
             if (icommand.canCommandSenderUseCommand(sender)) {
                 list.add(icommand);
             }
@@ -153,7 +153,7 @@ public class CommandHandler implements ICommandManager {
     }
 
     public Map<String, ICommand> getCommands() {
-        return this.commandMap;
+        return commandMap;
     }
 
     private int getUsernameIndex(ICommand command, String[] args) {

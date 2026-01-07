@@ -14,10 +14,10 @@ public class EnchantmentProtection extends Enchantment {
 
     public EnchantmentProtection(int p_i45765_1_, ResourceLocation p_i45765_2_, int p_i45765_3_, int p_i45765_4_) {
         super(p_i45765_1_, p_i45765_2_, p_i45765_3_, EnumEnchantmentType.ARMOR);
-        this.protectionType = p_i45765_4_;
+        protectionType = p_i45765_4_;
 
         if (p_i45765_4_ == 2) {
-            this.type = EnumEnchantmentType.ARMOR_FEET;
+            type = EnumEnchantmentType.ARMOR_FEET;
         }
     }
 
@@ -42,11 +42,11 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public int getMinEnchantability(int enchantmentLevel) {
-        return baseEnchantability[this.protectionType] + (enchantmentLevel - 1) * levelEnchantability[this.protectionType];
+        return baseEnchantability[protectionType] + (enchantmentLevel - 1) * levelEnchantability[protectionType];
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + thresholdEnchantability[this.protectionType];
+        return getMinEnchantability(enchantmentLevel) + thresholdEnchantability[protectionType];
     }
 
     public int getMaxLevel() {
@@ -58,17 +58,17 @@ public class EnchantmentProtection extends Enchantment {
             return 0;
         } else {
             float f = (float) (6 + level * level) / 3.0F;
-            return this.protectionType == 0 ? MathHelper.floor_float(f * 0.75F) : (this.protectionType == 1 && source.isFireDamage() ? MathHelper.floor_float(f * 1.25F) : (this.protectionType == 2 && source == DamageSource.fall ? MathHelper.floor_float(f * 2.5F) : (this.protectionType == 3 && source.isExplosion() ? MathHelper.floor_float(f * 1.5F) : (this.protectionType == 4 && source.isProjectile() ? MathHelper.floor_float(f * 1.5F) : 0))));
+            return protectionType == 0 ? MathHelper.floor_float(f * 0.75F) : (protectionType == 1 && source.isFireDamage() ? MathHelper.floor_float(f * 1.25F) : (protectionType == 2 && source == DamageSource.fall ? MathHelper.floor_float(f * 2.5F) : (protectionType == 3 && source.isExplosion() ? MathHelper.floor_float(f * 1.5F) : (protectionType == 4 && source.isProjectile() ? MathHelper.floor_float(f * 1.5F) : 0))));
         }
     }
 
     public String getName() {
-        return "enchantment.protect." + protectionName[this.protectionType];
+        return "enchantment.protect." + protectionName[protectionType];
     }
 
     public boolean canApplyTogether(Enchantment ench) {
         if (ench instanceof EnchantmentProtection enchantmentprotection) {
-            return enchantmentprotection.protectionType != this.protectionType && (this.protectionType == 2 || enchantmentprotection.protectionType == 2);
+            return enchantmentprotection.protectionType != protectionType && (protectionType == 2 || enchantmentprotection.protectionType == 2);
         } else {
             return super.canApplyTogether(ench);
         }

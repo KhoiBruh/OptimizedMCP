@@ -13,11 +13,11 @@ public class WorldGenSpikes extends WorldGenerator {
     private final Block baseBlockRequired;
 
     public WorldGenSpikes(Block p_i45464_1_) {
-        this.baseBlockRequired = p_i45464_1_;
+        baseBlockRequired = p_i45464_1_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        if (worldIn.isAirBlock(position) && worldIn.getBlockState(position.down()).getBlock() == this.baseBlockRequired) {
+        if (worldIn.isAirBlock(position) && worldIn.getBlockState(position.down()).getBlock() == baseBlockRequired) {
             int i = rand.nextInt(32) + 6;
             int j = rand.nextInt(4) + 1;
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
@@ -27,7 +27,7 @@ public class WorldGenSpikes extends WorldGenerator {
                     int i1 = k - position.getX();
                     int j1 = l - position.getZ();
 
-                    if (i1 * i1 + j1 * j1 <= j * j + 1 && worldIn.getBlockState(blockpos$mutableblockpos.set(k, position.getY() - 1, l)).getBlock() != this.baseBlockRequired) {
+                    if (i1 * i1 + j1 * j1 <= j * j + 1 && worldIn.getBlockState(blockpos$mutableblockpos.set(k, position.getY() - 1, l)).getBlock() != baseBlockRequired) {
                         return false;
                     }
                 }

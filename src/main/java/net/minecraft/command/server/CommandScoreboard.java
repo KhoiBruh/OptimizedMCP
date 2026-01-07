@@ -32,7 +32,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (!this.func_175780_b(sender, args)) {
+        if (!func_175780_b(sender, args)) {
             if (args.length < 1) {
                 throw new WrongUsageException("commands.scoreboard.usage");
             } else {
@@ -42,19 +42,19 @@ public class CommandScoreboard extends CommandBase {
                     }
 
                     if (args[1].equalsIgnoreCase("list")) {
-                        this.listObjectives(sender);
+                        listObjectives(sender);
                     } else if (args[1].equalsIgnoreCase("add")) {
                         if (args.length < 4) {
                             throw new WrongUsageException("commands.scoreboard.objectives.add.usage");
                         }
 
-                        this.addObjective(sender, args, 2);
+                        addObjective(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("remove")) {
                         if (args.length != 3) {
                             throw new WrongUsageException("commands.scoreboard.objectives.remove.usage");
                         }
 
-                        this.removeObjective(sender, args[2]);
+                        removeObjective(sender, args[2]);
                     } else {
                         if (!args[1].equalsIgnoreCase("setdisplay")) {
                             throw new WrongUsageException("commands.scoreboard.objectives.usage");
@@ -64,7 +64,7 @@ public class CommandScoreboard extends CommandBase {
                             throw new WrongUsageException("commands.scoreboard.objectives.setdisplay.usage");
                         }
 
-                        this.setObjectiveDisplay(sender, args, 2);
+                        setObjectiveDisplay(sender, args, 2);
                     }
                 } else if (args[0].equalsIgnoreCase("players")) {
                     if (args.length == 1) {
@@ -76,43 +76,43 @@ public class CommandScoreboard extends CommandBase {
                             throw new WrongUsageException("commands.scoreboard.players.list.usage");
                         }
 
-                        this.listPlayers(sender, args, 2);
+                        listPlayers(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("add")) {
                         if (args.length < 5) {
                             throw new WrongUsageException("commands.scoreboard.players.add.usage");
                         }
 
-                        this.setPlayer(sender, args, 2);
+                        setPlayer(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("remove")) {
                         if (args.length < 5) {
                             throw new WrongUsageException("commands.scoreboard.players.remove.usage");
                         }
 
-                        this.setPlayer(sender, args, 2);
+                        setPlayer(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("set")) {
                         if (args.length < 5) {
                             throw new WrongUsageException("commands.scoreboard.players.set.usage");
                         }
 
-                        this.setPlayer(sender, args, 2);
+                        setPlayer(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("reset")) {
                         if (args.length != 3 && args.length != 4) {
                             throw new WrongUsageException("commands.scoreboard.players.reset.usage");
                         }
 
-                        this.resetPlayers(sender, args, 2);
+                        resetPlayers(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("enable")) {
                         if (args.length != 4) {
                             throw new WrongUsageException("commands.scoreboard.players.enable.usage");
                         }
 
-                        this.func_175779_n(sender, args, 2);
+                        func_175779_n(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("test")) {
                         if (args.length != 5 && args.length != 6) {
                             throw new WrongUsageException("commands.scoreboard.players.test.usage");
                         }
 
-                        this.func_175781_o(sender, args, 2);
+                        func_175781_o(sender, args, 2);
                     } else {
                         if (!args[1].equalsIgnoreCase("operation")) {
                             throw new WrongUsageException("commands.scoreboard.players.usage");
@@ -122,7 +122,7 @@ public class CommandScoreboard extends CommandBase {
                             throw new WrongUsageException("commands.scoreboard.players.operation.usage");
                         }
 
-                        this.func_175778_p(sender, args, 2);
+                        func_175778_p(sender, args, 2);
                     }
                 } else {
                     if (!args[0].equalsIgnoreCase("teams")) {
@@ -138,37 +138,37 @@ public class CommandScoreboard extends CommandBase {
                             throw new WrongUsageException("commands.scoreboard.teams.list.usage");
                         }
 
-                        this.listTeams(sender, args, 2);
+                        listTeams(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("add")) {
                         if (args.length < 3) {
                             throw new WrongUsageException("commands.scoreboard.teams.add.usage");
                         }
 
-                        this.addTeam(sender, args, 2);
+                        addTeam(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("remove")) {
                         if (args.length != 3) {
                             throw new WrongUsageException("commands.scoreboard.teams.remove.usage");
                         }
 
-                        this.removeTeam(sender, args, 2);
+                        removeTeam(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("empty")) {
                         if (args.length != 3) {
                             throw new WrongUsageException("commands.scoreboard.teams.empty.usage");
                         }
 
-                        this.emptyTeam(sender, args, 2);
+                        emptyTeam(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("join")) {
                         if (args.length < 4 && (args.length != 3 || !(sender instanceof EntityPlayer))) {
                             throw new WrongUsageException("commands.scoreboard.teams.join.usage");
                         }
 
-                        this.joinTeam(sender, args, 2);
+                        joinTeam(sender, args, 2);
                     } else if (args[1].equalsIgnoreCase("leave")) {
                         if (args.length < 3 && !(sender instanceof EntityPlayer)) {
                             throw new WrongUsageException("commands.scoreboard.teams.leave.usage");
                         }
 
-                        this.leaveTeam(sender, args, 2);
+                        leaveTeam(sender, args, 2);
                     } else {
                         if (!args[1].equalsIgnoreCase("option")) {
                             throw new WrongUsageException("commands.scoreboard.teams.usage");
@@ -178,7 +178,7 @@ public class CommandScoreboard extends CommandBase {
                             throw new WrongUsageException("commands.scoreboard.teams.option.usage");
                         }
 
-                        this.setTeamOption(sender, args, 2);
+                        setTeamOption(sender, args, 2);
                     }
                 }
             }
@@ -189,7 +189,7 @@ public class CommandScoreboard extends CommandBase {
         int i = -1;
 
         for (int j = 0; j < p_175780_2_.length; ++j) {
-            if (this.isUsernameIndex(p_175780_2_, j) && "*".equals(p_175780_2_[j])) {
+            if (isUsernameIndex(p_175780_2_, j) && "*".equals(p_175780_2_[j])) {
                 if (i >= 0) {
                     throw new CommandException("commands.scoreboard.noMultiWildcard");
                 }
@@ -201,7 +201,7 @@ public class CommandScoreboard extends CommandBase {
         if (i < 0) {
             return false;
         } else {
-            List<String> list1 = Lists.newArrayList(this.getScoreboard().getObjectiveNames());
+            List<String> list1 = Lists.newArrayList(getScoreboard().getObjectiveNames());
             String s = p_175780_2_[i];
             List<String> list = Lists.newArrayList();
 
@@ -209,7 +209,7 @@ public class CommandScoreboard extends CommandBase {
                 p_175780_2_[i] = s1;
 
                 try {
-                    this.processCommand(p_175780_1_, p_175780_2_);
+                    processCommand(p_175780_1_, p_175780_2_);
                     list.add(s1);
                 } catch (CommandException commandexception) {
                     ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
@@ -221,7 +221,7 @@ public class CommandScoreboard extends CommandBase {
             p_175780_2_[i] = s;
             p_175780_1_.setCommandStat(CommandResultStats.Type.AFFECTED_ENTITIES, list.size());
 
-            if (list.size() == 0) {
+            if (list.isEmpty()) {
                 throw new WrongUsageException("commands.scoreboard.allMatchesFailed");
             } else {
                 return true;
@@ -234,7 +234,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected ScoreObjective getObjective(String name, boolean edit) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         ScoreObjective scoreobjective = scoreboard.getObjective(name);
 
         if (scoreobjective == null) {
@@ -247,7 +247,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected ScorePlayerTeam getTeam(String name) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         ScorePlayerTeam scoreplayerteam = scoreboard.getTeam(name);
 
         if (scoreplayerteam == null) {
@@ -260,7 +260,7 @@ public class CommandScoreboard extends CommandBase {
     protected void addObjective(ICommandSender sender, String[] args, int index) throws CommandException {
         String s = args[index++];
         String s1 = args[index++];
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         IScoreObjectiveCriteria iscoreobjectivecriteria = IScoreObjectiveCriteria.INSTANCES.get(s1);
 
         if (iscoreobjectivecriteria == null) {
@@ -269,7 +269,7 @@ public class CommandScoreboard extends CommandBase {
             throw new CommandException("commands.scoreboard.objectives.add.alreadyExists", s);
         } else if (s.length() > 16) {
             throw new SyntaxErrorException("commands.scoreboard.objectives.add.tooLong", s, 16);
-        } else if (s.length() == 0) {
+        } else if (s.isEmpty()) {
             throw new WrongUsageException("commands.scoreboard.objectives.add.usage");
         } else {
             if (args.length > index) {
@@ -279,7 +279,7 @@ public class CommandScoreboard extends CommandBase {
                     throw new SyntaxErrorException("commands.scoreboard.objectives.add.displayTooLong", s2, 32);
                 }
 
-                if (s2.length() > 0) {
+                if (!s2.isEmpty()) {
                     scoreboard.addScoreObjective(s, iscoreobjectivecriteria).setDisplayName(s2);
                 } else {
                     scoreboard.addScoreObjective(s, iscoreobjectivecriteria);
@@ -294,13 +294,13 @@ public class CommandScoreboard extends CommandBase {
 
     protected void addTeam(ICommandSender sender, String[] args, int index) throws CommandException {
         String s = args[index++];
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
 
         if (scoreboard.getTeam(s) != null) {
             throw new CommandException("commands.scoreboard.teams.add.alreadyExists", s);
         } else if (s.length() > 16) {
             throw new SyntaxErrorException("commands.scoreboard.teams.add.tooLong", s, 16);
-        } else if (s.length() == 0) {
+        } else if (s.isEmpty()) {
             throw new WrongUsageException("commands.scoreboard.teams.add.usage");
         } else {
             if (args.length > index) {
@@ -310,7 +310,7 @@ public class CommandScoreboard extends CommandBase {
                     throw new SyntaxErrorException("commands.scoreboard.teams.add.displayTooLong", s1, 32);
                 }
 
-                if (s1.length() > 0) {
+                if (!s1.isEmpty()) {
                     scoreboard.createTeam(s).setTeamName(s1);
                 } else {
                     scoreboard.createTeam(s);
@@ -324,7 +324,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void setTeamOption(ICommandSender sender, String[] args, int index) throws CommandException {
-        ScorePlayerTeam scoreplayerteam = this.getTeam(args[index++]);
+        ScorePlayerTeam scoreplayerteam = getTeam(args[index++]);
 
         if (scoreplayerteam != null) {
             String s = args[index++].toLowerCase();
@@ -392,8 +392,8 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void removeTeam(ICommandSender p_147194_1_, String[] p_147194_2_, int p_147194_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
-        ScorePlayerTeam scoreplayerteam = this.getTeam(p_147194_2_[p_147194_3_]);
+        Scoreboard scoreboard = getScoreboard();
+        ScorePlayerTeam scoreplayerteam = getTeam(p_147194_2_[p_147194_3_]);
 
         if (scoreplayerteam != null) {
             scoreboard.removeTeam(scoreplayerteam);
@@ -402,10 +402,10 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void listTeams(ICommandSender p_147186_1_, String[] p_147186_2_, int p_147186_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
 
         if (p_147186_2_.length > p_147186_3_) {
-            ScorePlayerTeam scoreplayerteam = this.getTeam(p_147186_2_[p_147186_3_]);
+            ScorePlayerTeam scoreplayerteam = getTeam(p_147186_2_[p_147186_3_]);
 
             if (scoreplayerteam == null) {
                 return;
@@ -441,7 +441,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void joinTeam(ICommandSender p_147190_1_, String[] p_147190_2_, int p_147190_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         String s = p_147190_2_[p_147190_3_++];
         Set<String> set = Sets.newHashSet();
         Set<String> set1 = Sets.newHashSet();
@@ -491,7 +491,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void leaveTeam(ICommandSender p_147199_1_, String[] p_147199_2_, int p_147199_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         Set<String> set = Sets.newHashSet();
         Set<String> set1 = Sets.newHashSet();
 
@@ -540,8 +540,8 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void emptyTeam(ICommandSender p_147188_1_, String[] p_147188_2_, int p_147188_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
-        ScorePlayerTeam scoreplayerteam = this.getTeam(p_147188_2_[p_147188_3_]);
+        Scoreboard scoreboard = getScoreboard();
+        ScorePlayerTeam scoreplayerteam = getTeam(p_147188_2_[p_147188_3_]);
 
         if (scoreplayerteam != null) {
             Collection<String> collection = Lists.newArrayList(scoreplayerteam.getMembershipCollection());
@@ -560,14 +560,14 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void removeObjective(ICommandSender p_147191_1_, String p_147191_2_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
-        ScoreObjective scoreobjective = this.getObjective(p_147191_2_, false);
+        Scoreboard scoreboard = getScoreboard();
+        ScoreObjective scoreobjective = getObjective(p_147191_2_, false);
         scoreboard.removeObjective(scoreobjective);
         notifyOperators(p_147191_1_, this, "commands.scoreboard.objectives.remove.success", p_147191_2_);
     }
 
     protected void listObjectives(ICommandSender p_147196_1_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         Collection<ScoreObjective> collection = scoreboard.getScoreObjectives();
 
         if (collection.size() <= 0) {
@@ -584,13 +584,13 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void setObjectiveDisplay(ICommandSender p_147198_1_, String[] p_147198_2_, int p_147198_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         String s = p_147198_2_[p_147198_3_++];
         int i = Scoreboard.getObjectiveDisplaySlotNumber(s);
         ScoreObjective scoreobjective = null;
 
         if (p_147198_2_.length == 4) {
-            scoreobjective = this.getObjective(p_147198_2_[p_147198_3_], false);
+            scoreobjective = getObjective(p_147198_2_[p_147198_3_], false);
         }
 
         if (i < 0) {
@@ -607,7 +607,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void listPlayers(ICommandSender p_147195_1_, String[] p_147195_2_, int p_147195_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
 
         if (p_147195_2_.length > p_147195_3_) {
             String s = getEntityName(p_147195_1_, p_147195_2_[p_147195_3_]);
@@ -648,7 +648,7 @@ public class CommandScoreboard extends CommandBase {
         if (s1.length() > 40) {
             throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s1, 40);
         } else {
-            ScoreObjective scoreobjective = this.getObjective(p_147197_2_[p_147197_3_++], true);
+            ScoreObjective scoreobjective = getObjective(p_147197_2_[p_147197_3_++], true);
             int j = s.equalsIgnoreCase("set") ? parseInt(p_147197_2_[p_147197_3_++]) : parseInt(p_147197_2_[p_147197_3_++], 0);
 
             if (p_147197_2_.length > p_147197_3_) {
@@ -667,7 +667,7 @@ public class CommandScoreboard extends CommandBase {
                 }
             }
 
-            Scoreboard scoreboard = this.getScoreboard();
+            Scoreboard scoreboard = getScoreboard();
             Score score = scoreboard.getValueFromObjective(s1, scoreobjective);
 
             if (s.equalsIgnoreCase("set")) {
@@ -683,11 +683,11 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void resetPlayers(ICommandSender p_147187_1_, String[] p_147187_2_, int p_147187_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         String s = getEntityName(p_147187_1_, p_147187_2_[p_147187_3_++]);
 
         if (p_147187_2_.length > p_147187_3_) {
-            ScoreObjective scoreobjective = this.getObjective(p_147187_2_[p_147187_3_++], false);
+            ScoreObjective scoreobjective = getObjective(p_147187_2_[p_147187_3_++], false);
             scoreboard.removeObjectiveFromEntity(s, scoreobjective);
             notifyOperators(p_147187_1_, this, "commands.scoreboard.players.resetscore.success", scoreobjective.getName(), s);
         } else {
@@ -697,13 +697,13 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void func_175779_n(ICommandSender p_175779_1_, String[] p_175779_2_, int p_175779_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         String s = getPlayerName(p_175779_1_, p_175779_2_[p_175779_3_++]);
 
         if (s.length() > 40) {
             throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, 40);
         } else {
-            ScoreObjective scoreobjective = this.getObjective(p_175779_2_[p_175779_3_], false);
+            ScoreObjective scoreobjective = getObjective(p_175779_2_[p_175779_3_], false);
 
             if (scoreobjective.getCriteria() != IScoreObjectiveCriteria.TRIGGER) {
                 throw new CommandException("commands.scoreboard.players.enable.noTrigger", scoreobjective.getName());
@@ -716,13 +716,13 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void func_175781_o(ICommandSender p_175781_1_, String[] p_175781_2_, int p_175781_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         String s = getEntityName(p_175781_1_, p_175781_2_[p_175781_3_++]);
 
         if (s.length() > 40) {
             throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, 40);
         } else {
-            ScoreObjective scoreobjective = this.getObjective(p_175781_2_[p_175781_3_++], false);
+            ScoreObjective scoreobjective = getObjective(p_175781_2_[p_175781_3_++], false);
 
             if (!scoreboard.entityHasObjective(s, scoreobjective)) {
                 throw new CommandException("commands.scoreboard.players.test.notFound", scoreobjective.getName(), s);
@@ -742,12 +742,12 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected void func_175778_p(ICommandSender p_175778_1_, String[] p_175778_2_, int p_175778_3_) throws CommandException {
-        Scoreboard scoreboard = this.getScoreboard();
+        Scoreboard scoreboard = getScoreboard();
         String s = getEntityName(p_175778_1_, p_175778_2_[p_175778_3_++]);
-        ScoreObjective scoreobjective = this.getObjective(p_175778_2_[p_175778_3_++], true);
+        ScoreObjective scoreobjective = getObjective(p_175778_2_[p_175778_3_++], true);
         String s1 = p_175778_2_[p_175778_3_++];
         String s2 = getEntityName(p_175778_1_, p_175778_2_[p_175778_3_++]);
-        ScoreObjective scoreobjective1 = this.getObjective(p_175778_2_[p_175778_3_], false);
+        ScoreObjective scoreobjective1 = getObjective(p_175778_2_[p_175778_3_], false);
 
         if (s.length() > 40) {
             throw new SyntaxErrorException("commands.scoreboard.players.name.tooLong", s, 40);
@@ -812,7 +812,7 @@ public class CommandScoreboard extends CommandBase {
                     }
                 } else if (args[1].equalsIgnoreCase("remove")) {
                     if (args.length == 3) {
-                        return getListOfStringsMatchingLastWord(args, this.func_147184_a(false));
+                        return getListOfStringsMatchingLastWord(args, func_147184_a(false));
                     }
                 } else if (args[1].equalsIgnoreCase("setdisplay")) {
                     if (args.length == 3) {
@@ -820,7 +820,7 @@ public class CommandScoreboard extends CommandBase {
                     }
 
                     if (args.length == 4) {
-                        return getListOfStringsMatchingLastWord(args, this.func_147184_a(false));
+                        return getListOfStringsMatchingLastWord(args, func_147184_a(false));
                     }
                 }
             } else if (args[0].equalsIgnoreCase("players")) {
@@ -835,16 +835,16 @@ public class CommandScoreboard extends CommandBase {
                         }
 
                         if (args.length == 4) {
-                            return getListOfStringsMatchingLastWord(args, this.func_175782_e());
+                            return getListOfStringsMatchingLastWord(args, func_175782_e());
                         }
                     } else if (!args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("test")) {
                         if (args[1].equalsIgnoreCase("operation")) {
                             if (args.length == 3) {
-                                return getListOfStringsMatchingLastWord(args, this.getScoreboard().getObjectiveNames());
+                                return getListOfStringsMatchingLastWord(args, getScoreboard().getObjectiveNames());
                             }
 
                             if (args.length == 4) {
-                                return getListOfStringsMatchingLastWord(args, this.func_147184_a(true));
+                                return getListOfStringsMatchingLastWord(args, func_147184_a(true));
                             }
 
                             if (args.length == 5) {
@@ -856,16 +856,16 @@ public class CommandScoreboard extends CommandBase {
                             }
 
                             if (args.length == 7) {
-                                return getListOfStringsMatchingLastWord(args, this.func_147184_a(false));
+                                return getListOfStringsMatchingLastWord(args, func_147184_a(false));
                             }
                         }
                     } else {
                         if (args.length == 3) {
-                            return getListOfStringsMatchingLastWord(args, this.getScoreboard().getObjectiveNames());
+                            return getListOfStringsMatchingLastWord(args, getScoreboard().getObjectiveNames());
                         }
 
                         if (args.length == 4 && args[1].equalsIgnoreCase("test")) {
-                            return getListOfStringsMatchingLastWord(args, this.func_147184_a(false));
+                            return getListOfStringsMatchingLastWord(args, func_147184_a(false));
                         }
                     }
                 } else {
@@ -874,7 +874,7 @@ public class CommandScoreboard extends CommandBase {
                     }
 
                     if (args.length == 4) {
-                        return getListOfStringsMatchingLastWord(args, this.func_147184_a(true));
+                        return getListOfStringsMatchingLastWord(args, func_147184_a(true));
                     }
                 }
             } else if (args[0].equalsIgnoreCase("teams")) {
@@ -884,7 +884,7 @@ public class CommandScoreboard extends CommandBase {
 
                 if (args[1].equalsIgnoreCase("join")) {
                     if (args.length == 3) {
-                        return getListOfStringsMatchingLastWord(args, this.getScoreboard().getTeamNames());
+                        return getListOfStringsMatchingLastWord(args, getScoreboard().getTeamNames());
                     }
 
                     if (args.length >= 4) {
@@ -898,7 +898,7 @@ public class CommandScoreboard extends CommandBase {
                     if (!args[1].equalsIgnoreCase("empty") && !args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("remove")) {
                         if (args[1].equalsIgnoreCase("option")) {
                             if (args.length == 3) {
-                                return getListOfStringsMatchingLastWord(args, this.getScoreboard().getTeamNames());
+                                return getListOfStringsMatchingLastWord(args, getScoreboard().getTeamNames());
                             }
 
                             if (args.length == 4) {
@@ -920,7 +920,7 @@ public class CommandScoreboard extends CommandBase {
                             }
                         }
                     } else if (args.length == 3) {
-                        return getListOfStringsMatchingLastWord(args, this.getScoreboard().getTeamNames());
+                        return getListOfStringsMatchingLastWord(args, getScoreboard().getTeamNames());
                     }
                 }
             }
@@ -930,7 +930,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected List<String> func_147184_a(boolean p_147184_1_) {
-        Collection<ScoreObjective> collection = this.getScoreboard().getScoreObjectives();
+        Collection<ScoreObjective> collection = getScoreboard().getScoreObjectives();
         List<String> list = Lists.newArrayList();
 
         for (ScoreObjective scoreobjective : collection) {
@@ -943,7 +943,7 @@ public class CommandScoreboard extends CommandBase {
     }
 
     protected List<String> func_175782_e() {
-        Collection<ScoreObjective> collection = this.getScoreboard().getScoreObjectives();
+        Collection<ScoreObjective> collection = getScoreboard().getScoreObjectives();
         List<String> list = Lists.newArrayList();
 
         for (ScoreObjective scoreobjective : collection) {

@@ -48,66 +48,66 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     public GuiContainerCreative(EntityPlayer p_i1088_1_) {
         super(new GuiContainerCreative.ContainerCreative(p_i1088_1_));
-        p_i1088_1_.openContainer = this.inventorySlots;
-        this.allowUserInput = true;
-        this.ySize = 136;
-        this.xSize = 195;
+        p_i1088_1_.openContainer = inventorySlots;
+        allowUserInput = true;
+        ySize = 136;
+        xSize = 195;
     }
 
     public void updateScreen() {
-        if (!this.mc.playerController.isInCreativeMode()) {
-            this.mc.displayGuiScreen(new GuiInventory(this.mc.thePlayer));
+        if (!mc.playerController.isInCreativeMode()) {
+            mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
         }
 
-        this.updateActivePotionEffects();
+        updateActivePotionEffects();
     }
 
     protected void handleMouseClick(Slot slotIn, int slotId, int clickedButton, int clickType) {
-        this.field_147057_D = true;
+        field_147057_D = true;
         boolean flag = clickType == 1;
         clickType = slotId == -999 && clickType == 0 ? 4 : clickType;
 
         if (slotIn == null && selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && clickType != 5) {
-            InventoryPlayer inventoryplayer1 = this.mc.thePlayer.inventory;
+            InventoryPlayer inventoryplayer1 = mc.thePlayer.inventory;
 
             if (inventoryplayer1.getItemStack() != null) {
                 if (clickedButton == 0) {
-                    this.mc.thePlayer.dropPlayerItemWithRandomChoice(inventoryplayer1.getItemStack(), true);
-                    this.mc.playerController.sendPacketDropItem(inventoryplayer1.getItemStack());
+                    mc.thePlayer.dropPlayerItemWithRandomChoice(inventoryplayer1.getItemStack(), true);
+                    mc.playerController.sendPacketDropItem(inventoryplayer1.getItemStack());
                     inventoryplayer1.setItemStack(null);
                 }
 
                 if (clickedButton == 1) {
                     ItemStack itemstack5 = inventoryplayer1.getItemStack().splitStack(1);
-                    this.mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack5, true);
-                    this.mc.playerController.sendPacketDropItem(itemstack5);
+                    mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack5, true);
+                    mc.playerController.sendPacketDropItem(itemstack5);
 
                     if (inventoryplayer1.getItemStack().stackSize == 0) {
                         inventoryplayer1.setItemStack(null);
                     }
                 }
             }
-        } else if (slotIn == this.field_147064_C && flag) {
-            for (int j = 0; j < this.mc.thePlayer.inventoryContainer.getInventory().size(); ++j) {
-                this.mc.playerController.sendSlotPacket(null, j);
+        } else if (slotIn == field_147064_C && flag) {
+            for (int j = 0; j < mc.thePlayer.inventoryContainer.getInventory().size(); ++j) {
+                mc.playerController.sendSlotPacket(null, j);
             }
         } else if (selectedTabIndex == CreativeTabs.tabInventory.getTabIndex()) {
-            if (slotIn == this.field_147064_C) {
-                this.mc.thePlayer.inventory.setItemStack(null);
+            if (slotIn == field_147064_C) {
+                mc.thePlayer.inventory.setItemStack(null);
             } else if (clickType == 4 && slotIn != null && slotIn.getHasStack()) {
                 ItemStack itemstack = slotIn.decrStackSize(clickedButton == 0 ? 1 : slotIn.getStack().getMaxStackSize());
-                this.mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack, true);
-                this.mc.playerController.sendPacketDropItem(itemstack);
-            } else if (clickType == 4 && this.mc.thePlayer.inventory.getItemStack() != null) {
-                this.mc.thePlayer.dropPlayerItemWithRandomChoice(this.mc.thePlayer.inventory.getItemStack(), true);
-                this.mc.playerController.sendPacketDropItem(this.mc.thePlayer.inventory.getItemStack());
-                this.mc.thePlayer.inventory.setItemStack(null);
+                mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack, true);
+                mc.playerController.sendPacketDropItem(itemstack);
+            } else if (clickType == 4 && mc.thePlayer.inventory.getItemStack() != null) {
+                mc.thePlayer.dropPlayerItemWithRandomChoice(mc.thePlayer.inventory.getItemStack(), true);
+                mc.playerController.sendPacketDropItem(mc.thePlayer.inventory.getItemStack());
+                mc.thePlayer.inventory.setItemStack(null);
             } else {
-                this.mc.thePlayer.inventoryContainer.slotClick(slotIn == null ? slotId : ((GuiContainerCreative.CreativeSlot) slotIn).slot.slotNumber, clickedButton, clickType, this.mc.thePlayer);
-                this.mc.thePlayer.inventoryContainer.detectAndSendChanges();
+                mc.thePlayer.inventoryContainer.slotClick(slotIn == null ? slotId : ((GuiContainerCreative.CreativeSlot) slotIn).slot.slotNumber, clickedButton, clickType, mc.thePlayer);
+                mc.thePlayer.inventoryContainer.detectAndSendChanges();
             }
         } else if (clickType != 5 && slotIn.inventory == field_147060_v) {
-            InventoryPlayer inventoryplayer = this.mc.thePlayer.inventory;
+            InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
             ItemStack itemstack1 = inventoryplayer.getItemStack();
             ItemStack itemstack2 = slotIn.getStack();
 
@@ -115,8 +115,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 if (itemstack2 != null && clickedButton >= 0 && clickedButton < 9) {
                     ItemStack itemstack7 = itemstack2.copy();
                     itemstack7.stackSize = itemstack7.getMaxStackSize();
-                    this.mc.thePlayer.inventory.setInventorySlotContents(clickedButton, itemstack7);
-                    this.mc.thePlayer.inventoryContainer.detectAndSendChanges();
+                    mc.thePlayer.inventory.setInventorySlotContents(clickedButton, itemstack7);
+                    mc.thePlayer.inventoryContainer.detectAndSendChanges();
                 }
 
                 return;
@@ -136,8 +136,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 if (itemstack2 != null) {
                     ItemStack itemstack3 = itemstack2.copy();
                     itemstack3.stackSize = clickedButton == 0 ? 1 : itemstack3.getMaxStackSize();
-                    this.mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack3, true);
-                    this.mc.playerController.sendPacketDropItem(itemstack3);
+                    mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack3, true);
+                    mc.playerController.sendPacketDropItem(itemstack3);
                 }
 
                 return;
@@ -166,53 +166,53 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 inventoryplayer.setItemStack(null);
             }
         } else {
-            this.inventorySlots.slotClick(slotIn == null ? slotId : slotIn.slotNumber, clickedButton, clickType, this.mc.thePlayer);
+            inventorySlots.slotClick(slotIn == null ? slotId : slotIn.slotNumber, clickedButton, clickType, mc.thePlayer);
 
             if (Container.getDragEvent(clickedButton) == 2) {
                 for (int i = 0; i < 9; ++i) {
-                    this.mc.playerController.sendSlotPacket(this.inventorySlots.getSlot(45 + i).getStack(), 36 + i);
+                    mc.playerController.sendSlotPacket(inventorySlots.getSlot(45 + i).getStack(), 36 + i);
                 }
             } else if (slotIn != null) {
-                ItemStack itemstack4 = this.inventorySlots.getSlot(slotIn.slotNumber).getStack();
-                this.mc.playerController.sendSlotPacket(itemstack4, slotIn.slotNumber - this.inventorySlots.inventorySlots.size() + 9 + 36);
+                ItemStack itemstack4 = inventorySlots.getSlot(slotIn.slotNumber).getStack();
+                mc.playerController.sendSlotPacket(itemstack4, slotIn.slotNumber - inventorySlots.inventorySlots.size() + 9 + 36);
             }
         }
     }
 
     protected void updateActivePotionEffects() {
-        int i = this.guiLeft;
+        int i = guiLeft;
         super.updateActivePotionEffects();
 
-        if (this.searchField != null && this.guiLeft != i) {
-            this.searchField.xPosition = this.guiLeft + 82;
+        if (searchField != null && guiLeft != i) {
+            searchField.xPosition = guiLeft + 82;
         }
     }
 
     public void initGui() {
-        if (this.mc.playerController.isInCreativeMode()) {
+        if (mc.playerController.isInCreativeMode()) {
             super.initGui();
-            this.buttonList.clear();
+            buttonList.clear();
             Keyboard.enableRepeatEvents(true);
-            this.searchField = new GuiTextField(0, this.fontRendererObj, this.guiLeft + 82, this.guiTop + 6, 89, this.fontRendererObj.FONT_HEIGHT);
-            this.searchField.setMaxStringLength(15);
-            this.searchField.setEnableBackgroundDrawing(false);
-            this.searchField.setVisible(false);
-            this.searchField.setTextColor(16777215);
+            searchField = new GuiTextField(0, fontRendererObj, guiLeft + 82, guiTop + 6, 89, fontRendererObj.FONT_HEIGHT);
+            searchField.setMaxStringLength(15);
+            searchField.setEnableBackgroundDrawing(false);
+            searchField.setVisible(false);
+            searchField.setTextColor(16777215);
             int i = selectedTabIndex;
             selectedTabIndex = -1;
-            this.setCurrentCreativeTab(CreativeTabs.creativeTabArray[i]);
-            this.field_147059_E = new CreativeCrafting(this.mc);
-            this.mc.thePlayer.inventoryContainer.onCraftGuiOpened(this.field_147059_E);
+            setCurrentCreativeTab(CreativeTabs.creativeTabArray[i]);
+            field_147059_E = new CreativeCrafting(mc);
+            mc.thePlayer.inventoryContainer.onCraftGuiOpened(field_147059_E);
         } else {
-            this.mc.displayGuiScreen(new GuiInventory(this.mc.thePlayer));
+            mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
         }
     }
 
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        if (this.mc.thePlayer != null && this.mc.thePlayer.inventory != null) {
-            this.mc.thePlayer.inventoryContainer.removeCraftingFromCrafters(this.field_147059_E);
+        if (mc.thePlayer != null && mc.thePlayer.inventory != null) {
+            mc.thePlayer.inventoryContainer.removeCraftingFromCrafters(field_147059_E);
         }
 
         Keyboard.enableRepeatEvents(false);
@@ -220,20 +220,20 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (selectedTabIndex != CreativeTabs.tabAllSearch.getTabIndex()) {
-            if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat)) {
-                this.setCurrentCreativeTab(CreativeTabs.tabAllSearch);
+            if (GameSettings.isKeyDown(mc.gameSettings.keyBindChat)) {
+                setCurrentCreativeTab(CreativeTabs.tabAllSearch);
             } else {
                 super.keyTyped(typedChar, keyCode);
             }
         } else {
-            if (this.field_147057_D) {
-                this.field_147057_D = false;
-                this.searchField.setText("");
+            if (field_147057_D) {
+                field_147057_D = false;
+                searchField.setText("");
             }
 
-            if (!this.checkHotbarKeys(keyCode)) {
-                if (this.searchField.textboxKeyTyped(typedChar, keyCode)) {
-                    this.updateCreativeSearch();
+            if (!checkHotbarKeys(keyCode)) {
+                if (searchField.textboxKeyTyped(typedChar, keyCode)) {
+                    updateCreativeSearch();
                 } else {
                     super.keyTyped(typedChar, keyCode);
                 }
@@ -242,7 +242,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     private void updateCreativeSearch() {
-        GuiContainerCreative.ContainerCreative guicontainercreative$containercreative = (GuiContainerCreative.ContainerCreative) this.inventorySlots;
+        GuiContainerCreative.ContainerCreative guicontainercreative$containercreative = (GuiContainerCreative.ContainerCreative) inventorySlots;
         guicontainercreative$containercreative.itemList.clear();
 
         for (Item item : Item.itemRegistry) {
@@ -258,13 +258,13 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
 
         Iterator<ItemStack> iterator = guicontainercreative$containercreative.itemList.iterator();
-        String s1 = this.searchField.getText().toLowerCase();
+        String s1 = searchField.getText().toLowerCase();
 
         while (iterator.hasNext()) {
             ItemStack itemstack = iterator.next();
             boolean flag = false;
 
-            for (String s : itemstack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips)) {
+            for (String s : itemstack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips)) {
                 if (EnumChatFormatting.getTextWithoutFormattingCodes(s).toLowerCase().contains(s1)) {
                     flag = true;
                     break;
@@ -276,7 +276,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             }
         }
 
-        this.currentScroll = 0.0F;
+        currentScroll = 0.0F;
         guicontainercreative$containercreative.scrollTo(0.0F);
     }
 
@@ -285,17 +285,17 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         if (creativetabs.drawInForegroundOfTab()) {
             GlStateManager.disableBlend();
-            this.fontRendererObj.drawString(I18n.format(creativetabs.getTranslatedTabLabel()), 8, 6, 4210752);
+            fontRendererObj.drawString(I18n.format(creativetabs.getTranslatedTabLabel()), 8, 6, 4210752);
         }
     }
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
-            int i = mouseX - this.guiLeft;
-            int j = mouseY - this.guiTop;
+            int i = mouseX - guiLeft;
+            int j = mouseY - guiTop;
 
             for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
-                if (this.func_147049_a(creativetabs, i, j)) {
+                if (func_147049_a(creativetabs, i, j)) {
                     return;
                 }
             }
@@ -306,12 +306,12 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (state == 0) {
-            int i = mouseX - this.guiLeft;
-            int j = mouseY - this.guiTop;
+            int i = mouseX - guiLeft;
+            int j = mouseY - guiTop;
 
             for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
-                if (this.func_147049_a(creativetabs, i, j)) {
-                    this.setCurrentCreativeTab(creativetabs);
+                if (func_147049_a(creativetabs, i, j)) {
+                    setCurrentCreativeTab(creativetabs);
                     return;
                 }
             }
@@ -321,22 +321,22 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     private boolean needsScrollBars() {
-        return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((GuiContainerCreative.ContainerCreative) this.inventorySlots).func_148328_e();
+        return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((GuiContainerCreative.ContainerCreative) inventorySlots).func_148328_e();
     }
 
     private void setCurrentCreativeTab(CreativeTabs p_147050_1_) {
         int i = selectedTabIndex;
         selectedTabIndex = p_147050_1_.getTabIndex();
-        GuiContainerCreative.ContainerCreative guicontainercreative$containercreative = (GuiContainerCreative.ContainerCreative) this.inventorySlots;
-        this.dragSplittingSlots.clear();
+        GuiContainerCreative.ContainerCreative guicontainercreative$containercreative = (GuiContainerCreative.ContainerCreative) inventorySlots;
+        dragSplittingSlots.clear();
         guicontainercreative$containercreative.itemList.clear();
         p_147050_1_.displayAllReleventItems(guicontainercreative$containercreative.itemList);
 
         if (p_147050_1_ == CreativeTabs.tabInventory) {
-            Container container = this.mc.thePlayer.inventoryContainer;
+            Container container = mc.thePlayer.inventoryContainer;
 
-            if (this.field_147063_B == null) {
-                this.field_147063_B = guicontainercreative$containercreative.inventorySlots;
+            if (field_147063_B == null) {
+                field_147063_B = guicontainercreative$containercreative.inventorySlots;
             }
 
             guicontainercreative$containercreative.inventorySlots = Lists.newArrayList();
@@ -368,28 +368,28 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 }
             }
 
-            this.field_147064_C = new Slot(field_147060_v, 0, 173, 112);
-            guicontainercreative$containercreative.inventorySlots.add(this.field_147064_C);
+            field_147064_C = new Slot(field_147060_v, 0, 173, 112);
+            guicontainercreative$containercreative.inventorySlots.add(field_147064_C);
         } else if (i == CreativeTabs.tabInventory.getTabIndex()) {
-            guicontainercreative$containercreative.inventorySlots = this.field_147063_B;
-            this.field_147063_B = null;
+            guicontainercreative$containercreative.inventorySlots = field_147063_B;
+            field_147063_B = null;
         }
 
-        if (this.searchField != null) {
+        if (searchField != null) {
             if (p_147050_1_ == CreativeTabs.tabAllSearch) {
-                this.searchField.setVisible(true);
-                this.searchField.setCanLoseFocus(false);
-                this.searchField.setFocused(true);
-                this.searchField.setText("");
-                this.updateCreativeSearch();
+                searchField.setVisible(true);
+                searchField.setCanLoseFocus(false);
+                searchField.setFocused(true);
+                searchField.setText("");
+                updateCreativeSearch();
             } else {
-                this.searchField.setVisible(false);
-                this.searchField.setCanLoseFocus(true);
-                this.searchField.setFocused(false);
+                searchField.setVisible(false);
+                searchField.setCanLoseFocus(true);
+                searchField.setFocused(false);
             }
         }
 
-        this.currentScroll = 0.0F;
+        currentScroll = 0.0F;
         guicontainercreative$containercreative.scrollTo(0.0F);
     }
 
@@ -397,8 +397,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         super.handleMouseInput();
         int i = Mouse.getEventDWheel();
 
-        if (i != 0 && this.needsScrollBars()) {
-            int j = ((GuiContainerCreative.ContainerCreative) this.inventorySlots).itemList.size() / 9 - 5;
+        if (i != 0 && needsScrollBars()) {
+            int j = ((GuiContainerCreative.ContainerCreative) inventorySlots).itemList.size() / 9 - 5;
 
             if (i > 0) {
                 i = 1;
@@ -408,47 +408,47 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 i = -1;
             }
 
-            this.currentScroll = (float) ((double) this.currentScroll - (double) i / (double) j);
-            this.currentScroll = MathHelper.clamp_float(this.currentScroll, 0.0F, 1.0F);
-            ((GuiContainerCreative.ContainerCreative) this.inventorySlots).scrollTo(this.currentScroll);
+            currentScroll = (float) ((double) currentScroll - (double) i / (double) j);
+            currentScroll = MathHelper.clamp_float(currentScroll, 0.0F, 1.0F);
+            ((GuiContainerCreative.ContainerCreative) inventorySlots).scrollTo(currentScroll);
         }
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         boolean flag = Mouse.isButtonDown(0);
-        int i = this.guiLeft;
-        int j = this.guiTop;
+        int i = guiLeft;
+        int j = guiTop;
         int k = i + 175;
         int l = j + 18;
         int i1 = k + 14;
         int j1 = l + 112;
 
-        if (!this.wasClicking && flag && mouseX >= k && mouseY >= l && mouseX < i1 && mouseY < j1) {
-            this.isScrolling = this.needsScrollBars();
+        if (!wasClicking && flag && mouseX >= k && mouseY >= l && mouseX < i1 && mouseY < j1) {
+            isScrolling = needsScrollBars();
         }
 
         if (!flag) {
-            this.isScrolling = false;
+            isScrolling = false;
         }
 
-        this.wasClicking = flag;
+        wasClicking = flag;
 
-        if (this.isScrolling) {
-            this.currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15.0F);
-            this.currentScroll = MathHelper.clamp_float(this.currentScroll, 0.0F, 1.0F);
-            ((GuiContainerCreative.ContainerCreative) this.inventorySlots).scrollTo(this.currentScroll);
+        if (isScrolling) {
+            currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15.0F);
+            currentScroll = MathHelper.clamp_float(currentScroll, 0.0F, 1.0F);
+            ((GuiContainerCreative.ContainerCreative) inventorySlots).scrollTo(currentScroll);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
-            if (this.renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {
+            if (renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {
                 break;
             }
         }
 
-        if (this.field_147064_C != null && selectedTabIndex == CreativeTabs.tabInventory.getTabIndex() && this.isPointInRegion(this.field_147064_C.xDisplayPosition, this.field_147064_C.yDisplayPosition, 16, 16, mouseX, mouseY)) {
-            this.drawCreativeTabHoveringText(I18n.format("inventory.binSlot"), mouseX, mouseY);
+        if (field_147064_C != null && selectedTabIndex == CreativeTabs.tabInventory.getTabIndex() && isPointInRegion(field_147064_C.xDisplayPosition, field_147064_C.yDisplayPosition, 16, 16, mouseX, mouseY)) {
+            drawCreativeTabHoveringText(I18n.format("inventory.binSlot"), mouseX, mouseY);
         }
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -457,7 +457,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     protected void renderToolTip(ItemStack stack, int x, int y) {
         if (selectedTabIndex == CreativeTabs.tabAllSearch.getTabIndex()) {
-            List<String> list = stack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
+            List<String> list = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
             if (creativetabs == null && stack.getItem() == Items.enchanted_book) {
@@ -487,7 +487,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 }
             }
 
-            this.drawHoveringText(list, x, y);
+            drawHoveringText(list, x, y);
         } else {
             super.renderToolTip(stack, x, y);
         }
@@ -499,30 +499,30 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
 
         for (CreativeTabs creativetabs1 : CreativeTabs.creativeTabArray) {
-            this.mc.getTextureManager().bindTexture(creativeInventoryTabs);
+            mc.getTextureManager().bindTexture(creativeInventoryTabs);
 
             if (creativetabs1.getTabIndex() != selectedTabIndex) {
-                this.func_147051_a(creativetabs1);
+                func_147051_a(creativetabs1);
             }
         }
 
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
-        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-        this.searchField.drawTextBox();
+        mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
+        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+        searchField.drawTextBox();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        int i = this.guiLeft + 175;
-        int j = this.guiTop + 18;
+        int i = guiLeft + 175;
+        int j = guiTop + 18;
         int k = j + 112;
-        this.mc.getTextureManager().bindTexture(creativeInventoryTabs);
+        mc.getTextureManager().bindTexture(creativeInventoryTabs);
 
         if (creativetabs.shouldHidePlayerInventory()) {
-            this.drawTexturedModalRect(i, j + (int) ((float) (k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
+            drawTexturedModalRect(i, j + (int) ((float) (k - j - 17) * currentScroll), 232 + (needsScrollBars() ? 0 : 12), 0, 12, 15);
         }
 
-        this.func_147051_a(creativetabs);
+        func_147051_a(creativetabs);
 
         if (creativetabs == CreativeTabs.tabInventory) {
-            GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 45, 20, (float) (this.guiLeft + 43 - mouseX), (float) (this.guiTop + 45 - 30 - mouseY), this.mc.thePlayer);
+            GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 45, 20, (float) (guiLeft + 43 - mouseX), (float) (guiTop + 45 - 30 - mouseY), mc.thePlayer);
         }
     }
 
@@ -532,7 +532,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         int k = 0;
 
         if (i == 5) {
-            j = this.xSize - 28 + 2;
+            j = xSize - 28 + 2;
         } else if (i > 0) {
             j += i;
         }
@@ -540,7 +540,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         if (p_147049_1_.isTabInFirstRow()) {
             k = k - 32;
         } else {
-            k = k + this.ySize;
+            k = k + ySize;
         }
 
         return p_147049_2_ >= j && p_147049_2_ <= j + 28 && p_147049_3_ >= k && p_147049_3_ <= k + 32;
@@ -552,7 +552,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         int k = 0;
 
         if (i == 5) {
-            j = this.xSize - 28 + 2;
+            j = xSize - 28 + 2;
         } else if (i > 0) {
             j += i;
         }
@@ -560,11 +560,11 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         if (p_147052_1_.isTabInFirstRow()) {
             k = k - 32;
         } else {
-            k = k + this.ySize;
+            k = k + ySize;
         }
 
-        if (this.isPointInRegion(j + 3, k + 3, 23, 27, p_147052_2_, p_147052_3_)) {
-            this.drawCreativeTabHoveringText(I18n.format(p_147052_1_.getTranslatedTabLabel()), p_147052_2_, p_147052_3_);
+        if (isPointInRegion(j + 3, k + 3, 23, 27, p_147052_2_, p_147052_3_)) {
+            drawCreativeTabHoveringText(I18n.format(p_147052_1_.getTranslatedTabLabel()), p_147052_2_, p_147052_3_);
             return true;
         } else {
             return false;
@@ -577,8 +577,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         int i = p_147051_1_.getTabColumn();
         int j = i * 28;
         int k = 0;
-        int l = this.guiLeft + 28 * i;
-        int i1 = this.guiTop;
+        int l = guiLeft + 28 * i;
+        int i1 = guiTop;
         int j1 = 32;
 
         if (flag) {
@@ -586,7 +586,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
 
         if (i == 5) {
-            l = this.guiLeft + this.xSize - 28;
+            l = guiLeft + xSize - 28;
         } else if (i > 0) {
             l += i;
         }
@@ -595,32 +595,32 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             i1 = i1 - 28;
         } else {
             k += 64;
-            i1 = i1 + (this.ySize - 4);
+            i1 = i1 + (ySize - 4);
         }
 
         GlStateManager.disableLighting();
-        this.drawTexturedModalRect(l, i1, j, k, 28, j1);
-        this.zLevel = 100.0F;
-        this.itemRender.zLevel = 100.0F;
+        drawTexturedModalRect(l, i1, j, k, 28, j1);
+        zLevel = 100.0F;
+        itemRender.zLevel = 100.0F;
         l = l + 6;
         i1 = i1 + 8 + (flag1 ? 1 : -1);
         GlStateManager.enableLighting();
         GlStateManager.enableRescaleNormal();
         ItemStack itemstack = p_147051_1_.getIconItemStack();
-        this.itemRender.renderItemAndEffectIntoGUI(itemstack, l, i1);
-        this.itemRender.renderItemOverlays(this.fontRendererObj, itemstack, l, i1);
+        itemRender.renderItemAndEffectIntoGUI(itemstack, l, i1);
+        itemRender.renderItemOverlays(fontRendererObj, itemstack, l, i1);
         GlStateManager.disableLighting();
-        this.itemRender.zLevel = 0.0F;
-        this.zLevel = 0.0F;
+        itemRender.zLevel = 0.0F;
+        zLevel = 0.0F;
     }
 
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
-            this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.thePlayer.getStatFileWriter()));
+            mc.displayGuiScreen(new GuiAchievements(this, mc.thePlayer.getStatFileWriter()));
         }
 
         if (button.id == 1) {
-            this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
+            mc.displayGuiScreen(new GuiStats(this, mc.thePlayer.getStatFileWriter()));
         }
     }
 
@@ -636,15 +636,15 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
             for (int i = 0; i < 5; ++i) {
                 for (int j = 0; j < 9; ++j) {
-                    this.addSlotToContainer(new Slot(GuiContainerCreative.field_147060_v, i * 9 + j, 9 + j * 18, 18 + i * 18));
+                    addSlotToContainer(new Slot(GuiContainerCreative.field_147060_v, i * 9 + j, 9 + j * 18, 18 + i * 18));
                 }
             }
 
             for (int k = 0; k < 9; ++k) {
-                this.addSlotToContainer(new Slot(inventoryplayer, k, 9 + k * 18, 112));
+                addSlotToContainer(new Slot(inventoryplayer, k, 9 + k * 18, 112));
             }
 
-            this.scrollTo(0.0F);
+            scrollTo(0.0F);
         }
 
         public boolean canInteractWith(EntityPlayer playerIn) {
@@ -652,7 +652,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
 
         public void scrollTo(float p_148329_1_) {
-            int i = (this.itemList.size() + 9 - 1) / 9 - 5;
+            int i = (itemList.size() + 9 - 1) / 9 - 5;
             int j = (int) ((double) (p_148329_1_ * (float) i) + 0.5D);
 
             if (j < 0) {
@@ -663,8 +663,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 for (int l = 0; l < 9; ++l) {
                     int i1 = l + (k + j) * 9;
 
-                    if (i1 >= 0 && i1 < this.itemList.size()) {
-                        GuiContainerCreative.field_147060_v.setInventorySlotContents(l + k * 9, this.itemList.get(i1));
+                    if (i1 >= 0 && i1 < itemList.size()) {
+                        GuiContainerCreative.field_147060_v.setInventorySlotContents(l + k * 9, itemList.get(i1));
                     } else {
                         GuiContainerCreative.field_147060_v.setInventorySlotContents(l + k * 9, null);
                     }
@@ -673,15 +673,15 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
 
         public boolean func_148328_e() {
-            return this.itemList.size() > 45;
+            return itemList.size() > 45;
         }
 
         protected void retrySlotClick(int slotId, int clickedButton, boolean mode, EntityPlayer playerIn) {
         }
 
         public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-            if (index >= this.inventorySlots.size() - 9 && index < this.inventorySlots.size()) {
-                Slot slot = this.inventorySlots.get(index);
+            if (index >= inventorySlots.size() - 9 && index < inventorySlots.size()) {
+                Slot slot = inventorySlots.get(index);
 
                 if (slot != null && slot.getHasStack()) {
                     slot.putStack(null);
@@ -705,51 +705,51 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         public CreativeSlot(Slot p_i46313_2_, int p_i46313_3_) {
             super(p_i46313_2_.inventory, p_i46313_3_, 0, 0);
-            this.slot = p_i46313_2_;
+            slot = p_i46313_2_;
         }
 
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
-            this.slot.onPickupFromSlot(playerIn, stack);
+            slot.onPickupFromSlot(playerIn, stack);
         }
 
         public boolean isItemValid(ItemStack stack) {
-            return this.slot.isItemValid(stack);
+            return slot.isItemValid(stack);
         }
 
         public ItemStack getStack() {
-            return this.slot.getStack();
+            return slot.getStack();
         }
 
         public boolean getHasStack() {
-            return this.slot.getHasStack();
+            return slot.getHasStack();
         }
 
         public void putStack(ItemStack stack) {
-            this.slot.putStack(stack);
+            slot.putStack(stack);
         }
 
         public void onSlotChanged() {
-            this.slot.onSlotChanged();
+            slot.onSlotChanged();
         }
 
         public int getSlotStackLimit() {
-            return this.slot.getSlotStackLimit();
+            return slot.getSlotStackLimit();
         }
 
         public int getItemStackLimit(ItemStack stack) {
-            return this.slot.getItemStackLimit(stack);
+            return slot.getItemStackLimit(stack);
         }
 
         public String getSlotTexture() {
-            return this.slot.getSlotTexture();
+            return slot.getSlotTexture();
         }
 
         public ItemStack decrStackSize(int amount) {
-            return this.slot.decrStackSize(amount);
+            return slot.decrStackSize(amount);
         }
 
         public boolean isHere(IInventory inv, int slotIn) {
-            return this.slot.isHere(inv, slotIn);
+            return slot.isHere(inv, slotIn);
         }
     }
 }

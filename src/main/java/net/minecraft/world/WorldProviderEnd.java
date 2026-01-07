@@ -10,13 +10,13 @@ import net.minecraft.world.gen.ChunkProviderEnd;
 
 public class WorldProviderEnd extends WorldProvider {
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F);
-        this.dimensionId = 1;
-        this.hasNoSky = true;
+        worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F);
+        dimensionId = 1;
+        hasNoSky = true;
     }
 
     public IChunkProvider createChunkGenerator() {
-        return new ChunkProviderEnd(this.worldObj, this.worldObj.getSeed());
+        return new ChunkProviderEnd(worldObj, worldObj.getSeed());
     }
 
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
@@ -57,7 +57,7 @@ public class WorldProviderEnd extends WorldProvider {
     }
 
     public boolean canCoordinateBeSpawn(int x, int z) {
-        return this.worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)).getMaterial().blocksMovement();
+        return worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)).getMaterial().blocksMovement();
     }
 
     public BlockPos getSpawnCoordinate() {

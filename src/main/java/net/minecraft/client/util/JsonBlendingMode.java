@@ -16,13 +16,13 @@ public class JsonBlendingMode {
     private final boolean field_148119_h;
 
     private JsonBlendingMode(boolean p_i45084_1_, boolean p_i45084_2_, int p_i45084_3_, int p_i45084_4_, int p_i45084_5_, int p_i45084_6_, int p_i45084_7_) {
-        this.field_148113_g = p_i45084_1_;
-        this.field_148116_b = p_i45084_3_;
-        this.field_148114_d = p_i45084_4_;
-        this.field_148117_c = p_i45084_5_;
-        this.field_148115_e = p_i45084_6_;
-        this.field_148119_h = p_i45084_2_;
-        this.field_148112_f = p_i45084_7_;
+        field_148113_g = p_i45084_1_;
+        field_148116_b = p_i45084_3_;
+        field_148114_d = p_i45084_4_;
+        field_148117_c = p_i45084_5_;
+        field_148115_e = p_i45084_6_;
+        field_148119_h = p_i45084_2_;
+        field_148112_f = p_i45084_7_;
     }
 
     public JsonBlendingMode() {
@@ -112,11 +112,11 @@ public class JsonBlendingMode {
     }
 
     public void func_148109_a() {
-        if (!this.equals(field_148118_a)) {
-            if (field_148118_a == null || this.field_148119_h != field_148118_a.func_148111_b()) {
+        if (!equals(field_148118_a)) {
+            if (field_148118_a == null || field_148119_h != field_148118_a.func_148111_b()) {
                 field_148118_a = this;
 
-                if (this.field_148119_h) {
+                if (field_148119_h) {
                     GlStateManager.disableBlend();
                     return;
                 }
@@ -124,12 +124,12 @@ public class JsonBlendingMode {
                 GlStateManager.enableBlend();
             }
 
-            GL14.glBlendEquation(this.field_148112_f);
+            GL14.glBlendEquation(field_148112_f);
 
-            if (this.field_148113_g) {
-                GlStateManager.tryBlendFuncSeparate(this.field_148116_b, this.field_148114_d, this.field_148117_c, this.field_148115_e);
+            if (field_148113_g) {
+                GlStateManager.tryBlendFuncSeparate(field_148116_b, field_148114_d, field_148117_c, field_148115_e);
             } else {
-                GlStateManager.blendFunc(this.field_148116_b, this.field_148114_d);
+                GlStateManager.blendFunc(field_148116_b, field_148114_d);
             }
         }
     }
@@ -140,22 +140,22 @@ public class JsonBlendingMode {
         } else if (!(p_equals_1_ instanceof JsonBlendingMode jsonblendingmode)) {
             return false;
         } else {
-            return this.field_148112_f == jsonblendingmode.field_148112_f && (this.field_148115_e == jsonblendingmode.field_148115_e && (this.field_148114_d == jsonblendingmode.field_148114_d && (this.field_148119_h == jsonblendingmode.field_148119_h && (this.field_148113_g == jsonblendingmode.field_148113_g && (this.field_148117_c == jsonblendingmode.field_148117_c && this.field_148116_b == jsonblendingmode.field_148116_b)))));
+            return field_148112_f == jsonblendingmode.field_148112_f && (field_148115_e == jsonblendingmode.field_148115_e && (field_148114_d == jsonblendingmode.field_148114_d && (field_148119_h == jsonblendingmode.field_148119_h && (field_148113_g == jsonblendingmode.field_148113_g && (field_148117_c == jsonblendingmode.field_148117_c && field_148116_b == jsonblendingmode.field_148116_b)))));
         }
     }
 
     public int hashCode() {
-        int i = this.field_148116_b;
-        i = 31 * i + this.field_148117_c;
-        i = 31 * i + this.field_148114_d;
-        i = 31 * i + this.field_148115_e;
-        i = 31 * i + this.field_148112_f;
-        i = 31 * i + (this.field_148113_g ? 1 : 0);
-        i = 31 * i + (this.field_148119_h ? 1 : 0);
+        int i = field_148116_b;
+        i = 31 * i + field_148117_c;
+        i = 31 * i + field_148114_d;
+        i = 31 * i + field_148115_e;
+        i = 31 * i + field_148112_f;
+        i = 31 * i + (field_148113_g ? 1 : 0);
+        i = 31 * i + (field_148119_h ? 1 : 0);
         return i;
     }
 
     public boolean func_148111_b() {
-        return this.field_148119_h;
+        return field_148119_h;
     }
 }

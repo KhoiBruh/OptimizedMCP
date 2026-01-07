@@ -9,14 +9,14 @@ public record ClickEvent(Action action, String value) {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        } else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
             ClickEvent clickevent = (ClickEvent) p_equals_1_;
 
-            if (this.action != clickevent.action) {
+            if (action != clickevent.action) {
                 return false;
             } else {
-                if (this.value != null) {
-                    return this.value.equals(clickevent.value);
+                if (value != null) {
+                    return value.equals(clickevent.value);
                 } else return clickevent.value == null;
             }
         } else {
@@ -25,7 +25,7 @@ public record ClickEvent(Action action, String value) {
     }
 
     public String toString() {
-        return "ClickEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
+        return "ClickEvent{action=" + action + ", value='" + value + '\'' + '}';
     }
 
     public enum Action {
@@ -48,8 +48,8 @@ public record ClickEvent(Action action, String value) {
         private final String canonicalName;
 
         Action(String canonicalNameIn, boolean allowedInChatIn) {
-            this.canonicalName = canonicalNameIn;
-            this.allowedInChat = allowedInChatIn;
+            canonicalName = canonicalNameIn;
+            allowedInChat = allowedInChatIn;
         }
 
         public static Action getValueByCanonicalName(String canonicalNameIn) {
@@ -57,11 +57,11 @@ public record ClickEvent(Action action, String value) {
         }
 
         public boolean shouldAllowInChat() {
-            return this.allowedInChat;
+            return allowedInChat;
         }
 
         public String getCanonicalName() {
-            return this.canonicalName;
+            return canonicalName;
         }
     }
 }

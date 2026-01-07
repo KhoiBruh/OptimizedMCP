@@ -8,7 +8,7 @@ import java.util.Random;
 public class BiomeGenOcean extends BiomeGenBase {
     public BiomeGenOcean(int id) {
         super(id);
-        this.spawnableCreatureList.clear();
+        spawnableCreatureList.clear();
     }
 
     public BiomeGenBase.TempCategory getTempCategory() {

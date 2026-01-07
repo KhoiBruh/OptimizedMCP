@@ -16,27 +16,27 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
     public boolean shouldExecute() {
         if (!super.shouldExecute()) {
             return false;
-        } else if (!this.theEntity.worldObj.getGameRules().getBoolean("mobGriefing")) {
+        } else if (!theEntity.worldObj.getGameRules().getBoolean("mobGriefing")) {
             return false;
         } else {
-            BlockDoor blockdoor = this.doorBlock;
-            return !BlockDoor.isOpen(this.theEntity.worldObj, this.doorPosition);
+            BlockDoor blockdoor = doorBlock;
+            return !BlockDoor.isOpen(theEntity.worldObj, doorPosition);
         }
     }
 
     public void startExecuting() {
         super.startExecuting();
-        this.breakingTime = 0;
+        breakingTime = 0;
     }
 
     public boolean continueExecuting() {
-        double d0 = this.theEntity.getDistanceSq(this.doorPosition);
+        double d0 = theEntity.getDistanceSq(doorPosition);
         boolean flag;
 
-        if (this.breakingTime <= 240) {
-            BlockDoor blockdoor = this.doorBlock;
+        if (breakingTime <= 240) {
+            BlockDoor blockdoor = doorBlock;
 
-            if (!BlockDoor.isOpen(this.theEntity.worldObj, this.doorPosition) && d0 < 4.0D) {
+            if (!BlockDoor.isOpen(theEntity.worldObj, doorPosition) && d0 < 4.0D) {
                 flag = true;
                 return flag;
             }
@@ -48,28 +48,28 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 
     public void resetTask() {
         super.resetTask();
-        this.theEntity.worldObj.sendBlockBreakProgress(this.theEntity.getEntityId(), this.doorPosition, -1);
+        theEntity.worldObj.sendBlockBreakProgress(theEntity.getEntityId(), doorPosition, -1);
     }
 
     public void updateTask() {
         super.updateTask();
 
-        if (this.theEntity.getRNG().nextInt(20) == 0) {
-            this.theEntity.worldObj.playAuxSFX(1010, this.doorPosition, 0);
+        if (theEntity.getRNG().nextInt(20) == 0) {
+            theEntity.worldObj.playAuxSFX(1010, doorPosition, 0);
         }
 
-        ++this.breakingTime;
-        int i = (int) ((float) this.breakingTime / 240.0F * 10.0F);
+        ++breakingTime;
+        int i = (int) ((float) breakingTime / 240.0F * 10.0F);
 
-        if (i != this.previousBreakProgress) {
-            this.theEntity.worldObj.sendBlockBreakProgress(this.theEntity.getEntityId(), this.doorPosition, i);
-            this.previousBreakProgress = i;
+        if (i != previousBreakProgress) {
+            theEntity.worldObj.sendBlockBreakProgress(theEntity.getEntityId(), doorPosition, i);
+            previousBreakProgress = i;
         }
 
-        if (this.breakingTime == 240 && this.theEntity.worldObj.getDifficulty() == EnumDifficulty.HARD) {
-            this.theEntity.worldObj.setBlockToAir(this.doorPosition);
-            this.theEntity.worldObj.playAuxSFX(1012, this.doorPosition, 0);
-            this.theEntity.worldObj.playAuxSFX(2001, this.doorPosition, Block.getIdFromBlock(this.doorBlock));
+        if (breakingTime == 240 && theEntity.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+            theEntity.worldObj.setBlockToAir(doorPosition);
+            theEntity.worldObj.playAuxSFX(1012, doorPosition, 0);
+            theEntity.worldObj.playAuxSFX(2001, doorPosition, Block.getIdFromBlock(doorBlock));
         }
     }
 }

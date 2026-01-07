@@ -10,13 +10,13 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
     private final RenderPlayer playerRenderer;
 
     public LayerCape(RenderPlayer playerRendererIn) {
-        this.playerRenderer = playerRendererIn;
+        playerRenderer = playerRendererIn;
     }
 
     public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE) && entitylivingbaseIn.getLocationCape() != null) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());
+            playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 0.0F, 0.125F);
             double d0 = entitylivingbaseIn.prevChasingPosX + (entitylivingbaseIn.chasingPosX - entitylivingbaseIn.prevChasingPosX) * (double) partialTicks - (entitylivingbaseIn.prevPosX + (entitylivingbaseIn.posX - entitylivingbaseIn.prevPosX) * (double) partialTicks);
@@ -54,7 +54,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
             GlStateManager.rotate(f3 / 2.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(-f3 / 2.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-            this.playerRenderer.getMainModel().renderCape(0.0625F);
+            playerRenderer.getMainModel().renderCape(0.0625F);
             GlStateManager.popMatrix();
         }
     }

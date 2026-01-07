@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 public class ItemSnow extends ItemBlock {
     public ItemSnow(Block block) {
         super(block);
-        this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        setMaxDamage(0);
+        setHasSubtypes(true);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {

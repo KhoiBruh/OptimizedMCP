@@ -13,11 +13,11 @@ public class RenderSkeleton extends RenderBiped<EntitySkeleton> {
 
     public RenderSkeleton(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelSkeleton(), 0.5F);
-        this.addLayer(new LayerHeldItem(this));
-        this.addLayer(new LayerBipedArmor(this) {
+        addLayer(new LayerHeldItem(this));
+        addLayer(new LayerBipedArmor(this) {
             protected void initArmor() {
-                this.modelLeggings = new ModelSkeleton(0.5F, true);
-                this.modelArmor = new ModelSkeleton(1.0F, true);
+                modelLeggings = new ModelSkeleton(0.5F, true);
+                modelArmor = new ModelSkeleton(1.0F, true);
             }
         });
     }

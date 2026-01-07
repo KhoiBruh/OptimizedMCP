@@ -32,14 +32,14 @@ public class CommandTime extends CommandBase {
                     l = parseInt(args[1], 0);
                 }
 
-                this.setTime(sender, l);
+                setTime(sender, l);
                 notifyOperators(sender, this, "commands.time.set", l);
                 return;
             }
 
             if (args[0].equals("add")) {
                 int k = parseInt(args[1], 0);
-                this.addTime(sender, k);
+                addTime(sender, k);
                 notifyOperators(sender, this, "commands.time.added", k);
                 return;
             }

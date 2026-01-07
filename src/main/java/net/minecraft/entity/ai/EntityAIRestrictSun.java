@@ -7,18 +7,18 @@ public class EntityAIRestrictSun extends EntityAIBase {
     private final EntityCreature theEntity;
 
     public EntityAIRestrictSun(EntityCreature creature) {
-        this.theEntity = creature;
+        theEntity = creature;
     }
 
     public boolean shouldExecute() {
-        return this.theEntity.worldObj.isDaytime();
+        return theEntity.worldObj.isDaytime();
     }
 
     public void startExecuting() {
-        ((PathNavigateGround) this.theEntity.getNavigator()).setAvoidSun(true);
+        ((PathNavigateGround) theEntity.getNavigator()).setAvoidSun(true);
     }
 
     public void resetTask() {
-        ((PathNavigateGround) this.theEntity.getNavigator()).setAvoidSun(false);
+        ((PathNavigateGround) theEntity.getNavigator()).setAvoidSun(false);
     }
 }

@@ -20,43 +20,43 @@ public abstract class BlockFlower extends BlockBush {
     protected PropertyEnum<BlockFlower.EnumFlowerType> type;
 
     protected BlockFlower() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(this.getTypeProperty(), this.getBlockType() == BlockFlower.EnumFlowerColor.RED ? BlockFlower.EnumFlowerType.POPPY : BlockFlower.EnumFlowerType.DANDELION));
+        setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), getBlockType() == BlockFlower.EnumFlowerColor.RED ? BlockFlower.EnumFlowerType.POPPY : BlockFlower.EnumFlowerType.DANDELION));
     }
 
     public int damageDropped(IBlockState state) {
-        return state.getValue(this.getTypeProperty()).getMeta();
+        return state.getValue(getTypeProperty()).getMeta();
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (BlockFlower.EnumFlowerType blockflower$enumflowertype : BlockFlower.EnumFlowerType.getTypes(this.getBlockType())) {
+        for (BlockFlower.EnumFlowerType blockflower$enumflowertype : BlockFlower.EnumFlowerType.getTypes(getBlockType())) {
             list.add(new ItemStack(itemIn, 1, blockflower$enumflowertype.getMeta()));
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(this.getTypeProperty(), BlockFlower.EnumFlowerType.getType(this.getBlockType(), meta));
+        return getDefaultState().withProperty(getTypeProperty(), BlockFlower.EnumFlowerType.getType(getBlockType(), meta));
     }
 
     public abstract BlockFlower.EnumFlowerColor getBlockType();
 
     public IProperty<BlockFlower.EnumFlowerType> getTypeProperty() {
-        if (this.type == null) {
-            this.type = PropertyEnum.create("type", BlockFlower.EnumFlowerType.class, new Predicate<BlockFlower.EnumFlowerType>() {
+        if (type == null) {
+            type = PropertyEnum.create("type", BlockFlower.EnumFlowerType.class, new Predicate<BlockFlower.EnumFlowerType>() {
                 public boolean apply(BlockFlower.EnumFlowerType p_apply_1_) {
-                    return p_apply_1_.getBlockType() == BlockFlower.this.getBlockType();
+                    return p_apply_1_.getBlockType() == getBlockType();
                 }
             });
         }
 
-        return this.type;
+        return type;
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(this.getTypeProperty()).getMeta();
+        return state.getValue(getTypeProperty()).getMeta();
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, this.getTypeProperty());
+        return new BlockState(this, getTypeProperty());
     }
 
     public Block.EnumOffsetType getOffsetType() {
@@ -128,23 +128,23 @@ public abstract class BlockFlower extends BlockBush {
         }
 
         public BlockFlower.EnumFlowerColor getBlockType() {
-            return this.blockType;
+            return blockType;
         }
 
         public int getMeta() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

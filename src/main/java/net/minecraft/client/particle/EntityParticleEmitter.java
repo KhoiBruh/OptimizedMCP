@@ -13,10 +13,10 @@ public class EntityParticleEmitter extends EntityFX {
 
     public EntityParticleEmitter(World worldIn, Entity p_i46279_2_, EnumParticleTypes particleTypesIn) {
         super(worldIn, p_i46279_2_.posX, p_i46279_2_.getEntityBoundingBox().minY + (double) (p_i46279_2_.height / 2.0F), p_i46279_2_.posZ, p_i46279_2_.motionX, p_i46279_2_.motionY, p_i46279_2_.motionZ);
-        this.attachedEntity = p_i46279_2_;
-        this.lifetime = 3;
-        this.particleTypes = particleTypesIn;
-        this.onUpdate();
+        attachedEntity = p_i46279_2_;
+        lifetime = 3;
+        particleTypes = particleTypesIn;
+        onUpdate();
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
@@ -24,22 +24,22 @@ public class EntityParticleEmitter extends EntityFX {
 
     public void onUpdate() {
         for (int i = 0; i < 16; ++i) {
-            double d0 = this.rand.nextFloat() * 2.0F - 1.0F;
-            double d1 = this.rand.nextFloat() * 2.0F - 1.0F;
-            double d2 = this.rand.nextFloat() * 2.0F - 1.0F;
+            double d0 = rand.nextFloat() * 2.0F - 1.0F;
+            double d1 = rand.nextFloat() * 2.0F - 1.0F;
+            double d2 = rand.nextFloat() * 2.0F - 1.0F;
 
             if (d0 * d0 + d1 * d1 + d2 * d2 <= 1.0D) {
-                double d3 = this.attachedEntity.posX + d0 * (double) this.attachedEntity.width / 4.0D;
-                double d4 = this.attachedEntity.getEntityBoundingBox().minY + (double) (this.attachedEntity.height / 2.0F) + d1 * (double) this.attachedEntity.height / 4.0D;
-                double d5 = this.attachedEntity.posZ + d2 * (double) this.attachedEntity.width / 4.0D;
-                this.worldObj.spawnParticle(this.particleTypes, false, d3, d4, d5, d0, d1 + 0.2D, d2);
+                double d3 = attachedEntity.posX + d0 * (double) attachedEntity.width / 4.0D;
+                double d4 = attachedEntity.getEntityBoundingBox().minY + (double) (attachedEntity.height / 2.0F) + d1 * (double) attachedEntity.height / 4.0D;
+                double d5 = attachedEntity.posZ + d2 * (double) attachedEntity.width / 4.0D;
+                worldObj.spawnParticle(particleTypes, false, d3, d4, d5, d0, d1 + 0.2D, d2);
             }
         }
 
-        ++this.age;
+        ++age;
 
-        if (this.age >= this.lifetime) {
-            this.setDead();
+        if (age >= lifetime) {
+            setDead();
         }
     }
 

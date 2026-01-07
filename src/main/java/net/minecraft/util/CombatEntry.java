@@ -11,35 +11,35 @@ public class CombatEntry {
     private final float fallDistance;
 
     public CombatEntry(DamageSource damageSrcIn, int p_i1564_2_, float healthAmount, float damageAmount, String p_i1564_5_, float fallDistanceIn) {
-        this.damageSrc = damageSrcIn;
-        this.field_94567_b = p_i1564_2_;
-        this.damage = damageAmount;
-        this.health = healthAmount;
-        this.field_94566_e = p_i1564_5_;
-        this.fallDistance = fallDistanceIn;
+        damageSrc = damageSrcIn;
+        field_94567_b = p_i1564_2_;
+        damage = damageAmount;
+        health = healthAmount;
+        field_94566_e = p_i1564_5_;
+        fallDistance = fallDistanceIn;
     }
 
     public DamageSource getDamageSrc() {
-        return this.damageSrc;
+        return damageSrc;
     }
 
     public float func_94563_c() {
-        return this.damage;
+        return damage;
     }
 
     public boolean isLivingDamageSrc() {
-        return this.damageSrc.getEntity() instanceof EntityLivingBase;
+        return damageSrc.getEntity() instanceof EntityLivingBase;
     }
 
     public String func_94562_g() {
-        return this.field_94566_e;
+        return field_94566_e;
     }
 
     public IChatComponent getDamageSrcDisplayName() {
-        return this.getDamageSrc().getEntity() == null ? null : this.getDamageSrc().getEntity().getDisplayName();
+        return getDamageSrc().getEntity() == null ? null : getDamageSrc().getEntity().getDisplayName();
     }
 
     public float getDamageAmount() {
-        return this.damageSrc == DamageSource.outOfWorld ? Float.MAX_VALUE : this.fallDistance;
+        return damageSrc == DamageSource.outOfWorld ? Float.MAX_VALUE : fallDistance;
     }
 }

@@ -26,11 +26,11 @@ public abstract class BlockLeaves extends BlockLeavesBase {
 
     public BlockLeaves() {
         super(Material.leaves, false);
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setHardness(0.2F);
-        this.setLightOpacity(1);
-        this.setStepSound(soundTypeGrass);
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.tabDecorations);
+        setHardness(0.2F);
+        setLightOpacity(1);
+        setStepSound(soundTypeGrass);
     }
 
     public int getBlockColor() {
@@ -80,8 +80,8 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                 int k1 = j1 * j1;
                 int l1 = j1 / 2;
 
-                if (this.surroundings == null) {
-                    this.surroundings = new int[j1 * j1 * j1];
+                if (surroundings == null) {
+                    surroundings = new int[j1 * j1 * j1];
                 }
 
                 if (worldIn.isAreaLoaded(new BlockPos(k - j, l - j, i1 - j), new BlockPos(k + j, l + j, i1 + j))) {
@@ -94,12 +94,12 @@ public abstract class BlockLeaves extends BlockLeavesBase {
 
                                 if (block != Blocks.log && block != Blocks.log2) {
                                     if (block.getMaterial() == Material.leaves) {
-                                        this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -2;
+                                        surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -2;
                                     } else {
-                                        this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -1;
+                                        surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -1;
                                     }
                                 } else {
-                                    this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = 0;
+                                    surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = 0;
                                 }
                             }
                         }
@@ -109,29 +109,29 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                         for (int j3 = -i; j3 <= i; ++j3) {
                             for (int k3 = -i; k3 <= i; ++k3) {
                                 for (int l3 = -i; l3 <= i; ++l3) {
-                                    if (this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1] == i3 - 1) {
-                                        if (this.surroundings[(j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1] == -2) {
-                                            this.surroundings[(j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1] = i3;
+                                    if (surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1] == i3 - 1) {
+                                        if (surroundings[(j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1] == -2) {
+                                            surroundings[(j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1] == -2) {
-                                            this.surroundings[(j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1] = i3;
+                                        if (surroundings[(j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1] == -2) {
+                                            surroundings[(j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1] == -2) {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1] = i3;
+                                        if (surroundings[(j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1] == -2) {
+                                            surroundings[(j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1] == -2) {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1] = i3;
+                                        if (surroundings[(j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1] == -2) {
+                                            surroundings[(j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1)] == -2) {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1)] = i3;
+                                        if (surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1)] == -2) {
+                                            surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1)] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1] == -2) {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1] = i3;
+                                        if (surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1] == -2) {
+                                            surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1] = i3;
                                         }
                                     }
                                 }
@@ -140,12 +140,12 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                     }
                 }
 
-                int l2 = this.surroundings[l1 * k1 + l1 * j1 + l1];
+                int l2 = surroundings[l1 * k1 + l1 * j1 + l1];
 
                 if (l2 >= 0) {
                     worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.FALSE), 4);
                 } else {
-                    this.destroy(worldIn, pos);
+                    destroy(worldIn, pos);
                 }
             }
         }
@@ -161,7 +161,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
     }
 
     private void destroy(World worldIn, BlockPos pos) {
-        this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+        dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
         worldIn.setBlockToAir(pos);
     }
 
@@ -175,7 +175,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote) {
-            int i = this.getSaplingDropChance(state);
+            int i = getSaplingDropChance(state);
 
             if (fortune > 0) {
                 i -= 2 << fortune;
@@ -186,8 +186,8 @@ public abstract class BlockLeaves extends BlockLeavesBase {
             }
 
             if (worldIn.rand.nextInt(i) == 0) {
-                Item item = this.getItemDropped(state, worldIn.rand, fortune);
-                spawnAsEntity(worldIn, pos, new ItemStack(item, 1, this.damageDropped(state)));
+                Item item = getItemDropped(state, worldIn.rand, fortune);
+                spawnAsEntity(worldIn, pos, new ItemStack(item, 1, damageDropped(state)));
             }
 
             i = 200;
@@ -200,7 +200,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                 }
             }
 
-            this.dropApple(worldIn, pos, state, i);
+            dropApple(worldIn, pos, state, i);
         }
     }
 
@@ -212,17 +212,17 @@ public abstract class BlockLeaves extends BlockLeavesBase {
     }
 
     public boolean isOpaqueCube() {
-        return !this.fancyGraphics;
+        return !fancyGraphics;
     }
 
     public void setGraphicsLevel(boolean fancy) {
-        this.isTransparent = fancy;
-        this.fancyGraphics = fancy;
-        this.iconIndex = fancy ? 0 : 1;
+        isTransparent = fancy;
+        fancyGraphics = fancy;
+        iconIndex = fancy ? 0 : 1;
     }
 
     public EnumWorldBlockLayer getBlockLayer() {
-        return this.isTransparent ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
+        return isTransparent ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
     }
 
     public boolean isVisuallyOpaque() {

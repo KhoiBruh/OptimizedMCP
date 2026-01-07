@@ -17,18 +17,18 @@ public class BakedQuad {
     private BakedQuad quadEmissive;
 
     public BakedQuad(int[] p_i3_1_, int p_i3_2_, EnumFacing p_i3_3_, TextureAtlasSprite p_i3_4_) {
-        this.vertexData = p_i3_1_;
-        this.tintIndex = p_i3_2_;
-        this.face = p_i3_3_;
-        this.sprite = p_i3_4_;
-        this.fixVertexData();
+        vertexData = p_i3_1_;
+        tintIndex = p_i3_2_;
+        face = p_i3_3_;
+        sprite = p_i3_4_;
+        fixVertexData();
     }
 
     public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn) {
-        this.vertexData = vertexDataIn;
-        this.tintIndex = tintIndexIn;
-        this.face = faceIn;
-        this.fixVertexData();
+        vertexData = vertexDataIn;
+        tintIndex = tintIndexIn;
+        face = faceIn;
+        fixVertexData();
     }
 
     private static int[] makeVertexDataSingle(int[] p_makeVertexDataSingle_0_, TextureAtlasSprite p_makeVertexDataSingle_1_) {
@@ -96,103 +96,103 @@ public class BakedQuad {
     }
 
     public TextureAtlasSprite getSprite() {
-        if (this.sprite == null) {
-            this.sprite = getSpriteByUv(this.getVertexData());
+        if (sprite == null) {
+            sprite = getSpriteByUv(getVertexData());
         }
 
-        return this.sprite;
+        return sprite;
     }
 
     public int[] getVertexData() {
-        this.fixVertexData();
-        return this.vertexData;
+        fixVertexData();
+        return vertexData;
     }
 
     public boolean hasTintIndex() {
-        return this.tintIndex != -1;
+        return tintIndex != -1;
     }
 
     public int getTintIndex() {
-        return this.tintIndex;
+        return tintIndex;
     }
 
     public EnumFacing getFace() {
-        if (this.face == null) {
-            this.face = FaceBakery.getFacingFromVertexData(this.getVertexData());
+        if (face == null) {
+            face = FaceBakery.getFacingFromVertexData(getVertexData());
         }
 
-        return this.face;
+        return face;
     }
 
     public int[] getVertexDataSingle() {
-        if (this.vertexDataSingle == null) {
-            this.vertexDataSingle = makeVertexDataSingle(this.getVertexData(), this.getSprite());
+        if (vertexDataSingle == null) {
+            vertexDataSingle = makeVertexDataSingle(getVertexData(), getSprite());
         }
 
-        return this.vertexDataSingle;
+        return vertexDataSingle;
     }
 
     protected void fixVertexData() {
         if (Config.isShaders()) {
-            if (this.vertexData.length == 28) {
-                this.vertexData = expandVertexData(this.vertexData);
+            if (vertexData.length == 28) {
+                vertexData = expandVertexData(vertexData);
             }
-        } else if (this.vertexData.length == 56) {
-            this.vertexData = compactVertexData(this.vertexData);
+        } else if (vertexData.length == 56) {
+            vertexData = compactVertexData(vertexData);
         }
     }
 
     public QuadBounds getQuadBounds() {
-        if (this.quadBounds == null) {
-            this.quadBounds = new QuadBounds(this.getVertexData());
+        if (quadBounds == null) {
+            quadBounds = new QuadBounds(getVertexData());
         }
 
-        return this.quadBounds;
+        return quadBounds;
     }
 
     public float getMidX() {
-        QuadBounds quadbounds = this.getQuadBounds();
+        QuadBounds quadbounds = getQuadBounds();
         return (quadbounds.getMaxX() + quadbounds.getMinX()) / 2.0F;
     }
 
     public double getMidY() {
-        QuadBounds quadbounds = this.getQuadBounds();
+        QuadBounds quadbounds = getQuadBounds();
         return (quadbounds.getMaxY() + quadbounds.getMinY()) / 2.0F;
     }
 
     public double getMidZ() {
-        QuadBounds quadbounds = this.getQuadBounds();
+        QuadBounds quadbounds = getQuadBounds();
         return (quadbounds.getMaxZ() + quadbounds.getMinZ()) / 2.0F;
     }
 
     public boolean isFaceQuad() {
-        QuadBounds quadbounds = this.getQuadBounds();
-        return quadbounds.isFaceQuad(this.face);
+        QuadBounds quadbounds = getQuadBounds();
+        return quadbounds.isFaceQuad(face);
     }
 
     public boolean isFullQuad() {
-        QuadBounds quadbounds = this.getQuadBounds();
-        return quadbounds.isFullQuad(this.face);
+        QuadBounds quadbounds = getQuadBounds();
+        return quadbounds.isFullQuad(face);
     }
 
     public boolean isFullFaceQuad() {
-        return this.isFullQuad() && this.isFaceQuad();
+        return isFullQuad() && isFaceQuad();
     }
 
     public BakedQuad getQuadEmissive() {
-        if (this.quadEmissiveChecked) {
-            return this.quadEmissive;
+        if (quadEmissiveChecked) {
+            return quadEmissive;
         } else {
-            if (this.quadEmissive == null && this.sprite != null && this.sprite.spriteEmissive != null) {
-                this.quadEmissive = new BreakingFour(this, this.sprite.spriteEmissive);
+            if (quadEmissive == null && sprite != null && sprite.spriteEmissive != null) {
+                quadEmissive = new BreakingFour(this, sprite.spriteEmissive);
             }
 
-            this.quadEmissiveChecked = true;
-            return this.quadEmissive;
+            quadEmissiveChecked = true;
+            return quadEmissive;
         }
     }
 
     public String toString() {
-        return "vertex: " + this.vertexData.length / 7 + ", tint: " + this.tintIndex + ", facing: " + this.face + ", sprite: " + this.sprite;
+        return "vertex: " + vertexData.length / 7 + ", tint: " + tintIndex + ", facing: " + face + ", sprite: " + sprite;
     }
 }

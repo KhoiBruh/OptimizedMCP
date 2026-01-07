@@ -12,12 +12,12 @@ public class ShapelessRecipes implements IRecipe {
     private final List<ItemStack> recipeItems;
 
     public ShapelessRecipes(ItemStack output, List<ItemStack> inputList) {
-        this.recipeOutput = output;
-        this.recipeItems = inputList;
+        recipeOutput = output;
+        recipeItems = inputList;
     }
 
     public ItemStack getRecipeOutput() {
-        return this.recipeOutput;
+        return recipeOutput;
     }
 
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
@@ -35,7 +35,7 @@ public class ShapelessRecipes implements IRecipe {
     }
 
     public boolean matches(InventoryCrafting inv, World worldIn) {
-        List<ItemStack> list = Lists.newArrayList(this.recipeItems);
+        List<ItemStack> list = Lists.newArrayList(recipeItems);
 
         for (int i = 0; i < inv.getHeight(); ++i) {
             for (int j = 0; j < inv.getWidth(); ++j) {
@@ -63,10 +63,10 @@ public class ShapelessRecipes implements IRecipe {
     }
 
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-        return this.recipeOutput.copy();
+        return recipeOutput.copy();
     }
 
     public int getRecipeSize() {
-        return this.recipeItems.size();
+        return recipeItems.size();
     }
 }

@@ -6,35 +6,35 @@ public class MovementInputFromOptions extends MovementInput {
     private final GameSettings gameSettings;
 
     public MovementInputFromOptions(GameSettings gameSettingsIn) {
-        this.gameSettings = gameSettingsIn;
+        gameSettings = gameSettingsIn;
     }
 
     public void updatePlayerMoveState() {
-        this.moveStrafe = 0.0F;
-        this.moveForward = 0.0F;
+        moveStrafe = 0.0F;
+        moveForward = 0.0F;
 
-        if (this.gameSettings.keyBindForward.isKeyDown()) {
-            ++this.moveForward;
+        if (gameSettings.keyBindForward.isKeyDown()) {
+            ++moveForward;
         }
 
-        if (this.gameSettings.keyBindBack.isKeyDown()) {
-            --this.moveForward;
+        if (gameSettings.keyBindBack.isKeyDown()) {
+            --moveForward;
         }
 
-        if (this.gameSettings.keyBindLeft.isKeyDown()) {
-            ++this.moveStrafe;
+        if (gameSettings.keyBindLeft.isKeyDown()) {
+            ++moveStrafe;
         }
 
-        if (this.gameSettings.keyBindRight.isKeyDown()) {
-            --this.moveStrafe;
+        if (gameSettings.keyBindRight.isKeyDown()) {
+            --moveStrafe;
         }
 
-        this.jump = this.gameSettings.keyBindJump.isKeyDown();
-        this.sneak = this.gameSettings.keyBindSneak.isKeyDown();
+        jump = gameSettings.keyBindJump.isKeyDown();
+        sneak = gameSettings.keyBindSneak.isKeyDown();
 
-        if (this.sneak) {
-            this.moveStrafe = (float) ((double) this.moveStrafe * 0.3D);
-            this.moveForward = (float) ((double) this.moveForward * 0.3D);
+        if (sneak) {
+            moveStrafe = (float) ((double) moveStrafe * 0.3D);
+            moveForward = (float) ((double) moveForward * 0.3D);
         }
     }
 }

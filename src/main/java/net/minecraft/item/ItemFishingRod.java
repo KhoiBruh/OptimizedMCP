@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 
 public class ItemFishingRod extends Item {
     public ItemFishingRod() {
-        this.setMaxDamage(64);
-        this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.tabTools);
+        setMaxDamage(64);
+        setMaxStackSize(1);
+        setCreativeTab(CreativeTabs.tabTools);
     }
 
     public boolean isFull3D() {

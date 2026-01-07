@@ -17,20 +17,20 @@ public class NoiseGeneratorSimplex {
     }
 
     public NoiseGeneratorSimplex(Random p_i45471_1_) {
-        this.field_151608_f = new int[512];
-        this.field_151612_b = p_i45471_1_.nextDouble() * 256.0D;
-        this.field_151613_c = p_i45471_1_.nextDouble() * 256.0D;
-        this.field_151610_d = p_i45471_1_.nextDouble() * 256.0D;
+        field_151608_f = new int[512];
+        field_151612_b = p_i45471_1_.nextDouble() * 256.0D;
+        field_151613_c = p_i45471_1_.nextDouble() * 256.0D;
+        field_151610_d = p_i45471_1_.nextDouble() * 256.0D;
 
-        for (int i = 0; i < 256; this.field_151608_f[i] = i++) {
+        for (int i = 0; i < 256; field_151608_f[i] = i++) {
         }
 
         for (int l = 0; l < 256; ++l) {
             int j = p_i45471_1_.nextInt(256 - l) + l;
-            int k = this.field_151608_f[l];
-            this.field_151608_f[l] = this.field_151608_f[j];
-            this.field_151608_f[j] = k;
-            this.field_151608_f[l + 256] = this.field_151608_f[l];
+            int k = field_151608_f[l];
+            field_151608_f[l] = field_151608_f[j];
+            field_151608_f[j] = k;
+            field_151608_f[l + 256] = field_151608_f[l];
         }
     }
 
@@ -70,9 +70,9 @@ public class NoiseGeneratorSimplex {
         double d14 = d10 - 1.0D + 2.0D * d5;
         int i1 = i & 255;
         int j1 = j & 255;
-        int k1 = this.field_151608_f[i1 + this.field_151608_f[j1]] % 12;
-        int l1 = this.field_151608_f[i1 + k + this.field_151608_f[j1 + l]] % 12;
-        int i2 = this.field_151608_f[i1 + 1 + this.field_151608_f[j1 + 1]] % 12;
+        int k1 = field_151608_f[i1 + field_151608_f[j1]] % 12;
+        int l1 = field_151608_f[i1 + k + field_151608_f[j1 + l]] % 12;
+        int i2 = field_151608_f[i1 + 1 + field_151608_f[j1 + 1]] % 12;
         double d15 = 0.5D - d9 * d9 - d10 * d10;
         double d0;
 
@@ -110,10 +110,10 @@ public class NoiseGeneratorSimplex {
         int i = 0;
 
         for (int j = 0; j < p_151606_7_; ++j) {
-            double d0 = (p_151606_4_ + (double) j) * p_151606_10_ + this.field_151613_c;
+            double d0 = (p_151606_4_ + (double) j) * p_151606_10_ + field_151613_c;
 
             for (int k = 0; k < p_151606_6_; ++k) {
-                double d1 = (p_151606_2_ + (double) k) * p_151606_8_ + this.field_151612_b;
+                double d1 = (p_151606_2_ + (double) k) * p_151606_8_ + field_151612_b;
                 double d5 = (d1 + d0) * field_151609_g;
                 int l = func_151607_a(d1 + d5);
                 int i1 = func_151607_a(d0 + d5);
@@ -139,9 +139,9 @@ public class NoiseGeneratorSimplex {
                 double d14 = d10 - 1.0D + 2.0D * field_151615_h;
                 int l1 = l & 255;
                 int i2 = i1 & 255;
-                int j2 = this.field_151608_f[l1 + this.field_151608_f[i2]] % 12;
-                int k2 = this.field_151608_f[l1 + j1 + this.field_151608_f[i2 + k1]] % 12;
-                int l2 = this.field_151608_f[l1 + 1 + this.field_151608_f[i2 + 1]] % 12;
+                int j2 = field_151608_f[l1 + field_151608_f[i2]] % 12;
+                int k2 = field_151608_f[l1 + j1 + field_151608_f[i2 + k1]] % 12;
+                int l2 = field_151608_f[l1 + 1 + field_151608_f[i2 + 1]] % 12;
                 double d15 = 0.5D - d9 * d9 - d10 * d10;
                 double d2;
 

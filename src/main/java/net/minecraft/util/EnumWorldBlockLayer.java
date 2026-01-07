@@ -9,10 +9,10 @@ public enum EnumWorldBlockLayer {
     private final String layerName;
 
     EnumWorldBlockLayer(String layerNameIn) {
-        this.layerName = layerNameIn;
+        layerName = layerNameIn;
     }
 
     public String toString() {
-        return this.layerName;
+        return layerName;
     }
 }

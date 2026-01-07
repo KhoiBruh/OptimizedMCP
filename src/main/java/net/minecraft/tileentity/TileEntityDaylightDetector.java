@@ -5,11 +5,11 @@ import net.minecraft.util.ITickable;
 
 public class TileEntityDaylightDetector extends TileEntity implements ITickable {
     public void update() {
-        if (this.worldObj != null && !this.worldObj.isRemote && this.worldObj.getTotalWorldTime() % 20L == 0L) {
-            this.blockType = this.getBlockType();
+        if (worldObj != null && !worldObj.isRemote && worldObj.getTotalWorldTime() % 20L == 0L) {
+            blockType = getBlockType();
 
-            if (this.blockType instanceof BlockDaylightDetector) {
-                ((BlockDaylightDetector) this.blockType).updatePower(this.worldObj, this.pos);
+            if (blockType instanceof BlockDaylightDetector) {
+                ((BlockDaylightDetector) blockType).updatePower(worldObj, pos);
             }
         }
     }

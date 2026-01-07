@@ -12,37 +12,37 @@ public class NettyEncryptionTranslator {
     private byte[] field_150506_c = new byte[0];
 
     protected NettyEncryptionTranslator(Cipher cipherIn) {
-        this.cipher = cipherIn;
+        cipher = cipherIn;
     }
 
     private byte[] func_150502_a(ByteBuf buf) {
         int i = buf.readableBytes();
 
-        if (this.field_150505_b.length < i) {
-            this.field_150505_b = new byte[i];
+        if (field_150505_b.length < i) {
+            field_150505_b = new byte[i];
         }
 
-        buf.readBytes(this.field_150505_b, 0, i);
-        return this.field_150505_b;
+        buf.readBytes(field_150505_b, 0, i);
+        return field_150505_b;
     }
 
     protected ByteBuf decipher(ChannelHandlerContext ctx, ByteBuf buffer) throws ShortBufferException {
         int i = buffer.readableBytes();
-        byte[] abyte = this.func_150502_a(buffer);
-        ByteBuf bytebuf = ctx.alloc().heapBuffer(this.cipher.getOutputSize(i));
-        bytebuf.writerIndex(this.cipher.update(abyte, 0, i, bytebuf.array(), bytebuf.arrayOffset()));
+        byte[] abyte = func_150502_a(buffer);
+        ByteBuf bytebuf = ctx.alloc().heapBuffer(cipher.getOutputSize(i));
+        bytebuf.writerIndex(cipher.update(abyte, 0, i, bytebuf.array(), bytebuf.arrayOffset()));
         return bytebuf;
     }
 
     protected void cipher(ByteBuf in, ByteBuf out) throws ShortBufferException {
         int i = in.readableBytes();
-        byte[] abyte = this.func_150502_a(in);
-        int j = this.cipher.getOutputSize(i);
+        byte[] abyte = func_150502_a(in);
+        int j = cipher.getOutputSize(i);
 
-        if (this.field_150506_c.length < j) {
-            this.field_150506_c = new byte[j];
+        if (field_150506_c.length < j) {
+            field_150506_c = new byte[j];
         }
 
-        out.writeBytes(this.field_150506_c, 0, this.cipher.update(abyte, 0, i, this.field_150506_c));
+        out.writeBytes(field_150506_c, 0, cipher.update(abyte, 0, i, field_150506_c));
     }
 }

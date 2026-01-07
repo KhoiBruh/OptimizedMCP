@@ -13,8 +13,8 @@ public class ItemSeeds extends Item {
 
     public ItemSeeds(Block crops, Block soil) {
         this.crops = crops;
-        this.soilBlockID = soil;
-        this.setCreativeTab(CreativeTabs.tabMaterials);
+        soilBlockID = soil;
+        setCreativeTab(CreativeTabs.tabMaterials);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -22,8 +22,8 @@ public class ItemSeeds extends Item {
             return false;
         } else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
-        } else if (worldIn.getBlockState(pos).getBlock() == this.soilBlockID && worldIn.isAirBlock(pos.up())) {
-            worldIn.setBlockState(pos.up(), this.crops.getDefaultState());
+        } else if (worldIn.getBlockState(pos).getBlock() == soilBlockID && worldIn.isAirBlock(pos.up())) {
+            worldIn.setBlockState(pos.up(), crops.getDefaultState());
             --stack.stackSize;
             return true;
         } else {

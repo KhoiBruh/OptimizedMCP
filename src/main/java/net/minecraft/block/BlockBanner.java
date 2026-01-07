@@ -30,7 +30,7 @@ public class BlockBanner extends BlockContainer {
         super(Material.wood);
         float f = 0.25F;
         float f1 = 1.0F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
     }
 
     public String getLocalizedName() {
@@ -42,7 +42,7 @@ public class BlockBanner extends BlockContainer {
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
@@ -93,7 +93,7 @@ public class BlockBanner extends BlockContainer {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return !this.hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
+        return !hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
@@ -110,7 +110,7 @@ public class BlockBanner extends BlockContainer {
 
     public static class BlockBannerHanging extends BlockBanner {
         public BlockBannerHanging() {
-            this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+            setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         }
 
         public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
@@ -120,24 +120,24 @@ public class BlockBanner extends BlockContainer {
             float f2 = 0.0F;
             float f3 = 1.0F;
             float f4 = 0.125F;
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
             switch (enumfacing) {
                 case NORTH:
                 default:
-                    this.setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
+                    setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
                     break;
 
                 case SOUTH:
-                    this.setBlockBounds(f2, f, 0.0F, f3, f1, f4);
+                    setBlockBounds(f2, f, 0.0F, f3, f1, f4);
                     break;
 
                 case WEST:
-                    this.setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
+                    setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
                     break;
 
                 case EAST:
-                    this.setBlockBounds(0.0F, f, f2, f4, f1, f3);
+                    setBlockBounds(0.0F, f, f2, f4, f1, f3);
             }
         }
 
@@ -145,7 +145,7 @@ public class BlockBanner extends BlockContainer {
             EnumFacing enumfacing = state.getValue(FACING);
 
             if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid()) {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
                 worldIn.setBlockToAir(pos);
             }
 
@@ -159,7 +159,7 @@ public class BlockBanner extends BlockContainer {
                 enumfacing = EnumFacing.NORTH;
             }
 
-            return this.getDefaultState().withProperty(FACING, enumfacing);
+            return getDefaultState().withProperty(FACING, enumfacing);
         }
 
         public int getMetaFromState(IBlockState state) {
@@ -173,12 +173,12 @@ public class BlockBanner extends BlockContainer {
 
     public static class BlockBannerStanding extends BlockBanner {
         public BlockBannerStanding() {
-            this.setDefaultState(this.blockState.getBaseState().withProperty(ROTATION, 0));
+            setDefaultState(blockState.getBaseState().withProperty(ROTATION, 0));
         }
 
         public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
             if (!worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid()) {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
+                dropBlockAsItem(worldIn, pos, state, 0);
                 worldIn.setBlockToAir(pos);
             }
 
@@ -186,7 +186,7 @@ public class BlockBanner extends BlockContainer {
         }
 
         public IBlockState getStateFromMeta(int meta) {
-            return this.getDefaultState().withProperty(ROTATION, meta);
+            return getDefaultState().withProperty(ROTATION, meta);
         }
 
         public int getMetaFromState(IBlockState state) {

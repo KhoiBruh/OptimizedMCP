@@ -13,7 +13,7 @@ public class RenderWither extends RenderLiving<EntityWither> {
 
     public RenderWither(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelWither(0.0F), 1.0F);
-        this.addLayer(new LayerWitherAura(this));
+        addLayer(new LayerWitherAura(this));
     }
 
     public void doRender(EntityWither entity, double x, double y, double z, float entityYaw, float partialTicks) {

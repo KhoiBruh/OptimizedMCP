@@ -25,27 +25,27 @@ public class EntityPigZombie extends EntityZombie {
 
     public EntityPigZombie(World worldIn) {
         super(worldIn);
-        this.isImmuneToFire = true;
+        isImmuneToFire = true;
     }
 
     public void setRevengeTarget(EntityLivingBase livingBase) {
         super.setRevengeTarget(livingBase);
 
         if (livingBase != null) {
-            this.angerTargetUUID = livingBase.getUniqueID();
+            angerTargetUUID = livingBase.getUniqueID();
         }
     }
 
     protected void applyEntityAI() {
-        this.targetTasks.addTask(1, new EntityPigZombie.AIHurtByAggressor(this));
-        this.targetTasks.addTask(2, new EntityPigZombie.AITargetAggressor(this));
+        targetTasks.addTask(1, new EntityPigZombie.AIHurtByAggressor(this));
+        targetTasks.addTask(2, new EntityPigZombie.AITargetAggressor(this));
     }
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(reinforcementChance).setBaseValue(0.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23000000417232513D);
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(5.0D);
+        getEntityAttribute(reinforcementChance).setBaseValue(0.0D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23000000417232513D);
+        getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(5.0D);
     }
 
     public void onUpdate() {
@@ -53,46 +53,46 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     protected void updateAITasks() {
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+        IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.movementSpeed);
 
-        if (this.isAngry()) {
-            if (!this.isChild() && !iattributeinstance.hasModifier(ATTACK_SPEED_BOOST_MODIFIER)) {
+        if (isAngry()) {
+            if (!isChild() && !iattributeinstance.hasModifier(ATTACK_SPEED_BOOST_MODIFIER)) {
                 iattributeinstance.applyModifier(ATTACK_SPEED_BOOST_MODIFIER);
             }
 
-            --this.angerLevel;
+            --angerLevel;
         } else if (iattributeinstance.hasModifier(ATTACK_SPEED_BOOST_MODIFIER)) {
             iattributeinstance.removeModifier(ATTACK_SPEED_BOOST_MODIFIER);
         }
 
-        if (this.randomSoundDelay > 0 && --this.randomSoundDelay == 0) {
-            this.playSound("mob.zombiepig.zpigangry", this.getSoundVolume() * 2.0F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+        if (randomSoundDelay > 0 && --randomSoundDelay == 0) {
+            playSound("mob.zombiepig.zpigangry", getSoundVolume() * 2.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
-        if (this.angerLevel > 0 && this.angerTargetUUID != null && this.getAITarget() == null) {
-            EntityPlayer entityplayer = this.worldObj.getPlayerEntityByUUID(this.angerTargetUUID);
-            this.setRevengeTarget(entityplayer);
-            this.attackingPlayer = entityplayer;
-            this.recentlyHit = this.getRevengeTimer();
+        if (angerLevel > 0 && angerTargetUUID != null && getAITarget() == null) {
+            EntityPlayer entityplayer = worldObj.getPlayerEntityByUUID(angerTargetUUID);
+            setRevengeTarget(entityplayer);
+            attackingPlayer = entityplayer;
+            recentlyHit = getRevengeTimer();
         }
 
         super.updateAITasks();
     }
 
     public boolean getCanSpawnHere() {
-        return this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
     }
 
     public boolean isNotColliding() {
-        return this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() && !this.worldObj.isAnyLiquid(this.getEntityBoundingBox());
+        return worldObj.checkNoEntityCollision(getEntityBoundingBox(), this) && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox());
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
-        tagCompound.setShort("Anger", (short) this.angerLevel);
+        tagCompound.setShort("Anger", (short) angerLevel);
 
-        if (this.angerTargetUUID != null) {
-            tagCompound.setString("HurtBy", this.angerTargetUUID.toString());
+        if (angerTargetUUID != null) {
+            tagCompound.setString("HurtBy", angerTargetUUID.toString());
         } else {
             tagCompound.setString("HurtBy", "");
         }
@@ -100,29 +100,29 @@ public class EntityPigZombie extends EntityZombie {
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
-        this.angerLevel = tagCompund.getShort("Anger");
+        angerLevel = tagCompund.getShort("Anger");
         String s = tagCompund.getString("HurtBy");
 
-        if (s.length() > 0) {
-            this.angerTargetUUID = UUID.fromString(s);
-            EntityPlayer entityplayer = this.worldObj.getPlayerEntityByUUID(this.angerTargetUUID);
-            this.setRevengeTarget(entityplayer);
+        if (!s.isEmpty()) {
+            angerTargetUUID = UUID.fromString(s);
+            EntityPlayer entityplayer = worldObj.getPlayerEntityByUUID(angerTargetUUID);
+            setRevengeTarget(entityplayer);
 
             if (entityplayer != null) {
-                this.attackingPlayer = entityplayer;
-                this.recentlyHit = this.getRevengeTimer();
+                attackingPlayer = entityplayer;
+                recentlyHit = getRevengeTimer();
             }
         }
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
         } else {
             Entity entity = source.getEntity();
 
             if (entity instanceof EntityPlayer) {
-                this.becomeAngryAt(entity);
+                becomeAngryAt(entity);
             }
 
             return super.attackEntityFrom(source, amount);
@@ -130,16 +130,16 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     private void becomeAngryAt(Entity p_70835_1_) {
-        this.angerLevel = 400 + this.rand.nextInt(400);
-        this.randomSoundDelay = this.rand.nextInt(40);
+        angerLevel = 400 + rand.nextInt(400);
+        randomSoundDelay = rand.nextInt(40);
 
         if (p_70835_1_ instanceof EntityLivingBase) {
-            this.setRevengeTarget((EntityLivingBase) p_70835_1_);
+            setRevengeTarget((EntityLivingBase) p_70835_1_);
         }
     }
 
     public boolean isAngry() {
-        return this.angerLevel > 0;
+        return angerLevel > 0;
     }
 
     protected String getLivingSound() {
@@ -155,16 +155,16 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        int i = this.rand.nextInt(2 + lootingModifier);
+        int i = rand.nextInt(2 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.rotten_flesh, 1);
+            dropItem(Items.rotten_flesh, 1);
         }
 
-        i = this.rand.nextInt(2 + lootingModifier);
+        i = rand.nextInt(2 + lootingModifier);
 
         for (int k = 0; k < i; ++k) {
-            this.dropItem(Items.gold_nugget, 1);
+            dropItem(Items.gold_nugget, 1);
         }
     }
 
@@ -173,16 +173,16 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     protected void addRandomDrop() {
-        this.dropItem(Items.gold_ingot, 1);
+        dropItem(Items.gold_ingot, 1);
     }
 
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-        this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+        setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
     }
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         super.onInitialSpawn(difficulty, livingdata);
-        this.setVillager(false);
+        setVillager(false);
         return livingdata;
     }
 
@@ -206,7 +206,7 @@ public class EntityPigZombie extends EntityZombie {
         }
 
         public boolean shouldExecute() {
-            return ((EntityPigZombie) this.taskOwner).isAngry() && super.shouldExecute();
+            return ((EntityPigZombie) taskOwner).isAngry() && super.shouldExecute();
         }
     }
 }

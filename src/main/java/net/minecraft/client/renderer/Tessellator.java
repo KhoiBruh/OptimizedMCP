@@ -8,7 +8,7 @@ public class Tessellator {
     private final WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
 
     public Tessellator(int bufferSize) {
-        this.worldRenderer = new WorldRenderer(bufferSize);
+        worldRenderer = new WorldRenderer(bufferSize);
     }
 
     public static Tessellator getInstance() {
@@ -16,15 +16,15 @@ public class Tessellator {
     }
 
     public void draw() {
-        if (this.worldRenderer.animatedSprites != null) {
-            SmartAnimations.spritesRendered(this.worldRenderer.animatedSprites);
+        if (worldRenderer.animatedSprites != null) {
+            SmartAnimations.spritesRendered(worldRenderer.animatedSprites);
         }
 
-        this.worldRenderer.finishDrawing();
-        this.vboUploader.draw(this.worldRenderer);
+        worldRenderer.finishDrawing();
+        vboUploader.draw(worldRenderer);
     }
 
     public WorldRenderer getWorldRenderer() {
-        return this.worldRenderer;
+        return worldRenderer;
     }
 }

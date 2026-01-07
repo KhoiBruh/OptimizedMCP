@@ -17,7 +17,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
     private final RendererLivingEntity<?> livingEntityRenderer;
 
     public LayerHeldItem(RendererLivingEntity<?> livingEntityRendererIn) {
-        this.livingEntityRenderer = livingEntityRendererIn;
+        livingEntityRenderer = livingEntityRendererIn;
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
@@ -26,14 +26,14 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
         if (itemstack != null) {
             GlStateManager.pushMatrix();
 
-            if (this.livingEntityRenderer.getMainModel().isChild) {
+            if (livingEntityRenderer.getMainModel().isChild) {
                 float f = 0.5F;
                 GlStateManager.translate(0.0F, 0.625F, 0.0F);
                 GlStateManager.rotate(-20.0F, -1.0F, 0.0F, 0.0F);
                 GlStateManager.scale(f, f, f);
             }
 
-            ((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F);
+            ((ModelBiped) livingEntityRenderer.getMainModel()).postRenderArm(0.0625F);
             GlStateManager.translate(-0.0625F, 0.4375F, 0.0625F);
 
             if (entitylivingbaseIn instanceof EntityPlayer && ((EntityPlayer) entitylivingbaseIn).fishEntity != null) {

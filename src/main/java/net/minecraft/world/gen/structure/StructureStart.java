@@ -19,20 +19,20 @@ public abstract class StructureStart {
     }
 
     public StructureStart(int chunkX, int chunkZ) {
-        this.chunkPosX = chunkX;
-        this.chunkPosZ = chunkZ;
+        chunkPosX = chunkX;
+        chunkPosZ = chunkZ;
     }
 
     public StructureBoundingBox getBoundingBox() {
-        return this.boundingBox;
+        return boundingBox;
     }
 
     public LinkedList<StructureComponent> getComponents() {
-        return this.components;
+        return components;
     }
 
     public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-        Iterator<StructureComponent> iterator = this.components.iterator();
+        Iterator<StructureComponent> iterator = components.iterator();
 
         while (iterator.hasNext()) {
             StructureComponent structurecomponent = iterator.next();
@@ -44,10 +44,10 @@ public abstract class StructureStart {
     }
 
     protected void updateBoundingBox() {
-        this.boundingBox = StructureBoundingBox.getNewBoundingBox();
+        boundingBox = StructureBoundingBox.getNewBoundingBox();
 
-        for (StructureComponent structurecomponent : this.components) {
-            this.boundingBox.expandTo(structurecomponent.getBoundingBox());
+        for (StructureComponent structurecomponent : components) {
+            boundingBox.expandTo(structurecomponent.getBoundingBox());
         }
     }
 
@@ -56,15 +56,15 @@ public abstract class StructureStart {
         nbttagcompound.setString("id", MapGenStructureIO.getStructureStartName(this));
         nbttagcompound.setInteger("ChunkX", chunkX);
         nbttagcompound.setInteger("ChunkZ", chunkZ);
-        nbttagcompound.setTag("BB", this.boundingBox.toNBTTagIntArray());
+        nbttagcompound.setTag("BB", boundingBox.toNBTTagIntArray());
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (StructureComponent structurecomponent : this.components) {
+        for (StructureComponent structurecomponent : components) {
             nbttaglist.appendTag(structurecomponent.createStructureBaseNBT());
         }
 
         nbttagcompound.setTag("Children", nbttaglist);
-        this.writeToNBT(nbttagcompound);
+        writeToNBT(nbttagcompound);
         return nbttagcompound;
     }
 
@@ -72,20 +72,20 @@ public abstract class StructureStart {
     }
 
     public void readStructureComponentsFromNBT(World worldIn, NBTTagCompound tagCompound) {
-        this.chunkPosX = tagCompound.getInteger("ChunkX");
-        this.chunkPosZ = tagCompound.getInteger("ChunkZ");
+        chunkPosX = tagCompound.getInteger("ChunkX");
+        chunkPosZ = tagCompound.getInteger("ChunkZ");
 
         if (tagCompound.hasKey("BB")) {
-            this.boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
+            boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
         }
 
         NBTTagList nbttaglist = tagCompound.getTagList("Children", 10);
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            this.components.add(MapGenStructureIO.getStructureComponent(nbttaglist.getCompoundTagAt(i), worldIn));
+            components.add(MapGenStructureIO.getStructureComponent(nbttaglist.getCompoundTagAt(i), worldIn));
         }
 
-        this.readFromNBT(tagCompound);
+        readFromNBT(tagCompound);
     }
 
     public void readFromNBT(NBTTagCompound tagCompound) {
@@ -93,22 +93,22 @@ public abstract class StructureStart {
 
     protected void markAvailableHeight(World worldIn, Random rand, int p_75067_3_) {
         int i = worldIn.getSeaLevel() - p_75067_3_;
-        int j = this.boundingBox.getYSize() + 1;
+        int j = boundingBox.getYSize() + 1;
 
         if (j < i) {
             j += rand.nextInt(i - j);
         }
 
-        int k = j - this.boundingBox.maxY;
-        this.boundingBox.offset(0, k, 0);
+        int k = j - boundingBox.maxY;
+        boundingBox.offset(0, k, 0);
 
-        for (StructureComponent structurecomponent : this.components) {
+        for (StructureComponent structurecomponent : components) {
             structurecomponent.func_181138_a(0, k, 0);
         }
     }
 
     protected void setRandomHeight(World worldIn, Random rand, int p_75070_3_, int p_75070_4_) {
-        int i = p_75070_4_ - p_75070_3_ + 1 - this.boundingBox.getYSize();
+        int i = p_75070_4_ - p_75070_3_ + 1 - boundingBox.getYSize();
         int j = 1;
 
         if (i > 1) {
@@ -117,10 +117,10 @@ public abstract class StructureStart {
             j = p_75070_3_;
         }
 
-        int k = j - this.boundingBox.minY;
-        this.boundingBox.offset(0, k, 0);
+        int k = j - boundingBox.minY;
+        boundingBox.offset(0, k, 0);
 
-        for (StructureComponent structurecomponent : this.components) {
+        for (StructureComponent structurecomponent : components) {
             structurecomponent.func_181138_a(0, k, 0);
         }
     }
@@ -137,10 +137,10 @@ public abstract class StructureStart {
     }
 
     public int getChunkPosX() {
-        return this.chunkPosX;
+        return chunkPosX;
     }
 
     public int getChunkPosZ() {
-        return this.chunkPosZ;
+        return chunkPosZ;
     }
 }

@@ -15,15 +15,15 @@ public class S43PacketCamera implements Packet<INetHandlerPlayClient> {
     }
 
     public S43PacketCamera(Entity entityIn) {
-        this.entityId = entityIn.getEntityId();
+        entityId = entityIn.getEntityId();
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
+        entityId = buf.readVarIntFromBuffer();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
+        buf.writeVarIntToBuffer(entityId);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -31,6 +31,6 @@ public class S43PacketCamera implements Packet<INetHandlerPlayClient> {
     }
 
     public Entity getEntity(World worldIn) {
-        return worldIn.getEntityByID(this.entityId);
+        return worldIn.getEntityByID(entityId);
     }
 }

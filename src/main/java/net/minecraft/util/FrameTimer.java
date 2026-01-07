@@ -7,18 +7,18 @@ public class FrameTimer {
     private int index;
 
     public void addFrame(long runningTime) {
-        this.frames[this.index] = runningTime;
-        ++this.index;
+        frames[index] = runningTime;
+        ++index;
 
-        if (this.index == 240) {
-            this.index = 0;
+        if (index == 240) {
+            index = 0;
         }
 
-        if (this.counter < 240) {
-            this.lastIndex = 0;
-            ++this.counter;
+        if (counter < 240) {
+            lastIndex = 0;
+            ++counter;
         } else {
-            this.lastIndex = this.parseIndex(this.index + 1);
+            lastIndex = parseIndex(index + 1);
         }
     }
 
@@ -28,11 +28,11 @@ public class FrameTimer {
     }
 
     public int getLastIndex() {
-        return this.lastIndex;
+        return lastIndex;
     }
 
     public int getIndex() {
-        return this.index;
+        return index;
     }
 
     public int parseIndex(int rawIndex) {
@@ -40,6 +40,6 @@ public class FrameTimer {
     }
 
     public long[] getFrames() {
-        return this.frames;
+        return frames;
     }
 }

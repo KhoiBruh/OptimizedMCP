@@ -62,9 +62,9 @@ public abstract class Enchantment {
     protected String name;
 
     protected Enchantment(int enchID, ResourceLocation enchName, int enchWeight, EnumEnchantmentType enchType) {
-        this.effectId = enchID;
-        this.weight = enchWeight;
-        this.type = enchType;
+        effectId = enchID;
+        weight = enchWeight;
+        type = enchType;
 
         if (enchantmentsList[enchID] != null) {
             throw new IllegalArgumentException("Duplicate enchantment id!");
@@ -87,7 +87,7 @@ public abstract class Enchantment {
     }
 
     public int getWeight() {
-        return this.weight;
+        return weight;
     }
 
     public int getMinLevel() {
@@ -103,7 +103,7 @@ public abstract class Enchantment {
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + 5;
+        return getMinEnchantability(enchantmentLevel) + 5;
     }
 
     public int calcModifierDamage(int level, DamageSource source) {
@@ -119,21 +119,21 @@ public abstract class Enchantment {
     }
 
     public String getName() {
-        return "enchantment." + this.name;
+        return "enchantment." + name;
     }
 
     public Enchantment setName(String enchName) {
-        this.name = enchName;
+        name = enchName;
         return this;
     }
 
     public String getTranslatedName(int level) {
-        String s = StatCollector.translateToLocal(this.getName());
+        String s = StatCollector.translateToLocal(getName());
         return s + " " + StatCollector.translateToLocal("enchantment.level." + level);
     }
 
     public boolean canApply(ItemStack stack) {
-        return this.type.canEnchantItem(stack.getItem());
+        return type.canEnchantItem(stack.getItem());
     }
 
     public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {

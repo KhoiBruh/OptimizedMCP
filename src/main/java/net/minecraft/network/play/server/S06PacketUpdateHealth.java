@@ -15,21 +15,21 @@ public class S06PacketUpdateHealth implements Packet<INetHandlerPlayClient> {
     }
 
     public S06PacketUpdateHealth(float healthIn, int foodLevelIn, float saturationIn) {
-        this.health = healthIn;
-        this.foodLevel = foodLevelIn;
-        this.saturationLevel = saturationIn;
+        health = healthIn;
+        foodLevel = foodLevelIn;
+        saturationLevel = saturationIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.health = buf.readFloat();
-        this.foodLevel = buf.readVarIntFromBuffer();
-        this.saturationLevel = buf.readFloat();
+        health = buf.readFloat();
+        foodLevel = buf.readVarIntFromBuffer();
+        saturationLevel = buf.readFloat();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeFloat(this.health);
-        buf.writeVarIntToBuffer(this.foodLevel);
-        buf.writeFloat(this.saturationLevel);
+        buf.writeFloat(health);
+        buf.writeVarIntToBuffer(foodLevel);
+        buf.writeFloat(saturationLevel);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -37,14 +37,14 @@ public class S06PacketUpdateHealth implements Packet<INetHandlerPlayClient> {
     }
 
     public float getHealth() {
-        return this.health;
+        return health;
     }
 
     public int getFoodLevel() {
-        return this.foodLevel;
+        return foodLevel;
     }
 
     public float getSaturationLevel() {
-        return this.saturationLevel;
+        return saturationLevel;
     }
 }

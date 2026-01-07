@@ -22,9 +22,9 @@ public class BlockGrass extends Block implements IGrowable {
 
     protected BlockGrass() {
         super(Material.grass);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -37,7 +37,7 @@ public class BlockGrass extends Block implements IGrowable {
     }
 
     public int getRenderColor(IBlockState state) {
-        return this.getBlockColor();
+        return getBlockColor();
     }
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {

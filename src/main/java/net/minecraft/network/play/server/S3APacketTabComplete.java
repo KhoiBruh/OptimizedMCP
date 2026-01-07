@@ -13,21 +13,21 @@ public class S3APacketTabComplete implements Packet<INetHandlerPlayClient> {
     }
 
     public S3APacketTabComplete(String[] matchesIn) {
-        this.matches = matchesIn;
+        matches = matchesIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.matches = new String[buf.readVarIntFromBuffer()];
+        matches = new String[buf.readVarIntFromBuffer()];
 
-        for (int i = 0; i < this.matches.length; ++i) {
-            this.matches[i] = buf.readStringFromBuffer(32767);
+        for (int i = 0; i < matches.length; ++i) {
+            matches[i] = buf.readStringFromBuffer(32767);
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.matches.length);
+        buf.writeVarIntToBuffer(matches.length);
 
-        for (String s : this.matches) {
+        for (String s : matches) {
             buf.writeString(s);
         }
     }
@@ -37,6 +37,6 @@ public class S3APacketTabComplete implements Packet<INetHandlerPlayClient> {
     }
 
     public String[] func_149630_c() {
-        return this.matches;
+        return matches;
     }
 }

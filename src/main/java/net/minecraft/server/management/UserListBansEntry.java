@@ -37,9 +37,9 @@ public class UserListBansEntry extends BanEntry<GameProfile> {
     }
 
     protected void onSerialization(JsonObject data) {
-        if (this.getValue() != null) {
-            data.addProperty("uuid", this.getValue().getId() == null ? "" : this.getValue().getId().toString());
-            data.addProperty("name", this.getValue().getName());
+        if (getValue() != null) {
+            data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
+            data.addProperty("name", getValue().getName());
             super.onSerialization(data);
         }
     }

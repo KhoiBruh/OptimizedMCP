@@ -31,8 +31,8 @@ public class GuiPlayerTabOverlay extends Gui {
     private boolean isBeingRendered;
 
     public GuiPlayerTabOverlay(Minecraft mcIn, GuiIngame guiIngameIn) {
-        this.mc = mcIn;
-        this.guiIngame = guiIngameIn;
+        mc = mcIn;
+        guiIngame = guiIngameIn;
     }
 
     public String getPlayerName(NetworkPlayerInfo networkPlayerInfoIn) {
@@ -40,25 +40,25 @@ public class GuiPlayerTabOverlay extends Gui {
     }
 
     public void updatePlayerList(boolean willBeRendered) {
-        if (willBeRendered && !this.isBeingRendered) {
-            this.lastTimeOpened = Minecraft.getSystemTime();
+        if (willBeRendered && !isBeingRendered) {
+            lastTimeOpened = Minecraft.getSystemTime();
         }
 
-        this.isBeingRendered = willBeRendered;
+        isBeingRendered = willBeRendered;
     }
 
     public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
-        NetHandlerPlayClient nethandlerplayclient = this.mc.thePlayer.sendQueue;
+        NetHandlerPlayClient nethandlerplayclient = mc.thePlayer.sendQueue;
         List<NetworkPlayerInfo> list = field_175252_a.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
         int i = 0;
         int j = 0;
 
         for (NetworkPlayerInfo networkplayerinfo : list) {
-            int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkplayerinfo));
+            int k = mc.fontRendererObj.getStringWidth(getPlayerName(networkplayerinfo));
             i = Math.max(i, k);
 
             if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-                k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+                k = mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
                 j = Math.max(j, k);
             }
         }
@@ -72,7 +72,7 @@ public class GuiPlayerTabOverlay extends Gui {
             ++j4;
         }
 
-        boolean flag = this.mc.isIntegratedServerRunning() || this.mc.getNetHandler().getNetworkManager().getIsencrypted();
+        boolean flag = mc.isIntegratedServerRunning() || mc.getNetHandler().getNetworkManager().getIsencrypted();
         int l;
 
         if (scoreObjectiveIn != null) {
@@ -92,29 +92,29 @@ public class GuiPlayerTabOverlay extends Gui {
         List<String> list1 = null;
         List<String> list2 = null;
 
-        if (this.header != null) {
-            list1 = this.mc.fontRendererObj.listFormattedStringToWidth(this.header.getFormattedText(), width - 50);
+        if (header != null) {
+            list1 = mc.fontRendererObj.listFormattedStringToWidth(header.getFormattedText(), width - 50);
 
             for (String s : list1) {
-                l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s));
+                l1 = Math.max(l1, mc.fontRendererObj.getStringWidth(s));
             }
         }
 
-        if (this.footer != null) {
-            list2 = this.mc.fontRendererObj.listFormattedStringToWidth(this.footer.getFormattedText(), width - 50);
+        if (footer != null) {
+            list2 = mc.fontRendererObj.listFormattedStringToWidth(footer.getFormattedText(), width - 50);
 
             for (String s2 : list2) {
-                l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s2));
+                l1 = Math.max(l1, mc.fontRendererObj.getStringWidth(s2));
             }
         }
 
         if (list1 != null) {
-            drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list1.size() * this.mc.fontRendererObj.FONT_HEIGHT, Integer.MIN_VALUE);
+            drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list1.size() * mc.fontRendererObj.FONT_HEIGHT, Integer.MIN_VALUE);
 
             for (String s3 : list1) {
-                int i2 = this.mc.fontRendererObj.getStringWidth(s3);
-                this.mc.fontRendererObj.drawStringWithShadow(s3, (float) (width / 2 - i2 / 2), (float) k1, -1);
-                k1 += this.mc.fontRendererObj.FONT_HEIGHT;
+                int i2 = mc.fontRendererObj.getStringWidth(s3);
+                mc.fontRendererObj.drawStringWithShadow(s3, (float) (width / 2 - i2 / 2), (float) k1, -1);
+                k1 += mc.fontRendererObj.FONT_HEIGHT;
             }
 
             ++k1;
@@ -135,13 +135,13 @@ public class GuiPlayerTabOverlay extends Gui {
 
             if (k4 < list.size()) {
                 NetworkPlayerInfo networkplayerinfo1 = list.get(k4);
-                String s1 = this.getPlayerName(networkplayerinfo1);
+                String s1 = getPlayerName(networkplayerinfo1);
                 GameProfile gameprofile = networkplayerinfo1.getGameProfile();
 
                 if (flag) {
-                    EntityPlayer entityplayer = this.mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
+                    EntityPlayer entityplayer = mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
                     boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
-                    this.mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
+                    mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
                     int l2 = 8 + (flag1 ? 8 : 0);
                     int i3 = 8 * (flag1 ? -1 : 1);
                     Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
@@ -157,9 +157,9 @@ public class GuiPlayerTabOverlay extends Gui {
 
                 if (networkplayerinfo1.getGameType() == WorldSettings.GameType.SPECTATOR) {
                     s1 = EnumChatFormatting.ITALIC + s1;
-                    this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1862270977);
+                    mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1862270977);
                 } else {
-                    this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
+                    mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
                 }
 
                 if (scoreObjectiveIn != null && networkplayerinfo1.getGameType() != WorldSettings.GameType.SPECTATOR) {
@@ -167,29 +167,29 @@ public class GuiPlayerTabOverlay extends Gui {
                     int l5 = k5 + l;
 
                     if (l5 - k5 > 5) {
-                        this.drawScoreboardValues(scoreObjectiveIn, k2, gameprofile.getName(), k5, l5, networkplayerinfo1);
+                        drawScoreboardValues(scoreObjectiveIn, k2, gameprofile.getName(), k5, l5, networkplayerinfo1);
                     }
                 }
 
-                this.drawPing(i1, j2 - (flag ? 9 : 0), k2, networkplayerinfo1);
+                drawPing(i1, j2 - (flag ? 9 : 0), k2, networkplayerinfo1);
             }
         }
 
         if (list2 != null) {
             k1 = k1 + i4 * 9 + 1;
-            drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list2.size() * this.mc.fontRendererObj.FONT_HEIGHT, Integer.MIN_VALUE);
+            drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list2.size() * mc.fontRendererObj.FONT_HEIGHT, Integer.MIN_VALUE);
 
             for (String s4 : list2) {
-                int j5 = this.mc.fontRendererObj.getStringWidth(s4);
-                this.mc.fontRendererObj.drawStringWithShadow(s4, (float) (width / 2 - j5 / 2), (float) k1, -1);
-                k1 += this.mc.fontRendererObj.FONT_HEIGHT;
+                int j5 = mc.fontRendererObj.getStringWidth(s4);
+                mc.fontRendererObj.drawStringWithShadow(s4, (float) (width / 2 - j5 / 2), (float) k1, -1);
+                k1 += mc.fontRendererObj.FONT_HEIGHT;
             }
         }
     }
 
     protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(icons);
+        mc.getTextureManager().bindTexture(icons);
         int i = 0;
         int j = 0;
 
@@ -207,66 +207,66 @@ public class GuiPlayerTabOverlay extends Gui {
             j = 4;
         }
 
-        this.zLevel += 100.0F;
-        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, i * 10, 176 + j * 8, 10, 8);
-        this.zLevel -= 100.0F;
+        zLevel += 100.0F;
+        drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, i * 10, 176 + j * 8, 10, 8);
+        zLevel -= 100.0F;
     }
 
     private void drawScoreboardValues(ScoreObjective p_175247_1_, int p_175247_2_, String p_175247_3_, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo p_175247_6_) {
         int i = p_175247_1_.getScoreboard().getValueFromObjective(p_175247_3_, p_175247_1_).getScorePoints();
 
         if (p_175247_1_.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-            this.mc.getTextureManager().bindTexture(icons);
+            mc.getTextureManager().bindTexture(icons);
 
-            if (this.lastTimeOpened == p_175247_6_.func_178855_p()) {
+            if (lastTimeOpened == p_175247_6_.func_178855_p()) {
                 if (i < p_175247_6_.func_178835_l()) {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b(this.guiIngame.getUpdateCounter() + 20);
+                    p_175247_6_.func_178844_b(guiIngame.getUpdateCounter() + 20);
                 } else if (i > p_175247_6_.func_178835_l()) {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b(this.guiIngame.getUpdateCounter() + 10);
+                    p_175247_6_.func_178844_b(guiIngame.getUpdateCounter() + 10);
                 }
             }
 
-            if (Minecraft.getSystemTime() - p_175247_6_.func_178847_n() > 1000L || this.lastTimeOpened != p_175247_6_.func_178855_p()) {
+            if (Minecraft.getSystemTime() - p_175247_6_.func_178847_n() > 1000L || lastTimeOpened != p_175247_6_.func_178855_p()) {
                 p_175247_6_.func_178836_b(i);
                 p_175247_6_.func_178857_c(i);
                 p_175247_6_.func_178846_a(Minecraft.getSystemTime());
             }
 
-            p_175247_6_.func_178843_c(this.lastTimeOpened);
+            p_175247_6_.func_178843_c(lastTimeOpened);
             p_175247_6_.func_178836_b(i);
             int j = MathHelper.ceiling_float_int((float) Math.max(i, p_175247_6_.func_178860_m()) / 2.0F);
             int k = Math.max(MathHelper.ceiling_float_int((float) (i / 2)), Math.max(MathHelper.ceiling_float_int((float) (p_175247_6_.func_178860_m() / 2)), 10));
-            boolean flag = p_175247_6_.func_178858_o() > (long) this.guiIngame.getUpdateCounter() && (p_175247_6_.func_178858_o() - (long) this.guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
+            boolean flag = p_175247_6_.func_178858_o() > (long) guiIngame.getUpdateCounter() && (p_175247_6_.func_178858_o() - (long) guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
 
             if (j > 0) {
                 float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float) k, 9.0F);
 
                 if (f > 3.0F) {
                     for (int l = j; l < k; ++l) {
-                        this.drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+                        drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
                     }
 
                     for (int j1 = 0; j1 < j; ++j1) {
-                        this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+                        drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 
                         if (flag) {
                             if (j1 * 2 + 1 < p_175247_6_.func_178860_m()) {
-                                this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
+                                drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
                             }
 
                             if (j1 * 2 + 1 == p_175247_6_.func_178860_m()) {
-                                this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
+                                drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
                             }
                         }
 
                         if (j1 * 2 + 1 < i) {
-                            this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
+                            drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
                         }
 
                         if (j1 * 2 + 1 == i) {
-                            this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
+                            drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
                         }
                     }
                 } else {
@@ -274,30 +274,30 @@ public class GuiPlayerTabOverlay extends Gui {
                     int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
                     String s = "" + (float) i / 2.0F;
 
-                    if (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s + "hp") >= p_175247_4_) {
+                    if (p_175247_5_ - mc.fontRendererObj.getStringWidth(s + "hp") >= p_175247_4_) {
                         s = s + "hp";
                     }
 
-                    this.mc.fontRendererObj.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), (float) p_175247_2_, i1);
+                    mc.fontRendererObj.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - mc.fontRendererObj.getStringWidth(s) / 2), (float) p_175247_2_, i1);
                 }
             }
         } else {
             String s1 = EnumChatFormatting.YELLOW + "" + i;
-            this.mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
+            mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
         }
     }
 
     public void setFooter(IChatComponent footerIn) {
-        this.footer = footerIn;
+        footer = footerIn;
     }
 
     public void setHeader(IChatComponent headerIn) {
-        this.header = headerIn;
+        header = headerIn;
     }
 
     public void resetFooterHeader() {
-        this.header = null;
-        this.footer = null;
+        header = null;
+        footer = null;
     }
 
     static class PlayerComparator implements Comparator<NetworkPlayerInfo> {

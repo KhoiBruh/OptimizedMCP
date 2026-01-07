@@ -24,13 +24,13 @@ public abstract class BlockSlab extends Block {
     public BlockSlab(Material materialIn) {
         super(materialIn);
 
-        if (this.isDouble()) {
-            this.fullBlock = true;
+        if (isDouble()) {
+            fullBlock = true;
         } else {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
 
-        this.setLightOpacity(255);
+        setLightOpacity(255);
     }
 
     protected static boolean isSlab(Block blockIn) {
@@ -42,53 +42,53 @@ public abstract class BlockSlab extends Block {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        if (this.isDouble()) {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        if (isDouble()) {
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         } else {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
             if (iblockstate.getBlock() == this) {
                 if (iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
-                    this.setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
                 } else {
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+                    setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
                 }
             }
         }
     }
 
     public void setBlockBoundsForItemRender() {
-        if (this.isDouble()) {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        if (isDouble()) {
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         } else {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
     }
 
     public boolean isOpaqueCube() {
-        return this.isDouble();
+        return isDouble();
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-        return this.isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
+        return isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
     }
 
     public int quantityDropped(Random random) {
-        return this.isDouble() ? 2 : 1;
+        return isDouble() ? 2 : 1;
     }
 
     public boolean isFullCube() {
-        return this.isDouble();
+        return isDouble();
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-        if (this.isDouble()) {
+        if (isDouble()) {
             return super.shouldSideBeRendered(worldIn, pos, side);
         } else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(worldIn, pos, side)) {
             return false;
@@ -125,11 +125,11 @@ public abstract class BlockSlab extends Block {
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

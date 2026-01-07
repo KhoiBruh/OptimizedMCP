@@ -17,7 +17,7 @@ public class ClippingHelper {
             double x, double y, double z,
             double x2, double y2, double z2
     ) {
-        if (!this.disabled) {
+        if (!disabled) {
             float f = (float) x;
             float f1 = (float) y;
             float f2 = (float) z;
@@ -26,7 +26,7 @@ public class ClippingHelper {
             float f5 = (float) z2;
 
             for (int i = 0; i < 6; ++i) {
-                float[] plane = this.frustum[i];
+                float[] plane = frustum[i];
                 float px = plane[0];
                 float py = plane[1];
                 float pz = plane[2];
@@ -53,7 +53,7 @@ public class ClippingHelper {
             double x, double y, double z,
             double x2, double y2, double z2
     ) {
-        if (!this.disabled) {
+        if (!disabled) {
             float f = (float) x;
             float f1 = (float) y;
             float f2 = (float) z;
@@ -62,7 +62,7 @@ public class ClippingHelper {
             float f5 = (float) z2;
 
             for (int i = 0; i < 6; ++i) {
-                float[] plane = this.frustum[i];
+                float[] plane = frustum[i];
                 float px = plane[0];
                 float py = plane[1];
                 float pz = plane[2];

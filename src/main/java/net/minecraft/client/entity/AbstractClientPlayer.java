@@ -33,10 +33,10 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
     public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {
         super(worldIn, playerProfile);
-        this.nameClear = playerProfile.getName();
+        nameClear = playerProfile.getName();
 
-        if (this.nameClear != null && !this.nameClear.isEmpty()) {
-            this.nameClear = StringUtils.stripControlCodes(this.nameClear);
+        if (nameClear != null && !nameClear.isEmpty()) {
+            nameClear = StringUtils.stripControlCodes(nameClear);
         }
 
         CapeUtils.downloadCape(this);
@@ -64,30 +64,30 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
     public boolean isSpectator() {
         NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getNetHandler()
-                .getPlayerInfo(this.getGameProfile().getId());
+                .getPlayerInfo(getGameProfile().getId());
         return networkplayerinfo != null && networkplayerinfo.getGameType() == WorldSettings.GameType.SPECTATOR;
     }
 
     public boolean hasPlayerInfo() {
-        return this.getPlayerInfo() != null;
+        return getPlayerInfo() != null;
     }
 
     protected NetworkPlayerInfo getPlayerInfo() {
-        if (this.playerInfo == null) {
-            this.playerInfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(this.getUniqueID());
+        if (playerInfo == null) {
+            playerInfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(getUniqueID());
         }
 
-        return this.playerInfo;
+        return playerInfo;
     }
 
     public boolean hasSkin() {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
         return networkplayerinfo != null && networkplayerinfo.hasLocationSkin();
     }
 
     public ResourceLocation getLocationSkin() {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUniqueID())
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
+        return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(getUniqueID())
                 : networkplayerinfo.getLocationSkin();
     }
 
@@ -95,43 +95,43 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
         if (!Config.isShowCapes()) {
             return null;
         } else {
-            if (this.reloadCapeTimeMs != 0L && System.currentTimeMillis() > this.reloadCapeTimeMs) {
+            if (reloadCapeTimeMs != 0L && System.currentTimeMillis() > reloadCapeTimeMs) {
                 CapeUtils.reloadCape(this);
-                this.reloadCapeTimeMs = 0L;
+                reloadCapeTimeMs = 0L;
             }
 
-            if (this.locationOfCape != null) {
-                return this.locationOfCape;
+            if (locationOfCape != null) {
+                return locationOfCape;
             } else {
-                NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
+                NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
                 return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
             }
         }
     }
 
     public String getSkinType() {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(this.getUniqueID())
+        NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
+        return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(getUniqueID())
                 : networkplayerinfo.getSkinType();
     }
 
     public float getFovModifier() {
         float f = 1.0F;
 
-        if (this.capabilities.isFlying) {
+        if (capabilities.isFlying) {
             f *= 1.1F;
         }
 
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+        IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.movementSpeed);
         f = (float) ((double) f
-                * ((iattributeinstance.getAttributeValue() / (double) this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
+                * ((iattributeinstance.getAttributeValue() / (double) capabilities.getWalkSpeed() + 1.0D) / 2.0D));
 
-        if (this.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
+        if (capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
             f = 1.0F;
         }
 
-        if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow) {
-            int i = this.getItemInUseDuration();
+        if (isUsingItem() && getItemInUse().getItem() == Items.bow) {
+            int i = getItemInUseDuration();
             float f1 = (float) i / 20.0F;
 
             if (f1 > 1.0F) {
@@ -147,39 +147,39 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
     }
 
     public String getNameClear() {
-        return this.nameClear;
+        return nameClear;
     }
 
     public ResourceLocation getLocationOfCape() {
-        return this.locationOfCape;
+        return locationOfCape;
     }
 
     public void setLocationOfCape(ResourceLocation p_setLocationOfCape_1_) {
-        this.locationOfCape = p_setLocationOfCape_1_;
+        locationOfCape = p_setLocationOfCape_1_;
     }
 
     public boolean hasElytraCape() {
-        ResourceLocation resourcelocation = this.getLocationCape();
-        return resourcelocation != null && (resourcelocation != this.locationOfCape || this.elytraOfCape);
+        ResourceLocation resourcelocation = getLocationCape();
+        return resourcelocation != null && (resourcelocation != locationOfCape || elytraOfCape);
     }
 
     public boolean isElytraOfCape() {
-        return this.elytraOfCape;
+        return elytraOfCape;
     }
 
     public void setElytraOfCape(boolean p_setElytraOfCape_1_) {
-        this.elytraOfCape = p_setElytraOfCape_1_;
+        elytraOfCape = p_setElytraOfCape_1_;
     }
 
     public long getReloadCapeTimeMs() {
-        return this.reloadCapeTimeMs;
+        return reloadCapeTimeMs;
     }
 
     public void setReloadCapeTimeMs(long p_setReloadCapeTimeMs_1_) {
-        this.reloadCapeTimeMs = p_setReloadCapeTimeMs_1_;
+        reloadCapeTimeMs = p_setReloadCapeTimeMs_1_;
     }
 
     public Vec3 getLook(float partialTicks) {
-        return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
+        return getVectorForRotation(rotationPitch, rotationYaw);
     }
 }

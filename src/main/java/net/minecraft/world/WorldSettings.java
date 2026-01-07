@@ -14,12 +14,12 @@ public final class WorldSettings {
     private String worldName;
 
     public WorldSettings(long seedIn, WorldSettings.GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn) {
-        this.worldName = "";
-        this.seed = seedIn;
-        this.theGameType = gameType;
-        this.mapFeaturesEnabled = enableMapFeatures;
-        this.hardcoreEnabled = hardcoreMode;
-        this.terrainType = worldTypeIn;
+        worldName = "";
+        seed = seedIn;
+        theGameType = gameType;
+        mapFeaturesEnabled = enableMapFeatures;
+        hardcoreEnabled = hardcoreMode;
+        terrainType = worldTypeIn;
     }
 
     public WorldSettings(WorldInfo info) {
@@ -31,49 +31,49 @@ public final class WorldSettings {
     }
 
     public WorldSettings enableBonusChest() {
-        this.bonusChestEnabled = true;
+        bonusChestEnabled = true;
         return this;
     }
 
     public WorldSettings enableCommands() {
-        this.commandsAllowed = true;
+        commandsAllowed = true;
         return this;
     }
 
     public boolean isBonusChestEnabled() {
-        return this.bonusChestEnabled;
+        return bonusChestEnabled;
     }
 
     public long getSeed() {
-        return this.seed;
+        return seed;
     }
 
     public WorldSettings.GameType getGameType() {
-        return this.theGameType;
+        return theGameType;
     }
 
     public boolean getHardcoreEnabled() {
-        return this.hardcoreEnabled;
+        return hardcoreEnabled;
     }
 
     public boolean isMapFeaturesEnabled() {
-        return this.mapFeaturesEnabled;
+        return mapFeaturesEnabled;
     }
 
     public WorldType getTerrainType() {
-        return this.terrainType;
+        return terrainType;
     }
 
     public boolean areCommandsAllowed() {
-        return this.commandsAllowed;
+        return commandsAllowed;
     }
 
     public String getWorldName() {
-        return this.worldName;
+        return worldName;
     }
 
     public WorldSettings setWorldName(String name) {
-        this.worldName = name;
+        worldName = name;
         return this;
     }
 
@@ -88,8 +88,8 @@ public final class WorldSettings {
         String name;
 
         GameType(int typeId, String nameIn) {
-            this.id = typeId;
-            this.name = nameIn;
+            id = typeId;
+            name = nameIn;
         }
 
         public static WorldSettings.GameType getByID(int idIn) {
@@ -113,11 +113,11 @@ public final class WorldSettings {
         }
 
         public int getID() {
-            return this.id;
+            return id;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public void configurePlayerCapabilities(PlayerCapabilities capabilities) {
@@ -137,7 +137,7 @@ public final class WorldSettings {
                 capabilities.isFlying = false;
             }
 
-            capabilities.allowEdit = !this.isAdventure();
+            capabilities.allowEdit = !isAdventure();
         }
 
         public boolean isAdventure() {

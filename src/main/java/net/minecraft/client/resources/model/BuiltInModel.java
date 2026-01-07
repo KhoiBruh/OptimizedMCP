@@ -11,7 +11,7 @@ public class BuiltInModel implements IBakedModel {
     private final ItemCameraTransforms cameraTransforms;
 
     public BuiltInModel(ItemCameraTransforms p_i46086_1_) {
-        this.cameraTransforms = p_i46086_1_;
+        cameraTransforms = p_i46086_1_;
     }
 
     public List<BakedQuad> getFaceQuads(EnumFacing facing) {
@@ -39,6 +39,6 @@ public class BuiltInModel implements IBakedModel {
     }
 
     public ItemCameraTransforms getItemCameraTransforms() {
-        return this.cameraTransforms;
+        return cameraTransforms;
     }
 }

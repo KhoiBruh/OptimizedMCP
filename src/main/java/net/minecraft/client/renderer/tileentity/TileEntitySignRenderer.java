@@ -58,7 +58,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
             GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F * f, (float) z + 0.5F);
             float f1 = (float) (te.getBlockMetadata() * 360) / 16.0F;
             GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
-            this.model.signStick.showModel = true;
+            model.signStick.showModel = true;
         } else {
             int k = te.getBlockMetadata();
             float f2 = 0.0F;
@@ -78,28 +78,28 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
             GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F * f, (float) z + 0.5F);
             GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(0.0F, -0.3125F, -0.4375F);
-            this.model.signStick.showModel = false;
+            model.signStick.showModel = false;
         }
 
         if (destroyStage >= 0) {
-            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0F, 2.0F, 1.0F);
             GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
             GlStateManager.matrixMode(5888);
         } else {
-            this.bindTexture(SIGN_TEXTURE);
+            bindTexture(SIGN_TEXTURE);
         }
 
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
         GlStateManager.scale(f, -f, -f);
-        this.model.renderSign();
+        model.renderSign();
         GlStateManager.popMatrix();
 
         if (isRenderText(te)) {
-            FontRenderer fontrenderer = this.getFontRenderer();
+            FontRenderer fontrenderer = getFontRenderer();
             float f3 = 0.015625F * f;
             GlStateManager.translate(0.0F, 0.5F * f, 0.07F * f);
             GlStateManager.scale(f3, -f3, f3);
@@ -117,7 +117,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
                         IChatComponent ichatcomponent = te.signText[j];
                         List<IChatComponent> list = GuiUtilRenderComponents.splitText(ichatcomponent, 90, fontrenderer,
                                 false, true);
-                        String s = list != null && list.size() > 0 ? list.get(0).getFormattedText()
+                        String s = list != null && !list.isEmpty() ? list.get(0).getFormattedText()
                                 : "";
 
                         if (j == te.lineBeingEdited) {

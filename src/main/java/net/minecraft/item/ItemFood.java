@@ -18,11 +18,11 @@ public class ItemFood extends Item {
     private float potionEffectProbability;
 
     public ItemFood(int amount, float saturation, boolean isWolfFood) {
-        this.itemUseDuration = 32;
-        this.healAmount = amount;
-        this.isWolfsFavoriteMeat = isWolfFood;
-        this.saturationModifier = saturation;
-        this.setCreativeTab(CreativeTabs.tabFood);
+        itemUseDuration = 32;
+        healAmount = amount;
+        isWolfsFavoriteMeat = isWolfFood;
+        saturationModifier = saturation;
+        setCreativeTab(CreativeTabs.tabFood);
     }
 
     public ItemFood(int amount, boolean isWolfFood) {
@@ -33,14 +33,14 @@ public class ItemFood extends Item {
         --stack.stackSize;
         playerIn.getFoodStats().addStats(this, stack);
         worldIn.playSoundAtEntity(playerIn, "random.burp", 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-        this.onFoodEaten(stack, worldIn, playerIn);
+        onFoodEaten(stack, worldIn, playerIn);
         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return stack;
     }
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-        if (!worldIn.isRemote && this.potionId > 0 && worldIn.rand.nextFloat() < this.potionEffectProbability) {
-            player.addPotionEffect(new PotionEffect(this.potionId, this.potionDuration * 20, this.potionAmplifier));
+        if (!worldIn.isRemote && potionId > 0 && worldIn.rand.nextFloat() < potionEffectProbability) {
+            player.addPotionEffect(new PotionEffect(potionId, potionDuration * 20, potionAmplifier));
         }
     }
 
@@ -53,35 +53,35 @@ public class ItemFood extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        if (playerIn.canEat(this.alwaysEdible)) {
-            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+        if (playerIn.canEat(alwaysEdible)) {
+            playerIn.setItemInUse(itemStackIn, getMaxItemUseDuration(itemStackIn));
         }
 
         return itemStackIn;
     }
 
     public int getHealAmount(ItemStack stack) {
-        return this.healAmount;
+        return healAmount;
     }
 
     public float getSaturationModifier(ItemStack stack) {
-        return this.saturationModifier;
+        return saturationModifier;
     }
 
     public boolean isWolfsFavoriteMeat() {
-        return this.isWolfsFavoriteMeat;
+        return isWolfsFavoriteMeat;
     }
 
     public ItemFood setPotionEffect(int id, int duration, int amplifier, float probability) {
-        this.potionId = id;
-        this.potionDuration = duration;
-        this.potionAmplifier = amplifier;
-        this.potionEffectProbability = probability;
+        potionId = id;
+        potionDuration = duration;
+        potionAmplifier = amplifier;
+        potionEffectProbability = probability;
         return this;
     }
 
     public ItemFood setAlwaysEdible() {
-        this.alwaysEdible = true;
+        alwaysEdible = true;
         return this;
     }
 }

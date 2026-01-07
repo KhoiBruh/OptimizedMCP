@@ -21,9 +21,9 @@ public class BlockMycelium extends Block {
 
     protected BlockMycelium() {
         super(Material.grass, MapColor.purpleColor);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -43,7 +43,7 @@ public class BlockMycelium extends Block {
                         Block block = worldIn.getBlockState(blockpos.up()).getBlock();
 
                         if (iblockstate.getBlock() == Blocks.dirt && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && worldIn.getLightFromNeighbors(blockpos.up()) >= 4 && block.getLightOpacity() <= 2) {
-                            worldIn.setBlockState(blockpos, this.getDefaultState());
+                            worldIn.setBlockState(blockpos, getDefaultState());
                         }
                     }
                 }

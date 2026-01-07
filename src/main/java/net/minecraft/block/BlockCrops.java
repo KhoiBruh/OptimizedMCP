@@ -19,14 +19,14 @@ public class BlockCrops extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 
     protected BlockCrops() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
+        setTickRandomly(true);
         float f = 0.5F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-        this.setCreativeTab(null);
-        this.setHardness(0.0F);
-        this.setStepSound(soundTypeGrass);
-        this.disableStats();
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
+        setCreativeTab(null);
+        setHardness(0.0F);
+        setStepSound(soundTypeGrass);
+        disableStats();
     }
 
     protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
@@ -105,7 +105,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-        return (worldIn.getLight(pos) >= 8 || worldIn.canSeeSky(pos)) && this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
+        return (worldIn.getLight(pos) >= 8 || worldIn.canSeeSky(pos)) && canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
 
     protected Item getSeed() {
@@ -127,7 +127,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
 
                 for (int k = 0; k < j; ++k) {
                     if (worldIn.rand.nextInt(15) <= i) {
-                        spawnAsEntity(worldIn, pos, new ItemStack(this.getSeed(), 1, 0));
+                        spawnAsEntity(worldIn, pos, new ItemStack(getSeed(), 1, 0));
                     }
                 }
             }
@@ -135,11 +135,11 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return state.getValue(AGE) == 7 ? this.getCrop() : this.getSeed();
+        return state.getValue(AGE) == 7 ? getCrop() : getSeed();
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return this.getSeed();
+        return getSeed();
     }
 
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
@@ -151,11 +151,11 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        this.grow(worldIn, pos, state);
+        grow(worldIn, pos, state);
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AGE, meta);
+        return getDefaultState().withProperty(AGE, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

@@ -247,11 +247,11 @@ public class EntityList {
         public final StatBase field_151513_e;
 
         public EntityEggInfo(int id, int baseColor, int spotColor) {
-            this.spawnedID = id;
-            this.primaryColor = baseColor;
-            this.secondaryColor = spotColor;
-            this.field_151512_d = StatList.getStatKillEntity(this);
-            this.field_151513_e = StatList.getStatEntityKilledBy(this);
+            spawnedID = id;
+            primaryColor = baseColor;
+            secondaryColor = spotColor;
+            field_151512_d = StatList.getStatKillEntity(this);
+            field_151513_e = StatList.getStatEntityKilledBy(this);
         }
     }
 }

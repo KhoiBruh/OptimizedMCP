@@ -16,7 +16,7 @@ public class PropertyBool extends PropertyHelper<Boolean> {
     }
 
     public Collection<Boolean> getAllowedValues() {
-        return this.allowedValues;
+        return allowedValues;
     }
 
     public String getName(Boolean value) {

@@ -30,19 +30,19 @@ public class BlockStem extends BlockBush implements IGrowable {
     private final Block crop;
 
     protected BlockStem(Block crop) {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0).withProperty(FACING, EnumFacing.UP));
+        setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(FACING, EnumFacing.UP));
         this.crop = crop;
-        this.setTickRandomly(true);
+        setTickRandomly(true);
         float f = 0.125F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-        this.setCreativeTab(null);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
+        setCreativeTab(null);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         state = state.withProperty(FACING, EnumFacing.UP);
 
         for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-            if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == this.crop) {
+            if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == crop) {
                 state = state.withProperty(FACING, enumfacing);
                 break;
             }
@@ -69,7 +69,7 @@ public class BlockStem extends BlockBush implements IGrowable {
                     worldIn.setBlockState(pos, state, 2);
                 } else {
                     for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-                        if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == this.crop) {
+                        if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == crop) {
                             return;
                         }
                     }
@@ -78,7 +78,7 @@ public class BlockStem extends BlockBush implements IGrowable {
                     Block block = worldIn.getBlockState(pos.down()).getBlock();
 
                     if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.air && (block == Blocks.farmland || block == Blocks.dirt || block == Blocks.grass)) {
-                        worldIn.setBlockState(pos, this.crop.getDefaultState());
+                        worldIn.setBlockState(pos, crop.getDefaultState());
                     }
                 }
             }
@@ -103,25 +103,25 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-        return this.getRenderColor(worldIn.getBlockState(pos));
+        return getRenderColor(worldIn.getBlockState(pos));
     }
 
     public void setBlockBoundsForItemRender() {
         float f = 0.125F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.maxY = (float) (worldIn.getBlockState(pos).getValue(AGE) * 2 + 2) / 16.0F;
+        maxY = (float) (worldIn.getBlockState(pos).getValue(AGE) * 2 + 2) / 16.0F;
         float f = 0.125F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, (float) this.maxY, 0.5F + f);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, (float) maxY, 0.5F + f);
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
         if (!worldIn.isRemote) {
-            Item item = this.getSeedItem();
+            Item item = getSeedItem();
 
             if (item != null) {
                 int i = state.getValue(AGE);
@@ -136,7 +136,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     protected Item getSeedItem() {
-        return this.crop == Blocks.pumpkin ? Items.pumpkin_seeds : (this.crop == Blocks.melon_block ? Items.melon_seeds : null);
+        return crop == Blocks.pumpkin ? Items.pumpkin_seeds : (crop == Blocks.melon_block ? Items.melon_seeds : null);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -144,7 +144,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        Item item = this.getSeedItem();
+        Item item = getSeedItem();
         return item;
     }
 
@@ -157,11 +157,11 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        this.growStem(worldIn, pos, state);
+        growStem(worldIn, pos, state);
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AGE, meta);
+        return getDefaultState().withProperty(AGE, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

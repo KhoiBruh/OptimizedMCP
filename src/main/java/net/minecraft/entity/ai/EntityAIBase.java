@@ -6,7 +6,7 @@ public abstract class EntityAIBase {
     public abstract boolean shouldExecute();
 
     public boolean continueExecuting() {
-        return this.shouldExecute();
+        return shouldExecute();
     }
 
     public boolean isInterruptible() {
@@ -23,10 +23,10 @@ public abstract class EntityAIBase {
     }
 
     public int getMutexBits() {
-        return this.mutexBits;
+        return mutexBits;
     }
 
     public void setMutexBits(int mutexBitsIn) {
-        this.mutexBits = mutexBitsIn;
+        mutexBits = mutexBitsIn;
     }
 }

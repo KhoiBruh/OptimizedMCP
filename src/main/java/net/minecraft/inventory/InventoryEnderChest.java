@@ -14,20 +14,20 @@ public class InventoryEnderChest extends InventoryBasic {
     }
 
     public void setChestTileEntity(TileEntityEnderChest chestTileEntity) {
-        this.associatedChest = chestTileEntity;
+        associatedChest = chestTileEntity;
     }
 
     public void loadInventoryFromNBT(NBTTagList p_70486_1_) {
-        for (int i = 0; i < this.getSizeInventory(); ++i) {
-            this.setInventorySlotContents(i, null);
+        for (int i = 0; i < getSizeInventory(); ++i) {
+            setInventorySlotContents(i, null);
         }
 
         for (int k = 0; k < p_70486_1_.tagCount(); ++k) {
             NBTTagCompound nbttagcompound = p_70486_1_.getCompoundTagAt(k);
             int j = nbttagcompound.getByte("Slot") & 255;
 
-            if (j >= 0 && j < this.getSizeInventory()) {
-                this.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound));
+            if (j >= 0 && j < getSizeInventory()) {
+                setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound));
             }
         }
     }
@@ -35,8 +35,8 @@ public class InventoryEnderChest extends InventoryBasic {
     public NBTTagList saveInventoryToNBT() {
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.getSizeInventory(); ++i) {
-            ItemStack itemstack = this.getStackInSlot(i);
+        for (int i = 0; i < getSizeInventory(); ++i) {
+            ItemStack itemstack = getStackInSlot(i);
 
             if (itemstack != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -50,23 +50,23 @@ public class InventoryEnderChest extends InventoryBasic {
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return (this.associatedChest == null || this.associatedChest.canBeUsed(player)) && super.isUseableByPlayer(player);
+        return (associatedChest == null || associatedChest.canBeUsed(player)) && super.isUseableByPlayer(player);
     }
 
     public void openInventory(EntityPlayer player) {
-        if (this.associatedChest != null) {
-            this.associatedChest.openChest();
+        if (associatedChest != null) {
+            associatedChest.openChest();
         }
 
         super.openInventory(player);
     }
 
     public void closeInventory(EntityPlayer player) {
-        if (this.associatedChest != null) {
-            this.associatedChest.closeChest();
+        if (associatedChest != null) {
+            associatedChest.closeChest();
         }
 
         super.closeInventory(player);
-        this.associatedChest = null;
+        associatedChest = null;
     }
 }

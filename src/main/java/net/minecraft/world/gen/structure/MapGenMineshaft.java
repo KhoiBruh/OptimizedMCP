@@ -14,7 +14,7 @@ public class MapGenMineshaft extends MapGenStructure {
     public MapGenMineshaft(Map<String, String> p_i2034_1_) {
         for (Entry<String, String> entry : p_i2034_1_.entrySet()) {
             if (entry.getKey().equals("chance")) {
-                this.field_82673_e = MathHelper.parseDoubleWithDefault(entry.getValue(), this.field_82673_e);
+                field_82673_e = MathHelper.parseDoubleWithDefault(entry.getValue(), field_82673_e);
             }
         }
     }
@@ -24,10 +24,10 @@ public class MapGenMineshaft extends MapGenStructure {
     }
 
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-        return this.rand.nextDouble() < this.field_82673_e && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
+        return rand.nextDouble() < field_82673_e && rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-        return new StructureMineshaftStart(this.worldObj, this.rand, chunkX, chunkZ);
+        return new StructureMineshaftStart(worldObj, rand, chunkX, chunkZ);
     }
 }

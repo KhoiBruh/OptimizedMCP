@@ -23,32 +23,32 @@ public class Locale {
     private boolean unicode;
 
     public synchronized void loadLocaleDataFiles(IResourceManager resourceManager, List<String> languageList) {
-        this.properties.clear();
+        properties.clear();
 
         for (String s : languageList) {
             String s1 = String.format("lang/%s.lang", s);
 
             for (String s2 : resourceManager.getResourceDomains()) {
                 try {
-                    this.loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
+                    loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
                 } catch (IOException var9) {
                 }
             }
         }
 
-        this.checkUnicode();
+        checkUnicode();
     }
 
     public boolean isUnicode() {
-        return this.unicode;
+        return unicode;
     }
 
     private void checkUnicode() {
-        this.unicode = false;
+        unicode = false;
         int i = 0;
         int j = 0;
 
-        for (String s : this.properties.values()) {
+        for (String s : properties.values()) {
             int k = s.length();
             j += k;
 
@@ -60,7 +60,7 @@ public class Locale {
         }
 
         float f = (float) i / (float) j;
-        this.unicode = (double) f > 0.1D;
+        unicode = (double) f > 0.1D;
     }
 
     private void loadLocaleData(List<IResource> resourcesList) throws IOException {
@@ -68,7 +68,7 @@ public class Locale {
             InputStream inputstream = iresource.getInputStream();
 
             try {
-                this.loadLocaleData(inputstream);
+                loadLocaleData(inputstream);
             } finally {
                 IOUtils.closeQuietly(inputstream);
             }
@@ -83,19 +83,19 @@ public class Locale {
                 if (astring != null && astring.length == 2) {
                     String s1 = astring[0];
                     String s2 = pattern.matcher(astring[1]).replaceAll("%$1s");
-                    this.properties.put(s1, s2);
+                    properties.put(s1, s2);
                 }
             }
         }
     }
 
     private String translateKeyPrivate(String translateKey) {
-        String s = this.properties.get(translateKey);
+        String s = properties.get(translateKey);
         return s == null ? translateKey : s;
     }
 
     public String formatMessage(String translateKey, Object[] parameters) {
-        String s = this.translateKeyPrivate(translateKey);
+        String s = translateKeyPrivate(translateKey);
 
         try {
             return String.format(s, parameters);

@@ -10,18 +10,18 @@ public class GenLayerHills extends GenLayer {
 
     public GenLayerHills(long p_i45479_1_, GenLayer p_i45479_3_, GenLayer p_i45479_4_) {
         super(p_i45479_1_);
-        this.parent = p_i45479_3_;
-        this.field_151628_d = p_i45479_4_;
+        parent = p_i45479_3_;
+        field_151628_d = p_i45479_4_;
     }
 
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-        int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
-        int[] aint1 = this.field_151628_d.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint1 = field_151628_d.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
 
         for (int i = 0; i < areaHeight; ++i) {
             for (int j = 0; j < areaWidth; ++j) {
-                this.initChunkSeed(j + areaX, i + areaY);
+                initChunkSeed(j + areaX, i + areaY);
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
                 int l = aint1[j + 1 + (i + 1) * (areaWidth + 2)];
                 boolean flag = (l - 2) % 29 == 0;
@@ -36,7 +36,7 @@ public class GenLayerHills extends GenLayer {
                     } else {
                         aint2[j + i * areaWidth] = k;
                     }
-                } else if (this.nextInt(3) != 0 && !flag) {
+                } else if (nextInt(3) != 0 && !flag) {
                     aint2[j + i * areaWidth] = k;
                 } else {
                     int i1 = k;
@@ -56,7 +56,7 @@ public class GenLayerHills extends GenLayer {
                     } else if (k == BiomeGenBase.coldTaiga.biomeID) {
                         i1 = BiomeGenBase.coldTaigaHills.biomeID;
                     } else if (k == BiomeGenBase.plains.biomeID) {
-                        if (this.nextInt(3) == 0) {
+                        if (nextInt(3) == 0) {
                             i1 = BiomeGenBase.forestHills.biomeID;
                         } else {
                             i1 = BiomeGenBase.forest.biomeID;
@@ -73,8 +73,8 @@ public class GenLayerHills extends GenLayer {
                         i1 = BiomeGenBase.savannaPlateau.biomeID;
                     } else if (biomesEqualOrMesaPlateau(k, BiomeGenBase.mesaPlateau_F.biomeID)) {
                         i1 = BiomeGenBase.mesa.biomeID;
-                    } else if (k == BiomeGenBase.deepOcean.biomeID && this.nextInt(3) == 0) {
-                        int j1 = this.nextInt(2);
+                    } else if (k == BiomeGenBase.deepOcean.biomeID && nextInt(3) == 0) {
+                        int j1 = nextInt(2);
 
                         if (j1 == 0) {
                             i1 = BiomeGenBase.plains.biomeID;

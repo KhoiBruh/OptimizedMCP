@@ -11,8 +11,8 @@ public class ServerAddress {
     private final int serverPort;
 
     private ServerAddress(String address, int port) {
-        this.ipAddress = address;
-        this.serverPort = port;
+        ipAddress = address;
+        serverPort = port;
     }
 
     public static ServerAddress fromString(String p_78860_0_) {
@@ -28,7 +28,7 @@ public class ServerAddress {
                     String s = p_78860_0_.substring(1, i);
                     String s1 = p_78860_0_.substring(i + 1).trim();
 
-                    if (s1.startsWith(":") && s1.length() > 0) {
+                    if (s1.startsWith(":") && !s1.isEmpty()) {
                         s1 = s1.substring(1);
                         astring = new String[]{s, s1};
                     } else {
@@ -80,10 +80,10 @@ public class ServerAddress {
     }
 
     public String getIP() {
-        return IDN.toASCII(this.ipAddress);
+        return IDN.toASCII(ipAddress);
     }
 
     public int getPort() {
-        return this.serverPort;
+        return serverPort;
     }
 }

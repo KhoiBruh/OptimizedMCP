@@ -16,16 +16,16 @@ public class DefaultResourcePack implements IResourcePack {
     private final Map<String, File> mapAssets;
 
     public DefaultResourcePack(Map<String, File> mapAssetsIn) {
-        this.mapAssets = mapAssetsIn;
+        mapAssets = mapAssetsIn;
     }
 
     public InputStream getInputStream(ResourceLocation location) throws IOException {
-        InputStream inputstream = this.getResourceStream(location);
+        InputStream inputstream = getResourceStream(location);
 
         if (inputstream != null) {
             return inputstream;
         } else {
-            InputStream inputstream1 = this.getInputStreamAssets(location);
+            InputStream inputstream1 = getInputStreamAssets(location);
 
             if (inputstream1 != null) {
                 return inputstream1;
@@ -36,7 +36,7 @@ public class DefaultResourcePack implements IResourcePack {
     }
 
     public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
-        File file1 = this.mapAssets.get(location.toString());
+        File file1 = mapAssets.get(location.toString());
         return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
     }
 
@@ -46,7 +46,7 @@ public class DefaultResourcePack implements IResourcePack {
     }
 
     public boolean resourceExists(ResourceLocation location) {
-        return this.getResourceStream(location) != null || this.mapAssets.containsKey(location.toString());
+        return getResourceStream(location) != null || mapAssets.containsKey(location.toString());
     }
 
     public Set<String> getResourceDomains() {
@@ -56,7 +56,7 @@ public class DefaultResourcePack implements IResourcePack {
     public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer,
                                                           String metadataSectionName) throws IOException {
         try {
-            InputStream inputstream = new FileInputStream(this.mapAssets.get("pack.mcmeta"));
+            InputStream inputstream = new FileInputStream(mapAssets.get("pack.mcmeta"));
             return AbstractResourcePack.readMetadata(metadataSerializer, inputstream, metadataSectionName);
         } catch (RuntimeException var4) {
             return null;

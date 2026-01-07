@@ -20,9 +20,9 @@ public class ItemRecord extends Item {
     public final String recordName;
 
     protected ItemRecord(String name) {
-        this.recordName = name;
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        recordName = name;
+        maxStackSize = 1;
+        setCreativeTab(CreativeTabs.tabMisc);
         RECORDS.put("records." + name, this);
     }
 
@@ -49,11 +49,11 @@ public class ItemRecord extends Item {
     }
 
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        tooltip.add(this.getRecordNameLocal());
+        tooltip.add(getRecordNameLocal());
     }
 
     public String getRecordNameLocal() {
-        return StatCollector.translateToLocal("item.record." + this.recordName + ".desc");
+        return StatCollector.translateToLocal("item.record." + recordName + ".desc");
     }
 
     public EnumRarity getRarity(ItemStack stack) {

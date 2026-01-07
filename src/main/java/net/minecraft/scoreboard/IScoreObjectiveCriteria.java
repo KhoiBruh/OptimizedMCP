@@ -41,7 +41,7 @@ public interface IScoreObjectiveCriteria {
         private final String field_178798_d;
 
         EnumRenderType(String p_i45548_3_) {
-            this.field_178798_d = p_i45548_3_;
+            field_178798_d = p_i45548_3_;
         }
 
         public static IScoreObjectiveCriteria.EnumRenderType func_178795_a(String p_178795_0_) {
@@ -50,7 +50,7 @@ public interface IScoreObjectiveCriteria {
         }
 
         public String func_178796_a() {
-            return this.field_178798_d;
+            return field_178798_d;
         }
     }
 }

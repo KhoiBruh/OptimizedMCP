@@ -31,15 +31,15 @@ public class BlockFence extends Block {
 
     public BlockFence(Material p_i46395_1_, MapColor p_i46395_2_) {
         super(p_i46395_1_, p_i46395_2_);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        setDefaultState(blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+        setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        boolean flag = this.canConnectTo(worldIn, pos.north());
-        boolean flag1 = this.canConnectTo(worldIn, pos.south());
-        boolean flag2 = this.canConnectTo(worldIn, pos.west());
-        boolean flag3 = this.canConnectTo(worldIn, pos.east());
+        boolean flag = canConnectTo(worldIn, pos.north());
+        boolean flag1 = canConnectTo(worldIn, pos.south());
+        boolean flag2 = canConnectTo(worldIn, pos.west());
+        boolean flag3 = canConnectTo(worldIn, pos.east());
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -54,7 +54,7 @@ public class BlockFence extends Block {
         }
 
         if (flag || flag1) {
-            this.setBlockBounds(f, 0.0F, f2, f1, 1.5F, f3);
+            setBlockBounds(f, 0.0F, f2, f1, 1.5F, f3);
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
 
@@ -70,7 +70,7 @@ public class BlockFence extends Block {
         }
 
         if (flag2 || flag3 || !flag && !flag1) {
-            this.setBlockBounds(f, 0.0F, f2, f1, 1.5F, f3);
+            setBlockBounds(f, 0.0F, f2, f1, 1.5F, f3);
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
 
@@ -82,14 +82,14 @@ public class BlockFence extends Block {
             f3 = 1.0F;
         }
 
-        this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
+        setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        boolean flag = this.canConnectTo(worldIn, pos.north());
-        boolean flag1 = this.canConnectTo(worldIn, pos.south());
-        boolean flag2 = this.canConnectTo(worldIn, pos.west());
-        boolean flag3 = this.canConnectTo(worldIn, pos.east());
+        boolean flag = canConnectTo(worldIn, pos.north());
+        boolean flag1 = canConnectTo(worldIn, pos.south());
+        boolean flag2 = canConnectTo(worldIn, pos.west());
+        boolean flag3 = canConnectTo(worldIn, pos.east());
         float f = 0.375F;
         float f1 = 0.625F;
         float f2 = 0.375F;
@@ -111,7 +111,7 @@ public class BlockFence extends Block {
             f1 = 1.0F;
         }
 
-        this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
+        setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
     public boolean isOpaqueCube() {
@@ -128,7 +128,7 @@ public class BlockFence extends Block {
 
     public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos).getBlock();
-        return block != Blocks.barrier && ((block instanceof BlockFence && block.blockMaterial == this.blockMaterial) || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.gourd));
+        return block != Blocks.barrier && ((block instanceof BlockFence && block.blockMaterial == blockMaterial) || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.gourd));
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
@@ -144,7 +144,7 @@ public class BlockFence extends Block {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(NORTH, this.canConnectTo(worldIn, pos.north())).withProperty(EAST, this.canConnectTo(worldIn, pos.east())).withProperty(SOUTH, this.canConnectTo(worldIn, pos.south())).withProperty(WEST, this.canConnectTo(worldIn, pos.west()));
+        return state.withProperty(NORTH, canConnectTo(worldIn, pos.north())).withProperty(EAST, canConnectTo(worldIn, pos.east())).withProperty(SOUTH, canConnectTo(worldIn, pos.south())).withProperty(WEST, canConnectTo(worldIn, pos.west()));
     }
 
     protected BlockState createBlockState() {

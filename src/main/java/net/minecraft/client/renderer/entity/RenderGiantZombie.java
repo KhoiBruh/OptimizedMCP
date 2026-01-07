@@ -14,12 +14,12 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
 
     public RenderGiantZombie(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn, float scaleIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn * scaleIn);
-        this.scale = scaleIn;
-        this.addLayer(new LayerHeldItem(this));
-        this.addLayer(new LayerBipedArmor(this) {
+        scale = scaleIn;
+        addLayer(new LayerHeldItem(this));
+        addLayer(new LayerBipedArmor(this) {
             protected void initArmor() {
-                this.modelLeggings = new ModelZombie(0.5F, true);
-                this.modelArmor = new ModelZombie(1.0F, true);
+                modelLeggings = new ModelZombie(0.5F, true);
+                modelArmor = new ModelZombie(1.0F, true);
             }
         });
     }
@@ -29,7 +29,7 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
     }
 
     protected void preRenderCallback(EntityGiantZombie entitylivingbaseIn, float partialTickTime) {
-        GlStateManager.scale(this.scale, this.scale, this.scale);
+        GlStateManager.scale(scale, scale, scale);
     }
 
     protected ResourceLocation getEntityTexture(EntityGiantZombie entity) {

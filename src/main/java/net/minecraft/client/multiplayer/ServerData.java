@@ -19,9 +19,9 @@ public class ServerData {
     private boolean lanServer;
 
     public ServerData(String name, String ip, boolean isLan) {
-        this.serverName = name;
-        this.serverIP = ip;
-        this.lanServer = isLan;
+        serverName = name;
+        serverIP = ip;
+        lanServer = isLan;
     }
 
     public static ServerData getServerDataFromNBTCompound(NBTTagCompound nbtCompound) {
@@ -46,16 +46,16 @@ public class ServerData {
 
     public NBTTagCompound getNBTCompound() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
-        nbttagcompound.setString("name", this.serverName);
-        nbttagcompound.setString("ip", this.serverIP);
+        nbttagcompound.setString("name", serverName);
+        nbttagcompound.setString("ip", serverIP);
 
-        if (this.serverIcon != null) {
-            nbttagcompound.setString("icon", this.serverIcon);
+        if (serverIcon != null) {
+            nbttagcompound.setString("icon", serverIcon);
         }
 
-        if (this.resourceMode == ServerData.ServerResourceMode.ENABLED) {
+        if (resourceMode == ServerData.ServerResourceMode.ENABLED) {
             nbttagcompound.setBoolean("acceptTextures", true);
-        } else if (this.resourceMode == ServerData.ServerResourceMode.DISABLED) {
+        } else if (resourceMode == ServerData.ServerResourceMode.DISABLED) {
             nbttagcompound.setBoolean("acceptTextures", false);
         }
 
@@ -63,31 +63,31 @@ public class ServerData {
     }
 
     public ServerData.ServerResourceMode getResourceMode() {
-        return this.resourceMode;
+        return resourceMode;
     }
 
     public void setResourceMode(ServerData.ServerResourceMode mode) {
-        this.resourceMode = mode;
+        resourceMode = mode;
     }
 
     public String getBase64EncodedIconData() {
-        return this.serverIcon;
+        return serverIcon;
     }
 
     public void setBase64EncodedIconData(String icon) {
-        this.serverIcon = icon;
+        serverIcon = icon;
     }
 
     public boolean isOnLAN() {
-        return this.lanServer;
+        return lanServer;
     }
 
     public void copyFrom(ServerData serverDataIn) {
-        this.serverIP = serverDataIn.serverIP;
-        this.serverName = serverDataIn.serverName;
-        this.setResourceMode(serverDataIn.getResourceMode());
-        this.serverIcon = serverDataIn.serverIcon;
-        this.lanServer = serverDataIn.lanServer;
+        serverIP = serverDataIn.serverIP;
+        serverName = serverDataIn.serverName;
+        setResourceMode(serverDataIn.getResourceMode());
+        serverIcon = serverDataIn.serverIcon;
+        lanServer = serverDataIn.lanServer;
     }
 
     public enum ServerResourceMode {
@@ -98,11 +98,11 @@ public class ServerData {
         private final IChatComponent motd;
 
         ServerResourceMode(String name) {
-            this.motd = new ChatComponentTranslation("addServer.resourcePack." + name);
+            motd = new ChatComponentTranslation("addServer.resourcePack." + name);
         }
 
         public IChatComponent getMotd() {
-            return this.motd;
+            return motd;
         }
     }
 }

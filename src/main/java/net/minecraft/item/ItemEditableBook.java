@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ItemEditableBook extends Item {
     public ItemEditableBook() {
-        this.setMaxStackSize(1);
+        setMaxStackSize(1);
     }
 
     public static boolean validBookTagContents(NBTTagCompound nbt) {
@@ -61,7 +61,7 @@ public class ItemEditableBook extends Item {
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (!worldIn.isRemote) {
-            this.resolveContents(itemStackIn, playerIn);
+            resolveContents(itemStackIn, playerIn);
         }
 
         playerIn.displayGUIBook(itemStackIn);

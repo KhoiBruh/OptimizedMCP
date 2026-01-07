@@ -17,8 +17,8 @@ public class BlockRedSandstone extends Block {
 
     public BlockRedSandstone() {
         super(Material.rock, BlockSand.EnumType.RED_SAND.getMapColor());
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockRedSandstone.EnumType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockRedSandstone.EnumType.DEFAULT));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int damageDropped(IBlockState state) {
@@ -32,7 +32,7 @@ public class BlockRedSandstone extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(TYPE, BlockRedSandstone.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(TYPE, BlockRedSandstone.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -75,19 +75,19 @@ public class BlockRedSandstone extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

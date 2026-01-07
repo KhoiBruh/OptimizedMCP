@@ -24,19 +24,19 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
     }
 
     private ZipFile getResourcePackZipFile() throws IOException {
-        if (this.resourcePackZipFile == null) {
-            this.resourcePackZipFile = new ZipFile(this.resourcePackFile);
+        if (resourcePackZipFile == null) {
+            resourcePackZipFile = new ZipFile(resourcePackFile);
         }
 
-        return this.resourcePackZipFile;
+        return resourcePackZipFile;
     }
 
     protected InputStream getInputStreamByName(String name) throws IOException {
-        ZipFile zipfile = this.getResourcePackZipFile();
+        ZipFile zipfile = getResourcePackZipFile();
         ZipEntry zipentry = zipfile.getEntry(name);
 
         if (zipentry == null) {
-            throw new ResourcePackFileNotFoundException(this.resourcePackFile, name);
+            throw new ResourcePackFileNotFoundException(resourcePackFile, name);
         } else {
             return zipfile.getInputStream(zipentry);
         }
@@ -44,7 +44,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 
     public boolean hasResourceName(String name) {
         try {
-            return this.getResourcePackZipFile().getEntry(name) != null;
+            return getResourcePackZipFile().getEntry(name) != null;
         } catch (IOException var3) {
             return false;
         }
@@ -54,7 +54,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
         ZipFile zipfile;
 
         try {
-            zipfile = this.getResourcePackZipFile();
+            zipfile = getResourcePackZipFile();
         } catch (IOException var8) {
             return Collections.emptySet();
         }
@@ -73,7 +73,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
                     String s1 = list.get(1);
 
                     if (!s1.equals(s1.toLowerCase())) {
-                        this.logNameNotLowercase(s1);
+                        logNameNotLowercase(s1);
                     } else {
                         set.add(s1);
                     }
@@ -85,9 +85,9 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
     }
 
     public void close() throws IOException {
-        if (this.resourcePackZipFile != null) {
-            this.resourcePackZipFile.close();
-            this.resourcePackZipFile = null;
+        if (resourcePackZipFile != null) {
+            resourcePackZipFile.close();
+            resourcePackZipFile = null;
         }
     }
 }

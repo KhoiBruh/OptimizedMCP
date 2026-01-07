@@ -13,15 +13,15 @@ public class S09PacketHeldItemChange implements Packet<INetHandlerPlayClient> {
     }
 
     public S09PacketHeldItemChange(int hotbarIndexIn) {
-        this.heldItemHotbarIndex = hotbarIndexIn;
+        heldItemHotbarIndex = hotbarIndexIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.heldItemHotbarIndex = buf.readByte();
+        heldItemHotbarIndex = buf.readByte();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeByte(this.heldItemHotbarIndex);
+        buf.writeByte(heldItemHotbarIndex);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -29,6 +29,6 @@ public class S09PacketHeldItemChange implements Packet<INetHandlerPlayClient> {
     }
 
     public int getHeldItemHotbarIndex() {
-        return this.heldItemHotbarIndex;
+        return heldItemHotbarIndex;
     }
 }

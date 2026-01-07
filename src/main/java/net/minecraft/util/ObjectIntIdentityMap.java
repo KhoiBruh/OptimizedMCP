@@ -13,25 +13,25 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
     private final List<T> objectList = Lists.newArrayList();
 
     public void put(T key, int value) {
-        this.identityMap.put(key, value);
+        identityMap.put(key, value);
 
-        while (this.objectList.size() <= value) {
-            this.objectList.add(null);
+        while (objectList.size() <= value) {
+            objectList.add(null);
         }
 
-        this.objectList.set(value, key);
+        objectList.set(value, key);
     }
 
     public int get(T key) {
-        Integer integer = this.identityMap.get(key);
+        Integer integer = identityMap.get(key);
         return integer == null ? -1 : integer;
     }
 
     public final T getByValue(int value) {
-        return value >= 0 && value < this.objectList.size() ? this.objectList.get(value) : null;
+        return value >= 0 && value < objectList.size() ? objectList.get(value) : null;
     }
 
     public Iterator<T> iterator() {
-        return Iterators.filter(this.objectList.iterator(), Predicates.notNull());
+        return Iterators.filter(objectList.iterator(), Predicates.notNull());
     }
 }

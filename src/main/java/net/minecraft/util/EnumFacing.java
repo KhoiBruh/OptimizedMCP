@@ -41,13 +41,13 @@ public enum EnumFacing implements IStringSerializable {
     private final Vec3i directionVec;
 
     EnumFacing(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn, EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn, Vec3i directionVecIn) {
-        this.index = indexIn;
-        this.horizontalIndex = horizontalIndexIn;
-        this.opposite = oppositeIn;
-        this.name = nameIn;
-        this.axis = axisIn;
-        this.axisDirection = axisDirectionIn;
-        this.directionVec = directionVecIn;
+        index = indexIn;
+        horizontalIndex = horizontalIndexIn;
+        opposite = oppositeIn;
+        name = nameIn;
+        axis = axisIn;
+        axisDirection = axisDirectionIn;
+        directionVec = directionVecIn;
     }
 
     public static EnumFacing byName(String name) {
@@ -97,40 +97,40 @@ public enum EnumFacing implements IStringSerializable {
     }
 
     public int getIndex() {
-        return this.index;
+        return index;
     }
 
     public int getHorizontalIndex() {
-        return this.horizontalIndex;
+        return horizontalIndex;
     }
 
     public EnumFacing.AxisDirection getAxisDirection() {
-        return this.axisDirection;
+        return axisDirection;
     }
 
     public EnumFacing getOpposite() {
-        return VALUES[this.opposite];
+        return VALUES[opposite];
     }
 
     public EnumFacing rotateAround(EnumFacing.Axis axis) {
         switch (axis) {
             case X:
                 if (this != WEST && this != EAST) {
-                    return this.rotateX();
+                    return rotateX();
                 }
 
                 return this;
 
             case Y:
                 if (this != UP && this != DOWN) {
-                    return this.rotateY();
+                    return rotateY();
                 }
 
                 return this;
 
             case Z:
                 if (this != NORTH && this != SOUTH) {
-                    return this.rotateZ();
+                    return rotateZ();
                 }
 
                 return this;
@@ -220,35 +220,35 @@ public enum EnumFacing implements IStringSerializable {
     }
 
     public int getFrontOffsetX() {
-        return this.axis == EnumFacing.Axis.X ? this.axisDirection.getOffset() : 0;
+        return axis == EnumFacing.Axis.X ? axisDirection.getOffset() : 0;
     }
 
     public int getFrontOffsetY() {
-        return this.axis == EnumFacing.Axis.Y ? this.axisDirection.getOffset() : 0;
+        return axis == EnumFacing.Axis.Y ? axisDirection.getOffset() : 0;
     }
 
     public int getFrontOffsetZ() {
-        return this.axis == EnumFacing.Axis.Z ? this.axisDirection.getOffset() : 0;
+        return axis == EnumFacing.Axis.Z ? axisDirection.getOffset() : 0;
     }
 
     public String getName2() {
-        return this.name;
+        return name;
     }
 
     public EnumFacing.Axis getAxis() {
-        return this.axis;
+        return axis;
     }
 
     public String toString() {
-        return this.name;
+        return name;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public Vec3i getDirectionVec() {
-        return this.directionVec;
+        return directionVec;
     }
 
     public enum Axis implements Predicate<EnumFacing>, IStringSerializable {
@@ -277,19 +277,19 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public String getName2() {
-            return this.name;
+            return name;
         }
 
         public boolean isVertical() {
-            return this.plane == EnumFacing.Plane.VERTICAL;
+            return plane == EnumFacing.Plane.VERTICAL;
         }
 
         public boolean isHorizontal() {
-            return this.plane == EnumFacing.Plane.HORIZONTAL;
+            return plane == EnumFacing.Plane.HORIZONTAL;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public boolean apply(EnumFacing p_apply_1_) {
@@ -297,11 +297,11 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public EnumFacing.Plane getPlane() {
-            return this.plane;
+            return plane;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 
@@ -318,11 +318,11 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public int getOffset() {
-            return this.offset;
+            return offset;
         }
 
         public String toString() {
-            return this.description;
+            return description;
         }
     }
 
@@ -342,7 +342,7 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public EnumFacing random(Random rand) {
-            EnumFacing[] aenumfacing = this.facings();
+            EnumFacing[] aenumfacing = facings();
             return aenumfacing[rand.nextInt(aenumfacing.length)];
         }
 
@@ -351,7 +351,7 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public Iterator<EnumFacing> iterator() {
-            return Iterators.forArray(this.facings());
+            return Iterators.forArray(facings());
         }
     }
 }

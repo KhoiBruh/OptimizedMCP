@@ -29,7 +29,7 @@ public class BlockFurnace extends BlockContainer {
 
     protected BlockFurnace(boolean isBurning) {
         super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.isBurning = isBurning;
     }
 
@@ -59,7 +59,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.setDefaultFacing(worldIn, pos, state);
+        setDefaultFacing(worldIn, pos, state);
     }
 
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
@@ -86,7 +86,7 @@ public class BlockFurnace extends BlockContainer {
 
     @SuppressWarnings("incomplete-switch")
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (this.isBurning) {
+        if (isBurning) {
             EnumFacing enumfacing = state.getValue(FACING);
             double d0 = (double) pos.getX() + 0.5D;
             double d1 = (double) pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
@@ -137,7 +137,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -182,7 +182,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public IBlockState getStateForEntityRender(IBlockState state) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
+        return getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
     }
 
     public IBlockState getStateFromMeta(int meta) {
@@ -192,7 +192,7 @@ public class BlockFurnace extends BlockContainer {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     public int getMetaFromState(IBlockState state) {

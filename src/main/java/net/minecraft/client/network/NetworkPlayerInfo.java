@@ -29,83 +29,83 @@ public class NetworkPlayerInfo {
     private long field_178869_m = 0L;
 
     public NetworkPlayerInfo(GameProfile p_i46294_1_) {
-        this.gameProfile = p_i46294_1_;
+        gameProfile = p_i46294_1_;
     }
 
     public NetworkPlayerInfo(S38PacketPlayerListItem.AddPlayerData p_i46295_1_) {
-        this.gameProfile = p_i46295_1_.getProfile();
-        this.gameType = p_i46295_1_.getGameMode();
-        this.responseTime = p_i46295_1_.getPing();
-        this.displayName = p_i46295_1_.getDisplayName();
+        gameProfile = p_i46295_1_.getProfile();
+        gameType = p_i46295_1_.getGameMode();
+        responseTime = p_i46295_1_.getPing();
+        displayName = p_i46295_1_.getDisplayName();
     }
 
     public GameProfile getGameProfile() {
-        return this.gameProfile;
+        return gameProfile;
     }
 
     public WorldSettings.GameType getGameType() {
-        return this.gameType;
+        return gameType;
     }
 
     protected void setGameType(WorldSettings.GameType p_178839_1_) {
-        this.gameType = p_178839_1_;
+        gameType = p_178839_1_;
     }
 
     public int getResponseTime() {
-        return this.responseTime;
+        return responseTime;
     }
 
     protected void setResponseTime(int p_178838_1_) {
-        this.responseTime = p_178838_1_;
+        responseTime = p_178838_1_;
     }
 
     public boolean hasLocationSkin() {
-        return this.locationSkin != null;
+        return locationSkin != null;
     }
 
     public String getSkinType() {
-        return this.skinType == null ? DefaultPlayerSkin.getSkinType(this.gameProfile.getId()) : this.skinType;
+        return skinType == null ? DefaultPlayerSkin.getSkinType(gameProfile.getId()) : skinType;
     }
 
     public ResourceLocation getLocationSkin() {
-        if (this.locationSkin == null) {
-            this.loadPlayerTextures();
+        if (locationSkin == null) {
+            loadPlayerTextures();
         }
 
-        return MoreObjects.firstNonNull(this.locationSkin, DefaultPlayerSkin.getDefaultSkin(this.gameProfile.getId()));
+        return MoreObjects.firstNonNull(locationSkin, DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
     }
 
     public ResourceLocation getLocationCape() {
-        if (this.locationCape == null) {
-            this.loadPlayerTextures();
+        if (locationCape == null) {
+            loadPlayerTextures();
         }
 
-        return this.locationCape;
+        return locationCape;
     }
 
     public ScorePlayerTeam getPlayerTeam() {
-        return Minecraft.getMinecraft().theWorld.getScoreboard().getPlayersTeam(this.getGameProfile().getName());
+        return Minecraft.getMinecraft().theWorld.getScoreboard().getPlayersTeam(getGameProfile().getName());
     }
 
     protected void loadPlayerTextures() {
         synchronized (this) {
-            if (!this.playerTexturesLoaded) {
-                this.playerTexturesLoaded = true;
-                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(this.gameProfile, new SkinManager.SkinAvailableCallback() {
+            if (!playerTexturesLoaded) {
+                playerTexturesLoaded = true;
+                Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, new SkinManager.SkinAvailableCallback() {
                     public void skinAvailable(Type p_180521_1_, ResourceLocation location, MinecraftProfileTexture profileTexture) {
                         switch (p_180521_1_) {
                             case SKIN:
-                                NetworkPlayerInfo.this.locationSkin = location;
-                                NetworkPlayerInfo.this.skinType = profileTexture.getMetadata("model");
+                                locationSkin = location;
+                                skinType = profileTexture.getMetadata("model");
 
-                                if (NetworkPlayerInfo.this.skinType == null) {
-                                    NetworkPlayerInfo.this.skinType = "default";
+                                if (skinType == null) {
+                                    skinType = "default";
                                 }
 
                                 break;
 
                             case CAPE:
-                                NetworkPlayerInfo.this.locationCape = location;
+                                locationCape = location;
                         }
                     }
                 }, true);
@@ -114,50 +114,50 @@ public class NetworkPlayerInfo {
     }
 
     public IChatComponent getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
     public void setDisplayName(IChatComponent displayNameIn) {
-        this.displayName = displayNameIn;
+        displayName = displayNameIn;
     }
 
     public int func_178835_l() {
-        return this.field_178873_i;
+        return field_178873_i;
     }
 
     public void func_178836_b(int p_178836_1_) {
-        this.field_178873_i = p_178836_1_;
+        field_178873_i = p_178836_1_;
     }
 
     public int func_178860_m() {
-        return this.field_178870_j;
+        return field_178870_j;
     }
 
     public void func_178857_c(int p_178857_1_) {
-        this.field_178870_j = p_178857_1_;
+        field_178870_j = p_178857_1_;
     }
 
     public long func_178847_n() {
-        return this.field_178871_k;
+        return field_178871_k;
     }
 
     public void func_178846_a(long p_178846_1_) {
-        this.field_178871_k = p_178846_1_;
+        field_178871_k = p_178846_1_;
     }
 
     public long func_178858_o() {
-        return this.field_178868_l;
+        return field_178868_l;
     }
 
     public void func_178844_b(long p_178844_1_) {
-        this.field_178868_l = p_178844_1_;
+        field_178868_l = p_178844_1_;
     }
 
     public long func_178855_p() {
-        return this.field_178869_m;
+        return field_178869_m;
     }
 
     public void func_178843_c(long p_178843_1_) {
-        this.field_178869_m = p_178843_1_;
+        field_178869_m = p_178843_1_;
     }
 }

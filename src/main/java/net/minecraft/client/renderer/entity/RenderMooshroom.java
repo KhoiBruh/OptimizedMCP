@@ -10,7 +10,7 @@ public class RenderMooshroom extends RenderLiving<EntityMooshroom> {
 
     public RenderMooshroom(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
-        this.addLayer(new LayerMooshroomMushroom(this));
+        addLayer(new LayerMooshroomMushroom(this));
     }
 
     protected ResourceLocation getEntityTexture(EntityMooshroom entity) {

@@ -26,8 +26,8 @@ public class TileEntityItemStackRenderer {
 
     public void renderByItem(ItemStack itemStackIn) {
         if (itemStackIn.getItem() == Items.banner) {
-            this.banner.setItemValues(itemStackIn);
-            TileEntityRendererDispatcher.instance.renderTileEntityAt(this.banner, 0.0D, 0.0D, 0.0D, 0.0F);
+            banner.setItemValues(itemStackIn);
+            TileEntityRendererDispatcher.instance.renderTileEntityAt(banner, 0.0D, 0.0D, 0.0D, 0.0F);
         } else if (itemStackIn.getItem() == Items.skull) {
             GameProfile gameprofile = null;
 
@@ -36,7 +36,7 @@ public class TileEntityItemStackRenderer {
 
                 if (nbttagcompound.hasKey("SkullOwner", 10)) {
                     gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-                } else if (nbttagcompound.hasKey("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0) {
+                } else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isEmpty()) {
                     gameprofile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
                     gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
                     nbttagcompound.removeTag("SkullOwner");
@@ -57,11 +57,11 @@ public class TileEntityItemStackRenderer {
             Block block = Block.getBlockFromItem(itemStackIn.getItem());
 
             if (block == Blocks.ender_chest) {
-                TileEntityRendererDispatcher.instance.renderTileEntityAt(this.enderChest, 0.0D, 0.0D, 0.0D, 0.0F);
+                TileEntityRendererDispatcher.instance.renderTileEntityAt(enderChest, 0.0D, 0.0D, 0.0D, 0.0F);
             } else if (block == Blocks.trapped_chest) {
-                TileEntityRendererDispatcher.instance.renderTileEntityAt(this.field_147718_c, 0.0D, 0.0D, 0.0D, 0.0F);
+                TileEntityRendererDispatcher.instance.renderTileEntityAt(field_147718_c, 0.0D, 0.0D, 0.0D, 0.0F);
             } else {
-                TileEntityRendererDispatcher.instance.renderTileEntityAt(this.field_147717_b, 0.0D, 0.0D, 0.0D, 0.0F);
+                TileEntityRendererDispatcher.instance.renderTileEntityAt(field_147717_b, 0.0D, 0.0D, 0.0D, 0.0F);
             }
         }
     }

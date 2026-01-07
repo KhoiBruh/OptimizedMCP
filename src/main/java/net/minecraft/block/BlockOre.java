@@ -21,7 +21,7 @@ public class BlockOre extends Block {
 
     public BlockOre(MapColor p_i46390_1_) {
         super(Material.rock, p_i46390_1_);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -33,23 +33,23 @@ public class BlockOre extends Block {
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {
-        if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped(this.getBlockState().getValidStates().iterator().next(), random, fortune)) {
+        if (fortune > 0 && Item.getItemFromBlock(this) != getItemDropped(getBlockState().getValidStates().iterator().next(), random, fortune)) {
             int i = random.nextInt(fortune + 2) - 1;
 
             if (i < 0) {
                 i = 0;
             }
 
-            return this.quantityDropped(random) * (i + 1);
+            return quantityDropped(random) * (i + 1);
         } else {
-            return this.quantityDropped(random);
+            return quantityDropped(random);
         }
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
-        if (this.getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
+        if (getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
             int i = 0;
 
             if (this == Blocks.coal_ore) {
@@ -64,7 +64,7 @@ public class BlockOre extends Block {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
             }
 
-            this.dropXpOnBlockBreak(worldIn, pos, i);
+            dropXpOnBlockBreak(worldIn, pos, i);
         }
     }
 

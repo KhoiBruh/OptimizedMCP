@@ -20,34 +20,34 @@ public class MapItemRenderer {
     private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.newHashMap();
 
     public MapItemRenderer(TextureManager textureManagerIn) {
-        this.textureManager = textureManagerIn;
+        textureManager = textureManagerIn;
     }
 
     public void updateMapTexture(MapData mapdataIn) {
-        this.getMapRendererInstance(mapdataIn).updateMapTexture();
+        getMapRendererInstance(mapdataIn).updateMapTexture();
     }
 
     public void renderMap(MapData mapdataIn, boolean p_148250_2_) {
-        this.getMapRendererInstance(mapdataIn).render(p_148250_2_);
+        getMapRendererInstance(mapdataIn).render(p_148250_2_);
     }
 
     private MapItemRenderer.Instance getMapRendererInstance(MapData mapdataIn) {
-        MapItemRenderer.Instance mapitemrenderer$instance = this.loadedMaps.get(mapdataIn.mapName);
+        MapItemRenderer.Instance mapitemrenderer$instance = loadedMaps.get(mapdataIn.mapName);
 
         if (mapitemrenderer$instance == null) {
             mapitemrenderer$instance = new MapItemRenderer.Instance(mapdataIn);
-            this.loadedMaps.put(mapdataIn.mapName, mapitemrenderer$instance);
+            loadedMaps.put(mapdataIn.mapName, mapitemrenderer$instance);
         }
 
         return mapitemrenderer$instance;
     }
 
     public void clearLoadedMaps() {
-        for (MapItemRenderer.Instance mapitemrenderer$instance : this.loadedMaps.values()) {
-            this.textureManager.deleteTexture(mapitemrenderer$instance.location);
+        for (MapItemRenderer.Instance mapitemrenderer$instance : loadedMaps.values()) {
+            textureManager.deleteTexture(mapitemrenderer$instance.location);
         }
 
-        this.loadedMaps.clear();
+        loadedMaps.clear();
     }
 
     class Instance {
@@ -57,28 +57,28 @@ public class MapItemRenderer {
         private final int[] mapTextureData;
 
         private Instance(MapData mapdataIn) {
-            this.mapData = mapdataIn;
-            this.mapTexture = new DynamicTexture(128, 128);
-            this.mapTextureData = this.mapTexture.getTextureData();
-            this.location = MapItemRenderer.this.textureManager.getDynamicTextureLocation("map/" + mapdataIn.mapName, this.mapTexture);
+            mapData = mapdataIn;
+            mapTexture = new DynamicTexture(128, 128);
+            mapTextureData = mapTexture.getTextureData();
+            location = textureManager.getDynamicTextureLocation("map/" + mapdataIn.mapName, mapTexture);
 
-            for (int i = 0; i < this.mapTextureData.length; ++i) {
-                this.mapTextureData[i] = 0;
+            for (int i = 0; i < mapTextureData.length; ++i) {
+                mapTextureData[i] = 0;
             }
         }
 
         private void updateMapTexture() {
             for (int i = 0; i < 16384; ++i) {
-                int j = this.mapData.colors[i] & 255;
+                int j = mapData.colors[i] & 255;
 
                 if (j / 4 == 0) {
-                    this.mapTextureData[i] = (i + i / 128 & 1) * 8 + 16 << 24;
+                    mapTextureData[i] = (i + i / 128 & 1) * 8 + 16 << 24;
                 } else {
-                    this.mapTextureData[i] = MapColor.mapColorArray[j / 4].getMapColor(j & 3);
+                    mapTextureData[i] = MapColor.mapColorArray[j / 4].getMapColor(j & 3);
                 }
             }
 
-            this.mapTexture.updateDynamicTexture();
+            mapTexture.updateDynamicTexture();
         }
 
         private void render(boolean noOverlayRendering) {
@@ -87,7 +87,7 @@ public class MapItemRenderer {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             float f = 0.0F;
-            MapItemRenderer.this.textureManager.bindTexture(this.location);
+            textureManager.bindTexture(location);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(1, 771, 0, 1);
             GlStateManager.disableAlpha();
@@ -99,10 +99,10 @@ public class MapItemRenderer {
             tessellator.draw();
             GlStateManager.enableAlpha();
             GlStateManager.disableBlend();
-            MapItemRenderer.this.textureManager.bindTexture(MapItemRenderer.mapIcons);
+            textureManager.bindTexture(MapItemRenderer.mapIcons);
             int k = 0;
 
-            for (Vec4b vec4b : this.mapData.mapDecorations.values()) {
+            for (Vec4b vec4b : mapData.mapDecorations.values()) {
                 if (!noOverlayRendering || vec4b.func_176110_a() == 1) {
                     GlStateManager.pushMatrix();
                     GlStateManager.translate((float) i + (float) vec4b.func_176112_b() / 2.0F + 64.0F, (float) j + (float) vec4b.func_176113_c() / 2.0F + 64.0F, -0.02F);

@@ -27,9 +27,9 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 
     protected BlockTallGrass() {
         super(Material.vine);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockTallGrass.EnumType.DEAD_BUSH));
+        setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockTallGrass.EnumType.DEAD_BUSH));
         float f = 0.4F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
     }
 
     public int getBlockColor() {
@@ -37,7 +37,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-        return this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
+        return canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
 
     public boolean isReplaceable(World worldIn, BlockPos pos) {
@@ -106,7 +106,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(TYPE, BlockTallGrass.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(TYPE, BlockTallGrass.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -151,15 +151,15 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
         }
 
         public int getMeta() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

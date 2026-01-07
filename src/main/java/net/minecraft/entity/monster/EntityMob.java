@@ -15,15 +15,15 @@ import net.minecraft.world.World;
 public abstract class EntityMob extends EntityCreature implements IMob {
     public EntityMob(World worldIn) {
         super(worldIn);
-        this.experienceValue = 5;
+        experienceValue = 5;
     }
 
     public void onLivingUpdate() {
-        this.updateArmSwingProgress();
-        float f = this.getBrightness(1.0F);
+        updateArmSwingProgress();
+        float f = getBrightness(1.0F);
 
         if (f > 0.5F) {
-            this.entityAge += 2;
+            entityAge += 2;
         }
 
         super.onLivingUpdate();
@@ -32,8 +32,8 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     public void onUpdate() {
         super.onUpdate();
 
-        if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
-            this.setDead();
+        if (!worldObj.isRemote && worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+            setDead();
         }
     }
 
@@ -46,7 +46,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
         } else if (super.attackEntityFrom(source, amount)) {
             Entity entity = source.getEntity();
@@ -69,11 +69,11 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
-        float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+        float f = (float) getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
         int i = 0;
 
         if (entityIn instanceof EntityLivingBase) {
-            f += EnchantmentHelper.getModifierForCreature(this.getHeldItem(), ((EntityLivingBase) entityIn).getCreatureAttribute());
+            f += EnchantmentHelper.getModifierForCreature(getHeldItem(), ((EntityLivingBase) entityIn).getCreatureAttribute());
             i += EnchantmentHelper.getKnockbackModifier(this);
         }
 
@@ -81,9 +81,9 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 
         if (flag) {
             if (i > 0) {
-                entityIn.addVelocity(-MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F, 0.1D, MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F);
-                this.motionX *= 0.6D;
-                this.motionZ *= 0.6D;
+                entityIn.addVelocity(-MathHelper.sin(rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F, 0.1D, MathHelper.cos(rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F);
+                motionX *= 0.6D;
+                motionZ *= 0.6D;
             }
 
             int j = EnchantmentHelper.getFireAspectModifier(this);
@@ -92,42 +92,42 @@ public abstract class EntityMob extends EntityCreature implements IMob {
                 entityIn.setFire(j * 4);
             }
 
-            this.applyEnchantments(this, entityIn);
+            applyEnchantments(this, entityIn);
         }
 
         return flag;
     }
 
     public float getBlockPathWeight(BlockPos pos) {
-        return 0.5F - this.worldObj.getLightBrightness(pos);
+        return 0.5F - worldObj.getLightBrightness(pos);
     }
 
     protected boolean isValidLightLevel() {
-        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
-        if (this.worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+        if (worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
             return false;
         } else {
-            int i = this.worldObj.getLightFromNeighbors(blockpos);
+            int i = worldObj.getLightFromNeighbors(blockpos);
 
-            if (this.worldObj.isThundering()) {
-                int j = this.worldObj.getSkylightSubtracted();
-                this.worldObj.setSkylightSubtracted(10);
-                i = this.worldObj.getLightFromNeighbors(blockpos);
-                this.worldObj.setSkylightSubtracted(j);
+            if (worldObj.isThundering()) {
+                int j = worldObj.getSkylightSubtracted();
+                worldObj.setSkylightSubtracted(10);
+                i = worldObj.getLightFromNeighbors(blockpos);
+                worldObj.setSkylightSubtracted(j);
             }
 
-            return i <= this.rand.nextInt(8);
+            return i <= rand.nextInt(8);
         }
     }
 
     public boolean getCanSpawnHere() {
-        return this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
+        return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
     }
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
     }
 
     protected boolean canDropLoot() {

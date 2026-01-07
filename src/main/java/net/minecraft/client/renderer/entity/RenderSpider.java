@@ -10,7 +10,7 @@ public class RenderSpider<T extends EntitySpider> extends RenderLiving<T> {
 
     public RenderSpider(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelSpider(), 1.0F);
-        this.addLayer(new LayerSpiderEyes(this));
+        addLayer(new LayerSpiderEyes(this));
     }
 
     protected float getDeathMaxRotation(T entityLivingBaseIn) {

@@ -32,9 +32,9 @@ public class BlockTripWire extends Block {
 
     public BlockTripWire() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(DISARMED, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15625F, 1.0F);
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(DISARMED, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15625F, 1.0F);
+        setTickRandomly(true);
     }
 
     public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing direction) {
@@ -87,7 +87,7 @@ public class BlockTripWire extends Block {
         boolean flag1 = !World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
 
         if (flag != flag1) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -98,22 +98,22 @@ public class BlockTripWire extends Block {
         boolean flag1 = iblockstate.getValue(SUSPENDED);
 
         if (!flag1) {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.09375F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.09375F, 1.0F);
         } else if (!flag) {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+            setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         } else {
-            this.setBlockBounds(0.0F, 0.0625F, 0.0F, 1.0F, 0.15625F, 1.0F);
+            setBlockBounds(0.0F, 0.0625F, 0.0F, 1.0F, 0.15625F, 1.0F);
         }
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         state = state.withProperty(SUSPENDED, !World.doesBlockHaveSolidTopSurface(worldIn, pos.down()));
         worldIn.setBlockState(pos, state, 3);
-        this.notifyHook(worldIn, pos, state);
+        notifyHook(worldIn, pos, state);
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        this.notifyHook(worldIn, pos, state.withProperty(POWERED, Boolean.TRUE));
+        notifyHook(worldIn, pos, state.withProperty(POWERED, Boolean.TRUE));
     }
 
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
@@ -148,7 +148,7 @@ public class BlockTripWire extends Block {
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             if (!state.getValue(POWERED)) {
-                this.updateState(worldIn, pos);
+                updateState(worldIn, pos);
             }
         }
     }
@@ -159,7 +159,7 @@ public class BlockTripWire extends Block {
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             if (worldIn.getBlockState(pos).getValue(POWERED)) {
-                this.updateState(worldIn, pos);
+                updateState(worldIn, pos);
             }
         }
     }
@@ -168,7 +168,7 @@ public class BlockTripWire extends Block {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         boolean flag = iblockstate.getValue(POWERED);
         boolean flag1 = false;
-        List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (double) pos.getY() + this.maxY, (double) pos.getZ() + this.maxZ));
+        List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB((double) pos.getX() + minX, (double) pos.getY() + minY, (double) pos.getZ() + minZ, (double) pos.getX() + maxX, (double) pos.getY() + maxY, (double) pos.getZ() + maxZ));
 
         if (!list.isEmpty()) {
             for (Entity entity : list) {
@@ -182,16 +182,16 @@ public class BlockTripWire extends Block {
         if (flag1 != flag) {
             iblockstate = iblockstate.withProperty(POWERED, flag1);
             worldIn.setBlockState(pos, iblockstate, 3);
-            this.notifyHook(worldIn, pos, iblockstate);
+            notifyHook(worldIn, pos, iblockstate);
         }
 
         if (flag1) {
-            worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+            worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(POWERED, (meta & 1) > 0).withProperty(SUSPENDED, (meta & 2) > 0).withProperty(ATTACHED, (meta & 4) > 0).withProperty(DISARMED, (meta & 8) > 0);
+        return getDefaultState().withProperty(POWERED, (meta & 1) > 0).withProperty(SUSPENDED, (meta & 2) > 0).withProperty(ATTACHED, (meta & 4) > 0).withProperty(DISARMED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {

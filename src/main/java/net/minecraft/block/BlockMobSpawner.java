@@ -31,7 +31,7 @@ public class BlockMobSpawner extends BlockContainer {
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
         int i = 15 + worldIn.rand.nextInt(15) + worldIn.rand.nextInt(15);
-        this.dropXpOnBlockBreak(worldIn, pos, i);
+        dropXpOnBlockBreak(worldIn, pos, i);
     }
 
     public boolean isOpaqueCube() {

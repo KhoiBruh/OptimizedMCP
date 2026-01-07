@@ -12,23 +12,23 @@ public class FolderResourcePack extends AbstractResourcePack {
     }
 
     protected InputStream getInputStreamByName(String name) throws IOException {
-        return new BufferedInputStream(new FileInputStream(new File(this.resourcePackFile, name)));
+        return new BufferedInputStream(new FileInputStream(new File(resourcePackFile, name)));
     }
 
     protected boolean hasResourceName(String name) {
-        return (new File(this.resourcePackFile, name)).isFile();
+        return (new File(resourcePackFile, name)).isFile();
     }
 
     public Set<String> getResourceDomains() {
         Set<String> set = Sets.newHashSet();
-        File file1 = new File(this.resourcePackFile, "assets/");
+        File file1 = new File(resourcePackFile, "assets/");
 
         if (file1.isDirectory()) {
             for (File file2 : file1.listFiles((FileFilter) DirectoryFileFilter.DIRECTORY)) {
                 String s = getRelativeName(file1, file2);
 
                 if (!s.equals(s.toLowerCase())) {
-                    this.logNameNotLowercase(s);
+                    logNameNotLowercase(s);
                 } else {
                     set.add(s.substring(0, s.length() - 1));
                 }

@@ -22,7 +22,7 @@ public class SaveFormatOld implements ISaveFormat {
             savesDirectoryIn.mkdirs();
         }
 
-        this.savesDirectory = savesDirectoryIn;
+        savesDirectory = savesDirectoryIn;
     }
 
     protected static boolean deleteFiles(File[] files) {
@@ -52,7 +52,7 @@ public class SaveFormatOld implements ISaveFormat {
 
         for (int i = 0; i < 5; ++i) {
             String s = "World" + (i + 1);
-            WorldInfo worldinfo = this.getWorldInfo(s);
+            WorldInfo worldinfo = getWorldInfo(s);
 
             if (worldinfo != null) {
                 list.add(new SaveFormatComparator(s, "", worldinfo.getLastTimePlayed(), worldinfo.getSizeOnDisk(), worldinfo.getGameType(), false, worldinfo.isHardcoreModeEnabled(), worldinfo.areCommandsAllowed()));
@@ -66,7 +66,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public WorldInfo getWorldInfo(String saveName) {
-        File file1 = new File(this.savesDirectory, saveName);
+        File file1 = new File(savesDirectory, saveName);
 
         if (!file1.exists()) {
             return null;
@@ -100,7 +100,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public void renameWorld(String dirName, String newName) {
-        File file1 = new File(this.savesDirectory, dirName);
+        File file1 = new File(savesDirectory, dirName);
 
         if (file1.exists()) {
             File file2 = new File(file1, "level.dat");
@@ -119,7 +119,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public boolean isNewLevelIdAcceptable(String saveName) {
-        File file1 = new File(this.savesDirectory, saveName);
+        File file1 = new File(savesDirectory, saveName);
 
         if (file1.exists()) {
             return false;
@@ -136,7 +136,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public boolean deleteWorldDirectory(String saveName) {
-        File file1 = new File(this.savesDirectory, saveName);
+        File file1 = new File(savesDirectory, saveName);
 
         if (!file1.exists()) {
             return true;
@@ -165,7 +165,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata) {
-        return new SaveHandler(this.savesDirectory, saveName, storePlayerdata);
+        return new SaveHandler(savesDirectory, saveName, storePlayerdata);
     }
 
     public boolean isConvertible(String saveName) {
@@ -181,7 +181,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public boolean canLoadWorld(String saveName) {
-        File file1 = new File(this.savesDirectory, saveName);
+        File file1 = new File(savesDirectory, saveName);
         return file1.isDirectory();
     }
 }

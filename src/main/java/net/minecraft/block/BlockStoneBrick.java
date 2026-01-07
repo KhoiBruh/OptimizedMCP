@@ -21,8 +21,8 @@ public class BlockStoneBrick extends Block {
 
     public BlockStoneBrick() {
         super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockStoneBrick.EnumType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStoneBrick.EnumType.DEFAULT));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int damageDropped(IBlockState state) {
@@ -36,7 +36,7 @@ public class BlockStoneBrick extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockStoneBrick.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockStoneBrick.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -80,19 +80,19 @@ public class BlockStoneBrick extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

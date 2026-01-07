@@ -47,7 +47,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     }
 
     public boolean interactFirst(EntityPlayer playerIn) {
-        if (!this.worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             playerIn.displayGUIChest(this);
         }
 
@@ -57,53 +57,53 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         boolean flag = !receivingPower;
 
-        if (flag != this.getBlocked()) {
-            this.setBlocked(flag);
+        if (flag != getBlocked()) {
+            setBlocked(flag);
         }
     }
 
     public boolean getBlocked() {
-        return this.isBlocked;
+        return isBlocked;
     }
 
     public void setBlocked(boolean p_96110_1_) {
-        this.isBlocked = p_96110_1_;
+        isBlocked = p_96110_1_;
     }
 
     public World getWorld() {
-        return this.worldObj;
+        return worldObj;
     }
 
     public double getXPos() {
-        return this.posX;
+        return posX;
     }
 
     public double getYPos() {
-        return this.posY + 0.5D;
+        return posY + 0.5D;
     }
 
     public double getZPos() {
-        return this.posZ;
+        return posZ;
     }
 
     public void onUpdate() {
         super.onUpdate();
 
-        if (!this.worldObj.isRemote && this.isEntityAlive() && this.getBlocked()) {
+        if (!worldObj.isRemote && isEntityAlive() && getBlocked()) {
             BlockPos blockpos = new BlockPos(this);
 
-            if (blockpos.equals(this.field_174900_c)) {
-                --this.transferTicker;
+            if (blockpos.equals(field_174900_c)) {
+                --transferTicker;
             } else {
-                this.setTransferTicker(0);
+                setTransferTicker(0);
             }
 
-            if (!this.canTransfer()) {
-                this.setTransferTicker(0);
+            if (!canTransfer()) {
+                setTransferTicker(0);
 
-                if (this.func_96112_aD()) {
-                    this.setTransferTicker(4);
-                    this.markDirty();
+                if (func_96112_aD()) {
+                    setTransferTicker(4);
+                    markDirty();
                 }
             }
         }
@@ -113,9 +113,9 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         if (TileEntityHopper.captureDroppedItems(this)) {
             return true;
         } else {
-            List<EntityItem> list = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.selectAnything);
+            List<EntityItem> list = worldObj.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.selectAnything);
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 TileEntityHopper.putDropInInventoryAllSlots(this, list.get(0));
             }
 
@@ -126,27 +126,27 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
-        if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.hopper), 1, 0.0F);
+        if (worldObj.getGameRules().getBoolean("doEntityDrops")) {
+            dropItemWithOffset(Item.getItemFromBlock(Blocks.hopper), 1, 0.0F);
         }
     }
 
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
-        tagCompound.setInteger("TransferCooldown", this.transferTicker);
+        tagCompound.setInteger("TransferCooldown", transferTicker);
     }
 
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
-        this.transferTicker = tagCompund.getInteger("TransferCooldown");
+        transferTicker = tagCompund.getInteger("TransferCooldown");
     }
 
     public void setTransferTicker(int p_98042_1_) {
-        this.transferTicker = p_98042_1_;
+        transferTicker = p_98042_1_;
     }
 
     public boolean canTransfer() {
-        return this.transferTicker > 0;
+        return transferTicker > 0;
     }
 
     public String getGuiID() {

@@ -20,45 +20,45 @@ public class S42PacketCombatEvent implements Packet<INetHandlerPlayClient> {
 
     @SuppressWarnings("incomplete-switch")
     public S42PacketCombatEvent(CombatTracker combatTrackerIn, S42PacketCombatEvent.Event combatEventType) {
-        this.eventType = combatEventType;
+        eventType = combatEventType;
         EntityLivingBase entitylivingbase = combatTrackerIn.func_94550_c();
 
         switch (combatEventType) {
             case END_COMBAT:
-                this.field_179772_d = combatTrackerIn.func_180134_f();
-                this.field_179775_c = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
+                field_179772_d = combatTrackerIn.func_180134_f();
+                field_179775_c = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
                 break;
 
             case ENTITY_DIED:
-                this.field_179774_b = combatTrackerIn.getFighter().getEntityId();
-                this.field_179775_c = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
-                this.deathMessage = combatTrackerIn.getDeathMessage().getUnformattedText();
+                field_179774_b = combatTrackerIn.getFighter().getEntityId();
+                field_179775_c = entitylivingbase == null ? -1 : entitylivingbase.getEntityId();
+                deathMessage = combatTrackerIn.getDeathMessage().getUnformattedText();
         }
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.eventType = buf.readEnumValue(Event.class);
+        eventType = buf.readEnumValue(Event.class);
 
-        if (this.eventType == S42PacketCombatEvent.Event.END_COMBAT) {
-            this.field_179772_d = buf.readVarIntFromBuffer();
-            this.field_179775_c = buf.readInt();
-        } else if (this.eventType == S42PacketCombatEvent.Event.ENTITY_DIED) {
-            this.field_179774_b = buf.readVarIntFromBuffer();
-            this.field_179775_c = buf.readInt();
-            this.deathMessage = buf.readStringFromBuffer(32767);
+        if (eventType == S42PacketCombatEvent.Event.END_COMBAT) {
+            field_179772_d = buf.readVarIntFromBuffer();
+            field_179775_c = buf.readInt();
+        } else if (eventType == S42PacketCombatEvent.Event.ENTITY_DIED) {
+            field_179774_b = buf.readVarIntFromBuffer();
+            field_179775_c = buf.readInt();
+            deathMessage = buf.readStringFromBuffer(32767);
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.eventType);
+        buf.writeEnumValue(eventType);
 
-        if (this.eventType == S42PacketCombatEvent.Event.END_COMBAT) {
-            buf.writeVarIntToBuffer(this.field_179772_d);
-            buf.writeInt(this.field_179775_c);
-        } else if (this.eventType == S42PacketCombatEvent.Event.ENTITY_DIED) {
-            buf.writeVarIntToBuffer(this.field_179774_b);
-            buf.writeInt(this.field_179775_c);
-            buf.writeString(this.deathMessage);
+        if (eventType == S42PacketCombatEvent.Event.END_COMBAT) {
+            buf.writeVarIntToBuffer(field_179772_d);
+            buf.writeInt(field_179775_c);
+        } else if (eventType == S42PacketCombatEvent.Event.ENTITY_DIED) {
+            buf.writeVarIntToBuffer(field_179774_b);
+            buf.writeInt(field_179775_c);
+            buf.writeString(deathMessage);
         }
     }
 

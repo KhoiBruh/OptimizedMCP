@@ -46,35 +46,35 @@ public abstract class BlockStateBase implements IBlockState {
     }
 
     public int getBlockId() {
-        if (this.blockId < 0) {
-            this.blockId = Block.getIdFromBlock(this.getBlock());
+        if (blockId < 0) {
+            blockId = Block.getIdFromBlock(getBlock());
         }
 
-        return this.blockId;
+        return blockId;
     }
 
     public int getBlockStateId() {
-        if (this.blockStateId < 0) {
-            this.blockStateId = Block.getStateId(this);
+        if (blockStateId < 0) {
+            blockStateId = Block.getStateId(this);
         }
 
-        return this.blockStateId;
+        return blockStateId;
     }
 
     public int getMetadata() {
-        if (this.metadata < 0) {
-            this.metadata = this.getBlock().getMetaFromState(this);
+        if (metadata < 0) {
+            metadata = getBlock().getMetaFromState(this);
         }
 
-        return this.metadata;
+        return metadata;
     }
 
     public ResourceLocation getBlockLocation() {
-        if (this.blockLocation == null) {
-            this.blockLocation = Block.blockRegistry.getNameForObject(this.getBlock());
+        if (blockLocation == null) {
+            blockLocation = Block.blockRegistry.getNameForObject(getBlock());
         }
 
-        return this.blockLocation;
+        return blockLocation;
     }
 
     public ImmutableTable<IProperty<?>, Comparable<?>, IBlockState> getPropertyValueTable() {
@@ -82,16 +82,16 @@ public abstract class BlockStateBase implements IBlockState {
     }
 
     public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property) {
-        return this.withProperty(property, cyclePropertyValue(property.getAllowedValues(), this.getValue(property)));
+        return withProperty(property, cyclePropertyValue(property.getAllowedValues(), getValue(property)));
     }
 
     public String toString() {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append(Block.blockRegistry.getNameForObject(this.getBlock()));
+        stringbuilder.append(Block.blockRegistry.getNameForObject(getBlock()));
 
-        if (!this.getProperties().isEmpty()) {
+        if (!getProperties().isEmpty()) {
             stringbuilder.append("[");
-            COMMA_JOINER.appendTo(stringbuilder, Iterables.transform(this.getProperties().entrySet(), MAP_ENTRY_TO_STRING));
+            COMMA_JOINER.appendTo(stringbuilder, Iterables.transform(getProperties().entrySet(), MAP_ENTRY_TO_STRING));
             stringbuilder.append("]");
         }
 

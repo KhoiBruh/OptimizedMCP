@@ -87,7 +87,7 @@ public class Bootstrap {
                     protected float func_82500_b() {
                         return super.func_82500_b() * 1.25F;
                     }
-                }).dispense(source, stack) : this.field_150843_b.dispense(source, stack);
+                }).dispense(source, stack) : field_150843_b.dispense(source, stack);
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.spawn_egg, new BehaviorDefaultDispenseItem() {
@@ -160,7 +160,7 @@ public class Bootstrap {
                     d3 = 1.0D;
                 } else {
                     if (!Material.air.equals(material) || !Material.water.equals(world.getBlockState(blockpos.down()).getBlock().getMaterial())) {
-                        return this.field_150842_b.dispense(source, stack);
+                        return field_150842_b.dispense(source, stack);
                     }
 
                     d3 = 0.0D;
@@ -188,7 +188,7 @@ public class Bootstrap {
                     stack.stackSize = 1;
                     return stack;
                 } else {
-                    return this.field_150841_b.dispense(source, stack);
+                    return field_150841_b.dispense(source, stack);
                 }
             }
         };
@@ -221,7 +221,7 @@ public class Bootstrap {
                     stack.setItem(item);
                     stack.stackSize = 1;
                 } else if (((TileEntityDispenser) source.getBlockTileEntity()).addItemStack(new ItemStack(item)) < 0) {
-                    this.field_150840_b.dispense(source, new ItemStack(item));
+                    field_150840_b.dispense(source, new ItemStack(item));
                 }
 
                 return stack;
@@ -244,14 +244,14 @@ public class Bootstrap {
                     Blocks.tnt.onBlockDestroyedByPlayer(world, blockpos, Blocks.tnt.getDefaultState().withProperty(BlockTNT.EXPLODE, Boolean.TRUE));
                     world.setBlockToAir(blockpos);
                 } else {
-                    this.field_150839_b = false;
+                    field_150839_b = false;
                 }
 
                 return stack;
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_150839_b) {
+                if (field_150839_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
                 } else {
                     source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
@@ -271,7 +271,7 @@ public class Bootstrap {
                             world.playAuxSFX(2005, blockpos, 0);
                         }
                     } else {
-                        this.field_150838_b = false;
+                        field_150838_b = false;
                     }
 
                     return stack;
@@ -281,7 +281,7 @@ public class Bootstrap {
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_150838_b) {
+                if (field_150838_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
                 } else {
                     source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
@@ -343,14 +343,14 @@ public class Bootstrap {
                         --stack.stackSize;
                     }
                 } else {
-                    this.field_179240_b = false;
+                    field_179240_b = false;
                 }
 
                 return stack;
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_179240_b) {
+                if (field_179240_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
                 } else {
                     source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
@@ -372,14 +372,14 @@ public class Bootstrap {
 
                     --stack.stackSize;
                 } else {
-                    this.field_179241_b = false;
+                    field_179241_b = false;
                 }
 
                 return stack;
             }
 
             protected void playDispenseSound(IBlockSource source) {
-                if (this.field_179241_b) {
+                if (field_179241_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
                 } else {
                     source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);

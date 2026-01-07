@@ -48,8 +48,8 @@ public class NetworkSystem {
     public volatile boolean isAlive;
 
     public NetworkSystem(MinecraftServer server) {
-        this.mcServer = server;
-        this.isAlive = true;
+        mcServer = server;
+        isAlive = true;
     }
 
     public void addLanEndpoint(InetAddress address, int port) throws IOException {
@@ -88,9 +88,9 @@ public class NetworkSystem {
     }
 
     public void terminateEndpoints() {
-        this.isAlive = false;
+        isAlive = false;
 
-        for (ChannelFuture channelfuture : this.endpoints) {
+        for (ChannelFuture channelfuture : endpoints) {
             try {
                 channelfuture.channel().close().sync();
             } catch (InterruptedException var4) {
@@ -100,8 +100,8 @@ public class NetworkSystem {
     }
 
     public void networkTick() {
-        synchronized (this.networkManagers) {
-            Iterator<NetworkManager> iterator = this.networkManagers.iterator();
+        synchronized (networkManagers) {
+            Iterator<NetworkManager> iterator = networkManagers.iterator();
 
             while (iterator.hasNext()) {
                 final NetworkManager networkmanager = iterator.next();
@@ -141,6 +141,6 @@ public class NetworkSystem {
     }
 
     public MinecraftServer getServer() {
-        return this.mcServer;
+        return mcServer;
     }
 }

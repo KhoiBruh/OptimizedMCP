@@ -39,7 +39,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
                 for (int k1 = position.getX() - j1; k1 <= position.getX() + j1 && flag; ++k1) {
                     for (int l1 = position.getZ() - j1; l1 <= position.getZ() + j1 && flag; ++l1) {
                         if (i1 >= 0 && i1 < 256) {
-                            if (!this.func_150523_a(worldIn.getBlockState(blockpos$mutableblockpos.set(k1, i1, l1)).getBlock())) {
+                            if (!func_150523_a(worldIn.getBlockState(blockpos$mutableblockpos.set(k1, i1, l1)).getBlock())) {
                                 flag = false;
                             }
                         } else {
@@ -55,7 +55,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
                 Block block = worldIn.getBlockState(position.down()).getBlock();
 
                 if ((block == Blocks.grass || block == Blocks.dirt) && position.getY() < 256 - i - 1) {
-                    this.func_175921_a(worldIn, position.down());
+                    func_175921_a(worldIn, position.down());
                     int k2 = 0;
 
                     for (int l2 = position.getY() + i; l2 >= position.getY() + j; --l2) {
@@ -69,7 +69,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
                                     BlockPos blockpos = new BlockPos(j3, l2, i2);
 
                                     if (!worldIn.getBlockState(blockpos).getBlock().isFullBlock()) {
-                                        this.setBlockAndNotifyAdequately(worldIn, blockpos, field_181637_b);
+                                        setBlockAndNotifyAdequately(worldIn, blockpos, field_181637_b);
                                     }
                                 }
                             }
@@ -86,7 +86,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
                         Block block1 = worldIn.getBlockState(position.up(i3)).getBlock();
 
                         if (block1.getMaterial() == Material.air || block1.getMaterial() == Material.leaves) {
-                            this.setBlockAndNotifyAdequately(worldIn, position.up(i3), field_181636_a);
+                            setBlockAndNotifyAdequately(worldIn, position.up(i3), field_181636_a);
                         }
                     }
 

@@ -22,11 +22,11 @@ public class BlockCarpet extends Block {
 
     protected BlockCarpet() {
         super(Material.carpet);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setBlockBoundsFromMeta(0);
+        setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.tabDecorations);
+        setBlockBoundsFromMeta(0);
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -42,30 +42,30 @@ public class BlockCarpet extends Block {
     }
 
     public void setBlockBoundsForItemRender() {
-        this.setBlockBoundsFromMeta(0);
+        setBlockBoundsFromMeta(0);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.setBlockBoundsFromMeta(0);
+        setBlockBoundsFromMeta(0);
     }
 
     protected void setBlockBoundsFromMeta(int meta) {
         int i = 0;
         float f = (float) ((1 + i)) / 16.0F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
+        return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        this.checkForDrop(worldIn, pos, state);
+        checkForDrop(worldIn, pos, state);
     }
 
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-        if (!this.canBlockStay(worldIn, pos)) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+        if (!canBlockStay(worldIn, pos)) {
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         } else {
@@ -92,7 +92,7 @@ public class BlockCarpet extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

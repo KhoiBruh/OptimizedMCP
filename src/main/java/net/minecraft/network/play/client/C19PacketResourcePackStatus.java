@@ -18,18 +18,18 @@ public class C19PacketResourcePackStatus implements Packet<INetHandlerPlayServer
             hashIn = hashIn.substring(0, 40);
         }
 
-        this.hash = hashIn;
-        this.status = statusIn;
+        hash = hashIn;
+        status = statusIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.hash = buf.readStringFromBuffer(40);
-        this.status = buf.readEnumValue(Action.class);
+        hash = buf.readStringFromBuffer(40);
+        status = buf.readEnumValue(Action.class);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeString(this.hash);
-        buf.writeEnumValue(this.status);
+        buf.writeString(hash);
+        buf.writeEnumValue(status);
     }
 
     public void processPacket(INetHandlerPlayServer handler) {

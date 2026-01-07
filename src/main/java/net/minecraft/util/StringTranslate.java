@@ -29,12 +29,12 @@ public class StringTranslate {
                     if (astring != null && astring.length == 2) {
                         String s1 = astring[0];
                         String s2 = numericVariablePattern.matcher(astring[1]).replaceAll("%$1s");
-                        this.languageList.put(s1, s2);
+                        languageList.put(s1, s2);
                     }
                 }
             }
 
-            this.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
+            lastUpdateTimeInMilliseconds = System.currentTimeMillis();
         } catch (Exception var7) {
         }
     }
@@ -50,11 +50,11 @@ public class StringTranslate {
     }
 
     public synchronized String translateKey(String key) {
-        return this.tryTranslateKey(key);
+        return tryTranslateKey(key);
     }
 
     public synchronized String translateKeyFormat(String key, Object... format) {
-        String s = this.tryTranslateKey(key);
+        String s = tryTranslateKey(key);
 
         try {
             return String.format(s, format);
@@ -64,15 +64,15 @@ public class StringTranslate {
     }
 
     private String tryTranslateKey(String key) {
-        String s = this.languageList.get(key);
+        String s = languageList.get(key);
         return s == null ? key : s;
     }
 
     public synchronized boolean isKeyTranslated(String key) {
-        return this.languageList.containsKey(key);
+        return languageList.containsKey(key);
     }
 
     public long getLastUpdateTimeInMilliseconds() {
-        return this.lastUpdateTimeInMilliseconds;
+        return lastUpdateTimeInMilliseconds;
     }
 }

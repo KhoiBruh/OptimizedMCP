@@ -26,15 +26,15 @@ public class BlockWall extends Block {
 
     public BlockWall(Block modelBlock) {
         super(modelBlock.blockMaterial);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
-        this.setHardness(modelBlock.blockHardness);
-        this.setResistance(modelBlock.blockResistance / 3.0F);
-        this.setStepSound(modelBlock.stepSound);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+        setHardness(modelBlock.blockHardness);
+        setResistance(modelBlock.blockResistance / 3.0F);
+        setStepSound(modelBlock.stepSound);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
+        return StatCollector.translateToLocal(getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
     }
 
     public boolean isFullCube() {
@@ -50,10 +50,10 @@ public class BlockWall extends Block {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        boolean flag = this.canConnectTo(worldIn, pos.north());
-        boolean flag1 = this.canConnectTo(worldIn, pos.south());
-        boolean flag2 = this.canConnectTo(worldIn, pos.west());
-        boolean flag3 = this.canConnectTo(worldIn, pos.east());
+        boolean flag = canConnectTo(worldIn, pos.north());
+        boolean flag1 = canConnectTo(worldIn, pos.south());
+        boolean flag2 = canConnectTo(worldIn, pos.west());
+        boolean flag3 = canConnectTo(worldIn, pos.east());
         float f = 0.25F;
         float f1 = 0.75F;
         float f2 = 0.25F;
@@ -86,12 +86,12 @@ public class BlockWall extends Block {
             f3 = 0.6875F;
         }
 
-        this.setBlockBounds(f, 0.0F, f2, f1, f4, f3);
+        setBlockBounds(f, 0.0F, f2, f1, f4, f3);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
-        this.maxY = 1.5D;
+        setBlockBoundsBasedOnState(worldIn, pos);
+        maxY = 1.5D;
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
@@ -115,7 +115,7 @@ public class BlockWall extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -123,7 +123,7 @@ public class BlockWall extends Block {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(UP, !worldIn.isAirBlock(pos.up())).withProperty(NORTH, this.canConnectTo(worldIn, pos.north())).withProperty(EAST, this.canConnectTo(worldIn, pos.east())).withProperty(SOUTH, this.canConnectTo(worldIn, pos.south())).withProperty(WEST, this.canConnectTo(worldIn, pos.west()));
+        return state.withProperty(UP, !worldIn.isAirBlock(pos.up())).withProperty(NORTH, canConnectTo(worldIn, pos.north())).withProperty(EAST, canConnectTo(worldIn, pos.east())).withProperty(SOUTH, canConnectTo(worldIn, pos.south())).withProperty(WEST, canConnectTo(worldIn, pos.west()));
     }
 
     protected BlockState createBlockState() {
@@ -161,19 +161,19 @@ public class BlockWall extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

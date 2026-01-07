@@ -40,7 +40,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 
     public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
         super(renderManagerIn);
-        this.itemRenderer = itemRendererIn;
+        itemRenderer = itemRendererIn;
     }
 
     public static void updateItemRenderDistance() {
@@ -58,15 +58,15 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         double d2 = (double) blockpos.getZ() - entity.posZ + z;
         GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
         GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-        this.renderManager.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-        BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
+        renderManager.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        BlockRendererDispatcher blockrendererdispatcher = mc.getBlockRendererDispatcher();
         ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
         IBakedModel ibakedmodel;
 
         if (entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.filled_map) {
-            ibakedmodel = modelmanager.getModel(this.mapModel);
+            ibakedmodel = modelmanager.getModel(mapModel);
         } else {
-            ibakedmodel = modelmanager.getModel(this.itemFrameModel);
+            ibakedmodel = modelmanager.getModel(itemFrameModel);
         }
 
         GlStateManager.pushMatrix();
@@ -74,9 +74,9 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.popMatrix();
         GlStateManager.translate(0.0F, 0.0F, 0.4375F);
-        this.renderItem(entity);
+        renderItem(entity);
         GlStateManager.popMatrix();
-        this.renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
+        renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
     }
 
     protected ResourceLocation getEntityTexture(EntityItemFrame entity) {
@@ -87,12 +87,12 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         ItemStack itemstack = itemFrame.getDisplayedItem();
 
         if (itemstack != null) {
-            if (!this.isRenderItem(itemFrame)) {
+            if (!isRenderItem(itemFrame)) {
                 return;
             }
 
             if (!Config.zoomMode) {
-                Entity entity = this.mc.thePlayer;
+                Entity entity = mc.thePlayer;
                 double d0 = itemFrame.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 
                 if (d0 > 4096.0D) {
@@ -115,7 +115,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
             GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
             if (item instanceof ItemMap) {
-                this.renderManager.renderEngine.bindTexture(mapBackgroundTextures);
+                renderManager.renderEngine.bindTexture(mapBackgroundTextures);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
                 float f = 0.0078125F;
                 GlStateManager.scale(f, f, f);
@@ -124,14 +124,14 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                 GlStateManager.translate(0.0F, 0.0F, -1.0F);
 
                 if (mapdata != null) {
-                    this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
+                    mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
                 }
             } else {
                 TextureAtlasSprite textureatlassprite = null;
 
                 if (item == Items.compass) {
-                    textureatlassprite = this.mc.getTextureMapBlocks().getAtlasSprite(TextureCompass.locationSprite);
-                    this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+                    textureatlassprite = mc.getTextureMapBlocks().getAtlasSprite(TextureCompass.locationSprite);
+                    mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 
                     if (textureatlassprite instanceof TextureCompass texturecompass) {
                         double d1 = texturecompass.currentAngle;
@@ -148,13 +148,13 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 
                 GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
-                if (!this.itemRenderer.shouldRenderItemIn3D(entityitem.getEntityItem()) || item instanceof ItemSkull) {
+                if (!itemRenderer.shouldRenderItemIn3D(entityitem.getEntityItem()) || item instanceof ItemSkull) {
                     GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
                 }
 
                 GlStateManager.pushAttrib();
                 RenderHelper.enableStandardItemLighting();
-                this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+                itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
                 RenderHelper.disableStandardItemLighting();
                 GlStateManager.popAttrib();
 
@@ -169,22 +169,22 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
     }
 
     protected void renderName(EntityItemFrame entity, double x, double y, double z) {
-        if (Minecraft.isGuiEnabled() && entity.getDisplayedItem() != null && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
+        if (Minecraft.isGuiEnabled() && entity.getDisplayedItem() != null && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity) {
             float f = 1.6F;
             float f1 = 0.016666668F * f;
-            double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
+            double d0 = entity.getDistanceSqToEntity(renderManager.livingPlayer);
             float f2 = entity.isSneaking() ? 32.0F : 64.0F;
 
             if (d0 < (double) (f2 * f2)) {
                 String s = entity.getDisplayedItem().getDisplayName();
 
                 if (entity.isSneaking()) {
-                    FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
+                    FontRenderer fontrenderer = getFontRendererFromRenderManager();
                     GlStateManager.pushMatrix();
                     GlStateManager.translate((float) x + 0.0F, (float) y + entity.height + 0.5F, (float) z);
                     GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-                    GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                    GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                    GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+                    GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
                     GlStateManager.scale(-f1, -f1, f1);
                     GlStateManager.disableLighting();
                     GlStateManager.translate(0.0F, 0.25F / f1, 0.0F);
@@ -209,7 +209,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.popMatrix();
                 } else {
-                    this.renderLivingLabel(entity, s, x, y, z, 64);
+                    renderLivingLabel(entity, s, x, y, z, 64);
                 }
             }
         }
@@ -220,7 +220,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
             return false;
         } else {
             if (!Config.zoomMode) {
-                Entity entity = this.mc.getRenderViewEntity();
+                Entity entity = mc.getRenderViewEntity();
                 double d0 = p_isRenderItem_1_.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 
                 return !(d0 > itemRenderDistanceSq);

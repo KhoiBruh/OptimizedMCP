@@ -11,35 +11,35 @@ public class EntityAIOcelotAttack extends EntityAIBase {
     int attackCountdown;
 
     public EntityAIOcelotAttack(EntityLiving theEntityIn) {
-        this.theEntity = theEntityIn;
-        this.theWorld = theEntityIn.worldObj;
-        this.setMutexBits(3);
+        theEntity = theEntityIn;
+        theWorld = theEntityIn.worldObj;
+        setMutexBits(3);
     }
 
     public boolean shouldExecute() {
-        EntityLivingBase entitylivingbase = this.theEntity.getAttackTarget();
+        EntityLivingBase entitylivingbase = theEntity.getAttackTarget();
 
         if (entitylivingbase == null) {
             return false;
         } else {
-            this.theVictim = entitylivingbase;
+            theVictim = entitylivingbase;
             return true;
         }
     }
 
     public boolean continueExecuting() {
-        return this.theVictim.isEntityAlive() && (!(this.theEntity.getDistanceSqToEntity(this.theVictim) > 225.0D) && (!this.theEntity.getNavigator().noPath() || this.shouldExecute()));
+        return theVictim.isEntityAlive() && (!(theEntity.getDistanceSqToEntity(theVictim) > 225.0D) && (!theEntity.getNavigator().noPath() || shouldExecute()));
     }
 
     public void resetTask() {
-        this.theVictim = null;
-        this.theEntity.getNavigator().clearPathEntity();
+        theVictim = null;
+        theEntity.getNavigator().clearPathEntity();
     }
 
     public void updateTask() {
-        this.theEntity.getLookHelper().setLookPositionWithEntity(this.theVictim, 30.0F, 30.0F);
-        double d0 = this.theEntity.width * 2.0F * this.theEntity.width * 2.0F;
-        double d1 = this.theEntity.getDistanceSq(this.theVictim.posX, this.theVictim.getEntityBoundingBox().minY, this.theVictim.posZ);
+        theEntity.getLookHelper().setLookPositionWithEntity(theVictim, 30.0F, 30.0F);
+        double d0 = theEntity.width * 2.0F * theEntity.width * 2.0F;
+        double d1 = theEntity.getDistanceSq(theVictim.posX, theVictim.getEntityBoundingBox().minY, theVictim.posZ);
         double d2 = 0.8D;
 
         if (d1 > d0 && d1 < 16.0D) {
@@ -48,13 +48,13 @@ public class EntityAIOcelotAttack extends EntityAIBase {
             d2 = 0.6D;
         }
 
-        this.theEntity.getNavigator().tryMoveToEntityLiving(this.theVictim, d2);
-        this.attackCountdown = Math.max(this.attackCountdown - 1, 0);
+        theEntity.getNavigator().tryMoveToEntityLiving(theVictim, d2);
+        attackCountdown = Math.max(attackCountdown - 1, 0);
 
         if (d1 <= d0) {
-            if (this.attackCountdown <= 0) {
-                this.attackCountdown = 20;
-                this.theEntity.attackEntityAsMob(this.theVictim);
+            if (attackCountdown <= 0) {
+                attackCountdown = 20;
+                theEntity.attackEntityAsMob(theVictim);
             }
         }
     }

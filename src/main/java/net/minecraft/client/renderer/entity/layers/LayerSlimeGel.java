@@ -11,7 +11,7 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime> {
     private final ModelBase slimeModel = new ModelSlime(0);
 
     public LayerSlimeGel(RenderSlime slimeRendererIn) {
-        this.slimeRenderer = slimeRendererIn;
+        slimeRenderer = slimeRendererIn;
     }
 
     public void doRenderLayer(EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
@@ -20,8 +20,8 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime> {
             GlStateManager.enableNormalize();
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
-            this.slimeModel.setModelAttributes(this.slimeRenderer.getMainModel());
-            this.slimeModel.render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
+            slimeModel.setModelAttributes(slimeRenderer.getMainModel());
+            slimeModel.render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
             GlStateManager.disableBlend();
             GlStateManager.disableNormalize();
         }

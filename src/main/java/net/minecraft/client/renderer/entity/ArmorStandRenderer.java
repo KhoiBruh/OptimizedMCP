@@ -16,13 +16,13 @@ public class ArmorStandRenderer extends RendererLivingEntity<EntityArmorStand> {
         super(p_i46195_1_, new ModelArmorStand(), 0.0F);
         LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
             protected void initArmor() {
-                this.modelLeggings = new ModelArmorStandArmor(0.5F);
-                this.modelArmor = new ModelArmorStandArmor(1.0F);
+                modelLeggings = new ModelArmorStandArmor(0.5F);
+                modelArmor = new ModelArmorStandArmor(1.0F);
             }
         };
-        this.addLayer(layerbipedarmor);
-        this.addLayer(new LayerHeldItem(this));
-        this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
+        addLayer(layerbipedarmor);
+        addLayer(new LayerHeldItem(this));
+        addLayer(new LayerCustomHead(getMainModel().bipedHead));
     }
 
     protected ResourceLocation getEntityTexture(EntityArmorStand entity) {

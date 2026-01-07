@@ -18,15 +18,15 @@ public class BlockRedstoneLight extends Block {
         this.isOn = isOn;
 
         if (isOn) {
-            this.setLightLevel(1.0F);
+            setLightLevel(1.0F);
         }
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
-            if (this.isOn && !worldIn.isBlockPowered(pos)) {
+            if (isOn && !worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, Blocks.redstone_lamp.getDefaultState(), 2);
-            } else if (!this.isOn && worldIn.isBlockPowered(pos)) {
+            } else if (!isOn && worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, Blocks.lit_redstone_lamp.getDefaultState(), 2);
             }
         }
@@ -34,9 +34,9 @@ public class BlockRedstoneLight extends Block {
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
-            if (this.isOn && !worldIn.isBlockPowered(pos)) {
+            if (isOn && !worldIn.isBlockPowered(pos)) {
                 worldIn.scheduleUpdate(pos, this, 4);
-            } else if (!this.isOn && worldIn.isBlockPowered(pos)) {
+            } else if (!isOn && worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, Blocks.lit_redstone_lamp.getDefaultState(), 2);
             }
         }
@@ -44,7 +44,7 @@ public class BlockRedstoneLight extends Block {
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
-            if (this.isOn && !worldIn.isBlockPowered(pos)) {
+            if (isOn && !worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, Blocks.redstone_lamp.getDefaultState(), 2);
             }
         }

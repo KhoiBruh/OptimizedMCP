@@ -15,7 +15,7 @@ public class BlockStateHelper implements Predicate<IBlockState> {
     private final Map<IProperty, Predicate> propertyPredicates = Maps.newHashMap();
 
     private BlockStateHelper(BlockState blockStateIn) {
-        this.blockstate = blockStateIn;
+        blockstate = blockStateIn;
     }
 
     public static BlockStateHelper forBlock(Block blockIn) {
@@ -23,8 +23,8 @@ public class BlockStateHelper implements Predicate<IBlockState> {
     }
 
     public boolean apply(IBlockState p_apply_1_) {
-        if (p_apply_1_ != null && p_apply_1_.getBlock().equals(this.blockstate.getBlock())) {
-            for (Entry<IProperty, Predicate> entry : this.propertyPredicates.entrySet()) {
+        if (p_apply_1_ != null && p_apply_1_.getBlock().equals(blockstate.getBlock())) {
+            for (Entry<IProperty, Predicate> entry : propertyPredicates.entrySet()) {
                 Object object = p_apply_1_.getValue(entry.getKey());
 
                 if (!entry.getValue().apply(object)) {
@@ -39,10 +39,10 @@ public class BlockStateHelper implements Predicate<IBlockState> {
     }
 
     public <V extends Comparable<V>> BlockStateHelper where(IProperty<V> property, Predicate<? extends V> is) {
-        if (!this.blockstate.getProperties().contains(property)) {
-            throw new IllegalArgumentException(this.blockstate + " cannot support property " + property);
+        if (!blockstate.getProperties().contains(property)) {
+            throw new IllegalArgumentException(blockstate + " cannot support property " + property);
         } else {
-            this.propertyPredicates.put(property, is);
+            propertyPredicates.put(property, is);
             return this;
         }
     }

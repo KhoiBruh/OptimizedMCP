@@ -20,19 +20,19 @@ public class LayeredTexture extends AbstractTexture {
     private ResourceLocation textureLocation;
 
     public LayeredTexture(String... textureNames) {
-        this.layeredTextureNames = Lists.newArrayList(textureNames);
+        layeredTextureNames = Lists.newArrayList(textureNames);
 
         if (textureNames.length > 0 && textureNames[0] != null) {
-            this.textureLocation = new ResourceLocation(textureNames[0]);
+            textureLocation = new ResourceLocation(textureNames[0]);
         }
     }
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
-        this.deleteGlTexture();
+        deleteGlTexture();
         BufferedImage bufferedimage = null;
 
         try {
-            for (String s : this.layeredTextureNames) {
+            for (String s : layeredTextureNames) {
                 if (s != null) {
                     InputStream inputstream = resourceManager.getResource(new ResourceLocation(s)).getInputStream();
                     BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(inputstream);
@@ -50,9 +50,9 @@ public class LayeredTexture extends AbstractTexture {
         }
 
         if (Config.isShaders()) {
-            ShadersTex.loadSimpleTexture(this.getGlTextureId(), bufferedimage, false, false, resourceManager, this.textureLocation, this.getMultiTexID());
+            ShadersTex.loadSimpleTexture(getGlTextureId(), bufferedimage, false, false, resourceManager, textureLocation, getMultiTexID());
         } else {
-            TextureUtil.uploadTextureImage(this.getGlTextureId(), bufferedimage);
+            TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
         }
     }
 }

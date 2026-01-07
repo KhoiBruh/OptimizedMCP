@@ -21,14 +21,14 @@ public class C00PacketKeepAlive implements Packet<INetHandlerPlayServer> {
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.key = buf.readVarIntFromBuffer();
+        key = buf.readVarIntFromBuffer();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.key);
+        buf.writeVarIntToBuffer(key);
     }
 
     public int getKey() {
-        return this.key;
+        return key;
     }
 }

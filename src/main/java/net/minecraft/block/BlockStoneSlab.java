@@ -24,16 +24,16 @@ public abstract class BlockStoneSlab extends BlockSlab {
 
     public BlockStoneSlab() {
         super(Material.rock);
-        IBlockState iblockstate = this.blockState.getBaseState();
+        IBlockState iblockstate = blockState.getBaseState();
 
-        if (this.isDouble()) {
+        if (isDouble()) {
             iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.FALSE);
         } else {
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlab.EnumType.STONE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlab.EnumType.STONE));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -67,9 +67,9 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockStoneSlab.EnumType.byMetadata(meta & 7));
+        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlab.EnumType.byMetadata(meta & 7));
 
-        if (this.isDouble()) {
+        if (isDouble()) {
             iblockstate = iblockstate.withProperty(SEAMLESS, (meta & 8) != 0);
         } else {
             iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
@@ -82,7 +82,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
 
-        if (this.isDouble()) {
+        if (isDouble()) {
             if (state.getValue(SEAMLESS)) {
                 i |= 8;
             }
@@ -94,7 +94,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     protected BlockState createBlockState() {
-        return this.isDouble() ? new BlockState(this, SEAMLESS, VARIANT) : new BlockState(this, HALF, VARIANT);
+        return isDouble() ? new BlockState(this, SEAMLESS, VARIANT) : new BlockState(this, HALF, VARIANT);
     }
 
     public int damageDropped(IBlockState state) {
@@ -133,10 +133,10 @@ public abstract class BlockStoneSlab extends BlockSlab {
         }
 
         EnumType(int p_i46382_3_, MapColor p_i46382_4_, String p_i46382_5_, String p_i46382_6_) {
-            this.meta = p_i46382_3_;
-            this.field_181075_k = p_i46382_4_;
-            this.name = p_i46382_5_;
-            this.unlocalizedName = p_i46382_6_;
+            meta = p_i46382_3_;
+            field_181075_k = p_i46382_4_;
+            name = p_i46382_5_;
+            unlocalizedName = p_i46382_6_;
         }
 
         public static BlockStoneSlab.EnumType byMetadata(int meta) {
@@ -148,23 +148,23 @@ public abstract class BlockStoneSlab extends BlockSlab {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public MapColor func_181074_c() {
-            return this.field_181075_k;
+            return field_181075_k;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

@@ -17,21 +17,21 @@ public class BiomeGenSavanna extends BiomeGenBase {
 
     protected BiomeGenSavanna(int id) {
         super(id);
-        this.spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityHorse.class, 1, 2, 6));
-        this.theBiomeDecorator.treesPerChunk = 1;
-        this.theBiomeDecorator.flowersPerChunk = 4;
-        this.theBiomeDecorator.grassPerChunk = 20;
+        spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityHorse.class, 1, 2, 6));
+        theBiomeDecorator.treesPerChunk = 1;
+        theBiomeDecorator.flowersPerChunk = 4;
+        theBiomeDecorator.grassPerChunk = 20;
     }
 
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
-        return rand.nextInt(5) > 0 ? field_150627_aC : this.worldGeneratorTrees;
+        return rand.nextInt(5) > 0 ? field_150627_aC : worldGeneratorTrees;
     }
 
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         BiomeGenBase biomegenbase = new BiomeGenSavanna.Mutated(p_180277_1_, this);
-        biomegenbase.temperature = (this.temperature + 1.0F) * 0.5F;
-        biomegenbase.minHeight = this.minHeight * 0.5F + 0.3F;
-        biomegenbase.maxHeight = this.maxHeight * 0.5F + 1.2F;
+        biomegenbase.temperature = (temperature + 1.0F) * 0.5F;
+        biomegenbase.minHeight = minHeight * 0.5F + 0.3F;
+        biomegenbase.maxHeight = maxHeight * 0.5F + 1.2F;
         return biomegenbase;
     }
 
@@ -51,27 +51,27 @@ public class BiomeGenSavanna extends BiomeGenBase {
     public static class Mutated extends BiomeGenMutated {
         public Mutated(int p_i45382_1_, BiomeGenBase p_i45382_2_) {
             super(p_i45382_1_, p_i45382_2_);
-            this.theBiomeDecorator.treesPerChunk = 2;
-            this.theBiomeDecorator.flowersPerChunk = 2;
-            this.theBiomeDecorator.grassPerChunk = 5;
+            theBiomeDecorator.treesPerChunk = 2;
+            theBiomeDecorator.flowersPerChunk = 2;
+            theBiomeDecorator.grassPerChunk = 5;
         }
 
         public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-            this.topBlock = Blocks.grass.getDefaultState();
-            this.fillerBlock = Blocks.dirt.getDefaultState();
+            topBlock = Blocks.grass.getDefaultState();
+            fillerBlock = Blocks.dirt.getDefaultState();
 
             if (noiseVal > 1.75D) {
-                this.topBlock = Blocks.stone.getDefaultState();
-                this.fillerBlock = Blocks.stone.getDefaultState();
+                topBlock = Blocks.stone.getDefaultState();
+                fillerBlock = Blocks.stone.getDefaultState();
             } else if (noiseVal > -0.5D) {
-                this.topBlock = Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+                topBlock = Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
             }
 
-            this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+            generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
         }
 
         public void decorate(World worldIn, Random rand, BlockPos pos) {
-            this.theBiomeDecorator.decorate(worldIn, rand, this, pos);
+            theBiomeDecorator.decorate(worldIn, rand, this, pos);
         }
     }
 }

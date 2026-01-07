@@ -18,12 +18,12 @@ import net.minecraft.world.World;
 public class RenderFallingBlock extends Render<EntityFallingBlock> {
     public RenderFallingBlock(RenderManager renderManagerIn) {
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        shadowSize = 0.5F;
     }
 
     public void doRender(EntityFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (entity.getBlock() != null) {
-            this.bindTexture(TextureMap.locationBlocksTexture);
+            bindTexture(TextureMap.locationBlocksTexture);
             IBlockState iblockstate = entity.getBlock();
             Block block = iblockstate.getBlock();
             BlockPos blockpos = new BlockPos(entity);

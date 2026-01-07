@@ -13,7 +13,7 @@ public class RenderWolf extends RenderLiving<EntityWolf> {
 
     public RenderWolf(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
-        this.addLayer(new LayerWolfCollar(this));
+        addLayer(new LayerWolfCollar(this));
     }
 
     protected float handleRotationFloat(EntityWolf livingBase, float partialTicks) {

@@ -19,11 +19,11 @@ public class RConConsoleSource implements ICommandSender {
     }
 
     public IChatComponent getDisplayName() {
-        return new ChatComponentText(this.getName());
+        return new ChatComponentText(getName());
     }
 
     public void addChatMessage(IChatComponent component) {
-        this.buffer.append(component.getUnformattedText());
+        buffer.append(component.getUnformattedText());
     }
 
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {

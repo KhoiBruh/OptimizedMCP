@@ -8,27 +8,27 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract {
 
     public EntityAIOpenDoor(EntityLiving entitylivingIn, boolean shouldClose) {
         super(entitylivingIn);
-        this.theEntity = entitylivingIn;
-        this.closeDoor = shouldClose;
+        theEntity = entitylivingIn;
+        closeDoor = shouldClose;
     }
 
     public boolean continueExecuting() {
-        return this.closeDoor && this.closeDoorTemporisation > 0 && super.continueExecuting();
+        return closeDoor && closeDoorTemporisation > 0 && super.continueExecuting();
     }
 
     public void startExecuting() {
-        this.closeDoorTemporisation = 20;
-        this.doorBlock.toggleDoor(this.theEntity.worldObj, this.doorPosition, true);
+        closeDoorTemporisation = 20;
+        doorBlock.toggleDoor(theEntity.worldObj, doorPosition, true);
     }
 
     public void resetTask() {
-        if (this.closeDoor) {
-            this.doorBlock.toggleDoor(this.theEntity.worldObj, this.doorPosition, false);
+        if (closeDoor) {
+            doorBlock.toggleDoor(theEntity.worldObj, doorPosition, false);
         }
     }
 
     public void updateTask() {
-        --this.closeDoorTemporisation;
+        --closeDoorTemporisation;
         super.updateTask();
     }
 }

@@ -9,7 +9,7 @@ import java.util.Random;
 public class BlockGlass extends BlockBreakable {
     public BlockGlass(Material materialIn, boolean ignoreSimilarity) {
         super(materialIn, ignoreSimilarity);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int quantityDropped(Random random) {

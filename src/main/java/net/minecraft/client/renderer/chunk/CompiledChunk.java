@@ -36,55 +36,55 @@ public class CompiledChunk {
     private final BitSet[] animatedSprites = new BitSet[RenderChunk.ENUM_WORLD_BLOCK_LAYERS.length];
 
     public boolean isEmpty() {
-        return this.empty;
+        return empty;
     }
 
     protected void setLayerUsed(EnumWorldBlockLayer layer) {
-        this.empty = false;
-        this.layersUsed[layer.ordinal()] = true;
+        empty = false;
+        layersUsed[layer.ordinal()] = true;
     }
 
     public boolean isLayerEmpty(EnumWorldBlockLayer layer) {
-        return !this.layersUsed[layer.ordinal()];
+        return !layersUsed[layer.ordinal()];
     }
 
     public void setLayerStarted(EnumWorldBlockLayer layer) {
-        this.layersStarted[layer.ordinal()] = true;
+        layersStarted[layer.ordinal()] = true;
     }
 
     public boolean isLayerStarted(EnumWorldBlockLayer layer) {
-        return this.layersStarted[layer.ordinal()];
+        return layersStarted[layer.ordinal()];
     }
 
     public List<TileEntity> getTileEntities() {
-        return this.tileEntities;
+        return tileEntities;
     }
 
     public void addTileEntity(TileEntity tileEntityIn) {
-        this.tileEntities.add(tileEntityIn);
+        tileEntities.add(tileEntityIn);
     }
 
     public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
-        return this.setVisibility.isVisible(facing, facing2);
+        return setVisibility.isVisible(facing, facing2);
     }
 
     public void setVisibility(SetVisibility visibility) {
-        this.setVisibility = visibility;
+        setVisibility = visibility;
     }
 
     public WorldRenderer.State getState() {
-        return this.state;
+        return state;
     }
 
     public void setState(WorldRenderer.State stateIn) {
-        this.state = stateIn;
+        state = stateIn;
     }
 
     public BitSet getAnimatedSprites(EnumWorldBlockLayer p_getAnimatedSprites_1_) {
-        return this.animatedSprites[p_getAnimatedSprites_1_.ordinal()];
+        return animatedSprites[p_getAnimatedSprites_1_.ordinal()];
     }
 
     public void setAnimatedSprites(EnumWorldBlockLayer p_setAnimatedSprites_1_, BitSet p_setAnimatedSprites_2_) {
-        this.animatedSprites[p_setAnimatedSprites_1_.ordinal()] = p_setAnimatedSprites_2_;
+        animatedSprites[p_setAnimatedSprites_1_.ordinal()] = p_setAnimatedSprites_2_;
     }
 }

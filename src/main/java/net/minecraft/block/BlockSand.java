@@ -16,7 +16,7 @@ public class BlockSand extends BlockFalling {
     public static final PropertyEnum<BlockSand.EnumType> VARIANT = PropertyEnum.create("variant", BlockSand.EnumType.class);
 
     public BlockSand() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSand.EnumType.SAND));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSand.EnumType.SAND));
     }
 
     public int damageDropped(IBlockState state) {
@@ -34,7 +34,7 @@ public class BlockSand extends BlockFalling {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockSand.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockSand.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -78,23 +78,23 @@ public class BlockSand extends BlockFalling {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public MapColor getMapColor() {
-            return this.mapColor;
+            return mapColor;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
 
         public String getUnlocalizedName() {
-            return this.unlocalizedName;
+            return unlocalizedName;
         }
     }
 }

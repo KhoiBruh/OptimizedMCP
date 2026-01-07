@@ -18,14 +18,14 @@ public class ItemBucket extends Item {
     private final Block isFull;
 
     public ItemBucket(Block containedBlock) {
-        this.maxStackSize = 1;
-        this.isFull = containedBlock;
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        maxStackSize = 1;
+        isFull = containedBlock;
+        setCreativeTab(CreativeTabs.tabMisc);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        boolean flag = this.isFull == Blocks.air;
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, flag);
+        boolean flag = isFull == Blocks.air;
+        MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(worldIn, playerIn, flag);
 
         if (movingobjectposition == null) {
             return itemStackIn;
@@ -48,16 +48,16 @@ public class ItemBucket extends Item {
                     if (material == Material.water && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
                         worldIn.setBlockToAir(blockpos);
                         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-                        return this.fillBucket(itemStackIn, playerIn, Items.water_bucket);
+                        return fillBucket(itemStackIn, playerIn, Items.water_bucket);
                     }
 
                     if (material == Material.lava && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
                         worldIn.setBlockToAir(blockpos);
                         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-                        return this.fillBucket(itemStackIn, playerIn, Items.lava_bucket);
+                        return fillBucket(itemStackIn, playerIn, Items.lava_bucket);
                     }
                 } else {
-                    if (this.isFull == Blocks.air) {
+                    if (isFull == Blocks.air) {
                         return new ItemStack(Items.bucket);
                     }
 
@@ -67,7 +67,7 @@ public class ItemBucket extends Item {
                         return itemStackIn;
                     }
 
-                    if (this.tryPlaceContainedLiquid(worldIn, blockpos1) && !playerIn.capabilities.isCreativeMode) {
+                    if (tryPlaceContainedLiquid(worldIn, blockpos1) && !playerIn.capabilities.isCreativeMode) {
                         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                         return new ItemStack(Items.bucket);
                     }
@@ -93,7 +93,7 @@ public class ItemBucket extends Item {
     }
 
     public boolean tryPlaceContainedLiquid(World worldIn, BlockPos pos) {
-        if (this.isFull == Blocks.air) {
+        if (isFull == Blocks.air) {
             return false;
         } else {
             Material material = worldIn.getBlockState(pos).getBlock().getMaterial();
@@ -102,7 +102,7 @@ public class ItemBucket extends Item {
             if (!worldIn.isAirBlock(pos) && !flag) {
                 return false;
             } else {
-                if (worldIn.provider.doesWaterVaporize() && this.isFull == Blocks.flowing_water) {
+                if (worldIn.provider.doesWaterVaporize() && isFull == Blocks.flowing_water) {
                     int i = pos.getX();
                     int j = pos.getY();
                     int k = pos.getZ();
@@ -116,7 +116,7 @@ public class ItemBucket extends Item {
                         worldIn.destroyBlock(pos, true);
                     }
 
-                    worldIn.setBlockState(pos, this.isFull.getDefaultState(), 3);
+                    worldIn.setBlockState(pos, isFull.getDefaultState(), 3);
                 }
 
                 return true;

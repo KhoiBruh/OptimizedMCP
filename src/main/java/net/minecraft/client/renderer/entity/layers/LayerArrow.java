@@ -16,7 +16,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
     private final RendererLivingEntity field_177168_a;
 
     public LayerArrow(RendererLivingEntity p_i46124_1_) {
-        this.field_177168_a = p_i46124_1_;
+        field_177168_a = p_i46124_1_;
     }
 
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
@@ -29,7 +29,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 
             for (int j = 0; j < i; ++j) {
                 GlStateManager.pushMatrix();
-                ModelRenderer modelrenderer = this.field_177168_a.getMainModel().getRandomModelBox(random);
+                ModelRenderer modelrenderer = field_177168_a.getMainModel().getRandomModelBox(random);
                 ModelBox modelbox = modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
                 modelrenderer.postRender(0.0625F);
                 float f = random.nextFloat();
@@ -51,7 +51,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
                 double d0 = 0.0D;
                 double d1 = 0.0D;
                 double d2 = 0.0D;
-                this.field_177168_a.getRenderManager().renderEntityWithPosYaw(entity, d0, d1, d2, 0.0F, partialTicks);
+                field_177168_a.getRenderManager().renderEntityWithPosYaw(entity, d0, d1, d2, 0.0F, partialTicks);
                 GlStateManager.popMatrix();
             }
 

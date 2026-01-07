@@ -27,11 +27,11 @@ public class BlockSnow extends Block {
 
     protected BlockSnow() {
         super(Material.snow);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, 1));
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
-        this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setBlockBoundsForItemRender();
+        setDefaultState(blockState.getBaseState().withProperty(LAYERS, 1));
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
+        setTickRandomly(true);
+        setCreativeTab(CreativeTabs.tabDecorations);
+        setBlockBoundsForItemRender();
     }
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
@@ -41,7 +41,7 @@ public class BlockSnow extends Block {
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         int i = state.getValue(LAYERS) - 1;
         float f = 0.125F;
-        return new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (float) pos.getY() + (float) i * f, (double) pos.getZ() + this.maxZ);
+        return new AxisAlignedBB((double) pos.getX() + minX, (double) pos.getY() + minY, (double) pos.getZ() + minZ, (double) pos.getX() + maxX, (float) pos.getY() + (float) i * f, (double) pos.getZ() + maxZ);
     }
 
     public boolean isOpaqueCube() {
@@ -53,16 +53,16 @@ public class BlockSnow extends Block {
     }
 
     public void setBlockBoundsForItemRender() {
-        this.getBoundsForLayers(0);
+        getBoundsForLayers(0);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        this.getBoundsForLayers(iblockstate.getValue(LAYERS));
+        getBoundsForLayers(iblockstate.getValue(LAYERS));
     }
 
     protected void getBoundsForLayers(int p_150154_1_) {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, (float) p_150154_1_ / 8.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, (float) p_150154_1_ / 8.0F, 1.0F);
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
@@ -72,12 +72,12 @@ public class BlockSnow extends Block {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        this.checkAndDropBlock(worldIn, pos, state);
+        checkAndDropBlock(worldIn, pos, state);
     }
 
     private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (!this.canPlaceBlockAt(worldIn, pos)) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+        if (!canPlaceBlockAt(worldIn, pos)) {
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
             return false;
         } else {
@@ -101,7 +101,7 @@ public class BlockSnow extends Block {
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11) {
-            this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
+            dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
             worldIn.setBlockToAir(pos);
         }
     }
@@ -111,7 +111,7 @@ public class BlockSnow extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(LAYERS, (meta & 7) + 1);
+        return getDefaultState().withProperty(LAYERS, (meta & 7) + 1);
     }
 
     public boolean isReplaceable(World worldIn, BlockPos pos) {

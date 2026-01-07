@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class ItemFireball extends Item {
     public ItemFireball() {
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(CreativeTabs.tabMisc);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {

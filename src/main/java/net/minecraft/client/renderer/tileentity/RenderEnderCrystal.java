@@ -16,17 +16,17 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 
     public RenderEnderCrystal(RenderManager renderManagerIn) {
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        shadowSize = 0.5F;
     }
 
     public void doRender(EntityEnderCrystal entity, double x, double y, double z, float entityYaw, float partialTicks) {
         float f = (float) entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
-        this.bindTexture(enderCrystalTextures);
+        bindTexture(enderCrystalTextures);
         float f1 = MathHelper.sin(f * 0.2F) / 2.0F + 0.5F;
         f1 = f1 * f1 + f1;
-        this.modelEnderCrystal.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
+        modelEnderCrystal.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }

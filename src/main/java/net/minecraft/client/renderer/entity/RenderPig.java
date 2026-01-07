@@ -10,7 +10,7 @@ public class RenderPig extends RenderLiving<EntityPig> {
 
     public RenderPig(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
-        this.addLayer(new LayerSaddle(this));
+        addLayer(new LayerSaddle(this));
     }
 
     protected ResourceLocation getEntityTexture(EntityPig entity) {

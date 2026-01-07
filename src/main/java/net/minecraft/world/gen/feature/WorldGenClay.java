@@ -13,14 +13,14 @@ public class WorldGenClay extends WorldGenerator {
     private final int numberOfBlocks;
 
     public WorldGenClay(int p_i2011_1_) {
-        this.numberOfBlocks = p_i2011_1_;
+        numberOfBlocks = p_i2011_1_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.water) {
             return false;
         } else {
-            int i = rand.nextInt(this.numberOfBlocks - 2) + 2;
+            int i = rand.nextInt(numberOfBlocks - 2) + 2;
             int j = 1;
 
             for (int k = position.getX() - i; k <= position.getX() + i; ++k) {
@@ -34,7 +34,7 @@ public class WorldGenClay extends WorldGenerator {
                             Block block = worldIn.getBlockState(blockpos).getBlock();
 
                             if (block == Blocks.dirt || block == Blocks.clay) {
-                                worldIn.setBlockState(blockpos, this.field_150546_a.getDefaultState(), 2);
+                                worldIn.setBlockState(blockpos, field_150546_a.getDefaultState(), 2);
                             }
                         }
                     }

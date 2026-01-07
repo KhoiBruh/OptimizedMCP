@@ -10,14 +10,14 @@ public record HoverEvent(Action action, IChatComponent value) {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
+        } else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
             HoverEvent hoverevent = (HoverEvent) p_equals_1_;
 
-            if (this.action != hoverevent.action) {
+            if (action != hoverevent.action) {
                 return false;
             } else {
-                if (this.value != null) {
-                    return this.value.equals(hoverevent.value);
+                if (value != null) {
+                    return value.equals(hoverevent.value);
                 } else return hoverevent.value == null;
             }
         } else {
@@ -26,7 +26,7 @@ public record HoverEvent(Action action, IChatComponent value) {
     }
 
     public String toString() {
-        return "HoverEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
+        return "HoverEvent{action=" + action + ", value='" + value + '\'' + '}';
     }
 
     public enum Action {
@@ -47,8 +47,8 @@ public record HoverEvent(Action action, IChatComponent value) {
         private final String canonicalName;
 
         Action(String canonicalNameIn, boolean allowedInChatIn) {
-            this.canonicalName = canonicalNameIn;
-            this.allowedInChat = allowedInChatIn;
+            canonicalName = canonicalNameIn;
+            allowedInChat = allowedInChatIn;
         }
 
         public static Action getValueByCanonicalName(String canonicalNameIn) {
@@ -56,11 +56,11 @@ public record HoverEvent(Action action, IChatComponent value) {
         }
 
         public boolean shouldAllowInChat() {
-            return this.allowedInChat;
+            return allowedInChat;
         }
 
         public String getCanonicalName() {
-            return this.canonicalName;
+            return canonicalName;
         }
     }
 }

@@ -20,7 +20,7 @@ import java.util.Random;
 public class BlockEndPortal extends BlockContainer {
     protected BlockEndPortal(Material materialIn) {
         super(materialIn);
-        this.setLightLevel(1.0F);
+        setLightLevel(1.0F);
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -29,7 +29,7 @@ public class BlockEndPortal extends BlockContainer {
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.0625F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {

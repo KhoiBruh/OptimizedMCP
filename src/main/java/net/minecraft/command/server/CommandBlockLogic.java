@@ -28,47 +28,47 @@ public abstract class CommandBlockLogic implements ICommandSender {
     private String customName = "@";
 
     public int getSuccessCount() {
-        return this.successCount;
+        return successCount;
     }
 
     public IChatComponent getLastOutput() {
-        return this.lastOutput;
+        return lastOutput;
     }
 
     public void setLastOutput(IChatComponent lastOutputMessage) {
-        this.lastOutput = lastOutputMessage;
+        lastOutput = lastOutputMessage;
     }
 
     public void writeDataToNBT(NBTTagCompound tagCompound) {
-        tagCompound.setString("Command", this.commandStored);
-        tagCompound.setInteger("SuccessCount", this.successCount);
-        tagCompound.setString("CustomName", this.customName);
-        tagCompound.setBoolean("TrackOutput", this.trackOutput);
+        tagCompound.setString("Command", commandStored);
+        tagCompound.setInteger("SuccessCount", successCount);
+        tagCompound.setString("CustomName", customName);
+        tagCompound.setBoolean("TrackOutput", trackOutput);
 
-        if (this.lastOutput != null && this.trackOutput) {
-            tagCompound.setString("LastOutput", IChatComponent.Serializer.componentToJson(this.lastOutput));
+        if (lastOutput != null && trackOutput) {
+            tagCompound.setString("LastOutput", IChatComponent.Serializer.componentToJson(lastOutput));
         }
 
-        this.resultStats.writeStatsToNBT(tagCompound);
+        resultStats.writeStatsToNBT(tagCompound);
     }
 
     public void readDataFromNBT(NBTTagCompound nbt) {
-        this.commandStored = nbt.getString("Command");
-        this.successCount = nbt.getInteger("SuccessCount");
+        commandStored = nbt.getString("Command");
+        successCount = nbt.getInteger("SuccessCount");
 
         if (nbt.hasKey("CustomName", 8)) {
-            this.customName = nbt.getString("CustomName");
+            customName = nbt.getString("CustomName");
         }
 
         if (nbt.hasKey("TrackOutput", 1)) {
-            this.trackOutput = nbt.getBoolean("TrackOutput");
+            trackOutput = nbt.getBoolean("TrackOutput");
         }
 
-        if (nbt.hasKey("LastOutput", 8) && this.trackOutput) {
-            this.lastOutput = IChatComponent.Serializer.jsonToComponent(nbt.getString("LastOutput"));
+        if (nbt.hasKey("LastOutput", 8) && trackOutput) {
+            lastOutput = IChatComponent.Serializer.jsonToComponent(nbt.getString("LastOutput"));
         }
 
-        this.resultStats.readStatsFromNBT(nbt);
+        resultStats.readStatsFromNBT(nbt);
     }
 
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
@@ -76,17 +76,17 @@ public abstract class CommandBlockLogic implements ICommandSender {
     }
 
     public String getCommand() {
-        return this.commandStored;
+        return commandStored;
     }
 
     public void setCommand(String command) {
-        this.commandStored = command;
-        this.successCount = 0;
+        commandStored = command;
+        successCount = 0;
     }
 
     public void trigger(World worldIn) {
         if (worldIn.isRemote) {
-            this.successCount = 0;
+            successCount = 0;
         }
 
         MinecraftServer minecraftserver = MinecraftServer.getServer();
@@ -95,44 +95,44 @@ public abstract class CommandBlockLogic implements ICommandSender {
             ICommandManager icommandmanager = minecraftserver.getCommandManager();
 
             try {
-                this.lastOutput = null;
-                this.successCount = icommandmanager.executeCommand(this, this.commandStored);
+                lastOutput = null;
+                successCount = icommandmanager.executeCommand(this, commandStored);
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Executing command block");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Command to be executed");
                 crashreportcategory.addCrashSectionCallable("Command", new Callable<String>() {
                     public String call() throws Exception {
-                        return CommandBlockLogic.this.getCommand();
+                        return getCommand();
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Name", new Callable<String>() {
                     public String call() throws Exception {
-                        return CommandBlockLogic.this.getName();
+                        return getName();
                     }
                 });
                 throw new ReportedException(crashreport);
             }
         } else {
-            this.successCount = 0;
+            successCount = 0;
         }
     }
 
     public String getName() {
-        return this.customName;
+        return customName;
     }
 
     public void setName(String p_145754_1_) {
-        this.customName = p_145754_1_;
+        customName = p_145754_1_;
     }
 
     public IChatComponent getDisplayName() {
-        return new ChatComponentText(this.getName());
+        return new ChatComponentText(getName());
     }
 
     public void addChatMessage(IChatComponent component) {
-        if (this.trackOutput && this.getEntityWorld() != null && !this.getEntityWorld().isRemote) {
-            this.lastOutput = (new ChatComponentText("[" + timestampFormat.format(new Date()) + "] ")).appendSibling(component);
-            this.updateCommand();
+        if (trackOutput && getEntityWorld() != null && !getEntityWorld().isRemote) {
+            lastOutput = (new ChatComponentText("[" + timestampFormat.format(new Date()) + "] ")).appendSibling(component);
+            updateCommand();
         }
     }
 
@@ -142,7 +142,7 @@ public abstract class CommandBlockLogic implements ICommandSender {
     }
 
     public void setCommandStat(CommandResultStats.Type type, int amount) {
-        this.resultStats.setCommandStatScore(this, type, amount);
+        resultStats.setCommandStatScore(this, type, amount);
     }
 
     public abstract void updateCommand();
@@ -152,11 +152,11 @@ public abstract class CommandBlockLogic implements ICommandSender {
     public abstract void func_145757_a(ByteBuf p_145757_1_);
 
     public void setTrackOutput(boolean shouldTrackOutput) {
-        this.trackOutput = shouldTrackOutput;
+        trackOutput = shouldTrackOutput;
     }
 
     public boolean shouldTrackOutput() {
-        return this.trackOutput;
+        return trackOutput;
     }
 
     public boolean tryOpenEditCommandBlock(EntityPlayer playerIn) {
@@ -172,6 +172,6 @@ public abstract class CommandBlockLogic implements ICommandSender {
     }
 
     public CommandResultStats getCommandResultStats() {
-        return this.resultStats;
+        return resultStats;
     }
 }

@@ -49,27 +49,27 @@ public class GuiScreenCustomizePresets extends GuiScreen {
     private String field_175312_t;
 
     public GuiScreenCustomizePresets(GuiCustomizeWorldScreen p_i45524_1_) {
-        this.field_175314_r = p_i45524_1_;
+        field_175314_r = p_i45524_1_;
     }
 
     public void initGui() {
-        this.buttonList.clear();
+        buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        this.field_175315_a = I18n.format("createWorld.customize.custom.presets.title");
-        this.field_175313_s = I18n.format("createWorld.customize.presets.share");
-        this.field_175312_t = I18n.format("createWorld.customize.presets.list");
-        this.field_175317_i = new GuiTextField(2, this.fontRendererObj, 50, 40, this.width - 100, 20);
-        this.field_175311_g = new GuiScreenCustomizePresets.ListPreset();
-        this.field_175317_i.setMaxStringLength(2000);
-        this.field_175317_i.setText(this.field_175314_r.func_175323_a());
-        this.buttonList.add(this.field_175316_h = new GuiButton(0, this.width / 2 - 102, this.height - 27, 100, 20, I18n.format("createWorld.customize.presets.select")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 + 3, this.height - 27, 100, 20, I18n.format("gui.cancel")));
-        this.func_175304_a();
+        field_175315_a = I18n.format("createWorld.customize.custom.presets.title");
+        field_175313_s = I18n.format("createWorld.customize.presets.share");
+        field_175312_t = I18n.format("createWorld.customize.presets.list");
+        field_175317_i = new GuiTextField(2, fontRendererObj, 50, 40, width - 100, 20);
+        field_175311_g = new GuiScreenCustomizePresets.ListPreset();
+        field_175317_i.setMaxStringLength(2000);
+        field_175317_i.setText(field_175314_r.func_175323_a());
+        buttonList.add(field_175316_h = new GuiButton(0, width / 2 - 102, height - 27, 100, 20, I18n.format("createWorld.customize.presets.select")));
+        buttonList.add(new GuiButton(1, width / 2 + 3, height - 27, 100, 20, I18n.format("gui.cancel")));
+        func_175304_a();
     }
 
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
-        this.field_175311_g.handleMouseInput();
+        field_175311_g.handleMouseInput();
     }
 
     public void onGuiClosed() {
@@ -77,12 +77,12 @@ public class GuiScreenCustomizePresets extends GuiScreen {
     }
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        this.field_175317_i.mouseClicked(mouseX, mouseY, mouseButton);
+        field_175317_i.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
-        if (!this.field_175317_i.textboxKeyTyped(typedChar, keyCode)) {
+        if (!field_175317_i.textboxKeyTyped(typedChar, keyCode)) {
             super.keyTyped(typedChar, keyCode);
         }
     }
@@ -90,36 +90,36 @@ public class GuiScreenCustomizePresets extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
         switch (button.id) {
             case 0:
-                this.field_175314_r.func_175324_a(this.field_175317_i.getText());
-                this.mc.displayGuiScreen(this.field_175314_r);
+                field_175314_r.func_175324_a(field_175317_i.getText());
+                mc.displayGuiScreen(field_175314_r);
                 break;
 
             case 1:
-                this.mc.displayGuiScreen(this.field_175314_r);
+                mc.displayGuiScreen(field_175314_r);
         }
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
-        this.field_175311_g.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.field_175315_a, this.width / 2, 8, 16777215);
-        this.drawString(this.fontRendererObj, this.field_175313_s, 50, 30, 10526880);
-        this.drawString(this.fontRendererObj, this.field_175312_t, 50, 70, 10526880);
-        this.field_175317_i.drawTextBox();
+        drawDefaultBackground();
+        field_175311_g.drawScreen(mouseX, mouseY, partialTicks);
+        drawCenteredString(fontRendererObj, field_175315_a, width / 2, 8, 16777215);
+        drawString(fontRendererObj, field_175313_s, 50, 30, 10526880);
+        drawString(fontRendererObj, field_175312_t, 50, 70, 10526880);
+        field_175317_i.drawTextBox();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
     public void updateScreen() {
-        this.field_175317_i.updateCursorCounter();
+        field_175317_i.updateCursorCounter();
         super.updateScreen();
     }
 
     public void func_175304_a() {
-        this.field_175316_h.enabled = this.func_175305_g();
+        field_175316_h.enabled = func_175305_g();
     }
 
     private boolean func_175305_g() {
-        return this.field_175311_g.field_178053_u > -1 && this.field_175311_g.field_178053_u < field_175310_f.size() || this.field_175317_i.getText().length() > 1;
+        return field_175311_g.field_178053_u > -1 && field_175311_g.field_178053_u < field_175310_f.size() || field_175317_i.getText().length() > 1;
     }
 
     static class Info {
@@ -128,9 +128,9 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         public ChunkProviderSettings.Factory field_178954_c;
 
         public Info(String p_i45523_1_, ResourceLocation p_i45523_2_, ChunkProviderSettings.Factory p_i45523_3_) {
-            this.field_178955_a = p_i45523_1_;
-            this.field_178953_b = p_i45523_2_;
-            this.field_178954_c = p_i45523_3_;
+            field_178955_a = p_i45523_1_;
+            field_178953_b = p_i45523_2_;
+            field_178954_c = p_i45523_3_;
         }
     }
 
@@ -146,13 +146,13 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-            this.field_178053_u = slotIndex;
-            GuiScreenCustomizePresets.this.func_175304_a();
-            GuiScreenCustomizePresets.this.field_175317_i.setText(((GuiScreenCustomizePresets.Info) GuiScreenCustomizePresets.field_175310_f.get(GuiScreenCustomizePresets.this.field_175311_g.field_178053_u)).field_178954_c.toString());
+            field_178053_u = slotIndex;
+            func_175304_a();
+            field_175317_i.setText(((GuiScreenCustomizePresets.Info) GuiScreenCustomizePresets.field_175310_f.get(field_175311_g.field_178053_u)).field_178954_c.toString());
         }
 
         protected boolean isSelected(int slotIndex) {
-            return slotIndex == this.field_178053_u;
+            return slotIndex == field_178053_u;
         }
 
         protected void drawBackground() {
@@ -160,12 +160,12 @@ public class GuiScreenCustomizePresets extends GuiScreen {
 
         private void func_178051_a(int p_178051_1_, int p_178051_2_, ResourceLocation p_178051_3_) {
             int i = p_178051_1_ + 5;
-            GuiScreenCustomizePresets.this.drawHorizontalLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
-            GuiScreenCustomizePresets.this.drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
-            GuiScreenCustomizePresets.this.drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
-            GuiScreenCustomizePresets.this.drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
+            drawHorizontalLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
+            drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
+            drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
+            drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(p_178051_3_);
+            mc.getTextureManager().bindTexture(p_178051_3_);
             int j = 32;
             int k = 32;
             Tessellator tessellator = Tessellator.getInstance();
@@ -180,8 +180,8 @@ public class GuiScreenCustomizePresets extends GuiScreen {
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             GuiScreenCustomizePresets.Info guiscreencustomizepresets$info = GuiScreenCustomizePresets.field_175310_f.get(entryID);
-            this.func_178051_a(p_180791_2_, p_180791_3_, guiscreencustomizepresets$info.field_178953_b);
-            GuiScreenCustomizePresets.this.fontRendererObj.drawString(guiscreencustomizepresets$info.field_178955_a, p_180791_2_ + 32 + 10, p_180791_3_ + 14, 16777215);
+            func_178051_a(p_180791_2_, p_180791_3_, guiscreencustomizepresets$info.field_178953_b);
+            fontRendererObj.drawString(guiscreencustomizepresets$info.field_178955_a, p_180791_2_ + 32 + 10, p_180791_3_ + 14, 16777215);
         }
     }
 }

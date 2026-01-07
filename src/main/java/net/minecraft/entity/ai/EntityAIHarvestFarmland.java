@@ -19,25 +19,25 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 
     public EntityAIHarvestFarmland(EntityVillager theVillagerIn, double speedIn) {
         super(theVillagerIn, speedIn, 16);
-        this.theVillager = theVillagerIn;
+        theVillager = theVillagerIn;
     }
 
     public boolean shouldExecute() {
-        if (this.runDelay <= 0) {
-            if (!this.theVillager.worldObj.getGameRules().getBoolean("mobGriefing")) {
+        if (runDelay <= 0) {
+            if (!theVillager.worldObj.getGameRules().getBoolean("mobGriefing")) {
                 return false;
             }
 
-            this.field_179501_f = -1;
-            this.hasFarmItem = this.theVillager.isFarmItemInInventory();
-            this.field_179503_e = this.theVillager.func_175557_cr();
+            field_179501_f = -1;
+            hasFarmItem = theVillager.isFarmItemInInventory();
+            field_179503_e = theVillager.func_175557_cr();
         }
 
         return super.shouldExecute();
     }
 
     public boolean continueExecuting() {
-        return this.field_179501_f >= 0 && super.continueExecuting();
+        return field_179501_f >= 0 && super.continueExecuting();
     }
 
     public void startExecuting() {
@@ -50,18 +50,18 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 
     public void updateTask() {
         super.updateTask();
-        this.theVillager.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.theVillager.getVerticalFaceSpeed());
+        theVillager.getLookHelper().setLookPosition((double) destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, (double) destinationBlock.getZ() + 0.5D, 10.0F, (float) theVillager.getVerticalFaceSpeed());
 
-        if (this.getIsAboveDestination()) {
-            World world = this.theVillager.worldObj;
-            BlockPos blockpos = this.destinationBlock.up();
+        if (getIsAboveDestination()) {
+            World world = theVillager.worldObj;
+            BlockPos blockpos = destinationBlock.up();
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
-            if (this.field_179501_f == 0 && block instanceof BlockCrops && iblockstate.getValue(BlockCrops.AGE) == 7) {
+            if (field_179501_f == 0 && block instanceof BlockCrops && iblockstate.getValue(BlockCrops.AGE) == 7) {
                 world.destroyBlock(blockpos, true);
-            } else if (this.field_179501_f == 1 && block == Blocks.air) {
-                InventoryBasic inventorybasic = this.theVillager.getVillagerInventory();
+            } else if (field_179501_f == 1 && block == Blocks.air) {
+                InventoryBasic inventorybasic = theVillager.getVillagerInventory();
 
                 for (int i = 0; i < inventorybasic.getSizeInventory(); ++i) {
                     ItemStack itemstack = inventorybasic.getStackInSlot(i);
@@ -92,8 +92,8 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
                 }
             }
 
-            this.field_179501_f = -1;
-            this.runDelay = 10;
+            field_179501_f = -1;
+            runDelay = 10;
         }
     }
 
@@ -105,13 +105,13 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             block = iblockstate.getBlock();
 
-            if (block instanceof BlockCrops && iblockstate.getValue(BlockCrops.AGE) == 7 && this.field_179503_e && (this.field_179501_f == 0 || this.field_179501_f < 0)) {
-                this.field_179501_f = 0;
+            if (block instanceof BlockCrops && iblockstate.getValue(BlockCrops.AGE) == 7 && field_179503_e && (field_179501_f == 0 || field_179501_f < 0)) {
+                field_179501_f = 0;
                 return true;
             }
 
-            if (block == Blocks.air && this.hasFarmItem && (this.field_179501_f == 1 || this.field_179501_f < 0)) {
-                this.field_179501_f = 1;
+            if (block == Blocks.air && hasFarmItem && (field_179501_f == 1 || field_179501_f < 0)) {
+                field_179501_f = 1;
                 return true;
             }
         }

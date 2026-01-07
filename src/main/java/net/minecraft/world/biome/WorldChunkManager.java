@@ -21,24 +21,24 @@ public class WorldChunkManager {
     private String generatorOptions;
 
     protected WorldChunkManager() {
-        this.biomeCache = new BiomeCache(this);
-        this.generatorOptions = "";
-        this.biomesToSpawnIn = Lists.newArrayList();
-        this.biomesToSpawnIn.add(BiomeGenBase.forest);
-        this.biomesToSpawnIn.add(BiomeGenBase.plains);
-        this.biomesToSpawnIn.add(BiomeGenBase.taiga);
-        this.biomesToSpawnIn.add(BiomeGenBase.taigaHills);
-        this.biomesToSpawnIn.add(BiomeGenBase.forestHills);
-        this.biomesToSpawnIn.add(BiomeGenBase.jungle);
-        this.biomesToSpawnIn.add(BiomeGenBase.jungleHills);
+        biomeCache = new BiomeCache(this);
+        generatorOptions = "";
+        biomesToSpawnIn = Lists.newArrayList();
+        biomesToSpawnIn.add(BiomeGenBase.forest);
+        biomesToSpawnIn.add(BiomeGenBase.plains);
+        biomesToSpawnIn.add(BiomeGenBase.taiga);
+        biomesToSpawnIn.add(BiomeGenBase.taigaHills);
+        biomesToSpawnIn.add(BiomeGenBase.forestHills);
+        biomesToSpawnIn.add(BiomeGenBase.jungle);
+        biomesToSpawnIn.add(BiomeGenBase.jungleHills);
     }
 
     public WorldChunkManager(long seed, WorldType worldTypeIn, String options) {
         this();
-        this.generatorOptions = options;
+        generatorOptions = options;
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldTypeIn, options);
-        this.genBiomes = agenlayer[0];
-        this.biomeIndexLayer = agenlayer[1];
+        genBiomes = agenlayer[0];
+        biomeIndexLayer = agenlayer[1];
     }
 
     public WorldChunkManager(World worldIn) {
@@ -46,15 +46,15 @@ public class WorldChunkManager {
     }
 
     public List<BiomeGenBase> getBiomesToSpawnIn() {
-        return this.biomesToSpawnIn;
+        return biomesToSpawnIn;
     }
 
     public BiomeGenBase getBiomeGenerator(BlockPos pos) {
-        return this.getBiomeGenerator(pos, null);
+        return getBiomeGenerator(pos, null);
     }
 
     public BiomeGenBase getBiomeGenerator(BlockPos pos, BiomeGenBase biomeGenBaseIn) {
-        return this.biomeCache.func_180284_a(pos.getX(), pos.getZ(), biomeGenBaseIn);
+        return biomeCache.func_180284_a(pos.getX(), pos.getZ(), biomeGenBaseIn);
     }
 
     public float[] getRainfall(float[] listToReuse, int x, int z, int width, int length) {
@@ -64,7 +64,7 @@ public class WorldChunkManager {
             listToReuse = new float[width * length];
         }
 
-        int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
+        int[] aint = biomeIndexLayer.getInts(x, z, width, length);
 
         for (int i = 0; i < width * length; ++i) {
             try {
@@ -102,7 +102,7 @@ public class WorldChunkManager {
             biomes = new BiomeGenBase[width * height];
         }
 
-        int[] aint = this.genBiomes.getInts(x, z, width, height);
+        int[] aint = genBiomes.getInts(x, z, width, height);
 
         try {
             for (int i = 0; i < width * height; ++i) {
@@ -123,7 +123,7 @@ public class WorldChunkManager {
     }
 
     public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] oldBiomeList, int x, int z, int width, int depth) {
-        return this.getBiomeGenAt(oldBiomeList, x, z, width, depth, true);
+        return getBiomeGenAt(oldBiomeList, x, z, width, depth, true);
     }
 
     public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
@@ -134,11 +134,11 @@ public class WorldChunkManager {
         }
 
         if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
-            BiomeGenBase[] abiomegenbase = this.biomeCache.getCachedBiomes(x, z);
+            BiomeGenBase[] abiomegenbase = biomeCache.getCachedBiomes(x, z);
             System.arraycopy(abiomegenbase, 0, listToReuse, 0, width * length);
             return listToReuse;
         } else {
-            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
+            int[] aint = biomeIndexLayer.getInts(x, z, width, length);
 
             for (int i = 0; i < width * length; ++i) {
                 listToReuse[i] = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad);
@@ -156,7 +156,7 @@ public class WorldChunkManager {
         int l = p_76940_2_ + p_76940_3_ >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
+        int[] aint = genBiomes.getInts(i, j, i1, j1);
 
         try {
             for (int k1 = 0; k1 < i1 * j1; ++k1) {
@@ -171,7 +171,7 @@ public class WorldChunkManager {
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
-            crashreportcategory.addCrashSection("Layer", this.genBiomes.toString());
+            crashreportcategory.addCrashSection("Layer", genBiomes.toString());
             crashreportcategory.addCrashSection("x", p_76940_1_);
             crashreportcategory.addCrashSection("z", p_76940_2_);
             crashreportcategory.addCrashSection("radius", p_76940_3_);
@@ -188,7 +188,7 @@ public class WorldChunkManager {
         int l = z + range >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
+        int[] aint = genBiomes.getInts(i, j, i1, j1);
         BlockPos blockpos = null;
         int k1 = 0;
 
@@ -207,6 +207,6 @@ public class WorldChunkManager {
     }
 
     public void cleanupCache() {
-        this.biomeCache.cleanupCache();
+        biomeCache.cleanupCache();
     }
 }

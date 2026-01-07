@@ -42,7 +42,7 @@ public class ResourceIndex {
                         String s1 = astring.length == 1 ? astring[0] : astring[0] + ":" + astring[1];
                         String s2 = JsonUtils.getString(jsonobject2, "hash");
                         File file3 = new File(file1, s2.substring(0, 2) + "/" + s2);
-                        this.resourceMap.put(s1, file3);
+                        resourceMap.put(s1, file3);
                     }
                 }
             } catch (JsonParseException var20) {
@@ -56,6 +56,6 @@ public class ResourceIndex {
     }
 
     public Map<String, File> getResourceMap() {
-        return this.resourceMap;
+        return resourceMap;
     }
 }

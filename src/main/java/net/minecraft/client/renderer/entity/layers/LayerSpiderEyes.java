@@ -13,11 +13,11 @@ public class LayerSpiderEyes implements LayerRenderer<EntitySpider> {
     private final RenderSpider spiderRenderer;
 
     public LayerSpiderEyes(RenderSpider spiderRendererIn) {
-        this.spiderRenderer = spiderRendererIn;
+        spiderRenderer = spiderRendererIn;
     }
 
     public void doRenderLayer(EntitySpider entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-        this.spiderRenderer.bindTexture(SPIDER_EYES);
+        spiderRenderer.bindTexture(SPIDER_EYES);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(1, 1);
@@ -35,7 +35,7 @@ public class LayerSpiderEyes implements LayerRenderer<EntitySpider> {
         }
 
         Config.getRenderGlobal().renderOverlayEyes = true;
-        this.spiderRenderer.getMainModel().render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
+        spiderRenderer.getMainModel().render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
         Config.getRenderGlobal().renderOverlayEyes = false;
 
         if (Config.isShaders()) {
@@ -46,7 +46,7 @@ public class LayerSpiderEyes implements LayerRenderer<EntitySpider> {
         j = i % 65536;
         k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-        this.spiderRenderer.setLightmap(entitylivingbaseIn, partialTicks);
+        spiderRenderer.setLightmap(entitylivingbaseIn, partialTicks);
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();
     }

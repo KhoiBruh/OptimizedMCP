@@ -9,10 +9,10 @@ import net.minecraft.world.gen.ChunkProviderHell;
 
 public class WorldProviderHell extends WorldProvider {
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F);
-        this.isHellWorld = true;
-        this.hasNoSky = true;
-        this.dimensionId = -1;
+        worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F);
+        isHellWorld = true;
+        hasNoSky = true;
+        dimensionId = -1;
     }
 
     public Vec3 getFogColor(float p_76562_1_, float p_76562_2_) {
@@ -24,12 +24,12 @@ public class WorldProviderHell extends WorldProvider {
 
         for (int i = 0; i <= 15; ++i) {
             float f1 = 1.0F - (float) i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+            lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
     }
 
     public IChunkProvider createChunkGenerator() {
-        return new ChunkProviderHell(this.worldObj, this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getSeed());
+        return new ChunkProviderHell(worldObj, worldObj.getWorldInfo().isMapFeaturesEnabled(), worldObj.getSeed());
     }
 
     public boolean isSurfaceWorld() {

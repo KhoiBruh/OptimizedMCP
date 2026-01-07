@@ -18,29 +18,29 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
     }
 
     public S3BPacketScoreboardObjective(ScoreObjective p_i45224_1_, int p_i45224_2_) {
-        this.objectiveName = p_i45224_1_.getName();
-        this.objectiveValue = p_i45224_1_.getDisplayName();
-        this.type = p_i45224_1_.getCriteria().getRenderType();
-        this.field_149342_c = p_i45224_2_;
+        objectiveName = p_i45224_1_.getName();
+        objectiveValue = p_i45224_1_.getDisplayName();
+        type = p_i45224_1_.getCriteria().getRenderType();
+        field_149342_c = p_i45224_2_;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.objectiveName = buf.readStringFromBuffer(16);
-        this.field_149342_c = buf.readByte();
+        objectiveName = buf.readStringFromBuffer(16);
+        field_149342_c = buf.readByte();
 
-        if (this.field_149342_c == 0 || this.field_149342_c == 2) {
-            this.objectiveValue = buf.readStringFromBuffer(32);
-            this.type = IScoreObjectiveCriteria.EnumRenderType.func_178795_a(buf.readStringFromBuffer(16));
+        if (field_149342_c == 0 || field_149342_c == 2) {
+            objectiveValue = buf.readStringFromBuffer(32);
+            type = IScoreObjectiveCriteria.EnumRenderType.func_178795_a(buf.readStringFromBuffer(16));
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeString(this.objectiveName);
-        buf.writeByte(this.field_149342_c);
+        buf.writeString(objectiveName);
+        buf.writeByte(field_149342_c);
 
-        if (this.field_149342_c == 0 || this.field_149342_c == 2) {
-            buf.writeString(this.objectiveValue);
-            buf.writeString(this.type.func_178796_a());
+        if (field_149342_c == 0 || field_149342_c == 2) {
+            buf.writeString(objectiveValue);
+            buf.writeString(type.func_178796_a());
         }
     }
 
@@ -49,18 +49,18 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
     }
 
     public String func_149339_c() {
-        return this.objectiveName;
+        return objectiveName;
     }
 
     public String func_149337_d() {
-        return this.objectiveValue;
+        return objectiveValue;
     }
 
     public int func_149338_e() {
-        return this.field_149342_c;
+        return field_149342_c;
     }
 
     public IScoreObjectiveCriteria.EnumRenderType func_179817_d() {
-        return this.type;
+        return type;
     }
 }

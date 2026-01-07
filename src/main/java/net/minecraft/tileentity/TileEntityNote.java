@@ -13,18 +13,18 @@ public class TileEntityNote extends TileEntity {
 
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setByte("note", this.note);
+        compound.setByte("note", note);
     }
 
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        this.note = compound.getByte("note");
-        this.note = (byte) MathHelper.clamp_int(this.note, 0, 24);
+        note = compound.getByte("note");
+        note = (byte) MathHelper.clamp_int(note, 0, 24);
     }
 
     public void changePitch() {
-        this.note = (byte) ((this.note + 1) % 25);
-        this.markDirty();
+        note = (byte) ((note + 1) % 25);
+        markDirty();
     }
 
     public void triggerNote(World worldIn, BlockPos p_175108_2_) {
@@ -48,7 +48,7 @@ public class TileEntityNote extends TileEntity {
                 i = 4;
             }
 
-            worldIn.addBlockEvent(p_175108_2_, Blocks.noteblock, i, this.note);
+            worldIn.addBlockEvent(p_175108_2_, Blocks.noteblock, i, note);
         }
     }
 }

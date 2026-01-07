@@ -23,48 +23,48 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     }
 
     public S01PacketJoinGame(int entityIdIn, WorldSettings.GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, EnumDifficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
-        this.entityId = entityIdIn;
-        this.dimension = dimensionIn;
-        this.difficulty = difficultyIn;
-        this.gameType = gameTypeIn;
-        this.maxPlayers = maxPlayersIn;
-        this.hardcoreMode = hardcoreModeIn;
-        this.worldType = worldTypeIn;
-        this.reducedDebugInfo = reducedDebugInfoIn;
+        entityId = entityIdIn;
+        dimension = dimensionIn;
+        difficulty = difficultyIn;
+        gameType = gameTypeIn;
+        maxPlayers = maxPlayersIn;
+        hardcoreMode = hardcoreModeIn;
+        worldType = worldTypeIn;
+        reducedDebugInfo = reducedDebugInfoIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readInt();
+        entityId = buf.readInt();
         int i = buf.readUnsignedByte();
-        this.hardcoreMode = (i & 8) == 8;
+        hardcoreMode = (i & 8) == 8;
         i = i & -9;
-        this.gameType = WorldSettings.GameType.getByID(i);
-        this.dimension = buf.readByte();
-        this.difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
-        this.maxPlayers = buf.readUnsignedByte();
-        this.worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
+        gameType = WorldSettings.GameType.getByID(i);
+        dimension = buf.readByte();
+        difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+        maxPlayers = buf.readUnsignedByte();
+        worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
 
-        if (this.worldType == null) {
-            this.worldType = WorldType.DEFAULT;
+        if (worldType == null) {
+            worldType = WorldType.DEFAULT;
         }
 
-        this.reducedDebugInfo = buf.readBoolean();
+        reducedDebugInfo = buf.readBoolean();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeInt(this.entityId);
-        int i = this.gameType.getID();
+        buf.writeInt(entityId);
+        int i = gameType.getID();
 
-        if (this.hardcoreMode) {
+        if (hardcoreMode) {
             i |= 8;
         }
 
         buf.writeByte(i);
-        buf.writeByte(this.dimension);
-        buf.writeByte(this.difficulty.getDifficultyId());
-        buf.writeByte(this.maxPlayers);
-        buf.writeString(this.worldType.getWorldTypeName());
-        buf.writeBoolean(this.reducedDebugInfo);
+        buf.writeByte(dimension);
+        buf.writeByte(difficulty.getDifficultyId());
+        buf.writeByte(maxPlayers);
+        buf.writeString(worldType.getWorldTypeName());
+        buf.writeBoolean(reducedDebugInfo);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -72,34 +72,34 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     }
 
     public int getEntityId() {
-        return this.entityId;
+        return entityId;
     }
 
     public boolean isHardcoreMode() {
-        return this.hardcoreMode;
+        return hardcoreMode;
     }
 
     public WorldSettings.GameType getGameType() {
-        return this.gameType;
+        return gameType;
     }
 
     public int getDimension() {
-        return this.dimension;
+        return dimension;
     }
 
     public EnumDifficulty getDifficulty() {
-        return this.difficulty;
+        return difficulty;
     }
 
     public int getMaxPlayers() {
-        return this.maxPlayers;
+        return maxPlayers;
     }
 
     public WorldType getWorldType() {
-        return this.worldType;
+        return worldType;
     }
 
     public boolean isReducedDebugInfo() {
-        return this.reducedDebugInfo;
+        return reducedDebugInfo;
     }
 }

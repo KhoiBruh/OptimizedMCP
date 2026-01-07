@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentDigging extends Enchantment {
     protected EnchantmentDigging(int enchID, ResourceLocation enchName, int enchWeight) {
         super(enchID, enchName, enchWeight, EnumEnchantmentType.DIGGER);
-        this.setName("digging");
+        setName("digging");
     }
 
     public int getMinEnchantability(int enchantmentLevel) {

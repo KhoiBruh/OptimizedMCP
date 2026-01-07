@@ -13,11 +13,11 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
     private final RenderDragon dragonRenderer;
 
     public LayerEnderDragonEyes(RenderDragon dragonRendererIn) {
-        this.dragonRenderer = dragonRendererIn;
+        dragonRenderer = dragonRendererIn;
     }
 
     public void doRenderLayer(EntityDragon entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-        this.dragonRenderer.bindTexture(TEXTURE);
+        dragonRenderer.bindTexture(TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(1, 1);
@@ -35,14 +35,14 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
         }
 
         Config.getRenderGlobal().renderOverlayEyes = true;
-        this.dragonRenderer.getMainModel().render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
+        dragonRenderer.getMainModel().render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
         Config.getRenderGlobal().renderOverlayEyes = false;
 
         if (Config.isShaders()) {
             Shaders.endSpiderEyes();
         }
 
-        this.dragonRenderer.setLightmap(entitylivingbaseIn, partialTicks);
+        dragonRenderer.setLightmap(entitylivingbaseIn, partialTicks);
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();
         GlStateManager.depthFunc(515);

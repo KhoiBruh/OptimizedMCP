@@ -19,10 +19,10 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
     }
 
     public S07PacketRespawn(int dimensionIDIn, EnumDifficulty difficultyIn, WorldType worldTypeIn, WorldSettings.GameType gameTypeIn) {
-        this.dimensionID = dimensionIDIn;
-        this.difficulty = difficultyIn;
-        this.gameType = gameTypeIn;
-        this.worldType = worldTypeIn;
+        dimensionID = dimensionIDIn;
+        difficulty = difficultyIn;
+        gameType = gameTypeIn;
+        worldType = worldTypeIn;
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -30,36 +30,36 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.dimensionID = buf.readInt();
-        this.difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
-        this.gameType = WorldSettings.GameType.getByID(buf.readUnsignedByte());
-        this.worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
+        dimensionID = buf.readInt();
+        difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+        gameType = WorldSettings.GameType.getByID(buf.readUnsignedByte());
+        worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
 
-        if (this.worldType == null) {
-            this.worldType = WorldType.DEFAULT;
+        if (worldType == null) {
+            worldType = WorldType.DEFAULT;
         }
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeInt(this.dimensionID);
-        buf.writeByte(this.difficulty.getDifficultyId());
-        buf.writeByte(this.gameType.getID());
-        buf.writeString(this.worldType.getWorldTypeName());
+        buf.writeInt(dimensionID);
+        buf.writeByte(difficulty.getDifficultyId());
+        buf.writeByte(gameType.getID());
+        buf.writeString(worldType.getWorldTypeName());
     }
 
     public int getDimensionID() {
-        return this.dimensionID;
+        return dimensionID;
     }
 
     public EnumDifficulty getDifficulty() {
-        return this.difficulty;
+        return difficulty;
     }
 
     public WorldSettings.GameType getGameType() {
-        return this.gameType;
+        return gameType;
     }
 
     public WorldType getWorldType() {
-        return this.worldType;
+        return worldType;
     }
 }

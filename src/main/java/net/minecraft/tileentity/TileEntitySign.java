@@ -25,15 +25,15 @@ public class TileEntitySign extends TileEntity {
         super.writeToNBT(compound);
 
         for (int i = 0; i < 4; ++i) {
-            String s = IChatComponent.Serializer.componentToJson(this.signText[i]);
+            String s = IChatComponent.Serializer.componentToJson(signText[i]);
             compound.setString("Text" + (i + 1), s);
         }
 
-        this.stats.writeStatsToNBT(compound);
+        stats.writeStatsToNBT(compound);
     }
 
     public void readFromNBT(NBTTagCompound compound) {
-        this.isEditable = false;
+        isEditable = false;
         super.readFromNBT(compound);
         ICommandSender icommandsender = new ICommandSender() {
             public String getName() {
@@ -41,7 +41,7 @@ public class TileEntitySign extends TileEntity {
             }
 
             public IChatComponent getDisplayName() {
-                return new ChatComponentText(this.getName());
+                return new ChatComponentText(getName());
             }
 
             public void addChatMessage(IChatComponent component) {
@@ -52,15 +52,15 @@ public class TileEntitySign extends TileEntity {
             }
 
             public BlockPos getPosition() {
-                return TileEntitySign.this.pos;
+                return pos;
             }
 
             public Vec3 getPositionVector() {
-                return new Vec3((double) TileEntitySign.this.pos.getX() + 0.5D, (double) TileEntitySign.this.pos.getY() + 0.5D, (double) TileEntitySign.this.pos.getZ() + 0.5D);
+                return new Vec3((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
             }
 
             public World getEntityWorld() {
-                return TileEntitySign.this.worldObj;
+                return worldObj;
             }
 
             public Entity getCommandSenderEntity() {
@@ -82,22 +82,22 @@ public class TileEntitySign extends TileEntity {
                 IChatComponent ichatcomponent = IChatComponent.Serializer.jsonToComponent(s);
 
                 try {
-                    this.signText[i] = ChatComponentProcessor.processComponent(icommandsender, ichatcomponent, null);
+                    signText[i] = ChatComponentProcessor.processComponent(icommandsender, ichatcomponent, null);
                 } catch (CommandException var7) {
-                    this.signText[i] = ichatcomponent;
+                    signText[i] = ichatcomponent;
                 }
             } catch (JsonParseException var8) {
-                this.signText[i] = new ChatComponentText(s);
+                signText[i] = new ChatComponentText(s);
             }
         }
 
-        this.stats.readStatsFromNBT(compound);
+        stats.readStatsFromNBT(compound);
     }
 
     public Packet getDescriptionPacket() {
         IChatComponent[] aichatcomponent = new IChatComponent[4];
-        System.arraycopy(this.signText, 0, aichatcomponent, 0, 4);
-        return new S33PacketUpdateSign(this.worldObj, this.pos, aichatcomponent);
+        System.arraycopy(signText, 0, aichatcomponent, 0, 4);
+        return new S33PacketUpdateSign(worldObj, pos, aichatcomponent);
     }
 
     public boolean func_183000_F() {
@@ -105,23 +105,23 @@ public class TileEntitySign extends TileEntity {
     }
 
     public boolean getIsEditable() {
-        return this.isEditable;
+        return isEditable;
     }
 
     public void setEditable(boolean isEditableIn) {
-        this.isEditable = isEditableIn;
+        isEditable = isEditableIn;
 
         if (!isEditableIn) {
-            this.player = null;
+            player = null;
         }
     }
 
     public EntityPlayer getPlayer() {
-        return this.player;
+        return player;
     }
 
     public void setPlayer(EntityPlayer playerIn) {
-        this.player = playerIn;
+        player = playerIn;
     }
 
     public boolean executeCommand(final EntityPlayer playerIn) {
@@ -142,11 +142,11 @@ public class TileEntitySign extends TileEntity {
             }
 
             public BlockPos getPosition() {
-                return TileEntitySign.this.pos;
+                return pos;
             }
 
             public Vec3 getPositionVector() {
-                return new Vec3((double) TileEntitySign.this.pos.getX() + 0.5D, (double) TileEntitySign.this.pos.getY() + 0.5D, (double) TileEntitySign.this.pos.getZ() + 0.5D);
+                return new Vec3((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
             }
 
             public World getEntityWorld() {
@@ -162,11 +162,11 @@ public class TileEntitySign extends TileEntity {
             }
 
             public void setCommandStat(CommandResultStats.Type type, int amount) {
-                TileEntitySign.this.stats.setCommandStatScore(this, type, amount);
+                stats.setCommandStatScore(this, type, amount);
             }
         };
 
-        for (IChatComponent iChatComponent : this.signText) {
+        for (IChatComponent iChatComponent : signText) {
             ChatStyle chatstyle = iChatComponent == null ? null : iChatComponent.getChatStyle();
 
             if (chatstyle != null && chatstyle.getChatClickEvent() != null) {
@@ -182,6 +182,6 @@ public class TileEntitySign extends TileEntity {
     }
 
     public CommandResultStats getStats() {
-        return this.stats;
+        return stats;
     }
 }

@@ -18,34 +18,34 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     public boolean empty;
 
     public ClassInheritanceMultiMap(Class<T> baseClassIn) {
-        this.baseClass = baseClassIn;
-        this.knownKeys.add(baseClassIn);
-        this.map.put(baseClassIn, this.values);
+        baseClass = baseClassIn;
+        knownKeys.add(baseClassIn);
+        map.put(baseClassIn, values);
 
         for (Class<?> oclass : field_181158_a) {
-            this.createLookup(oclass);
+            createLookup(oclass);
         }
 
-        this.empty = this.values.size() == 0;
+        empty = values.isEmpty();
     }
 
     protected void createLookup(Class<?> clazz) {
         field_181158_a.add(clazz);
-        int i = this.values.size();
+        int i = values.size();
 
-        for (T t : this.values) {
+        for (T t : values) {
             if (clazz.isAssignableFrom(t.getClass())) {
-                this.addForClass(t, clazz);
+                addForClass(t, clazz);
             }
         }
 
-        this.knownKeys.add(clazz);
+        knownKeys.add(clazz);
     }
 
     protected Class<?> initializeClassLookup(Class<?> clazz) {
-        if (this.baseClass.isAssignableFrom(clazz)) {
-            if (!this.knownKeys.contains(clazz)) {
-                this.createLookup(clazz);
+        if (baseClass.isAssignableFrom(clazz)) {
+            if (!knownKeys.contains(clazz)) {
+                createLookup(clazz);
             }
 
             return clazz;
@@ -55,35 +55,35 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     }
 
     public boolean add(T p_add_1_) {
-        for (Class<?> oclass : this.knownKeys) {
+        for (Class<?> oclass : knownKeys) {
             if (oclass.isAssignableFrom(p_add_1_.getClass())) {
-                this.addForClass(p_add_1_, oclass);
+                addForClass(p_add_1_, oclass);
             }
         }
 
-        this.empty = this.values.size() == 0;
+        empty = values.isEmpty();
         return true;
     }
 
     private void addForClass(T value, Class<?> parentClass) {
-        List<T> list = this.map.get(parentClass);
+        List<T> list = map.get(parentClass);
 
         if (list == null) {
-            this.map.put(parentClass, Lists.newArrayList(value));
+            map.put(parentClass, Lists.newArrayList(value));
         } else {
             list.add(value);
         }
 
-        this.empty = this.values.size() == 0;
+        empty = values.isEmpty();
     }
 
     public boolean remove(Object p_remove_1_) {
         T t = (T) p_remove_1_;
         boolean flag = false;
 
-        for (Class<?> oclass : this.knownKeys) {
+        for (Class<?> oclass : knownKeys) {
             if (oclass.isAssignableFrom(t.getClass())) {
-                List<T> list = this.map.get(oclass);
+                List<T> list = map.get(oclass);
 
                 if (list != null && list.remove(t)) {
                     flag = true;
@@ -91,18 +91,18 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
             }
         }
 
-        this.empty = this.values.size() == 0;
+        empty = values.isEmpty();
         return flag;
     }
 
     public boolean contains(Object p_contains_1_) {
-        return Iterators.contains(this.getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
+        return Iterators.contains(getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
     }
 
     public <S> Iterable<S> getByClass(final Class<S> clazz) {
         return new Iterable<S>() {
             public Iterator<S> iterator() {
-                List<T> list = ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
+                List<T> list = map.get(initializeClassLookup(clazz));
 
                 if (list == null) {
                     return Collections.emptyIterator();
@@ -115,14 +115,14 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     }
 
     public Iterator<T> iterator() {
-        return (this.values.isEmpty() ? Collections.emptyIterator() : (Iterator<T>) IteratorCache.getReadOnly(values));
+        return (values.isEmpty() ? Collections.emptyIterator() : (Iterator<T>) IteratorCache.getReadOnly(values));
     }
 
     public int size() {
-        return this.values.size();
+        return values.size();
     }
 
     public boolean isEmpty() {
-        return this.empty;
+        return empty;
     }
 }

@@ -24,7 +24,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
     protected BlockRedstoneRepeater(boolean powered) {
         super(powered);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, Boolean.FALSE));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, Boolean.FALSE));
     }
 
     public String getLocalizedName() {
@@ -32,7 +32,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(LOCKED, this.isLocked(worldIn, pos, state));
+        return state.withProperty(LOCKED, isLocked(worldIn, pos, state));
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -71,7 +71,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     }
 
     public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-        return this.getPowerOnSides(worldIn, pos, state) > 0;
+        return getPowerOnSides(worldIn, pos, state) > 0;
     }
 
     protected boolean canPowerSide(Block blockIn) {
@@ -79,7 +79,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (this.isRepeaterPowered) {
+        if (isRepeaterPowered) {
             EnumFacing enumfacing = state.getValue(FACING);
             double d0 = (double) ((float) pos.getX() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
             double d1 = (double) ((float) pos.getY() + 0.4F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
@@ -99,11 +99,11 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
-        this.notifyNeighbors(worldIn, pos, state);
+        notifyNeighbors(worldIn, pos, state);
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.FALSE).withProperty(DELAY, 1 + (meta >> 2));
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.FALSE).withProperty(DELAY, 1 + (meta >> 2));
     }
 
     public int getMetaFromState(IBlockState state) {

@@ -15,15 +15,15 @@ public class C00PacketLoginStart implements Packet<INetHandlerLoginServer> {
     }
 
     public C00PacketLoginStart(GameProfile profileIn) {
-        this.profile = profileIn;
+        profile = profileIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.profile = new GameProfile(null, buf.readStringFromBuffer(16));
+        profile = new GameProfile(null, buf.readStringFromBuffer(16));
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeString(this.profile.getName());
+        buf.writeString(profile.getName());
     }
 
     public void processPacket(INetHandlerLoginServer handler) {
@@ -31,6 +31,6 @@ public class C00PacketLoginStart implements Packet<INetHandlerLoginServer> {
     }
 
     public GameProfile getProfile() {
-        return this.profile;
+        return profile;
     }
 }

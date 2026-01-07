@@ -28,19 +28,19 @@ public class GuiConnecting extends GuiScreen {
     private boolean cancel;
 
     public GuiConnecting(GuiScreen p_i1181_1_, Minecraft mcIn, ServerData p_i1181_3_) {
-        this.mc = mcIn;
-        this.previousGuiScreen = p_i1181_1_;
+        mc = mcIn;
+        previousGuiScreen = p_i1181_1_;
         ServerAddress serveraddress = ServerAddress.fromString(p_i1181_3_.serverIP);
         mcIn.loadWorld(null);
         mcIn.setServerData(p_i1181_3_);
-        this.connect(serveraddress.getIP(), serveraddress.getPort());
+        connect(serveraddress.getIP(), serveraddress.getPort());
     }
 
     public GuiConnecting(GuiScreen p_i1182_1_, Minecraft mcIn, String hostName, int port) {
-        this.mc = mcIn;
-        this.previousGuiScreen = p_i1182_1_;
+        mc = mcIn;
+        previousGuiScreen = p_i1182_1_;
         mcIn.loadWorld(null);
-        this.connect(hostName, port);
+        connect(hostName, port);
     }
 
     private void connect(final String ip, final int port) {
@@ -50,24 +50,24 @@ public class GuiConnecting extends GuiScreen {
                 InetAddress inetaddress = null;
 
                 try {
-                    if (GuiConnecting.this.cancel) {
+                    if (cancel) {
                         return;
                     }
 
                     inetaddress = InetAddress.getByName(ip);
-                    GuiConnecting.this.networkManager = NetworkManager.createNetworkManagerAndConnect(inetaddress, port, GuiConnecting.this.mc.gameSettings.isUsingNativeTransport());
-                    GuiConnecting.this.networkManager.setNetHandler(new NetHandlerLoginClient(GuiConnecting.this.networkManager, GuiConnecting.this.mc, GuiConnecting.this.previousGuiScreen));
-                    GuiConnecting.this.networkManager.sendPacket(new C00Handshake(47, ip, port, EnumConnectionState.LOGIN));
-                    GuiConnecting.this.networkManager.sendPacket(new C00PacketLoginStart(GuiConnecting.this.mc.getSession().getProfile()));
+                    networkManager = NetworkManager.createNetworkManagerAndConnect(inetaddress, port, mc.gameSettings.isUsingNativeTransport());
+                    networkManager.setNetHandler(new NetHandlerLoginClient(networkManager, mc, previousGuiScreen));
+                    networkManager.sendPacket(new C00Handshake(47, ip, port, EnumConnectionState.LOGIN));
+                    networkManager.sendPacket(new C00PacketLoginStart(mc.getSession().getProfile()));
                 } catch (UnknownHostException unknownhostexception) {
-                    if (GuiConnecting.this.cancel) {
+                    if (cancel) {
                         return;
                     }
 
                     GuiConnecting.logger.error("Couldn't connect to server", unknownhostexception);
-                    GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", "Unknown host")));
+                    mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", "Unknown host")));
                 } catch (Exception exception) {
-                    if (GuiConnecting.this.cancel) {
+                    if (cancel) {
                         return;
                     }
 
@@ -79,18 +79,18 @@ public class GuiConnecting extends GuiScreen {
                         s = s.replaceAll(s1, "");
                     }
 
-                    GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", s)));
+                    mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", s)));
                 }
             }
         }).start();
     }
 
     public void updateScreen() {
-        if (this.networkManager != null) {
-            if (this.networkManager.isChannelOpen()) {
-                this.networkManager.processReceivedPackets();
+        if (networkManager != null) {
+            if (networkManager.isChannelOpen()) {
+                networkManager.processReceivedPackets();
             } else {
-                this.networkManager.checkDisconnected();
+                networkManager.checkDisconnected();
             }
         }
     }
@@ -99,29 +99,29 @@ public class GuiConnecting extends GuiScreen {
     }
 
     public void initGui() {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel")));
+        buttonList.clear();
+        buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, I18n.format("gui.cancel")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
-            this.cancel = true;
+            cancel = true;
 
-            if (this.networkManager != null) {
-                this.networkManager.closeChannel(new ChatComponentText("Aborted"));
+            if (networkManager != null) {
+                networkManager.closeChannel(new ChatComponentText("Aborted"));
             }
 
-            this.mc.displayGuiScreen(this.previousGuiScreen);
+            mc.displayGuiScreen(previousGuiScreen);
         }
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
+        drawDefaultBackground();
 
-        if (this.networkManager == null) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("connect.connecting"), this.width / 2, this.height / 2 - 50, 16777215);
+        if (networkManager == null) {
+            drawCenteredString(fontRendererObj, I18n.format("connect.connecting"), width / 2, height / 2 - 50, 16777215);
         } else {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("connect.authorizing"), this.width / 2, this.height / 2 - 50, 16777215);
+            drawCenteredString(fontRendererObj, I18n.format("connect.authorizing"), width / 2, height / 2 - 50, 16777215);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

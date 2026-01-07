@@ -22,11 +22,11 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
         for (T t : allowedValues) {
             String s = t.getName();
 
-            if (this.nameToValue.containsKey(s)) {
+            if (nameToValue.containsKey(s)) {
                 throw new IllegalArgumentException("Multiple values have the same name '" + s + "'");
             }
 
-            this.nameToValue.put(s, t);
+            nameToValue.put(s, t);
         }
     }
 
@@ -47,7 +47,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
     }
 
     public Collection<T> getAllowedValues() {
-        return this.allowedValues;
+        return allowedValues;
     }
 
     public String getName(T value) {

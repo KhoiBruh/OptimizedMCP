@@ -28,43 +28,43 @@ public abstract class ChatComponentStyle implements IChatComponent {
     }
 
     public IChatComponent appendSibling(IChatComponent component) {
-        component.getChatStyle().setParentStyle(this.getChatStyle());
-        this.siblings.add(component);
+        component.getChatStyle().setParentStyle(getChatStyle());
+        siblings.add(component);
         return this;
     }
 
     public List<IChatComponent> getSiblings() {
-        return this.siblings;
+        return siblings;
     }
 
     public IChatComponent appendText(String text) {
-        return this.appendSibling(new ChatComponentText(text));
+        return appendSibling(new ChatComponentText(text));
     }
 
     public IChatComponent setChatStyle(ChatStyle style) {
         this.style = style;
 
-        for (IChatComponent ichatcomponent : this.siblings) {
-            ichatcomponent.getChatStyle().setParentStyle(this.getChatStyle());
+        for (IChatComponent ichatcomponent : siblings) {
+            ichatcomponent.getChatStyle().setParentStyle(getChatStyle());
         }
 
         return this;
     }
 
     public ChatStyle getChatStyle() {
-        if (this.style == null) {
-            this.style = new ChatStyle();
+        if (style == null) {
+            style = new ChatStyle();
 
-            for (IChatComponent ichatcomponent : this.siblings) {
-                ichatcomponent.getChatStyle().setParentStyle(this.style);
+            for (IChatComponent ichatcomponent : siblings) {
+                ichatcomponent.getChatStyle().setParentStyle(style);
             }
         }
 
-        return this.style;
+        return style;
     }
 
     public Iterator<IChatComponent> iterator() {
-        return Iterators.concat(Iterators.<IChatComponent>forArray(this), createDeepCopyIterator(this.siblings));
+        return Iterators.concat(Iterators.<IChatComponent>forArray(this), createDeepCopyIterator(siblings));
     }
 
     public final String getUnformattedText() {
@@ -95,15 +95,15 @@ public abstract class ChatComponentStyle implements IChatComponent {
         } else if (!(p_equals_1_ instanceof ChatComponentStyle chatcomponentstyle)) {
             return false;
         } else {
-            return this.siblings.equals(chatcomponentstyle.siblings) && this.getChatStyle().equals(chatcomponentstyle.getChatStyle());
+            return siblings.equals(chatcomponentstyle.siblings) && getChatStyle().equals(chatcomponentstyle.getChatStyle());
         }
     }
 
     public int hashCode() {
-        return 31 * this.style.hashCode() + this.siblings.hashCode();
+        return 31 * style.hashCode() + siblings.hashCode();
     }
 
     public String toString() {
-        return "BaseComponent{style=" + this.style + ", siblings=" + this.siblings + '}';
+        return "BaseComponent{style=" + style + ", siblings=" + siblings + '}';
     }
 }

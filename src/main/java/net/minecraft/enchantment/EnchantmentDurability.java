@@ -9,7 +9,7 @@ import java.util.Random;
 public class EnchantmentDurability extends Enchantment {
     protected EnchantmentDurability(int enchID, ResourceLocation enchName, int enchWeight) {
         super(enchID, enchName, enchWeight, EnumEnchantmentType.BREAKABLE);
-        this.setName("durability");
+        setName("durability");
     }
 
     public static boolean negateDamage(ItemStack p_92097_0_, int p_92097_1_, Random p_92097_2_) {

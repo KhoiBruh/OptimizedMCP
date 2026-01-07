@@ -5,19 +5,19 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class GenLayerBiomeEdge extends GenLayer {
     public GenLayerBiomeEdge(long p_i45475_1_, GenLayer p_i45475_3_) {
         super(p_i45475_1_);
-        this.parent = p_i45475_3_;
+        parent = p_i45475_3_;
     }
 
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-        int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+        int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 
         for (int i = 0; i < areaHeight; ++i) {
             for (int j = 0; j < areaWidth; ++j) {
-                this.initChunkSeed(j + areaX, i + areaY);
+                initChunkSeed(j + areaX, i + areaY);
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
 
-                if (!this.replaceBiomeEdgeIfNecessary(aint, aint1, j, i, areaWidth, k, BiomeGenBase.extremeHills.biomeID, BiomeGenBase.extremeHillsEdge.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.mesaPlateau_F.biomeID, BiomeGenBase.mesa.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.mesaPlateau.biomeID, BiomeGenBase.mesa.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.megaTaiga.biomeID, BiomeGenBase.taiga.biomeID)) {
+                if (!replaceBiomeEdgeIfNecessary(aint, aint1, j, i, areaWidth, k, BiomeGenBase.extremeHills.biomeID, BiomeGenBase.extremeHillsEdge.biomeID) && !replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.mesaPlateau_F.biomeID, BiomeGenBase.mesa.biomeID) && !replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.mesaPlateau.biomeID, BiomeGenBase.mesa.biomeID) && !replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.megaTaiga.biomeID, BiomeGenBase.taiga.biomeID)) {
                     if (k == BiomeGenBase.desert.biomeID) {
                         int l1 = aint[j + 1 + (i + 1 - 1) * (areaWidth + 2)];
                         int i2 = aint[j + 1 + 1 + (i + 1) * (areaWidth + 2)];
@@ -63,7 +63,7 @@ public class GenLayerBiomeEdge extends GenLayer {
             int k = p_151636_1_[p_151636_3_ + 1 - 1 + (p_151636_4_ + 1) * (p_151636_5_ + 2)];
             int l = p_151636_1_[p_151636_3_ + 1 + (p_151636_4_ + 1 + 1) * (p_151636_5_ + 2)];
 
-            if (this.canBiomesBeNeighbors(i, p_151636_7_) && this.canBiomesBeNeighbors(j, p_151636_7_) && this.canBiomesBeNeighbors(k, p_151636_7_) && this.canBiomesBeNeighbors(l, p_151636_7_)) {
+            if (canBiomesBeNeighbors(i, p_151636_7_) && canBiomesBeNeighbors(j, p_151636_7_) && canBiomesBeNeighbors(k, p_151636_7_) && canBiomesBeNeighbors(l, p_151636_7_)) {
                 p_151636_2_[p_151636_3_ + p_151636_4_ * p_151636_5_] = p_151636_6_;
             } else {
                 p_151636_2_[p_151636_3_ + p_151636_4_ * p_151636_5_] = p_151636_8_;

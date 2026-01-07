@@ -22,7 +22,7 @@ public class FactoryBlockPattern {
     private int rowWidth;
 
     private FactoryBlockPattern() {
-        this.symbolMap.put(' ', Predicates.alwaysTrue());
+        symbolMap.put(' ', Predicates.alwaysTrue());
     }
 
     public static FactoryBlockPattern start() {
@@ -31,27 +31,27 @@ public class FactoryBlockPattern {
 
     public FactoryBlockPattern aisle(String... aisle) {
         if (!ArrayUtils.isEmpty(aisle) && !StringUtils.isEmpty(aisle[0])) {
-            if (this.depth.isEmpty()) {
-                this.aisleHeight = aisle.length;
-                this.rowWidth = aisle[0].length();
+            if (depth.isEmpty()) {
+                aisleHeight = aisle.length;
+                rowWidth = aisle[0].length();
             }
 
-            if (aisle.length != this.aisleHeight) {
-                throw new IllegalArgumentException("Expected aisle with height of " + this.aisleHeight + ", but was given one with a height of " + aisle.length + ")");
+            if (aisle.length != aisleHeight) {
+                throw new IllegalArgumentException("Expected aisle with height of " + aisleHeight + ", but was given one with a height of " + aisle.length + ")");
             } else {
                 for (String s : aisle) {
-                    if (s.length() != this.rowWidth) {
-                        throw new IllegalArgumentException("Not all rows in the given aisle are the correct width (expected " + this.rowWidth + ", found one with " + s.length() + ")");
+                    if (s.length() != rowWidth) {
+                        throw new IllegalArgumentException("Not all rows in the given aisle are the correct width (expected " + rowWidth + ", found one with " + s.length() + ")");
                     }
 
                     for (char c0 : s.toCharArray()) {
-                        if (!this.symbolMap.containsKey(c0)) {
-                            this.symbolMap.put(c0, null);
+                        if (!symbolMap.containsKey(c0)) {
+                            symbolMap.put(c0, null);
                         }
                     }
                 }
 
-                this.depth.add(aisle);
+                depth.add(aisle);
                 return this;
             }
         } else {
@@ -60,22 +60,22 @@ public class FactoryBlockPattern {
     }
 
     public FactoryBlockPattern where(char symbol, Predicate<BlockWorldState> blockMatcher) {
-        this.symbolMap.put(symbol, blockMatcher);
+        symbolMap.put(symbol, blockMatcher);
         return this;
     }
 
     public BlockPattern build() {
-        return new BlockPattern(this.makePredicateArray());
+        return new BlockPattern(makePredicateArray());
     }
 
     private Predicate<BlockWorldState>[][][] makePredicateArray() {
-        this.checkMissingPredicates();
-        Predicate<BlockWorldState>[][][] predicate = (Predicate[][][]) Array.newInstance(Predicate.class, new int[]{this.depth.size(), this.aisleHeight, this.rowWidth});
+        checkMissingPredicates();
+        Predicate<BlockWorldState>[][][] predicate = (Predicate[][][]) Array.newInstance(Predicate.class, new int[]{depth.size(), aisleHeight, rowWidth});
 
-        for (int i = 0; i < this.depth.size(); ++i) {
-            for (int j = 0; j < this.aisleHeight; ++j) {
-                for (int k = 0; k < this.rowWidth; ++k) {
-                    predicate[i][j][k] = this.symbolMap.get(((String[]) this.depth.get(i))[j].charAt(k));
+        for (int i = 0; i < depth.size(); ++i) {
+            for (int j = 0; j < aisleHeight; ++j) {
+                for (int k = 0; k < rowWidth; ++k) {
+                    predicate[i][j][k] = symbolMap.get(((String[]) depth.get(i))[j].charAt(k));
                 }
             }
         }
@@ -86,7 +86,7 @@ public class FactoryBlockPattern {
     private void checkMissingPredicates() {
         List<Character> list = Lists.newArrayList();
 
-        for (Entry<Character, Predicate<BlockWorldState>> entry : this.symbolMap.entrySet()) {
+        for (Entry<Character, Predicate<BlockWorldState>> entry : symbolMap.entrySet()) {
             if (entry.getValue() == null) {
                 list.add(entry.getKey());
             }

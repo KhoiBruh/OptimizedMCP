@@ -10,23 +10,23 @@ public class SoundList {
     private SoundCategory category;
 
     public List<SoundList.SoundEntry> getSoundList() {
-        return this.soundList;
+        return soundList;
     }
 
     public boolean canReplaceExisting() {
-        return this.replaceExisting;
+        return replaceExisting;
     }
 
     public void setReplaceExisting(boolean p_148572_1_) {
-        this.replaceExisting = p_148572_1_;
+        replaceExisting = p_148572_1_;
     }
 
     public SoundCategory getSoundCategory() {
-        return this.category;
+        return category;
     }
 
     public void setSoundCategory(SoundCategory soundCat) {
-        this.category = soundCat;
+        category = soundCat;
     }
 
     public static class SoundEntry {
@@ -38,51 +38,51 @@ public class SoundList {
         private boolean streaming = false;
 
         public String getSoundEntryName() {
-            return this.name;
+            return name;
         }
 
         public void setSoundEntryName(String nameIn) {
-            this.name = nameIn;
+            name = nameIn;
         }
 
         public float getSoundEntryVolume() {
-            return this.volume;
+            return volume;
         }
 
         public void setSoundEntryVolume(float volumeIn) {
-            this.volume = volumeIn;
+            volume = volumeIn;
         }
 
         public float getSoundEntryPitch() {
-            return this.pitch;
+            return pitch;
         }
 
         public void setSoundEntryPitch(float pitchIn) {
-            this.pitch = pitchIn;
+            pitch = pitchIn;
         }
 
         public int getSoundEntryWeight() {
-            return this.weight;
+            return weight;
         }
 
         public void setSoundEntryWeight(int weightIn) {
-            this.weight = weightIn;
+            weight = weightIn;
         }
 
         public SoundList.SoundEntry.Type getSoundEntryType() {
-            return this.type;
+            return type;
         }
 
         public void setSoundEntryType(SoundList.SoundEntry.Type typeIn) {
-            this.type = typeIn;
+            type = typeIn;
         }
 
         public boolean isStreaming() {
-            return this.streaming;
+            return streaming;
         }
 
         public void setStreaming(boolean isStreaming) {
-            this.streaming = isStreaming;
+            streaming = isStreaming;
         }
 
         public enum Type {
@@ -92,7 +92,7 @@ public class SoundList {
             private final String field_148583_c;
 
             Type(String p_i45109_3_) {
-                this.field_148583_c = p_i45109_3_;
+                field_148583_c = p_i45109_3_;
             }
 
             public static SoundList.SoundEntry.Type getType(String p_148580_0_) {

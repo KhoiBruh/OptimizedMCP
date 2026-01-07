@@ -13,8 +13,8 @@ public class WorldGenHellLava extends WorldGenerator {
     private final boolean field_94524_b;
 
     public WorldGenHellLava(Block p_i45453_1_, boolean p_i45453_2_) {
-        this.field_150553_a = p_i45453_1_;
-        this.field_94524_b = p_i45453_2_;
+        field_150553_a = p_i45453_1_;
+        field_94524_b = p_i45453_2_;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
@@ -67,9 +67,9 @@ public class WorldGenHellLava extends WorldGenerator {
                 ++j;
             }
 
-            if (!this.field_94524_b && i == 4 && j == 1 || i == 5) {
-                worldIn.setBlockState(position, this.field_150553_a.getDefaultState(), 2);
-                worldIn.forceBlockUpdateTick(this.field_150553_a, position, rand);
+            if (!field_94524_b && i == 4 && j == 1 || i == 5) {
+                worldIn.setBlockState(position, field_150553_a.getDefaultState(), 2);
+                worldIn.forceBlockUpdateTick(field_150553_a, position, rand);
             }
 
             return true;

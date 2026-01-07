@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 public class BlockSoulSand extends Block {
     public BlockSoulSand() {
         super(Material.sand, MapColor.brownColor);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {

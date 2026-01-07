@@ -18,8 +18,8 @@ public class MapGenVillage extends MapGenStructure {
     private final int field_82666_h;
 
     public MapGenVillage() {
-        this.field_82665_g = 32;
-        this.field_82666_h = 8;
+        field_82665_g = 32;
+        field_82666_h = 8;
     }
 
     public MapGenVillage(Map<String, String> p_i2093_1_) {
@@ -27,9 +27,9 @@ public class MapGenVillage extends MapGenStructure {
 
         for (Entry<String, String> entry : p_i2093_1_.entrySet()) {
             if (entry.getKey().equals("size")) {
-                this.terrainType = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.terrainType, 0);
+                terrainType = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), terrainType, 0);
             } else if (entry.getKey().equals("distance")) {
-                this.field_82665_g = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.field_82665_g, this.field_82666_h + 1);
+                field_82665_g = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_82665_g, field_82666_h + 1);
             }
         }
     }
@@ -43,23 +43,23 @@ public class MapGenVillage extends MapGenStructure {
         int j = chunkZ;
 
         if (chunkX < 0) {
-            chunkX -= this.field_82665_g - 1;
+            chunkX -= field_82665_g - 1;
         }
 
         if (chunkZ < 0) {
-            chunkZ -= this.field_82665_g - 1;
+            chunkZ -= field_82665_g - 1;
         }
 
-        int k = chunkX / this.field_82665_g;
-        int l = chunkZ / this.field_82665_g;
-        Random random = this.worldObj.setRandomSeed(k, l, 10387312);
-        k = k * this.field_82665_g;
-        l = l * this.field_82665_g;
-        k = k + random.nextInt(this.field_82665_g - this.field_82666_h);
-        l = l + random.nextInt(this.field_82665_g - this.field_82666_h);
+        int k = chunkX / field_82665_g;
+        int l = chunkZ / field_82665_g;
+        Random random = worldObj.setRandomSeed(k, l, 10387312);
+        k = k * field_82665_g;
+        l = l * field_82665_g;
+        k = k + random.nextInt(field_82665_g - field_82666_h);
+        l = l + random.nextInt(field_82665_g - field_82666_h);
 
         if (i == k && j == l) {
-            boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, villageSpawnBiomes);
+            boolean flag = worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, villageSpawnBiomes);
 
             return flag;
         }
@@ -68,7 +68,7 @@ public class MapGenVillage extends MapGenStructure {
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-        return new MapGenVillage.Start(this.worldObj, this.rand, chunkX, chunkZ, this.terrainType);
+        return new MapGenVillage.Start(worldObj, rand, chunkX, chunkZ, terrainType);
     }
 
     public static class Start extends StructureStart {
@@ -81,8 +81,8 @@ public class MapGenVillage extends MapGenStructure {
             super(x, z);
             List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, size);
             StructureVillagePieces.Start structurevillagepieces$start = new StructureVillagePieces.Start(worldIn.getWorldChunkManager(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, size);
-            this.components.add(structurevillagepieces$start);
-            structurevillagepieces$start.buildComponent(structurevillagepieces$start, this.components, rand);
+            components.add(structurevillagepieces$start);
+            structurevillagepieces$start.buildComponent(structurevillagepieces$start, components, rand);
             List<StructureComponent> list1 = structurevillagepieces$start.field_74930_j;
             List<StructureComponent> list2 = structurevillagepieces$start.field_74932_i;
 
@@ -90,38 +90,38 @@ public class MapGenVillage extends MapGenStructure {
                 if (list1.isEmpty()) {
                     int i = rand.nextInt(list2.size());
                     StructureComponent structurecomponent = list2.remove(i);
-                    structurecomponent.buildComponent(structurevillagepieces$start, this.components, rand);
+                    structurecomponent.buildComponent(structurevillagepieces$start, components, rand);
                 } else {
                     int j = rand.nextInt(list1.size());
                     StructureComponent structurecomponent2 = list1.remove(j);
-                    structurecomponent2.buildComponent(structurevillagepieces$start, this.components, rand);
+                    structurecomponent2.buildComponent(structurevillagepieces$start, components, rand);
                 }
             }
 
-            this.updateBoundingBox();
+            updateBoundingBox();
             int k = 0;
 
-            for (StructureComponent structurecomponent1 : this.components) {
+            for (StructureComponent structurecomponent1 : components) {
                 if (!(structurecomponent1 instanceof StructureVillagePieces.Road)) {
                     ++k;
                 }
             }
 
-            this.hasMoreThanTwoComponents = k > 2;
+            hasMoreThanTwoComponents = k > 2;
         }
 
         public boolean isSizeableStructure() {
-            return this.hasMoreThanTwoComponents;
+            return hasMoreThanTwoComponents;
         }
 
         public void writeToNBT(NBTTagCompound tagCompound) {
             super.writeToNBT(tagCompound);
-            tagCompound.setBoolean("Valid", this.hasMoreThanTwoComponents);
+            tagCompound.setBoolean("Valid", hasMoreThanTwoComponents);
         }
 
         public void readFromNBT(NBTTagCompound tagCompound) {
             super.readFromNBT(tagCompound);
-            this.hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
+            hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
         }
     }
 }

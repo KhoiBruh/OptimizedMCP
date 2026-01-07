@@ -7,9 +7,9 @@ public class ResourceLocation {
     protected final String resourcePath;
 
     protected ResourceLocation(int p_i45928_1_, String... resourceName) {
-        this.resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase();
-        this.resourcePath = resourceName[1];
-        Objects.requireNonNull(this.resourcePath);
+        resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase();
+        resourcePath = resourceName[1];
+        Objects.requireNonNull(resourcePath);
     }
 
     public ResourceLocation(String resourceName) {
@@ -36,15 +36,15 @@ public class ResourceLocation {
     }
 
     public String getResourcePath() {
-        return this.resourcePath;
+        return resourcePath;
     }
 
     public String getResourceDomain() {
-        return this.resourceDomain;
+        return resourceDomain;
     }
 
     public String toString() {
-        return this.resourceDomain + ':' + this.resourcePath;
+        return resourceDomain + ':' + resourcePath;
     }
 
     public boolean equals(Object p_equals_1_) {
@@ -53,11 +53,11 @@ public class ResourceLocation {
         } else if (!(p_equals_1_ instanceof ResourceLocation resourcelocation)) {
             return false;
         } else {
-            return this.resourceDomain.equals(resourcelocation.resourceDomain) && this.resourcePath.equals(resourcelocation.resourcePath);
+            return resourceDomain.equals(resourcelocation.resourceDomain) && resourcePath.equals(resourcelocation.resourcePath);
         }
     }
 
     public int hashCode() {
-        return 31 * this.resourceDomain.hashCode() + this.resourcePath.hashCode();
+        return 31 * resourceDomain.hashCode() + resourcePath.hashCode();
     }
 }

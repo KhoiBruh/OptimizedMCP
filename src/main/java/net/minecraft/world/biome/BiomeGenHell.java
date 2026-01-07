@@ -7,12 +7,12 @@ import net.minecraft.entity.monster.EntityPigZombie;
 public class BiomeGenHell extends BiomeGenBase {
     public BiomeGenHell(int id) {
         super(id);
-        this.spawnableMonsterList.clear();
-        this.spawnableCreatureList.clear();
-        this.spawnableWaterCreatureList.clear();
-        this.spawnableCaveCreatureList.clear();
-        this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityGhast.class, 50, 4, 4));
-        this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityPigZombie.class, 100, 4, 4));
-        this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 1, 4, 4));
+        spawnableMonsterList.clear();
+        spawnableCreatureList.clear();
+        spawnableWaterCreatureList.clear();
+        spawnableCaveCreatureList.clear();
+        spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityGhast.class, 50, 4, 4));
+        spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityPigZombie.class, 100, 4, 4));
+        spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 1, 4, 4));
     }
 }

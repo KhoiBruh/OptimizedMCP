@@ -17,87 +17,87 @@ public class ChunkCompileTaskGenerator {
     private boolean finished;
 
     public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn) {
-        this.renderChunk = renderChunkIn;
-        this.type = typeIn;
+        renderChunk = renderChunkIn;
+        type = typeIn;
     }
 
     public ChunkCompileTaskGenerator.Status getStatus() {
-        return this.status;
+        return status;
     }
 
     public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
-        this.lock.lock();
+        lock.lock();
 
         try {
-            this.status = statusIn;
+            status = statusIn;
         } finally {
-            this.lock.unlock();
+            lock.unlock();
         }
     }
 
     public RenderChunk getRenderChunk() {
-        return this.renderChunk;
+        return renderChunk;
     }
 
     public CompiledChunk getCompiledChunk() {
-        return this.compiledChunk;
+        return compiledChunk;
     }
 
     public void setCompiledChunk(CompiledChunk compiledChunkIn) {
-        this.compiledChunk = compiledChunkIn;
+        compiledChunk = compiledChunkIn;
     }
 
     public RegionRenderCacheBuilder getRegionRenderCacheBuilder() {
-        return this.regionRenderCacheBuilder;
+        return regionRenderCacheBuilder;
     }
 
     public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
-        this.regionRenderCacheBuilder = regionRenderCacheBuilderIn;
+        regionRenderCacheBuilder = regionRenderCacheBuilderIn;
     }
 
     public void finish() {
-        this.lock.lock();
+        lock.lock();
 
         try {
-            if (this.type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && this.status != ChunkCompileTaskGenerator.Status.DONE) {
-                this.renderChunk.setNeedsUpdate(true);
+            if (type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && status != ChunkCompileTaskGenerator.Status.DONE) {
+                renderChunk.setNeedsUpdate(true);
             }
 
-            this.finished = true;
-            this.status = ChunkCompileTaskGenerator.Status.DONE;
+            finished = true;
+            status = ChunkCompileTaskGenerator.Status.DONE;
 
-            for (Runnable runnable : this.listFinishRunnables) {
+            for (Runnable runnable : listFinishRunnables) {
                 runnable.run();
             }
         } finally {
-            this.lock.unlock();
+            lock.unlock();
         }
     }
 
     public void addFinishRunnable(Runnable p_178539_1_) {
-        this.lock.lock();
+        lock.lock();
 
         try {
-            this.listFinishRunnables.add(p_178539_1_);
+            listFinishRunnables.add(p_178539_1_);
 
-            if (this.finished) {
+            if (finished) {
                 p_178539_1_.run();
             }
         } finally {
-            this.lock.unlock();
+            lock.unlock();
         }
     }
 
     public ReentrantLock getLock() {
-        return this.lock;
+        return lock;
     }
 
     public ChunkCompileTaskGenerator.Type getType() {
-        return this.type;
+        return type;
     }
 
     public boolean isFinished() {
-        return this.finished;
+        return finished;
     }
 
     public enum Status {

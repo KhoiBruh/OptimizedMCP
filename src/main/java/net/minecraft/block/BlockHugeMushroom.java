@@ -21,8 +21,8 @@ public class BlockHugeMushroom extends Block {
 
     public BlockHugeMushroom(Material p_i46392_1_, MapColor p_i46392_2_, Block p_i46392_3_) {
         super(p_i46392_1_, p_i46392_2_);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockHugeMushroom.EnumType.ALL_OUTSIDE));
-        this.smallBlock = p_i46392_3_;
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockHugeMushroom.EnumType.ALL_OUTSIDE));
+        smallBlock = p_i46392_3_;
     }
 
     public int quantityDropped(Random random) {
@@ -46,19 +46,19 @@ public class BlockHugeMushroom extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(this.smallBlock);
+        return Item.getItemFromBlock(smallBlock);
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Item.getItemFromBlock(this.smallBlock);
+        return Item.getItemFromBlock(smallBlock);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState();
+        return getDefaultState();
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockHugeMushroom.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, BlockHugeMushroom.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -110,15 +110,15 @@ public class BlockHugeMushroom extends Block {
         }
 
         public int getMetadata() {
-            return this.meta;
+            return meta;
         }
 
         public String toString() {
-            return this.name;
+            return name;
         }
 
         public String getName() {
-            return this.name;
+            return name;
         }
     }
 }

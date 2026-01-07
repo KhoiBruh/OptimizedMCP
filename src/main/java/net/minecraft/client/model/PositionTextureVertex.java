@@ -12,15 +12,15 @@ public class PositionTextureVertex {
     }
 
     public PositionTextureVertex(PositionTextureVertex textureVertex, float texturePositionXIn, float texturePositionYIn) {
-        this.vector3D = textureVertex.vector3D;
-        this.texturePositionX = texturePositionXIn;
-        this.texturePositionY = texturePositionYIn;
+        vector3D = textureVertex.vector3D;
+        texturePositionX = texturePositionXIn;
+        texturePositionY = texturePositionYIn;
     }
 
     public PositionTextureVertex(Vec3 vector3DIn, float texturePositionXIn, float texturePositionYIn) {
-        this.vector3D = vector3DIn;
-        this.texturePositionX = texturePositionXIn;
-        this.texturePositionY = texturePositionYIn;
+        vector3D = vector3DIn;
+        texturePositionX = texturePositionXIn;
+        texturePositionY = texturePositionYIn;
     }
 
     public PositionTextureVertex setTexturePosition(float p_78240_1_, float p_78240_2_) {

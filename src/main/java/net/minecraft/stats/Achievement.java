@@ -24,10 +24,10 @@ public class Achievement extends StatBase {
 
     public Achievement(String statIdIn, String unlocalizedName, int column, int row, ItemStack stack, Achievement parent) {
         super(statIdIn, new ChatComponentTranslation("achievement." + unlocalizedName));
-        this.theItemStack = stack;
-        this.achievementDescription = "achievement." + unlocalizedName + ".desc";
-        this.displayColumn = column;
-        this.displayRow = row;
+        theItemStack = stack;
+        achievementDescription = "achievement." + unlocalizedName + ".desc";
+        displayColumn = column;
+        displayRow = row;
 
         if (column < AchievementList.minDisplayColumn) {
             AchievementList.minDisplayColumn = column;
@@ -45,16 +45,16 @@ public class Achievement extends StatBase {
             AchievementList.maxDisplayRow = row;
         }
 
-        this.parentAchievement = parent;
+        parentAchievement = parent;
     }
 
     public Achievement initIndependentStat() {
-        this.isIndependent = true;
+        isIndependent = true;
         return this;
     }
 
     public Achievement setSpecial() {
-        this.isSpecial = true;
+        isSpecial = true;
         return this;
     }
 
@@ -70,7 +70,7 @@ public class Achievement extends StatBase {
 
     public IChatComponent getStatName() {
         IChatComponent ichatcomponent = super.getStatName();
-        ichatcomponent.getChatStyle().setColor(this.getSpecial() ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.GREEN);
+        ichatcomponent.getChatStyle().setColor(getSpecial() ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.GREEN);
         return ichatcomponent;
     }
 
@@ -79,15 +79,15 @@ public class Achievement extends StatBase {
     }
 
     public String getDescription() {
-        return this.statStringFormatter != null ? this.statStringFormatter.formatString(StatCollector.translateToLocal(this.achievementDescription)) : StatCollector.translateToLocal(this.achievementDescription);
+        return statStringFormatter != null ? statStringFormatter.formatString(StatCollector.translateToLocal(achievementDescription)) : StatCollector.translateToLocal(achievementDescription);
     }
 
     public Achievement setStatStringFormatter(IStatStringFormat statStringFormatterIn) {
-        this.statStringFormatter = statStringFormatterIn;
+        statStringFormatter = statStringFormatterIn;
         return this;
     }
 
     public boolean getSpecial() {
-        return this.isSpecial;
+        return isSpecial;
     }
 }

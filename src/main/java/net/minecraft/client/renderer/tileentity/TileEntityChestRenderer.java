@@ -29,7 +29,7 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
         Calendar calendar = Calendar.getInstance();
 
         if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
-            this.isChristmas = true;
+            isChristmas = true;
         }
     }
 
@@ -59,38 +59,38 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
             ModelChest modelchest;
 
             if (te.adjacentChestXPos == null && te.adjacentChestZPos == null) {
-                modelchest = this.simpleChest;
+                modelchest = simpleChest;
 
                 if (destroyStage >= 0) {
-                    this.bindTexture(DESTROY_STAGES[destroyStage]);
+                    bindTexture(DESTROY_STAGES[destroyStage]);
                     GlStateManager.matrixMode(5890);
                     GlStateManager.pushMatrix();
                     GlStateManager.scale(4.0F, 4.0F, 1.0F);
                     GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
                     GlStateManager.matrixMode(5888);
-                } else if (this.isChristmas) {
-                    this.bindTexture(textureChristmas);
+                } else if (isChristmas) {
+                    bindTexture(textureChristmas);
                 } else if (te.getChestType() == 1) {
-                    this.bindTexture(textureTrapped);
+                    bindTexture(textureTrapped);
                 } else {
-                    this.bindTexture(textureNormal);
+                    bindTexture(textureNormal);
                 }
             } else {
-                modelchest = this.largeChest;
+                modelchest = largeChest;
 
                 if (destroyStage >= 0) {
-                    this.bindTexture(DESTROY_STAGES[destroyStage]);
+                    bindTexture(DESTROY_STAGES[destroyStage]);
                     GlStateManager.matrixMode(5890);
                     GlStateManager.pushMatrix();
                     GlStateManager.scale(8.0F, 4.0F, 1.0F);
                     GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
                     GlStateManager.matrixMode(5888);
-                } else if (this.isChristmas) {
-                    this.bindTexture(textureChristmasDouble);
+                } else if (isChristmas) {
+                    bindTexture(textureChristmasDouble);
                 } else if (te.getChestType() == 1) {
-                    this.bindTexture(textureTrappedDouble);
+                    bindTexture(textureTrappedDouble);
                 } else {
-                    this.bindTexture(textureNormalDouble);
+                    bindTexture(textureNormalDouble);
                 }
             }
 

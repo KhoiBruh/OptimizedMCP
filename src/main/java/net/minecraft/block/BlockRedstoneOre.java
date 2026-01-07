@@ -22,7 +22,7 @@ public class BlockRedstoneOre extends Block {
         super(Material.rock);
 
         if (isOn) {
-            this.setTickRandomly(true);
+            setTickRandomly(true);
         }
 
         this.isOn = isOn;
@@ -33,22 +33,22 @@ public class BlockRedstoneOre extends Block {
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        this.activate(worldIn, pos);
+        activate(worldIn, pos);
         super.onBlockClicked(worldIn, pos, playerIn);
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn) {
-        this.activate(worldIn, pos);
+        activate(worldIn, pos);
         super.onEntityCollidedWithBlock(worldIn, pos, entityIn);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        this.activate(worldIn, pos);
+        activate(worldIn, pos);
         return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
     }
 
     private void activate(World worldIn, BlockPos pos) {
-        this.spawnParticles(worldIn, pos);
+        spawnParticles(worldIn, pos);
 
         if (this == Blocks.redstone_ore) {
             worldIn.setBlockState(pos, Blocks.lit_redstone_ore.getDefaultState());
@@ -66,7 +66,7 @@ public class BlockRedstoneOre extends Block {
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {
-        return this.quantityDropped(random) + random.nextInt(fortune + 1);
+        return quantityDropped(random) + random.nextInt(fortune + 1);
     }
 
     public int quantityDropped(Random random) {
@@ -76,15 +76,15 @@ public class BlockRedstoneOre extends Block {
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
-        if (this.getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
+        if (getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
             int i = 1 + worldIn.rand.nextInt(5);
-            this.dropXpOnBlockBreak(worldIn, pos, i);
+            dropXpOnBlockBreak(worldIn, pos, i);
         }
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (this.isOn) {
-            this.spawnParticles(worldIn, pos);
+        if (isOn) {
+            spawnParticles(worldIn, pos);
         }
     }
 

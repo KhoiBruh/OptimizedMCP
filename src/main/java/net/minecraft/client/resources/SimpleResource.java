@@ -25,45 +25,45 @@ public class SimpleResource implements IResource {
     private JsonObject mcmetaJson;
 
     public SimpleResource(String resourcePackNameIn, ResourceLocation srResourceLocationIn, InputStream resourceInputStreamIn, InputStream mcmetaInputStreamIn, IMetadataSerializer srMetadataSerializerIn) {
-        this.resourcePackName = resourcePackNameIn;
-        this.srResourceLocation = srResourceLocationIn;
-        this.resourceInputStream = resourceInputStreamIn;
-        this.mcmetaInputStream = mcmetaInputStreamIn;
-        this.srMetadataSerializer = srMetadataSerializerIn;
+        resourcePackName = resourcePackNameIn;
+        srResourceLocation = srResourceLocationIn;
+        resourceInputStream = resourceInputStreamIn;
+        mcmetaInputStream = mcmetaInputStreamIn;
+        srMetadataSerializer = srMetadataSerializerIn;
     }
 
     public ResourceLocation getResourceLocation() {
-        return this.srResourceLocation;
+        return srResourceLocation;
     }
 
     public InputStream getInputStream() {
-        return this.resourceInputStream;
+        return resourceInputStream;
     }
 
     public boolean hasMetadata() {
-        return this.mcmetaInputStream != null;
+        return mcmetaInputStream != null;
     }
 
     public <T extends IMetadataSection> T getMetadata(String p_110526_1_) {
-        if (!this.hasMetadata()) {
+        if (!hasMetadata()) {
             return null;
         } else {
-            if (this.mcmetaJson == null && !this.mcmetaJsonChecked) {
-                this.mcmetaJsonChecked = true;
+            if (mcmetaJson == null && !mcmetaJsonChecked) {
+                mcmetaJsonChecked = true;
                 BufferedReader bufferedreader = null;
 
                 try {
-                    bufferedreader = new BufferedReader(new InputStreamReader(this.mcmetaInputStream));
-                    this.mcmetaJson = JsonParser.parseReader(bufferedreader).getAsJsonObject();
+                    bufferedreader = new BufferedReader(new InputStreamReader(mcmetaInputStream));
+                    mcmetaJson = JsonParser.parseReader(bufferedreader).getAsJsonObject();
                 } finally {
                     IOUtils.closeQuietly(bufferedreader);
                 }
             }
 
-            T t = (T) this.mapMetadataSections.get(p_110526_1_);
+            T t = (T) mapMetadataSections.get(p_110526_1_);
 
             if (t == null) {
-                t = this.srMetadataSerializer.parseMetadataSection(p_110526_1_, this.mcmetaJson);
+                t = srMetadataSerializer.parseMetadataSection(p_110526_1_, mcmetaJson);
             }
 
             return t;
@@ -71,7 +71,7 @@ public class SimpleResource implements IResource {
     }
 
     public String getResourcePackName() {
-        return this.resourcePackName;
+        return resourcePackName;
     }
 
     public boolean equals(Object p_equals_1_) {
@@ -81,23 +81,23 @@ public class SimpleResource implements IResource {
             return false;
         } else {
 
-            if (this.srResourceLocation != null) {
-                if (!this.srResourceLocation.equals(simpleresource.srResourceLocation)) {
+            if (srResourceLocation != null) {
+                if (!srResourceLocation.equals(simpleresource.srResourceLocation)) {
                     return false;
                 }
             } else if (simpleresource.srResourceLocation != null) {
                 return false;
             }
 
-            if (this.resourcePackName != null) {
-                return this.resourcePackName.equals(simpleresource.resourcePackName);
+            if (resourcePackName != null) {
+                return resourcePackName.equals(simpleresource.resourcePackName);
             } else return simpleresource.resourcePackName == null;
         }
     }
 
     public int hashCode() {
-        int i = this.resourcePackName != null ? this.resourcePackName.hashCode() : 0;
-        i = 31 * i + (this.srResourceLocation != null ? this.srResourceLocation.hashCode() : 0);
+        int i = resourcePackName != null ? resourcePackName.hashCode() : 0;
+        i = 31 * i + (srResourceLocation != null ? srResourceLocation.hashCode() : 0);
         return i;
     }
 }

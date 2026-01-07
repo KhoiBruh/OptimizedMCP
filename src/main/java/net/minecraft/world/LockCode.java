@@ -15,10 +15,10 @@ public record LockCode(String lock) {
     }
 
     public boolean isEmpty() {
-        return this.lock == null || this.lock.isEmpty();
+        return lock == null || lock.isEmpty();
     }
 
     public void toNBT(NBTTagCompound nbt) {
-        nbt.setString("Lock", this.lock);
+        nbt.setString("Lock", lock);
     }
 }

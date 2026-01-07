@@ -12,13 +12,13 @@ public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
     private final NetworkManager networkManager;
 
     public NetHandlerHandshakeMemory(MinecraftServer mcServerIn, NetworkManager networkManagerIn) {
-        this.mcServer = mcServerIn;
-        this.networkManager = networkManagerIn;
+        mcServer = mcServerIn;
+        networkManager = networkManagerIn;
     }
 
     public void processHandshake(C00Handshake packetIn) {
-        this.networkManager.setConnectionState(packetIn.getRequestedState());
-        this.networkManager.setNetHandler(new NetHandlerLoginServer(this.mcServer, this.networkManager));
+        networkManager.setConnectionState(packetIn.getRequestedState());
+        networkManager.setNetHandler(new NetHandlerLoginServer(mcServer, networkManager));
     }
 
     public void onDisconnect(IChatComponent reason) {

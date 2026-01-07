@@ -50,8 +50,8 @@ public class CommandDebug extends CommandBase {
 
                 notifyOperators(sender, this, "commands.debug.start");
                 MinecraftServer.getServer().enableProfiling();
-                this.profileStartTime = MinecraftServer.getCurrentTimeMillis();
-                this.profileStartTick = MinecraftServer.getServer().getTickCounter();
+                profileStartTime = MinecraftServer.getCurrentTimeMillis();
+                profileStartTick = MinecraftServer.getServer().getTickCounter();
             } else {
                 if (!args[0].equals("stop")) {
                     throw new WrongUsageException("commands.debug.usage");
@@ -67,9 +67,9 @@ public class CommandDebug extends CommandBase {
 
                 long i = MinecraftServer.getCurrentTimeMillis();
                 int j = MinecraftServer.getServer().getTickCounter();
-                long k = i - this.profileStartTime;
-                int l = j - this.profileStartTick;
-                this.saveProfileResults(k, l);
+                long k = i - profileStartTime;
+                int l = j - profileStartTick;
+                saveProfileResults(k, l);
                 MinecraftServer.getServer().theProfiler.profilingEnabled = false;
                 notifyOperators(sender, this, "commands.debug.stop", (float) k / 1000.0F, l);
             }
@@ -82,7 +82,7 @@ public class CommandDebug extends CommandBase {
 
         try {
             FileWriter filewriter = new FileWriter(file1);
-            filewriter.write(this.getProfileResults(timeSpan, tickSpan));
+            filewriter.write(getProfileResults(timeSpan, tickSpan));
             filewriter.close();
         } catch (Throwable throwable) {
             logger.error("Could not save profiler results to " + file1, throwable);
@@ -99,7 +99,7 @@ public class CommandDebug extends CommandBase {
         stringbuilder.append("Tick span: ").append(tickSpan).append(" ticks\n");
         stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float) tickSpan / ((float) timeSpan / 1000.0F))).append(" ticks per second. It should be ").append(20).append(" ticks per second\n\n");
         stringbuilder.append("--- BEGIN PROFILE DUMP ---\n\n");
-        this.func_147202_a(0, "root", stringbuilder);
+        func_147202_a(0, "root", stringbuilder);
         stringbuilder.append("--- END PROFILE DUMP ---\n\n");
         return stringbuilder.toString();
     }
@@ -120,7 +120,7 @@ public class CommandDebug extends CommandBase {
 
                 if (!profiler$result.field_76331_c.equals("unspecified")) {
                     try {
-                        this.func_147202_a(p_147202_1_ + 1, p_147202_2_ + "." + profiler$result.field_76331_c, stringBuilder);
+                        func_147202_a(p_147202_1_ + 1, p_147202_2_ + "." + profiler$result.field_76331_c, stringBuilder);
                     } catch (Exception exception) {
                         stringBuilder.append("[[ EXCEPTION ").append(exception).append(" ]]");
                     }

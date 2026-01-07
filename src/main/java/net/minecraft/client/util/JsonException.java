@@ -12,14 +12,14 @@ public class JsonException extends IOException {
     private final String exceptionMessage;
 
     public JsonException(String message) {
-        this.field_151383_a.add(new JsonException.Entry());
-        this.exceptionMessage = message;
+        field_151383_a.add(new JsonException.Entry());
+        exceptionMessage = message;
     }
 
     public JsonException(String message, Throwable cause) {
         super(cause);
-        this.field_151383_a.add(new JsonException.Entry());
-        this.exceptionMessage = message;
+        field_151383_a.add(new JsonException.Entry());
+        exceptionMessage = message;
     }
 
     public static JsonException func_151379_a(Exception p_151379_0_) {
@@ -37,16 +37,16 @@ public class JsonException extends IOException {
     }
 
     public void func_151380_a(String p_151380_1_) {
-        this.field_151383_a.get(0).func_151373_a(p_151380_1_);
+        field_151383_a.get(0).func_151373_a(p_151380_1_);
     }
 
     public void func_151381_b(String p_151381_1_) {
-        this.field_151383_a.get(0).field_151376_a = p_151381_1_;
-        this.field_151383_a.add(0, new JsonException.Entry());
+        field_151383_a.get(0).field_151376_a = p_151381_1_;
+        field_151383_a.add(0, new JsonException.Entry());
     }
 
     public String getMessage() {
-        return "Invalid " + this.field_151383_a.get(this.field_151383_a.size() - 1).toString() + ": " + this.exceptionMessage;
+        return "Invalid " + field_151383_a.get(field_151383_a.size() - 1).toString() + ": " + exceptionMessage;
     }
 
     public static class Entry {
@@ -54,20 +54,20 @@ public class JsonException extends IOException {
         private String field_151376_a;
 
         private Entry() {
-            this.field_151376_a = null;
-            this.field_151375_b = Lists.newArrayList();
+            field_151376_a = null;
+            field_151375_b = Lists.newArrayList();
         }
 
         private void func_151373_a(String p_151373_1_) {
-            this.field_151375_b.add(0, p_151373_1_);
+            field_151375_b.add(0, p_151373_1_);
         }
 
         public String func_151372_b() {
-            return StringUtils.join(this.field_151375_b, "->");
+            return StringUtils.join(field_151375_b, "->");
         }
 
         public String toString() {
-            return this.field_151376_a != null ? (!this.field_151375_b.isEmpty() ? this.field_151376_a + " " + this.func_151372_b() : this.field_151376_a) : (!this.field_151375_b.isEmpty() ? "(Unknown file) " + this.func_151372_b() : "(Unknown file)");
+            return field_151376_a != null ? (!field_151375_b.isEmpty() ? field_151376_a + " " + func_151372_b() : field_151376_a) : (!field_151375_b.isEmpty() ? "(Unknown file) " + func_151372_b() : "(Unknown file)");
         }
     }
 }

@@ -25,13 +25,13 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 
     public BlockCocoa() {
         super(Material.plants);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, 0));
-        this.setTickRandomly(true);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, 0));
+        setTickRandomly(true);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!this.canBlockStay(worldIn, pos, state)) {
-            this.dropBlock(worldIn, pos, state);
+        if (!canBlockStay(worldIn, pos, state)) {
+            dropBlock(worldIn, pos, state);
         } else if (worldIn.rand.nextInt(5) == 0) {
             int i = state.getValue(AGE);
 
@@ -56,12 +56,12 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
+        setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
@@ -76,19 +76,19 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 
         switch (enumfacing) {
             case SOUTH:
-                this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, (15.0F - (float) j) / 16.0F, (8.0F + f) / 16.0F, 0.75F, 0.9375F);
+                setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, (15.0F - (float) j) / 16.0F, (8.0F + f) / 16.0F, 0.75F, 0.9375F);
                 break;
 
             case NORTH:
-                this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, 0.0625F, (8.0F + f) / 16.0F, 0.75F, (1.0F + (float) j) / 16.0F);
+                setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, 0.0625F, (8.0F + f) / 16.0F, 0.75F, (1.0F + (float) j) / 16.0F);
                 break;
 
             case WEST:
-                this.setBlockBounds(0.0625F, (12.0F - (float) k) / 16.0F, (8.0F - f) / 16.0F, (1.0F + (float) j) / 16.0F, 0.75F, (8.0F + f) / 16.0F);
+                setBlockBounds(0.0625F, (12.0F - (float) k) / 16.0F, (8.0F - f) / 16.0F, (1.0F + (float) j) / 16.0F, 0.75F, (8.0F + f) / 16.0F);
                 break;
 
             case EAST:
-                this.setBlockBounds((15.0F - (float) j) / 16.0F, (12.0F - (float) k) / 16.0F, (8.0F - f) / 16.0F, 0.9375F, 0.75F, (8.0F + f) / 16.0F);
+                setBlockBounds((15.0F - (float) j) / 16.0F, (12.0F - (float) k) / 16.0F, (8.0F - f) / 16.0F, 0.9375F, 0.75F, (8.0F + f) / 16.0F);
         }
     }
 
@@ -102,18 +102,18 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
             facing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, 0);
+        return getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, 0);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        if (!this.canBlockStay(worldIn, pos, state)) {
-            this.dropBlock(worldIn, pos, state);
+        if (!canBlockStay(worldIn, pos, state)) {
+            dropBlock(worldIn, pos, state);
         }
     }
 
     private void dropBlock(World worldIn, BlockPos pos, IBlockState state) {
         worldIn.setBlockState(pos, Blocks.air.getDefaultState(), 3);
-        this.dropBlockAsItem(worldIn, pos, state, 0);
+        dropBlockAsItem(worldIn, pos, state, 0);
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
@@ -154,7 +154,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
+        return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
     }
 
     public int getMetaFromState(IBlockState state) {

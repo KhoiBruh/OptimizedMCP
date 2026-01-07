@@ -22,8 +22,8 @@ public class BlockStainedGlass extends BlockBreakable {
 
     public BlockStainedGlass(Material materialIn) {
         super(materialIn, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public int damageDropped(IBlockState state) {
@@ -57,7 +57,7 @@ public class BlockStainedGlass extends BlockBreakable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

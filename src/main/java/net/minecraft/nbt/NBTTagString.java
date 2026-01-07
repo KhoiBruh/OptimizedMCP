@@ -8,7 +8,7 @@ public class NBTTagString extends NBTBase {
     private String data;
 
     public NBTTagString() {
-        this.data = "";
+        data = "";
     }
 
     public NBTTagString(String data) {
@@ -20,13 +20,13 @@ public class NBTTagString extends NBTBase {
     }
 
     void write(DataOutput output) throws IOException {
-        output.writeUTF(this.data);
+        output.writeUTF(data);
     }
 
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(288L);
-        this.data = input.readUTF();
-        sizeTracker.read(16L * this.data.length());
+        data = input.readUTF();
+        sizeTracker.read(16L * data.length());
     }
 
     public byte getId() {
@@ -34,15 +34,15 @@ public class NBTTagString extends NBTBase {
     }
 
     public String toString() {
-        return "\"" + this.data.replace("\"", "\\\"") + "\"";
+        return "\"" + data.replace("\"", "\\\"") + "\"";
     }
 
     public NBTBase copy() {
-        return new NBTTagString(this.data);
+        return new NBTTagString(data);
     }
 
     public boolean hasNoTags() {
-        return this.data.isEmpty();
+        return data.isEmpty();
     }
 
     public boolean equals(Object p_equals_1_) {
@@ -50,15 +50,15 @@ public class NBTTagString extends NBTBase {
             return false;
         } else {
             NBTTagString nbttagstring = (NBTTagString) p_equals_1_;
-            return this.data == null && nbttagstring.data == null || this.data != null && this.data.equals(nbttagstring.data);
+            return data == null && nbttagstring.data == null || data != null && data.equals(nbttagstring.data);
         }
     }
 
     public int hashCode() {
-        return super.hashCode() ^ this.data.hashCode();
+        return super.hashCode() ^ data.hashCode();
     }
 
     public String getString() {
-        return this.data;
+        return data;
     }
 }
