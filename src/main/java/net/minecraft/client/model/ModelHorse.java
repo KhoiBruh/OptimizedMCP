@@ -411,7 +411,7 @@ public class ModelHorse extends ModelBase {
         backRightShin.rotationPointZ = backRightLeg.rotationPointZ
                 + MathHelper.cos(((float) Math.PI * 3F / 2F) + f15 + f7 * f10 * 0.5F * p_78086_3_) * 7.0F;
         float f17 = (-1.0471976F + f16) * f6 + f11 * f7;
-        float f18 = (-1.0471976F + -f16) * f6 + -f11 * f7;
+        float f18 = (-1.0471976F - f16) * f6 + -f11 * f7;
         frontLeftShin.rotationPointY = frontLeftLeg.rotationPointY
                 + MathHelper.sin(((float) Math.PI / 2F) + f17) * 7.0F;
         frontLeftShin.rotationPointZ = frontLeftLeg.rotationPointZ

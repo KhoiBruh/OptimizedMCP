@@ -144,7 +144,7 @@ public class ModelOcelot extends ModelBase {
             ++ocelotBody.rotationPointY;
             ocelotHead.rotationPointY += 2.0F;
             ++ocelotTail.rotationPointY;
-            ocelotTail2.rotationPointY += -4.0F;
+            ocelotTail2.rotationPointY -= 4.0F;
             ocelotTail2.rotationPointZ += 2.0F;
             ocelotTail.rotateAngleX = ((float) Math.PI / 2F);
             ocelotTail2.rotateAngleX = ((float) Math.PI / 2F);
@@ -157,14 +157,14 @@ public class ModelOcelot extends ModelBase {
             field_78163_i = 2;
         } else if (entityocelot.isSitting()) {
             ocelotBody.rotateAngleX = ((float) Math.PI / 4F);
-            ocelotBody.rotationPointY += -4.0F;
+            ocelotBody.rotationPointY -= 4.0F;
             ocelotBody.rotationPointZ += 5.0F;
-            ocelotHead.rotationPointY += -3.3F;
+            ocelotHead.rotationPointY -= 3.3F;
             ++ocelotHead.rotationPointZ;
             ocelotTail.rotationPointY += 8.0F;
-            ocelotTail.rotationPointZ += -2.0F;
+            ocelotTail.rotationPointZ -= 2.0F;
             ocelotTail2.rotationPointY += 2.0F;
-            ocelotTail2.rotationPointZ += -0.8F;
+            ocelotTail2.rotationPointZ -= 0.8F;
             ocelotTail.rotateAngleX = 1.7278761F;
             ocelotTail2.rotateAngleX = 2.670354F;
             ocelotFrontLeftLeg.rotateAngleX = ocelotFrontRightLeg.rotateAngleX = -0.15707964F;

@@ -102,8 +102,8 @@ public class ModelBiped extends ModelBase {
         bipedLeftLeg.rotateAngleY = 0.0F;
 
         if (isRiding) {
-            bipedRightArm.rotateAngleX += -((float) Math.PI / 5F);
-            bipedLeftArm.rotateAngleX += -((float) Math.PI / 5F);
+            bipedRightArm.rotateAngleX -= ((float) Math.PI / 5F);
+            bipedLeftArm.rotateAngleX -= ((float) Math.PI / 5F);
             bipedRightLeg.rotateAngleX = -((float) Math.PI * 2F / 5F);
             bipedLeftLeg.rotateAngleX = -((float) Math.PI * 2F / 5F);
             bipedRightLeg.rotateAngleY = ((float) Math.PI / 10F);
