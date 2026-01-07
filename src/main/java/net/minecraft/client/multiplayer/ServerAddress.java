@@ -22,7 +22,7 @@ public class ServerAddress {
             String[] astring = p_78860_0_.split(":");
 
             if (p_78860_0_.startsWith("[")) {
-                int i = p_78860_0_.indexOf("]");
+                int i = p_78860_0_.indexOf(']');
 
                 if (i > 0) {
                     String s = p_78860_0_.substring(1, i);

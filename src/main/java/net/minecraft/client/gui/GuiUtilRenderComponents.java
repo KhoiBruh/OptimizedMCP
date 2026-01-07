@@ -45,7 +45,7 @@ public class GuiUtilRenderComponents {
                 String s3 = s2.length() < s4.length() ? s4.substring(s2.length()) : null;
 
                 if (s3 != null && !s3.isEmpty()) {
-                    int l = s2.lastIndexOf(" ");
+                    int l = s2.lastIndexOf(' ');
 
                     if (l >= 0 && p_178908_2_.getStringWidth(s4.substring(0, l)) > 0) {
                         s2 = s4.substring(0, l);

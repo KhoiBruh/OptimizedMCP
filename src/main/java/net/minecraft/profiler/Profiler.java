@@ -119,7 +119,7 @@ public class Profiler {
 
             for (Map.Entry<String, Long> entry : profilingMap.entrySet()) {
                 String s = entry.getKey();
-                if (s.length() > profilerName.length() && s.startsWith(profilerName) && s.indexOf(".", profilerName.length() + 1) < 0) {
+                if (s.length() > profilerName.length() && s.startsWith(profilerName) && s.indexOf('.', profilerName.length() + 1) < 0) {
                     k += entry.getValue();
                 }
             }
@@ -136,7 +136,7 @@ public class Profiler {
 
             for (Map.Entry<String, Long> entry : profilingMap.entrySet()) {
                 String s1 = entry.getKey();
-                if (s1.length() > profilerName.length() && s1.startsWith(profilerName) && s1.indexOf(".", profilerName.length() + 1) < 0) {
+                if (s1.length() > profilerName.length() && s1.startsWith(profilerName) && s1.indexOf('.', profilerName.length() + 1) < 0) {
                     long l = entry.getValue();
                     double d0 = (double) l * 100.0D / (double) k;
                     double d1 = (double) l * 100.0D / (double) i;

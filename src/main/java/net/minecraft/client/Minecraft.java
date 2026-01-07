@@ -1015,7 +1015,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
             if (keyCount == 0) {
                 if (!profiler$result.field_76331_c.isEmpty()) {
-                    int i = debugProfilerName.lastIndexOf(".");
+                    int i = debugProfilerName.lastIndexOf('.');
 
                     if (i >= 0) {
                         debugProfilerName = debugProfilerName.substring(0, i);

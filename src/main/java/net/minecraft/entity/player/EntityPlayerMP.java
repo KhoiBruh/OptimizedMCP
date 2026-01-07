@@ -781,8 +781,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     public String getPlayerIP() {
         String s = playerNetServerHandler.netManager.getRemoteAddress().toString();
-        s = s.substring(s.indexOf("/") + 1);
-        s = s.substring(0, s.indexOf(":"));
+        s = s.substring(s.indexOf('/') + 1);
+        s = s.substring(0, s.indexOf(':'));
         return s;
     }
 
