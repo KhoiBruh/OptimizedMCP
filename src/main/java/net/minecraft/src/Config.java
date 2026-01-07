@@ -91,7 +91,7 @@ public class Config {
     }
 
     public static String getVersionDebug() {
-        StringBuffer stringbuffer = new StringBuffer(32);
+        StringBuilder stringbuffer = new StringBuilder(32);
 
         if (isDynamicLights()) {
             stringbuffer.append("DL: ");
@@ -679,7 +679,7 @@ public class Config {
         if (p_listToString_0_ == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(p_listToString_0_.size() * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_listToString_0_.size() * 5);
 
             for (int i = 0; i < p_listToString_0_.size(); ++i) {
                 Object object = p_listToString_0_.get(i);
@@ -703,7 +703,7 @@ public class Config {
         if (p_arrayToString_0_ == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(p_arrayToString_0_.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
 
             for (int i = 0; i < p_arrayToString_0_.length; ++i) {
                 Object object = p_arrayToString_0_[i];
@@ -727,7 +727,7 @@ public class Config {
         if (p_arrayToString_0_ == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(p_arrayToString_0_.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
 
             for (int i = 0; i < p_arrayToString_0_.length; ++i) {
                 int j = p_arrayToString_0_[i];
@@ -751,7 +751,7 @@ public class Config {
         if (p_arrayToString_0_ == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(p_arrayToString_0_.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
 
             for (int i = 0; i < p_arrayToString_0_.length; ++i) {
                 float f = p_arrayToString_0_[i];
@@ -1314,7 +1314,7 @@ public class Config {
             throws IOException {
         InputStreamReader inputstreamreader = new InputStreamReader(p_readInputStream_0_, p_readInputStream_1_);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
 
         while (true) {
             String s = bufferedreader.readLine();
@@ -1957,7 +1957,7 @@ public class Config {
         if (p_arrayToString_0_ == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(p_arrayToString_0_.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
 
             for (int i = 0; i < p_arrayToString_0_.length; ++i) {
                 boolean flag = p_arrayToString_0_[i];

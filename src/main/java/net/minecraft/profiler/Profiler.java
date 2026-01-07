@@ -89,7 +89,7 @@ public class Profiler {
                 long k = i - j;
 
                 if (profilingMap.containsKey(profilingSection)) {
-                    profilingMap.put(profilingSection, profilingMap.get(profilingSection).longValue() + k);
+                    profilingMap.put(profilingSection, profilingMap.get(profilingSection) + k);
                 } else {
                     profilingMap.put(profilingSection, k);
                 }

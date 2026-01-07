@@ -831,7 +831,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             Float f1 = Floats.tryParse(guitextfield.getText());
 
             if (f1 != null) {
-                f1 = f1.floatValue() + f;
+                f1 = f1 + f;
                 int i = guitextfield.getId();
                 String s = func_175330_b(guitextfield.getId(), f1);
                 guitextfield.setText(s);

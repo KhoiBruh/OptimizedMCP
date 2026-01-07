@@ -125,7 +125,7 @@ public class GuiOverlayDebug extends Gui {
                 mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ);
 
         if (mc.debug != debugOF) {
-            StringBuffer stringbuffer = new StringBuffer(mc.debug);
+            StringBuilder stringbuffer = new StringBuilder(mc.debug);
             int i = Config.getFpsMin();
             int j = mc.debug.indexOf(" fps ");
 

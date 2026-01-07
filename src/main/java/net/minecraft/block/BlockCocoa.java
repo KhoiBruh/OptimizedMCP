@@ -146,7 +146,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        worldIn.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE).intValue() + 1), 2);
+        worldIn.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) + 1), 2);
     }
 
     public EnumWorldBlockLayer getBlockLayer() {

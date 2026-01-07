@@ -1887,17 +1887,17 @@ public class GameSettings {
                     String[] astring = s.split(":");
 
                     if (astring[0].equals("ofRenderDistanceChunks") && astring.length >= 2) {
-                        renderDistanceChunks = Integer.valueOf(astring[1]);
+                        renderDistanceChunks = Integer.parseInt(astring[1]);
                         renderDistanceChunks = Config.limit(renderDistanceChunks, 2, 1024);
                     }
 
                     if (astring[0].equals("ofFogType") && astring.length >= 2) {
-                        ofFogType = Integer.valueOf(astring[1]);
+                        ofFogType = Integer.parseInt(astring[1]);
                         ofFogType = Config.limit(ofFogType, 1, 3);
                     }
 
                     if (astring[0].equals("ofFogStart") && astring.length >= 2) {
-                        ofFogStart = Float.valueOf(astring[1]);
+                        ofFogStart = Float.parseFloat(astring[1]);
 
                         if (ofFogStart < 0.2F) {
                             ofFogStart = 0.2F;
@@ -1909,284 +1909,284 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("ofMipmapType") && astring.length >= 2) {
-                        ofMipmapType = Integer.valueOf(astring[1]);
+                        ofMipmapType = Integer.parseInt(astring[1]);
                         ofMipmapType = Config.limit(ofMipmapType, 0, 3);
                     }
 
                     if (astring[0].equals("ofOcclusionFancy") && astring.length >= 2) {
-                        ofOcclusionFancy = Boolean.valueOf(astring[1]);
+                        ofOcclusionFancy = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothFps") && astring.length >= 2) {
-                        ofSmoothFps = Boolean.valueOf(astring[1]);
+                        ofSmoothFps = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothWorld") && astring.length >= 2) {
-                        ofSmoothWorld = Boolean.valueOf(astring[1]);
+                        ofSmoothWorld = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAoLevel") && astring.length >= 2) {
-                        ofAoLevel = Float.valueOf(astring[1]);
+                        ofAoLevel = Float.parseFloat(astring[1]);
                         ofAoLevel = Config.limit(ofAoLevel, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofClouds") && astring.length >= 2) {
-                        ofClouds = Integer.valueOf(astring[1]);
+                        ofClouds = Integer.parseInt(astring[1]);
                         ofClouds = Config.limit(ofClouds, 0, 3);
                         updateRenderClouds();
                     }
 
                     if (astring[0].equals("ofCloudsHeight") && astring.length >= 2) {
-                        ofCloudsHeight = Float.valueOf(astring[1]);
+                        ofCloudsHeight = Float.parseFloat(astring[1]);
                         ofCloudsHeight = Config.limit(ofCloudsHeight, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofTrees") && astring.length >= 2) {
-                        ofTrees = Integer.valueOf(astring[1]);
+                        ofTrees = Integer.parseInt(astring[1]);
                         ofTrees = limit(ofTrees, OF_TREES_VALUES);
                     }
 
                     if (astring[0].equals("ofDroppedItems") && astring.length >= 2) {
-                        ofDroppedItems = Integer.valueOf(astring[1]);
+                        ofDroppedItems = Integer.parseInt(astring[1]);
                         ofDroppedItems = Config.limit(ofDroppedItems, 0, 2);
                     }
 
                     if (astring[0].equals("ofRain") && astring.length >= 2) {
-                        ofRain = Integer.valueOf(astring[1]);
+                        ofRain = Integer.parseInt(astring[1]);
                         ofRain = Config.limit(ofRain, 0, 3);
                     }
 
                     if (astring[0].equals("ofAnimatedWater") && astring.length >= 2) {
-                        ofAnimatedWater = Integer.valueOf(astring[1]);
+                        ofAnimatedWater = Integer.parseInt(astring[1]);
                         ofAnimatedWater = Config.limit(ofAnimatedWater, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedLava") && astring.length >= 2) {
-                        ofAnimatedLava = Integer.valueOf(astring[1]);
+                        ofAnimatedLava = Integer.parseInt(astring[1]);
                         ofAnimatedLava = Config.limit(ofAnimatedLava, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedFire") && astring.length >= 2) {
-                        ofAnimatedFire = Boolean.valueOf(astring[1]);
+                        ofAnimatedFire = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedPortal") && astring.length >= 2) {
-                        ofAnimatedPortal = Boolean.valueOf(astring[1]);
+                        ofAnimatedPortal = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedRedstone") && astring.length >= 2) {
-                        ofAnimatedRedstone = Boolean.valueOf(astring[1]);
+                        ofAnimatedRedstone = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedExplosion") && astring.length >= 2) {
-                        ofAnimatedExplosion = Boolean.valueOf(astring[1]);
+                        ofAnimatedExplosion = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedFlame") && astring.length >= 2) {
-                        ofAnimatedFlame = Boolean.valueOf(astring[1]);
+                        ofAnimatedFlame = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedSmoke") && astring.length >= 2) {
-                        ofAnimatedSmoke = Boolean.valueOf(astring[1]);
+                        ofAnimatedSmoke = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofVoidParticles") && astring.length >= 2) {
-                        ofVoidParticles = Boolean.valueOf(astring[1]);
+                        ofVoidParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofWaterParticles") && astring.length >= 2) {
-                        ofWaterParticles = Boolean.valueOf(astring[1]);
+                        ofWaterParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofPortalParticles") && astring.length >= 2) {
-                        ofPortalParticles = Boolean.valueOf(astring[1]);
+                        ofPortalParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofPotionParticles") && astring.length >= 2) {
-                        ofPotionParticles = Boolean.valueOf(astring[1]);
+                        ofPotionParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofFireworkParticles") && astring.length >= 2) {
-                        ofFireworkParticles = Boolean.valueOf(astring[1]);
+                        ofFireworkParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofDrippingWaterLava") && astring.length >= 2) {
-                        ofDrippingWaterLava = Boolean.valueOf(astring[1]);
+                        ofDrippingWaterLava = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedTerrain") && astring.length >= 2) {
-                        ofAnimatedTerrain = Boolean.valueOf(astring[1]);
+                        ofAnimatedTerrain = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedTextures") && astring.length >= 2) {
-                        ofAnimatedTextures = Boolean.valueOf(astring[1]);
+                        ofAnimatedTextures = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofRainSplash") && astring.length >= 2) {
-                        ofRainSplash = Boolean.valueOf(astring[1]);
+                        ofRainSplash = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofLagometer") && astring.length >= 2) {
-                        ofLagometer = Boolean.valueOf(astring[1]);
+                        ofLagometer = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowFps") && astring.length >= 2) {
-                        ofShowFps = Boolean.valueOf(astring[1]);
+                        ofShowFps = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAutoSaveTicks") && astring.length >= 2) {
-                        ofAutoSaveTicks = Integer.valueOf(astring[1]);
+                        ofAutoSaveTicks = Integer.parseInt(astring[1]);
                         ofAutoSaveTicks = Config.limit(ofAutoSaveTicks, 40, 40000);
                     }
 
                     if (astring[0].equals("ofBetterGrass") && astring.length >= 2) {
-                        ofBetterGrass = Integer.valueOf(astring[1]);
+                        ofBetterGrass = Integer.parseInt(astring[1]);
                         ofBetterGrass = Config.limit(ofBetterGrass, 1, 3);
                     }
 
                     if (astring[0].equals("ofConnectedTextures") && astring.length >= 2) {
-                        ofConnectedTextures = Integer.valueOf(astring[1]);
+                        ofConnectedTextures = Integer.parseInt(astring[1]);
                         ofConnectedTextures = Config.limit(ofConnectedTextures, 1, 3);
                     }
 
                     if (astring[0].equals("ofWeather") && astring.length >= 2) {
-                        ofWeather = Boolean.valueOf(astring[1]);
+                        ofWeather = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSky") && astring.length >= 2) {
-                        ofSky = Boolean.valueOf(astring[1]);
+                        ofSky = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofStars") && astring.length >= 2) {
-                        ofStars = Boolean.valueOf(astring[1]);
+                        ofStars = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSunMoon") && astring.length >= 2) {
-                        ofSunMoon = Boolean.valueOf(astring[1]);
+                        ofSunMoon = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofVignette") && astring.length >= 2) {
-                        ofVignette = Integer.valueOf(astring[1]);
+                        ofVignette = Integer.parseInt(astring[1]);
                         ofVignette = Config.limit(ofVignette, 0, 2);
                     }
 
                     if (astring[0].equals("ofChunkUpdates") && astring.length >= 2) {
-                        ofChunkUpdates = Integer.valueOf(astring[1]);
+                        ofChunkUpdates = Integer.parseInt(astring[1]);
                         ofChunkUpdates = Config.limit(ofChunkUpdates, 1, 5);
                     }
 
                     if (astring[0].equals("ofChunkUpdatesDynamic") && astring.length >= 2) {
-                        ofChunkUpdatesDynamic = Boolean.valueOf(astring[1]);
+                        ofChunkUpdatesDynamic = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofTime") && astring.length >= 2) {
-                        ofTime = Integer.valueOf(astring[1]);
+                        ofTime = Integer.parseInt(astring[1]);
                         ofTime = Config.limit(ofTime, 0, 2);
                     }
 
                     if (astring[0].equals("ofClearWater") && astring.length >= 2) {
-                        ofClearWater = Boolean.valueOf(astring[1]);
+                        ofClearWater = Boolean.parseBoolean(astring[1]);
                         updateWaterOpacity();
                     }
 
                     if (astring[0].equals("ofAaLevel") && astring.length >= 2) {
-                        ofAaLevel = Integer.valueOf(astring[1]);
+                        ofAaLevel = Integer.parseInt(astring[1]);
                         ofAaLevel = Config.limit(ofAaLevel, 0, 16);
                     }
 
                     if (astring[0].equals("ofAfLevel") && astring.length >= 2) {
-                        ofAfLevel = Integer.valueOf(astring[1]);
+                        ofAfLevel = Integer.parseInt(astring[1]);
                         ofAfLevel = Config.limit(ofAfLevel, 1, 16);
                     }
 
                     if (astring[0].equals("ofProfiler") && astring.length >= 2) {
-                        ofProfiler = Boolean.valueOf(astring[1]);
+                        ofProfiler = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofBetterSnow") && astring.length >= 2) {
-                        ofBetterSnow = Boolean.valueOf(astring[1]);
+                        ofBetterSnow = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSwampColors") && astring.length >= 2) {
-                        ofSwampColors = Boolean.valueOf(astring[1]);
+                        ofSwampColors = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofRandomEntities") && astring.length >= 2) {
-                        ofRandomEntities = Boolean.valueOf(astring[1]);
+                        ofRandomEntities = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothBiomes") && astring.length >= 2) {
-                        ofSmoothBiomes = Boolean.valueOf(astring[1]);
+                        ofSmoothBiomes = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomFonts") && astring.length >= 2) {
-                        ofCustomFonts = Boolean.valueOf(astring[1]);
+                        ofCustomFonts = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomColors") && astring.length >= 2) {
-                        ofCustomColors = Boolean.valueOf(astring[1]);
+                        ofCustomColors = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomItems") && astring.length >= 2) {
-                        ofCustomItems = Boolean.valueOf(astring[1]);
+                        ofCustomItems = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomSky") && astring.length >= 2) {
-                        ofCustomSky = Boolean.valueOf(astring[1]);
+                        ofCustomSky = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowCapes") && astring.length >= 2) {
-                        ofShowCapes = Boolean.valueOf(astring[1]);
+                        ofShowCapes = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofNaturalTextures") && astring.length >= 2) {
-                        ofNaturalTextures = Boolean.valueOf(astring[1]);
+                        ofNaturalTextures = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofEmissiveTextures") && astring.length >= 2) {
-                        ofEmissiveTextures = Boolean.valueOf(astring[1]);
+                        ofEmissiveTextures = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofLazyChunkLoading") && astring.length >= 2) {
-                        ofLazyChunkLoading = Boolean.valueOf(astring[1]);
+                        ofLazyChunkLoading = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofRenderRegions") && astring.length >= 2) {
-                        ofRenderRegions = Boolean.valueOf(astring[1]);
+                        ofRenderRegions = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmartAnimations") && astring.length >= 2) {
-                        ofSmartAnimations = Boolean.valueOf(astring[1]);
+                        ofSmartAnimations = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofDynamicFov") && astring.length >= 2) {
-                        ofDynamicFov = Boolean.valueOf(astring[1]);
+                        ofDynamicFov = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAlternateBlocks") && astring.length >= 2) {
-                        ofAlternateBlocks = Boolean.valueOf(astring[1]);
+                        ofAlternateBlocks = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofDynamicLights") && astring.length >= 2) {
-                        ofDynamicLights = Integer.valueOf(astring[1]);
+                        ofDynamicLights = Integer.parseInt(astring[1]);
                         ofDynamicLights = limit(ofDynamicLights, OF_DYNAMIC_LIGHTS);
                     }
 
                     if (astring[0].equals("ofScreenshotSize") && astring.length >= 2) {
-                        ofScreenshotSize = Integer.valueOf(astring[1]);
+                        ofScreenshotSize = Integer.parseInt(astring[1]);
                         ofScreenshotSize = Config.limit(ofScreenshotSize, 1, 4);
                     }
 
                     if (astring[0].equals("ofCustomEntityModels") && astring.length >= 2) {
-                        ofCustomEntityModels = Boolean.valueOf(astring[1]);
+                        ofCustomEntityModels = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomGuis") && astring.length >= 2) {
-                        ofCustomGuis = Boolean.valueOf(astring[1]);
+                        ofCustomGuis = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowGlErrors") && astring.length >= 2) {
-                        ofShowGlErrors = Boolean.valueOf(astring[1]);
+                        ofShowGlErrors = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofFullscreenMode") && astring.length >= 2) {
@@ -2194,16 +2194,16 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("ofFastMath") && astring.length >= 2) {
-                        ofFastMath = Boolean.valueOf(astring[1]);
+                        ofFastMath = Boolean.parseBoolean(astring[1]);
                         MathHelper.fastMath = ofFastMath;
                     }
 
                     if (astring[0].equals("ofFastRender") && astring.length >= 2) {
-                        ofFastRender = Boolean.valueOf(astring[1]);
+                        ofFastRender = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofTranslucentBlocks") && astring.length >= 2) {
-                        ofTranslucentBlocks = Integer.valueOf(astring[1]);
+                        ofTranslucentBlocks = Integer.parseInt(astring[1]);
                         ofTranslucentBlocks = Config.limit(ofTranslucentBlocks, 0, 2);
                     }
 

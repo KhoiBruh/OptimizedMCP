@@ -132,7 +132,7 @@ public class MapStorage {
         if (oshort == null) {
             oshort = (short) 0;
         } else {
-            oshort = (short) (oshort.shortValue() + 1);
+            oshort = (short) (oshort + 1);
         }
 
         idCounts.put(key, oshort);
