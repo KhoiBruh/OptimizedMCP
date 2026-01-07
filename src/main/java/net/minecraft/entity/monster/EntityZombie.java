@@ -306,7 +306,7 @@ public class EntityZombie extends EntityMob {
         }
 
         tagCompound.setInteger("ConversionTime", isConverting() ? conversionTime : -1);
-        tagCompound.setBoolean("CanBreakDoors", isBreakDoorsTaskSet());
+        tagCompound.setBoolean("CanBreakDoors", isBreakDoorsTaskSet);
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {

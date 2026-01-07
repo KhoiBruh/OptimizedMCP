@@ -33,7 +33,7 @@ public abstract class StructureComponent {
 
     public static StructureComponent findIntersecting(List<StructureComponent> listIn, StructureBoundingBox boundingboxIn) {
         for (StructureComponent structurecomponent : listIn) {
-            if (structurecomponent.getBoundingBox() != null && structurecomponent.getBoundingBox().intersectsWith(boundingboxIn)) {
+            if (structurecomponent.boundingBox != null && structurecomponent.boundingBox.intersectsWith(boundingboxIn)) {
                 return structurecomponent;
             }
         }

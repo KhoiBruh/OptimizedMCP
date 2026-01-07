@@ -102,7 +102,7 @@ public enum ModelRotation {
     }
 
     public Matrix4f getMatrix() {
-        return getMatrix4d();
+        return matrix4d;
     }
 
     public EnumFacing rotate(EnumFacing p_rotate_1_) {

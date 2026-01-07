@@ -25,7 +25,7 @@ public class Score {
         if (theScoreObjective.getCriteria().isReadOnly()) {
             throw new IllegalStateException("Cannot modify read-only score");
         } else {
-            setScorePoints(getScorePoints() + amount);
+            setScorePoints(scorePoints + amount);
         }
     }
 
@@ -33,7 +33,7 @@ public class Score {
         if (theScoreObjective.getCriteria().isReadOnly()) {
             throw new IllegalStateException("Cannot modify read-only score");
         } else {
-            setScorePoints(getScorePoints() - amount);
+            setScorePoints(scorePoints - amount);
         }
     }
 
@@ -55,7 +55,7 @@ public class Score {
 
         if (i != points || forceUpdate) {
             forceUpdate = false;
-            getScoreScoreboard().func_96536_a(this);
+            theScoreboard.func_96536_a(this);
         }
     }
 

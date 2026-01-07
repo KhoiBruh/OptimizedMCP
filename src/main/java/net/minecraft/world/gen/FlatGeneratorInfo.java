@@ -121,7 +121,7 @@ public class FlatGeneratorInfo {
                 List<FlatLayerInfo> list = func_180716_a(i, astring[j++]);
 
                 if (list != null && !list.isEmpty()) {
-                    flatgeneratorinfo.getFlatLayers().addAll(list);
+                    flatgeneratorinfo.flatLayers.addAll(list);
                     flatgeneratorinfo.func_82645_d();
                     int k = BiomeGenBase.plains.biomeID;
 
@@ -129,7 +129,7 @@ public class FlatGeneratorInfo {
                         k = MathHelper.parseIntWithDefault(astring[j++], k);
                     }
 
-                    flatgeneratorinfo.setBiome(k);
+                    flatgeneratorinfo.biomeToUse = k;
 
                     if (i > 0 && astring.length > j) {
                         String[] astring1 = astring[j++].toLowerCase().split(",");
@@ -139,7 +139,7 @@ public class FlatGeneratorInfo {
                             Map<String, String> map = Maps.newHashMap();
 
                             if (!astring2[0].isEmpty()) {
-                                flatgeneratorinfo.getWorldFeatures().put(astring2[0], map);
+                                flatgeneratorinfo.worldFeatures.put(astring2[0], map);
 
                                 if (astring2.length > 1 && astring2[1].endsWith(")") && astring2[1].length() > 1) {
                                     String[] astring3 = astring2[1].substring(0, astring2[1].length() - 1).split(" ");
@@ -155,7 +155,7 @@ public class FlatGeneratorInfo {
                             }
                         }
                     } else {
-                        flatgeneratorinfo.getWorldFeatures().put("village", Maps.newHashMap());
+                        flatgeneratorinfo.worldFeatures.put("village", Maps.newHashMap());
                     }
 
                     return flatgeneratorinfo;
@@ -170,12 +170,12 @@ public class FlatGeneratorInfo {
 
     public static FlatGeneratorInfo getDefaultFlatGenerator() {
         FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
-        flatgeneratorinfo.setBiome(BiomeGenBase.plains.biomeID);
-        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.bedrock));
-        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(2, Blocks.dirt));
-        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.grass));
+        flatgeneratorinfo.biomeToUse = BiomeGenBase.plains.biomeID;
+        flatgeneratorinfo.flatLayers.add(new FlatLayerInfo(1, Blocks.bedrock));
+        flatgeneratorinfo.flatLayers.add(new FlatLayerInfo(2, Blocks.dirt));
+        flatgeneratorinfo.flatLayers.add(new FlatLayerInfo(1, Blocks.grass));
         flatgeneratorinfo.func_82645_d();
-        flatgeneratorinfo.getWorldFeatures().put("village", Maps.newHashMap());
+        flatgeneratorinfo.worldFeatures.put("village", Maps.newHashMap());
         return flatgeneratorinfo;
     }
 

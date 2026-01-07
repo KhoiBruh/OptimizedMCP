@@ -57,10 +57,10 @@ public enum EnumParticleTypes {
         List<String> list = Lists.newArrayList();
 
         for (EnumParticleTypes enumparticletypes : values()) {
-            PARTICLES.put(enumparticletypes.getParticleID(), enumparticletypes);
+            PARTICLES.put(enumparticletypes.particleID, enumparticletypes);
 
-            if (!enumparticletypes.getParticleName().endsWith("_")) {
-                list.add(enumparticletypes.getParticleName());
+            if (!enumparticletypes.particleName.endsWith("_")) {
+                list.add(enumparticletypes.particleName);
             }
         }
 

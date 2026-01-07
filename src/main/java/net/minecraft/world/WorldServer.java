@@ -747,7 +747,7 @@ public class WorldServer extends World implements IThreadListener {
     }
 
     public void setEntityState(Entity entityIn, byte state) {
-        getEntityTracker().func_151248_b(entityIn, new S19PacketEntityStatus(entityIn, state));
+        theEntityTracker.func_151248_b(entityIn, new S19PacketEntityStatus(entityIn, state));
     }
 
     public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {

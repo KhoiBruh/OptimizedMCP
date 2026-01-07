@@ -80,7 +80,7 @@ public enum EnumChatFormatting {
             return RESET;
         } else {
             for (EnumChatFormatting enumchatformatting : values()) {
-                if (enumchatformatting.getColorIndex() == p_175744_0_) {
+                if (enumchatformatting.colorIndex == p_175744_0_) {
                     return enumchatformatting;
                 }
             }
@@ -93,7 +93,7 @@ public enum EnumChatFormatting {
         List<String> list = Lists.newArrayList();
 
         for (EnumChatFormatting enumchatformatting : values()) {
-            if ((!enumchatformatting.isColor() || p_96296_0_) && (!enumchatformatting.isFancyStyling() || p_96296_1_)) {
+            if ((!enumchatformatting.isColor() || p_96296_0_) && (!enumchatformatting.fancyStyling || p_96296_1_)) {
                 list.add(enumchatformatting.getFriendlyName());
             }
         }

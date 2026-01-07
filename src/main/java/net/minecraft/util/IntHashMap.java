@@ -176,12 +176,12 @@ public class IntHashMap<V> {
                 return false;
             } else {
                 IntHashMap.Entry<V> entry = (IntHashMap.Entry) p_equals_1_;
-                Object object = getHash();
-                Object object1 = entry.getHash();
+                Object object = hashEntry;
+                Object object1 = entry.hashEntry;
 
                 if (Objects.equals(object, object1)) {
-                    Object object2 = getValue();
-                    Object object3 = entry.getValue();
+                    Object object2 = valueEntry;
+                    Object object3 = entry.valueEntry;
 
                     return Objects.equals(object2, object3);
                 }
@@ -195,7 +195,7 @@ public class IntHashMap<V> {
         }
 
         public final String toString() {
-            return getHash() + "=" + getValue();
+            return hashEntry + "=" + valueEntry;
         }
     }
 }

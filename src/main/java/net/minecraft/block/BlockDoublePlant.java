@@ -249,7 +249,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 
         static {
             for (BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype : values()) {
-                META_LOOKUP[blockdoubleplant$enumplanttype.getMeta()] = blockdoubleplant$enumplanttype;
+                META_LOOKUP[blockdoubleplant$enumplanttype.meta] = blockdoubleplant$enumplanttype;
             }
         }
 

@@ -28,17 +28,17 @@ public class ServerData {
         ServerData serverdata = new ServerData(nbtCompound.getString("name"), nbtCompound.getString("ip"), false);
 
         if (nbtCompound.hasKey("icon", 8)) {
-            serverdata.setBase64EncodedIconData(nbtCompound.getString("icon"));
+            serverdata.serverIcon = nbtCompound.getString("icon");
         }
 
         if (nbtCompound.hasKey("acceptTextures", 1)) {
             if (nbtCompound.getBoolean("acceptTextures")) {
-                serverdata.setResourceMode(ServerData.ServerResourceMode.ENABLED);
+                serverdata.resourceMode = ServerResourceMode.ENABLED;
             } else {
-                serverdata.setResourceMode(ServerData.ServerResourceMode.DISABLED);
+                serverdata.resourceMode = ServerResourceMode.DISABLED;
             }
         } else {
-            serverdata.setResourceMode(ServerData.ServerResourceMode.PROMPT);
+            serverdata.resourceMode = ServerResourceMode.PROMPT;
         }
 
         return serverdata;
@@ -85,7 +85,7 @@ public class ServerData {
     public void copyFrom(ServerData serverDataIn) {
         serverIP = serverDataIn.serverIP;
         serverName = serverDataIn.serverName;
-        setResourceMode(serverDataIn.getResourceMode());
+        resourceMode = serverDataIn.resourceMode;
         serverIcon = serverDataIn.serverIcon;
         lanServer = serverDataIn.lanServer;
     }

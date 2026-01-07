@@ -64,7 +64,7 @@ public class BlockPrismarine extends Block {
 
         static {
             for (BlockPrismarine.EnumType blockprismarine$enumtype : values()) {
-                META_LOOKUP[blockprismarine$enumtype.getMetadata()] = blockprismarine$enumtype;
+                META_LOOKUP[blockprismarine$enumtype.meta] = blockprismarine$enumtype;
             }
         }
 

@@ -143,7 +143,7 @@ public abstract class BlockRailBase extends Block {
 
         static {
             for (BlockRailBase.EnumRailDirection blockrailbase$enumraildirection : values()) {
-                META_LOOKUP[blockrailbase$enumraildirection.getMetadata()] = blockrailbase$enumraildirection;
+                META_LOOKUP[blockrailbase$enumraildirection.meta] = blockrailbase$enumraildirection;
             }
         }
 

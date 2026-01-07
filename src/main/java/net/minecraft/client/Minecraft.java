@@ -286,7 +286,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public static void stopIntegratedServer() {
         if (theMinecraft != null) {
-            IntegratedServer integratedserver = theMinecraft.getIntegratedServer();
+            IntegratedServer integratedserver = theMinecraft.theIntegratedServer;
 
             if (integratedserver != null) {
                 integratedserver.stopServer();
@@ -304,8 +304,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public static Map<String, String> getSessionInfo() {
         Map<String, String> map = Maps.newHashMap();
-        map.put("X-Minecraft-Username", getMinecraft().getSession().username());
-        map.put("X-Minecraft-UUID", getMinecraft().getSession().playerID());
+        map.put("X-Minecraft-Username", theMinecraft.session.username());
+        map.put("X-Minecraft-UUID", theMinecraft.session.playerID());
         map.put("X-Minecraft-Version", "1.8.9");
         return map;
     }
@@ -577,7 +577,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public void displayCrashReport(CrashReport crashReportIn) {
-        File file1 = new File(getMinecraft().mcDataDir, "crash-reports");
+        File file1 = new File(theMinecraft.mcDataDir, "crash-reports");
         File file2 = new File(file1,
                 "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
         Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
@@ -1584,7 +1584,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                             }
 
                             if (gameSettings.thirdPersonView == 0) {
-                                entityRenderer.loadEntityShader(getRenderViewEntity());
+                                entityRenderer.loadEntityShader(renderViewEntity);
                             } else if (gameSettings.thirdPersonView == 1) {
                                 entityRenderer.loadEntityShader(null);
                             }
@@ -1813,7 +1813,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
         networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
         networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, EnumConnectionState.LOGIN));
-        networkmanager.sendPacket(new C00PacketLoginStart(getSession().getProfile()));
+        networkmanager.sendPacket(new C00PacketLoginStart(session.getProfile()));
         myNetworkManager = networkmanager;
     }
 
@@ -1850,7 +1850,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         if (worldClientIn == null && theWorld != null) {
             mcResourcePackRepository.clearResourcePack();
             ingameGUI.resetPlayersOverlayFooterHeader();
-            setServerData(null);
+            currentServerData = null;
             integratedServerIsRunning = false;
         }
 
@@ -2359,7 +2359,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public PropertyMap getProfileProperties() {
         if (profileProperties.isEmpty()) {
-            GameProfile gameprofile = getSessionService().fillProfileProperties(session.getProfile(), false);
+            GameProfile gameprofile = sessionService.fillProfileProperties(session.getProfile(), false);
             profileProperties.putAll(gameprofile.getProperties());
         }
 

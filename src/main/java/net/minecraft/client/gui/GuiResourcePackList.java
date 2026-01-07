@@ -31,11 +31,11 @@ public abstract class GuiResourcePackList extends GuiListExtended {
     }
 
     protected int getSize() {
-        return getList().size();
+        return field_148204_l.size();
     }
 
     public ResourcePackListEntry getListEntry(int index) {
-        return getList().get(index);
+        return field_148204_l.get(index);
     }
 
     public int getListWidth() {

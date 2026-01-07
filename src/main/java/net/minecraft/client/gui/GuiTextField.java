@@ -157,7 +157,7 @@ public class GuiTextField extends Gui {
     }
 
     public int getNthWordFromCursor(int p_146187_1_) {
-        return getNthWordFromPos(p_146187_1_, getCursorPosition());
+        return getNthWordFromPos(p_146187_1_, cursorPosition);
     }
 
     public int getNthWordFromPos(int p_146183_1_, int p_146183_2_) {
@@ -256,9 +256,9 @@ public class GuiTextField extends Gui {
                 case 203:
                     if (GuiScreen.isShiftKeyDown()) {
                         if (GuiScreen.isCtrlKeyDown()) {
-                            setSelectionPos(getNthWordFromPos(-1, getSelectionEnd()));
+                            setSelectionPos(getNthWordFromPos(-1, selectionEnd));
                         } else {
-                            setSelectionPos(getSelectionEnd() - 1);
+                            setSelectionPos(selectionEnd - 1);
                         }
                     } else if (GuiScreen.isCtrlKeyDown()) {
                         setCursorPosition(getNthWordFromCursor(-1));
@@ -271,9 +271,9 @@ public class GuiTextField extends Gui {
                 case 205:
                     if (GuiScreen.isShiftKeyDown()) {
                         if (GuiScreen.isCtrlKeyDown()) {
-                            setSelectionPos(getNthWordFromPos(1, getSelectionEnd()));
+                            setSelectionPos(getNthWordFromPos(1, selectionEnd));
                         } else {
-                            setSelectionPos(getSelectionEnd() + 1);
+                            setSelectionPos(selectionEnd + 1);
                         }
                     } else if (GuiScreen.isCtrlKeyDown()) {
                         setCursorPosition(getNthWordFromCursor(1));
@@ -337,8 +337,8 @@ public class GuiTextField extends Gui {
     }
 
     public void drawTextBox() {
-        if (getVisible()) {
-            if (getEnableBackgroundDrawing()) {
+        if (visible) {
+            if (enableBackgroundDrawing) {
                 drawRect(xPosition - 1, yPosition - 1, xPosition + width + 1, yPosition + height + 1, -6250336);
                 drawRect(xPosition, yPosition, xPosition + width, yPosition + height, -16777216);
             }
@@ -362,7 +362,7 @@ public class GuiTextField extends Gui {
                 j1 = fontRendererInstance.drawStringWithShadow(s1, (float) l, (float) i1, i);
             }
 
-            boolean flag2 = cursorPosition < text.length() || text.length() >= getMaxStringLength();
+            boolean flag2 = cursorPosition < text.length() || text.length() >= maxStringLength;
             int k1 = j1;
 
             if (!flag) {
@@ -488,7 +488,7 @@ public class GuiTextField extends Gui {
     }
 
     public int getWidth() {
-        return getEnableBackgroundDrawing() ? width - 8 : width;
+        return enableBackgroundDrawing ? width - 8 : width;
     }
 
     public void setSelectionPos(int p_146199_1_) {

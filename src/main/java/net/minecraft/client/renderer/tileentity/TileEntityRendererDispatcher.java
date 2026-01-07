@@ -74,7 +74,7 @@ public class TileEntityRendererDispatcher {
 
     public void cacheActiveRenderInfo(World worldIn, TextureManager textureManagerIn, FontRenderer fontrendererIn, Entity entityIn, float partialTicks) {
         if (worldObj != worldIn) {
-            setWorld(worldIn);
+            worldObj = worldIn;
         }
 
         renderEngine = textureManagerIn;

@@ -208,11 +208,11 @@ public class EntityItem extends Entity {
         tagCompound.setShort("Age", (short) age);
         tagCompound.setShort("PickupDelay", (short) delayBeforeCanPickup);
 
-        if (getThrower() != null) {
+        if (thrower != null) {
             tagCompound.setString("Thrower", thrower);
         }
 
-        if (getOwner() != null) {
+        if (owner != null) {
             tagCompound.setString("Owner", owner);
         }
 
@@ -271,8 +271,8 @@ public class EntityItem extends Entity {
                     entityIn.triggerAchievement(AchievementList.blazeRod);
                 }
 
-                if (itemstack.getItem() == Items.diamond && getThrower() != null) {
-                    EntityPlayer entityplayer = worldObj.getPlayerEntityByName(getThrower());
+                if (itemstack.getItem() == Items.diamond && thrower != null) {
+                    EntityPlayer entityplayer = worldObj.getPlayerEntityByName(thrower);
 
                     if (entityplayer != null && entityplayer != entityIn) {
                         entityplayer.triggerAchievement(AchievementList.diamondsToYou);

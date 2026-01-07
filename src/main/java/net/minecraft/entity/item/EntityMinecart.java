@@ -837,7 +837,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
         static {
             for (EntityMinecart.EnumMinecartType entityminecart$enumminecarttype : values()) {
-                ID_LOOKUP.put(entityminecart$enumminecarttype.getNetworkID(), entityminecart$enumminecarttype);
+                ID_LOOKUP.put(entityminecart$enumminecarttype.networkID, entityminecart$enumminecarttype);
             }
         }
 

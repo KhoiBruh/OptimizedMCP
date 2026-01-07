@@ -24,11 +24,11 @@ public enum EnumFacing implements IStringSerializable {
         for (EnumFacing enumfacing : values()) {
             VALUES[enumfacing.index] = enumfacing;
 
-            if (enumfacing.getAxis().isHorizontal()) {
+            if (enumfacing.axis.isHorizontal()) {
                 HORIZONTALS[enumfacing.horizontalIndex] = enumfacing;
             }
 
-            NAME_LOOKUP.put(enumfacing.getName2().toLowerCase(), enumfacing);
+            NAME_LOOKUP.put(enumfacing.name.toLowerCase(), enumfacing);
         }
     }
 
@@ -88,7 +88,7 @@ public enum EnumFacing implements IStringSerializable {
 
     public static EnumFacing getFacingFromAxis(EnumFacing.AxisDirection p_181076_0_, EnumFacing.Axis p_181076_1_) {
         for (EnumFacing enumfacing : values()) {
-            if (enumfacing.getAxisDirection() == p_181076_0_ && enumfacing.getAxis() == p_181076_1_) {
+            if (enumfacing.axisDirection == p_181076_0_ && enumfacing.axis == p_181076_1_) {
                 return enumfacing;
             }
         }
@@ -219,7 +219,7 @@ public enum EnumFacing implements IStringSerializable {
 
         static {
             for (EnumFacing.Axis enumfacing$axis : values()) {
-                NAME_LOOKUP.put(enumfacing$axis.getName2().toLowerCase(), enumfacing$axis);
+                NAME_LOOKUP.put(enumfacing$axis.name.toLowerCase(), enumfacing$axis);
             }
         }
 

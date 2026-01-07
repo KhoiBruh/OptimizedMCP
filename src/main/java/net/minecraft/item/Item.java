@@ -595,7 +595,7 @@ public class Item {
     }
 
     public boolean isItemTool(ItemStack stack) {
-        return getItemStackLimit() == 1 && isDamageable();
+        return maxStackSize == 1 && isDamageable();
     }
 
     protected MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {

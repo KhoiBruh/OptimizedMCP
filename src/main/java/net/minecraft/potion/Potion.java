@@ -196,7 +196,7 @@ public class Potion {
     }
 
     public Potion registerPotionAttributeModifier(IAttribute p_111184_1_, String p_111184_2_, double p_111184_3_, int p_111184_5_) {
-        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(p_111184_2_), getName(), p_111184_3_, p_111184_5_);
+        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(p_111184_2_), name, p_111184_3_, p_111184_5_);
         attributeModifierMap.put(p_111184_1_, attributemodifier);
         return this;
     }
@@ -222,7 +222,7 @@ public class Potion {
             if (iattributeinstance != null) {
                 AttributeModifier attributemodifier = entry.getValue();
                 iattributeinstance.removeModifier(attributemodifier);
-                iattributeinstance.applyModifier(new AttributeModifier(attributemodifier.getID(), getName() + " " + amplifier, getAttributeModifierAmount(amplifier, attributemodifier), attributemodifier.getOperation()));
+                iattributeinstance.applyModifier(new AttributeModifier(attributemodifier.getID(), name + " " + amplifier, getAttributeModifierAmount(amplifier, attributemodifier), attributemodifier.getOperation()));
             }
         }
     }

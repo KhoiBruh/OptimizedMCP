@@ -31,7 +31,7 @@ public class VillageDoorInfo {
     }
 
     public int getDistanceToDoorBlockSq(BlockPos pos) {
-        return (int) pos.distanceSq(getDoorBlockPos());
+        return (int) pos.distanceSq(doorBlockPos);
     }
 
     public int getDistanceToInsideBlockSq(BlockPos pos) {

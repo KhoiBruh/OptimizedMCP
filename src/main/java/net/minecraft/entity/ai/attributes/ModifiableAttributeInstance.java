@@ -38,7 +38,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
     }
 
     public void setBaseValue(double baseValue) {
-        if (baseValue != getBaseValue()) {
+        if (baseValue != this.baseValue) {
             this.baseValue = baseValue;
             flagForUpdate();
         }
@@ -124,7 +124,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
     }
 
     private double computeValue() {
-        double d0 = getBaseValue();
+        double d0 = baseValue;
 
         for (AttributeModifier attributemodifier : func_180375_b(0)) {
             d0 += attributemodifier.getAmount();

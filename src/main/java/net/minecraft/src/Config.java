@@ -450,7 +450,7 @@ public class Config {
     }
 
     public static boolean isFogFancy() {
-        return isFancyFogAvailable() && gameSettings.ofFogType == 2;
+        return fancyFogAvailable && gameSettings.ofFogType == 2;
     }
 
     public static boolean isFogFast() {
@@ -967,15 +967,15 @@ public class Config {
     }
 
     public static boolean isAntialiasing() {
-        return getAntialiasingLevel() > 0;
+        return antialiasingLevel > 0;
     }
 
     public static boolean isAntialiasingConfigured() {
-        return getGameSettings().ofAaLevel > 0;
+        return gameSettings.ofAaLevel > 0;
     }
 
     public static boolean isMultiTexture() {
-        return getAnisotropicFilterLevel() > 1 || getAntialiasingLevel() > 0;
+        return getAnisotropicFilterLevel() > 1 || antialiasingLevel > 0;
     }
 
     public static boolean between(int p_between_0_, int p_between_1_, int p_between_2_) {
@@ -1426,7 +1426,7 @@ public class Config {
     }
 
     public static boolean isSingleProcessor() {
-        return getAvailableProcessors() <= 1;
+        return availableProcessors <= 1;
     }
 
     public static boolean isSmoothWorld() {
@@ -1500,7 +1500,7 @@ public class Config {
     }
 
     public static void checkDisplaySettings() {
-        int i = getAntialiasingLevel();
+        int i = antialiasingLevel;
 
         if (i > 0) {
             DisplayMode displaymode = Display.getDisplayMode();
@@ -1876,7 +1876,7 @@ public class Config {
     }
 
     public static TextureMap getTextureMap() {
-        return getMinecraft().getTextureMapBlocks();
+        return minecraft.getTextureMapBlocks();
     }
 
     public static boolean isDynamicLights() {

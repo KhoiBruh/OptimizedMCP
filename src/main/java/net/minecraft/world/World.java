@@ -131,7 +131,7 @@ public abstract class World implements IBlockAccess {
     public Block getGroundAboveSeaLevel(BlockPos pos) {
         BlockPos blockpos;
 
-        for (blockpos = new BlockPos(pos.getX(), getSeaLevel(), pos.getZ()); !isAirBlock(blockpos.up()); blockpos = blockpos.up()) {
+        for (blockpos = new BlockPos(pos.getX(), seaLevel, pos.getZ()); !isAirBlock(blockpos.up()); blockpos = blockpos.up()) {
         }
 
         return getBlockState(blockpos).getBlock();
@@ -377,10 +377,10 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean canBlockSeeSky(BlockPos pos) {
-        if (pos.getY() >= getSeaLevel()) {
+        if (pos.getY() >= seaLevel) {
             return canSeeSky(pos);
         } else {
-            BlockPos blockpos = new BlockPos(pos.getX(), getSeaLevel(), pos.getZ());
+            BlockPos blockpos = new BlockPos(pos.getX(), seaLevel, pos.getZ());
 
             if (!canSeeSky(blockpos)) {
                 return false;
@@ -465,7 +465,7 @@ public abstract class World implements IBlockAccess {
                 i = 0;
             }
         } else {
-            i = getSeaLevel() + 1;
+            i = seaLevel + 1;
         }
 
         return new BlockPos(pos.getX(), i, pos.getZ());
@@ -480,7 +480,7 @@ public abstract class World implements IBlockAccess {
                 return chunk.getLowestHeight();
             }
         } else {
-            return getSeaLevel() + 1;
+            return seaLevel + 1;
         }
     }
 
@@ -866,7 +866,7 @@ public abstract class World implements IBlockAccess {
         int l = MathHelper.floor_double(bb.maxY + 1.0D);
         int i1 = MathHelper.floor_double(bb.minZ);
         int j1 = MathHelper.floor_double(bb.maxZ + 1.0D);
-        WorldBorder worldborder = getWorldBorder();
+        WorldBorder worldborder = worldBorder;
         boolean flag = entityIn.isOutsideBorder();
         boolean flag1 = isInsideBorder(worldborder, entityIn);
         IBlockState iblockstate = Blocks.stone.getDefaultState();
@@ -2452,8 +2452,8 @@ public abstract class World implements IBlockAccess {
     public BlockPos getSpawnPoint() {
         BlockPos blockpos = new BlockPos(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ());
 
-        if (!getWorldBorder().contains(blockpos)) {
-            blockpos = getHeight(new BlockPos(getWorldBorder().getCenterX(), 0.0D, getWorldBorder().getCenterZ()));
+        if (!worldBorder.contains(blockpos)) {
+            blockpos = getHeight(new BlockPos(worldBorder.getCenterX(), 0.0D, worldBorder.getCenterZ()));
         }
 
         return blockpos;
@@ -2604,13 +2604,13 @@ public abstract class World implements IBlockAccess {
     }
 
     public Random setRandomSeed(int p_72843_1_, int p_72843_2_, int p_72843_3_) {
-        long i = (long) p_72843_1_ * 341873128712L + (long) p_72843_2_ * 132897987541L + getWorldInfo().getSeed() + (long) p_72843_3_;
+        long i = (long) p_72843_1_ * 341873128712L + (long) p_72843_2_ * 132897987541L + worldInfo.getSeed() + (long) p_72843_3_;
         rand.setSeed(i);
         return rand;
     }
 
     public BlockPos getStrongholdPos(String name, BlockPos pos) {
-        return getChunkProvider().getStrongholdGen(this, name, pos);
+        return chunkProvider.getStrongholdGen(this, name, pos);
     }
 
     public boolean extendedLevelsInChunkCache() {
@@ -2691,7 +2691,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public EnumDifficulty getDifficulty() {
-        return getWorldInfo().getDifficulty();
+        return worldInfo.getDifficulty();
     }
 
     public int getSkylightSubtracted() {

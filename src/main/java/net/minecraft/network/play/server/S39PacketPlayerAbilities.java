@@ -17,40 +17,40 @@ public class S39PacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
     }
 
     public S39PacketPlayerAbilities(PlayerCapabilities capabilities) {
-        setInvulnerable(capabilities.disableDamage);
-        setFlying(capabilities.isFlying);
-        setAllowFlying(capabilities.allowFlying);
-        setCreativeMode(capabilities.isCreativeMode);
-        setFlySpeed(capabilities.getFlySpeed());
-        setWalkSpeed(capabilities.getWalkSpeed());
+        invulnerable = capabilities.disableDamage;
+        flying = capabilities.isFlying;
+        allowFlying = capabilities.allowFlying;
+        creativeMode = capabilities.isCreativeMode;
+        flySpeed = capabilities.getFlySpeed();
+        walkSpeed = capabilities.getWalkSpeed();
     }
 
     public void readPacketData(PacketBuffer buf) {
         byte b0 = buf.readByte();
-        setInvulnerable((b0 & 1) > 0);
-        setFlying((b0 & 2) > 0);
-        setAllowFlying((b0 & 4) > 0);
-        setCreativeMode((b0 & 8) > 0);
-        setFlySpeed(buf.readFloat());
-        setWalkSpeed(buf.readFloat());
+        invulnerable = (b0 & 1) > 0;
+        flying = (b0 & 2) > 0;
+        allowFlying = (b0 & 4) > 0;
+        creativeMode = (b0 & 8) > 0;
+        flySpeed = buf.readFloat();
+        walkSpeed = buf.readFloat();
     }
 
     public void writePacketData(PacketBuffer buf) {
         byte b0 = 0;
 
-        if (isInvulnerable()) {
+        if (invulnerable) {
             b0 = (byte) (b0 | 1);
         }
 
-        if (isFlying()) {
+        if (flying) {
             b0 = (byte) (b0 | 2);
         }
 
-        if (isAllowFlying()) {
+        if (allowFlying) {
             b0 = (byte) (b0 | 4);
         }
 
-        if (isCreativeMode()) {
+        if (creativeMode) {
             b0 = (byte) (b0 | 8);
         }
 

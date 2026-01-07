@@ -231,7 +231,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     protected void sendHorseJump() {
-        sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.RIDING_JUMP, (int) (getHorseJumpPower() * 100.0F)));
+        sendQueue.addToSendQueue(new C0BPacketEntityAction(this, C0BPacketEntityAction.Action.RIDING_JUMP, (int) (horseJumpPower * 100.0F)));
     }
 
     public void sendHorseInventory() {

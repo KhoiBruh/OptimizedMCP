@@ -27,8 +27,8 @@ public enum EnumDyeColor implements IStringSerializable {
 
     static {
         for (EnumDyeColor enumdyecolor : values()) {
-            META_LOOKUP[enumdyecolor.getMetadata()] = enumdyecolor;
-            DYE_DMG_LOOKUP[enumdyecolor.getDyeDamage()] = enumdyecolor;
+            META_LOOKUP[enumdyecolor.meta] = enumdyecolor;
+            DYE_DMG_LOOKUP[enumdyecolor.dyeDamage] = enumdyecolor;
         }
     }
 

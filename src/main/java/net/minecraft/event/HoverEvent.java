@@ -39,7 +39,7 @@ public record HoverEvent(Action action, IChatComponent value) {
 
         static {
             for (Action hoverevent$action : values()) {
-                nameMapping.put(hoverevent$action.getCanonicalName(), hoverevent$action);
+                nameMapping.put(hoverevent$action.canonicalName, hoverevent$action);
             }
         }
 

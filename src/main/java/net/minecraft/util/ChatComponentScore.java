@@ -36,7 +36,7 @@ public class ChatComponentScore extends ChatComponentStyle {
 
             if (scoreboard.entityHasObjective(name, scoreobjective)) {
                 Score score = scoreboard.getValueFromObjective(name, scoreobjective);
-                setValue(String.format("%d", score.getScorePoints()));
+                value = String.format("%d", score.getScorePoints());
             } else {
                 value = "";
             }
@@ -47,7 +47,7 @@ public class ChatComponentScore extends ChatComponentStyle {
 
     public ChatComponentScore createCopy() {
         ChatComponentScore chatcomponentscore = new ChatComponentScore(name, objective);
-        chatcomponentscore.setValue(value);
+        chatcomponentscore.value = value;
         chatcomponentscore.setChatStyle(getChatStyle().createShallowCopy());
 
         for (IChatComponent ichatcomponent : getSiblings()) {

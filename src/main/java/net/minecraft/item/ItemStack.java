@@ -85,7 +85,7 @@ public final class ItemStack {
     public static ItemStack loadItemStackFromNBT(NBTTagCompound nbt) {
         ItemStack itemstack = new ItemStack();
         itemstack.readFromNBT(nbt);
-        return itemstack.getItem() != null ? itemstack : null;
+        return itemstack.item != null ? itemstack : null;
     }
 
     public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
@@ -124,7 +124,7 @@ public final class ItemStack {
     }
 
     public boolean onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        boolean flag = getItem().onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+        boolean flag = item.onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
 
         if (flag) {
             playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(item)]);
@@ -134,15 +134,15 @@ public final class ItemStack {
     }
 
     public float getStrVsBlock(Block blockIn) {
-        return getItem().getStrVsBlock(this, blockIn);
+        return item.getStrVsBlock(this, blockIn);
     }
 
     public ItemStack useItemRightClick(World worldIn, EntityPlayer playerIn) {
-        return getItem().onItemRightClick(this, worldIn, playerIn);
+        return item.onItemRightClick(this, worldIn, playerIn);
     }
 
     public ItemStack onItemUseFinish(World worldIn, EntityPlayer playerIn) {
-        return getItem().onItemUseFinish(this, worldIn, playerIn);
+        return item.onItemUseFinish(this, worldIn, playerIn);
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
@@ -182,7 +182,7 @@ public final class ItemStack {
     }
 
     public int getMaxStackSize() {
-        return getItem().getItemStackLimit();
+        return item.getItemStackLimit();
     }
 
     public boolean isStackable() {
@@ -190,7 +190,7 @@ public final class ItemStack {
     }
 
     public boolean isItemStackDamageable() {
-        return item != null && (item.getMaxDamage() > 0 && (!hasTagCompound() || !getTagCompound().getBoolean("Unbreakable")));
+        return item != null && (item.getMaxDamage() > 0 && (!hasTagCompound() || !stackTagCompound.getBoolean("Unbreakable")));
     }
 
     public boolean getHasSubtypes() {
@@ -257,7 +257,7 @@ public final class ItemStack {
                     if (entityIn instanceof EntityPlayer entityplayer) {
                         entityplayer.triggerAchievement(StatList.objectBreakStats[Item.getIdFromItem(item)]);
 
-                        if (stackSize == 0 && getItem() instanceof ItemBow) {
+                        if (stackSize == 0 && item instanceof ItemBow) {
                             entityplayer.destroyCurrentEquippedItem();
                         }
                     }
@@ -340,15 +340,15 @@ public final class ItemStack {
     }
 
     public int getMaxItemUseDuration() {
-        return getItem().getMaxItemUseDuration(this);
+        return item.getMaxItemUseDuration(this);
     }
 
     public EnumAction getItemUseAction() {
-        return getItem().getItemUseAction(this);
+        return item.getItemUseAction(this);
     }
 
     public void onPlayerStoppedUsing(World worldIn, EntityPlayer playerIn, int timeLeft) {
-        getItem().onPlayerStoppedUsing(this, worldIn, playerIn, timeLeft);
+        item.onPlayerStoppedUsing(this, worldIn, playerIn, timeLeft);
     }
 
     public boolean hasTagCompound() {
@@ -380,7 +380,7 @@ public final class ItemStack {
     }
 
     public String getDisplayName() {
-        String s = getItem().getItemStackDisplayName(this);
+        String s = item.getItemStackDisplayName(this);
 
         if (stackTagCompound != null && stackTagCompound.hasKey("display", 10)) {
             NBTTagCompound nbttagcompound = stackTagCompound.getCompoundTag("display");
@@ -416,7 +416,7 @@ public final class ItemStack {
                     stackTagCompound.removeTag("display");
 
                     if (stackTagCompound.hasNoTags()) {
-                        setTagCompound(null);
+                        stackTagCompound = null;
                     }
                 }
             }
@@ -536,7 +536,7 @@ public final class ItemStack {
             }
         }
 
-        if (hasTagCompound() && getTagCompound().getBoolean("Unbreakable") && (i1 & 4) == 0) {
+        if (hasTagCompound() && stackTagCompound.getBoolean("Unbreakable") && (i1 & 4) == 0) {
             list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal("item.unbreakable"));
         }
 
@@ -580,13 +580,13 @@ public final class ItemStack {
 
         if (advanced) {
             if (isItemDamaged()) {
-                list.add("Durability: " + (getMaxDamage() - getItemDamage()) + " / " + getMaxDamage());
+                list.add("Durability: " + (getMaxDamage() - itemDamage) + " / " + getMaxDamage());
             }
 
             list.add(EnumChatFormatting.DARK_GRAY + Item.itemRegistry.getNameForObject(item).toString());
 
             if (hasTagCompound()) {
-                list.add(EnumChatFormatting.DARK_GRAY + "NBT: " + getTagCompound().getKeySet().size() + " tag(s)");
+                list.add(EnumChatFormatting.DARK_GRAY + "NBT: " + stackTagCompound.getKeySet().size() + " tag(s)");
             }
         }
 
@@ -594,20 +594,20 @@ public final class ItemStack {
     }
 
     public boolean hasEffect() {
-        return getItem().hasEffect(this);
+        return item.hasEffect(this);
     }
 
     public EnumRarity getRarity() {
-        return getItem().getRarity(this);
+        return item.getRarity(this);
     }
 
     public boolean isItemEnchantable() {
-        return getItem().isItemTool(this) && !isItemEnchanted();
+        return item.isItemTool(this) && !isItemEnchanted();
     }
 
     public void addEnchantment(Enchantment ench, int level) {
         if (stackTagCompound == null) {
-            setTagCompound(new NBTTagCompound());
+            stackTagCompound = new NBTTagCompound();
         }
 
         if (!stackTagCompound.hasKey("ench", 9)) {
@@ -627,14 +627,14 @@ public final class ItemStack {
 
     public void setTagInfo(String key, NBTBase value) {
         if (stackTagCompound == null) {
-            setTagCompound(new NBTTagCompound());
+            stackTagCompound = new NBTTagCompound();
         }
 
         stackTagCompound.setTag(key, value);
     }
 
     public boolean canEditBlocks() {
-        return getItem().canItemEditBlocks();
+        return item.canItemEditBlocks();
     }
 
     public boolean isOnItemFrame() {
@@ -677,7 +677,7 @@ public final class ItemStack {
                 }
             }
         } else {
-            multimap = getItem().getItemAttributeModifiers();
+            multimap = item.getItemAttributeModifiers();
         }
 
         return multimap;

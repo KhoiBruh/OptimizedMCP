@@ -117,7 +117,7 @@ public abstract class CommandBlockLogic implements ICommandSender {
     }
 
     public IChatComponent getDisplayName() {
-        return new ChatComponentText(getName());
+        return new ChatComponentText(customName);
     }
 
     public void addChatMessage(IChatComponent component) {

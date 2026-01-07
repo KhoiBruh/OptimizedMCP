@@ -137,8 +137,8 @@ public class BlockJukebox extends BlockContainer {
         public void writeToNBT(NBTTagCompound compound) {
             super.writeToNBT(compound);
 
-            if (getRecord() != null) {
-                compound.setTag("RecordItem", getRecord().writeToNBT(new NBTTagCompound()));
+            if (record != null) {
+                compound.setTag("RecordItem", record.writeToNBT(new NBTTagCompound()));
             }
         }
 

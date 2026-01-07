@@ -98,9 +98,9 @@ public class EntityRabbit extends EntityAnimal {
 
     public void updateAITasks() {
         if (moveHelper.getSpeed() > 0.8D) {
-            setMoveType(EntityRabbit.EnumMoveType.SPRINT);
+            moveType = EnumMoveType.SPRINT;
         } else if (moveType != EntityRabbit.EnumMoveType.ATTACK) {
-            setMoveType(EntityRabbit.EnumMoveType.HOP);
+            moveType = EnumMoveType.HOP;
         }
 
         if (currentMoveTypeDuration > 0) {

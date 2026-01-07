@@ -76,7 +76,7 @@ public class RenderChunk {
         renderGlobal = renderGlobalIn;
         index = indexIn;
 
-        if (!blockPosIn.equals(getPosition())) {
+        if (!blockPosIn.equals(position)) {
             setPosition(blockPosIn);
         }
 
@@ -426,7 +426,7 @@ public class RenderChunk {
         BlockPos blockpos = positionOffsets16[i];
 
         if (blockpos == null) {
-            blockpos = getPosition().offset(p_getPositionOffset16_1_, 16);
+            blockpos = position.offset(p_getPositionOffset16_1_, 16);
             positionOffsets16[i] = blockpos;
         }
 
@@ -575,22 +575,22 @@ public class RenderChunk {
     }
 
     private void updateRenderChunkNeighboursValid() {
-        int i = getPosition().getX();
-        int j = getPosition().getZ();
+        int i = position.getX();
+        int j = position.getZ();
         int k = EnumFacing.NORTH.ordinal();
         int l = EnumFacing.SOUTH.ordinal();
         int i1 = EnumFacing.WEST.ordinal();
         int j1 = EnumFacing.EAST.ordinal();
-        renderChunkNeighboursValid[k] = renderChunkNeighbours[k].getPosition().getZ() == j - 16
+        renderChunkNeighboursValid[k] = renderChunkNeighbours[k].position.getZ() == j - 16
                 ? renderChunkNeighbours[k]
                 : null;
-        renderChunkNeighboursValid[l] = renderChunkNeighbours[l].getPosition().getZ() == j + 16
+        renderChunkNeighboursValid[l] = renderChunkNeighbours[l].position.getZ() == j + 16
                 ? renderChunkNeighbours[l]
                 : null;
-        renderChunkNeighboursValid[i1] = renderChunkNeighbours[i1].getPosition().getX() == i - 16
+        renderChunkNeighboursValid[i1] = renderChunkNeighbours[i1].position.getX() == i - 16
                 ? renderChunkNeighbours[i1]
                 : null;
-        renderChunkNeighboursValid[j1] = renderChunkNeighbours[j1].getPosition().getX() == i + 16
+        renderChunkNeighboursValid[j1] = renderChunkNeighbours[j1].position.getX() == i + 16
                 ? renderChunkNeighbours[j1]
                 : null;
         renderChunkNeighboursUpated = true;
@@ -603,7 +603,7 @@ public class RenderChunk {
 
     public AabbFrame getBoundingBoxParent() {
         if (boundingBoxParent == null) {
-            BlockPos blockpos = getPosition();
+            BlockPos blockpos = position;
             int i = blockpos.getX();
             int j = blockpos.getY();
             int k = blockpos.getZ();
@@ -632,6 +632,6 @@ public class RenderChunk {
     }
 
     public String toString() {
-        return "pos: " + getPosition() + ", frameIndex: " + frameIndex;
+        return "pos: " + position + ", frameIndex: " + frameIndex;
     }
 }

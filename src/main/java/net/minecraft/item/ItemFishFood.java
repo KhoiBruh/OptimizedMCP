@@ -68,7 +68,7 @@ public class ItemFishFood extends ItemFood {
 
         static {
             for (ItemFishFood.FishType itemfishfood$fishtype : values()) {
-                META_LOOKUP.put(itemfishfood$fishtype.getMetadata(), itemfishfood$fishtype);
+                META_LOOKUP.put(itemfishfood$fishtype.meta, itemfishfood$fishtype);
             }
         }
 

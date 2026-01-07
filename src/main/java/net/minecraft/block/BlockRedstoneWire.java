@@ -372,7 +372,7 @@ public class BlockRedstoneWire extends Block {
         }
 
         public String toString() {
-            return getName();
+            return name;
         }
 
         public String getName() {

@@ -271,8 +271,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public int increaseTemper(int p_110198_1_) {
-        int i = MathHelper.clamp_int(getTemper() + p_110198_1_, 0, getMaxTemper());
-        setTemper(i);
+        int i = MathHelper.clamp_int(temper + p_110198_1_, 0, getMaxTemper());
+        temper = i;
         return i;
     }
 
@@ -991,7 +991,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 forward = 0.0F;
             }
 
-            if (jumpPower > 0.0F && !isHorseJumping() && onGround) {
+            if (jumpPower > 0.0F && !horseJumping && onGround) {
                 motionY = getHorseJumpStrength() * (double) jumpPower;
 
                 if (isPotionActive(Potion.jump)) {
@@ -999,7 +999,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                             * 0.1F;
                 }
 
-                setHorseJumping(true);
+                horseJumping = true;
                 isAirBorne = true;
 
                 if (forward > 0.0F) {
@@ -1024,7 +1024,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
             if (onGround) {
                 jumpPower = 0.0F;
-                setHorseJumping(false);
+                horseJumping = false;
             }
 
             prevLimbSwingAmount = limbSwingAmount;
@@ -1049,11 +1049,11 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("EatingHaystack", isEatingHaystack());
         tagCompound.setBoolean("ChestedHorse", isChested());
-        tagCompound.setBoolean("HasReproduced", getHasReproduced());
+        tagCompound.setBoolean("HasReproduced", hasReproduced);
         tagCompound.setBoolean("Bred", isBreeding());
         tagCompound.setInteger("Type", getHorseType());
         tagCompound.setInteger("Variant", getHorseVariant());
-        tagCompound.setInteger("Temper", getTemper());
+        tagCompound.setInteger("Temper", temper);
         tagCompound.setBoolean("Tame", isTame());
         tagCompound.setString("OwnerUUID", getOwnerId());
 
@@ -1088,10 +1088,10 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         setEatingHaystack(tagCompund.getBoolean("EatingHaystack"));
         setBreeding(tagCompund.getBoolean("Bred"));
         setChested(tagCompund.getBoolean("ChestedHorse"));
-        setHasReproduced(tagCompund.getBoolean("HasReproduced"));
+        hasReproduced = tagCompund.getBoolean("HasReproduced");
         setHorseType(tagCompund.getInteger("Type"));
         setHorseVariant(tagCompund.getInteger("Variant"));
-        setTemper(tagCompund.getInteger("Temper"));
+        temper = tagCompund.getInteger("Temper");
         setHorseTamed(tagCompund.getBoolean("Tame"));
         String s = "";
 

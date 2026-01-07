@@ -205,7 +205,7 @@ public class BlockLever extends Block {
 
         static {
             for (BlockLever.EnumOrientation blocklever$enumorientation : values()) {
-                META_LOOKUP[blocklever$enumorientation.getMetadata()] = blocklever$enumorientation;
+                META_LOOKUP[blocklever$enumorientation.meta] = blocklever$enumorientation;
             }
         }
 

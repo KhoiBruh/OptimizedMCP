@@ -174,7 +174,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
                 if (inventoryIn instanceof TileEntityHopper tileentityhopper) {
 
                     if (tileentityhopper.mayTransfer()) {
-                        tileentityhopper.setTransferCooldown(8);
+                        tileentityhopper.transferCooldown = 8;
                     }
 
                     inventoryIn.markDirty();
@@ -357,7 +357,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
             --transferCooldown;
 
             if (!isOnTransferCooldown()) {
-                setTransferCooldown(0);
+                transferCooldown = 0;
                 updateHopper();
             }
         }
@@ -377,7 +377,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
                 }
 
                 if (flag) {
-                    setTransferCooldown(8);
+                    transferCooldown = 8;
                     markDirty();
                     return true;
                 }

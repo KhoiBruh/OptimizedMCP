@@ -73,7 +73,7 @@ public class ScorePlayerTeam extends Team {
     }
 
     public String formatString(String input) {
-        return getColorPrefix() + input + getColorSuffix();
+        return namePrefixSPT + input + colorSuffix;
     }
 
     public boolean getAllowFriendlyFire() {
@@ -115,11 +115,11 @@ public class ScorePlayerTeam extends Team {
     public int func_98299_i() {
         int i = 0;
 
-        if (getAllowFriendlyFire()) {
+        if (allowFriendlyFire) {
             i |= 1;
         }
 
-        if (getSeeFriendlyInvisiblesEnabled()) {
+        if (canSeeFriendlyInvisibles) {
             i |= 2;
         }
 

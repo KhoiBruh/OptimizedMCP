@@ -20,12 +20,12 @@ public enum SoundCategory {
 
     static {
         for (SoundCategory soundcategory : values()) {
-            if (NAME_CATEGORY_MAP.containsKey(soundcategory.getCategoryName()) || ID_CATEGORY_MAP.containsKey(soundcategory.getCategoryId())) {
+            if (NAME_CATEGORY_MAP.containsKey(soundcategory.categoryName) || ID_CATEGORY_MAP.containsKey(soundcategory.categoryId)) {
                 throw new Error("Clash in Sound Category ID & Name pools! Cannot insert " + soundcategory);
             }
 
-            NAME_CATEGORY_MAP.put(soundcategory.getCategoryName(), soundcategory);
-            ID_CATEGORY_MAP.put(soundcategory.getCategoryId(), soundcategory);
+            NAME_CATEGORY_MAP.put(soundcategory.categoryName, soundcategory);
+            ID_CATEGORY_MAP.put(soundcategory.categoryId, soundcategory);
         }
     }
 

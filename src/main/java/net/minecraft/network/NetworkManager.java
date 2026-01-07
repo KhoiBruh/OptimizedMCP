@@ -318,10 +318,10 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
             if (!disconnected) {
                 disconnected = true;
 
-                if (getExitMessage() != null) {
-                    getNetHandler().onDisconnect(getExitMessage());
-                } else if (getNetHandler() != null) {
-                    getNetHandler().onDisconnect(new ChatComponentText("Disconnected"));
+                if (terminationReason != null) {
+                    packetListener.onDisconnect(terminationReason);
+                } else if (packetListener != null) {
+                    packetListener.onDisconnect(new ChatComponentText("Disconnected"));
                 }
             } else {
                 logger.warn("handleDisconnection() called twice");

@@ -52,7 +52,7 @@ public class BlockSand extends BlockFalling {
 
         static {
             for (BlockSand.EnumType blocksand$enumtype : values()) {
-                META_LOOKUP[blocksand$enumtype.getMetadata()] = blocksand$enumtype;
+                META_LOOKUP[blocksand$enumtype.meta] = blocksand$enumtype;
             }
         }
 

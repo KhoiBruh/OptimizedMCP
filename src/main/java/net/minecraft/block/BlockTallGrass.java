@@ -125,7 +125,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 
         static {
             for (BlockTallGrass.EnumType blocktallgrass$enumtype : values()) {
-                META_LOOKUP[blocktallgrass$enumtype.getMeta()] = blocktallgrass$enumtype;
+                META_LOOKUP[blocktallgrass$enumtype.meta] = blocktallgrass$enumtype;
             }
         }
 

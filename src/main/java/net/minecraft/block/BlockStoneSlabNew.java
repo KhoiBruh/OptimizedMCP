@@ -115,7 +115,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 
         static {
             for (BlockStoneSlabNew.EnumType blockstoneslabnew$enumtype : values()) {
-                META_LOOKUP[blockstoneslabnew$enumtype.getMetadata()] = blockstoneslabnew$enumtype;
+                META_LOOKUP[blockstoneslabnew$enumtype.meta] = blockstoneslabnew$enumtype;
             }
         }
 

@@ -116,7 +116,7 @@ public class BlockSilverfish extends Block {
 
         static {
             for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
-                META_LOOKUP[blocksilverfish$enumtype.getMetadata()] = blocksilverfish$enumtype;
+                META_LOOKUP[blocksilverfish$enumtype.meta] = blocksilverfish$enumtype;
             }
         }
 

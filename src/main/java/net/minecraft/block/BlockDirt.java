@@ -82,7 +82,7 @@ public class BlockDirt extends Block {
 
         static {
             for (BlockDirt.DirtType blockdirt$dirttype : values()) {
-                METADATA_LOOKUP[blockdirt$dirttype.getMetadata()] = blockdirt$dirttype;
+                METADATA_LOOKUP[blockdirt$dirttype.metadata] = blockdirt$dirttype;
             }
         }
 

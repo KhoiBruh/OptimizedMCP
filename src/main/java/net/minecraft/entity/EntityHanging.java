@@ -164,9 +164,9 @@ public abstract class EntityHanging extends Entity {
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setByte("Facing", (byte) facingDirection.getHorizontalIndex());
-        tagCompound.setInteger("TileX", getHangingPosition().getX());
-        tagCompound.setInteger("TileY", getHangingPosition().getY());
-        tagCompound.setInteger("TileZ", getHangingPosition().getZ());
+        tagCompound.setInteger("TileX", hangingPosition.getX());
+        tagCompound.setInteger("TileY", hangingPosition.getY());
+        tagCompound.setInteger("TileZ", hangingPosition.getZ());
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {

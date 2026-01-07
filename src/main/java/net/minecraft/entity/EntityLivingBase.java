@@ -706,7 +706,7 @@ public abstract class EntityLivingBase extends Entity {
         }
 
         dead = true;
-        getCombatTracker().reset();
+        _combatTracker.reset();
 
         if (!worldObj.isRemote) {
             int i = 0;
@@ -874,7 +874,7 @@ public abstract class EntityLivingBase extends Entity {
             if (damageAmount != 0.0F) {
                 float f1 = getHealth();
                 setHealth(f1 - damageAmount);
-                getCombatTracker().trackDamage(damageSrc, f1, damageAmount);
+                _combatTracker.trackDamage(damageSrc, f1, damageAmount);
                 setAbsorptionAmount(getAbsorptionAmount() - damageAmount);
             }
         }
@@ -1253,7 +1253,7 @@ public abstract class EntityLivingBase extends Entity {
             }
 
             if (ticksExisted % 20 == 0) {
-                getCombatTracker().reset();
+                _combatTracker.reset();
             }
         }
 

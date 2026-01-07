@@ -40,7 +40,7 @@ public record ClickEvent(Action action, String value) {
 
         static {
             for (Action clickevent$action : values()) {
-                nameMapping.put(clickevent$action.getCanonicalName(), clickevent$action);
+                nameMapping.put(clickevent$action.canonicalName, clickevent$action);
             }
         }
 

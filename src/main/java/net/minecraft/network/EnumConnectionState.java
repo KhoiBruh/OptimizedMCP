@@ -157,7 +157,7 @@ public enum EnumConnectionState {
 
     static {
         for (EnumConnectionState enumconnectionstate : values()) {
-            int i = enumconnectionstate.getId();
+            int i = enumconnectionstate.id;
 
             if (i < field_181136_e || i > field_181137_f) {
                 throw new Error("Invalid protocol ID " + i);

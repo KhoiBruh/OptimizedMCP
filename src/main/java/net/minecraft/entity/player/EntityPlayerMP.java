@@ -275,7 +275,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 playerNetServerHandler.sendPacket(new S1FPacketSetExperience(experience, experienceTotal, experienceLevel));
             }
 
-            if (ticksExisted % 20 * 5 == 0 && !getStatFile().hasAchievementUnlocked(AchievementList.exploreAllBiomes)) {
+            if (ticksExisted % 20 * 5 == 0 && !statsFile.hasAchievementUnlocked(AchievementList.exploreAllBiomes)) {
                 updateBiomesExplored();
             }
         } catch (Throwable throwable) {
@@ -289,15 +289,15 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     protected void updateBiomesExplored() {
         BiomeGenBase biomegenbase = worldObj.getBiomeGenForCoords(new BlockPos(MathHelper.floor_double(posX), 0, MathHelper.floor_double(posZ)));
         String s = biomegenbase.biomeName;
-        JsonSerializableSet jsonserializableset = getStatFile().func_150870_b(AchievementList.exploreAllBiomes);
+        JsonSerializableSet jsonserializableset = statsFile.func_150870_b(AchievementList.exploreAllBiomes);
 
         if (jsonserializableset == null) {
-            jsonserializableset = getStatFile().func_150872_a(AchievementList.exploreAllBiomes, new JsonSerializableSet());
+            jsonserializableset = statsFile.func_150872_a(AchievementList.exploreAllBiomes, new JsonSerializableSet());
         }
 
         jsonserializableset.add(s);
 
-        if (getStatFile().canUnlockAchievement(AchievementList.exploreAllBiomes) && jsonserializableset.size() >= BiomeGenBase.explorationBiomesList.size()) {
+        if (statsFile.canUnlockAchievement(AchievementList.exploreAllBiomes) && jsonserializableset.size() >= BiomeGenBase.explorationBiomesList.size()) {
             Set<BiomeGenBase> set = Sets.newHashSet(BiomeGenBase.explorationBiomesList);
 
             for (String s1 : jsonserializableset) {

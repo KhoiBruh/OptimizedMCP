@@ -22,7 +22,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 
     public void displayLoadingString(String message) {
         field_146589_f = message;
-        setLoadingProgress(0);
+        progress = 0;
     }
 
     public void setLoadingProgress(int progress) {

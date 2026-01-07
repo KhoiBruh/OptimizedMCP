@@ -185,7 +185,7 @@ public class CommandResultStats {
             int i = 0;
 
             for (CommandResultStats.Type commandresultstats$type : values()) {
-                astring[i++] = commandresultstats$type.getTypeName();
+                astring[i++] = commandresultstats$type.typeName;
             }
 
             return astring;
@@ -193,7 +193,7 @@ public class CommandResultStats {
 
         public static CommandResultStats.Type getTypeByName(String name) {
             for (CommandResultStats.Type commandresultstats$type : values()) {
-                if (commandresultstats$type.getTypeName().equals(name)) {
+                if (commandresultstats$type.typeName.equals(name)) {
                     return commandresultstats$type;
                 }
             }

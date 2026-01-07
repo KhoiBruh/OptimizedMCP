@@ -62,7 +62,7 @@ public class TextureAtlasSprite {
         iconName = spriteName;
 
         if (Config.isMultiTexture()) {
-            spriteSingle = new TextureAtlasSprite(getIconName() + ".spriteSingle", true);
+            spriteSingle = new TextureAtlasSprite(iconName + ".spriteSingle", true);
         }
     }
 

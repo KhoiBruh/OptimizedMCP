@@ -100,7 +100,7 @@ public abstract class CreativeTabs {
     }
 
     public String getTranslatedTabLabel() {
-        return "itemGroup." + getTabLabel();
+        return "itemGroup." + tabLabel;
     }
 
     public ItemStack getIconItemStack() {

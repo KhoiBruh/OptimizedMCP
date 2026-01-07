@@ -80,7 +80,7 @@ public class BlockHugeMushroom extends Block {
 
         static {
             for (BlockHugeMushroom.EnumType blockhugemushroom$enumtype : values()) {
-                META_LOOKUP[blockhugemushroom$enumtype.getMetadata()] = blockhugemushroom$enumtype;
+                META_LOOKUP[blockhugemushroom$enumtype.meta] = blockhugemushroom$enumtype;
             }
         }
 

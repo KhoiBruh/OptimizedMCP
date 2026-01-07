@@ -32,7 +32,7 @@ public class ChatComponentText extends ChatComponentStyle {
         } else if (!(p_equals_1_ instanceof ChatComponentText chatcomponenttext)) {
             return false;
         } else {
-            return text.equals(chatcomponenttext.getChatComponentText_TextValue()) && super.equals(p_equals_1_);
+            return text.equals(chatcomponenttext.text) && super.equals(p_equals_1_);
         }
     }
 

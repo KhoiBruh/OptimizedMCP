@@ -301,11 +301,11 @@ public abstract class BiomeGenBase {
     }
 
     public boolean getEnableSnow() {
-        return isSnowyBiome();
+        return enableSnow;
     }
 
     public boolean canRain() {
-        return !isSnowyBiome() && enableRain;
+        return !enableSnow && enableRain;
     }
 
     public boolean isHighHumidity() {
@@ -339,13 +339,13 @@ public abstract class BiomeGenBase {
 
     public int getGrassColorAtPos(BlockPos pos) {
         double d0 = MathHelper.clamp_float(getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = MathHelper.clamp_float(getFloatRainfall(), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(rainfall, 0.0F, 1.0F);
         return ColorizerGrass.getGrassColor(d0, d1);
     }
 
     public int getFoliageColorAtPos(BlockPos pos) {
         double d0 = MathHelper.clamp_float(getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = MathHelper.clamp_float(getFloatRainfall(), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(rainfall, 0.0F, 1.0F);
         return ColorizerFoliage.getFoliageColor(d0, d1);
     }
 

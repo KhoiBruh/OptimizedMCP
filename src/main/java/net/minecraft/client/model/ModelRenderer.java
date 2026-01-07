@@ -380,7 +380,7 @@ public class ModelRenderer {
         } else {
             if (childModels != null) {
                 for (ModelRenderer modelrenderer : childModels) {
-                    if (p_getChild_1_.equals(modelrenderer.getId())) {
+                    if (p_getChild_1_.equals(modelrenderer.id)) {
                         return modelrenderer;
                     }
                 }

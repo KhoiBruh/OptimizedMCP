@@ -59,7 +59,7 @@ public class BlockPlanks extends Block {
 
         static {
             for (BlockPlanks.EnumType blockplanks$enumtype : values()) {
-                META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
+                META_LOOKUP[blockplanks$enumtype.meta] = blockplanks$enumtype;
             }
         }
 

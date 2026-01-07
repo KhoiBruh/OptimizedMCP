@@ -90,7 +90,7 @@ public class ShapedRecipes implements IRecipe {
     }
 
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-        ItemStack itemstack = getRecipeOutput().copy();
+        ItemStack itemstack = recipeOutput.copy();
 
         if (copyIngredientNBT) {
             for (int i = 0; i < inv.getSizeInventory(); ++i) {

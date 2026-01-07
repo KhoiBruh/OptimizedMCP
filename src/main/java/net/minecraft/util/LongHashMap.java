@@ -197,12 +197,12 @@ public class LongHashMap<V> {
                 return false;
             } else {
                 LongHashMap.Entry<V> entry = (LongHashMap.Entry) p_equals_1_;
-                Object object = getKey();
-                Object object1 = entry.getKey();
+                Object object = key;
+                Object object1 = entry.key;
 
                 if (Objects.equals(object, object1)) {
-                    Object object2 = getValue();
-                    Object object3 = entry.getValue();
+                    Object object2 = value;
+                    Object object3 = entry.value;
 
                     return Objects.equals(object2, object3);
                 }
@@ -216,7 +216,7 @@ public class LongHashMap<V> {
         }
 
         public final String toString() {
-            return getKey() + "=" + getValue();
+            return key + "=" + value;
         }
     }
 }

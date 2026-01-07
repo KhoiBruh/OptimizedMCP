@@ -167,7 +167,7 @@ public abstract class Entity implements ICommandSender {
             while (posY > 0.0D && posY < 256.0D) {
                 setPosition(posX, posY, posZ);
 
-                if (worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).isEmpty()) {
+                if (worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty()) {
                     break;
                 }
 
@@ -188,7 +188,7 @@ public abstract class Entity implements ICommandSender {
             float f = this.width;
             this.width = width;
             this.height = height;
-            setEntityBoundingBox(new AxisAlignedBB(getEntityBoundingBox().minX, getEntityBoundingBox().minY, getEntityBoundingBox().minZ, getEntityBoundingBox().minX + (double) this.width, getEntityBoundingBox().minY + (double) this.height, getEntityBoundingBox().minZ + (double) this.width));
+            boundingBox = new AxisAlignedBB(boundingBox.minX, boundingBox.minY, boundingBox.minZ, boundingBox.minX + (double) this.width, boundingBox.minY + (double) this.height, boundingBox.minZ + (double) this.width);
 
             if (this.width > f && !firstUpdate && !worldObj.isRemote) {
                 moveEntity(f - this.width, 0.0D, f - this.width);
@@ -207,7 +207,7 @@ public abstract class Entity implements ICommandSender {
         posZ = z;
         float f = width / 2.0F;
         float f1 = height;
-        setEntityBoundingBox(new AxisAlignedBB(x - (double) f, y, z - (double) f, x + (double) f, y + (double) f1, z + (double) f));
+        boundingBox = new AxisAlignedBB(x - (double) f, y, z - (double) f, x + (double) f, y + (double) f1, z + (double) f);
     }
 
     public void setAngles(float yaw, float pitch) {
@@ -345,7 +345,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isOffsetPositionInLiquid(double x, double y, double z) {
-        AxisAlignedBB axisalignedbb = getEntityBoundingBox().offset(x, y, z);
+        AxisAlignedBB axisalignedbb = boundingBox.offset(x, y, z);
         return isLiquidPresentInAABB(axisalignedbb);
     }
 
@@ -355,7 +355,7 @@ public abstract class Entity implements ICommandSender {
 
     public void moveEntity(double x, double y, double z) {
         if (noClip) {
-            setEntityBoundingBox(getEntityBoundingBox().offset(x, y, z));
+            boundingBox = boundingBox.offset(x, y, z);
             resetPositionToBB();
         } else {
             worldObj.theProfiler.startSection("move");
@@ -381,7 +381,7 @@ public abstract class Entity implements ICommandSender {
             if (flag) {
                 double d6;
 
-                for (d6 = 0.05D; x != 0.0D && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox().offset(x, -1.0D, 0.0D)).isEmpty(); d3 = x) {
+                for (d6 = 0.05D; x != 0.0D && worldObj.getCollidingBoundingBoxes(this, boundingBox.offset(x, -1.0D, 0.0D)).isEmpty(); d3 = x) {
                     if (x < d6 && x >= -d6) {
                         x = 0.0D;
                     } else if (x > 0.0D) {
@@ -391,7 +391,7 @@ public abstract class Entity implements ICommandSender {
                     }
                 }
 
-                for (; z != 0.0D && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox().offset(0.0D, -1.0D, z)).isEmpty(); d5 = z) {
+                for (; z != 0.0D && worldObj.getCollidingBoundingBoxes(this, boundingBox.offset(0.0D, -1.0D, z)).isEmpty(); d5 = z) {
                     if (z < d6 && z >= -d6) {
                         z = 0.0D;
                     } else if (z > 0.0D) {
@@ -401,7 +401,7 @@ public abstract class Entity implements ICommandSender {
                     }
                 }
 
-                for (; x != 0.0D && z != 0.0D && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox().offset(x, -1.0D, z)).isEmpty(); d5 = z) {
+                for (; x != 0.0D && z != 0.0D && worldObj.getCollidingBoundingBoxes(this, boundingBox.offset(x, -1.0D, z)).isEmpty(); d5 = z) {
                     if (x < d6 && x >= -d6) {
                         x = 0.0D;
                     } else if (x > 0.0D) {
@@ -422,37 +422,37 @@ public abstract class Entity implements ICommandSender {
                 }
             }
 
-            List<AxisAlignedBB> list1 = worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox().addCoord(x, y, z));
-            AxisAlignedBB axisalignedbb = getEntityBoundingBox();
+            List<AxisAlignedBB> list1 = worldObj.getCollidingBoundingBoxes(this, boundingBox.addCoord(x, y, z));
+            AxisAlignedBB axisalignedbb = boundingBox;
 
             for (AxisAlignedBB axisalignedbb1 : list1) {
-                y = axisalignedbb1.calculateYOffset(getEntityBoundingBox(), y);
+                y = axisalignedbb1.calculateYOffset(boundingBox, y);
             }
 
-            setEntityBoundingBox(getEntityBoundingBox().offset(0.0D, y, 0.0D));
+            boundingBox = boundingBox.offset(0.0D, y, 0.0D);
             boolean flag1 = onGround || d4 != y && d4 < 0.0D;
 
             for (AxisAlignedBB axisalignedbb2 : list1) {
-                x = axisalignedbb2.calculateXOffset(getEntityBoundingBox(), x);
+                x = axisalignedbb2.calculateXOffset(boundingBox, x);
             }
 
-            setEntityBoundingBox(getEntityBoundingBox().offset(x, 0.0D, 0.0D));
+            boundingBox = boundingBox.offset(x, 0.0D, 0.0D);
 
             for (AxisAlignedBB axisalignedbb13 : list1) {
-                z = axisalignedbb13.calculateZOffset(getEntityBoundingBox(), z);
+                z = axisalignedbb13.calculateZOffset(boundingBox, z);
             }
 
-            setEntityBoundingBox(getEntityBoundingBox().offset(0.0D, 0.0D, z));
+            boundingBox = boundingBox.offset(0.0D, 0.0D, z);
 
             if (stepHeight > 0.0F && flag1 && (d3 != x || d5 != z)) {
                 double d11 = x;
                 double d7 = y;
                 double d8 = z;
-                AxisAlignedBB axisalignedbb3 = getEntityBoundingBox();
-                setEntityBoundingBox(axisalignedbb);
+                AxisAlignedBB axisalignedbb3 = boundingBox;
+                boundingBox = axisalignedbb;
                 y = stepHeight;
-                List<AxisAlignedBB> list = worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox().addCoord(d3, y, d5));
-                AxisAlignedBB axisalignedbb4 = getEntityBoundingBox();
+                List<AxisAlignedBB> list = worldObj.getCollidingBoundingBoxes(this, boundingBox.addCoord(d3, y, d5));
+                AxisAlignedBB axisalignedbb4 = boundingBox;
                 AxisAlignedBB axisalignedbb5 = axisalignedbb4.addCoord(d3, 0.0D, d5);
                 double d9 = y;
 
@@ -475,7 +475,7 @@ public abstract class Entity implements ICommandSender {
                 }
 
                 axisalignedbb4 = axisalignedbb4.offset(0.0D, 0.0D, d16);
-                AxisAlignedBB axisalignedbb14 = getEntityBoundingBox();
+                AxisAlignedBB axisalignedbb14 = boundingBox;
                 double d17 = y;
 
                 for (AxisAlignedBB axisalignedbb9 : list) {
@@ -504,25 +504,25 @@ public abstract class Entity implements ICommandSender {
                     x = d15;
                     z = d16;
                     y = -d9;
-                    setEntityBoundingBox(axisalignedbb4);
+                    boundingBox = axisalignedbb4;
                 } else {
                     x = d18;
                     z = d19;
                     y = -d17;
-                    setEntityBoundingBox(axisalignedbb14);
+                    boundingBox = axisalignedbb14;
                 }
 
                 for (AxisAlignedBB axisalignedbb12 : list) {
-                    y = axisalignedbb12.calculateYOffset(getEntityBoundingBox(), y);
+                    y = axisalignedbb12.calculateYOffset(boundingBox, y);
                 }
 
-                setEntityBoundingBox(getEntityBoundingBox().offset(0.0D, y, 0.0D));
+                boundingBox = boundingBox.offset(0.0D, y, 0.0D);
 
                 if (d11 * d11 + d8 * d8 >= x * x + z * z) {
                     x = d11;
                     y = d7;
                     z = d8;
-                    setEntityBoundingBox(axisalignedbb3);
+                    boundingBox = axisalignedbb3;
                 }
             }
 
@@ -606,7 +606,7 @@ public abstract class Entity implements ICommandSender {
 
             boolean flag2 = isWet();
 
-            if (worldObj.isFlammableWithin(getEntityBoundingBox().contract(0.001D, 0.001D, 0.001D))) {
+            if (worldObj.isFlammableWithin(boundingBox.contract(0.001D, 0.001D, 0.001D))) {
                 dealFireDamage(1);
 
                 if (!flag2) {
@@ -630,9 +630,9 @@ public abstract class Entity implements ICommandSender {
     }
 
     private void resetPositionToBB() {
-        posX = (getEntityBoundingBox().minX + getEntityBoundingBox().maxX) / 2.0D;
-        posY = getEntityBoundingBox().minY;
-        posZ = (getEntityBoundingBox().minZ + getEntityBoundingBox().maxZ) / 2.0D;
+        posX = (boundingBox.minX + boundingBox.maxX) / 2.0D;
+        posY = boundingBox.minY;
+        posZ = (boundingBox.minZ + boundingBox.maxZ) / 2.0D;
     }
 
     protected String getSwimSound() {
@@ -640,8 +640,8 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void doBlockCollisions() {
-        BlockPos blockpos = new BlockPos(getEntityBoundingBox().minX + 0.001D, getEntityBoundingBox().minY + 0.001D, getEntityBoundingBox().minZ + 0.001D);
-        BlockPos blockpos1 = new BlockPos(getEntityBoundingBox().maxX - 0.001D, getEntityBoundingBox().maxY - 0.001D, getEntityBoundingBox().maxZ - 0.001D);
+        BlockPos blockpos = new BlockPos(boundingBox.minX + 0.001D, boundingBox.minY + 0.001D, boundingBox.minZ + 0.001D);
+        BlockPos blockpos1 = new BlockPos(boundingBox.maxX - 0.001D, boundingBox.maxY - 0.001D, boundingBox.maxZ - 0.001D);
 
         if (worldObj.isAreaLoaded(blockpos, blockpos1)) {
             for (int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
@@ -738,7 +738,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean handleWaterMovement() {
-        if (worldObj.handleMaterialAcceleration(getEntityBoundingBox().expand(0.0D, -0.4000000059604645D, 0.0D).contract(0.001D, 0.001D, 0.001D), Material.water, this)) {
+        if (worldObj.handleMaterialAcceleration(boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).contract(0.001D, 0.001D, 0.001D), Material.water, this)) {
             if (!inWater && !firstUpdate) {
                 resetHeight();
             }
@@ -761,7 +761,7 @@ public abstract class Entity implements ICommandSender {
         }
 
         playSound(getSplashSound(), f, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
-        float f1 = (float) MathHelper.floor_double(getEntityBoundingBox().minY);
+        float f1 = (float) MathHelper.floor_double(boundingBox.minY);
 
         for (int i = 0; (float) i < 1.0F + width * 20.0F; ++i) {
             float f2 = (rand.nextFloat() * 2.0F - 1.0F) * width;
@@ -791,7 +791,7 @@ public abstract class Entity implements ICommandSender {
         Block block = iblockstate.getBlock();
 
         if (block.getRenderType() != -1) {
-            worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, -motionX * 4.0D, 1.5D, -motionZ * 4.0D, Block.getStateId(iblockstate));
+            worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, boundingBox.minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, -motionX * 4.0D, 1.5D, -motionZ * 4.0D, Block.getStateId(iblockstate));
         }
     }
 
@@ -816,7 +816,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isInLava() {
-        return worldObj.isMaterialInBB(getEntityBoundingBox().expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.lava);
+        return worldObj.isMaterialInBB(boundingBox.expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.lava);
     }
 
     public void moveFlying(float strafe, float forward, float friction) {
@@ -1037,7 +1037,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isInRangeToRenderDist(double distance) {
-        double d0 = getEntityBoundingBox().getAverageEdgeLength();
+        double d0 = boundingBox.getAverageEdgeLength();
 
         if (Double.isNaN(d0)) {
             d0 = 1.0D;
@@ -1083,8 +1083,8 @@ public abstract class Entity implements ICommandSender {
             tagCompund.setInteger("Dimension", dimension);
             tagCompund.setBoolean("Invulnerable", invulnerable);
             tagCompund.setInteger("PortalCooldown", timeUntilPortal);
-            tagCompund.setLong("UUIDMost", getUniqueID().getMostSignificantBits());
-            tagCompund.setLong("UUIDLeast", getUniqueID().getLeastSignificantBits());
+            tagCompund.setLong("UUIDMost", entityUniqueID.getMostSignificantBits());
+            tagCompund.setLong("UUIDLeast", entityUniqueID.getLeastSignificantBits());
 
             if (getCustomNameTag() != null && !getCustomNameTag().isEmpty()) {
                 tagCompund.setString("CustomName", getCustomNameTag());
@@ -1343,7 +1343,7 @@ public abstract class Entity implements ICommandSender {
 
         if (entityIn == null) {
             if (ridingEntity != null) {
-                setLocationAndAngles(ridingEntity.posX, ridingEntity.getEntityBoundingBox().minY + (double) ridingEntity.height, ridingEntity.posZ, rotationYaw, rotationPitch);
+                setLocationAndAngles(ridingEntity.posX, ridingEntity.boundingBox.minY + (double) ridingEntity.height, ridingEntity.posZ, rotationYaw, rotationPitch);
                 ridingEntity.riddenByEntity = null;
             }
 
@@ -1369,7 +1369,7 @@ public abstract class Entity implements ICommandSender {
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         setPosition(x, y, z);
         setRotation(yaw, pitch);
-        List<AxisAlignedBB> list = worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox().contract(0.03125D, 0.0D, 0.03125D));
+        List<AxisAlignedBB> list = worldObj.getCollidingBoundingBoxes(this, boundingBox.contract(0.03125D, 0.0D, 0.03125D));
 
         if (!list.isEmpty()) {
             double d0 = 0.0D;
@@ -1380,7 +1380,7 @@ public abstract class Entity implements ICommandSender {
                 }
             }
 
-            y = y + (d0 - getEntityBoundingBox().minY);
+            y = y + (d0 - boundingBox.minY);
             setPosition(x, y, z);
         }
     }
@@ -1519,7 +1519,7 @@ public abstract class Entity implements ICommandSender {
         double d0 = x - (double) blockpos.getX();
         double d1 = y - (double) blockpos.getY();
         double d2 = z - (double) blockpos.getZ();
-        List<AxisAlignedBB> list = worldObj.getCollisionBoxes(getEntityBoundingBox());
+        List<AxisAlignedBB> list = worldObj.getCollisionBoxes(boundingBox);
 
         if (list.isEmpty() && !worldObj.isBlockFullCube(blockpos)) {
             return false;
@@ -1735,7 +1735,7 @@ public abstract class Entity implements ICommandSender {
     public IChatComponent getDisplayName() {
         ChatComponentText chatcomponenttext = new ChatComponentText(getName());
         chatcomponenttext.getChatStyle().setChatHoverEvent(getHoverEvent());
-        chatcomponenttext.getChatStyle().setInsertion(getUniqueID().toString());
+        chatcomponenttext.getChatStyle().setInsertion(entityUniqueID.toString());
         return chatcomponenttext;
     }
 
@@ -1777,7 +1777,7 @@ public abstract class Entity implements ICommandSender {
     protected HoverEvent getHoverEvent() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         String s = EntityList.getEntityString(this);
-        nbttagcompound.setString("id", getUniqueID().toString());
+        nbttagcompound.setString("id", entityUniqueID.toString());
 
         if (s != null) {
             nbttagcompound.setString("type", s);
@@ -1851,7 +1851,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public void setCommandStats(Entity entityIn) {
-        cmdResultStats.addAllStats(entityIn.getCommandStats());
+        cmdResultStats.addAllStats(entityIn.cmdResultStats);
     }
 
     public NBTTagCompound getNBTTagCompound() {

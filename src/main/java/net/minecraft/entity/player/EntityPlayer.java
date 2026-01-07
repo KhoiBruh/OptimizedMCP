@@ -207,7 +207,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             --xpCooldown;
         }
 
-        if (isPlayerSleeping()) {
+        if (sleeping) {
             ++sleepTimer;
 
             if (sleepTimer > 100) {
@@ -376,7 +376,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     protected boolean isMovementBlocked() {
-        return getHealth() <= 0.0F || isPlayerSleeping();
+        return getHealth() <= 0.0F || sleeping;
     }
 
     protected void closeScreen() {
@@ -756,7 +756,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             if (getHealth() <= 0.0F) {
                 return false;
             } else {
-                if (isPlayerSleeping() && !worldObj.isRemote) {
+                if (sleeping && !worldObj.isRemote) {
                     wakeUpPlayer(true, true, false);
                 }
 
@@ -1057,7 +1057,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public EntityPlayer.EnumStatus trySleep(BlockPos bedLocation) {
         if (!worldObj.isRemote) {
-            if (isPlayerSleeping() || !isEntityAlive()) {
+            if (sleeping || !isEntityAlive()) {
                 return EntityPlayer.EnumStatus.OTHER_PROBLEM;
             }
 
@@ -1606,7 +1606,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public float getEyeHeight() {
         float f = 1.62F;
 
-        if (isPlayerSleeping()) {
+        if (sleeping) {
             f = 0.2F;
         }
 

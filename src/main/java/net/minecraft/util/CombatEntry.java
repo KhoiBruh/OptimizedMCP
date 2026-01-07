@@ -36,7 +36,7 @@ public class CombatEntry {
     }
 
     public IChatComponent getDamageSrcDisplayName() {
-        return getDamageSrc().getEntity() == null ? null : getDamageSrc().getEntity().getDisplayName();
+        return damageSrc.getEntity() == null ? null : damageSrc.getEntity().getDisplayName();
     }
 
     public float getDamageAmount() {

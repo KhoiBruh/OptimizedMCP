@@ -22,7 +22,7 @@ public class VertexFormat {
             addElement(vertexFormatIn.getElement(i));
         }
 
-        nextOffset = vertexFormatIn.getNextOffset();
+        nextOffset = vertexFormatIn.nextOffset;
     }
 
     public VertexFormat() {
@@ -123,7 +123,7 @@ public class VertexFormat {
     }
 
     public int getIntegerSize() {
-        return getNextOffset() / 4;
+        return nextOffset / 4;
     }
 
     public int getNextOffset() {

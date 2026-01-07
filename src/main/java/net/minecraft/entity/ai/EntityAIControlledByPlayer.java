@@ -161,6 +161,6 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
     }
 
     public boolean isControlledByPlayer() {
-        return !isSpeedBoosted() && currentSpeed > maxSpeed * 0.3F;
+        return !speedBoosted && currentSpeed > maxSpeed * 0.3F;
     }
 }

@@ -137,7 +137,7 @@ public class BlockWall extends Block {
 
         static {
             for (BlockWall.EnumType blockwall$enumtype : values()) {
-                META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
+                META_LOOKUP[blockwall$enumtype.meta] = blockwall$enumtype;
             }
         }
 

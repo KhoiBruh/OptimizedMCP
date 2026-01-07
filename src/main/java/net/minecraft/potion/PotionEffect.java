@@ -132,10 +132,10 @@ public class PotionEffect {
     public String toString() {
         String s = "";
 
-        if (getAmplifier() > 0) {
-            s = getEffectName() + " x " + (getAmplifier() + 1) + ", Duration: " + getDuration();
+        if (amplifier > 0) {
+            s = getEffectName() + " x " + (amplifier + 1) + ", Duration: " + duration;
         } else {
-            s = getEffectName() + ", Duration: " + getDuration();
+            s = getEffectName() + ", Duration: " + duration;
         }
 
         if (isSplashPotion) {
@@ -158,11 +158,11 @@ public class PotionEffect {
     }
 
     public NBTTagCompound writeCustomPotionEffectToNBT(NBTTagCompound nbt) {
-        nbt.setByte("Id", (byte) getPotionID());
-        nbt.setByte("Amplifier", (byte) getAmplifier());
-        nbt.setInteger("Duration", getDuration());
-        nbt.setBoolean("Ambient", getIsAmbient());
-        nbt.setBoolean("ShowParticles", getIsShowParticles());
+        nbt.setByte("Id", (byte) potionID);
+        nbt.setByte("Amplifier", (byte) amplifier);
+        nbt.setInteger("Duration", duration);
+        nbt.setBoolean("Ambient", isAmbient);
+        nbt.setBoolean("ShowParticles", showParticles);
         return nbt;
     }
 

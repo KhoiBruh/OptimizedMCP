@@ -27,14 +27,14 @@ public abstract class MobSpawnerBaseLogic {
     private int spawnRange = 4;
 
     private String getEntityNameToSpawn() {
-        if (getRandomEntity() == null) {
+        if (randomEntity == null) {
             if (mobID != null && mobID.equals("Minecart")) {
                 mobID = "MinecartRideable";
             }
 
             return mobID;
         } else {
-            return getRandomEntity().entityType;
+            return randomEntity.entityType;
         }
     }
 
@@ -116,12 +116,12 @@ public abstract class MobSpawnerBaseLogic {
     }
 
     private Entity spawnNewEntity(Entity entityIn, boolean spawn) {
-        if (getRandomEntity() != null) {
+        if (randomEntity != null) {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             entityIn.writeToNBTOptional(nbttagcompound);
 
-            for (String s : getRandomEntity().nbtData.getKeySet()) {
-                NBTBase nbtbase = getRandomEntity().nbtData.getTag(s);
+            for (String s : randomEntity.nbtData.getKeySet()) {
+                NBTBase nbtbase = randomEntity.nbtData.getTag(s);
                 nbttagcompound.setTag(s, nbtbase.copy());
             }
 
@@ -236,11 +236,11 @@ public abstract class MobSpawnerBaseLogic {
             nbt.setShort("RequiredPlayerRange", (short) activatingRangeFromPlayer);
             nbt.setShort("SpawnRange", (short) spawnRange);
 
-            if (getRandomEntity() != null) {
-                nbt.setTag("SpawnData", getRandomEntity().nbtData.copy());
+            if (randomEntity != null) {
+                nbt.setTag("SpawnData", randomEntity.nbtData.copy());
             }
 
-            if (getRandomEntity() != null || !minecartToSpawn.isEmpty()) {
+            if (randomEntity != null || !minecartToSpawn.isEmpty()) {
                 NBTTagList nbttaglist = new NBTTagList();
 
                 if (!minecartToSpawn.isEmpty()) {
@@ -248,7 +248,7 @@ public abstract class MobSpawnerBaseLogic {
                         nbttaglist.appendTag(mobspawnerbaselogic$weightedrandomminecart.toNBT());
                     }
                 } else {
-                    nbttaglist.appendTag(getRandomEntity().toNBT());
+                    nbttaglist.appendTag(randomEntity.toNBT());
                 }
 
                 nbt.setTag("SpawnPotentials", nbttaglist);

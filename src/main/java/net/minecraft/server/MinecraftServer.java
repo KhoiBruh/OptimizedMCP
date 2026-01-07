@@ -146,10 +146,10 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     protected abstract boolean startServer();
 
     protected void convertMapIfNeeded(String worldNameIn) {
-        if (getActiveAnvilConverter().isOldMapFormat(worldNameIn)) {
+        if (anvilConverterForAnvilFile.isOldMapFormat(worldNameIn)) {
             logger.info("Converting map!");
-            setUserMessage("menu.convertingLevel");
-            getActiveAnvilConverter().convertMapFormat(worldNameIn, new IProgressUpdate() {
+            userMessage = "menu.convertingLevel";
+            anvilConverterForAnvilFile.convertMapFormat(worldNameIn, new IProgressUpdate() {
                 private long startTime = System.currentTimeMillis();
 
                 public void displaySavingString(String message) {
@@ -184,11 +184,11 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     protected void loadAllWorlds(String saveName, String worldNameIn, long seed, WorldType type, String worldNameIn2) {
         convertMapIfNeeded(saveName);
-        setUserMessage("menu.loadingLevel");
+        userMessage = "menu.loadingLevel";
         worldServers = new WorldServer[3];
         timeOfLastDimensionTick = new long[worldServers.length][100];
         ISaveHandler isavehandler = anvilConverterForAnvilFile.getSaveLoader(saveName, true);
-        setResourcePackFromWorld(getFolderName(), isavehandler);
+        setResourcePackFromWorld(folderName, isavehandler);
         WorldInfo worldinfo = isavehandler.loadWorldInfo();
         WorldSettings worldsettings;
 
@@ -242,15 +242,15 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         int k = 192;
         int l = 625;
         int i1 = 0;
-        setUserMessage("menu.generatingTerrain");
+        userMessage = "menu.generatingTerrain";
         int j1 = 0;
         logger.info("Preparing start region for level {}", j1);
         WorldServer worldserver = worldServers[j1];
         BlockPos blockpos = worldserver.getSpawnPoint();
         long k1 = getCurrentTimeMillis();
 
-        for (int l1 = -192; l1 <= 192 && isServerRunning(); l1 += 16) {
-            for (int i2 = -192; i2 <= 192 && isServerRunning(); i2 += 16) {
+        for (int l1 = -192; l1 <= 192 && serverRunning; l1 += 16) {
+            for (int i2 = -192; i2 <= 192 && serverRunning; i2 += 16) {
                 long j2 = getCurrentTimeMillis();
 
                 if (j2 - k1 > 1000L) {
@@ -280,7 +280,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public void setGameType(WorldSettings.GameType gameMode) {
         for (int i = 0; i < worldServers.length; ++i) {
-            getServer().worldServers[i].getWorldInfo().setGameType(gameMode);
+            mcServer.worldServers[i].getWorldInfo().setGameType(gameMode);
         }
     }
 
@@ -327,8 +327,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         if (!worldIsBeingDeleted) {
             logger.info("Stopping server");
 
-            if (getNetworkSystem() != null) {
-                getNetworkSystem().terminateEndpoints();
+            if (networkSystem != null) {
+                networkSystem.terminateEndpoints();
             }
 
             if (serverConfigManager != null) {
@@ -573,7 +573,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         }
 
         theProfiler.endStartSection("connection");
-        getNetworkSystem().networkTick();
+        networkSystem.networkTick();
         theProfiler.endStartSection("players");
         serverConfigManager.onTick();
         theProfiler.endStartSection("tickables");
@@ -760,7 +760,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public void deleteWorldAndStopServer() {
         worldIsBeingDeleted = true;
-        getActiveAnvilConverter().flushCache();
+        anvilConverterForAnvilFile.flushCache();
 
         for (WorldServer worldserver : worldServers) {
             if (worldserver != null) {
@@ -768,7 +768,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             }
         }
 
-        getActiveAnvilConverter().deleteWorldDirectory(worldServers[0].getSaveHandler().getWorldDirectoryName());
+        anvilConverterForAnvilFile.deleteWorldDirectory(worldServers[0].getSaveHandler().getWorldDirectoryName());
         initiateShutdown();
     }
 
@@ -1015,7 +1015,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     public boolean sendCommandFeedback() {
-        return getServer().worldServers[0].getGameRules().getBoolean("sendCommandFeedback");
+        return mcServer.worldServers[0].getGameRules().getBoolean("sendCommandFeedback");
     }
 
     public void setCommandStat(CommandResultStats.Type type, int amount) {
@@ -1028,7 +1028,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     public <V> ListenableFuture<V> callFromMainThread(Callable<V> callable) {
         Objects.requireNonNull(callable);
 
-        if (!isCallingFromMinecraftThread() && !isServerStopped()) {
+        if (!isCallingFromMinecraftThread() && !serverStopped) {
             ListenableFutureTask<V> listenablefuturetask = ListenableFutureTask.create(callable);
 
             synchronized (futureTaskQueue) {

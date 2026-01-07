@@ -98,7 +98,7 @@ public abstract class ServerConfigurationManager {
         BlockPos blockpos = worldserver.getSpawnPoint();
         setPlayerGameTypeBasedOnOther(playerIn, null, worldserver);
         NetHandlerPlayServer nethandlerplayserver = new NetHandlerPlayServer(mcServer, netManager, playerIn);
-        nethandlerplayserver.sendPacket(new S01PacketJoinGame(playerIn.getEntityId(), playerIn.theItemInWorldManager.getGameType(), worldinfo.isHardcoreModeEnabled(), worldserver.provider.getDimensionId(), worldserver.getDifficulty(), getMaxPlayers(), worldinfo.getTerrainType(), worldserver.getGameRules().getBoolean("reducedDebugInfo")));
+        nethandlerplayserver.sendPacket(new S01PacketJoinGame(playerIn.getEntityId(), playerIn.theItemInWorldManager.getGameType(), worldinfo.isHardcoreModeEnabled(), worldserver.provider.getDimensionId(), worldserver.getDifficulty(), maxPlayers, worldinfo.getTerrainType(), worldserver.getGameRules().getBoolean("reducedDebugInfo")));
         nethandlerplayserver.sendPacket(new S3FPacketCustomPayload("MC|Brand", (new PacketBuffer(Unpooled.buffer())).writeString(getServerInstance().getServerModName())));
         nethandlerplayserver.sendPacket(new S41PacketServerDifficulty(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
         nethandlerplayserver.sendPacket(new S05PacketSpawnPosition(blockpos));
@@ -207,7 +207,7 @@ public abstract class ServerConfigurationManager {
     }
 
     public int getEntityViewDistance() {
-        return PlayerManager.getFurthestViewableBlock(getViewDistance());
+        return PlayerManager.getFurthestViewableBlock(viewDistance);
     }
 
     public NBTTagCompound readPlayerDataFromFile(EntityPlayerMP playerIn) {

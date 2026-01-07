@@ -62,8 +62,8 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         commandBlockLogic.readDataFromNBT(tagCompund);
-        getDataWatcher().updateObject(23, getCommandBlockLogic().getCommand());
-        getDataWatcher().updateObject(24, IChatComponent.Serializer.componentToJson(getCommandBlockLogic().getLastOutput()));
+        getDataWatcher().updateObject(23, commandBlockLogic.getCommand());
+        getDataWatcher().updateObject(24, IChatComponent.Serializer.componentToJson(commandBlockLogic.getLastOutput()));
     }
 
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
@@ -85,7 +85,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
 
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         if (receivingPower && ticksExisted - activatorRailCooldown >= 4) {
-            getCommandBlockLogic().trigger(worldObj);
+            commandBlockLogic.trigger(worldObj);
             activatorRailCooldown = ticksExisted;
         }
     }

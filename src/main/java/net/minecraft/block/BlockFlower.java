@@ -83,7 +83,7 @@ public abstract class BlockFlower extends BlockBush {
 
         static {
             for (final BlockFlower.EnumFlowerColor blockflower$enumflowercolor : BlockFlower.EnumFlowerColor.values()) {
-                Collection<BlockFlower.EnumFlowerType> collection = Collections2.filter(Lists.newArrayList(values()), p_apply_1_ -> p_apply_1_.getBlockType() == blockflower$enumflowercolor);
+                Collection<BlockFlower.EnumFlowerType> collection = Collections2.filter(Lists.newArrayList(values()), p_apply_1_ -> p_apply_1_.blockType == blockflower$enumflowercolor);
                 TYPES_FOR_BLOCK[blockflower$enumflowercolor.ordinal()] = collection.toArray(new EnumFlowerType[0]);
             }
         }

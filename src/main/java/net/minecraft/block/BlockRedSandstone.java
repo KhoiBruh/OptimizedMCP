@@ -51,7 +51,7 @@ public class BlockRedSandstone extends Block {
 
         static {
             for (BlockRedSandstone.EnumType blockredsandstone$enumtype : values()) {
-                META_LOOKUP[blockredsandstone$enumtype.getMetadata()] = blockredsandstone$enumtype;
+                META_LOOKUP[blockredsandstone$enumtype.meta] = blockredsandstone$enumtype;
             }
         }
 

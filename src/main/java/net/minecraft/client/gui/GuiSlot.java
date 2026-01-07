@@ -238,7 +238,7 @@ public abstract class GuiSlot {
                 }
             }
 
-            if (Mouse.isButtonDown(0) && getEnabled()) {
+            if (Mouse.isButtonDown(0) && enabled) {
                 if (initialClickY != -1) {
                     if (initialClickY >= 0) {
                         amountScrolled -= (float) (mouseY - initialClickY) * scrollMultiplier;

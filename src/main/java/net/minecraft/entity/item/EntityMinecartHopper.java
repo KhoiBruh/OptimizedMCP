@@ -49,8 +49,8 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         boolean flag = !receivingPower;
 
-        if (flag != getBlocked()) {
-            setBlocked(flag);
+        if (flag != isBlocked) {
+            isBlocked = flag;
         }
     }
 
@@ -81,20 +81,20 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     public void onUpdate() {
         super.onUpdate();
 
-        if (!worldObj.isRemote && isEntityAlive() && getBlocked()) {
+        if (!worldObj.isRemote && isEntityAlive() && isBlocked) {
             BlockPos blockpos = new BlockPos(this);
 
             if (blockpos.equals(field_174900_c)) {
                 --transferTicker;
             } else {
-                setTransferTicker(0);
+                transferTicker = 0;
             }
 
             if (!canTransfer()) {
-                setTransferTicker(0);
+                transferTicker = 0;
 
                 if (func_96112_aD()) {
-                    setTransferTicker(4);
+                    transferTicker = 4;
                     markDirty();
                 }
             }

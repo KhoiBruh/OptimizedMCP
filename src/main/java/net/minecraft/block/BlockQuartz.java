@@ -80,7 +80,7 @@ public class BlockQuartz extends Block {
 
         static {
             for (BlockQuartz.EnumType blockquartz$enumtype : values()) {
-                META_LOOKUP[blockquartz$enumtype.getMetadata()] = blockquartz$enumtype;
+                META_LOOKUP[blockquartz$enumtype.meta] = blockquartz$enumtype;
             }
         }
 

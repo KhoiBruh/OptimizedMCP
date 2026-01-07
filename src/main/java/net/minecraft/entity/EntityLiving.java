@@ -356,7 +356,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         super.readEntityFromNBT(tagCompund);
 
         if (tagCompund.hasKey("CanPickUpLoot", 1)) {
-            setCanPickUpLoot(tagCompund.getBoolean("CanPickUpLoot"));
+            canPickUpLoot = tagCompund.getBoolean("CanPickUpLoot");
         }
 
         persistenceRequired = tagCompund.getBoolean("PersistenceRequired");
@@ -392,7 +392,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 
     public void setAIMoveSpeed(float speedIn) {
         super.setAIMoveSpeed(speedIn);
-        setMoveForward(speedIn);
+        moveForward = speedIn;
     }
 
     public void onLivingUpdate() {
@@ -592,7 +592,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     }
 
     public int getMaxFallHeight() {
-        if (getAttackTarget() == null) {
+        if (attackTarget == null) {
             return 3;
         } else {
             int i = (int) (getHealth() - getMaxHealth() * 0.33F);
@@ -733,7 +733,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     }
 
     public final boolean interactFirst(EntityPlayer playerIn) {
-        if (getLeashed() && getLeashedToEntity() == playerIn) {
+        if (isLeashed && leashedToEntity == playerIn) {
             clearLeashed(true, !playerIn.capabilities.isCreativeMode);
             return true;
         } else {
@@ -797,7 +797,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     }
 
     public boolean allowLeashing() {
-        return !getLeashed() && !(this instanceof IMob);
+        return !isLeashed && !(this instanceof IMob);
     }
 
     public boolean getLeashed() {

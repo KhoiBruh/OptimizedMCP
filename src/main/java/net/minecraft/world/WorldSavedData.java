@@ -15,7 +15,7 @@ public abstract class WorldSavedData {
     public abstract void writeToNBT(NBTTagCompound nbt);
 
     public void markDirty() {
-        setDirty(true);
+        dirty = true;
     }
 
     public boolean isDirty() {

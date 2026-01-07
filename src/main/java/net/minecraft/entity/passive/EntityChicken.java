@@ -66,7 +66,7 @@ public class EntityChicken extends EntityAnimal {
 
         wingRotation += wingRotDelta * 2.0F;
 
-        if (!worldObj.isRemote && !isChild() && !isChickenJockey() && --timeUntilNextEgg <= 0) {
+        if (!worldObj.isRemote && !isChild() && !chickenJockey && --timeUntilNextEgg <= 0) {
             playSound("mob.chicken.plop", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
             dropItem(Items.egg, 1);
             timeUntilNextEgg = rand.nextInt(6000) + 6000;
@@ -128,7 +128,7 @@ public class EntityChicken extends EntityAnimal {
     }
 
     protected int getExperiencePoints(EntityPlayer player) {
-        return isChickenJockey() ? 10 : super.getExperiencePoints(player);
+        return chickenJockey ? 10 : super.getExperiencePoints(player);
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
@@ -138,7 +138,7 @@ public class EntityChicken extends EntityAnimal {
     }
 
     protected boolean canDespawn() {
-        return isChickenJockey() && riddenByEntity == null;
+        return chickenJockey && riddenByEntity == null;
     }
 
     public void updateRiderPosition() {

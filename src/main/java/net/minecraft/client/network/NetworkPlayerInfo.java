@@ -81,7 +81,7 @@ public class NetworkPlayerInfo {
     }
 
     public ScorePlayerTeam getPlayerTeam() {
-        return Minecraft.getMinecraft().theWorld.getScoreboard().getPlayersTeam(getGameProfile().getName());
+        return Minecraft.getMinecraft().theWorld.getScoreboard().getPlayersTeam(gameProfile.getName());
     }
 
     protected void loadPlayerTextures() {
