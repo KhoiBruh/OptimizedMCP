@@ -1,47 +1,7 @@
-/*
- * Copyright (c) 2002-2008 LWJGL Project
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'LWJGL' nor the names of
- *   its contributors may be used to endorse or promote products derived
- *   from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package org.lwjgl;
-
-import org.lwjgl.BufferUtils;
 
 import java.nio.ByteBuffer;
 
-/**
- * <p>
- * Internal library methods
- * </p>
- *
- * @author Brian Matzon <brian@matzon.dk>
- */
 public class LWJGLUtil {
     public static final int PLATFORM_LINUX = 1;
     public static final int PLATFORM_MACOSX = 2;
@@ -114,9 +74,7 @@ public class LWJGLUtil {
             + "\353\362\370\377\214\263\324\377\126\220\300\377\120\214\275\377"
             + "\167\245\314\377\355\363\370\377\377\377\377\377\377\377\377\377"
             + "\377\377\377\377\337\337\337\377\346\346\346\377\377\377\377\377";
-    /**
-     * LWJGL Logo - 16 by 16 pixels
-     */
+
     public static final ByteBuffer LWJGLIcon16x16 = loadIcon(LWJGL_ICON_DATA_16x16);
     private static final String LWJGL_ICON_DATA_32x32 = "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
             + "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\372\374\375\377"
@@ -246,14 +204,13 @@ public class LWJGLUtil {
             + "\377\377\377\377\377\377\377\377\363\367\372\377\265\316\343\377\201\254\320\377\145\231\305\377\141\227\304\377\154\236\310\377"
             + "\217\265\325\377\305\331\351\377\367\372\374\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
             + "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377";
-    /**
-     * LWJGL Logo - 32 by 32 pixels
-     */
+
     public static final ByteBuffer LWJGLIcon32x32 = loadIcon(LWJGL_ICON_DATA_32x32);
     private static final int PLATFORM;
 
     static {
-        String osName = getPrivilegedProperty("os.name");
+        String osName = System.getProperty("os.name");
+
         if (osName.startsWith("Windows"))
             PLATFORM = PLATFORM_WINDOWS;
         else if (osName.startsWith("Linux") || osName.startsWith("FreeBSD") || osName.startsWith("OpenBSD")
@@ -271,28 +228,17 @@ public class LWJGLUtil {
     private static ByteBuffer loadIcon(String data) {
         int len = data.length();
         ByteBuffer bb = BufferUtils.createByteBuffer(len);
+
         for (int i = 0; i < len; i++) {
             bb.put(i, (byte) data.charAt(i));
         }
         return bb.asReadOnlyBuffer();
     }
 
-    /**
-     * @return the current platform type
-     * @see #PLATFORM_WINDOWS
-     * @see #PLATFORM_LINUX
-     * @see #PLATFORM_MACOSX
-     */
     public static int getPlatform() {
         return PLATFORM;
     }
 
-    /**
-     * @return current platform name
-     * @see #PLATFORM_WINDOWS_NAME
-     * @see #PLATFORM_LINUX_NAME
-     * @see #PLATFORM_MACOSX_NAME
-     */
     public static String getPlatformName() {
         return switch (PLATFORM) {
             case PLATFORM_LINUX -> PLATFORM_LINUX_NAME;
@@ -302,18 +248,7 @@ public class LWJGLUtil {
         };
     }
 
-    private static String getPrivilegedProperty(String property_name) {
-        return System.getProperty(property_name);
-    }
-
-    /**
-     * Logs a message to the console if the DEBUG flag is set
-     *
-     * @param msg The message to log.
-     */
     public static void log(CharSequence msg) {
-        if (DEBUG) {
-            System.err.println("[LWJGL] " + msg);
-        }
+        if (DEBUG) System.err.println("[LWJGL] " + msg);
     }
 }
