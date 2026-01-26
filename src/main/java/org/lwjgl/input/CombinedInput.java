@@ -1,24 +1,17 @@
-package org.lwjgl.fusion.input;
-
-import org.lwjgl.opengl.InputImplementation;
+package org.lwjgl.input;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-/**
- * @author Zarzelcow
- * @created 28/09/2022 - 3:23 PM
- */
-public class CombinedInputImplementation implements InputImplementation {
-    private final KeyboardImplementation keyboardImpl;
-    private final MouseImplementation mouseImpl;
+public class CombinedInput implements Input {
+    private final IKeyboard keyboardImpl;
+    private final IMouse mouseImpl;
 
-    public CombinedInputImplementation(KeyboardImplementation keyboard, MouseImplementation mouse) {
+    public CombinedInput(IKeyboard keyboard, IMouse mouse) {
         keyboardImpl = keyboard;
         mouseImpl = mouse;
     }
 
-    // ~~~~~ KEYBOARD ~~~~~
     @Override
     public void createKeyboard() {
         keyboardImpl.createKeyboard();
@@ -30,8 +23,8 @@ public class CombinedInputImplementation implements InputImplementation {
     }
 
     @Override
-    public void pollKeyboard(ByteBuffer keyDownBuffer) {
-        keyboardImpl.pollKeyboard(keyDownBuffer);
+    public void pollKeyboard(ByteBuffer keyDown) {
+        keyboardImpl.pollKeyboard(keyDown);
     }
 
     @Override
@@ -39,7 +32,6 @@ public class CombinedInputImplementation implements InputImplementation {
         keyboardImpl.readKeyboard(readBuffer);
     }
 
-    // ~~~~~ MOUSE ~~~~~
 
     @Override
     public void createMouse() {
@@ -52,8 +44,8 @@ public class CombinedInputImplementation implements InputImplementation {
     }
 
     @Override
-    public void pollMouse(IntBuffer coord_buffer, ByteBuffer buttons_buffer) {
-        mouseImpl.pollMouse(coord_buffer, buttons_buffer);
+    public void pollMouse(IntBuffer pos, ByteBuffer buttons) {
+        mouseImpl.pollMouse(pos, buttons);
     }
 
     @Override

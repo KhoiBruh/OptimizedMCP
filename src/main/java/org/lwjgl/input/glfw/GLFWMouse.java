@@ -1,6 +1,6 @@
-package org.lwjgl.fusion.glfw;
+package org.lwjgl.input.glfw;
 
-import org.lwjgl.fusion.input.MouseImplementation;
+import org.lwjgl.input.IMouse;
 import org.lwjgl.glfw.*;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -9,58 +9,58 @@ import org.lwjgl.opengl.EventQueue;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-/**
- * @author Zarzelcow
- * @created 28/09/2022 - 8:58 PM
- */
-public class GLFWMouseImplementation implements MouseImplementation {
-    private final EventQueue event_queue = new EventQueue(Mouse.EVENT_SIZE);
-    private final ByteBuffer tmp_event = ByteBuffer.allocate(Mouse.EVENT_SIZE);
+public class GLFWMouse implements IMouse {
+    private final EventQueue eventQueue = new EventQueue(Mouse.EVENT_SIZE);
+    private final ByteBuffer tempEvent = ByteBuffer.allocate(Mouse.EVENT_SIZE);
+
     private GLFWMouseButtonCallback buttonCallback;
     private GLFWCursorPosCallback posCallback;
     private GLFWScrollCallback scrollCallback;
     private GLFWCursorEnterCallback cursorEnterCallback;
+
     private long windowHandle;
     private boolean grabbed;
     private boolean isInsideWindow;
-    private int last_x;
-    private int last_y;
-    private int accum_dx;
-    private int accum_dy;
-    private int accum_dz;
-    private final byte[] button_states = new byte[getButtonCount()];
+
+    private int lastX;
+    private int lastY;
+    private int accumDx;
+    private int accumDy;
+    private int accumDz;
+
+    private final byte[] buttonStates = new byte[getButtonCount()];
     private boolean firstMove = true;
 
     @Override
     public void createMouse() {
-
         windowHandle = Display.getHandle();
 
         buttonCallback = GLFWMouseButtonCallback.create((window, button, action, mods) -> {
             byte state = GLFW.GLFW_PRESS == action ? (byte) 1 : (byte) 0;
             putMouseEvent((byte) button, state, 0, System.nanoTime());
-            if (button < button_states.length)
-                button_states[button] = state;
+            if (button < buttonStates.length) buttonStates[button] = state;
         });
-        posCallback = GLFWCursorPosCallback.create((window, xpos, ypos) -> {
-            int x = (int) xpos;
-            int y = Display.getHeight() - 1 - (int) ypos; // I don't know why but this un-inverts the y motion of mouse inputs
-            int dx = x - last_x;
-            int dy = y - last_y;
-            //TODO mouse input is faster in lwjgl2?
-            //Needed to fix initial mouse delta
+
+        posCallback = GLFWCursorPosCallback.create((window, posX, posY) -> {
+            int x = (int) posX;
+            int y = Display.getHeight() - 1 - (int) posY;
+            int dx = x - lastX;
+            int dy = y - lastY;
+
             if (firstMove) {
                 firstMove = false;
                 dx = dy = 0;
-                last_x = x;
-                last_y = y;
+                lastX = x;
+                lastY = y;
             }
+
             if (0 != dx || 0 != dy) {
-                accum_dx += dx;
-                accum_dy += dy;
-                last_x = x;
-                last_y = y;
+                accumDx += dx;
+                accumDy += dy;
+                lastX = x;
+                lastY = y;
                 long nanos = System.nanoTime();
+
                 if (grabbed) {
                     putMouseEventWithCoords((byte) -1, (byte) 0, dx, dy, 0, nanos);
                 } else {
@@ -68,11 +68,15 @@ public class GLFWMouseImplementation implements MouseImplementation {
                 }
             }
         });
-        scrollCallback = GLFWScrollCallback.create((window, xoffset, yoffset) -> {
-            accum_dz += yoffset;
-            putMouseEvent((byte) -1, (byte) 0, (int) yoffset, System.nanoTime());
+
+        scrollCallback = GLFWScrollCallback.create((window, offsetX, offsetY) -> {
+            accumDz += (int) offsetY;
+            putMouseEvent((byte) -1, (byte) 0, (int) offsetY, System.nanoTime());
         });
-        cursorEnterCallback = GLFWCursorEnterCallback.create((window, entered) -> isInsideWindow = entered);
+
+        cursorEnterCallback = GLFWCursorEnterCallback.create((window, entered) ->
+                isInsideWindow = entered
+        );
 
         GLFW.glfwSetMouseButtonCallback(windowHandle, buttonCallback);
         GLFW.glfwSetCursorPosCallback(windowHandle, posCallback);
@@ -81,17 +85,15 @@ public class GLFWMouseImplementation implements MouseImplementation {
     }
 
     private void putMouseEvent(byte button, byte state, int dz, long nanos) {
-        if (grabbed)
-            putMouseEventWithCoords(button, state, 0, 0, dz, nanos);
-        else
-            putMouseEventWithCoords(button, state, last_x, last_y, dz, nanos);
+        if (grabbed) putMouseEventWithCoords(button, state, 0, 0, dz, nanos);
+        else putMouseEventWithCoords(button, state, lastX, lastY, dz, nanos);
     }
 
     private void putMouseEventWithCoords(byte button, byte state, int coord1, int coord2, int dz, long nanos) {
-        tmp_event.clear();
-        tmp_event.put(button).put(state).putInt(coord1).putInt(coord2).putInt(dz).putLong(nanos);
-        tmp_event.flip();
-        event_queue.putEvent(tmp_event);
+        tempEvent.clear();
+        tempEvent.put(button).put(state).putInt(coord1).putInt(coord2).putInt(dz).putLong(nanos);
+        tempEvent.flip();
+        eventQueue.putEvent(tempEvent);
     }
 
     @Override
@@ -103,36 +105,38 @@ public class GLFWMouseImplementation implements MouseImplementation {
     }
 
     private void reset() {
-        event_queue.clearEvents();
-        accum_dx = accum_dy = 0;
+        eventQueue.clearEvents();
+        accumDx = accumDy = 0;
     }
 
     @Override
-    public void pollMouse(IntBuffer coord_buffer, ByteBuffer buttons_buffer) {
+    public void pollMouse(IntBuffer pos, ByteBuffer buttons) {
         if (grabbed) {
-            coord_buffer.put(0, accum_dx);
-            coord_buffer.put(1, accum_dy);
+            pos.put(0, accumDx);
+            pos.put(1, accumDy);
         } else {
-            coord_buffer.put(0, last_x);
-            coord_buffer.put(1, last_y);
+            pos.put(0, lastX);
+            pos.put(1, lastY);
         }
-        coord_buffer.put(2, accum_dz);
-        accum_dx = accum_dy = accum_dz = 0;
-        for (int i = 0; i < button_states.length; i++)
-            buttons_buffer.put(i, button_states[i]);
+
+        pos.put(2, accumDz);
+        accumDx = accumDy = accumDz = 0;
+        for (int i = 0; i < buttonStates.length; i++) {
+            buttons.put(i, buttonStates[i]);
+        }
     }
 
     @Override
     public void readMouse(ByteBuffer readBuffer) {
-        event_queue.copyEvents(readBuffer);
+        eventQueue.copyEvents(readBuffer);
     }
 
     @Override
     public void setCursorPosition(int x, int y) {
-        last_x = x;
-        last_y = y;
+        lastX = x;
+        lastY = y;
         int mode = GLFW.glfwGetInputMode(windowHandle, GLFW.GLFW_CURSOR);
-        // Has to be GLFW_CURSOR_NORMAL because GLFW_CURSOR_DISABLED ignores this call
+
         GLFW.glfwSetInputMode(windowHandle, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
         GLFW.glfwSetCursorPos(windowHandle, x, y);
         GLFW.glfwSetInputMode(windowHandle, GLFW.GLFW_CURSOR, mode);
