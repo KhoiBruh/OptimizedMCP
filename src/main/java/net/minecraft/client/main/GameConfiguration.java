@@ -6,8 +6,13 @@ import net.minecraft.util.Session;
 import java.io.File;
 import java.net.Proxy;
 
-public record GameConfiguration(UserInformation userInfo, DisplayInformation displayInfo, FolderInformation folderInfo,
-                                GameInformation gameInfo, ServerInformation serverInfo) {
+public record GameConfiguration(
+        UserInformation userInfo,
+        DisplayInformation displayInfo,
+        FolderInformation folderInfo,
+        GameInformation gameInfo,
+        ServerInformation serverInfo
+) {
 
     public record DisplayInformation(int width, int height, boolean fullscreen, boolean checkGlErrors) {
     }
@@ -21,7 +26,6 @@ public record GameConfiguration(UserInformation userInfo, DisplayInformation dis
     public record ServerInformation(String serverName, int serverPort) {
     }
 
-    public record UserInformation(Session session, PropertyMap userProperties, PropertyMap profileProperties,
-                                  Proxy proxy) {
+    public record UserInformation(Session session, PropertyMap userProperties, PropertyMap profileProperties, Proxy proxy) {
     }
 }
