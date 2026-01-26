@@ -733,7 +733,7 @@ public class CustomColors {
     }
 
     private static int getSmoothColorMultiplier(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos,
-                                                CustomColors.IColorizer colorizer, BlockPosM blockPosM) {
+                                                CustomColors.IColorizer colorizer, BlockPos.MutableBlockPos blockPosM) {
         int i = 0;
         int j = 0;
         int k = 0;
@@ -743,7 +743,7 @@ public class CustomColors {
 
         for (int k1 = l - 1; k1 <= l + 1; ++k1) {
             for (int l1 = j1 - 1; l1 <= j1 + 1; ++l1) {
-                blockPosM.setXyz(k1, i1, l1);
+                blockPosM.set(k1, i1, l1);
                 int i2 = colorizer.getColor(blockState, blockAccess, blockPosM);
                 i += i2 >> 16 & 255;
                 j += i2 >> 8 & 255;

@@ -51,16 +51,16 @@ public class ClearWater {
                                     int l2 = j2 << 4;
                                     int i3 = k2 + 16;
                                     int j3 = l2 + 16;
-                                    BlockPosM blockposm = new BlockPosM(0, 0, 0);
-                                    BlockPosM blockposm1 = new BlockPosM(0, 0, 0);
+                                    BlockPos.MutableBlockPos blockposm = new BlockPos.MutableBlockPos(0, 0, 0);
+                                    BlockPos.MutableBlockPos blockposm1 = new BlockPos.MutableBlockPos(0, 0, 0);
 
                                     for (int k3 = k2; k3 < i3; ++k3) {
                                         for (int l3 = l2; l3 < j3; ++l3) {
-                                            blockposm.setXyz(k3, 0, l3);
+                                            blockposm.set(k3, 0, l3);
                                             BlockPos blockpos = world.getPrecipitationHeight(blockposm);
 
                                             for (int i4 = 0; i4 < blockpos.getY(); ++i4) {
-                                                blockposm1.setXyz(k3, i4, l3);
+                                                blockposm1.set(k3, i4, l3);
                                                 IBlockState iblockstate = world.getBlockState(blockposm1);
 
                                                 if (iblockstate.getBlock().getMaterial() == Material.water) {

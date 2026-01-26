@@ -12,7 +12,6 @@ import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
-import net.optifine.BlockPosM;
 import net.optifine.model.ListQuadsOverlay;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class RenderEnv {
     private final float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
     private final BitSet boundsFlags = new BitSet(3);
     private final BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
-    private BlockPosM colorizerBlockPosM = null;
+    private BlockPos.MutableBlockPos colorizerBlockPosM = null;
     private boolean[] borderFlags = null;
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
@@ -130,10 +129,8 @@ public class RenderEnv {
         return blockState;
     }
 
-    public BlockPosM getColorizerBlockPosM() {
-        if (colorizerBlockPosM == null) {
-            colorizerBlockPosM = new BlockPosM(0, 0, 0);
-        }
+    public BlockPos.MutableBlockPos getColorizerBlockPosM() {
+        if (colorizerBlockPosM == null) colorizerBlockPosM = new BlockPos.MutableBlockPos(0, 0, 0);
 
         return colorizerBlockPosM;
     }

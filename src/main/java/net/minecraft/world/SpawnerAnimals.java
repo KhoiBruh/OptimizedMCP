@@ -14,7 +14,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.optifine.BlockPosM;
 
 import java.util.*;
 
@@ -35,16 +34,18 @@ public final class SpawnerAnimals {
         return new BlockPos(i, l, j);
     }
 
-    private static BlockPosM getRandomChunkPosition(World p_getRandomChunkPosition_0_, int p_getRandomChunkPosition_1_,
-                                                    int p_getRandomChunkPosition_2_, BlockPosM p_getRandomChunkPosition_3_) {
-        Chunk chunk = p_getRandomChunkPosition_0_.getChunkFromChunkCoords(p_getRandomChunkPosition_1_,
-                p_getRandomChunkPosition_2_);
-        int i = p_getRandomChunkPosition_1_ * 16 + p_getRandomChunkPosition_0_.rand.nextInt(16);
-        int j = p_getRandomChunkPosition_2_ * 16 + p_getRandomChunkPosition_0_.rand.nextInt(16);
+    private static BlockPos.MutableBlockPos getRandomChunkPosition(
+            World world, int p_getRandomChunkPosition_1_,
+            int p_getRandomChunkPosition_2_, BlockPos.MutableBlockPos blockPos
+    ) {
+        Chunk chunk = world.getChunkFromChunkCoords(p_getRandomChunkPosition_1_, p_getRandomChunkPosition_2_);
+        int i = p_getRandomChunkPosition_1_ * 16 + world.rand.nextInt(16);
+        int j = p_getRandomChunkPosition_2_ * 16 + world.rand.nextInt(16);
         int k = MathHelper.roundUp(chunk.getHeightValue(i & 15, j & 15) + 1, 16);
-        int l = p_getRandomChunkPosition_0_.rand.nextInt(k > 0 ? k : chunk.getTopFilledSegment() + 16 - 1);
-        p_getRandomChunkPosition_3_.setXyz(i, l, j);
-        return p_getRandomChunkPosition_3_;
+        int l = world.rand.nextInt(k > 0 ? k : chunk.getTopFilledSegment() + 16 - 1);
+        blockPos.set(i, l, j);
+
+        return blockPos;
     }
 
     public static boolean canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType spawnPlacementTypeIn,
@@ -188,7 +189,7 @@ public final class SpawnerAnimals {
 
             int j4 = 0;
             BlockPos blockpos2 = worldServerIn.getSpawnPoint();
-            BlockPosM blockposm = new BlockPosM(0, 0, 0);
+            BlockPos.MutableBlockPos blockposm = new BlockPos.MutableBlockPos(0, 0, 0);
             new BlockPos.MutableBlockPos();
 
             for (EnumCreatureType enumcreaturetype : EnumCreatureType.values()) {
@@ -203,7 +204,7 @@ public final class SpawnerAnimals {
                         label561:
 
                         for (ChunkCoordIntPair chunkcoordintpair1 : eligibleChunksForSpawning) {
-                            BlockPos blockpos = getRandomChunkPosition(worldServerIn, chunkcoordintpair1.chunkXPos,
+                            BlockPos.MutableBlockPos blockpos = getRandomChunkPosition(worldServerIn, chunkcoordintpair1.chunkXPos,
                                     chunkcoordintpair1.chunkZPos, blockposm);
                             int k1 = blockpos.getX();
                             int l1 = blockpos.getY();

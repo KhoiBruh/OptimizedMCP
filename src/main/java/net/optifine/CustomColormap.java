@@ -327,11 +327,11 @@ public class CustomColormap implements CustomColors.IColorizer {
             int i1 = 0;
             int j1 = 0;
             int k1 = 0;
-            BlockPosM blockposm = new BlockPosM(0, 0, 0);
+            BlockPos.MutableBlockPos blockposm = new BlockPos.MutableBlockPos(0, 0, 0);
 
             for (int l1 = i - radius; l1 <= i + radius; ++l1) {
                 for (int i2 = k - radius; i2 <= k + radius; ++i2) {
-                    blockposm.setXyz(l1, j, i2);
+                    blockposm.set(l1, j, i2);
                     int j2 = getColor(blockAccess, blockposm);
                     l += j2 >> 16 & 255;
                     i1 += j2 >> 8 & 255;

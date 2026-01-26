@@ -1,34 +1,36 @@
 package net.optifine.shaders;
 
 import net.minecraft.util.BlockPos;
-import net.optifine.BlockPosM;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class IteratorAxis implements Iterator<BlockPos> {
-    private final double yDelta;
-    private final double zDelta;
+    private final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(0, 0, 0);
+
+    private final int yDelta;
+    private final int zDelta;
+
     private final int xEnd;
-    private double yStart;
-    private double yEnd;
-    private double zStart;
-    private double zEnd;
+    private int yStart;
+    private int yEnd;
+    private int zStart;
+    private int zEnd;
     private int xNext;
-    private double yNext;
-    private double zNext;
-    private final BlockPosM pos = new BlockPosM(0, 0, 0);
+    private int yNext;
+    private int zNext;
+
     private boolean hasNext;
 
-    public IteratorAxis(BlockPos posStart, BlockPos posEnd, double yDelta, double zDelta) {
+    public IteratorAxis(BlockPos posStart, BlockPos posEnd, int yDelta, int zDelta) {
         this.yDelta = yDelta;
         this.zDelta = zDelta;
         int xStart = posStart.getX();
         xEnd = posEnd.getX();
         yStart = posStart.getY();
-        yEnd = (double) posEnd.getY() - 0.5D;
+        yEnd = posEnd.getY();
         zStart = posStart.getZ();
-        zEnd = (double) posEnd.getZ() - 0.5D;
+        zEnd = posEnd.getZ();
         xNext = xStart;
         yNext = yStart;
         zNext = zStart;
@@ -40,14 +42,12 @@ public class IteratorAxis implements Iterator<BlockPos> {
     }
 
     public BlockPos next() {
-        if (!hasNext) {
-            throw new NoSuchElementException();
-        } else {
-            pos.setXyz(xNext, yNext, zNext);
+        if (hasNext) {
+            pos.set(xNext, yNext, zNext);
             nextPos();
             hasNext = xNext < xEnd && yNext < yEnd && zNext < zEnd;
             return pos;
-        }
+        } else throw new NoSuchElementException();
     }
 
     private void nextPos() {
@@ -66,9 +66,6 @@ public class IteratorAxis implements Iterator<BlockPos> {
                 zEnd += zDelta;
                 zNext = zStart;
                 ++xNext;
-
-                if (xNext >= xEnd) {
-                }
             }
         }
     }

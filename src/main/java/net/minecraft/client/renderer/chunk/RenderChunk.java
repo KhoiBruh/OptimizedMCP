@@ -22,7 +22,6 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.optifine.BlockPosM;
 import net.optifine.CustomBlockLayers;
 import net.optifine.override.ChunkCacheOF;
 import net.optifine.render.AabbFrame;
@@ -136,7 +135,7 @@ public class RenderChunk {
             boolean flag = false;
             boolean flag1 = false;
 
-            for (BlockPosM blockposm : BlockPosM.getAllInBoxMutableM(blockpos, blockpos1)) {
+            for (BlockPos blockposm : BlockPos.getAllInBoxMutable(blockpos, blockpos1)) {
                 IBlockState iblockstate = chunkcacheof.getBlockState(blockposm);
                 Block block = iblockstate.getBlock();
 
