@@ -1,27 +1,22 @@
 package org.lwjgl.opengl;
 
-/**
- * Created by gudenau on 5/30/2017.
- * <p>
- * LWJGL3
- */
 public final class DisplayMode {
-    private final int width, height, bpp, freq;
+    private final int width, height, bpp, frequency;
     private final boolean fullscreen;
 
     public DisplayMode(int width, int height) {
         this(width, height, 0, 0, false);
     }
 
-    DisplayMode(int width, int height, int bpp, int freq) {
-        this(width, height, bpp, freq, false);
+    DisplayMode(int width, int height, int bpp, int frequency) {
+        this(width, height, bpp, frequency, false);
     }
 
-    private DisplayMode(int width, int height, int bpp, int freq, boolean fullscreen) {
+    private DisplayMode(int width, int height, int bpp, int frequency, boolean fullscreen) {
         this.width = width;
         this.height = height;
         this.bpp = bpp;
-        this.freq = freq;
+        this.frequency = frequency;
         this.fullscreen = fullscreen;
     }
 
@@ -34,23 +29,22 @@ public final class DisplayMode {
     }
 
     public int getFrequency() {
-        return freq;
+        return frequency;
     }
 
     public boolean equals(Object obj) {
-        if (!(obj instanceof DisplayMode dm)) {
-            return false;
-        }
+        if (obj instanceof DisplayMode dm)
+            return dm.width == width && dm.height == height && dm.bpp == bpp && dm.frequency == frequency;
 
-        return dm.width == width && dm.height == height && dm.bpp == bpp && dm.freq == freq;
+        return false;
     }
 
     public int hashCode() {
-        return width ^ height ^ freq ^ bpp;
+        return width ^ height ^ frequency ^ bpp;
     }
 
     public String toString() {
-        return width + " x " + height + " x " + bpp + " @" + freq + "Hz";
+        return width + " x " + height + " x " + bpp + " @" + frequency + "Hz";
     }
 
     public int getWidth() {
@@ -63,9 +57,5 @@ public final class DisplayMode {
 
     public int getBpp() {
         return bpp;
-    }
-
-    public int getFreq() {
-        return freq;
     }
 }

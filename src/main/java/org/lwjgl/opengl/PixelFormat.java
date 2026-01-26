@@ -1,119 +1,20 @@
-/*
- * Copyright (c) 2002-2008 LWJGL Project
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'LWJGL' nor the names of
- *   its contributors may be used to endorse or promote products derived
- *   from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package org.lwjgl.opengl;
 
-/**
- * This class describes pixel format properties for an OpenGL context. Instances
- * of this class is used as arguments to Display.create(), Pbuffer.create() and
- * AWTGLCanvas, to indicate minimum required properties.
- * <p/>
- * Instants of this class are immutable. An example of the expected way to set
- * the PixelFormat property values is the following:
- * <code>PixelFormat pf = new PixelFormat().withDepthBits(24).withSamples(4).withSRGB(true);</code>
- * <p/>
- * WARNING: Some pixel formats are known to cause troubles on certain buggy drivers.
- * Example: Under Windows, specifying samples != 0 will enable the ARB
- * pixel format selection path, which could trigger a crash.
- *
- * @author elias_naur@sourceforge.net
- * @version $Revision$
- */
 public final class PixelFormat {
-
-    /**
-     * The number of bits per pixel, exluding alpha.
-     * This parameter is ignored in Display.create().
-     */
     private int bpp;
-    /**
-     * The number of alpha bits.
-     */
     private int alpha;
-    /**
-     * The number of depth buffer bits
-     */
     private int depth;
-    /**
-     * The number of stencil bits
-     */
     private int stencil;
-    /**
-     * The number of samples to use in anti-aliasing.
-     * 0 means that anti-aliasing is disabled.
-     */
     private int samples;
-    /**
-     * The number of COLOR_SAMPLES_NV to use for Coverage Sample Anti-aliasing (CSAA).
-     * When this number is greater than 0, the {@code samples} property will be treated
-     * as if it were the COVERAGE_SAMPLES_NV property.
-     * <p/>
-     * This property is currently a no-op for the MacOS implementation.
-     */
     private int colorSamples;
-    /**
-     * The number of auxiliary buffers
-     */
-    private int num_aux_buffers;
-    /**
-     * The number of bits per pixel in the accumulation buffer
-     */
-    private int accum_bpp;
-    /**
-     * The number of alpha bits in the accumulation buffer
-     */
-    private int accum_alpha;
-    /**
-     * Whether this format requires a stereo buffer
-     */
+    private int numAuxBuffers;
+    private int accumBpp;
+    private int accumAlpha;
     private boolean stereo;
-    /**
-     * Whether this format specifies a floating point format
-     */
-    private boolean floating_point;
-    /**
-     * Whether this format specifies a packed floating point format (32 bit unsigned - R11F_G11F_B10F)
-     * This property is currently a no-op for the MacOS implementation.
-     */
-    private boolean floating_point_packed;
-    /**
-     * Whether this format specifies an sRGB format
-     * This property is currently a no-op for the MacOS implementation.
-     */
+    private boolean floatingPoint;
+    private boolean floatingPointPacked;
     private boolean sRGB;
 
-    /**
-     * Default pixel format is minimum 8 bits depth, and no alpha
-     * nor stencil requirements.
-     */
     public PixelFormat() {
         this(0, 8, 0);
     }
@@ -130,27 +31,22 @@ public final class PixelFormat {
         this(bpp, alpha, depth, stencil, samples, 0, 0, 0, false);
     }
 
-    public PixelFormat(int bpp, int alpha, int depth, int stencil, int samples, int num_aux_buffers, int accum_bpp, int accum_alpha, boolean stereo) {
-        this(bpp, alpha, depth, stencil, samples, num_aux_buffers, accum_bpp, accum_alpha, stereo, false);
+    public PixelFormat(int bpp, int alpha, int depth, int stencil, int samples, int numAuxBuffers, int accumBpp, int accumAlpha, boolean stereo) {
+        this(bpp, alpha, depth, stencil, samples, numAuxBuffers, accumBpp, accumAlpha, stereo, false);
     }
 
-    public PixelFormat(int bpp, int alpha, int depth, int stencil, int samples, int num_aux_buffers, int accum_bpp, int accum_alpha, boolean stereo, boolean floating_point) {
+    public PixelFormat(int bpp, int alpha, int depth, int stencil, int samples, int numAuxBuffers, int accumBpp, int accumAlpha, boolean stereo, boolean floatingPoint) {
         this.bpp = bpp;
         this.alpha = alpha;
         this.depth = depth;
         this.stencil = stencil;
-
         this.samples = samples;
-
-        this.num_aux_buffers = num_aux_buffers;
-
-        this.accum_bpp = accum_bpp;
-        this.accum_alpha = accum_alpha;
-
+        this.numAuxBuffers = numAuxBuffers;
+        this.accumBpp = accumBpp;
+        this.accumAlpha = accumAlpha;
         this.stereo = stereo;
-
-        this.floating_point = floating_point;
-        floating_point_packed = false;
+        this.floatingPoint = floatingPoint;
+        floatingPointPacked = false;
         sRGB = false;
     }
 
@@ -159,19 +55,14 @@ public final class PixelFormat {
         alpha = pf.alpha;
         depth = pf.depth;
         stencil = pf.stencil;
-
         samples = pf.samples;
         colorSamples = pf.colorSamples;
-
-        num_aux_buffers = pf.num_aux_buffers;
-
-        accum_bpp = pf.accum_bpp;
-        accum_alpha = pf.accum_alpha;
-
+        numAuxBuffers = pf.numAuxBuffers;
+        accumBpp = pf.accumBpp;
+        accumAlpha = pf.accumAlpha;
         stereo = pf.stereo;
-
-        floating_point = pf.floating_point;
-        floating_point_packed = pf.floating_point_packed;
+        floatingPoint = pf.floatingPoint;
+        floatingPointPacked = pf.floatingPointPacked;
         sRGB = pf.sRGB;
     }
 
@@ -179,15 +70,8 @@ public final class PixelFormat {
         return bpp;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new bits per pixel value.
-     *
-     * @param bpp the new bits per pixel value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withBitsPerPixel(int bpp) {
-        if (0 > bpp)
-            throw new IllegalArgumentException("Invalid number of bits per pixel specified: " + bpp);
+        if (0 > bpp) throw new IllegalArgumentException("Invalid number of bits per pixel specified: " + bpp);
 
         PixelFormat pf = new PixelFormat(this);
         pf.bpp = bpp;
@@ -198,15 +82,8 @@ public final class PixelFormat {
         return alpha;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new alpha bits value.
-     *
-     * @param alpha the new alpha bits value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withAlphaBits(int alpha) {
-        if (0 > alpha)
-            throw new IllegalArgumentException("Invalid number of alpha bits specified: " + alpha);
+        if (0 > alpha) throw new IllegalArgumentException("Invalid number of alpha bits specified: " + alpha);
 
         PixelFormat pf = new PixelFormat(this);
         pf.alpha = alpha;
@@ -217,15 +94,8 @@ public final class PixelFormat {
         return depth;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new depth bits value.
-     *
-     * @param depth the new depth bits value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withDepthBits(int depth) {
-        if (0 > depth)
-            throw new IllegalArgumentException("Invalid number of depth bits specified: " + depth);
+        if (0 > depth) throw new IllegalArgumentException("Invalid number of depth bits specified: " + depth);
 
         PixelFormat pf = new PixelFormat(this);
         pf.depth = depth;
@@ -236,15 +106,8 @@ public final class PixelFormat {
         return stencil;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new stencil bits value.
-     *
-     * @param stencil the new stencil bits value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withStencilBits(int stencil) {
-        if (0 > stencil)
-            throw new IllegalArgumentException("Invalid number of stencil bits specified: " + stencil);
+        if (0 > stencil) throw new IllegalArgumentException("Invalid number of stencil bits specified: " + stencil);
 
         PixelFormat pf = new PixelFormat(this);
         pf.stencil = stencil;
@@ -255,43 +118,20 @@ public final class PixelFormat {
         return samples;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new samples value.
-     *
-     * @param samples the new samples value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withSamples(int samples) {
-        if (0 > samples)
-            throw new IllegalArgumentException("Invalid number of samples specified: " + samples);
+        if (0 > samples) throw new IllegalArgumentException("Invalid number of samples specified: " + samples);
 
         PixelFormat pf = new PixelFormat(this);
         pf.samples = samples;
         return pf;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new color samples values.
-     * A value greater than 0 is valid only if the {@code samples} property is also greater than 0. Additionally, the
-     * color samples value needs to be lower than or equal to the {@code samples} property.
-     *
-     * @param colorSamples the new color samples value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withCoverageSamples(int colorSamples) {
         return withCoverageSamples(colorSamples, samples);
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new color samples
-     * and coverage samples values.
-     *
-     * @param colorSamples    the new color samples value. This value must be lower than or equal to the coverage samples value.
-     * @param coverageSamples the new coverage samples value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withCoverageSamples(int colorSamples, int coverageSamples) {
-        if (0 > coverageSamples || 0 > colorSamples || (0 == coverageSamples && 0 < colorSamples) || coverageSamples < colorSamples)
+        if (colorSamples < 0 || coverageSamples < colorSamples)
             throw new IllegalArgumentException("Invalid number of coverage samples specified: " + coverageSamples + " - " + colorSamples);
 
         PixelFormat pf = new PixelFormat(this);
@@ -301,59 +141,41 @@ public final class PixelFormat {
     }
 
     public int getAuxBuffers() {
-        return num_aux_buffers;
+        return numAuxBuffers;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new auxiliary buffers value.
-     *
-     * @param num_aux_buffers the new auxiliary buffers value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withAuxBuffers(int num_aux_buffers) {
-        if (0 > num_aux_buffers)
+        if (num_aux_buffers < 0)
             throw new IllegalArgumentException("Invalid number of auxiliary buffers specified: " + num_aux_buffers);
 
         PixelFormat pf = new PixelFormat(this);
-        pf.num_aux_buffers = num_aux_buffers;
+        pf.numAuxBuffers = num_aux_buffers;
         return pf;
     }
 
     public int getAccumulationBitsPerPixel() {
-        return accum_bpp;
+        return accumBpp;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new bits per pixel in the accumulation buffer value.
-     *
-     * @param accum_bpp the new bits per pixel in the accumulation buffer value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withAccumulationBitsPerPixel(int accum_bpp) {
-        if (0 > accum_bpp)
+        if (accum_bpp < 0)
             throw new IllegalArgumentException("Invalid number of bits per pixel in the accumulation buffer specified: " + accum_bpp);
 
         PixelFormat pf = new PixelFormat(this);
-        pf.accum_bpp = accum_bpp;
+        pf.accumBpp = accum_bpp;
         return pf;
     }
 
     public int getAccumulationAlpha() {
-        return accum_alpha;
+        return accumAlpha;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new alpha bits in the accumulation buffer value.
-     *
-     * @param accum_alpha the new alpha bits in the accumulation buffer value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withAccumulationAlpha(int accum_alpha) {
-        if (0 > accum_alpha)
+        if (accum_alpha < 0)
             throw new IllegalArgumentException("Invalid number of alpha bits in the accumulation buffer specified: " + accum_alpha);
 
         PixelFormat pf = new PixelFormat(this);
-        pf.accum_alpha = accum_alpha;
+        pf.accumAlpha = accum_alpha;
         return pf;
     }
 
@@ -361,12 +183,6 @@ public final class PixelFormat {
         return stereo;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new stereo value.
-     *
-     * @param stereo the new stereo value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withStereo(boolean stereo) {
         PixelFormat pf = new PixelFormat(this);
         pf.stereo = stereo;
@@ -374,36 +190,22 @@ public final class PixelFormat {
     }
 
     public boolean isFloatingPoint() {
-        return floating_point;
+        return floatingPoint;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new floating point value.
-     * If floating_point is true, floating_point_packed will be reset to false.
-     *
-     * @param floating_point the new floating point value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withFloatingPoint(boolean floating_point) {
         PixelFormat pf = new PixelFormat(this);
-        pf.floating_point = floating_point;
-        if (floating_point)
-            pf.floating_point_packed = false;
+        pf.floatingPoint = floating_point;
+
+        if (floating_point) pf.floatingPointPacked = false;
         return pf;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new packed floating point value.
-     * If floating_point_packed is true, floating_point will be reset to false.
-     *
-     * @param floating_point_packed the new packed floating point value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withFloatingPointPacked(boolean floating_point_packed) {
         PixelFormat pf = new PixelFormat(this);
-        pf.floating_point_packed = floating_point_packed;
-        if (floating_point_packed)
-            pf.floating_point = false;
+        pf.floatingPointPacked = floating_point_packed;
+
+        if (floating_point_packed) pf.floatingPoint = false;
         return pf;
     }
 
@@ -411,16 +213,9 @@ public final class PixelFormat {
         return sRGB;
     }
 
-    /**
-     * Returns a new PixelFormat object with the same properties as this PixelFormat and the new sRGB value.
-     *
-     * @param sRGB the new floating point value.
-     * @return the new PixelFormat
-     */
     public PixelFormat withSRGB(boolean sRGB) {
         PixelFormat pf = new PixelFormat(this);
         pf.sRGB = sRGB;
         return pf;
     }
-
 }
