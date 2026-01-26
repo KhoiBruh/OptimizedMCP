@@ -57,7 +57,7 @@ public class HttpPipeline {
 
     private static synchronized HttpPipelineConnection getConnection(String host, int port, Proxy proxy) {
         String s = makeConnectionKey(host, port, proxy);
-        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) mapConnections.get(s);
+        HttpPipelineConnection httppipelineconnection = mapConnections.get(s);
 
         if (httppipelineconnection == null) {
             httppipelineconnection = new HttpPipelineConnection(host, port, proxy);
@@ -69,7 +69,7 @@ public class HttpPipeline {
 
     private static synchronized void removeConnection(String host, int port, Proxy proxy, HttpPipelineConnection hpc) {
         String s = makeConnectionKey(host, port, proxy);
-        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) mapConnections.get(s);
+        HttpPipelineConnection httppipelineconnection = mapConnections.get(s);
 
         if (httppipelineconnection == hpc) {
             mapConnections.remove(s);

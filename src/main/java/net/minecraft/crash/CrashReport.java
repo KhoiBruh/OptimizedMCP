@@ -231,7 +231,7 @@ public class CrashReport {
                 System.out.println("Negative index in crash report handler (" + astacktraceelement.length + "/" + i + ")");
             }
 
-            if (astacktraceelement != null && 0 <= j && j < astacktraceelement.length) {
+            if (0 <= j && j < astacktraceelement.length) {
                 stacktraceelement = astacktraceelement[j];
 
                 if (astacktraceelement.length + 1 - i < astacktraceelement.length) {
@@ -244,7 +244,7 @@ public class CrashReport {
             if (i > 0 && !crashReportSections.isEmpty()) {
                 CrashReportCategory crashreportcategory1 = crashReportSections.getLast();
                 crashreportcategory1.trimStackTraceEntriesFromBottom(i);
-            } else if (astacktraceelement != null && astacktraceelement.length >= i && 0 <= j && j < astacktraceelement.length) {
+            } else if (astacktraceelement.length >= i && 0 <= j && j < astacktraceelement.length) {
                 stacktrace = new StackTraceElement[j];
                 System.arraycopy(astacktraceelement, 0, stacktrace, 0, stacktrace.length);
             } else {

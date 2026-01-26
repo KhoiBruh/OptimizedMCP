@@ -104,7 +104,8 @@ public class GuiCommandBlock extends GuiScreen {
         commandTextField.drawTextBox();
         int i = 75;
         int j = 0;
-        drawString(fontRendererObj, I18n.format("advMode.nearestPlayer"), width / 2 - 150, i + j++ * fontRendererObj.FONT_HEIGHT, 10526880);
+        j++;
+        drawString(fontRendererObj, I18n.format("advMode.nearestPlayer"), width / 2 - 150, i + 0, 10526880);
         drawString(fontRendererObj, I18n.format("advMode.randomPlayer"), width / 2 - 150, i + j++ * fontRendererObj.FONT_HEIGHT, 10526880);
         drawString(fontRendererObj, I18n.format("advMode.allPlayers"), width / 2 - 150, i + j++ * fontRendererObj.FONT_HEIGHT, 10526880);
         drawString(fontRendererObj, I18n.format("advMode.allEntities"), width / 2 - 150, i + j++ * fontRendererObj.FONT_HEIGHT, 10526880);

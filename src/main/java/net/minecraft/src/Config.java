@@ -285,9 +285,6 @@ public class Config {
                 glVersion = getGlVersionLwjgl();
             }
 
-            if (glVersion == null) {
-                glVersion = new GlVersion(1, 0);
-            }
         }
 
         return glVersion;
@@ -810,8 +807,7 @@ public class Config {
         List list1 = new ArrayList();
 
         for (ResourcePackRepository.Entry o : list) {
-            ResourcePackRepository.Entry resourcepackrepository$entry = o;
-            list1.add(resourcepackrepository$entry.getResourcePack());
+            list1.add(o.getResourcePack());
         }
 
         if (resourcepackrepository.getResourcePackInstance() != null) {

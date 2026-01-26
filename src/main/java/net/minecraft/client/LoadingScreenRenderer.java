@@ -113,48 +113,46 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 
                 boolean flag = true;
 
-                if (flag) {
-                    Tessellator tessellator = Tessellator.getInstance();
-                    WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                    CustomLoadingScreen customloadingscreen = CustomLoadingScreens.getCustomLoadingScreen();
+                Tessellator tessellator = Tessellator.getInstance();
+                WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                CustomLoadingScreen customloadingscreen = CustomLoadingScreens.getCustomLoadingScreen();
 
-                    if (customloadingscreen != null) {
-                        customloadingscreen.drawBackground(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
-                    } else {
-                        mc.getTextureManager().bindTexture(Gui.optionsBackground);
-                        float f = 32.0F;
-                        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                        worldrenderer.pos(0.0D, l, 0.0D).tex(0.0D, (float) l / f).color(64, 64, 64, 255).endVertex();
-                        worldrenderer.pos(k, l, 0.0D).tex((float) k / f, (float) l / f).color(64, 64, 64, 255).endVertex();
-                        worldrenderer.pos(k, 0.0D, 0.0D).tex((float) k / f, 0.0D).color(64, 64, 64, 255).endVertex();
-                        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 255).endVertex();
-                        tessellator.draw();
-                    }
-
-                    if (progress >= 0) {
-                        int l1 = 100;
-                        int i1 = 2;
-                        int j1 = k / 2 - l1 / 2;
-                        int k1 = l / 2 + 16;
-                        GlStateManager.disableTexture2D();
-                        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                        worldrenderer.pos(j1, k1, 0.0D).color(128, 128, 128, 255).endVertex();
-                        worldrenderer.pos(j1, k1 + i1, 0.0D).color(128, 128, 128, 255).endVertex();
-                        worldrenderer.pos(j1 + l1, k1 + i1, 0.0D).color(128, 128, 128, 255).endVertex();
-                        worldrenderer.pos(j1 + l1, k1, 0.0D).color(128, 128, 128, 255).endVertex();
-                        worldrenderer.pos(j1, k1, 0.0D).color(128, 255, 128, 255).endVertex();
-                        worldrenderer.pos(j1, k1 + i1, 0.0D).color(128, 255, 128, 255).endVertex();
-                        worldrenderer.pos(j1 + progress, k1 + i1, 0.0D).color(128, 255, 128, 255).endVertex();
-                        worldrenderer.pos(j1 + progress, k1, 0.0D).color(128, 255, 128, 255).endVertex();
-                        tessellator.draw();
-                        GlStateManager.enableTexture2D();
-                    }
-
-                    GlStateManager.enableBlend();
-                    GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                    mc.fontRendererObj.drawStringWithShadow(currentlyDisplayedText, (float) ((k - mc.fontRendererObj.getStringWidth(currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), 16777215);
-                    mc.fontRendererObj.drawStringWithShadow(message, (float) ((k - mc.fontRendererObj.getStringWidth(message)) / 2), (float) (l / 2 - 4 + 8), 16777215);
+                if (customloadingscreen != null) {
+                    customloadingscreen.drawBackground(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+                } else {
+                    mc.getTextureManager().bindTexture(Gui.optionsBackground);
+                    float f = 32.0F;
+                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                    worldrenderer.pos(0.0D, l, 0.0D).tex(0.0D, (float) l / f).color(64, 64, 64, 255).endVertex();
+                    worldrenderer.pos(k, l, 0.0D).tex((float) k / f, (float) l / f).color(64, 64, 64, 255).endVertex();
+                    worldrenderer.pos(k, 0.0D, 0.0D).tex((float) k / f, 0.0D).color(64, 64, 64, 255).endVertex();
+                    worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 255).endVertex();
+                    tessellator.draw();
                 }
+
+                if (progress >= 0) {
+                    int l1 = 100;
+                    int i1 = 2;
+                    int j1 = k / 2 - l1 / 2;
+                    int k1 = l / 2 + 16;
+                    GlStateManager.disableTexture2D();
+                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                    worldrenderer.pos(j1, k1, 0.0D).color(128, 128, 128, 255).endVertex();
+                    worldrenderer.pos(j1, k1 + i1, 0.0D).color(128, 128, 128, 255).endVertex();
+                    worldrenderer.pos(j1 + l1, k1 + i1, 0.0D).color(128, 128, 128, 255).endVertex();
+                    worldrenderer.pos(j1 + l1, k1, 0.0D).color(128, 128, 128, 255).endVertex();
+                    worldrenderer.pos(j1, k1, 0.0D).color(128, 255, 128, 255).endVertex();
+                    worldrenderer.pos(j1, k1 + i1, 0.0D).color(128, 255, 128, 255).endVertex();
+                    worldrenderer.pos(j1 + progress, k1 + i1, 0.0D).color(128, 255, 128, 255).endVertex();
+                    worldrenderer.pos(j1 + progress, k1, 0.0D).color(128, 255, 128, 255).endVertex();
+                    tessellator.draw();
+                    GlStateManager.enableTexture2D();
+                }
+
+                GlStateManager.enableBlend();
+                GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+                mc.fontRendererObj.drawStringWithShadow(currentlyDisplayedText, (float) ((k - mc.fontRendererObj.getStringWidth(currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), 16777215);
+                mc.fontRendererObj.drawStringWithShadow(message, (float) ((k - mc.fontRendererObj.getStringWidth(message)) / 2), (float) (l / 2 - 4 + 8), 16777215);
 
                 framebuffer.unbindFramebuffer();
 

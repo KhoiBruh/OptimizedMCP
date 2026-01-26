@@ -138,7 +138,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
             int j = nbttagcompound.getByte("Slot") & 255;
 
-            if (j >= 0 && j < minecartContainerItems.length) {
+            if (j < minecartContainerItems.length) {
                 minecartContainerItems[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
             }
         }

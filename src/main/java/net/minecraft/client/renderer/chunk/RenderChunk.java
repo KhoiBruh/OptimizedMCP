@@ -73,9 +73,7 @@ public class RenderChunk {
         renderGlobal = renderGlobalIn;
         index = indexIn;
 
-        if (!blockPosIn.equals(position)) {
-            setPosition(blockPosIn);
-        }
+        setPosition(blockPosIn);
 
         if (OpenGlHelper.useVbo()) {
             for (int i = 0; i < EnumWorldBlockLayer.values().length; ++i) {
@@ -162,11 +160,8 @@ public class RenderChunk {
 
                 EnumWorldBlockLayer[] aenumworldblocklayer;
 
-                if (flag) {
-                } else {
-                    aenumworldblocklayer = blockLayersSingle;
-                    aenumworldblocklayer[0] = block.getBlockLayer();
-                }
+                aenumworldblocklayer = blockLayersSingle;
+                aenumworldblocklayer[0] = block.getBlockLayer();
 
                 {
                     EnumWorldBlockLayer enumworldblocklayer = block.getBlockLayer();

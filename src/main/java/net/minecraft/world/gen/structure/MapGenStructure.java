@@ -41,7 +41,7 @@ public abstract class MapGenStructure extends MapGenBase {
                 crashreportcategory.addCrashSectionCallable("Is feature chunk", () -> canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False");
                 crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", chunkX, chunkZ));
                 crashreportcategory.addCrashSectionCallable("Chunk pos hash", () -> String.valueOf(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ)));
-                crashreportcategory.addCrashSectionCallable("Structure type", () -> MapGenStructure.this.getClass().getCanonicalName());
+                crashreportcategory.addCrashSectionCallable("Structure type", () -> getClass().getCanonicalName());
                 throw new ReportedException(crashreport);
             }
         }

@@ -129,7 +129,7 @@ public class IntHashMap<V> {
             entry = entry1;
         }
 
-        return entry1;
+        return null;
     }
 
     public void clearMap() {

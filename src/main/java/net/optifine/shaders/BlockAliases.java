@@ -69,14 +69,6 @@ public class BlockAliases {
     private static void loadModBlockAliases(List<List<BlockAlias>> listBlockAliases) {
         String[] astring = new String[0];
 
-        for (String s : astring) {
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/block.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadBlockAliases(inputstream, resourcelocation.toString(), listBlockAliases);
-            } catch (IOException var6) {
-            }
-        }
     }
 
     private static void loadBlockAliases(InputStream in, String path, List<List<BlockAlias>> listBlockAliases) {

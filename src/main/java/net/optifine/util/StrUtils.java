@@ -34,16 +34,15 @@ public class StrUtils {
                         int i = 0;
 
                         for (String o : list) {
-                            String s3 = o;
 
-                            if (!s3.isEmpty()) {
-                                int k = indexOfMaskSingle(str, s3, i, wildCharSingle);
+                            if (!o.isEmpty()) {
+                                int k = indexOfMaskSingle(str, o, i, wildCharSingle);
 
                                 if (k < 0) {
                                     return false;
                                 }
 
-                                i = k + s3.length();
+                                i = k + o.length();
                             }
                         }
 

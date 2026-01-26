@@ -26,7 +26,7 @@ public enum ModelVariableType {
 
     public static ModelVariableType parse(String str) {
         for (ModelVariableType modelvariabletype : VALUES) {
-            if (modelvariabletype.getName().equals(str)) {
+            if (modelvariabletype.name.equals(str)) {
                 return modelvariabletype;
             }
         }

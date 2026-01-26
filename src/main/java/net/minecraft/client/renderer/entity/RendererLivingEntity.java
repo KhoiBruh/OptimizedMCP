@@ -96,153 +96,151 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        if (true) {
-            if (animateModelLiving) {
-                entity.limbSwingAmount = 1.0F;
-            }
-
-            GlStateManager.pushMatrix();
-            GlStateManager.disableCull();
-            mainModel.swingProgress = getSwingProgress(entity, partialTicks);
-            mainModel.isRiding = entity.isRiding();
-
-            mainModel.isRiding = entity.isRiding();
-
-            mainModel.isChild = entity.isChild();
-
-            try {
-                float f = interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, partialTicks);
-                float f1 = interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
-                float f2 = f1 - f;
-
-                if (mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase entitylivingbase) {
-                    f = interpolateRotation(entitylivingbase.prevRenderYawOffset, entitylivingbase.renderYawOffset,
-                            partialTicks);
-                    f2 = f1 - f;
-                    float f3 = MathHelper.wrapAngleTo180_float(f2);
-
-                    if (f3 < -85.0F) {
-                        f3 = -85.0F;
-                    }
-
-                    if (f3 >= 85.0F) {
-                        f3 = 85.0F;
-                    }
-
-                    f = f1 - f3;
-
-                    if (f3 * f3 > 2500.0F) {
-                        f += f3 * 0.2F;
-                    }
-
-                    f2 = f1 - f;
-                }
-
-                float f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
-                renderLivingAt(entity, x, y, z);
-                float f8 = handleRotationFloat(entity, partialTicks);
-                rotateCorpse(entity, f8, f, partialTicks);
-                GlStateManager.enableRescaleNormal();
-                GlStateManager.scale(-1.0F, -1.0F, 1.0F);
-                preRenderCallback(entity, partialTicks);
-                float f4 = 0.0625F;
-                GlStateManager.translate(0.0F, -1.5078125F, 0.0F);
-                float f5 = entity.prevLimbSwingAmount
-                        + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
-                float f6 = entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
-
-                if (entity.isChild()) {
-                    f6 *= 3.0F;
-                }
-
-                if (f5 > 1.0F) {
-                    f5 = 1.0F;
-                }
-
-                GlStateManager.enableAlpha();
-                mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
-                mainModel.setRotationAngles(f6, f5, f8, f2, f7, 0.0625F, entity);
-
-                if (CustomEntityModels.isActive()) {
-                    renderEntity = entity;
-                    renderLimbSwing = f6;
-                    renderLimbSwingAmount = f5;
-                    renderAgeInTicks = f8;
-                    renderHeadYaw = f2;
-                    renderHeadPitch = f7;
-                    renderScaleFactor = f4;
-                    renderPartialTicks = partialTicks;
-                }
-
-                if (renderOutlines) {
-                    boolean flag1 = setScoreTeamColor(entity);
-                    renderModel(entity, f6, f5, f8, f2, f7, 0.0625F);
-
-                    if (flag1) {
-                        unsetScoreTeamColor();
-                    }
-                } else {
-                    boolean flag = setDoRenderBrightness(entity, partialTicks);
-
-                    if (EmissiveTextures.isActive()) {
-                        EmissiveTextures.beginRender();
-                    }
-
-                    if (renderModelPushMatrix) {
-                        GlStateManager.pushMatrix();
-                    }
-
-                    renderModel(entity, f6, f5, f8, f2, f7, 0.0625F);
-
-                    if (renderModelPushMatrix) {
-                        GlStateManager.popMatrix();
-                    }
-
-                    if (EmissiveTextures.isActive()) {
-                        if (EmissiveTextures.hasEmissive()) {
-                            renderModelPushMatrix = true;
-                            EmissiveTextures.beginRenderEmissive();
-                            GlStateManager.pushMatrix();
-                            renderModel(entity, f6, f5, f8, f2, f7, f4);
-                            GlStateManager.popMatrix();
-                            EmissiveTextures.endRenderEmissive();
-                        }
-
-                        EmissiveTextures.endRender();
-                    }
-
-                    if (flag) {
-                        unsetBrightness();
-                    }
-
-                    GlStateManager.depthMask(true);
-
-                    if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
-                        renderLayers(entity, f6, f5, partialTicks, f8, f2, f7, 0.0625F);
-                    }
-                }
-
-                if (CustomEntityModels.isActive()) {
-                    renderEntity = null;
-                }
-
-                GlStateManager.disableRescaleNormal();
-            } catch (Exception exception) {
-                logger.error("Couldn't render entity", exception);
-            }
-
-            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-            GlStateManager.enableTexture2D();
-            GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-            GlStateManager.enableCull();
-            GlStateManager.popMatrix();
-
-            if (!renderOutlines) {
-                super.doRender(entity, x, y, z, entityYaw, partialTicks);
-            }
-
-            // Forge hook removed
+        if (animateModelLiving) {
+            entity.limbSwingAmount = 1.0F;
         }
+
+        GlStateManager.pushMatrix();
+        GlStateManager.disableCull();
+        mainModel.swingProgress = getSwingProgress(entity, partialTicks);
+        mainModel.isRiding = entity.isRiding();
+
+        mainModel.isRiding = entity.isRiding();
+
+        mainModel.isChild = entity.isChild();
+
+        try {
+            float f = interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, partialTicks);
+            float f1 = interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
+            float f2 = f1 - f;
+
+            if (mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase entitylivingbase) {
+                f = interpolateRotation(entitylivingbase.prevRenderYawOffset, entitylivingbase.renderYawOffset,
+                        partialTicks);
+                f2 = f1 - f;
+                float f3 = MathHelper.wrapAngleTo180_float(f2);
+
+                if (f3 < -85.0F) {
+                    f3 = -85.0F;
+                }
+
+                if (f3 >= 85.0F) {
+                    f3 = 85.0F;
+                }
+
+                f = f1 - f3;
+
+                if (f3 * f3 > 2500.0F) {
+                    f += f3 * 0.2F;
+                }
+
+                f2 = f1 - f;
+            }
+
+            float f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
+            renderLivingAt(entity, x, y, z);
+            float f8 = handleRotationFloat(entity, partialTicks);
+            rotateCorpse(entity, f8, f, partialTicks);
+            GlStateManager.enableRescaleNormal();
+            GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+            preRenderCallback(entity, partialTicks);
+            float f4 = 0.0625F;
+            GlStateManager.translate(0.0F, -1.5078125F, 0.0F);
+            float f5 = entity.prevLimbSwingAmount
+                    + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
+            float f6 = entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
+
+            if (entity.isChild()) {
+                f6 *= 3.0F;
+            }
+
+            if (f5 > 1.0F) {
+                f5 = 1.0F;
+            }
+
+            GlStateManager.enableAlpha();
+            mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
+            mainModel.setRotationAngles(f6, f5, f8, f2, f7, 0.0625F, entity);
+
+            if (CustomEntityModels.isActive()) {
+                renderEntity = entity;
+                renderLimbSwing = f6;
+                renderLimbSwingAmount = f5;
+                renderAgeInTicks = f8;
+                renderHeadYaw = f2;
+                renderHeadPitch = f7;
+                renderScaleFactor = f4;
+                renderPartialTicks = partialTicks;
+            }
+
+            if (renderOutlines) {
+                boolean flag1 = setScoreTeamColor(entity);
+                renderModel(entity, f6, f5, f8, f2, f7, 0.0625F);
+
+                if (flag1) {
+                    unsetScoreTeamColor();
+                }
+            } else {
+                boolean flag = setDoRenderBrightness(entity, partialTicks);
+
+                if (EmissiveTextures.isActive()) {
+                    EmissiveTextures.beginRender();
+                }
+
+                if (renderModelPushMatrix) {
+                    GlStateManager.pushMatrix();
+                }
+
+                renderModel(entity, f6, f5, f8, f2, f7, 0.0625F);
+
+                if (renderModelPushMatrix) {
+                    GlStateManager.popMatrix();
+                }
+
+                if (EmissiveTextures.isActive()) {
+                    if (EmissiveTextures.hasEmissive()) {
+                        renderModelPushMatrix = true;
+                        EmissiveTextures.beginRenderEmissive();
+                        GlStateManager.pushMatrix();
+                        renderModel(entity, f6, f5, f8, f2, f7, f4);
+                        GlStateManager.popMatrix();
+                        EmissiveTextures.endRenderEmissive();
+                    }
+
+                    EmissiveTextures.endRender();
+                }
+
+                if (flag) {
+                    unsetBrightness();
+                }
+
+                GlStateManager.depthMask(true);
+
+                if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
+                    renderLayers(entity, f6, f5, partialTicks, f8, f2, f7, 0.0625F);
+                }
+            }
+
+            if (CustomEntityModels.isActive()) {
+                renderEntity = null;
+            }
+
+            GlStateManager.disableRescaleNormal();
+        } catch (Exception exception) {
+            logger.error("Couldn't render entity", exception);
+        }
+
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.enableTexture2D();
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        GlStateManager.enableCull();
+        GlStateManager.popMatrix();
+
+        if (!renderOutlines) {
+            super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        }
+
+        // Forge hook removed
     }
 
     protected boolean setScoreTeamColor(T entityLivingBaseIn) {
@@ -528,57 +526,55 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     public void renderName(T entity, double x, double y, double z) {
-        if (true) {
-            if (canRenderName(entity)) {
-                double d0 = entity.getDistanceSqToEntity(renderManager.livingPlayer);
-                float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
+        if (canRenderName(entity)) {
+            double d0 = entity.getDistanceSqToEntity(renderManager.livingPlayer);
+            float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
 
-                if (d0 < (double) (f * f)) {
-                    String s = entity.getDisplayName().getFormattedText();
-                    float f1 = 0.02666667F;
-                    GlStateManager.alphaFunc(516, 0.1F);
+            if (d0 < (double) (f * f)) {
+                String s = entity.getDisplayName().getFormattedText();
+                float f1 = 0.02666667F;
+                GlStateManager.alphaFunc(516, 0.1F);
 
-                    if (entity.isSneaking()) {
-                        FontRenderer fontrenderer = getFontRendererFromRenderManager();
-                        GlStateManager.pushMatrix();
-                        GlStateManager.translate((float) x,
-                                (float) y + entity.height + 0.5F - (entity.isChild() ? entity.height / 2.0F : 0.0F),
-                                (float) z);
-                        GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-                        GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                        GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-                        GlStateManager.scale(-0.02666667F, -0.02666667F, 0.02666667F);
-                        GlStateManager.translate(0.0F, 9.374999F, 0.0F);
-                        GlStateManager.disableLighting();
-                        GlStateManager.depthMask(false);
-                        GlStateManager.enableBlend();
-                        GlStateManager.disableTexture2D();
-                        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                        int i = fontrenderer.getStringWidth(s) / 2;
-                        Tessellator tessellator = Tessellator.getInstance();
-                        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                        worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        tessellator.draw();
-                        GlStateManager.enableTexture2D();
-                        GlStateManager.depthMask(true);
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
-                        GlStateManager.enableLighting();
-                        GlStateManager.disableBlend();
-                        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                        GlStateManager.popMatrix();
-                    } else {
-                        renderOffsetLivingLabel(entity, x,
-                                y - (entity.isChild() ? (double) (entity.height / 2.0F) : 0.0D), z, s, 0.02666667F, d0);
-                    }
+                if (entity.isSneaking()) {
+                    FontRenderer fontrenderer = getFontRendererFromRenderManager();
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate((float) x,
+                            (float) y + entity.height + 0.5F - (entity.isChild() ? entity.height / 2.0F : 0.0F),
+                            (float) z);
+                    GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+                    GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+                    GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                    GlStateManager.scale(-0.02666667F, -0.02666667F, 0.02666667F);
+                    GlStateManager.translate(0.0F, 9.374999F, 0.0F);
+                    GlStateManager.disableLighting();
+                    GlStateManager.depthMask(false);
+                    GlStateManager.enableBlend();
+                    GlStateManager.disableTexture2D();
+                    GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+                    int i = fontrenderer.getStringWidth(s) / 2;
+                    Tessellator tessellator = Tessellator.getInstance();
+                    WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                    worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    tessellator.draw();
+                    GlStateManager.enableTexture2D();
+                    GlStateManager.depthMask(true);
+                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
+                    GlStateManager.enableLighting();
+                    GlStateManager.disableBlend();
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.popMatrix();
+                } else {
+                    renderOffsetLivingLabel(entity, x,
+                            y - (entity.isChild() ? (double) (entity.height / 2.0F) : 0.0D), z, s, 0.02666667F, d0);
                 }
             }
-
-            // Forge hook removed
         }
+
+        // Forge hook removed
     }
 
     protected boolean canRenderName(T entity) {

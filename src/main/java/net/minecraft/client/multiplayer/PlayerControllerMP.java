@@ -316,7 +316,7 @@ public class PlayerControllerMP {
             int i = itemStackIn.stackSize;
             ItemStack itemstack = itemStackIn.useItemRightClick(worldIn, playerIn);
 
-            if (itemstack != itemStackIn || itemstack != null && itemstack.stackSize != i) {
+            if (itemstack != itemStackIn || itemstack.stackSize != i) {
                 playerIn.inventory.mainInventory[playerIn.inventory.currentItem] = itemstack;
 
                 if (itemstack.stackSize == 0) {

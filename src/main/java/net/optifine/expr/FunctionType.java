@@ -97,7 +97,7 @@ public enum FunctionType {
 
     public static FunctionType parse(String str) {
         for (FunctionType functiontype : VALUES) {
-            if (functiontype.getName().equals(str)) {
+            if (functiontype.name.equals(str)) {
                 return functiontype;
             }
         }

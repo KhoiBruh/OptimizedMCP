@@ -404,7 +404,7 @@ public class ShaderPackParser {
 
     public static BufferedReader resolveIncludes(BufferedReader reader, String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException {
         String s = "/";
-        int i = filePath.lastIndexOf("/");
+        int i = filePath.lastIndexOf('/');
 
         if (i >= 0) {
             s = filePath.substring(0, i);

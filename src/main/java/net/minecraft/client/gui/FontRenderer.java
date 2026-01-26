@@ -169,7 +169,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 int i2 = j1 * k + l1;
                 boolean flag = true;
 
-                for (int j2 = 0; j2 < l && flag; ++j2) {
+                for (int j2 = 0; j2 < l; ++j2) {
                     int k2 = (k1 * l + j2) * i;
                     int l2 = aint[i2 + k2];
                     int i3 = l2 >> 24 & 255;
@@ -356,7 +356,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                     underlineStyle = false;
                     italicStyle = false;
 
-                    if (l < 0 || l > 15) {
+                    if (l < 0) {
                         l = 15;
                     }
 
@@ -382,7 +382,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                     underlineStyle = true;
                 } else if (l == 20) {
                     italicStyle = true;
-                } else if (l == 21) {
+                } else {
                     randomStyle = false;
                     boldStyle = false;
                     strikethroughStyle = false;

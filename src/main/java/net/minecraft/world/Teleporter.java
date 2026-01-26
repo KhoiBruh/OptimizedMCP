@@ -42,9 +42,9 @@ public class Teleporter {
             for (int j1 = -2; j1 <= 2; ++j1) {
                 for (int k1 = -2; k1 <= 2; ++k1) {
                     for (int l1 = -1; l1 < 3; ++l1) {
-                        int i2 = i + k1 * l + j1 * i1;
+                        int i2 = i + k1 * l + 0;
                         int j2 = j + l1;
-                        int k2 = k + k1 * i1 - j1 * l;
+                        int k2 = k + 0 - j1 * l;
                         boolean flag = l1 < 0;
                         worldServerInstance.setBlockState(new BlockPos(i2, j2, k2), flag ? Blocks.obsidian.getDefaultState() : Blocks.air.getDefaultState());
                     }

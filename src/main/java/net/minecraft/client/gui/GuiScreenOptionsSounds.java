@@ -25,7 +25,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
         int i = 0;
         field_146507_a = I18n.format("options.sounds.title");
         field_146508_h = I18n.format("options.off");
-        buttonList.add(new GuiScreenOptionsSounds.Button(SoundCategory.MASTER.getCategoryId(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), SoundCategory.MASTER, true));
+        buttonList.add(new GuiScreenOptionsSounds.Button(SoundCategory.MASTER.getCategoryId(), width / 2 - 155 + 0, height / 6 - 12 + 0, SoundCategory.MASTER, true));
         i = i + 2;
 
         for (SoundCategory soundcategory : SoundCategory.values()) {

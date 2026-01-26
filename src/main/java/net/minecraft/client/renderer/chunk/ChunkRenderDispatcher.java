@@ -144,7 +144,7 @@ public class ChunkRenderDispatcher {
             chunkRenderer.getLockCompileTask().unlock();
         }
 
-        return flag;
+        return true;
     }
 
     public void stopChunkUpdates() {
@@ -194,7 +194,7 @@ public class ChunkRenderDispatcher {
             chunkRenderer.getLockCompileTask().unlock();
         }
 
-        return flag1;
+        return true;
     }
 
     public ListenableFuture<Object> uploadChunk(final EnumWorldBlockLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {

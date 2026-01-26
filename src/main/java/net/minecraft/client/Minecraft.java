@@ -1470,7 +1470,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         if (!inGameHasFocus && Mouse.getEventButtonState()) {
                             setIngameFocus();
                         }
-                    } else if (currentScreen != null) {
+                    } else {
                         currentScreen.handleMouseInput();
                     }
                 }

@@ -279,10 +279,10 @@ public class ChatStyle {
                 }
 
                 flag = false;
-                return flag;
+                return false;
             }
             flag = true;
-            return flag;
+            return true;
         }
     }
 

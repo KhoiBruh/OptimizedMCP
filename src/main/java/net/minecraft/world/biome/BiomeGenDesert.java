@@ -17,7 +17,6 @@ public class BiomeGenDesert extends BiomeGenBase {
         theBiomeDecorator.deadBushPerChunk = 2;
         theBiomeDecorator.reedsPerChunk = 50;
         theBiomeDecorator.cactiPerChunk = 10;
-        spawnableCreatureList.clear();
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos) {

@@ -74,7 +74,7 @@ public class HttpPipelineReceiver extends Thread {
                     return new HttpResponse(i, s, map, abyte);
                 }
 
-                int j = s3.indexOf(":");
+                int j = s3.indexOf(':');
 
                 if (j > 0) {
                     String s4 = s3.substring(0, j).trim();

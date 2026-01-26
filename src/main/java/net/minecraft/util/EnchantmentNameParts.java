@@ -20,7 +20,7 @@ public class EnchantmentNameParts {
                 s.append(" ");
             }
 
-            s.append(this.namePartsArray[this.rand.nextInt(this.namePartsArray.length)]);
+            s.append(namePartsArray[rand.nextInt(namePartsArray.length)]);
         }
 
         return s.toString();

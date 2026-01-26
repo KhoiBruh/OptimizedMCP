@@ -1,9 +1,5 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundCategory;
-import net.minecraft.client.audio.SoundEventAccessorComposite;
-import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatComponentText;
@@ -51,21 +47,10 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
                 field_175356_r.func_175229_b(mc.theWorld.getWorldInfo().isDifficultyLocked());
                 field_175356_r.enabled = !field_175356_r.func_175230_c();
                 field_175357_i.enabled = !field_175356_r.func_175230_c();
-            } else {
-                field_175357_i.enabled = false;
-            }
+            } else field_175357_i.enabled = false;
         }
 
         buttonList.add(new GuiButton(110, width / 2 - 155, height / 6 + 48 - 6, 150, 20, I18n.format("options.skinCustomisation")));
-        buttonList.add(new GuiButton(8675309, width / 2 + 5, height / 6 + 48 - 6, 150, 20, "Super Secret Settings...") {
-            public void playPressSound(SoundHandler soundHandlerIn) {
-                SoundEventAccessorComposite soundeventaccessorcomposite = soundHandlerIn.getRandomSoundFromCategories(SoundCategory.ANIMALS, SoundCategory.BLOCKS, SoundCategory.MOBS, SoundCategory.PLAYERS, SoundCategory.WEATHER);
-
-                if (soundeventaccessorcomposite != null) {
-                    soundHandlerIn.playSound(PositionedSoundRecord.create(soundeventaccessorcomposite.getSoundEventLocation(), 0.5F));
-                }
-            }
-        });
         buttonList.add(new GuiButton(106, width / 2 - 155, height / 6 + 72 - 6, 150, 20, I18n.format("options.sounds")));
         buttonList.add(new GuiButton(107, width / 2 + 5, height / 6 + 72 - 6, 150, 20, I18n.format("options.stream")));
         buttonList.add(new GuiButton(101, width / 2 - 155, height / 6 + 96 - 6, 150, 20, I18n.format("options.video")));
@@ -116,10 +101,6 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
             if (button.id == 110) {
                 mc.gameSettings.saveOptions();
                 mc.displayGuiScreen(new GuiCustomizeSkin(this));
-            }
-
-            if (button.id == 8675309) {
-                mc.entityRenderer.activateNextShader();
             }
 
             if (button.id == 101) {

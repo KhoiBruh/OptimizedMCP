@@ -38,12 +38,12 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 
             if (!BlockDoor.isOpen(theEntity.worldObj, doorPosition) && d0 < 4.0D) {
                 flag = true;
-                return flag;
+                return true;
             }
         }
 
         flag = false;
-        return flag;
+        return false;
     }
 
     public void resetTask() {

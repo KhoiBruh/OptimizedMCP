@@ -15,9 +15,9 @@ public class ShaderExpressionResolver implements IExpressionResolver {
     public ShaderExpressionResolver(Map<String, IExpression> map) {
         registerExpressions();
 
-        for (String s : map.keySet()) {
-            IExpression iexpression = map.get(s);
-            registerExpression(s, iexpression);
+        for (Map.Entry<String, IExpression> entry : map.entrySet()) {
+            IExpression iexpression = entry.getValue();
+            registerExpression(entry.getKey(), iexpression);
         }
     }
 

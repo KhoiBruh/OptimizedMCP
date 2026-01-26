@@ -299,7 +299,7 @@ public abstract class GuiSlot {
             if (i2 != 0) {
                 if (i2 > 0) {
                     i2 = -1;
-                } else if (i2 < 0) {
+                } else {
                     i2 = 1;
                 }
 

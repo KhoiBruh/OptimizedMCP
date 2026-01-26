@@ -33,7 +33,7 @@ public class Profiler {
     private boolean profilerLocalEnabled;
 
     public Profiler() {
-        profilerLocalEnabled = profilerGlobalEnabled;
+        profilerLocalEnabled = true;
     }
 
     public void clearProfiling() {
@@ -145,7 +145,7 @@ public class Profiler {
                 }
             }
 
-            profilingMap.replaceAll((s, v) -> profilingMap.get(s).longValue() * 950L / 1000L);
+            profilingMap.replaceAll((s, v) -> profilingMap.get(s) * 950L / 1000L);
 
             if ((float) k > f) {
                 list.add(new Profiler.Result("unspecified", (double) ((float) k - f) * 100.0D / (double) k, (double) ((float) k - f) * 100.0D / (double) i));

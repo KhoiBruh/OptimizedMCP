@@ -117,9 +117,7 @@ public class Scoreboard {
         } else {
             Map<ScoreObjective, Score> map = entitiesScoreObjectives.computeIfAbsent(name, k -> Maps.newHashMap());
 
-            Score score = map.computeIfAbsent(objective, o -> new Score(this, o, name));
-
-            return score;
+            return map.computeIfAbsent(objective, o -> new Score(this, o, name));
         }
     }
 

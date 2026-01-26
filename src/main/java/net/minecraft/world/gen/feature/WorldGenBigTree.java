@@ -154,7 +154,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         if (k > 0) {
             if (i == k) {
                 blocklog$enumaxis = BlockLog.EnumAxis.X;
-            } else if (j == k) {
+            } else {
                 blocklog$enumaxis = BlockLog.EnumAxis.Z;
             }
         }

@@ -646,7 +646,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                     }
                 }
 
-                if (!flag && !isUndead()) {
+                if (!isUndead()) {
                     float f = 0.0F;
                     int j = 0;
                     int k = 0;
@@ -707,7 +707,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 }
 
                 if (!isTame() && !flag) {
-                    if (itemstack != null && itemstack.interactWithEntity(player, this)) {
+                    if (itemstack.interactWithEntity(player, this)) {
                         return true;
                     }
 

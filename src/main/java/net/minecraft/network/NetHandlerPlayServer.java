@@ -806,11 +806,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             boolean flag3 = itemstack == null || itemstack.getMetadata() >= 0 && itemstack.stackSize <= 64 && itemstack.stackSize > 0;
 
             if (flag1 && flag2 && flag3) {
-                if (itemstack == null) {
-                    playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), null);
-                } else {
-                    playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), itemstack);
-                }
+                playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), itemstack);
 
                 playerEntity.inventoryContainer.setCanCraft(playerEntity, true);
             } else if (flag && flag2 && flag3 && itemDropThreshold < 200) {
@@ -882,7 +878,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, playerEntity.getServerForPlayer());
         List<String> list = Lists.newArrayList();
 
-        list.addAll(this.serverController.getTabCompletions(this.playerEntity, packetIn.getMessage(), packetIn.getTargetBlock()));
+        list.addAll(serverController.getTabCompletions(playerEntity, packetIn.getMessage(), packetIn.getTargetBlock()));
 
         playerEntity.playerNetServerHandler.sendPacket(new S3APacketTabComplete(list.toArray(new String[0])));
     }

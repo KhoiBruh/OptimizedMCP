@@ -184,7 +184,7 @@ public abstract class TileEntity {
     }
 
     public void addInfoToCrashReport(CrashReportCategory reportCategory) {
-        reportCategory.addCrashSectionCallable("Name", () -> TileEntity.classToNameMap.get(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName());
+        reportCategory.addCrashSectionCallable("Name", () -> TileEntity.classToNameMap.get(getClass()) + " // " + getClass().getCanonicalName());
 
         if (worldObj != null) {
             CrashReportCategory.addBlockInfo(reportCategory, pos, getBlockType(), getBlockMetadata());

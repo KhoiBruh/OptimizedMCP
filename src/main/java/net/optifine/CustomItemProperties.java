@@ -662,8 +662,9 @@ public class CustomItemProperties {
             mapTextureLocations = new HashMap<>();
             mapSprites = new HashMap<>();
 
-            for (String s : mapTextures.keySet()) {
-                String s1 = mapTextures.get(s);
+            for (Map.Entry<String, String> entry : mapTextures.entrySet()) {
+                String s = entry.getKey();
+                String s1 = entry.getValue();
                 ResourceLocation resourcelocation1 = getTextureLocation(s1);
                 mapTextureLocations.put(s, resourcelocation1);
 
@@ -714,9 +715,9 @@ public class CustomItemProperties {
             bakedModelTexture = makeBakedModel(textureMap, itemModelGenerator, astring, flag);
 
             if (type == 1 && mapTextures != null) {
-                for (String s : mapTextures.keySet()) {
-                    String s1 = mapTextures.get(s);
-                    String s2 = StrUtils.removePrefix(s, "texture.");
+                for (Map.Entry<String, String> entry : mapTextures.entrySet()) {
+                    String s1 = entry.getValue();
+                    String s2 = StrUtils.removePrefix(entry.getKey(), "texture.");
 
                     if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
                         String[] astring1 = new String[]{s1};
@@ -852,9 +853,9 @@ public class CustomItemProperties {
         }
 
         if (type == 1 && mapModels != null) {
-            for (String s : mapModels.keySet()) {
-                String s1 = mapModels.get(s);
-                String s2 = StrUtils.removePrefix(s, "model.");
+            for (Map.Entry<String, String> entry : mapModels.entrySet()) {
+                String s1 = entry.getValue();
+                String s2 = StrUtils.removePrefix(entry.getKey(), "model.");
 
                 if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
                     loadItemModel(modelBakery, s1);
@@ -879,9 +880,9 @@ public class CustomItemProperties {
         }
 
         if (type == 1 && mapModels != null) {
-            for (String s : mapModels.keySet()) {
-                String s1 = mapModels.get(s);
-                String s2 = StrUtils.removePrefix(s, "model.");
+            for (Map.Entry<String, String> entry : mapModels.entrySet()) {
+                String s1 = entry.getValue();
+                String s2 = StrUtils.removePrefix(entry.getKey(), "model.");
 
                 if (s2.startsWith("bow") || s2.startsWith("fishing_rod") || s2.startsWith("shield")) {
                     ResourceLocation resourcelocation1 = getModelLocation(s1);

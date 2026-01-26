@@ -204,7 +204,7 @@ public class HttpPipelineConnection {
                 return "http://" + s + url;
             } else {
                 String s1 = hr.getFile();
-                int i = s1.lastIndexOf("/");
+                int i = s1.lastIndexOf('/');
                 return i >= 0 ? "http://" + s + s1.substring(0, i + 1) + url : "http://" + s + "/" + url;
             }
         }

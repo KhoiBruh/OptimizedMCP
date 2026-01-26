@@ -1249,8 +1249,7 @@ public class Shaders {
                                                        ShaderOption[] ops) {
         Set<String> set = new HashSet<>();
 
-        for (String s : mapScreens.keySet()) {
-            ScreenShaderOptions screenshaderoptions = mapScreens.get(s);
+        for (ScreenShaderOptions screenshaderoptions : mapScreens.values()) {
             ShaderOption[] ashaderoption = screenshaderoptions.getShaderOptions();
 
             for (ShaderOption shaderoption : ashaderoption) {
@@ -4415,7 +4414,7 @@ public class Shaders {
         } else if (path.isEmpty()) {
             return false;
         } else {
-            int i = path.lastIndexOf("/");
+            int i = path.lastIndexOf('/');
 
             if (i >= 0) {
                 path = path.substring(i + 1);

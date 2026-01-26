@@ -76,38 +76,38 @@ public class QuadBounds {
 
         switch (face) {
             case DOWN:
-                f = getMinY();
-                f1 = getMaxY();
+                f = minY;
+                f1 = maxY;
                 f2 = 0.0F;
                 break;
 
             case UP:
-                f = getMinY();
-                f1 = getMaxY();
+                f = minY;
+                f1 = maxY;
                 f2 = 1.0F;
                 break;
 
             case NORTH:
-                f = getMinZ();
-                f1 = getMaxZ();
+                f = minZ;
+                f1 = maxZ;
                 f2 = 0.0F;
                 break;
 
             case SOUTH:
-                f = getMinZ();
-                f1 = getMaxZ();
+                f = minZ;
+                f1 = maxZ;
                 f2 = 1.0F;
                 break;
 
             case WEST:
-                f = getMinX();
-                f1 = getMaxX();
+                f = minX;
+                f1 = maxX;
                 f2 = 0.0F;
                 break;
 
             case EAST:
-                f = getMinX();
-                f1 = getMaxX();
+                f = minX;
+                f1 = maxX;
                 f2 = 1.0F;
                 break;
 
@@ -127,26 +127,26 @@ public class QuadBounds {
         switch (face) {
             case DOWN:
             case UP:
-                f = getMinX();
-                f1 = getMaxX();
-                f2 = getMinZ();
-                f3 = getMaxZ();
+                f = minX;
+                f1 = maxX;
+                f2 = minZ;
+                f3 = maxZ;
                 break;
 
             case NORTH:
             case SOUTH:
-                f = getMinX();
-                f1 = getMaxX();
-                f2 = getMinY();
-                f3 = getMaxY();
+                f = minX;
+                f1 = maxX;
+                f2 = minY;
+                f3 = maxY;
                 break;
 
             case WEST:
             case EAST:
-                f = getMinY();
-                f1 = getMaxY();
-                f2 = getMinZ();
-                f3 = getMaxZ();
+                f = minY;
+                f1 = maxY;
+                f2 = minZ;
+                f3 = maxZ;
                 break;
 
             default:

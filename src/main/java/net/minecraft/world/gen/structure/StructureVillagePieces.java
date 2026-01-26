@@ -1425,11 +1425,7 @@ public class StructureVillagePieces {
             super(start, p_i2109_2_);
             coordBaseMode = EnumFacing.Plane.HORIZONTAL.random(rand);
 
-            switch (coordBaseMode) {
-
-                default:
-                    boundingBox = new StructureBoundingBox(p_i2109_4_, 64, p_i2109_5_, p_i2109_4_ + 6 - 1, 78, p_i2109_5_ + 6 - 1);
-            }
+            boundingBox = new StructureBoundingBox(p_i2109_4_, 64, p_i2109_5_, p_i2109_4_ + 6 - 1, 78, p_i2109_5_ + 6 - 1);
         }
 
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {

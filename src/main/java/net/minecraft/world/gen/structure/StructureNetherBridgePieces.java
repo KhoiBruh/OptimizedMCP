@@ -447,11 +447,7 @@ public class StructureNetherBridgePieces {
             super(0);
             coordBaseMode = EnumFacing.Plane.HORIZONTAL.random(p_i2042_1_);
 
-            switch (coordBaseMode) {
-
-                default:
-                    boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
-            }
+            boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
         }
 
         public static StructureNetherBridgePieces.Crossing3 func_175885_a(List<StructureComponent> p_175885_0_, Random p_175885_1_, int p_175885_2_, int p_175885_3_, int p_175885_4_, EnumFacing p_175885_5_, int p_175885_6_) {
@@ -727,7 +723,7 @@ public class StructureNetherBridgePieces {
 
                 if (k >= 5 && k <= 8) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 5, k, 7, j + 4, k, Blocks.nether_brick.getDefaultState(), Blocks.nether_brick.getDefaultState(), false);
-                } else if (k >= 9 && k <= 10) {
+                } else if (k >= 9) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 8, k, 7, j + 4, k, Blocks.nether_brick.getDefaultState(), Blocks.nether_brick.getDefaultState(), false);
                 }
 

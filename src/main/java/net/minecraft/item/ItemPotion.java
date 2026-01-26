@@ -269,7 +269,7 @@ public class ItemPotion extends Item {
                         if (l != 0) {
                             if (l == 1) {
                                 i1 = lvt_6_1_ | 32;
-                            } else if (l == 2) {
+                            } else {
                                 i1 = lvt_6_1_ | 64;
                             }
                         }

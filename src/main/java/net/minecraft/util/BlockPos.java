@@ -3,8 +3,6 @@ package net.minecraft.util;
 import com.google.common.collect.AbstractIterator;
 import net.minecraft.entity.Entity;
 
-import java.util.Iterator;
-
 public class BlockPos extends Vec3i {
     public static final BlockPos ORIGIN = new BlockPos(0, 0, 0);
     private static final int NUM_X_BITS = 1 + MathHelper.calculateLogBaseTwo(MathHelper.roundUpToPowerOfTwo(30000000));

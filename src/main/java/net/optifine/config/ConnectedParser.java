@@ -461,9 +461,9 @@ public class ConnectedParser {
     }
 
     public boolean matchState(IBlockState bs, Map<IProperty, List<Comparable>> mapPropValues) {
-        for (IProperty iproperty : mapPropValues.keySet()) {
-            List<Comparable> list = mapPropValues.get(iproperty);
-            Comparable comparable = bs.getValue(iproperty);
+        for (Map.Entry<IProperty, List<Comparable>> entry : mapPropValues.entrySet()) {
+            List<Comparable> list = entry.getValue();
+            Comparable comparable = bs.getValue(entry.getKey());
 
             if (comparable == null) {
                 return false;

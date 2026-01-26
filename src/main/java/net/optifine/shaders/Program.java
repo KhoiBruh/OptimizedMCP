@@ -62,15 +62,15 @@ public class Program {
     }
 
     public void copyFrom(Program p) {
-        id = p.getId();
-        alphaState = p.getAlphaState();
-        blendState = p.getBlendState();
-        renderScale = p.getRenderScale();
+        id = p.id;
+        alphaState = p.alphaState;
+        blendState = p.blendState;
+        renderScale = p.renderScale;
         System.arraycopy(p.getBuffersFlip(), 0, buffersFlip, 0, buffersFlip.length);
-        drawBufSettings = p.getDrawBufSettings();
-        drawBuffers = p.getDrawBuffers();
-        compositeMipmapSetting = p.getCompositeMipmapSetting();
-        countInstances = p.getCountInstances();
+        drawBufSettings = p.drawBufSettings;
+        drawBuffers = p.drawBuffers;
+        compositeMipmapSetting = p.compositeMipmapSetting;
+        countInstances = p.countInstances;
         System.arraycopy(p.getToggleColorTextures(), 0, toggleColorTextures, 0, toggleColorTextures.length);
     }
 
@@ -180,13 +180,13 @@ public class Program {
         } else {
             Program program;
 
-            for (program = this; program.getRef() != id; program = program.getProgramBackup()) {
-                if (program.getProgramBackup() == null || program.getProgramBackup() == program) {
+            for (program = this; program.ref != id; program = program.programBackup) {
+                if (program.programBackup == null || program.programBackup == program) {
                     return "unknown";
                 }
             }
 
-            return program.getName();
+            return program.name;
         }
     }
 

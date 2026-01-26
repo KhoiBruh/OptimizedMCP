@@ -95,10 +95,10 @@ public class VertexFormat {
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder("format: " + this.elements.size() + " elements: ");
+        StringBuilder s = new StringBuilder("format: " + elements.size() + " elements: ");
 
         for (int i = 0; i < elements.size(); ++i) {
-            s.append(this.elements.get(i).toString());
+            s.append(elements.get(i).toString());
 
             if (i != elements.size() - 1) {
                 s.append(" ");

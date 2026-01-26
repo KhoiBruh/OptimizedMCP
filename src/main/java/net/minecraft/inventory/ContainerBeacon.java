@@ -41,7 +41,7 @@ public class ContainerBeacon extends Container {
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
-        if (playerIn != null && !playerIn.worldObj.isRemote) {
+        if (!playerIn.worldObj.isRemote) {
             ItemStack itemstack = beaconSlot.decrStackSize(beaconSlot.getSlotStackLimit());
 
             if (itemstack != null) {
@@ -72,11 +72,11 @@ public class ContainerBeacon extends Container {
                 if (!mergeItemStack(itemstack1, 0, 1, false)) {
                     return null;
                 }
-            } else if (index >= 1 && index < 28) {
+            } else if (index < 28) {
                 if (!mergeItemStack(itemstack1, 28, 37, false)) {
                     return null;
                 }
-            } else if (index >= 28 && index < 37) {
+            } else if (index < 37) {
                 if (!mergeItemStack(itemstack1, 1, 28, false)) {
                     return null;
                 }

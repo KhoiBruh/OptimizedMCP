@@ -128,12 +128,10 @@ public class CommandHandler implements ICommandManager {
 
             return list;
         } else {
-            if (astring.length > 1) {
-                ICommand icommand = commandMap.get(s);
+            ICommand icommand = commandMap.get(s);
 
-                if (icommand != null && icommand.canCommandSenderUseCommand(sender)) {
-                    return icommand.addTabCompletionOptions(sender, dropFirstString(astring), pos);
-                }
+            if (icommand != null && icommand.canCommandSenderUseCommand(sender)) {
+                return icommand.addTabCompletionOptions(sender, dropFirstString(astring), pos);
             }
 
             return null;

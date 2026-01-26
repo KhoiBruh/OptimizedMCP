@@ -356,7 +356,7 @@ public abstract class Container {
 
                 if (!flag) {
                     k1 = inventoryplayer.getFirstEmptyStack();
-                    flag |= k1 > -1;
+                    flag = k1 > -1;
                 }
 
                 if (slot5.getHasStack() && flag) {

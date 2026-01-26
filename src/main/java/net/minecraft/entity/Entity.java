@@ -571,7 +571,7 @@ public abstract class Entity implements ICommandSender {
                     d13 = 0.0D;
                 }
 
-                if (block1 != null && onGround) {
+                if (onGround) {
                     block1.onEntityCollidedWithBlock(worldObj, blockpos, this);
                 }
 
@@ -808,8 +808,7 @@ public abstract class Entity implements ICommandSender {
         if (block.getMaterial() == materialIn) {
             float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
             float f1 = (float) (blockpos.getY() + 1) - f;
-            boolean flag = d0 < (double) f1;
-            return flag;
+            return d0 < (double) f1;
         } else {
             return false;
         }
@@ -1353,11 +1352,9 @@ public abstract class Entity implements ICommandSender {
                 ridingEntity.riddenByEntity = null;
             }
 
-            if (entityIn != null) {
-                for (Entity entity = entityIn.ridingEntity; entity != null; entity = entity.ridingEntity) {
-                    if (entity == this) {
-                        return;
-                    }
+            for (Entity entity = entityIn.ridingEntity; entity != null; entity = entity.ridingEntity) {
+                if (entity == this) {
+                    return;
                 }
             }
 
@@ -1709,7 +1706,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public void addEntityCrashInfo(CrashReportCategory category) {
-        category.addCrashSectionCallable("Entity Type", () -> EntityList.getEntityString(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")");
+        category.addCrashSectionCallable("Entity Type", () -> EntityList.getEntityString(this) + " (" + getClass().getCanonicalName() + ")");
         category.addCrashSection("Entity ID", entityId);
         category.addCrashSectionCallable("Entity Name", this::getName);
         category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));

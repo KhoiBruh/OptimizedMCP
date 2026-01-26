@@ -208,7 +208,7 @@ public class GuiPlayerTabOverlay extends Gui {
         }
 
         zLevel += 100.0F;
-        drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, i * 10, 176 + j * 8, 10, 8);
+        drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0, 176 + j * 8, 10, 8);
         zLevel -= 100.0F;
     }
 

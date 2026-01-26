@@ -113,7 +113,7 @@ public class ModelDragon extends ModelBase {
         f1 = (f1 * f1 * 1.0F + f1 * 2.0F) * 0.05F;
         GlStateManager.translate(0.0F, f1 - 2.0F, -3.0F);
         GlStateManager.rotate(f1 * 2.0F, 1.0F, 0.0F, 0.0F);
-        float f2 = -30.0F;
+        float f2;
         float f4 = 0.0F;
         float f5 = 1.5F;
         double[] adouble = entitydragon.getMovementOffsets(6, partialTicks);

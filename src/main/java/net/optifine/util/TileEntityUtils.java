@@ -58,27 +58,13 @@ public class TileEntityUtils {
 
     public static void setTileEntityRawName(TileEntity te, String name) {
         switch (te) {
-            case TileEntityBeacon tileEntityBeacon -> {
-                tileEntityBeacon.customName = name;
-            }
-            case TileEntityBrewingStand tileEntityBrewingStand -> {
-                tileEntityBrewingStand.customName = name;
-            }
-            case TileEntityEnchantmentTable tileEntityEnchantmentTable -> {
-                tileEntityEnchantmentTable.customName = name;
-            }
-            case TileEntityFurnace tileEntityFurnace -> {
-                tileEntityFurnace.furnaceCustomName = name;
-            }
-            case TileEntityChest tileEntityChest -> {
-                tileEntityChest.setCustomName(name);
-            }
-            case TileEntityDispenser tileEntityDispenser -> {
-                tileEntityDispenser.setCustomName(name);
-            }
-            case TileEntityHopper tileEntityHopper -> {
-                tileEntityHopper.setCustomName(name);
-            }
+            case TileEntityBeacon tileEntityBeacon -> tileEntityBeacon.customName = name;
+            case TileEntityBrewingStand tileEntityBrewingStand -> tileEntityBrewingStand.customName = name;
+            case TileEntityEnchantmentTable tileEntityEnchantmentTable -> tileEntityEnchantmentTable.customName = name;
+            case TileEntityFurnace tileEntityFurnace -> tileEntityFurnace.furnaceCustomName = name;
+            case TileEntityChest tileEntityChest -> tileEntityChest.setCustomName(name);
+            case TileEntityDispenser tileEntityDispenser -> tileEntityDispenser.setCustomName(name);
+            case TileEntityHopper tileEntityHopper -> tileEntityHopper.setCustomName(name);
             case null, default -> {
             }
         }

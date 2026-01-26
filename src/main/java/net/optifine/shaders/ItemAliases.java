@@ -58,14 +58,6 @@ public class ItemAliases {
     private static void loadModItemAliases(List<Integer> listItemAliases) {
         String[] astring = new String[0];
 
-        for (String s : astring) {
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/item.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadItemAliases(inputstream, resourcelocation.toString(), listItemAliases);
-            } catch (IOException var6) {
-            }
-        }
     }
 
     private static void loadItemAliases(InputStream in, String path, List<Integer> listItemAliases) {

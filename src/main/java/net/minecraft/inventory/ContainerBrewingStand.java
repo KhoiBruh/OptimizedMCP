@@ -62,7 +62,7 @@ public class ContainerBrewingStand extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if ((index < 0 || index > 2) && index != 3) {
+            if (index > 2 && index != 3) {
                 if (!theSlot.getHasStack() && theSlot.isItemValid(itemstack1)) {
                     if (!mergeItemStack(itemstack1, 3, 4, false)) {
                         return null;
@@ -71,11 +71,11 @@ public class ContainerBrewingStand extends Container {
                     if (!mergeItemStack(itemstack1, 0, 3, false)) {
                         return null;
                     }
-                } else if (index >= 4 && index < 31) {
+                } else if (index < 31) {
                     if (!mergeItemStack(itemstack1, 31, 40, false)) {
                         return null;
                     }
-                } else if (index >= 31 && index < 40) {
+                } else if (index < 40) {
                     if (!mergeItemStack(itemstack1, 4, 31, false)) {
                         return null;
                     }

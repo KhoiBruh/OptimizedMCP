@@ -443,7 +443,7 @@ public abstract class EntityLivingBase extends Entity {
                 flag &= rand.nextInt(5) == 0;
             }
 
-            if (flag && i > 0) {
+            if (flag) {
                 double d0 = (double) (i >> 16 & 255) / 255.0D;
                 double d1 = (double) (i >> 8 & 255) / 255.0D;
                 double d2 = (double) (i & 255) / 255.0D;
@@ -852,7 +852,7 @@ public abstract class EntityLivingBase extends Entity {
                     k = 20;
                 }
 
-                if (k > 0 && k <= 20) {
+                if (k > 0) {
                     int l = 25 - k;
                     float f1 = damage * (float) l;
                     damage = f1 / 25.0F;

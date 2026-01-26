@@ -518,12 +518,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
             inventory.dropAllItems();
         }
 
-        if (cause != null) {
-            motionX = -MathHelper.cos((attackedAtYaw + rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
-            motionZ = -MathHelper.sin((attackedAtYaw + rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
-        } else {
-            motionX = motionZ = 0.0D;
-        }
+        motionX = -MathHelper.cos((attackedAtYaw + rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
+        motionZ = -MathHelper.sin((attackedAtYaw + rotationYaw) * (float) Math.PI / 180.0F) * 0.1F;
 
         triggerAchievement(StatList.deathsStat);
         func_175145_a(StatList.timeSinceDeathStat);
@@ -1572,7 +1568,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             return false;
         } else {
             Team team = getTeam();
-            return team == null || player == null || player.getTeam() != team || !team.getSeeFriendlyInvisiblesEnabled();
+            return team == null || player.getTeam() != team || !team.getSeeFriendlyInvisiblesEnabled();
         }
     }
 

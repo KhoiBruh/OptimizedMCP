@@ -558,9 +558,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         int i = 0;
 
         if (renderEntitiesStartupCounter > 0) {
-            if (i > 0) {
-                return;
-            }
 
             --renderEntitiesStartupCounter;
         } else {
@@ -572,12 +569,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             renderManager.cacheActiveRenderInfo(theWorld, mc.fontRendererObj, mc.getRenderViewEntity(), mc.pointedEntity, mc.gameSettings, partialTicks);
             ++renderEntitiesCounter;
 
-            if (i == 0) {
-                countEntitiesTotal = 0;
-                countEntitiesRendered = 0;
-                countEntitiesHidden = 0;
-                countTileEntitiesRendered = 0;
-            }
+            countEntitiesTotal = 0;
+            countEntitiesRendered = 0;
+            countEntitiesHidden = 0;
+            countTileEntitiesRendered = 0;
 
             Entity entity = mc.getRenderViewEntity();
             double d3 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
@@ -591,9 +586,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             theWorld.theProfiler.endStartSection("global");
             List<Entity> list = theWorld.getLoadedEntityList();
 
-            if (i == 0) {
-                countEntitiesTotal = list.size();
-            }
+            countEntitiesTotal = list.size();
 
             if (Config.isFogOff() && mc.entityRenderer.fogStandard) {
                 GlStateManager.disableFog();
@@ -1739,7 +1732,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void renderCloudsFancy(float partialTicks, int pass) {
-        partialTicks = 0.0F;
         GlStateManager.disableCull();
         float f = (float) (mc.getRenderViewEntity().lastTickPosY + (mc.getRenderViewEntity().posY - mc.getRenderViewEntity().lastTickPosY) * (double) partialTicks);
         Tessellator tessellator = Tessellator.getInstance();
@@ -2684,15 +2676,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void pauseChunkUpdates() {
-        if (renderDispatcher != null) {
-            renderDispatcher.pauseChunkUpdates();
-        }
+        renderDispatcher.pauseChunkUpdates();
     }
 
     public void resumeChunkUpdates() {
-        if (renderDispatcher != null) {
-            renderDispatcher.resumeChunkUpdates();
-        }
+        renderDispatcher.resumeChunkUpdates();
     }
 
     public void updateTileEntities(Collection<TileEntity> tileEntitiesToRemove, Collection<TileEntity> tileEntitiesToAdd) {

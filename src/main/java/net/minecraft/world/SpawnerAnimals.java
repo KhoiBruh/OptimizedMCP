@@ -223,7 +223,9 @@ public final class SpawnerAnimals {
 
                                     for (int l3 = 0; l3 < 4; ++l3) {
                                         l2 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
-                                        i3 += worldServerIn.rand.nextInt(1) - worldServerIn.rand.nextInt(1);
+                                        worldServerIn.rand.nextInt(1);
+                                        worldServerIn.rand.nextInt(1);
+                                        i3 += 0;
                                         j3 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
                                         BlockPos blockpos1 = new BlockPos(l2, i3, j3);
                                         float f = (float) l2 + 0.5F;

@@ -229,19 +229,12 @@ public class GuiCreateWorld extends GuiScreen {
                 bonusChestEnabled = !bonusChestEnabled;
                 updateDisplayState();
             } else if (button.id == 5) {
-                ++selectedIndex;
 
-                if (selectedIndex >= WorldType.worldTypes.length) {
-                    selectedIndex = 0;
-                }
+                do {
+                    selectedIndex++;
 
-                while (!canSelectCurWorldType()) {
-                    ++selectedIndex;
-
-                    if (selectedIndex >= WorldType.worldTypes.length) {
-                        selectedIndex = 0;
-                    }
-                }
+                    if (selectedIndex >= WorldType.worldTypes.length) selectedIndex = 0;
+                } while (!canSelectCurWorldType());
 
                 chunkProviderSettingsJson = "";
                 updateDisplayState();

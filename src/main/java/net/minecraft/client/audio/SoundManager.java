@@ -111,7 +111,7 @@ public class SoundManager {
                             }
                         }
                     });
-                    sndSystem = SoundManager.this.new SoundSystemStarterThread();
+                    sndSystem = new SoundSystemStarterThread();
                     loaded = true;
                     sndSystem.setMasterVolume(options.getSoundLevel(SoundCategory.MASTER));
                     SoundManager.logger.info(SoundManager.LOG_MARKER, "Sound engine started");

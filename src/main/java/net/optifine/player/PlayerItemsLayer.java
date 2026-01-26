@@ -19,11 +19,9 @@ public class PlayerItemsLayer implements LayerRenderer {
     }
 
     public static void register(Map<String, RenderPlayer> renderPlayerMap) {
-        Set<String> set = renderPlayerMap.keySet();
         boolean flag = false;
 
-        for (String s : set) {
-            RenderPlayer player = renderPlayerMap.get(s);
+        for (RenderPlayer player : renderPlayerMap.values()) {
 
             if (player instanceof RenderPlayer renderplayer) {
                 renderplayer.addLayer(new PlayerItemsLayer(renderplayer));

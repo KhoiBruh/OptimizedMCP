@@ -351,7 +351,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                     int l1 = j1 % 2;
                     slot.xDisplayPosition = 9 + k1 * 54;
                     slot.yDisplayPosition = 6 + l1 * 27;
-                } else if (j >= 0 && j < 5) {
+                } else if (j < 5) {
                     slot.yDisplayPosition = -2000;
                     slot.xDisplayPosition = -2000;
                 } else if (j < container.inventorySlots.size()) {

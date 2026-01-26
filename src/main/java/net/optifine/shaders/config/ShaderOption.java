@@ -56,7 +56,7 @@ public abstract class ShaderOption {
     public String getDescriptionText() {
         String s = Config.normalize(description);
         s = StrUtils.removePrefix(s, "//");
-        s = Shaders.translate("option." + getName() + ".comment", s);
+        s = Shaders.translate("option." + name + ".comment", s);
         return s;
     }
 

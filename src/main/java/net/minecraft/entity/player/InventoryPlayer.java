@@ -410,7 +410,7 @@ public class InventoryPlayer implements IInventory {
             ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
 
             if (itemstack != null) {
-                if (j >= 0 && j < mainInventory.length) {
+                if (j < mainInventory.length) {
                     mainInventory[j] = itemstack;
                 }
 

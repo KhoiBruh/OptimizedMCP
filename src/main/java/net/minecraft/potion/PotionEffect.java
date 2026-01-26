@@ -69,7 +69,7 @@ public class PotionEffect {
         } else if (other.amplifier == amplifier && duration < other.duration) {
             duration = other.duration;
         } else if (!other.isAmbient && isAmbient) {
-            isAmbient = other.isAmbient;
+            isAmbient = false;
         }
 
         showParticles = other.showParticles;

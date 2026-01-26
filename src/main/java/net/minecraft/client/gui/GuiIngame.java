@@ -611,22 +611,8 @@ public class GuiIngame extends Gui {
                         j7 = k1 + (rand.nextInt(3) - 1);
                     }
 
-                    if (flag1) {
-                        k8 = 1;
-                    }
-
                     int j9 = j1 - k6 * 8 - 9;
                     drawTexturedModalRect(j9, j7, 16 + k8 * 9, 27, 9, 9);
-
-                    if (flag1) {
-                        if (k6 * 2 + 1 < l) {
-                            drawTexturedModalRect(j9, j7, l7 + 54, 27, 9, 9);
-                        }
-
-                        if (k6 * 2 + 1 == l) {
-                            drawTexturedModalRect(j9, j7, l7 + 63, 27, 9, 9);
-                        }
-                    }
 
                     if (k6 * 2 + 1 < k) {
                         drawTexturedModalRect(j9, j7, l7 + 36, 27, 9, 9);
@@ -656,12 +642,8 @@ public class GuiIngame extends Gui {
                         int j5 = 52;
                         int k5 = 0;
 
-                        if (flag1) {
-                            k5 = 1;
-                        }
-
                         int l5 = j1 - i5 * 8 - 9;
-                        drawTexturedModalRect(l5, i9, j5 + k5 * 9, 9, 9, 9);
+                        drawTexturedModalRect(l5, i9, j5 + 0, 9, 9, 9);
 
                         if (i5 * 2 + 1 + k9 < i7) {
                             drawTexturedModalRect(l5, i9, j5 + 36, 9, 9, 9);

@@ -559,7 +559,7 @@ public class ModelBakery {
                         .get(new ResourceLocation(p_bakeModel_1_.resolveTextureName(blockpartface.texture())));
                 boolean flag = true;
 
-                if (blockpartface.cullFace() != null && flag) {
+                if (blockpartface.cullFace() != null) {
                     simplebakedmodel$builder.addFaceQuad(p_bakeModel_2_.rotate(blockpartface.cullFace()),
                             makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing,
                                     p_bakeModel_2_, p_bakeModel_3_));

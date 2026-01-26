@@ -36,7 +36,7 @@ public enum RenderEntityParameterBool implements IExpressionBool {
     public static RenderEntityParameterBool parse(String str) {
         if (str != null) {
             for (RenderEntityParameterBool renderentityparameterbool : VALUES) {
-                if (renderentityparameterbool.getName().equals(str)) {
+                if (renderentityparameterbool.name.equals(str)) {
                     return renderentityparameterbool;
                 }
             }

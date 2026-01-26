@@ -15,8 +15,7 @@ public class CustomUniforms {
         this.uniforms = uniforms;
         List<IExpressionCached> list = new ArrayList<>();
 
-        for (String s : mapExpressions.keySet()) {
-            IExpression iexpression = mapExpressions.get(s);
+        for (IExpression iexpression : mapExpressions.values()) {
 
             if (iexpression instanceof IExpressionCached iexpressioncached) {
                 list.add(iexpressioncached);

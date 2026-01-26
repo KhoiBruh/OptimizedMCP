@@ -1294,11 +1294,11 @@ public abstract class World implements IBlockAccess {
     public boolean addTileEntity(TileEntity tile) {
         boolean flag = loadedTileEntityList.add(tile);
 
-        if (flag && tile instanceof ITickable) {
+        if (tile instanceof ITickable) {
             tickableTileEntities.add(tile);
         }
 
-        return flag;
+        return true;
     }
 
     public void addTileEntities(Collection<TileEntity> tileEntityCollection) {

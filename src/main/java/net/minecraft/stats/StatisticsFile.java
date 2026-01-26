@@ -158,7 +158,7 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public void func_150877_d() {
-        this.field_150888_e.addAll(this.statsData.keySet());
+        field_150888_e.addAll(statsData.keySet());
     }
 
     public void func_150876_a(EntityPlayerMP p_150876_1_) {

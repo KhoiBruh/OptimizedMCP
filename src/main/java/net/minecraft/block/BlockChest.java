@@ -5,7 +5,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
@@ -415,9 +414,8 @@ public class BlockChest extends BlockContainer {
 
     private boolean isOcelotSittingOnChest(World worldIn, BlockPos pos) {
         for (EntityOcelot entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1))) {
-            EntityOcelot entityocelot = entity;
 
-            if (entityocelot.isSitting()) {
+            if (entity.isSitting()) {
                 return true;
             }
         }

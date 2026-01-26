@@ -148,7 +148,7 @@ public class TileEntityBanner extends TileEntity {
                             patternList.add(tileentitybanner$enumbannerpattern);
                             int j = nbttagcompound.getInteger("Color");
                             colorList.add(EnumDyeColor.byDyeDamage(j));
-                            patternResourceLocation = this.patternResourceLocation + tileentitybanner$enumbannerpattern.getPatternID() + j;
+                            patternResourceLocation = patternResourceLocation + tileentitybanner$enumbannerpattern.getPatternID() + j;
                         }
                     }
                 }

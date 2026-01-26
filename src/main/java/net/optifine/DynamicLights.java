@@ -80,15 +80,6 @@ public class DynamicLights {
         mapItemLightLevels.clear();
         String[] astring = new String[0];
 
-        for (String s : astring) {
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "optifine/dynamic_lights.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadModConfiguration(inputstream, resourcelocation.toString(), s);
-            } catch (IOException var5) {
-            }
-        }
-
         if (!mapEntityLightLevels.isEmpty()) {
             Config.dbg("DynamicLights entities: " + mapEntityLightLevels.size());
         }

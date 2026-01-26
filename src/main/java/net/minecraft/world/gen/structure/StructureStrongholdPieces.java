@@ -971,11 +971,7 @@ public class StructureStrongholdPieces {
             coordBaseMode = EnumFacing.Plane.HORIZONTAL.random(p_i2081_2_);
             field_143013_d = StructureStrongholdPieces.Stronghold.Door.OPENING;
 
-            switch (coordBaseMode) {
-
-                default:
-                    boundingBox = new StructureBoundingBox(p_i2081_3_, 64, p_i2081_4_, p_i2081_3_ + 5 - 1, 74, p_i2081_4_ + 5 - 1);
-            }
+            boundingBox = new StructureBoundingBox(p_i2081_3_, 64, p_i2081_4_, p_i2081_3_ + 5 - 1, 74, p_i2081_4_ + 5 - 1);
         }
 
         public Stairs(int p_i45574_1_, Random p_i45574_2_, StructureBoundingBox p_i45574_3_, EnumFacing p_i45574_4_) {
@@ -1266,10 +1262,10 @@ public class StructureStrongholdPieces {
             int i = p_74988_1_.nextInt(5);
 
             return switch (i) {
-                default -> Door.OPENING;
                 case 2 -> Door.WOOD_DOOR;
                 case 3 -> Door.GRATES;
                 case 4 -> Door.IRON_DOOR;
+                default -> Door.OPENING;
             };
         }
 

@@ -23,7 +23,7 @@ public enum TokenType {
 
     public static TokenType getTypeByFirstChar(char ch) {
         for (TokenType tokentype : VALUES) {
-            if (tokentype.getCharsFirst().indexOf(ch) >= 0) {
+            if (tokentype.charsFirst.indexOf(ch) >= 0) {
                 return tokentype;
             }
         }

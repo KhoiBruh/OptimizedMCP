@@ -57,14 +57,6 @@ public class EntityAliases {
     private static void loadModEntityAliases(List<Integer> listEntityAliases) {
         String[] astring = new String[0];
 
-        for (String s : astring) {
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/entity.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadEntityAliases(inputstream, resourcelocation.toString(), listEntityAliases);
-            } catch (IOException var6) {
-            }
-        }
     }
 
     private static void loadEntityAliases(InputStream in, String path, List<Integer> listEntityAliases) {

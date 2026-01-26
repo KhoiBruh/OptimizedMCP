@@ -28,7 +28,7 @@ public class GuiSnooper extends GuiScreen {
         String s = I18n.format("options.snooper.desc");
         java.util.List<String> list = Lists.newArrayList();
 
-        list.addAll(this.fontRendererObj.listFormattedStringToWidth(s, this.width - 30));
+        list.addAll(fontRendererObj.listFormattedStringToWidth(s, width - 30));
 
         field_146607_r = list.toArray(new String[0]);
         field_146604_g.clear();

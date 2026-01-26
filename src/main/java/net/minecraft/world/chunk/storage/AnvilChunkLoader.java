@@ -133,7 +133,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
                 pendingAnvilChunksCoordinates.remove(chunkcoordintpair);
             }
 
-            return lvt_3_1_;
+            return true;
         }
     }
 

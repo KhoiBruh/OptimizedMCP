@@ -147,7 +147,7 @@ public class LongHashMap<V> {
             entry = entry1;
         }
 
-        return entry1;
+        return null;
     }
 
     private void createKey(int p_76156_1_, long p_76156_2_, V p_76156_4_, int p_76156_5_) {

@@ -112,7 +112,7 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
             int j = nbttagcompound.getByte("Slot") & 255;
 
-            if (j >= 0 && j < stacks.length) {
+            if (j < stacks.length) {
                 stacks[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
             }
         }
