@@ -1,8 +1,8 @@
 package net.minecraft.event;
 
-import com.google.common.collect.Maps;
 import net.minecraft.util.IChatComponent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public record HoverEvent(Action action, IChatComponent value) {
@@ -35,7 +35,7 @@ public record HoverEvent(Action action, IChatComponent value) {
         SHOW_ITEM("show_item", true),
         SHOW_ENTITY("show_entity", true);
 
-        private static final Map<String, Action> nameMapping = Maps.newHashMap();
+        private static final Map<String, Action> nameMapping = new HashMap<>();
 
         static {
             for (Action hoverevent$action : values()) {

@@ -453,7 +453,7 @@ public abstract class CommandBase implements ICommand {
 
     public static List<String> getListOfStringsMatchingLastWord(String[] p_175762_0_, Collection<?> p_175762_1_) {
         String s = p_175762_0_[p_175762_0_.length - 1];
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         if (!p_175762_1_.isEmpty()) {
             for (String s1 : Iterables.transform(p_175762_1_, Functions.toStringFunction())) {

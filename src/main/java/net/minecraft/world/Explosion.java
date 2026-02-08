@@ -1,8 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,10 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Explosion {
     private final boolean isFlaming;
@@ -43,8 +37,8 @@ public class Explosion {
 
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking) {
         explosionRNG = new Random();
-        affectedBlockPositions = Lists.newArrayList();
-        playerKnockbackMap = Maps.newHashMap();
+        affectedBlockPositions = new ArrayList<>();
+        playerKnockbackMap = new HashMap<>();
         worldObj = worldIn;
         exploder = entityIn;
         explosionSize = size;
@@ -56,7 +50,7 @@ public class Explosion {
     }
 
     public void doExplosionA() {
-        Set<BlockPos> set = Sets.newHashSet();
+        Set<BlockPos> set = new HashSet<>();
         int i = 16;
 
         for (int j = 0; j < 16; ++j) {

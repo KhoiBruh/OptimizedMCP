@@ -1,9 +1,9 @@
 package net.minecraft.client.renderer.vertex;
 
-import com.google.common.collect.Lists;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VertexFormat {
@@ -26,11 +26,11 @@ public class VertexFormat {
     }
 
     public VertexFormat() {
-        elements = Lists.newArrayList();
-        offsets = Lists.newArrayList();
+        elements = new ArrayList<>();
+        offsets = new ArrayList<>();
         nextOffset = 0;
         colorElementOffset = -1;
-        uvOffsetsById = Lists.newArrayList();
+        uvOffsetsById = new ArrayList<>();
         normalElementOffset = -1;
     }
 

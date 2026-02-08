@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.feature;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
@@ -11,6 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -48,7 +48,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 
         int j = basePos.getY() + height;
         int k = heightLimit - leafDistanceLimit;
-        field_175948_j = Lists.newArrayList();
+        field_175948_j = new ArrayList<>();
         field_175948_j.add(new WorldGenBigTree.FoliageCoordinates(basePos.up(k), j));
 
         for (; k >= 0; --k) {

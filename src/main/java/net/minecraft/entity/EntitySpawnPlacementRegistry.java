@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Maps;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.*;
@@ -9,7 +8,7 @@ import net.minecraft.entity.passive.*;
 import java.util.HashMap;
 
 public class EntitySpawnPlacementRegistry {
-    private static final HashMap<Class, EntityLiving.SpawnPlacementType> ENTITY_PLACEMENTS = Maps.newHashMap();
+    private static final HashMap<Class, EntityLiving.SpawnPlacementType> ENTITY_PLACEMENTS = new HashMap<>();
 
     static {
         ENTITY_PLACEMENTS.put(EntityBat.class, EntityLiving.SpawnPlacementType.ON_GROUND);

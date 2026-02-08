@@ -1,6 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,11 +14,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CommandReplaceItem extends CommandBase {
-    private static final Map<String, Integer> SHORTCUTS = Maps.newHashMap();
+    private static final Map<String, Integer> SHORTCUTS = new HashMap<>();
 
     static {
         for (int i = 0; i < 54; ++i) {

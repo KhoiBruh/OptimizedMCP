@@ -1,6 +1,5 @@
 package net.minecraft.client.model;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.*;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
@@ -58,7 +57,7 @@ public class ModelRenderer {
         textureWidth = 64.0F;
         textureHeight = 32.0F;
         showModel = true;
-        cubeList = Lists.newArrayList();
+        cubeList = new ArrayList<>();
         baseModel = model;
         model.boxList.add(this);
         boxName = boxNameIn;
@@ -76,7 +75,7 @@ public class ModelRenderer {
 
     public void addChild(ModelRenderer renderer) {
         if (childModels == null) {
-            childModels = Lists.newArrayList();
+            childModels = new ArrayList<>();
         }
 
         childModels.add(renderer);

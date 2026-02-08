@@ -19,6 +19,7 @@ import net.minecraft.network.status.server.S01PacketPong;
 import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 public enum EnumConnectionState {
@@ -150,7 +151,7 @@ public enum EnumConnectionState {
         }
     };
 
-    private static final Map<Class<? extends Packet>, EnumConnectionState> STATES_BY_CLASS = Maps.newHashMap();
+    private static final Map<Class<? extends Packet>, EnumConnectionState> STATES_BY_CLASS = new HashMap<>();
     private static final int field_181136_e = -1;
     private static final int field_181137_f = 2;
     private static final EnumConnectionState[] STATES_BY_ID = new EnumConnectionState[field_181137_f - field_181136_e + 1];

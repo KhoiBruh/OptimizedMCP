@@ -1,6 +1,5 @@
 package net.minecraft.item.crafting;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
@@ -10,13 +9,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class FurnaceRecipes {
     private static final FurnaceRecipes smeltingBase = new FurnaceRecipes();
-    private final Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
-    private final Map<ItemStack, Float> experienceList = Maps.newHashMap();
+    private final Map<ItemStack, ItemStack> smeltingList = new HashMap<>();
+    private final Map<ItemStack, Float> experienceList = new HashMap<>();
 
     private FurnaceRecipes() {
         addSmeltingRecipeForBlock(Blocks.iron_ore, new ItemStack(Items.iron_ingot), 0.7F);

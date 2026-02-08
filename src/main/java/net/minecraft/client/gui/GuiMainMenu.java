@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -25,10 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
@@ -70,7 +66,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         BufferedReader bufferedreader = null;
 
         try {
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
             bufferedreader = new BufferedReader(new InputStreamReader(
                     Minecraft.getMinecraft().getResourceManager().getResource(splashTexts).getInputStream(),
                     StandardCharsets.UTF_8));

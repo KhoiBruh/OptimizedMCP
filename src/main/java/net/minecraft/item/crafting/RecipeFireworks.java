@@ -1,6 +1,5 @@
 package net.minecraft.item.crafting;
 
-import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemDye;
@@ -9,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeFireworks implements IRecipe {
@@ -86,7 +86,7 @@ public class RecipeFireworks implements IRecipe {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 NBTTagCompound nbttagcompound2 = new NBTTagCompound();
                 byte b0 = 0;
-                List<Integer> list = Lists.newArrayList();
+                List<Integer> list = new ArrayList<>();
 
                 for (int l1 = 0; l1 < inv.getSizeInventory(); ++l1) {
                     ItemStack itemstack2 = inv.getStackInSlot(l1);
@@ -122,7 +122,7 @@ public class RecipeFireworks implements IRecipe {
                 field_92102_a.setTagCompound(nbttagcompound);
                 return true;
             } else if (j == 0 && i == 0 && l == 1 && k > 0 && k == i1) {
-                List<Integer> list1 = Lists.newArrayList();
+                List<Integer> list1 = new ArrayList<>();
 
                 for (int i2 = 0; i2 < inv.getSizeInventory(); ++i2) {
                     ItemStack itemstack1 = inv.getStackInSlot(i2);

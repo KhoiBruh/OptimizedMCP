@@ -1,7 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.item.ItemStack;
@@ -13,13 +11,15 @@ import net.minecraft.world.biome.BiomeGenBase;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DataWatcher {
-    private static final Map<Class<?>, Integer> dataTypes = Maps.newHashMap();
+    private static final Map<Class<?>, Integer> dataTypes = new HashMap<>();
 
     static {
         dataTypes.put(Byte.class, 0);
@@ -33,7 +33,7 @@ public class DataWatcher {
     }
 
     private final Entity owner;
-    private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = Maps.newHashMap();
+    private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = new HashMap<>();
     public BiomeGenBase spawnBiome = BiomeGenBase.plains;
     public BlockPos spawnPosition = BlockPos.ORIGIN;
     private boolean isBlank = true;
@@ -104,7 +104,7 @@ public class DataWatcher {
 
         for (int i = buffer.readByte(); i != 127; i = buffer.readByte()) {
             if (list == null) {
-                list = Lists.newArrayList();
+                list = new ArrayList<>();
             }
 
             int j = (i & 224) >> 5;
@@ -258,7 +258,7 @@ public class DataWatcher {
                     datawatcher$watchableobject.setWatched(false);
 
                     if (list == null) {
-                        list = Lists.newArrayList();
+                        list = new ArrayList<>();
                     }
 
                     list.add(datawatcher$watchableobject);
@@ -289,7 +289,7 @@ public class DataWatcher {
 
         for (DataWatcher.WatchableObject datawatcher$watchableobject : watchedObjects.values()) {
             if (list == null) {
-                list = Lists.newArrayList();
+                list = new ArrayList<>();
             }
 
             list.add(datawatcher$watchableobject);

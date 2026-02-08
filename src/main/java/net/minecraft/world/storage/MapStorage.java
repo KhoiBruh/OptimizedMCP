@@ -1,7 +1,5 @@
 package net.minecraft.world.storage;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,14 +7,16 @@ import net.minecraft.nbt.NBTTagShort;
 import net.minecraft.world.WorldSavedData;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MapStorage {
-    protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
+    protected Map<String, WorldSavedData> loadedDataMap = new HashMap<>();
     private final ISaveHandler saveHandler;
-    private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
-    private final Map<String, Short> idCounts = Maps.newHashMap();
+    private final List<WorldSavedData> loadedDataList = new ArrayList<>();
+    private final Map<String, Short> idCounts = new HashMap<>();
 
     public MapStorage(ISaveHandler saveHandlerIn) {
         saveHandler = saveHandlerIn;

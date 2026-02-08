@@ -3,7 +3,6 @@ package net.minecraft.client.resources;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.InsecureTextureException;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -19,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -86,7 +86,7 @@ public class SkinManager {
 
     public void loadProfileTextures(final GameProfile profile, final SkinManager.SkinAvailableCallback skinAvailableCallback, final boolean requireSecure) {
         THREAD_POOL.submit(() -> {
-            final Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();
+            final Map<Type, MinecraftProfileTexture> map = new HashMap<>();
 
             try {
                 map.putAll(sessionService.getTextures(profile, requireSecure));

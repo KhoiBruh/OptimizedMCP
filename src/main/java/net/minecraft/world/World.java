@@ -1,8 +1,6 @@
 package net.minecraft.world;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -33,21 +31,21 @@ import net.minecraft.world.storage.WorldInfo;
 import java.util.*;
 
 public abstract class World implements IBlockAccess {
-    public final List<Entity> loadedEntityList = Lists.newArrayList();
-    public final List<TileEntity> loadedTileEntityList = Lists.newArrayList();
-    public final List<TileEntity> tickableTileEntities = Lists.newArrayList();
-    public final List<EntityPlayer> playerEntities = Lists.newArrayList();
-    public final List<Entity> weatherEffects = Lists.newArrayList();
+    public final List<Entity> loadedEntityList = new ArrayList<>();
+    public final List<TileEntity> loadedTileEntityList = new ArrayList<>();
+    public final List<TileEntity> tickableTileEntities = new ArrayList<>();
+    public final List<EntityPlayer> playerEntities = new ArrayList<>();
+    public final List<Entity> weatherEffects = new ArrayList<>();
     public final Random rand = new Random();
     public final WorldProvider provider;
     public final Profiler theProfiler;
     public final boolean isRemote;
-    protected final List<Entity> unloadedEntityList = Lists.newArrayList();
+    protected final List<Entity> unloadedEntityList = new ArrayList<>();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap<>();
     protected final int DIST_HASH_MAGIC = 1013904223;
     protected final ISaveHandler saveHandler;
-    private final List<TileEntity> addedTileEntityList = Lists.newArrayList();
-    private final List<TileEntity> tileEntitiesToBeRemoved = Lists.newArrayList();
+    private final List<TileEntity> addedTileEntityList = new ArrayList<>();
+    private final List<TileEntity> tileEntitiesToBeRemoved = new ArrayList<>();
     private final Calendar theCalendar = Calendar.getInstance();
     private final WorldBorder worldBorder;
     protected boolean scheduledUpdatesAreImmediate;
@@ -56,14 +54,14 @@ public abstract class World implements IBlockAccess {
     protected float rainingStrength;
     protected float prevThunderingStrength;
     protected float thunderingStrength;
-    protected List<IWorldAccess> worldAccesses = Lists.newArrayList();
+    protected List<IWorldAccess> worldAccesses = new ArrayList<>();
     protected IChunkProvider chunkProvider;
     protected WorldInfo worldInfo;
     protected boolean findingSpawnPoint;
     protected MapStorage mapStorage;
     protected VillageCollection villageCollectionObj;
     protected Scoreboard worldScoreboard = new Scoreboard();
-    protected Set<ChunkCoordIntPair> activeChunkSet = Sets.newHashSet();
+    protected Set<ChunkCoordIntPair> activeChunkSet = new HashSet<>();
     protected boolean spawnHostileMobs;
     protected boolean spawnPeacefulMobs;
     int[] lightUpdateBlockList;
@@ -859,7 +857,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public List<AxisAlignedBB> getCollidingBoundingBoxes(Entity entityIn, AxisAlignedBB bb) {
-        List<AxisAlignedBB> list = Lists.newArrayList();
+        List<AxisAlignedBB> list = new ArrayList<>();
         int i = MathHelper.floor_double(bb.minX);
         int j = MathHelper.floor_double(bb.maxX + 1.0D);
         int k = MathHelper.floor_double(bb.minY);
@@ -940,7 +938,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public List<AxisAlignedBB> getCollisionBoxes(AxisAlignedBB bb) {
-        List<AxisAlignedBB> list = Lists.newArrayList();
+        List<AxisAlignedBB> list = new ArrayList<>();
         int i = MathHelper.floor_double(bb.minX);
         int j = MathHelper.floor_double(bb.maxX + 1.0D);
         int k = MathHelper.floor_double(bb.minY);
@@ -2155,7 +2153,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public List<Entity> getEntitiesInAABBexcluding(Entity entityIn, AxisAlignedBB boundingBox, Predicate<? super Entity> predicate) {
-        List<Entity> list = Lists.newArrayList();
+        List<Entity> list = new ArrayList<>();
         int i = MathHelper.floor_double((boundingBox.minX - 2.0D) / 16.0D);
         int j = MathHelper.floor_double((boundingBox.maxX + 2.0D) / 16.0D);
         int k = MathHelper.floor_double((boundingBox.minZ - 2.0D) / 16.0D);
@@ -2173,7 +2171,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public <T extends Entity> List<T> getEntities(Class<? extends T> entityType, Predicate<? super T> filter) {
-        List<T> list = Lists.newArrayList();
+        List<T> list = new ArrayList<>();
 
         for (Entity entity : loadedEntityList) {
             if (entityType.isAssignableFrom(entity.getClass()) && filter.apply((T) entity)) {
@@ -2185,7 +2183,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public <T extends Entity> List<T> getPlayers(Class<? extends T> playerType, Predicate<? super T> filter) {
-        List<T> list = Lists.newArrayList();
+        List<T> list = new ArrayList<>();
 
         for (Entity entity : playerEntities) {
             if (playerType.isAssignableFrom(entity.getClass()) && filter.apply((T) entity)) {
@@ -2205,7 +2203,7 @@ public abstract class World implements IBlockAccess {
         int j = MathHelper.floor_double((aabb.maxX + 2.0D) / 16.0D);
         int k = MathHelper.floor_double((aabb.minZ - 2.0D) / 16.0D);
         int l = MathHelper.floor_double((aabb.maxZ + 2.0D) / 16.0D);
-        List<T> list = Lists.newArrayList();
+        List<T> list = new ArrayList<>();
 
         for (int i1 = i; i1 <= j; ++i1) {
             for (int j1 = k; j1 <= l; ++j1) {

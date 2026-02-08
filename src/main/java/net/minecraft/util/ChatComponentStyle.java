@@ -1,13 +1,13 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public abstract class ChatComponentStyle implements IChatComponent {
-    protected List<IChatComponent> siblings = Lists.newArrayList();
+    protected List<IChatComponent> siblings = new ArrayList<>();
     private ChatStyle style;
 
     public static Iterator<IChatComponent> createDeepCopyIterator(Iterable<IChatComponent> components) {

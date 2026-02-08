@@ -1,7 +1,5 @@
 package net.minecraft.server.management;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 import com.google.gson.*;
 import org.apache.commons.io.IOUtils;
@@ -14,9 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserList<K, V extends UserListEntry<K>> {
     protected static final Logger logger = LogManager.getLogger();
@@ -35,7 +31,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     };
     protected final Gson gson;
     private final File saveFile;
-    private final Map<String, V> values = Maps.newHashMap();
+    private final Map<String, V> values = new HashMap<>();
     private boolean lanServer = true;
 
     public UserList(File saveFile) {
@@ -91,7 +87,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     }
 
     private void removeExpired() {
-        List<K> list = Lists.newArrayList();
+        List<K> list = new ArrayList<>();
 
         for (V v : values.values()) {
             if (v.hasBanExpired()) {

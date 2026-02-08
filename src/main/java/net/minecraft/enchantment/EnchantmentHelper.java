@@ -1,6 +1,5 @@
 package net.minecraft.enchantment;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,10 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandom;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class EnchantmentHelper {
     private static final Random enchantmentRand = new Random();
@@ -295,7 +291,7 @@ public class EnchantmentHelper {
                 EnchantmentData enchantmentdata = WeightedRandom.getRandomItem(randomIn, map.values());
 
                 if (enchantmentdata != null) {
-                    list = Lists.newArrayList();
+                    list = new ArrayList<>();
                     list.add(enchantmentdata);
 
                     for (int l = k; randomIn.nextInt(50) <= l; l >>= 1) {
@@ -339,7 +335,7 @@ public class EnchantmentHelper {
                 for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i) {
                     if (p_77505_0_ >= enchantment.getMinEnchantability(i) && p_77505_0_ <= enchantment.getMaxEnchantability(i)) {
                         if (map == null) {
-                            map = Maps.newHashMap();
+                            map = new HashMap<>();
                         }
 
                         map.put(enchantment.effectId, new EnchantmentData(enchantment, i));

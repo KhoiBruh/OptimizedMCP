@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.ServersideAttributeMap;
@@ -23,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +42,7 @@ public class EntityTrackerEntry {
     public double motionZ;
     public int updateCounter;
     public boolean playerEntitiesUpdated;
-    public Set<EntityPlayerMP> trackingPlayers = Sets.newHashSet();
+    public Set<EntityPlayerMP> trackingPlayers = new HashSet<>();
     private double lastTrackedEntityPosX;
     private double lastTrackedEntityPosY;
     private double lastTrackedEntityPosZ;

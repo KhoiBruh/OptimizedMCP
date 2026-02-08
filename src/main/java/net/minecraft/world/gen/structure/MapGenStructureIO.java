@@ -1,19 +1,19 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Maps;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MapGenStructureIO {
     private static final Logger logger = LogManager.getLogger();
-    private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = Maps.newHashMap();
-    private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = Maps.newHashMap();
+    private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = new HashMap<>();
+    private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = new HashMap<>();
+    private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = new HashMap<>();
+    private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = new HashMap<>();
 
     static {
         registerStructure(StructureMineshaftStart.class, "Mineshaft");

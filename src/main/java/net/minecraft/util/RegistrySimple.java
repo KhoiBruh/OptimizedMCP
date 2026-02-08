@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Maps;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +10,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
     protected final Map<K, V> registryObjects = createUnderlyingMap();
 
     protected Map<K, V> createUnderlyingMap() {
-        return Maps.newHashMap();
+        return new HashMap<>();
     }
 
     public V getObject(K name) {

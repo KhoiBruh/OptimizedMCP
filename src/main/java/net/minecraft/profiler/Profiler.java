@@ -1,16 +1,12 @@
 package net.minecraft.profiler;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.src.Config;
 import net.optifine.Lagometer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Profiler {
     private static final Logger logger = LogManager.getLogger();
@@ -24,9 +20,9 @@ public class Profiler {
     private static final int HASH_PRE_RENDER_ERRORS = "preRenderErrors".hashCode();
     private static final int HASH_RENDER = "render".hashCode();
     private static final int HASH_DISPLAY = "display".hashCode();
-    private final List<String> sectionList = Lists.newArrayList();
-    private final List<Long> timestampList = Lists.newArrayList();
-    private final Map<String, Long> profilingMap = Maps.newHashMap();
+    private final List<String> sectionList = new ArrayList<>();
+    private final List<Long> timestampList = new ArrayList<>();
+    private final Map<String, Long> profilingMap = new HashMap<>();
     public boolean profilingEnabled;
     public boolean profilerGlobalEnabled = true;
     private String profilingSection = "";
@@ -109,7 +105,7 @@ public class Profiler {
         } else {
             long i = profilingMap.getOrDefault("root", 0L);
             long j = profilingMap.getOrDefault(profilerName, -1L);
-            List<Profiler.Result> list = Lists.newArrayList();
+            List<Profiler.Result> list = new ArrayList<>();
 
             if (!profilerName.isEmpty()) {
                 profilerName = profilerName + ".";

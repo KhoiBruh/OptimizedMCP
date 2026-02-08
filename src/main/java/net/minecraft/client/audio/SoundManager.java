@@ -20,11 +20,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 public class SoundManager {
     private static final Marker LOG_MARKER = MarkerManager.getMarker("SOUNDS");
@@ -44,11 +41,11 @@ public class SoundManager {
 
     public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_) {
         invPlayingSounds = ((BiMap) playingSounds).inverse();
-        playingSoundPoolEntries = Maps.newHashMap();
+        playingSoundPoolEntries = new HashMap<>();
         categorySounds = HashMultimap.create();
-        tickableSounds = Lists.newArrayList();
-        delayedSounds = Maps.newHashMap();
-        playingSoundsStopTime = Maps.newHashMap();
+        tickableSounds = new ArrayList<>();
+        delayedSounds = new HashMap<>();
+        playingSoundsStopTime = new HashMap<>();
         sndHandler = p_i45119_1_;
         options = p_i45119_2_;
 

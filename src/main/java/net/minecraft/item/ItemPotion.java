@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,13 +19,15 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class ItemPotion extends Item {
     private static final Map<List<PotionEffect>, Integer> SUB_ITEMS_CACHE = Maps.newLinkedHashMap();
-    private final Map<Integer, List<PotionEffect>> effectCache = Maps.newHashMap();
+    private final Map<Integer, List<PotionEffect>> effectCache = new HashMap<>();
 
     public ItemPotion() {
         setMaxStackSize(1);
@@ -41,7 +42,7 @@ public class ItemPotion extends Item {
 
     public List<PotionEffect> getEffects(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9)) {
-            List<PotionEffect> list1 = Lists.newArrayList();
+            List<PotionEffect> list1 = new ArrayList<>();
             NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {

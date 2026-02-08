@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
 import net.minecraft.entity.boss.EntityDragon;
@@ -18,17 +17,19 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class EntityList {
     public static final Map<Integer, EntityList.EntityEggInfo> entityEggs = Maps.newLinkedHashMap();
     private static final Logger logger = LogManager.getLogger();
-    private static final Map<String, Class<? extends Entity>> stringToClassMapping = Maps.newHashMap();
-    private static final Map<Class<? extends Entity>, String> classToStringMapping = Maps.newHashMap();
-    private static final Map<Integer, Class<? extends Entity>> idToClassMapping = Maps.newHashMap();
-    private static final Map<Class<? extends Entity>, Integer> classToIDMapping = Maps.newHashMap();
-    private static final Map<String, Integer> stringToIDMapping = Maps.newHashMap();
+    private static final Map<String, Class<? extends Entity>> stringToClassMapping = new HashMap<>();
+    private static final Map<Class<? extends Entity>, String> classToStringMapping = new HashMap<>();
+    private static final Map<Integer, Class<? extends Entity>> idToClassMapping = new HashMap<>();
+    private static final Map<Class<? extends Entity>, Integer> classToIDMapping = new HashMap<>();
+    private static final Map<String, Integer> stringToIDMapping = new HashMap<>();
 
     static {
         addMapping(EntityItem.class, "Item", 1);
@@ -207,7 +208,7 @@ public class EntityList {
     }
 
     public static List<String> getEntityNameList() {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (Map.Entry<String, Class<? extends Entity>> entry : stringToClassMapping.entrySet()) {
             Class<? extends Entity> oclass = entry.getValue();

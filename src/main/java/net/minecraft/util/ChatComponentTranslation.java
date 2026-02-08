@@ -1,12 +1,8 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 
-import java.util.Arrays;
-import java.util.IllegalFormatException;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +11,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
     private final String key;
     private final Object[] formatArgs;
     private final Object syncLock = new Object();
-    List<IChatComponent> children = Lists.newArrayList();
+    List<IChatComponent> children = new ArrayList<>();
     private long lastTranslationUpdateTimeInMilliseconds = -1L;
 
     public ChatComponentTranslation(String translationKey, Object... args) {

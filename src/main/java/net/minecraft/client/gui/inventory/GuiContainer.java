@@ -1,6 +1,5 @@
 package net.minecraft.client.gui.inventory;
 
-import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,11 +17,12 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class GuiContainer extends GuiScreen {
     protected static final ResourceLocation inventoryBackground = new ResourceLocation("textures/gui/container/inventory.png");
-    protected final Set<Slot> dragSplittingSlots = Sets.newHashSet();
+    protected final Set<Slot> dragSplittingSlots = new HashSet<>();
     public Container inventorySlots;
     protected int xSize = 176;
     protected int ySize = 166;

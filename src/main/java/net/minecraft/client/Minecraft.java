@@ -1,9 +1,7 @@
 package net.minecraft.client;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
-import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -124,7 +122,7 @@ public class Minecraft implements IThreadListener {
     private final Proxy proxy;
     private final boolean jvm64bit;
     private final IMetadataSerializer metadataSerializer_ = new IMetadataSerializer();
-    private final List<IResourcePack> defaultResourcePacks = Lists.newArrayList();
+    private final List<IResourcePack> defaultResourcePacks = new ArrayList<>();
     private final MinecraftSessionService sessionService;
     private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
     private final Thread mcThread = Thread.currentThread();
@@ -270,7 +268,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public static Map<String, String> getSessionInfo() {
-        Map<String, String> map = Maps.newHashMap();
+        Map<String, String> map = new HashMap<>();
         map.put("X-Minecraft-Username", theMinecraft.session.username());
         map.put("X-Minecraft-UUID", theMinecraft.session.playerID());
         map.put("X-Minecraft-Version", "1.8.9");
@@ -587,7 +585,7 @@ public class Minecraft implements IThreadListener {
     }
 
     private void updateDisplayMode() throws LWJGLException {
-        Set<DisplayMode> set = Sets.newHashSet();
+        Set<DisplayMode> set = new HashSet<>();
         Collections.addAll(set, Display.getAvailableDisplayModes());
         DisplayMode displaymode = Display.getDesktopDisplayMode();
 

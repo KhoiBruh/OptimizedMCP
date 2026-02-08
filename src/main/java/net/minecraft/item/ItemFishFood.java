@@ -1,6 +1,5 @@
 package net.minecraft.item;
 
-import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -8,6 +7,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +64,7 @@ public class ItemFishFood extends ItemFood {
         CLOWNFISH(2, "clownfish", 1, 0.1F),
         PUFFERFISH(3, "pufferfish", 1, 0.1F);
 
-        private static final Map<Integer, ItemFishFood.FishType> META_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, ItemFishFood.FishType> META_LOOKUP = new HashMap<>();
 
         static {
             for (ItemFishFood.FishType itemfishfood$fishtype : values()) {

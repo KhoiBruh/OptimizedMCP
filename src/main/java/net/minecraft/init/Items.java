@@ -193,9 +193,7 @@ public class Items {
     public static final Item banner;
 
     static {
-        if (!Bootstrap.isRegistered()) {
-            throw new RuntimeException("Accessed Items before Bootstrap!");
-        } else {
+        if (Bootstrap.isRegistered()) {
             iron_shovel = getRegisteredItem("iron_shovel");
             iron_pickaxe = getRegisteredItem("iron_pickaxe");
             iron_axe = getRegisteredItem("iron_axe");
@@ -383,7 +381,7 @@ public class Items {
             prismarine_shard = getRegisteredItem("prismarine_shard");
             prismarine_crystals = getRegisteredItem("prismarine_crystals");
             banner = getRegisteredItem("banner");
-        }
+        } else throw new RuntimeException("Accessed Items before Bootstrap!");
     }
 
     private static Item getRegisteredItem(String name) {

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +46,7 @@ public class PreYggdrasilConverter {
             if (gameprofile != null && gameprofile.getId() != null) {
                 return gameprofile.getId().toString();
             } else if (!minecraftserver.isSinglePlayer() && minecraftserver.isServerInOnlineMode()) {
-                final List<GameProfile> list = Lists.newArrayList();
+                final List<GameProfile> list = new ArrayList<>();
                 ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
                     public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
                         minecraftserver.getPlayerProfileCache().addEntry(p_onProfileLookupSucceeded_1_);

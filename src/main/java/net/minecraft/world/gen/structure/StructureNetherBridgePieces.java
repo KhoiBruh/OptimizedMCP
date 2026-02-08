@@ -12,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -1006,21 +1007,21 @@ public class StructureNetherBridgePieces {
         public StructureNetherBridgePieces.PieceWeight theNetherBridgePieceWeight;
         public List<StructureNetherBridgePieces.PieceWeight> primaryWeights;
         public List<StructureNetherBridgePieces.PieceWeight> secondaryWeights;
-        public List<StructureComponent> field_74967_d = Lists.newArrayList();
+        public List<StructureComponent> field_74967_d = new ArrayList<>();
 
         public Start() {
         }
 
         public Start(Random p_i2059_1_, int p_i2059_2_, int p_i2059_3_) {
             super(p_i2059_1_, p_i2059_2_, p_i2059_3_);
-            primaryWeights = Lists.newArrayList();
+            primaryWeights = new ArrayList<>();
 
             for (StructureNetherBridgePieces.PieceWeight structurenetherbridgepieces$pieceweight : StructureNetherBridgePieces.primaryComponents) {
                 structurenetherbridgepieces$pieceweight.field_78827_c = 0;
                 primaryWeights.add(structurenetherbridgepieces$pieceweight);
             }
 
-            secondaryWeights = Lists.newArrayList();
+            secondaryWeights = new ArrayList<>();
 
             for (StructureNetherBridgePieces.PieceWeight structurenetherbridgepieces$pieceweight1 : StructureNetherBridgePieces.secondaryComponents) {
                 structurenetherbridgepieces$pieceweight1.field_78827_c = 0;

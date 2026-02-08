@@ -1,6 +1,5 @@
 package net.minecraft.client.network;
 
-import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.mojang.authlib.GameProfile;
@@ -76,7 +75,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     private Minecraft gameController;
     private WorldClient clientWorldController;
     private boolean doneLoadingTerrain;
-    private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.newHashMap();
+    private final Map<UUID, NetworkPlayerInfo> playerInfoMap = new HashMap<>();
     public int currentServerMaxPlayers = 20;
     private boolean field_147308_k = false;
     private final Random avRandomizer = new Random();

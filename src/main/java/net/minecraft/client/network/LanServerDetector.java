@@ -1,6 +1,5 @@
 package net.minecraft.client.network;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -42,7 +42,7 @@ public class LanServerDetector {
 
     public static class LanServerList {
         boolean wasUpdated;
-        private final List<LanServerDetector.LanServer> listOfLanServers = Lists.newArrayList();
+        private final List<LanServerDetector.LanServer> listOfLanServers = new ArrayList<>();
 
         public synchronized boolean getWasUpdated() {
             return wasUpdated;

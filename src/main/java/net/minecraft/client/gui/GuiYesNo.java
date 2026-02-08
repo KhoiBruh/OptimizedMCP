@@ -1,12 +1,12 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.resources.I18n;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiYesNo extends GuiScreen {
-    private final List<String> field_175298_s = Lists.newArrayList();
+    private final List<String> field_175298_s = new ArrayList<>();
     protected GuiYesNoCallback parentScreen;
     protected String messageLine1;
     protected String confirmButtonText;

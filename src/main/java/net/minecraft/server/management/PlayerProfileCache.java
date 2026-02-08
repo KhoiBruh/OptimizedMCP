@@ -2,7 +2,6 @@ package net.minecraft.server.management;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 import com.google.gson.*;
 import com.mojang.authlib.Agent;
@@ -36,8 +35,8 @@ public class PlayerProfileCache {
         }
     };
     protected final Gson gson;
-    private final Map<String, PlayerProfileCache.ProfileEntry> usernameToProfileEntryMap = Maps.newHashMap();
-    private final Map<UUID, PlayerProfileCache.ProfileEntry> uuidToProfileEntryMap = Maps.newHashMap();
+    private final Map<String, PlayerProfileCache.ProfileEntry> usernameToProfileEntryMap = new HashMap<>();
+    private final Map<UUID, PlayerProfileCache.ProfileEntry> uuidToProfileEntryMap = new HashMap<>();
     private final LinkedList<GameProfile> gameProfiles = Lists.newLinkedList();
     private final MinecraftServer mcServer;
     private final File usercacheFile;
@@ -187,7 +186,7 @@ public class PlayerProfileCache {
     }
 
     private List<PlayerProfileCache.ProfileEntry> getEntriesWithLimit(int limitSize) {
-        ArrayList<PlayerProfileCache.ProfileEntry> arraylist = Lists.newArrayList();
+        ArrayList<PlayerProfileCache.ProfileEntry> arraylist = new ArrayList<>();
 
         for (GameProfile gameprofile : Lists.newArrayList(Iterators.limit(gameProfiles.iterator(), limitSize))) {
             PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = getByUUID(gameprofile.getId());

@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.IBlockState;
@@ -37,6 +36,7 @@ import net.optifine.player.PlayerItemsLayer;
 import net.optifine.shaders.Shaders;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class RenderManager {
@@ -51,8 +51,8 @@ public class RenderManager {
     public double viewerPosY;
     public double viewerPosZ;
     public Render renderRender = null;
-    private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.newHashMap();
-    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
+    private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = new HashMap<>();
+    private final Map<String, RenderPlayer> skinMap = new HashMap<>();
     private final RenderPlayer playerRenderer;
     private FontRenderer textRenderer;
     private double renderPosX;

@@ -1,8 +1,6 @@
 package net.minecraft.server.management;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
@@ -37,10 +35,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class ServerConfigurationManager {
     public static final File FILE_PLAYERBANS = new File("banned-players.json");
@@ -50,8 +45,8 @@ public abstract class ServerConfigurationManager {
     private static final Logger logger = LogManager.getLogger();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     private final MinecraftServer mcServer;
-    private final List<EntityPlayerMP> playerEntityList = Lists.newArrayList();
-    private final Map<UUID, EntityPlayerMP> uuidToPlayerMap = Maps.newHashMap();
+    private final List<EntityPlayerMP> playerEntityList = new ArrayList<>();
+    private final Map<UUID, EntityPlayerMP> uuidToPlayerMap = new HashMap<>();
     private final UserListBans bannedPlayers;
     private final BanList bannedIPs;
     private final UserListOps ops;
@@ -70,7 +65,7 @@ public abstract class ServerConfigurationManager {
         bannedIPs = new BanList(FILE_IPBANS);
         ops = new UserListOps(FILE_OPS);
         whiteListedPlayers = new UserListWhitelist(FILE_WHITELIST);
-        playerStatFiles = Maps.newHashMap();
+        playerStatFiles = new HashMap<>();
         mcServer = server;
         bannedPlayers.setLanServer(false);
         bannedIPs.setLanServer(false);
@@ -145,7 +140,7 @@ public abstract class ServerConfigurationManager {
     }
 
     protected void sendScoreboard(ServerScoreboard scoreboardIn, EntityPlayerMP playerIn) {
-        Set<ScoreObjective> set = Sets.newHashSet();
+        Set<ScoreObjective> set = new HashSet<>();
 
         for (ScorePlayerTeam scoreplayerteam : scoreboardIn.getTeams()) {
             playerIn.playerNetServerHandler.sendPacket(new S3EPacketTeams(scoreplayerteam, 0));
@@ -303,7 +298,7 @@ public abstract class ServerConfigurationManager {
 
     public EntityPlayerMP createPlayerForUser(GameProfile profile) {
         UUID uuid = EntityPlayer.getUUID(profile);
-        List<EntityPlayerMP> list = Lists.newArrayList();
+        List<EntityPlayerMP> list = new ArrayList<>();
 
         for (EntityPlayerMP entityplayermp : playerEntityList) {
             if (entityplayermp.getUniqueID().equals(uuid)) {
@@ -670,7 +665,7 @@ public abstract class ServerConfigurationManager {
     }
 
     public List<EntityPlayerMP> getPlayersMatchingAddress(String address) {
-        List<EntityPlayerMP> list = Lists.newArrayList();
+        List<EntityPlayerMP> list = new ArrayList<>();
 
         for (EntityPlayerMP entityplayermp : playerEntityList) {
             if (entityplayermp.getPlayerIP().equals(address)) {

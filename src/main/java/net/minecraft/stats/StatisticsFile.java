@@ -1,6 +1,5 @@
 package net.minecraft.stats;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class StatisticsFile extends StatFileWriter {
     private static final Logger logger = LogManager.getLogger();
     private final MinecraftServer mcServer;
     private final File statsFile;
-    private final Set<StatBase> field_150888_e = Sets.newHashSet();
+    private final Set<StatBase> field_150888_e = new HashSet<>();
     private int field_150885_f = -300;
     private boolean field_150886_g = false;
 
@@ -115,10 +116,10 @@ public class StatisticsFile extends StatFileWriter {
         JsonElement jsonelement = JsonParser.parseString(p_150881_1_);
 
         if (!jsonelement.isJsonObject()) {
-            return Maps.newHashMap();
+            return new HashMap<>();
         } else {
             JsonObject jsonobject = jsonelement.getAsJsonObject();
-            Map<StatBase, TupleIntJsonSerializable> map = Maps.newHashMap();
+            Map<StatBase, TupleIntJsonSerializable> map = new HashMap<>();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                 StatBase statbase = StatList.getOneShotStat(entry.getKey());
@@ -163,7 +164,7 @@ public class StatisticsFile extends StatFileWriter {
 
     public void func_150876_a(EntityPlayerMP p_150876_1_) {
         int i = mcServer.getTickCounter();
-        Map<StatBase, Integer> map = Maps.newHashMap();
+        Map<StatBase, Integer> map = new HashMap<>();
 
         if (field_150886_g || i - field_150885_f > 300) {
             field_150885_f = i;
@@ -177,7 +178,7 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public void sendAchievements(EntityPlayerMP player) {
-        Map<StatBase, Integer> map = Maps.newHashMap();
+        Map<StatBase, Integer> map = new HashMap<>();
 
         for (Achievement achievement : AchievementList.achievementList) {
             if (hasAchievementUnlocked(achievement)) {

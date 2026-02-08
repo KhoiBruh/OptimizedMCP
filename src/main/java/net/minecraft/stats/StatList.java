@@ -1,8 +1,5 @@
 package net.minecraft.stats;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
@@ -15,20 +12,18 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StatList {
     public static final StatBase[] mineBlockStatArray = new StatBase[4096];
     public static final StatBase[] objectCraftStats = new StatBase[32000];
     public static final StatBase[] objectUseStats = new StatBase[32000];
     public static final StatBase[] objectBreakStats = new StatBase[32000];
-    public static List<StatBase> allStats = Lists.newArrayList();
-    public static List<StatBase> generalStats = Lists.newArrayList();
-    public static List<StatCrafting> itemStats = Lists.newArrayList();
-    public static List<StatCrafting> objectMineStats = Lists.newArrayList();
-    protected static Map<String, StatBase> oneShotStats = Maps.newHashMap();
+    public static List<StatBase> allStats = new ArrayList<>();
+    public static List<StatBase> generalStats = new ArrayList<>();
+    public static List<StatCrafting> itemStats = new ArrayList<>();
+    public static List<StatCrafting> objectMineStats = new ArrayList<>();
+    protected static Map<String, StatBase> oneShotStats = new HashMap<>();
     public static StatBase leaveGameStat = (new StatBasic("stat.leaveGame", new ChatComponentTranslation("stat.leaveGame"))).initIndependentStat().registerStat();
     public static StatBase minutesPlayedStat = (new StatBasic("stat.playOneMinute", new ChatComponentTranslation("stat.playOneMinute"), StatBase.timeStatType)).initIndependentStat().registerStat();
     public static StatBase timeSinceDeathStat = (new StatBasic("stat.timeSinceDeath", new ChatComponentTranslation("stat.timeSinceDeath"), StatBase.timeStatType)).initIndependentStat().registerStat();
@@ -88,7 +83,7 @@ public class StatList {
     }
 
     private static void initCraftableStats() {
-        Set<Item> set = Sets.newHashSet();
+        Set<Item> set = new HashSet<>();
 
         for (IRecipe irecipe : CraftingManager.getInstance().getRecipeList()) {
             if (irecipe.getRecipeOutput() != null) {

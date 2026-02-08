@@ -1,7 +1,6 @@
 package net.minecraft.entity;
 
 import com.google.common.base.Predicates;
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +34,7 @@ public abstract class EntityLivingBase extends Entity {
     private static final UUID sprintingSpeedBoostModifierUUID = UUID.fromString("662A6B8D-DA3E-4C1C-8813-96EA6097278D");
     private static final AttributeModifier sprintingSpeedBoostModifier = (new AttributeModifier(sprintingSpeedBoostModifierUUID, "Sprinting speed boost", 0.30000001192092896D, 2)).setSaved(false);
     private final CombatTracker _combatTracker = new CombatTracker(this);
-    private final Map<Integer, PotionEffect> activePotionsMap = Maps.newHashMap();
+    private final Map<Integer, PotionEffect> activePotionsMap = new HashMap<>();
     private final ItemStack[] previousEquipment = new ItemStack[5];
     public boolean isSwingInProgress;
     public int swingProgressInt;

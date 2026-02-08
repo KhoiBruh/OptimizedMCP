@@ -2,8 +2,8 @@ package net.minecraft.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -18,7 +18,7 @@ public enum EnumFacing implements IStringSerializable {
 
     public static final EnumFacing[] VALUES = new EnumFacing[6];
     private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
-    private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.newHashMap();
+    private static final Map<String, EnumFacing> NAME_LOOKUP = new HashMap<>();
 
     static {
         for (EnumFacing enumfacing : values()) {
@@ -215,7 +215,7 @@ public enum EnumFacing implements IStringSerializable {
         Y("y", EnumFacing.Plane.VERTICAL),
         Z("z", EnumFacing.Plane.HORIZONTAL);
 
-        private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = Maps.newHashMap();
+        private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = new HashMap<>();
 
         static {
             for (EnumFacing.Axis enumfacing$axis : values()) {

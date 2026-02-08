@@ -1,12 +1,12 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.collect.Maps;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -26,7 +26,7 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
 
     public void readPacketData(PacketBuffer buf) {
         int i = buf.readVarIntFromBuffer();
-        field_148976_a = Maps.newHashMap();
+        field_148976_a = new HashMap<>();
 
         for (int j = 0; j < i; ++j) {
             StatBase statbase = StatList.getOneShotStat(buf.readStringFromBuffer(32767));

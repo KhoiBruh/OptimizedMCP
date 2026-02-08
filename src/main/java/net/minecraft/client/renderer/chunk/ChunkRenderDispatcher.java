@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.chunk;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -40,7 +39,7 @@ public class ChunkRenderDispatcher {
     }
 
     public ChunkRenderDispatcher(int p_i4_1_) {
-        listThreadedWorkers = Lists.newArrayList();
+        listThreadedWorkers = new ArrayList<>();
         queueChunkUpdates = Queues.newArrayBlockingQueue(100);
         worldVertexUploader = new WorldVertexBufferUploader();
         vertexUploader = new VertexBufferUploader();
@@ -153,7 +152,7 @@ public class ChunkRenderDispatcher {
         while (runChunkUploads(0L)) {
         }
 
-        List<RegionRenderCacheBuilder> list = Lists.newArrayList();
+        List<RegionRenderCacheBuilder> list = new ArrayList<>();
 
         while (list.size() != countRenderBuilders) {
             try {

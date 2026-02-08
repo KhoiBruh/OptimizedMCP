@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.chunk;
 
-import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -98,7 +97,7 @@ public class ChunkRenderWorker implements Runnable {
             }
 
             final CompiledChunk lvt_7_1_ = generator.getCompiledChunk();
-            ArrayList<ListenableFuture<Object>> lvt_8_1_ = Lists.newArrayList();
+            ArrayList<ListenableFuture<Object>> lvt_8_1_ = new ArrayList<>();
 
             if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
                 for (EnumWorldBlockLayer enumworldblocklayer : EnumWorldBlockLayer.values()) {

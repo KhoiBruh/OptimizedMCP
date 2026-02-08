@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -51,8 +52,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     public boolean allowUserInput;
     protected Minecraft mc;
     protected RenderItem itemRender;
-    protected List<GuiButton> buttonList = Lists.newArrayList();
-    protected List<GuiLabel> labelList = Lists.newArrayList();
+    protected List<GuiButton> buttonList = new ArrayList<>();
+    protected List<GuiLabel> labelList = new ArrayList<>();
     protected FontRenderer fontRendererObj;
     private GuiButton selectedButton;
     private int eventButton;
@@ -243,7 +244,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                         NBTBase nbtbase1 = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
 
                         if (nbtbase1 instanceof NBTTagCompound nbttagcompound) {
-                            List<String> list1 = Lists.newArrayList();
+                            List<String> list1 = new ArrayList<>();
                             list1.add(nbttagcompound.getString("name"));
 
                             if (nbttagcompound.hasKey("type", 8)) {

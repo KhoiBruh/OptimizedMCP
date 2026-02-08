@@ -1,7 +1,6 @@
 package net.minecraft.client.resources;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.client.resources.data.LanguageMetadataSection;
@@ -10,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -19,7 +19,7 @@ public class LanguageManager implements IResourceManagerReloadListener {
     private static final Logger logger = LogManager.getLogger();
     private final IMetadataSerializer theMetadataSerializer;
     private String currentLanguage;
-    private final Map<String, Language> languageMap = Maps.newHashMap();
+    private final Map<String, Language> languageMap = new HashMap<>();
 
     public LanguageManager(IMetadataSerializer theMetadataSerializerIn, String currentLanguageIn) {
         theMetadataSerializer = theMetadataSerializerIn;

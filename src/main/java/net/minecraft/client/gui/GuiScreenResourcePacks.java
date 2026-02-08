@@ -10,6 +10,7 @@ import org.lwjgl.Sys;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class GuiScreenResourcePacks extends GuiScreen {
         buttonList.add(new GuiOptionButton(1, width / 2 + 4, height - 48, I18n.format("gui.done")));
 
         if (!changed) {
-            availableResourcePacks = Lists.newArrayList();
-            selectedResourcePacks = Lists.newArrayList();
+            availableResourcePacks = new ArrayList<>();
+            selectedResourcePacks = new ArrayList<>();
             ResourcePackRepository resourcepackrepository = mc.getResourcePackRepository();
             resourcepackrepository.updateRepositoryEntriesAll();
             List<ResourcePackRepository.Entry> list = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
@@ -119,7 +120,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
                 }
             } else if (button.id == 1) {
                 if (changed) {
-                    List<ResourcePackRepository.Entry> list = Lists.newArrayList();
+                    List<ResourcePackRepository.Entry> list = new ArrayList<>();
 
                     for (ResourcePackListEntry resourcepacklistentry : selectedResourcePacks) {
                         if (resourcepacklistentry instanceof ResourcePackListEntryFound) {

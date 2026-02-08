@@ -1,8 +1,7 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,11 +49,11 @@ public enum EnumParticleTypes {
     ITEM_TAKE("take", 40, false),
     MOB_APPEARANCE("mobappearance", 41, true);
 
-    private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
+    private static final Map<Integer, EnumParticleTypes> PARTICLES = new HashMap<>();
     private static final String[] PARTICLE_NAMES;
 
     static {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (EnumParticleTypes enumparticletypes : values()) {
             PARTICLES.put(enumparticletypes.particleID, enumparticletypes);

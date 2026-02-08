@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,10 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class StructureOceanMonumentPieces {
     public static void registerOceanMonumentPieces() {
@@ -579,7 +575,7 @@ public class StructureOceanMonumentPieces {
     public static class MonumentBuilding extends StructureOceanMonumentPieces.Piece {
         private StructureOceanMonumentPieces.RoomDefinition field_175845_o;
         private StructureOceanMonumentPieces.RoomDefinition field_175844_p;
-        private final List<StructureOceanMonumentPieces.Piece> field_175843_q = Lists.newArrayList();
+        private final List<StructureOceanMonumentPieces.Piece> field_175843_q = new ArrayList<>();
 
         public MonumentBuilding() {
         }
@@ -594,7 +590,7 @@ public class StructureOceanMonumentPieces {
             field_175845_o.field_175963_d = true;
             field_175843_q.add(new StructureOceanMonumentPieces.EntryRoom(coordBaseMode, field_175845_o));
             field_175843_q.add(new StructureOceanMonumentPieces.MonumentCoreRoom(coordBaseMode, field_175844_p, p_i45599_1_));
-            List<StructureOceanMonumentPieces.MonumentRoomFitHelper> list1 = Lists.newArrayList();
+            List<StructureOceanMonumentPieces.MonumentRoomFitHelper> list1 = new ArrayList<>();
             list1.add(new StructureOceanMonumentPieces.XYDoubleRoomFitHelper());
             list1.add(new StructureOceanMonumentPieces.YZDoubleRoomFitHelper());
             list1.add(new StructureOceanMonumentPieces.ZDoubleRoomFitHelper());
@@ -718,7 +714,7 @@ public class StructureOceanMonumentPieces {
             field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
             field_175844_p.field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
             field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            List<StructureOceanMonumentPieces.RoomDefinition> list = Lists.newArrayList();
+            List<StructureOceanMonumentPieces.RoomDefinition> list = new ArrayList<>();
 
             for (StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition4 : astructureoceanmonumentpieces$roomdefinition) {
                 if (structureoceanmonumentpieces$roomdefinition4 != null) {

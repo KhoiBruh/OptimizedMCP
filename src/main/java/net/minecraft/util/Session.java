@@ -1,9 +1,9 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.util.UUIDTypeAdapter;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,7 +27,7 @@ public record Session(String username, String playerID, String token, String ses
         LEGACY("legacy"),
         MOJANG("mojang");
 
-        private static final Map<String, Type> SESSION_TYPES = Maps.newHashMap();
+        private static final Map<String, Type> SESSION_TYPES = new HashMap<>();
 
         static {
             for (Type session$type : values()) {

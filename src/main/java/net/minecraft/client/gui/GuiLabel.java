@@ -1,10 +1,10 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiLabel extends Gui {
@@ -31,7 +31,7 @@ public class GuiLabel extends Gui {
         field_146174_h = p_i45540_4_;
         field_146167_a = p_i45540_5_;
         field_146161_f = p_i45540_6_;
-        field_146173_k = Lists.newArrayList();
+        field_146173_k = new ArrayList<>();
         centered = false;
         labelBgEnabled = false;
         field_146168_n = p_i45540_7_;

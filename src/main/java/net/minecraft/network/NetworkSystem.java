@@ -1,6 +1,5 @@
 package net.minecraft.network;
 
-import com.google.common.collect.Lists;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.local.LocalAddress;
@@ -22,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.net.InetAddress;
 import java.net.SocketAddress;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -39,8 +39,8 @@ public class NetworkSystem {
     };
     private static final Logger logger = LogManager.getLogger();
     private final MinecraftServer mcServer;
-    private final List<ChannelFuture> endpoints = Collections.synchronizedList(Lists.newArrayList());
-    private final List<NetworkManager> networkManagers = Collections.synchronizedList(Lists.newArrayList());
+    private final List<ChannelFuture> endpoints = Collections.synchronizedList(new ArrayList<>());
+    private final List<NetworkManager> networkManagers = Collections.synchronizedList(new ArrayList<>());
     public volatile boolean isAlive;
 
     public NetworkSystem(MinecraftServer server) {

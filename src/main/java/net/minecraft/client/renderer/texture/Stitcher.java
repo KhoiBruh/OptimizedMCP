@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.client.renderer.StitcherException;
 import net.minecraft.util.MathHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -68,13 +69,13 @@ public class Stitcher {
     }
 
     public List<TextureAtlasSprite> getStichSlots() {
-        List<Stitcher.Slot> list = Lists.newArrayList();
+        List<Stitcher.Slot> list = new ArrayList<>();
 
         for (Stitcher.Slot stitcher$slot : stitchSlots) {
             stitcher$slot.getAllStitchSlots(list);
         }
 
-        List<TextureAtlasSprite> list1 = Lists.newArrayList();
+        List<TextureAtlasSprite> list1 = new ArrayList<>();
 
         for (Stitcher.Slot stitcher$slot1 : list) {
             Stitcher.Holder stitcher$holder = stitcher$slot1.getStitchHolder();

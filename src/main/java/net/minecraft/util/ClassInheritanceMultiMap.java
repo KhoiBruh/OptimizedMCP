@@ -2,7 +2,6 @@ package net.minecraft.util;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.optifine.util.IteratorCache;
 
@@ -11,10 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     private static final Set<Class<?>> field_181158_a = Collections.newSetFromMap(new ConcurrentHashMap<>());
-    private final Map<Class<?>, List<T>> map = Maps.newHashMap();
+    private final Map<Class<?>, List<T>> map = new HashMap<>();
     private final Set<Class<?>> knownKeys = Sets.newIdentityHashSet();
     private final Class<T> baseClass;
-    private final List<T> values = Lists.newArrayList();
+    private final List<T> values = new ArrayList<>();
     public boolean empty;
 
     public ClassInheritanceMultiMap(Class<T> baseClassIn) {

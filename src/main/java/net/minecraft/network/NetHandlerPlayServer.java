@@ -1,6 +1,5 @@
 package net.minecraft.network;
 
-import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
 import com.google.common.util.concurrent.Futures;
@@ -41,6 +40,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -734,7 +734,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
         if (playerEntity.openContainer.windowId == packetIn.getWindowId() && playerEntity.openContainer.getCanCraft(playerEntity)) {
             if (playerEntity.isSpectator()) {
-                List<ItemStack> list = Lists.newArrayList();
+                List<ItemStack> list = new ArrayList<>();
 
                 for (int i = 0; i < playerEntity.openContainer.inventorySlots.size(); ++i) {
                     list.add(playerEntity.openContainer.inventorySlots.get(i).getStack());
@@ -754,7 +754,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     field_147372_n.addKey(playerEntity.openContainer.windowId, packetIn.getActionNumber());
                     playerEntity.playerNetServerHandler.sendPacket(new S32PacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), false));
                     playerEntity.openContainer.setCanCraft(playerEntity, false);
-                    List<ItemStack> list1 = Lists.newArrayList();
+                    List<ItemStack> list1 = new ArrayList<>();
 
                     for (int j = 0; j < playerEntity.openContainer.inventorySlots.size(); ++j) {
                         list1.add(playerEntity.openContainer.inventorySlots.get(j).getStack());
@@ -876,7 +876,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void processTabComplete(C14PacketTabComplete packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, playerEntity.getServerForPlayer());
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         list.addAll(serverController.getTabCompletions(playerEntity, packetIn.getMessage(), packetIn.getTargetBlock()));
 

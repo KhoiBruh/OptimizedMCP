@@ -1,16 +1,16 @@
 package net.minecraft.entity.ai.attributes;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import net.minecraft.server.management.LowerStringMap;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public abstract class BaseAttributeMap {
-    protected final Map<IAttribute, IAttributeInstance> attributes = Maps.newHashMap();
+    protected final Map<IAttribute, IAttributeInstance> attributes = new HashMap<>();
     protected final Map<String, IAttributeInstance> attributesByName = new LowerStringMap<>();
     protected final Multimap<IAttribute, IAttribute> field_180377_c = HashMultimap.create();
 

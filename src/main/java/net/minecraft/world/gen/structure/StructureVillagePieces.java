@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -43,7 +44,7 @@ public class StructureVillagePieces {
     }
 
     public static List<StructureVillagePieces.PieceWeight> getStructureVillageWeightedPieceList(Random random, int size) {
-        List<StructureVillagePieces.PieceWeight> list = Lists.newArrayList();
+        List<StructureVillagePieces.PieceWeight> list = new ArrayList<>();
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, MathHelper.getRandomIntegerInRange(random, 2 + size, 4 + size * 2)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getRandomIntegerInRange(random, size, 1 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getRandomIntegerInRange(random, size, 2 + size)));
@@ -1197,8 +1198,8 @@ public class StructureVillagePieces {
         public int terrainType;
         public StructureVillagePieces.PieceWeight structVillagePieceWeight;
         public List<StructureVillagePieces.PieceWeight> structureVillageWeightedPieceList;
-        public List<StructureComponent> field_74932_i = Lists.newArrayList();
-        public List<StructureComponent> field_74930_j = Lists.newArrayList();
+        public List<StructureComponent> field_74932_i = new ArrayList<>();
+        public List<StructureComponent> field_74930_j = new ArrayList<>();
 
         public Start() {
         }

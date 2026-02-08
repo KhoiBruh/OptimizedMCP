@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.block.*;
@@ -86,11 +85,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private static final Set SET_ALL_FACINGS = Set.of(EnumFacing.VALUES);
     private static int renderEntitiesCounter = 0;
     public final Minecraft mc;
-    public final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();
+    public final Map<Integer, DestroyBlockProgress> damagedBlocks = new HashMap<>();
     private final TextureManager renderEngine;
     private final RenderManager renderManager;
-    private final Set<TileEntity> setTileEntities = Sets.newHashSet();
-    private final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
+    private final Set<TileEntity> setTileEntities = new HashSet<>();
+    private final Map<BlockPos, ISound> mapSoundPositions = new HashMap<>();
     private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
     private final ChunkRenderDispatcher renderDispatcher = new ChunkRenderDispatcher();
     private final Vector4f[] debugTerrainMatrix = new Vector4f[8];

@@ -1,6 +1,5 @@
 package net.minecraft.world.biome;
 
-import com.google.common.collect.Lists;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.BlockPos;
@@ -10,6 +9,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public class WorldChunkManager {
     protected WorldChunkManager() {
         biomeCache = new BiomeCache(this);
         generatorOptions = "";
-        biomesToSpawnIn = Lists.newArrayList();
+        biomesToSpawnIn = new ArrayList<>();
         biomesToSpawnIn.add(BiomeGenBase.forest);
         biomesToSpawnIn.add(BiomeGenBase.plains);
         biomesToSpawnIn.add(BiomeGenBase.taiga);

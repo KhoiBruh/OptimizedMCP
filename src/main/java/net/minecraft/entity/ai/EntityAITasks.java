@@ -1,18 +1,18 @@
 package net.minecraft.entity.ai;
 
-import com.google.common.collect.Lists;
 import net.minecraft.profiler.Profiler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class EntityAITasks {
     private static final Logger logger = LogManager.getLogger();
     private final Profiler theProfiler;
-    private final List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.newArrayList();
-    private final List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
+    private final List<EntityAITasks.EntityAITaskEntry> taskEntries = new ArrayList<>();
+    private final List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = new ArrayList<>();
     private int tickCount;
     private final int tickRate = 3;
 

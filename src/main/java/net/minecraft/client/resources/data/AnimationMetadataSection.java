@@ -1,7 +1,6 @@
 package net.minecraft.client.resources.data;
 
-import com.google.common.collect.Sets;
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -58,7 +57,7 @@ public class AnimationMetadataSection implements IMetadataSection {
     }
 
     public Set<Integer> getFrameIndexSet() {
-        Set<Integer> set = Sets.newHashSet();
+        Set<Integer> set = new HashSet<>();
 
         for (AnimationFrame animationframe : animationFrames) {
             set.add(animationframe.frameIndex());

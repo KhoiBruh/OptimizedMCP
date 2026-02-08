@@ -6,10 +6,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ChunkCoordIntPair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorldBorder {
-    private final List<IBorderListener> listeners = Lists.newArrayList();
+    private final List<IBorderListener> listeners = new ArrayList<>();
     private double centerX = 0.0D;
     private double centerZ = 0.0D;
     private double startDiameter = 6.0E7D;

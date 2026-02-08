@@ -25,10 +25,10 @@ import java.util.Map.Entry;
 public class PlayerManager {
     private static final Logger pmLogger = LogManager.getLogger();
     private final WorldServer theWorldServer;
-    private final List<EntityPlayerMP> players = Lists.newArrayList();
+    private final List<EntityPlayerMP> players = new ArrayList<>();
     private final LongHashMap<PlayerManager.PlayerInstance> playerInstances = new LongHashMap<>();
-    private final List<PlayerManager.PlayerInstance> playerInstancesToUpdate = Lists.newArrayList();
-    private final List<PlayerManager.PlayerInstance> playerInstanceList = Lists.newArrayList();
+    private final List<PlayerManager.PlayerInstance> playerInstancesToUpdate = new ArrayList<>();
+    private final List<PlayerManager.PlayerInstance> playerInstanceList = new ArrayList<>();
     private final int[][] xzDirectionsConst = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     private final Map<EntityPlayerMP, Set<ChunkCoordIntPair>> mapPlayerPendingEntries = new HashMap<>();
     private int playerViewRadius;
@@ -370,7 +370,7 @@ public class PlayerManager {
     }
 
     class PlayerInstance {
-        private final List<EntityPlayerMP> playersWatchingChunk = Lists.newArrayList();
+        private final List<EntityPlayerMP> playersWatchingChunk = new ArrayList<>();
         private final ChunkCoordIntPair chunkCoords;
         private final short[] locationOfBlockChange = new short[64];
         private int numBlocksToUpdate;

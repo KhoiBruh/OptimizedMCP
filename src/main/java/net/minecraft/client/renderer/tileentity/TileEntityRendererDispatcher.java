@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,6 +18,7 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.world.World;
 import net.optifine.EmissiveTextures;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TileEntityRendererDispatcher {
@@ -26,7 +26,7 @@ public class TileEntityRendererDispatcher {
     public static double staticPlayerX;
     public static double staticPlayerY;
     public static double staticPlayerZ;
-    public Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = Maps.newHashMap();
+    public Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = new HashMap<>();
     public FontRenderer fontRenderer;
     public TextureManager renderEngine;
     public World worldObj;

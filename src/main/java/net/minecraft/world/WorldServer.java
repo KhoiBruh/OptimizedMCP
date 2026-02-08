@@ -1,8 +1,6 @@
 package net.minecraft.world;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ListenableFuture;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEventData;
@@ -55,9 +53,9 @@ public class WorldServer extends World implements IThreadListener {
     private final MinecraftServer mcServer;
     private final EntityTracker theEntityTracker;
     private final PlayerManager thePlayerManager;
-    private final Set<NextTickListEntry> pendingTickListEntriesHashSet = Sets.newHashSet();
+    private final Set<NextTickListEntry> pendingTickListEntriesHashSet = new HashSet<>();
     private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<>();
-    private final Map<UUID, Entity> entitiesByUuid = Maps.newHashMap();
+    private final Map<UUID, Entity> entitiesByUuid = new HashMap<>();
     private final Teleporter worldTeleporter;
     private final SpawnerAnimals mobSpawner = new SpawnerAnimals();
     public ChunkProviderServer theChunkProviderServer;
@@ -66,7 +64,7 @@ public class WorldServer extends World implements IThreadListener {
     private int updateEntityTick;
     private final WorldServer.ServerBlockEventList[] blockEventQueue = new WorldServer.ServerBlockEventList[]{new WorldServer.ServerBlockEventList(), new WorldServer.ServerBlockEventList()};
     private int blockEventCacheIndex;
-    private final List<NextTickListEntry> pendingTickListEntriesThisTick = Lists.newArrayList();
+    private final List<NextTickListEntry> pendingTickListEntriesThisTick = new ArrayList<>();
 
     public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId, Profiler profilerIn) {
         super(saveHandlerIn, info, WorldProvider.getProviderForDimension(dimensionId), profilerIn, false);
@@ -513,7 +511,7 @@ public class WorldServer extends World implements IThreadListener {
                     }
 
                     if (list == null) {
-                        list = Lists.newArrayList();
+                        list = new ArrayList<>();
                     }
 
                     list.add(nextticklistentry);
@@ -551,7 +549,7 @@ public class WorldServer extends World implements IThreadListener {
     }
 
     public List<TileEntity> getTileEntitiesIn(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
-        List<TileEntity> list = Lists.newArrayList();
+        List<TileEntity> list = new ArrayList<>();
 
         for (TileEntity tileentity : loadedTileEntityList) {
             BlockPos blockpos = tileentity.getPos();

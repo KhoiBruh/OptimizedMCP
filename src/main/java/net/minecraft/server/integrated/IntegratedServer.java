@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.FutureTask;
 
 public class IntegratedServer extends MinecraftServer {
     private static final Logger logger = LogManager.getLogger();

@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.block.state.IBlockState;
@@ -13,12 +12,13 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class TileEntity {
     private static final Logger logger = LogManager.getLogger();
-    private static final Map<String, Class<? extends TileEntity>> nameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends TileEntity>, String> classToNameMap = Maps.newHashMap();
+    private static final Map<String, Class<? extends TileEntity>> nameToClassMap = new HashMap<>();
+    private static final Map<Class<? extends TileEntity>, String> classToNameMap = new HashMap<>();
 
     static {
         addMapping(TileEntityFurnace.class, "Furnace");

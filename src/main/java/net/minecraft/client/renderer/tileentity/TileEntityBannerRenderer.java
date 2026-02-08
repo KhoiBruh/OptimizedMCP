@@ -1,7 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.GlStateManager;
@@ -13,17 +11,14 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
-    private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = Maps.newHashMap();
+    private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = new HashMap<>();
     private static final ResourceLocation BANNERTEXTURES = new ResourceLocation("textures/entity/banner_base.png");
     public ModelBanner bannerModel = new ModelBanner();
 
-    public void renderTileEntityAt(TileEntityBanner te, double x, double y, double z, float partialTicks,
-                                   int destroyStage) {
+    public void renderTileEntityAt(TileEntityBanner te, double x, double y, double z, float partialTicks, int destroyStage) {
         boolean flag = te.getWorld() != null;
         boolean flag1 = !flag || te.getBlockType() == Blocks.standing_banner;
         int i = flag ? te.getBlockMetadata() : 0;
@@ -110,7 +105,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
                 List<TileEntityBanner.EnumBannerPattern> list1 = bannerObj.getPatternList();
                 List<EnumDyeColor> list = bannerObj.getColorList();
-                List<String> list2 = Lists.newArrayList();
+                List<String> list2 = new ArrayList<>();
 
                 for (TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern : list1) {
                     list2.add("textures/entity/banner/" + tileentitybanner$enumbannerpattern.getPatternName() + ".png");

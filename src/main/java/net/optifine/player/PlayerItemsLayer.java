@@ -9,7 +9,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.src.Config;
 
 import java.util.Map;
-import java.util.Set;
 
 public class PlayerItemsLayer implements LayerRenderer {
     private final RenderPlayer renderPlayer;

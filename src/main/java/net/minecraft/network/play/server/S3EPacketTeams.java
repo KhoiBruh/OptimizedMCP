@@ -1,12 +1,12 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.collect.Lists;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
@@ -23,13 +23,13 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     public S3EPacketTeams() {
         nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
         color = -1;
-        players = Lists.newArrayList();
+        players = new ArrayList<>();
     }
 
     public S3EPacketTeams(ScorePlayerTeam teamIn, int actionIn) {
         nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
         color = -1;
-        players = Lists.newArrayList();
+        players = new ArrayList<>();
         name = teamIn.getRegisteredName();
         action = actionIn;
 
@@ -50,7 +50,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     public S3EPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn) {
         nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
         color = -1;
-        players = Lists.newArrayList();
+        players = new ArrayList<>();
 
         if (actionIn != 3 && actionIn != 4) {
             throw new IllegalArgumentException("Method must be join or leave for player constructor");

@@ -1,6 +1,5 @@
 package net.minecraft.item;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,11 +11,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ItemRecord extends Item {
-    private static final Map<String, ItemRecord> RECORDS = Maps.newHashMap();
+    private static final Map<String, ItemRecord> RECORDS = new HashMap<>();
     public final String recordName;
 
     protected ItemRecord(String name) {

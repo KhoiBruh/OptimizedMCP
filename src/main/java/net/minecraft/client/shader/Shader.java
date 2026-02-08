@@ -1,6 +1,5 @@
 package net.minecraft.client.shader;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -10,16 +9,17 @@ import net.minecraft.client.resources.IResourceManager;
 import org.joml.Matrix4f;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shader {
     public final Framebuffer framebufferIn;
     public final Framebuffer framebufferOut;
     private final ShaderManager manager;
-    private final List<Object> listAuxFramebuffers = Lists.newArrayList();
-    private final List<String> listAuxNames = Lists.newArrayList();
-    private final List<Integer> listAuxWidths = Lists.newArrayList();
-    private final List<Integer> listAuxHeights = Lists.newArrayList();
+    private final List<Object> listAuxFramebuffers = new ArrayList<>();
+    private final List<String> listAuxNames = new ArrayList<>();
+    private final List<Integer> listAuxWidths = new ArrayList<>();
+    private final List<Integer> listAuxHeights = new ArrayList<>();
     private Matrix4f projectionMatrix;
 
     public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws IOException {

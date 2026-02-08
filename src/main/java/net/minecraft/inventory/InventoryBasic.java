@@ -1,12 +1,12 @@
 package net.minecraft.inventory;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class InventoryBasic implements IInventory {
 
     public void addInventoryChangeListener(IInvBasic listener) {
         if (changeListeners == null) {
-            changeListeners = Lists.newArrayList();
+            changeListeners = new ArrayList<>();
         }
 
         changeListeners.add(listener);

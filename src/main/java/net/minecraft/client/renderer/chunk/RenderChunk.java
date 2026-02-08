@@ -39,7 +39,7 @@ public class RenderChunk {
     private final RenderGlobal renderGlobal;
     private final ReentrantLock lockCompileTask = new ReentrantLock();
     private final ReentrantLock lockCompiledChunk = new ReentrantLock();
-    private final Set<TileEntity> setTileEntities = Sets.newHashSet();
+    private final Set<TileEntity> setTileEntities = new HashSet<>();
     private final int index;
     private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
     private final VertexBuffer[] vertexBuffers = new VertexBuffer[EnumWorldBlockLayer.values().length];
@@ -124,7 +124,7 @@ public class RenderChunk {
         }
 
         VisGraph lvt_10_1_ = new VisGraph();
-        HashSet<TileEntity> lvt_11_1_ = Sets.newHashSet();
+        HashSet<TileEntity> lvt_11_1_ = new HashSet<>();
 
         if (!isChunkRegionEmpty(blockpos)) {
             ++renderChunksUpdated;

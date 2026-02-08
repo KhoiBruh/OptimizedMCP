@@ -77,9 +77,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         counterIndexInMap = new CounterInt(0);
         atlasWidth = 0;
         atlasHeight = 0;
-        listAnimatedSprites = Lists.newArrayList();
-        mapRegisteredSprites = Maps.newHashMap();
-        mapUploadedSprites = Maps.newHashMap();
+        listAnimatedSprites = new ArrayList<>();
+        mapRegisteredSprites = new HashMap<>();
+        mapUploadedSprites = new HashMap<>();
         missingImage = new TextureAtlasSprite("missingno");
         basePath = p_i6_1_;
         iconCreator = p_i6_2_;

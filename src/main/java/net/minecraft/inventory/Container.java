@@ -1,7 +1,5 @@
 package net.minecraft.inventory;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -9,19 +7,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public abstract class Container {
-    private final Set<Slot> dragSlots = Sets.newHashSet();
-    public List<ItemStack> inventoryItemStacks = Lists.newArrayList();
-    public List<Slot> inventorySlots = Lists.newArrayList();
+    private final Set<Slot> dragSlots = new HashSet<>();
+    public List<ItemStack> inventoryItemStacks = new ArrayList<>();
+    public List<Slot> inventorySlots = new ArrayList<>();
     public int windowId;
-    protected List<ICrafting> crafters = Lists.newArrayList();
+    protected List<ICrafting> crafters = new ArrayList<>();
     private short transactionID;
     private int dragMode = -1;
     private int dragEvent;
-    private final Set<EntityPlayer> playerList = Sets.newHashSet();
+    private final Set<EntityPlayer> playerList = new HashSet<>();
 
     public static int extractDragMode(int p_94529_0_) {
         return p_94529_0_ >> 2 & 3;
@@ -113,7 +113,7 @@ public abstract class Container {
     }
 
     public List<ItemStack> getInventory() {
-        List<ItemStack> list = Lists.newArrayList();
+        List<ItemStack> list = new ArrayList<>();
 
         for (Slot inventorySlot : inventorySlots) {
             list.add(inventorySlot.getStack());

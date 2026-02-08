@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.BlockStainedGlassPane;
@@ -25,13 +24,14 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TileEntityBeacon extends TileEntityLockable implements ITickable, IInventory {
     public static final Potion[][] effectsList = new Potion[][]{{Potion.moveSpeed, Potion.digSpeed},
             {Potion.resistance, Potion.jump}, {Potion.damageBoost}, {Potion.regeneration}};
-    private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.newArrayList();
+    private final List<TileEntityBeacon.BeamSegment> beamSegments = new ArrayList<>();
     public String customName;
     private long beamRenderCounter;
     private float field_146014_j;

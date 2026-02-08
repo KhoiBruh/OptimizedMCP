@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
@@ -21,6 +20,7 @@ import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class EntityMinecart extends Entity implements IWorldNameable {
@@ -831,7 +831,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         HOPPER(5, "MinecartHopper"),
         COMMAND_BLOCK(6, "MinecartCommandBlock");
 
-        private static final Map<Integer, EntityMinecart.EnumMinecartType> ID_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, EntityMinecart.EnumMinecartType> ID_LOOKUP = new HashMap<>();
 
         static {
             for (EntityMinecart.EnumMinecartType entityminecart$enumminecarttype : values()) {

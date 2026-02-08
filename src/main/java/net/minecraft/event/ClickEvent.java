@@ -1,7 +1,6 @@
 package net.minecraft.event;
 
-import com.google.common.collect.Maps;
-
+import java.util.HashMap;
 import java.util.Map;
 
 public record ClickEvent(Action action, String value) {
@@ -36,7 +35,7 @@ public record ClickEvent(Action action, String value) {
         SUGGEST_COMMAND("suggest_command", true),
         CHANGE_PAGE("change_page", true);
 
-        private static final Map<String, Action> nameMapping = Maps.newHashMap();
+        private static final Map<String, Action> nameMapping = new HashMap<>();
 
         static {
             for (Action clickevent$action : values()) {

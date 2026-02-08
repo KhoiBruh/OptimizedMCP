@@ -1,11 +1,6 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public enum EnumChatFormatting {
@@ -32,7 +27,7 @@ public enum EnumChatFormatting {
     ITALIC("ITALIC", 'o', true),
     RESET("RESET", 'r', -1);
 
-    private static final Map<String, EnumChatFormatting> nameMapping = Maps.newHashMap();
+    private static final Map<String, EnumChatFormatting> nameMapping = new HashMap<>();
     private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + '§' + "[0-9A-FK-OR]");
 
     static {
@@ -90,7 +85,7 @@ public enum EnumChatFormatting {
     }
 
     public static Collection<String> getValidValues(boolean p_96296_0_, boolean p_96296_1_) {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (EnumChatFormatting enumchatformatting : values()) {
             if ((!enumchatformatting.isColor() || p_96296_0_) && (!enumchatformatting.fancyStyling || p_96296_1_)) {

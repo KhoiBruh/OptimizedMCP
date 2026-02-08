@@ -1,6 +1,5 @@
 package net.minecraft.potion;
 
-import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -13,6 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class Potion {
     public static final Potion[] potionTypes = new Potion[32];
-    private static final Map<ResourceLocation, Potion> field_180150_I = Maps.newHashMap();
+    private static final Map<ResourceLocation, Potion> field_180150_I = new HashMap<>();
     public static final Potion field_180151_b = null;
     public static final Potion moveSpeed = (new Potion(1, new ResourceLocation("speed"), false, 8171462)).setPotionName("potion.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2);
     public static final Potion moveSlowdown = (new Potion(2, new ResourceLocation("slowness"), true, 5926017)).setPotionName("potion.moveSlowdown").setIconIndex(1, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448D, 2);
@@ -46,7 +46,7 @@ public class Potion {
     public static final Potion absorption = (new PotionAbsorption(22, new ResourceLocation("absorption"), false, 2445989)).setPotionName("potion.absorption").setIconIndex(2, 2);
     public static final Potion saturation = (new PotionHealth(23, new ResourceLocation("saturation"), false, 16262179)).setPotionName("potion.saturation");
     public final int id;
-    private final Map<IAttribute, AttributeModifier> attributeModifierMap = Maps.newHashMap();
+    private final Map<IAttribute, AttributeModifier> attributeModifierMap = new HashMap<>();
     private final boolean isBadEffect;
     private final int liquidColor;
     private String name = "";

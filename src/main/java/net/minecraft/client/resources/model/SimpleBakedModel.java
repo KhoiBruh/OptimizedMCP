@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleBakedModel implements IBakedModel {
@@ -79,11 +80,11 @@ public class SimpleBakedModel implements IBakedModel {
         }
 
         private Builder(boolean ambientOcclusion, boolean gui3d, ItemCameraTransforms cameraTransforms) {
-            builderGeneralQuads = Lists.newArrayList();
+            builderGeneralQuads = new ArrayList<>();
             builderFaceQuads = Lists.newArrayListWithCapacity(6);
 
             for (EnumFacing enumfacing : EnumFacing.values()) {
-                builderFaceQuads.add(Lists.newArrayList());
+                builderFaceQuads.add(new ArrayList<>());
             }
 
             builderAmbientOcclusion = ambientOcclusion;

@@ -1,7 +1,6 @@
 package net.minecraft.world.chunk;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -24,10 +23,7 @@ import net.minecraft.world.gen.ChunkProviderDebug;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Chunk {
@@ -60,7 +56,7 @@ public class Chunk {
         blockBiomeArray = new byte[256];
         precipitationHeightMap = new int[256];
         updateSkylightColumns = new boolean[256];
-        chunkTileEntityMap = Maps.newHashMap();
+        chunkTileEntityMap = new HashMap<>();
         queuedLightChecks = 4096;
         tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
         entityLists = (ClassInheritanceMultiMap[]) (new ClassInheritanceMultiMap[16]);

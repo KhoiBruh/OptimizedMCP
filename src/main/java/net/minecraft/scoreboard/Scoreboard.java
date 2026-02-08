@@ -1,23 +1,20 @@
 package net.minecraft.scoreboard;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Scoreboard {
     private static String[] field_178823_g = null;
-    private final Map<String, ScoreObjective> scoreObjectives = Maps.newHashMap();
-    private final Map<IScoreObjectiveCriteria, List<ScoreObjective>> scoreObjectiveCriterias = Maps.newHashMap();
-    private final Map<String, Map<ScoreObjective, Score>> entitiesScoreObjectives = Maps.newHashMap();
+    private final Map<String, ScoreObjective> scoreObjectives = new HashMap<>();
+    private final Map<IScoreObjectiveCriteria, List<ScoreObjective>> scoreObjectiveCriterias = new HashMap<>();
+    private final Map<String, Map<ScoreObjective, Score>> entitiesScoreObjectives = new HashMap<>();
     private final ScoreObjective[] objectiveDisplaySlots = new ScoreObjective[19];
-    private final Map<String, ScorePlayerTeam> teams = Maps.newHashMap();
-    private final Map<String, ScorePlayerTeam> teamMemberships = Maps.newHashMap();
+    private final Map<String, ScorePlayerTeam> teams = new HashMap<>();
+    private final Map<String, ScorePlayerTeam> teamMemberships = new HashMap<>();
 
     public static String getObjectiveDisplaySlot(int slot) {
         return switch (slot) {
@@ -77,7 +74,7 @@ public class Scoreboard {
 
             if (scoreobjective == null) {
                 scoreobjective = new ScoreObjective(this, name, criteria);
-                List<ScoreObjective> list = scoreObjectiveCriterias.computeIfAbsent(criteria, k -> Lists.newArrayList());
+                List<ScoreObjective> list = scoreObjectiveCriterias.computeIfAbsent(criteria, k -> new ArrayList<>());
 
                 list.add(scoreobjective);
                 scoreObjectives.put(name, scoreobjective);
@@ -89,7 +86,7 @@ public class Scoreboard {
 
     public Collection<ScoreObjective> getObjectivesFromCriteria(IScoreObjectiveCriteria criteria) {
         Collection<ScoreObjective> collection = scoreObjectiveCriterias.get(criteria);
-        return collection == null ? Lists.newArrayList() : Lists.newArrayList(collection);
+        return collection == null ? new ArrayList<>() : Lists.newArrayList(collection);
     }
 
     public boolean entityHasObjective(String name, ScoreObjective p_178819_2_) {
@@ -103,14 +100,14 @@ public class Scoreboard {
 
     public Score getValueFromObjective(String name, ScoreObjective objective) {
         if (name.length() <= 40) {
-            Map<ScoreObjective, Score> map = entitiesScoreObjectives.computeIfAbsent(name, k -> Maps.newHashMap());
+            Map<ScoreObjective, Score> map = entitiesScoreObjectives.computeIfAbsent(name, k -> new HashMap<>());
 
             return map.computeIfAbsent(objective, o -> new Score(this, o, name));
         } else throw new IllegalArgumentException("The player name '" + name + "' is too long!");
     }
 
     public Collection<Score> getSortedScores(ScoreObjective objective) {
-        List<Score> list = Lists.newArrayList();
+        List<Score> list = new ArrayList<>();
 
         for (Map<ScoreObjective, Score> map : entitiesScoreObjectives.values()) {
             Score score = map.get(objective);
@@ -160,7 +157,7 @@ public class Scoreboard {
 
     public Collection<Score> getScores() {
         Collection<Map<ScoreObjective, Score>> collection = entitiesScoreObjectives.values();
-        List<Score> list = Lists.newArrayList();
+        List<Score> list = new ArrayList<>();
 
         for (Map<ScoreObjective, Score> map : collection) {
             list.addAll(map.values());
@@ -172,7 +169,7 @@ public class Scoreboard {
     public Map<ScoreObjective, Score> getObjectivesForEntity(String name) {
         Map<ScoreObjective, Score> map = entitiesScoreObjectives.get(name);
 
-        if (map == null) map = Maps.newHashMap();
+        if (map == null) map = new HashMap<>();
 
         return map;
     }

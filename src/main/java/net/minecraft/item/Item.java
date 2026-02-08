@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,15 +19,12 @@ import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class Item {
     public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced<>();
     protected static final UUID itemModifierUUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
-    private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
+    private static final Map<Block, Item> BLOCK_TO_ITEM = new HashMap<>();
     protected static Random itemRand = new Random();
     protected int maxStackSize = 64;
     protected boolean bFull3D;

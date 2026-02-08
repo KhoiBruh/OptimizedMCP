@@ -1,6 +1,5 @@
 package net.optifine.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -8,10 +7,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.src.Config;
 import org.jspecify.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiMessage extends GuiScreen {
-    private final List<@Nullable Object> listLines2 = Lists.newArrayList();
+    private final List<@Nullable Object> listLines2 = new ArrayList<>();
     protected final String confirmButtonText;
     private final GuiScreen parentScreen;
     private final String messageLine1;

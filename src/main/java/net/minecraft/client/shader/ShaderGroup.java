@@ -1,7 +1,5 @@
 package net.minecraft.client.shader;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.gson.*;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -18,13 +16,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ShaderGroup {
-    private final List<Shader> listShaders = Lists.newArrayList();
-    private final Map<String, Framebuffer> mapFramebuffers = Maps.newHashMap();
-    private final List<Framebuffer> listFramebuffers = Lists.newArrayList();
+    private final List<Shader> listShaders = new ArrayList<>();
+    private final Map<String, Framebuffer> mapFramebuffers = new HashMap<>();
+    private final List<Framebuffer> listFramebuffers = new ArrayList<>();
     private final Framebuffer mainFramebuffer;
     private final IResourceManager resourceManager;
     private final String shaderGroupName;

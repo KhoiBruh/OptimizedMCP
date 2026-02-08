@@ -7,11 +7,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NBTTagList extends NBTBase {
     private static final Logger LOGGER = LogManager.getLogger();
-    private List<NBTBase> tagList = Lists.newArrayList();
+    private List<NBTBase> tagList = new ArrayList<>();
     private byte tagType = 0;
 
     void write(DataOutput output) throws IOException {

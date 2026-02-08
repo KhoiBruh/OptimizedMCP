@@ -2,13 +2,13 @@ package net.minecraft.client.resources;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class Locale {
     private static final Splitter splitter = Splitter.on('=').limit(2);
     private static final Pattern pattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
-    Map<String, String> properties = Maps.newHashMap();
+    Map<String, String> properties = new HashMap<>();
     private boolean unicode;
 
     public synchronized void loadLocaleDataFiles(IResourceManager resourceManager, List<String> languageList) {

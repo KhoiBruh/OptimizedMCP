@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -61,7 +61,7 @@ public class GuiWinGame extends GuiScreen {
 
     public void initGui() {
         if (field_146582_i == null) {
-            field_146582_i = Lists.newArrayList();
+            field_146582_i = new ArrayList<>();
 
             try {
                 String s;

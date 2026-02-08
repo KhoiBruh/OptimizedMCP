@@ -46,10 +46,10 @@ public class ResourcePackRepository {
     private final File dirResourcepacks;
     private final File dirServerResourcepacks;
     private final ReentrantLock lock = new ReentrantLock();
-    public List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
+    public List<ResourcePackRepository.Entry> repositoryEntries = new ArrayList<>();
     private IResourcePack resourcePackInstance;
     private ListenableFuture<Object> downloadingPacks;
-    private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
+    private List<ResourcePackRepository.Entry> repositoryEntriesAll = new ArrayList<>();
 
     public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
         dirResourcepacks = dirResourcepacksIn;
@@ -92,7 +92,7 @@ public class ResourcePackRepository {
     }
 
     public void updateRepositoryEntriesAll() {
-        List<ResourcePackRepository.Entry> list = Lists.newArrayList();
+        List<ResourcePackRepository.Entry> list = new ArrayList<>();
 
         for (File file1 : getResourcePackFiles()) {
             ResourcePackRepository.Entry resourcepackrepository$entry = new ResourcePackRepository.Entry(file1);

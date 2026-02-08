@@ -1,22 +1,18 @@
 package net.minecraft.client.model;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public abstract class ModelBase {
     public float swingProgress;
     public boolean isRiding;
     public boolean isChild = true;
-    public List<ModelRenderer> boxList = Lists.newArrayList();
+    public List<ModelRenderer> boxList = new ArrayList<>();
     public int textureWidth = 64;
     public int textureHeight = 32;
-    private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
+    private final Map<String, TextureOffset> modelTextureMap = new HashMap<>();
 
     public static void copyModelAngles(ModelRenderer source, ModelRenderer dest) {
         dest.rotateAngleX = source.rotateAngleX;

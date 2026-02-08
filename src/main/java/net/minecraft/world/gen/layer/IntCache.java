@@ -1,15 +1,14 @@
 package net.minecraft.world.gen.layer;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class IntCache {
     private static int intCacheSize = 256;
-    private static final List<int[]> freeSmallArrays = Lists.newArrayList();
-    private static final List<int[]> inUseSmallArrays = Lists.newArrayList();
-    private static final List<int[]> freeLargeArrays = Lists.newArrayList();
-    private static final List<int[]> inUseLargeArrays = Lists.newArrayList();
+    private static final List<int[]> freeSmallArrays = new ArrayList<>();
+    private static final List<int[]> inUseSmallArrays = new ArrayList<>();
+    private static final List<int[]> freeLargeArrays = new ArrayList<>();
+    private static final List<int[]> inUseLargeArrays = new ArrayList<>();
 
     public static synchronized int[] getIntCache(int p_76445_0_) {
         if (p_76445_0_ <= 256) {

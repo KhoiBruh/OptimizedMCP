@@ -1,8 +1,5 @@
 package net.minecraft.world.biome;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
@@ -42,8 +39,8 @@ public abstract class BiomeGenBase {
     protected static final BiomeGenBase.Height height_LowIslands = new BiomeGenBase.Height(0.2F, 0.3F);
     protected static final BiomeGenBase.Height height_PartiallySubmerged = new BiomeGenBase.Height(-0.2F, 0.1F);
     private static final BiomeGenBase[] biomeList = new BiomeGenBase[256];
-    public static final Set<BiomeGenBase> explorationBiomesList = Sets.newHashSet();
-    public static final Map<String, BiomeGenBase> BIOME_ID_MAP = Maps.newHashMap();
+    public static final Set<BiomeGenBase> explorationBiomesList = new HashSet<>();
+    public static final Map<String, BiomeGenBase> BIOME_ID_MAP = new HashMap<>();
     public static final BiomeGenBase plains = (new BiomeGenPlains(1)).setColor(9286496).setBiomeName("Plains");
     public static final BiomeGenBase forest = (new BiomeGenForest(4, 0)).setColor(353825).setBiomeName("Forest");
     public static final BiomeGenBase hell = (new BiomeGenHell(8)).setColor(16711680).setBiomeName("Hell").setDisableRain().setTemperatureRainfall(2.0F, 0.0F);
@@ -166,10 +163,10 @@ public abstract class BiomeGenBase {
         temperature = 0.5F;
         rainfall = 0.5F;
         waterColorMultiplier = 16777215;
-        spawnableMonsterList = Lists.newArrayList();
-        spawnableCreatureList = Lists.newArrayList();
-        spawnableWaterCreatureList = Lists.newArrayList();
-        spawnableCaveCreatureList = Lists.newArrayList();
+        spawnableMonsterList = new ArrayList<>();
+        spawnableCreatureList = new ArrayList<>();
+        spawnableWaterCreatureList = new ArrayList<>();
+        spawnableCaveCreatureList = new ArrayList<>();
         enableRain = true;
         worldGeneratorTrees = new WorldGenTrees(false);
         worldGeneratorBigTree = new WorldGenBigTree(false);

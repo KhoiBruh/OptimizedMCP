@@ -1,7 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -19,11 +17,13 @@ import net.minecraft.world.gen.FlatLayerInfo;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class GuiFlatPresets extends GuiScreen {
-    private static final List<GuiFlatPresets.LayerItem> FLAT_WORLD_PRESETS = Lists.newArrayList();
+    private static final List<GuiFlatPresets.LayerItem> FLAT_WORLD_PRESETS = new ArrayList<>();
 
     static {
         func_146421_a("Classic Flat", Item.getItemFromBlock(Blocks.grass), BiomeGenBase.plains, List.of("village"), new FlatLayerInfo(1, Blocks.grass), new FlatLayerInfo(2, Blocks.dirt), new FlatLayerInfo(1, Blocks.bedrock));
@@ -68,7 +68,7 @@ public class GuiFlatPresets extends GuiScreen {
 
         if (p_175354_4_ != null) {
             for (String s : p_175354_4_) {
-                flatgeneratorinfo.getWorldFeatures().put(s, Maps.newHashMap());
+                flatgeneratorinfo.getWorldFeatures().put(s, new HashMap<>());
             }
         }
 

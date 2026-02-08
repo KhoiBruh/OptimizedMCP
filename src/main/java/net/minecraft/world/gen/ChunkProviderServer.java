@@ -20,6 +20,7 @@ import net.minecraft.world.chunk.storage.IChunkLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private final IChunkProvider serverChunkGenerator;
     private final IChunkLoader chunkLoader;
     private final LongHashMap<Chunk> id2ChunkMap = new LongHashMap<>();
-    private final List<Chunk> loadedChunks = Lists.newArrayList();
+    private final List<Chunk> loadedChunks = new ArrayList<>();
     private final WorldServer worldObj;
 
     public ChunkProviderServer(WorldServer p_i1520_1_, IChunkLoader p_i1520_2_, IChunkProvider p_i1520_3_) {

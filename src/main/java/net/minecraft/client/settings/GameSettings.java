@@ -1,7 +1,6 @@
 package net.minecraft.client.settings;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
@@ -34,10 +33,7 @@ import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class GameSettings {
     public static final int DEFAULT = 0;
@@ -82,8 +78,8 @@ public class GameSettings {
     public int clouds = 2;
     public boolean fancyGraphics = true;
     public int ambientOcclusion = 2;
-    public List<String> resourcePacks = Lists.newArrayList();
-    public List<String> incompatibleResourcePacks = Lists.newArrayList();
+    public List<String> resourcePacks = new ArrayList<>();
+    public List<String> incompatibleResourcePacks = new ArrayList<>();
     public EntityPlayer.EnumChatVisibility chatVisibility = EntityPlayer.EnumChatVisibility.FULL;
     public boolean chatColours = true;
     public boolean chatLinks = true;
@@ -695,7 +691,7 @@ public class GameSettings {
                                 resourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                                 if (resourcePacks == null) {
-                                    resourcePacks = Lists.newArrayList();
+                                    resourcePacks = new ArrayList<>();
                                 }
                             }
 
@@ -703,7 +699,7 @@ public class GameSettings {
                                 incompatibleResourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                                 if (incompatibleResourcePacks == null) {
-                                    incompatibleResourcePacks = Lists.newArrayList();
+                                    incompatibleResourcePacks = new ArrayList<>();
                                 }
                             }
 

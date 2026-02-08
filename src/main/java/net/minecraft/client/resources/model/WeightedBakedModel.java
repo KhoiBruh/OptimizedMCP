@@ -1,13 +1,13 @@
 package net.minecraft.client.resources.model;
 
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandom;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class WeightedBakedModel implements IBakedModel {
     }
 
     public static class Builder {
-        private final List<WeightedBakedModel.MyWeighedRandomItem> listItems = Lists.newArrayList();
+        private final List<WeightedBakedModel.MyWeighedRandomItem> listItems = new ArrayList<>();
 
         public WeightedBakedModel.Builder add(IBakedModel p_177677_1_, int p_177677_2_) {
             listItems.add(new WeightedBakedModel.MyWeighedRandomItem(p_177677_1_, p_177677_2_));

@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -34,7 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.OutputStream;
@@ -60,7 +58,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     protected final Queue<FutureTask<?>> futureTaskQueue = Queues.newArrayDeque();
     private final ISaveFormat anvilConverterForAnvilFile;
     private final File anvilFile;
-    private final List<ITickable> playersOnline = Lists.newArrayList();
+    private final List<ITickable> playersOnline = new ArrayList<>();
     private final NetworkSystem networkSystem;
     private final ServerStatusResponse statusResponse = new ServerStatusResponse();
     private final Random random = new Random();
@@ -623,7 +621,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     public List<String> getTabCompletions(ICommandSender sender, String input, BlockPos pos) {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         if (input.startsWith("/")) {
             input = input.substring(1);

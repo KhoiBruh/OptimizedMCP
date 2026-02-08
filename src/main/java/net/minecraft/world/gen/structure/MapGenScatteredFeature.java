@@ -1,17 +1,13 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
 
 public class MapGenScatteredFeature extends MapGenStructure {
     private static final List<BiomeGenBase> biomelist = Arrays.asList(BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland);
@@ -20,7 +16,7 @@ public class MapGenScatteredFeature extends MapGenStructure {
     private final int minDistanceBetweenScatteredFeatures;
 
     public MapGenScatteredFeature() {
-        scatteredFeatureSpawnList = Lists.newArrayList();
+        scatteredFeatureSpawnList = new ArrayList<>();
         maxDistanceBetweenScatteredFeatures = 32;
         minDistanceBetweenScatteredFeatures = 8;
         scatteredFeatureSpawnList.add(new BiomeGenBase.SpawnListEntry(EntityWitch.class, 1, 1, 1));

@@ -52,6 +52,7 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -184,9 +185,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
 
         if (!loadedChunks.isEmpty()) {
-            List<Chunk> list = Lists.newArrayList();
+            List<Chunk> list = new ArrayList<>();
             Iterator<ChunkCoordIntPair> iterator1 = loadedChunks.iterator();
-            List<TileEntity> list1 = Lists.newArrayList();
+            List<TileEntity> list1 = new ArrayList<>();
 
             while (iterator1.hasNext() && list.size() < 10) {
                 ChunkCoordIntPair chunkcoordintpair = iterator1.next();

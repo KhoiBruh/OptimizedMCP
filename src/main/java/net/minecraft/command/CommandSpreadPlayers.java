@@ -1,8 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,10 +10,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class CommandSpreadPlayers extends CommandBase {
     public String getCommandName() {
@@ -42,7 +36,7 @@ public class CommandSpreadPlayers extends CommandBase {
             double d2 = parseDouble(args[i++], 0.0D);
             double d3 = parseDouble(args[i++], d2 + 1.0D);
             boolean flag = parseBoolean(args[i++]);
-            List<Entity> list = Lists.newArrayList();
+            List<Entity> list = new ArrayList<>();
 
             while (i < args.length) {
                 String s = args[i++];
@@ -94,7 +88,7 @@ public class CommandSpreadPlayers extends CommandBase {
     }
 
     private int func_110667_a(List<Entity> p_110667_1_) {
-        Set<Team> set = Sets.newHashSet();
+        Set<Team> set = new HashSet<>();
 
         for (Entity entity : p_110667_1_) {
             if (entity instanceof EntityPlayer) {
@@ -175,7 +169,7 @@ public class CommandSpreadPlayers extends CommandBase {
     private double func_110671_a(List<Entity> p_110671_1_, World worldIn, CommandSpreadPlayers.Position[] p_110671_3_, boolean p_110671_4_) {
         double d0 = 0.0D;
         int i = 0;
-        Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
+        Map<Team, CommandSpreadPlayers.Position> map = new HashMap<>();
 
         for (Entity entity : p_110671_1_) {
             Position commandspreadplayers$position;

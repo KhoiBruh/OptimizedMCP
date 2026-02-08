@@ -1,6 +1,5 @@
 package net.minecraft.client.audio;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.resources.IResource;
@@ -11,17 +10,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 
 public class SoundHandler implements IResourceManagerReloadListener, ITickable {
     public static final SoundPoolEntry missing_sound = new SoundPoolEntry(new ResourceLocation("meta:missing_sound"), 0.0D, 0.0D, false);
@@ -194,24 +190,6 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
     public void stopSound(ISound p_147683_1_) {
         sndManager.stopSound(p_147683_1_);
-    }
-
-    public SoundEventAccessorComposite getRandomSoundFromCategories(SoundCategory... categories) {
-        List<SoundEventAccessorComposite> list = Lists.newArrayList();
-
-        for (ResourceLocation resourcelocation : sndRegistry.getKeys()) {
-            SoundEventAccessorComposite soundeventaccessorcomposite = sndRegistry.getObject(resourcelocation);
-
-            if (ArrayUtils.contains(categories, soundeventaccessorcomposite.getSoundCategory())) {
-                list.add(soundeventaccessorcomposite);
-            }
-        }
-
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            return list.get((new Random()).nextInt(list.size()));
-        }
     }
 
     public boolean isSoundPlaying(ISound sound) {

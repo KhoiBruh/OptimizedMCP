@@ -1,6 +1,5 @@
 package net.minecraft.crash;
 
-import com.google.common.collect.Lists;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.gen.layer.IntCache;
 import net.optifine.CrashReporter;
@@ -13,6 +12,7 @@ import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CrashReport {
     private final String description;
     private final Throwable cause;
     private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
-    private final List<CrashReportCategory> crashReportSections = Lists.newArrayList();
+    private final List<CrashReportCategory> crashReportSections = new ArrayList<>();
     private File crashReportFile;
     private boolean firstCategoryInCrashReport = true;
     private StackTraceElement[] stacktrace = new StackTraceElement[0];

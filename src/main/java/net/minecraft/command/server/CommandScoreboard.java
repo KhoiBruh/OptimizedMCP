@@ -1,7 +1,6 @@
 package net.minecraft.command.server;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.command.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -203,7 +202,7 @@ public class CommandScoreboard extends CommandBase {
         } else {
             List<String> list1 = Lists.newArrayList(getScoreboard().getObjectiveNames());
             String s = p_175780_2_[i];
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
 
             for (String s1 : list1) {
                 p_175780_2_[i] = s1;
@@ -443,8 +442,8 @@ public class CommandScoreboard extends CommandBase {
     protected void joinTeam(ICommandSender p_147190_1_, String[] p_147190_2_, int p_147190_3_) throws CommandException {
         Scoreboard scoreboard = getScoreboard();
         String s = p_147190_2_[p_147190_3_++];
-        Set<String> set = Sets.newHashSet();
-        Set<String> set1 = Sets.newHashSet();
+        Set<String> set = new HashSet<>();
+        Set<String> set1 = new HashSet<>();
 
         if (p_147190_1_ instanceof EntityPlayer && p_147190_3_ == p_147190_2_.length) {
             String s4 = getCommandSenderAsPlayer(p_147190_1_).getName();
@@ -492,8 +491,8 @@ public class CommandScoreboard extends CommandBase {
 
     protected void leaveTeam(ICommandSender p_147199_1_, String[] p_147199_2_, int p_147199_3_) throws CommandException {
         Scoreboard scoreboard = getScoreboard();
-        Set<String> set = Sets.newHashSet();
-        Set<String> set1 = Sets.newHashSet();
+        Set<String> set = new HashSet<>();
+        Set<String> set1 = new HashSet<>();
 
         if (p_147199_1_ instanceof EntityPlayer && p_147199_3_ == p_147199_2_.length) {
             String s3 = getCommandSenderAsPlayer(p_147199_1_).getName();
@@ -927,7 +926,7 @@ public class CommandScoreboard extends CommandBase {
 
     protected List<String> func_147184_a(boolean p_147184_1_) {
         Collection<ScoreObjective> collection = getScoreboard().getScoreObjectives();
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (ScoreObjective scoreobjective : collection) {
             if (!p_147184_1_ || !scoreobjective.getCriteria().isReadOnly()) {
@@ -940,7 +939,7 @@ public class CommandScoreboard extends CommandBase {
 
     protected List<String> func_175782_e() {
         Collection<ScoreObjective> collection = getScoreboard().getScoreObjectives();
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (ScoreObjective scoreobjective : collection) {
             if (scoreobjective.getCriteria() == IScoreObjectiveCriteria.TRIGGER) {

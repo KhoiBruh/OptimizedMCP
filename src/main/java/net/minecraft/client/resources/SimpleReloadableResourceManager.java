@@ -2,8 +2,6 @@ package net.minecraft.client.resources;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -12,15 +10,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SimpleReloadableResourceManager implements IReloadableResourceManager {
     private static final Logger logger = LogManager.getLogger();
     private static final Joiner joinerResourcePacks = Joiner.on(", ");
-    private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.newHashMap();
-    private final List<IResourceManagerReloadListener> reloadListeners = Lists.newArrayList();
+    private final Map<String, FallbackResourceManager> domainResourceManagers = new HashMap<>();
+    private final List<IResourceManagerReloadListener> reloadListeners = new ArrayList<>();
     private final Set<String> setResourceDomains = Sets.newLinkedHashSet();
     private final IMetadataSerializer rmMetadataSerializer;
 

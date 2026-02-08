@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
@@ -10,6 +9,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
         if (!oclass.isEnum()) {
             return null;
         } else {
-            final Map<String, T> map = Maps.newHashMap();
+            final Map<String, T> map = new HashMap<>();
 
             for (T t : oclass.getEnumConstants()) {
                 map.put(func_151232_a(t), t);

@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.nbt.NBTBase;
@@ -9,10 +8,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MobSpawnerBaseLogic {
-    private final List<MobSpawnerBaseLogic.WeightedRandomMinecart> minecartToSpawn = Lists.newArrayList();
+    private final List<MobSpawnerBaseLogic.WeightedRandomMinecart> minecartToSpawn = new ArrayList<>();
     private int spawnDelay = 20;
     private String mobID = "Pig";
     private MobSpawnerBaseLogic.WeightedRandomMinecart randomEntity;
