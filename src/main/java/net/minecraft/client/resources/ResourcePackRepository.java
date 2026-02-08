@@ -36,9 +36,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ResourcePackRepository {
     private static final Logger logger = LogManager.getLogger();
-    private static final FileFilter resourcePackFilter = p_accept_1_ -> {
-        boolean flag = p_accept_1_.isFile() && p_accept_1_.getName().endsWith(".zip");
-        boolean flag1 = p_accept_1_.isDirectory() && (new File(p_accept_1_, "pack.mcmeta")).isFile();
+    private static final FileFilter resourcePackFilter = file -> {
+        boolean flag = file.isFile() && file.getName().endsWith(".zip");
+        boolean flag1 = file.isDirectory() && (new File(file, "pack.mcmeta")).isFile();
         return flag || flag1;
     };
     public final IResourcePack rprDefaultResourcePack;

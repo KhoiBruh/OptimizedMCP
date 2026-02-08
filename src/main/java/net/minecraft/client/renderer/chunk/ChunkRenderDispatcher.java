@@ -178,7 +178,6 @@ public class ChunkRenderDispatcher {
 
     public boolean updateTransparencyLater(RenderChunk chunkRenderer) {
         chunkRenderer.getLockCompileTask().lock();
-        boolean flag1;
 
         try {
             final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
@@ -188,7 +187,6 @@ public class ChunkRenderDispatcher {
                 return queueChunkUpdates.offer(chunkcompiletaskgenerator);
             }
 
-            flag1 = true;
         } finally {
             chunkRenderer.getLockCompileTask().unlock();
         }
@@ -204,7 +202,7 @@ public class ChunkRenderDispatcher {
                 uploadDisplayList(p_178503_2_, ((ListedRenderChunk) chunkRenderer).getDisplayList(player, compiledChunkIn), chunkRenderer);
             }
 
-            p_178503_2_.setTranslation(0.0D, 0.0D, 0.0D);
+            p_178503_2_.setTranslation(0, 0, 0);
             return Futures.immediateFuture(null);
         } else {
             ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn), null);

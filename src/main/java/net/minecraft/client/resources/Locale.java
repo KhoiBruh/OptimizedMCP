@@ -62,12 +62,8 @@ public class Locale {
 
     private void loadLocaleData(List<IResource> resourcesList) throws IOException {
         for (IResource iresource : resourcesList) {
-            InputStream inputstream = iresource.getInputStream();
-
-            try {
-                loadLocaleData(inputstream);
-            } finally {
-                IOUtils.closeQuietly(inputstream);
+            try (var inputStream = iresource.getInputStream()) {
+                loadLocaleData(inputStream);
             }
         }
     }

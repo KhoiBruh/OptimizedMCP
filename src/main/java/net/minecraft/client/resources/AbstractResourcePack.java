@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,20 +30,16 @@ public abstract class AbstractResourcePack implements IResourcePack {
         return p_110595_0_.toURI().relativize(p_110595_1_.toURI()).getPath();
     }
 
-    static <T extends IMetadataSection> T readMetadata(IMetadataSerializer p_110596_0_, InputStream p_110596_1_, String p_110596_2_) {
+    static <T extends IMetadataSection> T readMetadata(IMetadataSerializer metadataSerializer, InputStream stream, String data) {
         JsonObject jsonobject;
-        BufferedReader bufferedreader = null;
 
-        try {
-            bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, StandardCharsets.UTF_8));
+        try (var bufferedreader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
             jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
-        } catch (RuntimeException runtimeexception) {
-            throw new JsonParseException(runtimeexception);
-        } finally {
-            IOUtils.closeQuietly(bufferedreader);
+        } catch (IOException e) {
+            throw new JsonParseException(e);
         }
 
-        return p_110596_0_.parseMetadataSection(p_110596_2_, jsonobject);
+        return metadataSerializer.parseMetadataSection(data, jsonobject);
     }
 
     public InputStream getInputStream(ResourceLocation location) throws IOException {

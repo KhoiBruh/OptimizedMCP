@@ -33,9 +33,7 @@ public class StreamingSound implements ISoundSource, Runnable {
         fileDataRef = fileData;
 
         source = alGenSources();
-        for (int i = 0; i < BUFFER_COUNT; i++) {
-            buffers[i] = alGenBuffers();
-        }
+        for (int i = 0; i < BUFFER_COUNT; i++) buffers[i] = alGenBuffers();
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             int[] err = new int[1];
@@ -44,13 +42,12 @@ public class StreamingSound implements ISoundSource, Runnable {
 
             STBVorbisInfo info = STBVorbisInfo.malloc(stack);
             stb_vorbis_get_info(decoder, info);
+
             channels = info.channels();
             sampleRate = info.sample_rate();
         }
 
-        for (int buf : buffers) {
-            if (!streamBuffer(buf)) break;
-        }
+        for (int buf : buffers) if (!streamBuffer(buf)) break;
         alSourceQueueBuffers(source, buffers);
     }
 
@@ -58,13 +55,9 @@ public class StreamingSound implements ISoundSource, Runnable {
         ShortBuffer pcm = BufferUtils.createShortBuffer(BUFFER_SIZE * channels);
 
         synchronized (vorbisLock) {
-            if (decoder == 0L) {
-                return false;
-            }
+            if (decoder == 0L) return false;
             int samples = stb_vorbis_get_samples_short_interleaved(decoder, channels, pcm);
-            if (samples <= 0) {
-                return false;
-            }
+            if (samples <= 0) return false;
             pcm.limit(samples * channels);
         }
 
@@ -74,8 +67,9 @@ public class StreamingSound implements ISoundSource, Runnable {
     }
 
     @Override
-    public synchronized void play() {
+    public void play() {
         playRequested = true;
+
         if (streamThread == null || !streamThread.isAlive()) {
             threadRunning = true;
             streamThread = new Thread(this, "StreamingSoundThread");
@@ -89,13 +83,13 @@ public class StreamingSound implements ISoundSource, Runnable {
     }
 
     @Override
-    public synchronized void pause() {
+    public void pause() {
         playRequested = false;
         alSourcePause(source);
     }
 
     @Override
-    public synchronized void stop() {
+    public void stop() {
         playRequested = false;
         alSourceStop(source);
     }
@@ -158,17 +152,17 @@ public class StreamingSound implements ISoundSource, Runnable {
                 }
 
                 int processed = alGetSourcei(source, AL_BUFFERS_PROCESSED);
-                int queuedBefore = alGetSourcei(source, AL_BUFFERS_QUEUED);
-                boolean wasUnderrun = (queuedBefore == 0);
 
                 for (int i = 0; i < processed; i++) {
                     int buf = alSourceUnqueueBuffers(source);
 
-                    boolean filled = streamBuffer(buf);
+                    boolean filled = false;
 
-                    if (!filled && looping) {
-                        synchronized (vorbisLock) {
-                            if (decoder != 0L) {
+                    synchronized (vorbisLock) {
+                        if (decoder != 0L) {
+                            filled = streamBuffer(buf);
+
+                            if (!filled && looping) {
                                 stb_vorbis_seek_start(decoder);
                                 filled = streamBuffer(buf);
                             }
@@ -180,9 +174,8 @@ public class StreamingSound implements ISoundSource, Runnable {
 
                 int queuedAfter = alGetSourcei(source, AL_BUFFERS_QUEUED);
                 int state = alGetSourcei(source, AL_SOURCE_STATE);
-                if (wasUnderrun && queuedAfter > 0 && state != AL_PLAYING && playRequested) alSourcePlay(source);
 
-                if (state != AL_PLAYING && queuedAfter > 0 && playRequested) alSourcePlay(source);
+                if (queuedAfter > 0 && state != AL_PLAYING && playRequested) alSourcePlay(source);
 
                 int adaptive = Math.max(2, Math.min(MAX_WAIT_TIME, MAX_WAIT_TIME - queuedAfter));
                 Thread.sleep(adaptive);
@@ -191,7 +184,7 @@ public class StreamingSound implements ISoundSource, Runnable {
     }
 
     @Override
-    public synchronized void cleanup() {
+    public void cleanup() {
         playRequested = false;
         threadRunning = false;
         alSourceStop(source);

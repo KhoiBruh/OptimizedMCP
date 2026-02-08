@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.*;
-import org.apache.commons.io.IOUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -23,32 +22,29 @@ public class SimpleShaderTexture extends AbstractTexture {
     public static TextureMetadataSection loadTextureMetadataSection(String texturePath, TextureMetadataSection def) {
         String s = texturePath + ".mcmeta";
         String s1 = "texture";
-        InputStream inputstream = Shaders.getShaderPackResourceStream(s);
 
-        if (inputstream != null) {
-            BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream));
-            TextureMetadataSection texturemetadatasection1;
+        try (var inputstream = Shaders.getShaderPackResourceStream(s)) {
+            if (inputstream != null) {
+                try (var reader = new InputStreamReader(inputstream)) {
+                    TextureMetadataSection metadataSection;
 
-            try {
-                JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
-                TextureMetadataSection texturemetadatasection = METADATA_SERIALIZER.parseMetadataSection(s1, jsonobject);
+                    try {
+                        JsonObject jsonobject = JsonParser.parseReader(reader).getAsJsonObject();
+                        TextureMetadataSection texturemetadatasection = METADATA_SERIALIZER.parseMetadataSection(s1, jsonobject);
 
-                if (texturemetadatasection == null) {
-                    return def;
+                        if (texturemetadatasection == null) return def;
+
+                        metadataSection = texturemetadatasection;
+                    } catch (RuntimeException runtimeexception) {
+                        SMCLog.warning("Error reading metadata: " + s);
+                        SMCLog.warning(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
+                        return def;
+                    }
+
+                    return metadataSection;
                 }
-
-                texturemetadatasection1 = texturemetadatasection;
-            } catch (RuntimeException runtimeexception) {
-                SMCLog.warning("Error reading metadata: " + s);
-                SMCLog.warning(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
-                return def;
-            } finally {
-                IOUtils.closeQuietly(bufferedreader);
-                IOUtils.closeQuietly(inputstream);
-            }
-
-            return texturemetadatasection1;
-        } else {
+            } else return def;
+        } catch (IOException ioexception) {
             return def;
         }
     }
@@ -65,18 +61,13 @@ public class SimpleShaderTexture extends AbstractTexture {
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         deleteGlTexture();
-        InputStream inputstream = Shaders.getShaderPackResourceStream(texturePath);
 
-        if (inputstream == null) {
-            throw new FileNotFoundException("Shader texture not found: " + texturePath);
-        } else {
-            try {
+        try (var inputstream = Shaders.getShaderPackResourceStream(texturePath)) {
+            if (inputstream != null) {
                 BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
                 TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(texturePath, new TextureMetadataSection(false, false, new ArrayList<>()));
                 TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bufferedimage, texturemetadatasection.textureBlur(), texturemetadatasection.textureClamp());
-            } finally {
-                IOUtils.closeQuietly(inputstream);
-            }
+            } else throw new FileNotFoundException("Shader texture not found: " + texturePath);
         }
     }
 }

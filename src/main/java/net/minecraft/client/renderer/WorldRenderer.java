@@ -107,7 +107,7 @@ public class WorldRenderer {
         final float[] afloat = new float[i];
 
         for (int j = 0; j < i; ++j) {
-            afloat[j] = getDistanceSq(rawFloatBuffer, (float) ((double) p_181674_1_ + xOffset), (float) ((double) p_181674_2_ + yOffset), (float) ((double) p_181674_3_ + zOffset), vertexFormat.getIntegerSize(), j * vertexFormat.getNextOffset());
+            afloat[j] = getDistanceSq(rawFloatBuffer, (float) (p_181674_1_ + xOffset), (float) (p_181674_2_ + yOffset), (float) (p_181674_3_ + zOffset), vertexFormat.getIntegerSize(), j * vertexFormat.getNextOffset());
         }
 
         Integer[] ainteger = new Integer[i];
@@ -154,7 +154,6 @@ public class WorldRenderer {
 
         if (quadSprites != null) {
             TextureAtlasSprite[] atextureatlassprite = new TextureAtlasSprite[vertexCount / 4];
-            int i2 = vertexFormat.getNextOffset() / 4 * 4;
 
             for (int j2 = 0; j2 < ainteger.length; ++j2) {
                 int k2 = ainteger[j2];
@@ -192,9 +191,7 @@ public class WorldRenderer {
         vertexFormat = new VertexFormat(state.getVertexFormat());
 
         if (state.stateQuadSprites != null) {
-            if (quadSprites == null) {
-                quadSprites = quadSpritesPrev;
-            }
+            if (quadSprites == null) quadSprites = quadSpritesPrev;
 
             if (quadSprites == null || quadSprites.length < getBufferQuadSize()) {
                 quadSprites = new TextureAtlasSprite[getBufferQuadSize()];
@@ -203,9 +200,7 @@ public class WorldRenderer {
             TextureAtlasSprite[] atextureatlassprite = state.stateQuadSprites;
             System.arraycopy(atextureatlassprite, 0, quadSprites, 0, atextureatlassprite.length);
         } else {
-            if (quadSprites != null) {
-                quadSpritesPrev = quadSprites;
-            }
+            if (quadSprites != null) quadSpritesPrev = quadSprites;
 
             quadSprites = null;
         }
@@ -222,9 +217,7 @@ public class WorldRenderer {
         quadSprite = null;
 
         if (SmartAnimations.isActive()) {
-            if (animatedSprites == null) {
-                animatedSprites = animatedSpritesCached;
-            }
+            if (animatedSprites == null) animatedSprites = animatedSpritesCached;
 
             animatedSprites.clear();
         } else if (animatedSprites != null) {
@@ -235,9 +228,7 @@ public class WorldRenderer {
     }
 
     public void begin(int glMode, VertexFormat format) {
-        if (isDrawing) {
-            throw new IllegalStateException("Already building!");
-        } else {
+        if (!isDrawing) {
             isDrawing = true;
             reset();
             drawMode = glMode;
@@ -246,28 +237,21 @@ public class WorldRenderer {
             noColor = false;
             byteBuffer.limit(byteBuffer.capacity());
 
-            if (Config.isShaders()) {
-                SVertexBuilder.endSetVertexFormat(this);
-            }
+            if (Config.isShaders()) SVertexBuilder.endSetVertexFormat(this);
 
             if (Config.isMultiTexture()) {
                 if (blockLayer != null) {
-                    if (quadSprites == null) {
-                        quadSprites = quadSpritesPrev;
-                    }
+                    if (quadSprites == null) quadSprites = quadSpritesPrev;
 
-                    if (quadSprites == null || quadSprites.length < getBufferQuadSize()) {
+                    if (quadSprites == null || quadSprites.length < getBufferQuadSize())
                         quadSprites = new TextureAtlasSprite[getBufferQuadSize()];
-                    }
                 }
             } else {
-                if (quadSprites != null) {
-                    quadSpritesPrev = quadSprites;
-                }
+                if (quadSprites != null) quadSpritesPrev = quadSprites;
 
                 quadSprites = null;
             }
-        }
+        } else throw new IllegalStateException("Already building!");
     }
 
     public WorldRenderer tex(double u, double v) {
@@ -373,15 +357,17 @@ public class WorldRenderer {
             j = rawIntBuffer.get(i);
 
             if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
-                int k = (int) ((float) (j & 255) * red);
-                int l = (int) ((float) (j >> 8 & 255) * green);
-                int i1 = (int) ((float) (j >> 16 & 255) * blue);
+                int k = (int) ((j & 255) * red);
+                int l = (int) ((j >> 8 & 255) * green);
+                int i1 = (int) ((j >> 16 & 255) * blue);
+
                 j = j & -16777216;
                 j = j | i1 << 16 | l << 8 | k;
             } else {
-                int j1 = (int) ((float) (j >> 24 & 255) * red);
-                int k1 = (int) ((float) (j >> 16 & 255) * green);
-                int l1 = (int) ((float) (j >> 8 & 255) * blue);
+                int j1 = (int) ((j >> 24 & 255) * red);
+                int k1 = (int) ((j >> 16 & 255) * green);
+                int l1 = (int) ((j >> 8 & 255) * blue);
+
                 j = j & 255;
                 j = j | j1 << 24 | k1 << 16 | l1 << 8;
             }
@@ -424,37 +410,32 @@ public class WorldRenderer {
     }
 
     public WorldRenderer color(int red, int green, int blue, int alpha) {
-        if (noColor) {
-            return this;
-        } else {
+        if (!noColor) {
             int i = vertexCount * vertexFormat.getNextOffset() + vertexFormat.getOffset(vertexFormatIndex);
 
             switch (vertexFormatElement.getType()) {
-                case FLOAT:
-                    byteBuffer.putFloat(i, (float) red / 255.0F);
-                    byteBuffer.putFloat(i + 4, (float) green / 255.0F);
-                    byteBuffer.putFloat(i + 8, (float) blue / 255.0F);
-                    byteBuffer.putFloat(i + 12, (float) alpha / 255.0F);
-                    break;
+                case FLOAT -> {
+                    byteBuffer.putFloat(i, red / 255.0F);
+                    byteBuffer.putFloat(i + 4, green / 255.0F);
+                    byteBuffer.putFloat(i + 8, blue / 255.0F);
+                    byteBuffer.putFloat(i + 12, alpha / 255.0F);
+                }
 
-                case UINT:
-                case INT:
+                case UINT, INT -> {
                     byteBuffer.putFloat(i, (float) red);
                     byteBuffer.putFloat(i + 4, (float) green);
                     byteBuffer.putFloat(i + 8, (float) blue);
                     byteBuffer.putFloat(i + 12, (float) alpha);
-                    break;
+                }
 
-                case USHORT:
-                case SHORT:
+                case USHORT, SHORT -> {
                     byteBuffer.putShort(i, (short) red);
                     byteBuffer.putShort(i + 2, (short) green);
                     byteBuffer.putShort(i + 4, (short) blue);
                     byteBuffer.putShort(i + 6, (short) alpha);
-                    break;
+                }
 
-                case UBYTE:
-                case BYTE:
+                case UBYTE, BYTE -> {
                     if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
                         byteBuffer.put(i, (byte) red);
                         byteBuffer.put(i + 1, (byte) green);
@@ -466,26 +447,23 @@ public class WorldRenderer {
                         byteBuffer.put(i + 2, (byte) green);
                         byteBuffer.put(i + 3, (byte) red);
                     }
+                }
             }
 
             nextVertexFormatIndex();
-            return this;
         }
+        return this;
     }
 
     public void addVertexData(int[] vertexData) {
-        if (Config.isShaders()) {
-            SVertexBuilder.beginAddVertexData(this, vertexData);
-        }
+        if (Config.isShaders()) SVertexBuilder.beginAddVertexData(this, vertexData);
 
         growBuffer(vertexData.length);
         rawIntBuffer.position(getBufferSize());
         rawIntBuffer.put(vertexData);
         vertexCount += vertexData.length / vertexFormat.getIntegerSize();
 
-        if (Config.isShaders()) {
-            SVertexBuilder.endAddVertexData(this);
-        }
+        if (Config.isShaders()) SVertexBuilder.endAddVertexData(this);
     }
 
     public void endVertex() {
@@ -494,15 +472,11 @@ public class WorldRenderer {
         vertexFormatIndex = 0;
         vertexFormatElement = vertexFormat.getElement(vertexFormatIndex);
 
-        if (Config.isShaders()) {
-            SVertexBuilder.endAddVertex(this);
-        }
+        if (Config.isShaders()) SVertexBuilder.endAddVertex(this);
     }
 
     public WorldRenderer pos(double x, double y, double z) {
-        if (Config.isShaders()) {
-            SVertexBuilder.beginAddVertex(this);
-        }
+        if (Config.isShaders()) SVertexBuilder.beginAddVertex(this);
 
         int i = vertexCount * vertexFormat.getNextOffset() + vertexFormat.getOffset(vertexFormatIndex);
 
@@ -539,12 +513,13 @@ public class WorldRenderer {
     }
 
     public void putNormal(float x, float y, float z) {
-        int i = (byte) ((int) (x * 127.0F)) & 255;
-        int j = (byte) ((int) (y * 127.0F)) & 255;
-        int k = (byte) ((int) (z * 127.0F)) & 255;
+        int i = (byte) ((x * 127.0F)) & 255;
+        int j = (byte) ((y * 127.0F)) & 255;
+        int k = (byte) ((z * 127.0F)) & 255;
         int l = i | j << 8 | k << 16;
         int i1 = vertexFormat.getNextOffset() >> 2;
         int j1 = (vertexCount - 4) * i1 + vertexFormat.getNormalOffset() / 4;
+
         rawIntBuffer.put(j1, l);
         rawIntBuffer.put(j1 + i1, l);
         rawIntBuffer.put(j1 + i1 * 2, l);
@@ -603,13 +578,11 @@ public class WorldRenderer {
     }
 
     public void finishDrawing() {
-        if (!isDrawing) {
-            throw new IllegalStateException("Not building!");
-        } else {
+        if (isDrawing) {
             isDrawing = false;
             byteBuffer.position(0);
             byteBuffer.limit(getBufferSize() * 4);
-        }
+        } else throw new IllegalStateException("Not building!");
     }
 
     public ByteBuffer getByteBuffer() {
@@ -640,24 +613,24 @@ public class WorldRenderer {
         }
     }
 
-    public void putSprite(TextureAtlasSprite p_putSprite_1_) {
-        if (animatedSprites != null && p_putSprite_1_ != null && p_putSprite_1_.getAnimationIndex() >= 0) {
-            animatedSprites.set(p_putSprite_1_.getAnimationIndex());
+    public void putSprite(TextureAtlasSprite atlasSprite) {
+        if (animatedSprites != null && atlasSprite != null && atlasSprite.getAnimationIndex() >= 0) {
+            animatedSprites.set(atlasSprite.getAnimationIndex());
         }
 
         if (quadSprites != null) {
             int i = vertexCount / 4;
-            quadSprites[i - 1] = p_putSprite_1_;
+            quadSprites[i - 1] = atlasSprite;
         }
     }
 
-    public void setSprite(TextureAtlasSprite p_setSprite_1_) {
-        if (animatedSprites != null && p_setSprite_1_ != null && p_setSprite_1_.getAnimationIndex() >= 0) {
-            animatedSprites.set(p_setSprite_1_.getAnimationIndex());
+    public void setSprite(TextureAtlasSprite atlasSprite) {
+        if (animatedSprites != null && atlasSprite != null && atlasSprite.getAnimationIndex() >= 0) {
+            animatedSprites.set(atlasSprite.getAnimationIndex());
         }
 
         if (quadSprites != null) {
-            quadSprite = p_setSprite_1_;
+            quadSprite = atlasSprite;
         }
     }
 
@@ -674,7 +647,6 @@ public class WorldRenderer {
             }
 
             Arrays.fill(drawnIcons, false);
-            int j = 0;
             int k = -1;
             int l = vertexCount / 4;
 
@@ -691,7 +663,6 @@ public class WorldRenderer {
                             }
                         } else {
                             i1 = drawForIcon(textureatlassprite, i1) - 1;
-                            ++j;
 
                             if (blockLayer != WorldBlockLayer.TRANSLUCENT) {
                                 drawnIcons[j1] = true;
@@ -703,16 +674,12 @@ public class WorldRenderer {
 
             if (k >= 0) {
                 drawForIcon(TextureUtils.iconGrassSideOverlay, k);
-                ++j;
-            }
-
-            if (j > 0) {
             }
         }
     }
 
-    private int drawForIcon(TextureAtlasSprite p_drawForIcon_1_, int p_drawForIcon_2_) {
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, p_drawForIcon_1_.glSpriteTextureId);
+    private int drawForIcon(TextureAtlasSprite atlasSprite, int p_drawForIcon_2_) {
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, atlasSprite.glSpriteTextureId);
         int i = -1;
         int j = -1;
         int k = vertexCount / 4;
@@ -720,7 +687,7 @@ public class WorldRenderer {
         for (int l = p_drawForIcon_2_; l < k; ++l) {
             TextureAtlasSprite textureatlassprite = quadSprites[l];
 
-            if (textureatlassprite == p_drawForIcon_1_) {
+            if (textureatlassprite == atlasSprite) {
                 if (j < 0) {
                     j = l;
                 }
@@ -764,14 +731,13 @@ public class WorldRenderer {
         return rawIntBuffer.capacity() * 4 / (vertexFormat.getIntegerSize() * 4);
     }
 
-    public RenderEnv getRenderEnv(IBlockState p_getRenderEnv_1_, BlockPos p_getRenderEnv_2_) {
+    public RenderEnv getRenderEnv(IBlockState blockState, BlockPos pos) {
         if (renderEnv == null) {
-            renderEnv = new RenderEnv(p_getRenderEnv_1_, p_getRenderEnv_2_);
-            return renderEnv;
+            renderEnv = new RenderEnv(blockState, pos);
         } else {
-            renderEnv.reset(p_getRenderEnv_1_, p_getRenderEnv_2_);
-            return renderEnv;
+            renderEnv.reset(blockState, pos);
         }
+        return renderEnv;
     }
 
     public boolean isDrawing() {
@@ -798,9 +764,7 @@ public class WorldRenderer {
         blockLayer = p_setBlockLayer_1_;
 
         if (p_setBlockLayer_1_ == null) {
-            if (quadSprites != null) {
-                quadSpritesPrev = quadSprites;
-            }
+            if (quadSprites != null) quadSpritesPrev = quadSprites;
 
             quadSprites = null;
             quadSprite = null;

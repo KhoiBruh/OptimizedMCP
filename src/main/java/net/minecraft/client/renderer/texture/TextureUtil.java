@@ -7,7 +7,6 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Mipmaps;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
@@ -248,18 +247,8 @@ public class TextureUtil {
     }
 
     public static BufferedImage readBufferedImage(InputStream imageStream) throws IOException {
-        if (imageStream == null) {
-            return null;
-        } else {
-            BufferedImage bufferedimage;
-
-            try {
-                bufferedimage = ImageIO.read(imageStream);
-            } finally {
-                IOUtils.closeQuietly(imageStream);
-            }
-
-            return bufferedimage;
+        try (imageStream) {
+            return ImageIO.read(imageStream);
         }
     }
 

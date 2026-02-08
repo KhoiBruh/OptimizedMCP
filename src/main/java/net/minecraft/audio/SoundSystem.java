@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.openal.AL11.alSpeedOfSound;
@@ -23,7 +24,7 @@ import static org.lwjgl.stb.STBVorbis.stb_vorbis_decode_memory;
 
 public class SoundSystem {
     private static final Logger LOGGER = LoggerFactory.getLogger(SoundSystem.class);
-    private final Map<String, ISoundSource> sources = new HashMap<>();
+    private final Map<String, ISoundSource> sources = new ConcurrentHashMap<>();
     private long device;
     private long context;
     private float masterVolume = 1.0f;
@@ -32,7 +33,7 @@ public class SoundSystem {
         device = alcOpenDevice((ByteBuffer) null);
         if (device == 0) throw new IllegalStateException("Failed to open OpenAL device");
 
-        try (MemoryStack stack = MemoryStack.stackPush()) {
+        try (var ignored = MemoryStack.stackPush()) {
             int[] attribs = {0};
             context = alcCreateContext(device, attribs);
             alcMakeContextCurrent(context);

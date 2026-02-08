@@ -5,9 +5,9 @@ import com.google.gson.JsonParser;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -49,14 +49,10 @@ public class SimpleResource implements IResource {
         } else {
             if (mcmetaJson == null && !mcmetaJsonChecked) {
                 mcmetaJsonChecked = true;
-                BufferedReader bufferedreader = null;
 
-                try {
-                    bufferedreader = new BufferedReader(new InputStreamReader(mcmetaInputStream));
+                try (var bufferedreader = new BufferedReader(new InputStreamReader(mcmetaInputStream));) {
                     mcmetaJson = JsonParser.parseReader(bufferedreader).getAsJsonObject();
-                } finally {
-                    IOUtils.closeQuietly(bufferedreader);
-                }
+                } catch (IOException ignored) {}
             }
 
             T t = (T) mapMetadataSections.get(p_110526_1_);

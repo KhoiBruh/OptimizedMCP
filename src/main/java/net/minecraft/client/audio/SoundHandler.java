@@ -9,7 +9,6 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -68,12 +67,12 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
     }
 
     protected Map<String, SoundList> getSoundMap(InputStream stream) {
-        Map map;
+        Map<String, SoundList> map;
 
-        try {
+        try (stream) {
             map = GSON.fromJson(new InputStreamReader(stream), TYPE);
-        } finally {
-            IOUtils.closeQuietly(stream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return map;
@@ -103,19 +102,17 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
             switch (soundlist$soundentry.getSoundEntryType()) {
                 case FILE:
                     ResourceLocation resourcelocation1 = new ResourceLocation(s1, "sounds/" + resourcelocation.getResourcePath() + ".ogg");
-                    InputStream inputstream = null;
-
-                    try {
-                        inputstream = mcResourceManager.getResource(resourcelocation1).getInputStream();
-                    } catch (FileNotFoundException var18) {
-                        logger.warn("File {} does not exist, cannot add it to event {}", new Object[]{resourcelocation1, location});
-                        continue;
-                    } catch (IOException ioexception) {
-                        logger.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, ioexception);
-                        continue;
-                    } finally {
-                        IOUtils.closeQuietly(inputstream);
-                    }
+//                    InputStream inputstream = null;
+//
+//                    try {
+//                        inputstream = mcResourceManager.getResource(resourcelocation1).getInputStream();
+//                    } catch (FileNotFoundException var18) {
+//                        logger.warn("File {} does not exist, cannot add it to event {}", new Object[]{resourcelocation1, location});
+//                        continue;
+//                    } catch (IOException ioexception) {
+//                        logger.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, ioexception);
+//                        continue;
+//                    }
 
                     isoundeventaccessor = new SoundEventAccessor(new SoundPoolEntry(resourcelocation1, soundlist$soundentry.getSoundEntryPitch(), soundlist$soundentry.getSoundEntryVolume(), soundlist$soundentry.isStreaming()), soundlist$soundentry.getSoundEntryWeight());
                     break;

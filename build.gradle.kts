@@ -31,7 +31,6 @@ dependencies {
     implementation(group = "io.netty", name = "netty-all", version = "4.2.1.Final")
 
     implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
-    implementation(group = "commons-codec", name = "commons-codec", version = "1.18.0")
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
 
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1") {

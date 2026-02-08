@@ -341,16 +341,12 @@ public class SoundManager {
     }
 
     static class SoundSystemStarterThread extends SoundSystem {
-        private static final Object lock = new Object();
         private SoundSystemStarterThread() {
         }
 
         public boolean playing(String sound) {
-
-            synchronized (lock) {
-                ISoundSource source = getSound(sound);
-                return source != null && (source.playing() || source.paused());
-            }
+            ISoundSource source = getSound(sound);
+            return source != null && (source.playing() || source.paused());
         }
     }
 }

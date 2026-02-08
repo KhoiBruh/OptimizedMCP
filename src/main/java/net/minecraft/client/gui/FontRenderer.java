@@ -18,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 import net.optifine.render.GlBlendState;
 import net.optifine.util.FontUtils;
-import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.image.BufferedImage;
@@ -208,15 +207,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     private void readGlyphSizes() {
-        InputStream inputstream = null;
-
-        try {
-            inputstream = getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"));
+        try (var inputstream = getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"));) {
             inputstream.read(glyphWidth);
-        } catch (IOException ioexception) {
-            throw new RuntimeException(ioexception);
-        } finally {
-            IOUtils.closeQuietly(inputstream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -224,9 +218,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         if (ch != 32 && ch != 160) {
             int i = "ÀÁÂÈÊËÍÓÔÕÚßãõğİıŒœŞşŴŵžȇ\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜø£Ø×ƒáíóúñÑªº¿®¬½¼¡«»░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀αβΓπΣσμτΦΘΩδ∞∅∈∩≡±≥≤⌠⌡÷≈°∙·√ⁿ²■\u0000".indexOf(ch);
             return i != -1 && !unicodeFlag ? renderDefaultChar(i, italic) : renderUnicodeChar(ch, italic);
-        } else {
-            return !unicodeFlag ? charWidthFloat[ch] : 4.0F;
-        }
+        } else return !unicodeFlag ? charWidthFloat[ch] : 4.0F;
     }
 
     private float renderDefaultChar(int ch, boolean italic) {

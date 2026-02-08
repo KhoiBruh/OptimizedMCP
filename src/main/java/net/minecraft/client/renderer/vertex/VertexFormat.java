@@ -43,31 +43,20 @@ public class VertexFormat {
         nextOffset = 0;
     }
 
-    @SuppressWarnings("incomplete-switch")
     public VertexFormat addElement(VertexFormatElement element) {
-        if (element.isPositionElement() && hasPosition()) {
-            LOGGER.warn("VertexFormat error: Trying to add a position VertexFormatElement when one already exists, ignoring.");
-            return this;
-        } else {
+        if (!element.isPositionElement() || !hasPosition()) {
             elements.add(element);
             offsets.add(nextOffset);
 
             switch (element.getUsage()) {
-                case NORMAL:
-                    normalElementOffset = nextOffset;
-                    break;
-
-                case COLOR:
-                    colorElementOffset = nextOffset;
-                    break;
-
-                case UV:
-                    uvOffsetsById.add(element.getIndex(), nextOffset);
+                case NORMAL -> normalElementOffset = nextOffset;
+                case COLOR -> colorElementOffset = nextOffset;
+                case UV -> uvOffsetsById.add(element.getIndex(), nextOffset);
             }
 
             nextOffset += element.getSize();
-            return this;
-        }
+        } else LOGGER.warn("VertexFormat error: Trying to add a position VertexFormatElement when one already exists, ignoring.");
+        return this;
     }
 
     public boolean hasNormal() {
@@ -100,9 +89,7 @@ public class VertexFormat {
         for (int i = 0; i < elements.size(); ++i) {
             s.append(elements.get(i).toString());
 
-            if (i != elements.size() - 1) {
-                s.append(" ");
-            }
+            if (i != elements.size() - 1) s.append(" ");
         }
 
         return s.toString();
@@ -112,11 +99,9 @@ public class VertexFormat {
         int i = 0;
 
         for (int j = elements.size(); i < j; ++i) {
-            VertexFormatElement vertexformatelement = elements.get(i);
+            VertexFormatElement element = elements.get(i);
 
-            if (vertexformatelement.isPositionElement()) {
-                return true;
-            }
+            if (element.isPositionElement()) return true;
         }
 
         return false;

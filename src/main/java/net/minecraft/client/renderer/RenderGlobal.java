@@ -1961,9 +1961,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             double d1 = 1.0D - worldborder.getClosestDistance(entityIn) / d0;
             d1 = Math.pow(d1, 4.0D);
-            double d2 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-            double d3 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-            double d4 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
+            double d2 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+            double d3 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+            double d4 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
             renderEngine.bindTexture(locationForcefieldPng);
@@ -1980,9 +1980,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.enableAlpha();
             GlStateManager.disableCull();
             float f3 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F;
-            float f4 = 0.0F;
-            float f5 = 0.0F;
-            float f6 = 128.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.setTranslation(-d2, -d3, -d4);
             double d5 = Math.max(MathHelper.floor_double(d4 - d0), worldborder.minZ());
@@ -2048,7 +2045,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             tessellator.draw();
-            worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
+            worldrenderer.setTranslation(0, 0, 0);
             GlStateManager.enableCull();
             GlStateManager.disableAlpha();
             GlStateManager.doPolygonOffset(0.0F, 0.0F);
@@ -2094,9 +2091,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void drawBlockDamageTexture(Tessellator tessellatorIn, WorldRenderer worldRendererIn, Entity entityIn, float partialTicks) {
-        double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-        double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-        double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
+        double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+        double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+        double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
 
         if (!damagedBlocks.isEmpty()) {
             renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -2134,7 +2131,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             tessellatorIn.draw();
-            worldRendererIn.setTranslation(0.0D, 0.0D, 0.0D);
+            worldRendererIn.setTranslation(0, 0, 0);
             postRenderDamagedBlocks();
         }
     }
