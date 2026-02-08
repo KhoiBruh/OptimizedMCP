@@ -9,15 +9,15 @@ import net.minecraft.world.EnumDifficulty;
 
 public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
     private static final GameSettings.Options[] field_146440_f = new GameSettings.Options[]{GameSettings.Options.FOV};
-    private final GuiScreen field_146441_g;
-    private final GameSettings game_settings_1;
+    private final GuiScreen screen;
+    private final GameSettings gameSettings;
     protected String field_146442_a = "Options";
-    private GuiButton field_175357_i;
-    private GuiLockIconButton field_175356_r;
+    private GuiButton button;
+    private GuiLockIconButton lockIconButton;
 
-    public GuiOptions(GuiScreen p_i1046_1_, GameSettings p_i1046_2_) {
-        field_146441_g = p_i1046_1_;
-        game_settings_1 = p_i1046_2_;
+    public GuiOptions(GuiScreen screen, GameSettings settings) {
+        this.screen = screen;
+        gameSettings = settings;
     }
 
     public void initGui() {
@@ -28,7 +28,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
             if (gamesettings$options.getEnumFloat()) {
                 buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
             } else {
-                GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options, game_settings_1.getKeyBinding(gamesettings$options));
+                GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options, gameSettings.getKeyBinding(gamesettings$options));
                 buttonList.add(guioptionbutton);
             }
 
@@ -37,29 +37,29 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 
         if (mc.theWorld != null) {
             EnumDifficulty enumdifficulty = mc.theWorld.getDifficulty();
-            field_175357_i = new GuiButton(108, width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), 150, 20, func_175355_a(enumdifficulty));
-            buttonList.add(field_175357_i);
+            button = new GuiButton(108, width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), 150, 20, func_175355_a(enumdifficulty));
+            buttonList.add(button);
 
             if (mc.isSingleplayer() && !mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) {
-                field_175357_i.setWidth(field_175357_i.getButtonWidth() - 20);
-                field_175356_r = new GuiLockIconButton(109, field_175357_i.xPosition + field_175357_i.getButtonWidth(), field_175357_i.yPosition);
-                buttonList.add(field_175356_r);
-                field_175356_r.func_175229_b(mc.theWorld.getWorldInfo().isDifficultyLocked());
-                field_175356_r.enabled = !field_175356_r.func_175230_c();
-                field_175357_i.enabled = !field_175356_r.func_175230_c();
-            } else field_175357_i.enabled = false;
+                button.setWidth(button.getButtonWidth() - 20);
+                lockIconButton = new GuiLockIconButton(109, button.xPosition + button.getButtonWidth(), button.yPosition);
+                buttonList.add(lockIconButton);
+                lockIconButton.func_175229_b(mc.theWorld.getWorldInfo().isDifficultyLocked());
+                lockIconButton.enabled = !lockIconButton.func_175230_c();
+                button.enabled = !lockIconButton.func_175230_c();
+            } else button.enabled = false;
         }
 
-        buttonList.add(new GuiButton(110, width / 2 - 155, height / 6 + 48 - 6, 150, 20, I18n.format("options.skinCustomisation")));
-        buttonList.add(new GuiButton(106, width / 2 - 155, height / 6 + 72 - 6, 150, 20, I18n.format("options.sounds")));
-        buttonList.add(new GuiButton(107, width / 2 + 5, height / 6 + 72 - 6, 150, 20, I18n.format("options.stream")));
-        buttonList.add(new GuiButton(101, width / 2 - 155, height / 6 + 96 - 6, 150, 20, I18n.format("options.video")));
-        buttonList.add(new GuiButton(100, width / 2 + 5, height / 6 + 96 - 6, 150, 20, I18n.format("options.controls")));
-        buttonList.add(new GuiButton(102, width / 2 - 155, height / 6 + 120 - 6, 150, 20, I18n.format("options.language")));
-        buttonList.add(new GuiButton(103, width / 2 + 5, height / 6 + 120 - 6, 150, 20, I18n.format("options.chat.title")));
-        buttonList.add(new GuiButton(105, width / 2 - 155, height / 6 + 144 - 6, 150, 20, I18n.format("options.resourcepack")));
-        buttonList.add(new GuiButton(104, width / 2 + 5, height / 6 + 144 - 6, 150, 20, I18n.format("options.snooper.view")));
-        buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, I18n.format("gui.done")));
+        buttonList.add(new GuiButton(101, width / 2 - 155, height / 6 + 40, 150, 20, I18n.format("options.skinCustomisation")));
+        buttonList.add(new GuiButton(102, width / 2 - 155, height / 6 + 65, 150, 20, I18n.format("options.sounds")));
+        buttonList.add(new GuiButton(103, width / 2 - 155, height / 6 + 90, 150, 20, I18n.format("options.video")));
+        buttonList.add(new GuiButton(104, width / 2 - 155, height / 6 + 115, 150, 20, I18n.format("options.resourcepack")));
+
+        buttonList.add(new GuiButton(105, width / 2 + 5, height / 6 + 40, 150, 20, I18n.format("options.language")));
+        buttonList.add(new GuiButton(106, width / 2 + 5, height / 6 + 65, 150, 20, I18n.format("options.controls")));
+        buttonList.add(new GuiButton(107, width / 2 + 5, height / 6 + 90, 150, 20, I18n.format("options.chat.title")));
+
+        buttonList.add(new GuiButton(108, width / 2 - 100, height / 6 + 170, I18n.format("gui.done")));
     }
 
     public String func_175355_a(EnumDifficulty p_175355_1_) {
@@ -75,73 +75,32 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 
         if (id == 109 && result && mc.theWorld != null) {
             mc.theWorld.getWorldInfo().setDifficultyLocked(true);
-            field_175356_r.func_175229_b(true);
-            field_175356_r.enabled = false;
-            field_175357_i.enabled = false;
+            lockIconButton.func_175229_b(true);
+            lockIconButton.enabled = false;
+            button.enabled = false;
         }
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id < 100 && button instanceof GuiOptionButton) {
-                GameSettings.Options gamesettings$options = ((GuiOptionButton) button).returnEnumOptions();
-                game_settings_1.setOptionValue(gamesettings$options, 1);
-                button.displayString = game_settings_1.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
-            }
+        if (!button.enabled) return;
 
-            if (button.id == 108) {
-                mc.theWorld.getWorldInfo().setDifficulty(EnumDifficulty.getDifficultyEnum(mc.theWorld.getDifficulty().getDifficultyId() + 1));
-                field_175357_i.displayString = func_175355_a(mc.theWorld.getDifficulty());
-            }
+        if (button.id < 100 && button instanceof GuiOptionButton) {
+            GameSettings.Options options = ((GuiOptionButton) button).returnEnumOptions();
+            gameSettings.setOptionValue(options, 1);
+            button.displayString = gameSettings.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+        }
 
-            if (button.id == 109) {
-                mc.displayGuiScreen(new GuiYesNo(this, (new ChatComponentTranslation("difficulty.lock.title")).getFormattedText(), (new ChatComponentTranslation("difficulty.lock.question", new ChatComponentTranslation(mc.theWorld.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
-            }
+        switch (button.id) {
+            case 101 -> mc.displayGuiScreen(new GuiCustomizeSkin(this));
+            case 102 -> mc.displayGuiScreen(new GuiScreenOptionsSounds(this, gameSettings));
+            case 103 -> mc.displayGuiScreen(new GuiVideoSettings(this, gameSettings));
+            case 104 -> mc.displayGuiScreen(new GuiScreenResourcePacks(this));
 
-            if (button.id == 110) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiCustomizeSkin(this));
-            }
+            case 105 -> mc.displayGuiScreen(new GuiLanguage(this, gameSettings, mc.getLanguageManager()));
+            case 106 -> mc.displayGuiScreen(new GuiControls(this, gameSettings));
+            case 107 -> mc.displayGuiScreen(new ScreenChatOptions(this, gameSettings));
 
-            if (button.id == 101) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiVideoSettings(this, game_settings_1));
-            }
-
-            if (button.id == 100) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiControls(this, game_settings_1));
-            }
-
-            if (button.id == 102) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiLanguage(this, game_settings_1, mc.getLanguageManager()));
-            }
-
-            if (button.id == 103) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new ScreenChatOptions(this, game_settings_1));
-            }
-
-            if (button.id == 104) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiSnooper(this, game_settings_1));
-            }
-
-            if (button.id == 200) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(field_146441_g);
-            }
-
-            if (button.id == 105) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiScreenResourcePacks(this));
-            }
-
-            if (button.id == 106) {
-                mc.gameSettings.saveOptions();
-                mc.displayGuiScreen(new GuiScreenOptionsSounds(this, game_settings_1));
-            }
+            case 108 -> mc.displayGuiScreen(screen);
         }
     }
 

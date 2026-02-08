@@ -20,8 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetworkSystem;
 import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.play.server.S03PacketTimeUpdate;
-import net.minecraft.profiler.IPlayerUsage;
-import net.minecraft.profiler.PlayerUsageSnooper;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.server.management.ServerConfigurationManager;
@@ -51,7 +49,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-public abstract class MinecraftServer implements Runnable, ICommandSender, IThreadListener, IPlayerUsage {
+public abstract class MinecraftServer implements Runnable, ICommandSender, IThreadListener {
     public static final File USER_CACHE_FILE = new File("usercache.json");
     private static final Logger logger = LogManager.getLogger();
     private static MinecraftServer mcServer;
@@ -61,7 +59,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     protected final Proxy serverProxy;
     protected final Queue<FutureTask<?>> futureTaskQueue = Queues.newArrayDeque();
     private final ISaveFormat anvilConverterForAnvilFile;
-    private final PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("server", this, getCurrentTimeMillis());
     private final File anvilFile;
     private final List<ITickable> playersOnline = Lists.newArrayList();
     private final NetworkSystem networkSystem;
@@ -75,7 +72,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     public String currentTask;
     public int percentDone;
     public long[][] timeOfLastDimensionTick;
-    private final int serverPort = -1;
     private ServerConfigurationManager serverConfigManager;
     private boolean serverRunning = true;
     private boolean serverStopped;
@@ -269,9 +265,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     protected void setResourcePackFromWorld(String worldNameIn, ISaveHandler saveHandlerIn) {
         File file1 = new File(saveHandlerIn.getWorldDirectory(), "resources.zip");
 
-        if (file1.isFile()) {
-            setResourcePack("level://" + worldNameIn + "/" + file1.getName(), "");
-        }
+        if (file1.isFile()) setResourcePack("level://" + worldNameIn + "/" + file1.getName(), "");
     }
 
     public abstract boolean canStructuresSpawn();
@@ -344,10 +338,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 for (WorldServer worldserver : worldServers) {
                     worldserver.flush();
                 }
-            }
-
-            if (usageSnooper.isSnooperRunning()) {
-                usageSnooper.stopSnooper();
             }
         }
     }
@@ -508,14 +498,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         theProfiler.endSection();
         theProfiler.startSection("snooper");
 
-        if (!usageSnooper.isSnooperRunning() && tickCounter > 100) {
-            usageSnooper.startSnooper();
-        }
-
-        if (tickCounter % 6000 == 0) {
-            usageSnooper.addMemoryStatsToSnooper();
-        }
-
         theProfiler.endSection();
         theProfiler.endSection();
     }
@@ -525,7 +507,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
         synchronized (futureTaskQueue) {
             while (!futureTaskQueue.isEmpty()) {
-                Util.runTask((FutureTask) futureTaskQueue.poll(), logger);
+                Util.runTask(futureTaskQueue.poll(), logger);
             }
         }
 
@@ -785,53 +767,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         resourcePackHash = hash;
     }
 
-    public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper) {
-        playerSnooper.addClientStat("whitelist_enabled", Boolean.FALSE);
-        playerSnooper.addClientStat("whitelist_count", 0);
-
-        if (serverConfigManager != null) {
-            playerSnooper.addClientStat("players_current", getCurrentPlayerCount());
-            playerSnooper.addClientStat("players_max", getMaxPlayers());
-            playerSnooper.addClientStat("players_seen", serverConfigManager.getAvailablePlayerDat().length);
-        }
-
-        playerSnooper.addClientStat("uses_auth", onlineMode);
-        playerSnooper.addClientStat("gui_state", getGuiEnabled() ? "enabled" : "disabled");
-        playerSnooper.addClientStat("run_time", (getCurrentTimeMillis() - playerSnooper.getMinecraftStartTimeMillis()) / 60L * 1000L);
-        playerSnooper.addClientStat("avg_tick_ms", (int) (MathHelper.average(tickTimeArray) * 1.0E-6D));
-        int i = 0;
-
-        if (worldServers != null) {
-            for (WorldServer worldServer : worldServers) {
-                if (worldServer != null) {
-                    WorldInfo worldinfo = worldServer.getWorldInfo();
-                    playerSnooper.addClientStat("world[" + i + "][dimension]", worldServer.provider.getDimensionId());
-                    playerSnooper.addClientStat("world[" + i + "][mode]", worldinfo.getGameType());
-                    playerSnooper.addClientStat("world[" + i + "][difficulty]", worldServer.getDifficulty());
-                    playerSnooper.addClientStat("world[" + i + "][hardcore]", worldinfo.isHardcoreModeEnabled());
-                    playerSnooper.addClientStat("world[" + i + "][generator_name]", worldinfo.getTerrainType().getWorldTypeName());
-                    playerSnooper.addClientStat("world[" + i + "][generator_version]", worldinfo.getTerrainType().getGeneratorVersion());
-                    playerSnooper.addClientStat("world[" + i + "][height]", buildLimit);
-                    playerSnooper.addClientStat("world[" + i + "][chunks_loaded]", worldServer.getChunkProvider().getLoadedChunkCount());
-                    ++i;
-                }
-            }
-        }
-
-        playerSnooper.addClientStat("worlds", i);
-    }
-
-    public void addServerTypeToSnooper(PlayerUsageSnooper playerSnooper) {
-        playerSnooper.addStatToSnooper("singleplayer", isSinglePlayer());
-        playerSnooper.addStatToSnooper("server_brand", getServerModName());
-        playerSnooper.addStatToSnooper("gui_supported", GraphicsEnvironment.isHeadless() ? "headless" : "supported");
-        playerSnooper.addStatToSnooper("dedicated", isDedicatedServer());
-    }
-
-    public boolean isSnooperEnabled() {
-        return true;
-    }
-
     public abstract boolean isDedicatedServer();
 
     public boolean isServerInOnlineMode() {
@@ -928,9 +863,9 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         startProfiling = true;
     }
 
-    public PlayerUsageSnooper getPlayerUsageSnooper() {
-        return usageSnooper;
-    }
+//    public PlayerUsageSnooper getPlayerUsageSnooper() {
+//        return usageSnooper;
+//    }
 
     public BlockPos getPosition() {
         return BlockPos.ORIGIN;

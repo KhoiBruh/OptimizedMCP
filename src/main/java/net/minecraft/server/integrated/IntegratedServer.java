@@ -11,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketThreadUtil;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.profiler.PlayerUsageSnooper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
@@ -150,7 +149,7 @@ public class IntegratedServer extends MinecraftServer {
         if (isGamePaused) {
             synchronized (futureTaskQueue) {
                 while (!futureTaskQueue.isEmpty()) {
-                    Util.runTask((FutureTask) futureTaskQueue.poll(), logger);
+                    Util.runTask(futureTaskQueue.poll(), logger);
                 }
             }
         } else {
@@ -262,15 +261,6 @@ public class IntegratedServer extends MinecraftServer {
         if (mc.theWorld != null) {
             mc.theWorld.getWorldInfo().setDifficulty(difficulty);
         }
-    }
-
-    public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper) {
-        super.addServerStatsToSnooper(playerSnooper);
-        playerSnooper.addClientStat("snooper_partner", mc.getPlayerUsageSnooper().getUniqueID());
-    }
-
-    public boolean isSnooperEnabled() {
-        return Minecraft.getMinecraft().isSnooperEnabled();
     }
 
     public String shareToLAN(WorldSettings.GameType type, boolean allowCheats) {
