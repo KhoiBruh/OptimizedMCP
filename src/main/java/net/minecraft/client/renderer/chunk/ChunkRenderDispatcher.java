@@ -8,7 +8,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -196,7 +196,7 @@ public class ChunkRenderDispatcher {
         return true;
     }
 
-    public ListenableFuture<Object> uploadChunk(final EnumWorldBlockLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {
+    public ListenableFuture<Object> uploadChunk(final WorldBlockLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {
         if (Minecraft.getMinecraft().isCallingFromMinecraftThread()) {
             if (OpenGlHelper.useVbo()) {
                 uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));

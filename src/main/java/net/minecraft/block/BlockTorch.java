@@ -13,11 +13,11 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockTorch extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.DOWN);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Direction.DOWN);
 
     protected BlockTorch() {
         super(Material.circuits);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, Direction.UP));
         setTickRandomly(true);
         setCreativeTab(CreativeTabs.tabDecorations);
     }
@@ -44,7 +44,7 @@ public class BlockTorch extends Block {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : FACING.getAllowedValues()) {
+        for (Direction enumfacing : FACING.getAllowedValues()) {
             if (canPlaceAt(worldIn, pos, enumfacing)) {
                 return true;
             }
@@ -53,17 +53,17 @@ public class BlockTorch extends Block {
         return false;
     }
 
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+    private boolean canPlaceAt(World worldIn, BlockPos pos, Direction facing) {
         BlockPos blockpos = pos.offset(facing.getOpposite());
         boolean flag = facing.getAxis().isHorizontal();
-        return flag && worldIn.isBlockNormalCube(blockpos, true) || facing.equals(EnumFacing.UP) && canPlaceOn(worldIn, blockpos);
+        return flag && worldIn.isBlockNormalCube(blockpos, true) || facing.equals(Direction.UP) && canPlaceOn(worldIn, blockpos);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (canPlaceAt(worldIn, pos, facing)) {
             return getDefaultState().withProperty(FACING, facing);
         } else {
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                 if (worldIn.isBlockNormalCube(pos.offset(enumfacing.getOpposite()), true)) {
                     return getDefaultState().withProperty(FACING, enumfacing);
                 }
@@ -85,9 +85,9 @@ public class BlockTorch extends Block {
         if (!checkForDrop(worldIn, pos, state)) {
             return true;
         } else {
-            EnumFacing enumfacing = state.getValue(FACING);
-            EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
-            EnumFacing enumfacing1 = enumfacing.getOpposite();
+            Direction enumfacing = state.getValue(FACING);
+            Direction.Axis enumfacing$axis = enumfacing.getAxis();
+            Direction enumfacing1 = enumfacing.getOpposite();
             boolean flag = false;
 
             if (enumfacing$axis.isHorizontal() && !worldIn.isBlockNormalCube(pos.offset(enumfacing1), true)) {
@@ -120,16 +120,16 @@ public class BlockTorch extends Block {
     }
 
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
-        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+        Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.15F;
 
-        if (enumfacing == EnumFacing.EAST) {
+        if (enumfacing == Direction.EAST) {
             setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
-        } else if (enumfacing == EnumFacing.WEST) {
+        } else if (enumfacing == Direction.WEST) {
             setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
-        } else if (enumfacing == EnumFacing.SOUTH) {
+        } else if (enumfacing == Direction.SOUTH) {
             setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
-        } else if (enumfacing == EnumFacing.NORTH) {
+        } else if (enumfacing == Direction.NORTH) {
             setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
         } else {
             f = 0.1F;
@@ -140,7 +140,7 @@ public class BlockTorch extends Block {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        EnumFacing enumfacing = state.getValue(FACING);
+        Direction enumfacing = state.getValue(FACING);
         double d0 = (double) pos.getX() + 0.5D;
         double d1 = (double) pos.getY() + 0.7D;
         double d2 = (double) pos.getZ() + 0.5D;
@@ -148,28 +148,28 @@ public class BlockTorch extends Block {
         double d4 = 0.27D;
 
         if (enumfacing.getAxis().isHorizontal()) {
-            EnumFacing enumfacing1 = enumfacing.getOpposite();
-            worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4 * (double) enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4 * (double) enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+            Direction enumfacing1 = enumfacing.getOpposite();
+            worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d4 * (double) enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d4 * (double) enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
         } else {
-            worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = getDefaultState();
 
         iblockstate = switch (meta) {
-            case 1 -> iblockstate.withProperty(FACING, EnumFacing.EAST);
-            case 2 -> iblockstate.withProperty(FACING, EnumFacing.WEST);
-            case 3 -> iblockstate.withProperty(FACING, EnumFacing.SOUTH);
-            case 4 -> iblockstate.withProperty(FACING, EnumFacing.NORTH);
-            default -> iblockstate.withProperty(FACING, EnumFacing.UP);
+            case 1 -> iblockstate.withProperty(FACING, Direction.EAST);
+            case 2 -> iblockstate.withProperty(FACING, Direction.WEST);
+            case 3 -> iblockstate.withProperty(FACING, Direction.SOUTH);
+            case 4 -> iblockstate.withProperty(FACING, Direction.NORTH);
+            default -> iblockstate.withProperty(FACING, Direction.UP);
         };
 
         return iblockstate;

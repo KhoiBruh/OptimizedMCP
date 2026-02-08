@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.optifine.gui.GuiButtonOF;
 import net.optifine.gui.GuiScreenCapeOF;
 
@@ -17,7 +17,7 @@ public class GuiCustomizeSkin extends GuiScreen {
         int i = 0;
         title = I18n.format("options.skinCustomisation.title");
 
-        for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+        for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
             buttonList.add(new GuiCustomizeSkin.ButtonPart(enumplayermodelparts.getPartId(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), 150, 20, enumplayermodelparts));
             ++i;
         }
@@ -41,7 +41,7 @@ public class GuiCustomizeSkin extends GuiScreen {
                 mc.gameSettings.saveOptions();
                 mc.displayGuiScreen(parentScreen);
             } else if (button instanceof GuiCustomizeSkin.ButtonPart) {
-                EnumPlayerModelParts enumplayermodelparts = ((GuiCustomizeSkin.ButtonPart) button).playerModelParts;
+                PlayerModelParts enumplayermodelparts = ((GuiCustomizeSkin.ButtonPart) button).playerModelParts;
                 mc.gameSettings.switchModelPartEnabled(enumplayermodelparts);
                 button.displayString = func_175358_a(enumplayermodelparts);
             }
@@ -54,7 +54,7 @@ public class GuiCustomizeSkin extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
-    private String func_175358_a(EnumPlayerModelParts playerModelParts) {
+    private String func_175358_a(PlayerModelParts playerModelParts) {
         String s;
 
         if (mc.gameSettings.getModelParts().contains(playerModelParts)) {
@@ -67,9 +67,9 @@ public class GuiCustomizeSkin extends GuiScreen {
     }
 
     class ButtonPart extends GuiButton {
-        private final EnumPlayerModelParts playerModelParts;
+        private final PlayerModelParts playerModelParts;
 
-        private ButtonPart(int p_i45514_2_, int p_i45514_3_, int p_i45514_4_, int p_i45514_5_, int p_i45514_6_, EnumPlayerModelParts playerModelParts) {
+        private ButtonPart(int p_i45514_2_, int p_i45514_3_, int p_i45514_4_, int p_i45514_5_, int p_i45514_6_, PlayerModelParts playerModelParts) {
             super(p_i45514_2_, p_i45514_3_, p_i45514_4_, p_i45514_5_, p_i45514_6_, func_175358_a(playerModelParts));
             this.playerModelParts = playerModelParts;
         }

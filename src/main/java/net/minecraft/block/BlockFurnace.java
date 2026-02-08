@@ -15,20 +15,20 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockFurnace extends BlockContainer {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
     private static boolean keepInventory;
     private final boolean isBurning;
 
     protected BlockFurnace(boolean isBurning) {
         super(Material.rock);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.isBurning = isBurning;
     }
 
@@ -67,16 +67,16 @@ public class BlockFurnace extends BlockContainer {
             Block block1 = worldIn.getBlockState(pos.south()).getBlock();
             Block block2 = worldIn.getBlockState(pos.west()).getBlock();
             Block block3 = worldIn.getBlockState(pos.east()).getBlock();
-            EnumFacing enumfacing = state.getValue(FACING);
+            Direction enumfacing = state.getValue(FACING);
 
-            if (enumfacing == EnumFacing.NORTH && block.isFullBlock() && !block1.isFullBlock()) {
-                enumfacing = EnumFacing.SOUTH;
-            } else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock() && !block.isFullBlock()) {
-                enumfacing = EnumFacing.NORTH;
-            } else if (enumfacing == EnumFacing.WEST && block2.isFullBlock() && !block3.isFullBlock()) {
-                enumfacing = EnumFacing.EAST;
-            } else if (enumfacing == EnumFacing.EAST && block3.isFullBlock() && !block2.isFullBlock()) {
-                enumfacing = EnumFacing.WEST;
+            if (enumfacing == Direction.NORTH && block.isFullBlock() && !block1.isFullBlock()) {
+                enumfacing = Direction.SOUTH;
+            } else if (enumfacing == Direction.SOUTH && block1.isFullBlock() && !block.isFullBlock()) {
+                enumfacing = Direction.NORTH;
+            } else if (enumfacing == Direction.WEST && block2.isFullBlock() && !block3.isFullBlock()) {
+                enumfacing = Direction.EAST;
+            } else if (enumfacing == Direction.EAST && block3.isFullBlock() && !block2.isFullBlock()) {
+                enumfacing = Direction.WEST;
             }
 
             worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
@@ -86,7 +86,7 @@ public class BlockFurnace extends BlockContainer {
     @SuppressWarnings("incomplete-switch")
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (isBurning) {
-            EnumFacing enumfacing = state.getValue(FACING);
+            Direction enumfacing = state.getValue(FACING);
             double d0 = (double) pos.getX() + 0.5D;
             double d1 = (double) pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
             double d2 = (double) pos.getZ() + 0.5D;
@@ -95,28 +95,28 @@ public class BlockFurnace extends BlockContainer {
 
             switch (enumfacing) {
                 case WEST:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-                    worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
                     break;
 
                 case EAST:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-                    worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
                     break;
 
                 case NORTH:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-                    worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
                     break;
 
                 case SOUTH:
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-                    worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else {
@@ -135,7 +135,7 @@ public class BlockFurnace extends BlockContainer {
         return new TileEntityFurnace();
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
@@ -181,14 +181,14 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public IBlockState getStateForEntityRender(IBlockState state) {
-        return getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
+        return getDefaultState().withProperty(FACING, Direction.SOUTH);
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        Direction enumfacing = Direction.getFront(meta);
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-            enumfacing = EnumFacing.NORTH;
+        if (enumfacing.getAxis() == Direction.Axis.Y) {
+            enumfacing = Direction.NORTH;
         }
 
         return getDefaultState().withProperty(FACING, enumfacing);

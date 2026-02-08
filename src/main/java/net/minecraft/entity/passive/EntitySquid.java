@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -62,7 +62,7 @@ public class EntitySquid extends EntityWaterMob {
         int i = rand.nextInt(3 + lootingModifier) + 1;
 
         for (int j = 0; j < i; ++j) {
-            entityDropItem(new ItemStack(Items.dye, 1, EnumDyeColor.BLACK.getDyeDamage()), 0.0F);
+            entityDropItem(new ItemStack(Items.dye, 1, DyeColor.BLACK.getDyeDamage()), 0.0F);
         }
     }
 

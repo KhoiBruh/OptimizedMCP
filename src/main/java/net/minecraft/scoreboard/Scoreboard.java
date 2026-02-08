@@ -3,7 +3,7 @@ package net.minecraft.scoreboard;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 
 import java.util.*;
 
@@ -23,9 +23,9 @@ public class Scoreboard {
             case 2 -> "belowName";
             default -> {
                 if (slot >= 3 && slot <= 18) {
-                    EnumChatFormatting chatFormat = EnumChatFormatting.func_175744_a(slot - 3);
+                    ChatFormat chatFormat = ChatFormat.func_175744_a(slot - 3);
 
-                    if (chatFormat != null && chatFormat != EnumChatFormatting.RESET)
+                    if (chatFormat != null && chatFormat != ChatFormat.RESET)
                         yield "sidebar.team." + chatFormat.getFriendlyName();
                 }
 
@@ -42,7 +42,7 @@ public class Scoreboard {
             default -> {
                 if (objective.startsWith("sidebar.team.")) {
                     String s = objective.substring("sidebar.team.".length());
-                    EnumChatFormatting chatFormat = EnumChatFormatting.getValueByName(s);
+                    ChatFormat chatFormat = ChatFormat.getValueByName(s);
 
                     if (chatFormat != null && chatFormat.getColorIndex() >= 0) yield chatFormat.getColorIndex() + 3;
                 }

@@ -8,11 +8,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockRail extends BlockRailBase {
-    public static final PropertyEnum<BlockRailBase.EnumRailDirection> SHAPE = PropertyEnum.create("shape", BlockRailBase.EnumRailDirection.class);
+    public static final PropertyEnum<RailDirection> SHAPE = PropertyEnum.create("shape", RailDirection.class);
 
     protected BlockRail() {
         super(false);
-        setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+        setDefaultState(blockState.getBaseState().withProperty(SHAPE, RailDirection.NORTH_SOUTH));
     }
 
     protected void onNeighborChangedInternal(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -21,12 +21,12 @@ public class BlockRail extends BlockRailBase {
         }
     }
 
-    public IProperty<BlockRailBase.EnumRailDirection> getShapeProperty() {
+    public IProperty<RailDirection> getShapeProperty() {
         return SHAPE;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta));
+        return getDefaultState().withProperty(SHAPE, RailDirection.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

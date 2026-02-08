@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 
 import java.util.Random;
 
@@ -16,8 +16,8 @@ public class BlockGlass extends BlockBreakable {
         return 0;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT;
     }
 
     public boolean isFullCube() {

@@ -22,11 +22,11 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockTallGrass extends BlockBush implements IGrowable {
-    public static final PropertyEnum<BlockTallGrass.EnumType> TYPE = PropertyEnum.create("type", BlockTallGrass.EnumType.class);
+    public static final PropertyEnum<Type> TYPE = PropertyEnum.create("type", Type.class);
 
     protected BlockTallGrass() {
         super(Material.vine);
-        setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockTallGrass.EnumType.DEAD_BUSH));
+        setDefaultState(blockState.getBaseState().withProperty(TYPE, Type.DEAD_BUSH));
         float f = 0.4F;
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
     }
@@ -43,8 +43,8 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
         if (state.getBlock() != this) {
             return super.getRenderColor(state);
         } else {
-            BlockTallGrass.EnumType blocktallgrass$enumtype = state.getValue(TYPE);
-            return blocktallgrass$enumtype == BlockTallGrass.EnumType.DEAD_BUSH ? 16777215 : ColorizerGrass.getGrassColor(0.5D, 1.0D);
+            Type blocktallgrass$enumtype = state.getValue(TYPE);
+            return blocktallgrass$enumtype == Type.DEAD_BUSH ? 16777215 : ColorizerGrass.getGrassColor(0.5D, 1.0D);
         }
     }
 
@@ -81,7 +81,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-        return state.getValue(TYPE) != BlockTallGrass.EnumType.DEAD_BUSH;
+        return state.getValue(TYPE) != Type.DEAD_BUSH;
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
@@ -89,10 +89,10 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.GRASS;
+        BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = BlockDoublePlant.PlantType.GRASS;
 
-        if (state.getValue(TYPE) == BlockTallGrass.EnumType.FERN) {
-            blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.FERN;
+        if (state.getValue(TYPE) == Type.FERN) {
+            blockdoubleplant$enumplanttype = BlockDoublePlant.PlantType.FERN;
         }
 
         if (Blocks.double_plant.canPlaceBlockAt(worldIn, pos)) {
@@ -101,7 +101,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, BlockTallGrass.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(TYPE, Type.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -112,19 +112,19 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
         return new BlockState(this, TYPE);
     }
 
-    public Block.EnumOffsetType getOffsetType() {
-        return Block.EnumOffsetType.XYZ;
+    public OffsetType getOffsetType() {
+        return OffsetType.XYZ;
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IStringSerializable {
         DEAD_BUSH(0, "dead_bush"),
         GRASS(1, "tall_grass"),
         FERN(2, "fern");
 
-        private static final BlockTallGrass.EnumType[] META_LOOKUP = new BlockTallGrass.EnumType[values().length];
+        private static final Type[] META_LOOKUP = new Type[values().length];
 
         static {
-            for (BlockTallGrass.EnumType blocktallgrass$enumtype : values()) {
+            for (Type blocktallgrass$enumtype : values()) {
                 META_LOOKUP[blocktallgrass$enumtype.meta] = blocktallgrass$enumtype;
             }
         }
@@ -132,12 +132,12 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
         private final int meta;
         private final String name;
 
-        EnumType(int meta, String name) {
+        Type(int meta, String name) {
             this.meta = meta;
             this.name = name;
         }
 
-        public static BlockTallGrass.EnumType byMetadata(int meta) {
+        public static Type byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }

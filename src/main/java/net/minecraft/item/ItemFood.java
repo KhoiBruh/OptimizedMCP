@@ -48,8 +48,8 @@ public class ItemFood extends Item {
         return 32;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.EAT;
+    public Action getItemUseAction(ItemStack stack) {
+        return Action.EAT;
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

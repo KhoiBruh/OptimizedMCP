@@ -3,12 +3,12 @@ package net.minecraft.enchantment;
 import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentLootBonus extends Enchantment {
-    protected EnchantmentLootBonus(int p_i45767_1_, ResourceLocation p_i45767_2_, int p_i45767_3_, EnumEnchantmentType p_i45767_4_) {
+    protected EnchantmentLootBonus(int p_i45767_1_, ResourceLocation p_i45767_2_, int p_i45767_3_, EnchantmentType p_i45767_4_) {
         super(p_i45767_1_, p_i45767_2_, p_i45767_3_, p_i45767_4_);
 
-        if (p_i45767_4_ == EnumEnchantmentType.DIGGER) {
+        if (p_i45767_4_ == EnchantmentType.DIGGER) {
             setName("lootBonusDigger");
-        } else if (p_i45767_4_ == EnumEnchantmentType.FISHING_ROD) {
+        } else if (p_i45767_4_ == EnchantmentType.FISHING_ROD) {
             setName("lootBonusFishing");
         } else {
             setName("lootBonus");

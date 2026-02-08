@@ -47,7 +47,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     public void initGui() {
         screenTitle = I18n.format("gui.stats");
         doesGuiPauseGame = true;
-        mc.getNetHandler().addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.REQUEST_STATS));
+        mc.getNetHandler().addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.State.REQUEST_STATS));
     }
 
     public void handleMouseInput() throws IOException {

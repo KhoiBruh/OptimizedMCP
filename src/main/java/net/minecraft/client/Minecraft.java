@@ -56,7 +56,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.C00PacketLoginStart;
@@ -69,7 +69,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.Timer;
 import net.minecraft.util.Util;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldSettings;
@@ -102,7 +102,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 public class Minecraft implements IThreadListener {
-    public static final boolean isRunningOnMac = Util.getOSType() == Util.EnumOS.OSX;
+    public static final boolean isRunningOnMac = Util.getOSType() == Util.OS.OSX;
     private static final Logger logger = LogManager.getLogger();
     private static final ResourceLocation locationMojangPng = new ResourceLocation("textures/gui/title/mojang.png");
     private static final List<DisplayMode> macDisplayModes = Lists
@@ -475,9 +475,9 @@ public class Minecraft implements IThreadListener {
     }
 
     private void setWindowIcon() {
-        Util.EnumOS util$enumos = Util.getOSType();
+        Util.OS util$enumos = Util.getOSType();
 
-        if (util$enumos != Util.EnumOS.OSX) {
+        if (util$enumos != Util.OS.OSX) {
 
             try(
                 var inputstream = mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
@@ -589,7 +589,7 @@ public class Minecraft implements IThreadListener {
         Collections.addAll(set, Display.getAvailableDisplayModes());
         DisplayMode displaymode = Display.getDesktopDisplayMode();
 
-        if (!set.contains(displaymode) && Util.getOSType() == Util.EnumOS.OSX) {
+        if (!set.contains(displaymode) && Util.getOSType() == Util.OS.OSX) {
             label53:
 
             for (DisplayMode displaymode1 : macDisplayModes) {
@@ -1441,14 +1441,14 @@ public class Minecraft implements IThreadListener {
                 }
             }
 
-            boolean flag = gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN;
+            boolean flag = gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN;
 
             while (gameSettings.keyBindInventory.isPressed()) {
                 if (playerController.isRidingHorse()) {
                     thePlayer.sendHorseInventory();
                 } else {
                     getNetHandler().addToSendQueue(
-                            new C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT));
+                            new C16PacketClientStatus(C16PacketClientStatus.State.OPEN_INVENTORY_ACHIEVEMENT));
                     displayGuiScreen(new GuiInventory(thePlayer));
                 }
             }
@@ -1514,7 +1514,7 @@ public class Minecraft implements IThreadListener {
 
         if (theWorld != null) {
             if (!isGamePaused) {
-                theWorld.setAllowedSpawnTypes(theWorld.getDifficulty() != EnumDifficulty.PEACEFUL, true);
+                theWorld.setAllowedSpawnTypes(theWorld.getDifficulty() != Difficulty.PEACEFUL, true);
 
                 try {
                     theWorld.tick();
@@ -1592,7 +1592,7 @@ public class Minecraft implements IThreadListener {
         SocketAddress socketaddress = theIntegratedServer.getNetworkSystem().addLocalEndpoint();
         NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
         networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
-        networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, EnumConnectionState.LOGIN));
+        networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, ConnectionState.LOGIN));
         networkmanager.sendPacket(new C00PacketLoginStart(session.getProfile()));
         myNetworkManager = networkmanager;
     }

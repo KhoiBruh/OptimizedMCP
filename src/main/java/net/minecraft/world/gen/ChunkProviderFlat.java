@@ -1,7 +1,7 @@
 package net.minecraft.world.gen;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -202,7 +202,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         return "FlatLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos) {
         BiomeGenBase biomegenbase = worldObj.getBiomeGenForCoords(pos);
         return biomegenbase.getSpawnableList(creatureType);
     }

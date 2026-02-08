@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFirework extends Item {
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(worldIn, (float) pos.getX() + hitX, (float) pos.getY() + hitY, (float) pos.getZ() + hitZ, stack);
             worldIn.spawnEntityInWorld(entityfireworkrocket);

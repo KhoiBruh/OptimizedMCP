@@ -16,8 +16,8 @@ public class ItemArmorStand extends Item {
         setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (side == EnumFacing.DOWN) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
+        if (side == Direction.DOWN) {
             return false;
         } else {
             boolean flag = worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos);

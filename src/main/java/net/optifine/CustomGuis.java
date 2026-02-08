@@ -39,7 +39,7 @@ public class CustomGuis {
         }
     }
 
-    private static ResourceLocation getTexturePos(CustomGuiProperties.EnumContainer container, BlockPos pos, IBlockAccess blockAccess, ResourceLocation loc, GuiScreen screen) {
+    private static ResourceLocation getTexturePos(CustomGuiProperties.Container container, BlockPos pos, IBlockAccess blockAccess, ResourceLocation loc, GuiScreen screen) {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
         if (acustomguiproperties != null) {
@@ -53,7 +53,7 @@ public class CustomGuis {
         return loc;
     }
 
-    private static ResourceLocation getTextureEntity(CustomGuiProperties.EnumContainer container, Entity entity, IBlockAccess blockAccess, ResourceLocation loc) {
+    private static ResourceLocation getTextureEntity(CustomGuiProperties.Container container, Entity entity, IBlockAccess blockAccess, ResourceLocation loc) {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
         if (acustomguiproperties != null) {
@@ -87,7 +87,7 @@ public class CustomGuis {
         if (listProps.isEmpty()) {
             return null;
         } else {
-            CustomGuiProperties[][] acustomguiproperties = new CustomGuiProperties[CustomGuiProperties.EnumContainer.VALUES.length][];
+            CustomGuiProperties[][] acustomguiproperties = new CustomGuiProperties[CustomGuiProperties.Container.VALUES.length][];
 
             for (int i = 0; i < acustomguiproperties.length; ++i) {
                 if (listProps.size() > i) {

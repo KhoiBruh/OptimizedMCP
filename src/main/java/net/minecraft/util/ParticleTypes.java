@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum EnumParticleTypes {
+public enum ParticleTypes {
     EXPLOSION_NORMAL("explode", 0, true),
     EXPLOSION_LARGE("largeexplode", 1, true),
     EXPLOSION_HUGE("hugeexplosion", 2, true),
@@ -49,13 +49,13 @@ public enum EnumParticleTypes {
     ITEM_TAKE("take", 40, false),
     MOB_APPEARANCE("mobappearance", 41, true);
 
-    private static final Map<Integer, EnumParticleTypes> PARTICLES = new HashMap<>();
+    private static final Map<Integer, ParticleTypes> PARTICLES = new HashMap<>();
     private static final String[] PARTICLE_NAMES;
 
     static {
         List<String> list = new ArrayList<>();
 
-        for (EnumParticleTypes enumparticletypes : values()) {
+        for (ParticleTypes enumparticletypes : values()) {
             PARTICLES.put(enumparticletypes.particleID, enumparticletypes);
 
             if (!enumparticletypes.particleName.endsWith("_")) {
@@ -71,14 +71,14 @@ public enum EnumParticleTypes {
     private final boolean shouldIgnoreRange;
     private final int argumentCount;
 
-    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
+    ParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
         particleName = particleNameIn;
         particleID = particleIDIn;
         shouldIgnoreRange = p_i46011_5_;
         argumentCount = argumentCountIn;
     }
 
-    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
+    ParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
         this(particleNameIn, particleIDIn, p_i46012_5_, 0);
     }
 
@@ -86,7 +86,7 @@ public enum EnumParticleTypes {
         return PARTICLE_NAMES;
     }
 
-    public static EnumParticleTypes getParticleFromId(int particleId) {
+    public static ParticleTypes getParticleFromId(int particleId) {
         return PARTICLES.get(particleId);
     }
 

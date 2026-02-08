@@ -55,8 +55,8 @@ public abstract class MobSpawnerBaseLogic {
                 double d3 = (float) blockpos.getX() + getSpawnerWorld().rand.nextFloat();
                 double d4 = (float) blockpos.getY() + getSpawnerWorld().rand.nextFloat();
                 double d5 = (float) blockpos.getZ() + getSpawnerWorld().rand.nextFloat();
-                getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
-                getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+                getSpawnerWorld().spawnParticle(ParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+                getSpawnerWorld().spawnParticle(ParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
 
                 if (spawnDelay > 0) {
                     --spawnDelay;
@@ -317,7 +317,7 @@ public abstract class MobSpawnerBaseLogic {
 
             if (type.equals("Minecart")) {
                 if (tagCompound != null) {
-                    type = EntityMinecart.EnumMinecartType.byNetworkID(tagCompound.getInteger("Type")).getName();
+                    type = EntityMinecart.MinecartType.byNetworkID(tagCompound.getInteger("Type")).getName();
                 } else {
                     type = "MinecartRideable";
                 }

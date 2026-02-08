@@ -24,7 +24,7 @@ public class ScoreDummyCriteria implements IScoreObjectiveCriteria {
         return false;
     }
 
-    public IScoreObjectiveCriteria.EnumRenderType getRenderType() {
-        return IScoreObjectiveCriteria.EnumRenderType.INTEGER;
+    public RenderType getRenderType() {
+        return RenderType.INTEGER;
     }
 }

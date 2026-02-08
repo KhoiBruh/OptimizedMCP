@@ -16,16 +16,16 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockStone extends Block {
-    public static final PropertyEnum<BlockStone.EnumType> VARIANT = PropertyEnum.create("variant", BlockStone.EnumType.class);
+    public static final PropertyEnum<Type> VARIANT = PropertyEnum.create("variant", Type.class);
 
     public BlockStone() {
         super(Material.rock);
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStone.EnumType.STONE));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, Type.STONE));
         setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(getUnlocalizedName() + "." + BlockStone.EnumType.STONE.getUnlocalizedName() + ".name");
+        return StatCollector.translateToLocal(getUnlocalizedName() + "." + Type.STONE.getUnlocalizedName() + ".name");
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -33,7 +33,7 @@ public class BlockStone extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return state.getValue(VARIANT) == BlockStone.EnumType.STONE ? Item.getItemFromBlock(Blocks.cobblestone) : Item.getItemFromBlock(Blocks.stone);
+        return state.getValue(VARIANT) == Type.STONE ? Item.getItemFromBlock(Blocks.cobblestone) : Item.getItemFromBlock(Blocks.stone);
     }
 
     public int damageDropped(IBlockState state) {
@@ -41,13 +41,13 @@ public class BlockStone extends Block {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (BlockStone.EnumType blockstone$enumtype : BlockStone.EnumType.values()) {
+        for (Type blockstone$enumtype : Type.values()) {
             list.add(new ItemStack(itemIn, 1, blockstone$enumtype.getMetadata()));
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT, BlockStone.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, Type.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -58,7 +58,7 @@ public class BlockStone extends Block {
         return new BlockState(this, VARIANT);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IStringSerializable {
         STONE(0, MapColor.stoneColor, "stone"),
         GRANITE(1, MapColor.dirtColor, "granite"),
         GRANITE_SMOOTH(2, MapColor.dirtColor, "smooth_granite", "graniteSmooth"),
@@ -67,10 +67,10 @@ public class BlockStone extends Block {
         ANDESITE(5, MapColor.stoneColor, "andesite"),
         ANDESITE_SMOOTH(6, MapColor.stoneColor, "smooth_andesite", "andesiteSmooth");
 
-        private static final BlockStone.EnumType[] META_LOOKUP = new BlockStone.EnumType[values().length];
+        private static final Type[] META_LOOKUP = new Type[values().length];
 
         static {
-            for (BlockStone.EnumType blockstone$enumtype : values()) {
+            for (Type blockstone$enumtype : values()) {
                 META_LOOKUP[blockstone$enumtype.meta] = blockstone$enumtype;
             }
         }
@@ -80,18 +80,18 @@ public class BlockStone extends Block {
         private final String unlocalizedName;
         private final MapColor field_181073_l;
 
-        EnumType(int p_i46383_3_, MapColor p_i46383_4_, String p_i46383_5_) {
+        Type(int p_i46383_3_, MapColor p_i46383_4_, String p_i46383_5_) {
             this(p_i46383_3_, p_i46383_4_, p_i46383_5_, p_i46383_5_);
         }
 
-        EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_) {
+        Type(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_) {
             meta = p_i46384_3_;
             name = p_i46384_5_;
             unlocalizedName = p_i46384_6_;
             field_181073_l = p_i46384_4_;
         }
 
-        public static BlockStone.EnumType byMetadata(int meta) {
+        public static Type byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }

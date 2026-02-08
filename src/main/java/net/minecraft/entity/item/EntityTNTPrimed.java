@@ -3,7 +3,7 @@ package net.minecraft.entity.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityTNTPrimed extends Entity {
@@ -65,7 +65,7 @@ public class EntityTNTPrimed extends Entity {
             }
         } else {
             handleWaterMovement();
-            worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 

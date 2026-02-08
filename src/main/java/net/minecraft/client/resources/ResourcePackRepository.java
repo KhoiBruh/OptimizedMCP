@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.FileUtils;
@@ -284,7 +284,7 @@ public class ResourcePackRepository {
         }
 
         public String getTexturePackDescription() {
-            return rePackMetadataSection == null ? EnumChatFormatting.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : rePackMetadataSection.packDescription().getFormattedText();
+            return rePackMetadataSection == null ? ChatFormat.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : rePackMetadataSection.packDescription().getFormattedText();
         }
 
         public int func_183027_f() {

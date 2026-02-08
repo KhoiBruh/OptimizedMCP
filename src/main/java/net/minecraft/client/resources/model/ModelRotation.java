@@ -1,6 +1,6 @@
 package net.minecraft.client.resources.model;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -65,36 +65,36 @@ public enum ModelRotation {
         return matrix4d;
     }
 
-    public EnumFacing rotateFace(EnumFacing p_177523_1_) {
-        EnumFacing enumfacing = p_177523_1_;
+    public Direction rotateFace(Direction p_177523_1_) {
+        Direction enumfacing = p_177523_1_;
 
         for (int i = 0; i < quartersX; ++i) {
-            enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
+            enumfacing = enumfacing.rotateAround(Direction.Axis.X);
         }
 
-        if (enumfacing.getAxis() != EnumFacing.Axis.Y) {
+        if (enumfacing.getAxis() != Direction.Axis.Y) {
             for (int j = 0; j < quartersY; ++j) {
-                enumfacing = enumfacing.rotateAround(EnumFacing.Axis.Y);
+                enumfacing = enumfacing.rotateAround(Direction.Axis.Y);
             }
         }
 
         return enumfacing;
     }
 
-    public int rotateVertex(EnumFacing facing, int vertexIndex) {
+    public int rotateVertex(Direction facing, int vertexIndex) {
         int i = vertexIndex;
 
-        if (facing.getAxis() == EnumFacing.Axis.X) {
+        if (facing.getAxis() == Direction.Axis.X) {
             i = (vertexIndex + quartersX) % 4;
         }
 
-        EnumFacing enumfacing = facing;
+        Direction enumfacing = facing;
 
         for (int j = 0; j < quartersX; ++j) {
-            enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
+            enumfacing = enumfacing.rotateAround(Direction.Axis.X);
         }
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
+        if (enumfacing.getAxis() == Direction.Axis.Y) {
             i = (i + quartersY) % 4;
         }
 
@@ -105,11 +105,11 @@ public enum ModelRotation {
         return matrix4d;
     }
 
-    public EnumFacing rotate(EnumFacing p_rotate_1_) {
+    public Direction rotate(Direction p_rotate_1_) {
         return rotateFace(p_rotate_1_);
     }
 
-    public int rotate(EnumFacing p_rotate_1_, int p_rotate_2_) {
+    public int rotate(Direction p_rotate_1_, int p_rotate_2_) {
         return rotateVertex(p_rotate_1_, p_rotate_2_);
     }
 }

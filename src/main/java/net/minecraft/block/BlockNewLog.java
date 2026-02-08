@@ -11,37 +11,37 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 public class BlockNewLog extends BlockLog {
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
+    public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
 
     public BlockNewLog() {
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.ACACIA).withProperty(LOG_AXIS, Axis.Y));
     }
 
     public MapColor getMapColor(IBlockState state) {
-        BlockPlanks.EnumType blockplanks$enumtype = state.getValue(VARIANT);
+        BlockPlanks.Type blockplanks$enumtype = state.getValue(VARIANT);
 
         return switch (state.getValue(LOG_AXIS)) {
             case Y -> blockplanks$enumtype.getMapColor();
             default -> switch (blockplanks$enumtype) {
-                case DARK_OAK -> BlockPlanks.EnumType.DARK_OAK.getMapColor();
+                case DARK_OAK -> BlockPlanks.Type.DARK_OAK.getMapColor();
                 default -> MapColor.stoneColor;
             };
         };
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        list.add(new ItemStack(itemIn, 1, BlockPlanks.EnumType.ACACIA.getMetadata() - 4));
-        list.add(new ItemStack(itemIn, 1, BlockPlanks.EnumType.DARK_OAK.getMetadata() - 4));
+        list.add(new ItemStack(itemIn, 1, BlockPlanks.Type.ACACIA.getMetadata() - 4));
+        list.add(new ItemStack(itemIn, 1, BlockPlanks.Type.DARK_OAK.getMetadata() - 4));
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata((meta & 3) + 4));
+        IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.Type.byMetadata((meta & 3) + 4));
 
         iblockstate = switch (meta & 12) {
-            case 0 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
-            case 4 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
-            case 8 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
-            default -> iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
+            case 0 -> iblockstate.withProperty(LOG_AXIS, Axis.Y);
+            case 4 -> iblockstate.withProperty(LOG_AXIS, Axis.X);
+            case 8 -> iblockstate.withProperty(LOG_AXIS, Axis.Z);
+            default -> iblockstate.withProperty(LOG_AXIS, Axis.NONE);
         };
 
         return iblockstate;

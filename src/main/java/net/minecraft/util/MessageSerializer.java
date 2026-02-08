@@ -14,9 +14,9 @@ import java.io.IOException;
 public class MessageSerializer extends MessageToByteEncoder<Packet> {
     private static final Logger logger = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT").setParents(NetworkManager.logMarkerPackets);
-    private final EnumPacketDirection direction;
+    private final PacketDirection direction;
 
-    public MessageSerializer(EnumPacketDirection direction) {
+    public MessageSerializer(PacketDirection direction) {
         this.direction = direction;
     }
 

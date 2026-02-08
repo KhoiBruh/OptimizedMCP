@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class EnchantmentDurability extends Enchantment {
     protected EnchantmentDurability(int enchID, ResourceLocation enchName, int enchWeight) {
-        super(enchID, enchName, enchWeight, EnumEnchantmentType.BREAKABLE);
+        super(enchID, enchName, enchWeight, EnchantmentType.BREAKABLE);
         setName("durability");
     }
 

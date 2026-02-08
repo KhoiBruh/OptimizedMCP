@@ -41,7 +41,7 @@ public class BiomeGenTaiga extends BiomeGenBase {
     }
 
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-        return rand.nextInt(5) > 0 ? new WorldGenTallGrass(BlockTallGrass.EnumType.FERN) : new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        return rand.nextInt(5) > 0 ? new WorldGenTallGrass(BlockTallGrass.Type.FERN) : new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos) {
@@ -56,7 +56,7 @@ public class BiomeGenTaiga extends BiomeGenBase {
             }
         }
 
-        DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.FERN);
+        DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.FERN);
 
         for (int i1 = 0; i1 < 7; ++i1) {
             int j1 = rand.nextInt(16) + 8;

@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 
@@ -49,12 +49,12 @@ public class ChunkCache implements IBlockAccess {
     public TileEntity getTileEntity(BlockPos pos) {
         int i = (pos.getX() >> 4) - chunkX;
         int j = (pos.getZ() >> 4) - chunkZ;
-        return chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.IMMEDIATE);
+        return chunkArray[i][j].getTileEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
     }
 
     public int getCombinedLight(BlockPos pos, int lightValue) {
-        int i = getLightForExt(EnumSkyBlock.SKY, pos);
-        int j = getLightForExt(EnumSkyBlock.BLOCK, pos);
+        int i = getLightForExt(SkyBlock.SKY, pos);
+        int j = getLightForExt(SkyBlock.BLOCK, pos);
 
         if (j < lightValue) {
             j = lightValue;
@@ -84,14 +84,14 @@ public class ChunkCache implements IBlockAccess {
         return worldObj.getBiomeGenForCoords(pos);
     }
 
-    private int getLightForExt(EnumSkyBlock p_175629_1_, BlockPos pos) {
-        if (p_175629_1_ == EnumSkyBlock.SKY && worldObj.provider.getHasNoSky()) {
+    private int getLightForExt(SkyBlock p_175629_1_, BlockPos pos) {
+        if (p_175629_1_ == SkyBlock.SKY && worldObj.provider.getHasNoSky()) {
             return 0;
         } else if (pos.getY() >= 0 && pos.getY() < 256) {
             if (getBlockState(pos).getBlock().getUseNeighborBrightness()) {
                 int l = 0;
 
-                for (EnumFacing enumfacing : EnumFacing.values()) {
+                for (Direction enumfacing : Direction.values()) {
                     int k = getLightFor(p_175629_1_, pos.offset(enumfacing));
 
                     if (k > l) {
@@ -118,7 +118,7 @@ public class ChunkCache implements IBlockAccess {
         return getBlockState(pos).getBlock().getMaterial() == Material.air;
     }
 
-    public int getLightFor(EnumSkyBlock p_175628_1_, BlockPos pos) {
+    public int getLightFor(SkyBlock p_175628_1_, BlockPos pos) {
         if (pos.getY() >= 0 && pos.getY() < 256) {
             int i = (pos.getX() >> 4) - chunkX;
             int j = (pos.getZ() >> 4) - chunkZ;
@@ -128,7 +128,7 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
-    public int getStrongPower(BlockPos pos, EnumFacing direction) {
+    public int getStrongPower(BlockPos pos, Direction direction) {
         IBlockState iblockstate = getBlockState(pos);
         return iblockstate.getBlock().getStrongPower(this, pos, iblockstate, direction);
     }

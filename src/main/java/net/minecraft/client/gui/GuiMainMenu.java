@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomPanorama;
@@ -28,8 +28,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
-    public static final String field_96138_a = "Please click " + EnumChatFormatting.UNDERLINE + "here"
-            + EnumChatFormatting.RESET + " for more information.";
+    public static final String field_96138_a = "Please click " + ChatFormat.UNDERLINE + "here"
+            + ChatFormat.RESET + " for more information.";
     private static final AtomicInteger field_175373_f = new AtomicInteger(0);
     private static final Logger logger = LogManager.getLogger();
     private static final Random RANDOM = new Random();

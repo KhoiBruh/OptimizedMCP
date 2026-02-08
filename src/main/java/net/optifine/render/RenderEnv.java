@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BreakingFour;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.WorldBlockLayer;
 import net.optifine.model.ListQuadsOverlay;
 
 import java.util.ArrayList;
@@ -26,14 +26,14 @@ public class RenderEnv {
     private int metadata = -1;
     private int breakingAnimation = -1;
     private int smartLeaves = -1;
-    private final float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
+    private final float[] quadBounds = new float[Direction.VALUES.length * 2];
     private final BitSet boundsFlags = new BitSet(3);
     private final BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
     private BlockPos.MutableBlockPos colorizerBlockPosM = null;
     private boolean[] borderFlags = null;
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
-    private EnumFacing[] borderDirections = null;
+    private Direction[] borderDirections = null;
     private final List<BakedQuad> listQuadsCustomizer = new ArrayList<>();
     private final List<BakedQuad> listQuadsCtmMultipass = new ArrayList<>();
     private final BakedQuad[] arrayQuadsCtm1 = new BakedQuad[1];
@@ -41,7 +41,7 @@ public class RenderEnv {
     private final BakedQuad[] arrayQuadsCtm3 = new BakedQuad[3];
     private final BakedQuad[] arrayQuadsCtm4 = new BakedQuad[4];
     private RegionRenderCacheBuilder regionRenderCacheBuilder = null;
-    private final ListQuadsOverlay[] listsQuadsOverlay = new ListQuadsOverlay[EnumWorldBlockLayer.values().length];
+    private final ListQuadsOverlay[] listsQuadsOverlay = new ListQuadsOverlay[WorldBlockLayer.values().length];
     private boolean overlaysRendered = false;
 
     public RenderEnv(IBlockState blockState, BlockPos blockPos) {
@@ -159,9 +159,9 @@ public class RenderEnv {
         return borderFlags3;
     }
 
-    public EnumFacing[] getBorderDirections() {
+    public Direction[] getBorderDirections() {
         if (borderDirections == null) {
-            borderDirections = new EnumFacing[4];
+            borderDirections = new Direction[4];
         }
 
         return borderDirections;
@@ -227,7 +227,7 @@ public class RenderEnv {
         this.regionRenderCacheBuilder = regionRenderCacheBuilder;
     }
 
-    public ListQuadsOverlay getListQuadsOverlay(EnumWorldBlockLayer layer) {
+    public ListQuadsOverlay getListQuadsOverlay(WorldBlockLayer layer) {
         ListQuadsOverlay listquadsoverlay = listsQuadsOverlay[layer.ordinal()];
 
         if (listquadsoverlay == null) {

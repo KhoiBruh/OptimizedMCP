@@ -2,7 +2,7 @@ package net.minecraft.enchantment;
 
 import net.minecraft.item.*;
 
-public enum EnumEnchantmentType {
+public enum EnchantmentType {
     ALL,
     ARMOR,
     ARMOR_FEET,

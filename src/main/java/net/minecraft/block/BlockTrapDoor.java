@@ -15,29 +15,29 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockTrapDoor extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
     public static final PropertyBool OPEN = PropertyBool.create("open");
     public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.create("half", BlockTrapDoor.DoorHalf.class);
 
     protected BlockTrapDoor(Material materialIn) {
         super(materialIn);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
         float f = 0.5F;
         float f1 = 1.0F;
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         setCreativeTab(CreativeTabs.tabRedstone);
     }
 
-    protected static EnumFacing getFacing(int meta) {
+    protected static Direction getFacing(int meta) {
         return switch (meta & 3) {
-            case 0 -> EnumFacing.NORTH;
-            case 1 -> EnumFacing.SOUTH;
-            case 2 -> EnumFacing.WEST;
-            default -> EnumFacing.EAST;
+            case 0 -> Direction.NORTH;
+            case 1 -> Direction.SOUTH;
+            case 2 -> Direction.WEST;
+            default -> Direction.EAST;
         };
     }
 
-    protected static int getMetaForFacing(EnumFacing facing) {
+    protected static int getMetaForFacing(Direction facing) {
         return switch (facing) {
             case NORTH -> 0;
             case SOUTH -> 1;
@@ -85,7 +85,7 @@ public class BlockTrapDoor extends Block {
         if (state.getBlock() == this) {
             boolean flag = state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP;
             Boolean obool = state.getValue(OPEN);
-            EnumFacing enumfacing = state.getValue(FACING);
+            Direction enumfacing = state.getValue(FACING);
             float f = 0.1875F;
 
             if (flag) {
@@ -95,26 +95,26 @@ public class BlockTrapDoor extends Block {
             }
 
             if (obool) {
-                if (enumfacing == EnumFacing.NORTH) {
+                if (enumfacing == Direction.NORTH) {
                     setBlockBounds(0.0F, 0.0F, 0.8125F, 1.0F, 1.0F, 1.0F);
                 }
 
-                if (enumfacing == EnumFacing.SOUTH) {
+                if (enumfacing == Direction.SOUTH) {
                     setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.1875F);
                 }
 
-                if (enumfacing == EnumFacing.WEST) {
+                if (enumfacing == Direction.WEST) {
                     setBlockBounds(0.8125F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 }
 
-                if (enumfacing == EnumFacing.EAST) {
+                if (enumfacing == Direction.EAST) {
                     setBlockBounds(0.0F, 0.0F, 0.0F, 0.1875F, 1.0F, 1.0F);
                 }
             }
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (blockMaterial == Material.iron) {
             return true;
         } else {
@@ -152,7 +152,7 @@ public class BlockTrapDoor extends Block {
         return super.collisionRayTrace(worldIn, pos, start, end);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = getDefaultState();
 
         if (facing.getAxis().isHorizontal()) {
@@ -163,12 +163,12 @@ public class BlockTrapDoor extends Block {
         return iblockstate;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return !side.getAxis().isVertical() && isValidSupportBlock(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

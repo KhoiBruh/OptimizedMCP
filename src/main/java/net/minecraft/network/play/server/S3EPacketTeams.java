@@ -21,13 +21,13 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     private int friendlyFlags;
 
     public S3EPacketTeams() {
-        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        nameTagVisibility = Team.Visible.ALWAYS.internalName;
         color = -1;
         players = new ArrayList<>();
     }
 
     public S3EPacketTeams(ScorePlayerTeam teamIn, int actionIn) {
-        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        nameTagVisibility = Team.Visible.ALWAYS.internalName;
         color = -1;
         players = new ArrayList<>();
         name = teamIn.getRegisteredName();
@@ -48,7 +48,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     }
 
     public S3EPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn) {
-        nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+        nameTagVisibility = Team.Visible.ALWAYS.internalName;
         color = -1;
         players = new ArrayList<>();
 

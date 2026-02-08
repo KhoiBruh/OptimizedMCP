@@ -8,13 +8,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.Matches;
 import net.optifine.config.RangeListInt;
 import net.optifine.render.Blender;
-import net.optifine.util.NumUtils;
 import net.optifine.util.SmoothFloat;
 import net.optifine.util.TextureUtils;
 
@@ -352,7 +352,7 @@ public class CustomSkyLayer {
             f2 += thunderStrength;
         }
 
-        f2 = NumUtils.limit(f2, 0.0F, 1.0F);
+        f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
         return f2;
     }
 

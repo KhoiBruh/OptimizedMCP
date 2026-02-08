@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.village.Village;
 import net.minecraft.world.World;
@@ -101,7 +101,7 @@ public class EntityIronGolem extends EntityGolem {
             Block block = iblockstate.getBlock();
 
             if (block.getMaterial() != Material.air) {
-                worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, 4.0D * ((double) rand.nextFloat() - 0.5D), 0.5D, ((double) rand.nextFloat() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
+                worldObj.spawnParticle(ParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, 4.0D * ((double) rand.nextFloat() - 0.5D), 0.5D, ((double) rand.nextFloat() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
             }
         }
     }
@@ -174,7 +174,7 @@ public class EntityIronGolem extends EntityGolem {
         int i = rand.nextInt(3);
 
         for (int j = 0; j < i; ++j) {
-            dropItemWithOffset(Item.getItemFromBlock(Blocks.red_flower), 1, (float) BlockFlower.EnumFlowerType.POPPY.getMeta());
+            dropItemWithOffset(Item.getItemFromBlock(Blocks.red_flower), 1, (float) BlockFlower.FlowerType.POPPY.getMeta());
         }
 
         int l = 3 + rand.nextInt(3);

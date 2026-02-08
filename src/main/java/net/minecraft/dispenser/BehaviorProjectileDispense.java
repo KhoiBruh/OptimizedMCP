@@ -4,14 +4,14 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispenseItem {
     public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         World world = source.getWorld();
         IPosition iposition = BlockDispenser.getDispensePosition(source);
-        EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+        Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
         IProjectile iprojectile = getProjectileEntity(world, iposition);
         iprojectile.setThrowableHeading(enumfacing.getFrontOffsetX(), (float) enumfacing.getFrontOffsetY() + 0.1F, enumfacing.getFrontOffsetZ(), func_82500_b(), func_82498_a());
         world.spawnEntityInWorld((Entity) iprojectile);

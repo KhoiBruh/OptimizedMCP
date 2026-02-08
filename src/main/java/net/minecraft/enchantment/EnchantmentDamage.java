@@ -2,7 +2,7 @@ package net.minecraft.enchantment;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -17,7 +17,7 @@ public class EnchantmentDamage extends Enchantment {
     public final int damageType;
 
     public EnchantmentDamage(int enchID, ResourceLocation enchName, int enchWeight, int classification) {
-        super(enchID, enchName, enchWeight, EnumEnchantmentType.WEAPON);
+        super(enchID, enchName, enchWeight, EnchantmentType.WEAPON);
         damageType = classification;
     }
 
@@ -33,8 +33,8 @@ public class EnchantmentDamage extends Enchantment {
         return 5;
     }
 
-    public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
-        return damageType == 0 ? (float) level * 1.25F : (damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD ? (float) level * 2.5F : (damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0.0F));
+    public float calcDamageByCreature(int level, CreatureAttribute creatureType) {
+        return damageType == 0 ? (float) level * 1.25F : (damageType == 1 && creatureType == CreatureAttribute.UNDEAD ? (float) level * 2.5F : (damageType == 2 && creatureType == CreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0.0F));
     }
 
     public String getName() {
@@ -52,7 +52,7 @@ public class EnchantmentDamage extends Enchantment {
     public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
         if (target instanceof EntityLivingBase entitylivingbase) {
 
-            if (damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
+            if (damageType == 2 && entitylivingbase.getCreatureAttribute() == CreatureAttribute.ARTHROPOD) {
                 int i = 20 + user.getRNG().nextInt(10 * level);
                 entitylivingbase.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, i, 3));
             }

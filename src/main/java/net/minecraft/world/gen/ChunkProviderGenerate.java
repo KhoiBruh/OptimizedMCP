@@ -2,7 +2,7 @@ package net.minecraft.world.gen;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -413,15 +413,15 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return "RandomLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos) {
         BiomeGenBase biomegenbase = worldObj.getBiomeGenForCoords(pos);
 
         if (mapFeaturesEnabled) {
-            if (creatureType == EnumCreatureType.MONSTER && scatteredFeatureGenerator.func_175798_a(pos)) {
+            if (creatureType == CreatureType.MONSTER && scatteredFeatureGenerator.func_175798_a(pos)) {
                 return scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 
-            if (creatureType == EnumCreatureType.MONSTER && settings.useMonuments && oceanMonumentGenerator.isPositionInStructure(worldObj, pos)) {
+            if (creatureType == CreatureType.MONSTER && settings.useMonuments && oceanMonumentGenerator.isPositionInStructure(worldObj, pos)) {
                 return oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
         }

@@ -276,7 +276,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         }
     }
 
-    public abstract EnumDifficulty getDifficulty();
+    public abstract Difficulty getDifficulty();
 
     public abstract boolean isHardcore();
 
@@ -709,15 +709,15 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         worldName = p_71246_1_;
     }
 
-    public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+    public void setDifficultyForAllWorlds(Difficulty difficulty) {
         for (World world : worldServers) {
             if (world != null) {
                 if (world.getWorldInfo().isHardcoreModeEnabled()) {
-                    world.getWorldInfo().setDifficulty(EnumDifficulty.HARD);
+                    world.getWorldInfo().setDifficulty(Difficulty.HARD);
                     world.setAllowedSpawnTypes(true, true);
                 } else if (isSinglePlayer()) {
                     world.getWorldInfo().setDifficulty(difficulty);
-                    world.setAllowedSpawnTypes(world.getDifficulty() != EnumDifficulty.PEACEFUL, true);
+                    world.setAllowedSpawnTypes(world.getDifficulty() != Difficulty.PEACEFUL, true);
                 } else {
                     world.getWorldInfo().setDifficulty(difficulty);
                     world.setAllowedSpawnTypes(allowSpawnMonsters(), canSpawnAnimals);

@@ -3,17 +3,17 @@ package net.optifine.shaders.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.optifine.shaders.Shaders;
-import net.optifine.shaders.config.EnumShaderOption;
+import net.optifine.shaders.config.ShaderOptions;
 
 public class GuiButtonEnumShaderOption extends GuiButton {
-    private final EnumShaderOption enumShaderOption;
+    private final ShaderOptions shaderOptions;
 
-    public GuiButtonEnumShaderOption(EnumShaderOption enumShaderOption, int x, int y, int widthIn, int heightIn) {
-        super(enumShaderOption.ordinal(), x, y, widthIn, heightIn, getButtonText(enumShaderOption));
-        this.enumShaderOption = enumShaderOption;
+    public GuiButtonEnumShaderOption(ShaderOptions shaderOptions, int x, int y, int widthIn, int heightIn) {
+        super(shaderOptions.ordinal(), x, y, widthIn, heightIn, getButtonText(shaderOptions));
+        this.shaderOptions = shaderOptions;
     }
 
-    private static String getButtonText(EnumShaderOption eso) {
+    private static String getButtonText(ShaderOptions eso) {
         String s = I18n.format(eso.getResourceKey()) + ": ";
 
         return switch (eso) {
@@ -32,11 +32,11 @@ public class GuiButtonEnumShaderOption extends GuiButton {
         };
     }
 
-    public EnumShaderOption getEnumShaderOption() {
-        return enumShaderOption;
+    public ShaderOptions getEnumShaderOption() {
+        return shaderOptions;
     }
 
     public void updateButtonText() {
-        displayString = getButtonText(enumShaderOption);
+        displayString = getButtonText(shaderOptions);
     }
 }

@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.common.collect.Maps;
 import com.google.gson.*;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.MathHelper;
 import org.joml.Vector3f;
@@ -11,9 +11,9 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFacing, BlockPartFace> mapFaces,
+public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Direction, BlockPartFace> mapFaces,
                         BlockPartRotation partRotation, boolean shade) {
-    public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFacing, BlockPartFace> mapFaces, BlockPartRotation partRotation, boolean shade) {
+    public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Direction, BlockPartFace> mapFaces, BlockPartRotation partRotation, boolean shade) {
         this.positionFrom = positionFrom;
         this.positionTo = positionTo;
         this.mapFaces = mapFaces;
@@ -23,13 +23,13 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
     }
 
     private void setDefaultUvs() {
-        for (Entry<EnumFacing, BlockPartFace> entry : mapFaces.entrySet()) {
+        for (Entry<Direction, BlockPartFace> entry : mapFaces.entrySet()) {
             float[] afloat = getFaceUvs(entry.getKey());
             entry.getValue().blockFaceUV().setUvs(afloat);
         }
     }
 
-    private float[] getFaceUvs(EnumFacing p_178236_1_) {
+    private float[] getFaceUvs(Direction p_178236_1_) {
 
         return switch (p_178236_1_) {
             case DOWN, UP -> new float[]{positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
@@ -45,7 +45,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
             Vector3f vector3f = parsePositionFrom(jsonobject);
             Vector3f vector3f1 = parsePositionTo(jsonobject);
             BlockPartRotation blockpartrotation = parseRotation(jsonobject);
-            Map<EnumFacing, BlockPartFace> map = parseFacesCheck(p_deserialize_3_, jsonobject);
+            Map<Direction, BlockPartFace> map = parseFacesCheck(p_deserialize_3_, jsonobject);
 
             if (jsonobject.has("shade") && !JsonUtils.isBoolean(jsonobject, "shade")) {
                 throw new JsonParseException("Expected shade to be a Boolean");
@@ -62,7 +62,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
                 JsonObject jsonobject = JsonUtils.getJsonObject(p_178256_1_, "rotation");
                 Vector3f vector3f = parsePosition(jsonobject, "origin");
                 vector3f.mul(0.0625F);
-                EnumFacing.Axis enumfacing$axis = parseAxis(jsonobject);
+                Direction.Axis enumfacing$axis = parseAxis(jsonobject);
                 float f = parseAngle(jsonobject);
                 boolean flag = JsonUtils.getBoolean(jsonobject, "rescale", false);
                 blockpartrotation = new BlockPartRotation(vector3f, enumfacing$axis, f, flag);
@@ -81,9 +81,9 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
             }
         }
 
-        private EnumFacing.Axis parseAxis(JsonObject p_178252_1_) {
+        private Direction.Axis parseAxis(JsonObject p_178252_1_) {
             String s = JsonUtils.getString(p_178252_1_, "axis");
-            EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.byName(s.toLowerCase());
+            Direction.Axis enumfacing$axis = Direction.Axis.byName(s.toLowerCase());
 
             if (enumfacing$axis == null) {
                 throw new JsonParseException("Invalid rotation axis: " + s);
@@ -92,8 +92,8 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
             }
         }
 
-        private Map<EnumFacing, BlockPartFace> parseFacesCheck(JsonDeserializationContext p_178250_1_, JsonObject p_178250_2_) {
-            Map<EnumFacing, BlockPartFace> map = parseFaces(p_178250_1_, p_178250_2_);
+        private Map<Direction, BlockPartFace> parseFacesCheck(JsonDeserializationContext p_178250_1_, JsonObject p_178250_2_) {
+            Map<Direction, BlockPartFace> map = parseFaces(p_178250_1_, p_178250_2_);
 
             if (map.isEmpty()) {
                 throw new JsonParseException("Expected between 1 and 6 unique faces, got 0");
@@ -102,20 +102,20 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
             }
         }
 
-        private Map<EnumFacing, BlockPartFace> parseFaces(JsonDeserializationContext p_178253_1_, JsonObject p_178253_2_) {
-            Map<EnumFacing, BlockPartFace> map = Maps.newEnumMap(EnumFacing.class);
+        private Map<Direction, BlockPartFace> parseFaces(JsonDeserializationContext p_178253_1_, JsonObject p_178253_2_) {
+            Map<Direction, BlockPartFace> map = Maps.newEnumMap(Direction.class);
             JsonObject jsonobject = JsonUtils.getJsonObject(p_178253_2_, "faces");
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
-                EnumFacing enumfacing = parseEnumFacing(entry.getKey());
+                Direction enumfacing = parseEnumFacing(entry.getKey());
                 map.put(enumfacing, p_178253_1_.deserialize(entry.getValue(), BlockPartFace.class));
             }
 
             return map;
         }
 
-        private EnumFacing parseEnumFacing(String name) {
-            EnumFacing enumfacing = EnumFacing.byName(name);
+        private Direction parseEnumFacing(String name) {
+            Direction enumfacing = Direction.byName(name);
 
             if (enumfacing == null) {
                 throw new JsonParseException("Unknown facing: " + name);

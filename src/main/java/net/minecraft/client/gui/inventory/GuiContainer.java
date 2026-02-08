@@ -11,7 +11,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -120,7 +120,7 @@ public abstract class GuiContainer extends GuiScreen {
                 itemstack.stackSize = dragSplittingRemnant;
 
                 if (itemstack.stackSize == 0) {
-                    s = EnumChatFormatting.YELLOW + "0";
+                    s = ChatFormat.YELLOW + "0";
                 }
             }
 
@@ -192,12 +192,12 @@ public abstract class GuiContainer extends GuiScreen {
                 Container.computeStackSize(dragSplittingSlots, dragSplittingLimit, itemstack, slotIn.getStack() == null ? 0 : slotIn.getStack().stackSize);
 
                 if (itemstack.stackSize > itemstack.getMaxStackSize()) {
-                    s = EnumChatFormatting.YELLOW + "" + itemstack.getMaxStackSize();
+                    s = ChatFormat.YELLOW + "" + itemstack.getMaxStackSize();
                     itemstack.stackSize = itemstack.getMaxStackSize();
                 }
 
                 if (itemstack.stackSize > slotIn.getItemStackLimit(itemstack)) {
-                    s = EnumChatFormatting.YELLOW + "" + slotIn.getItemStackLimit(itemstack);
+                    s = ChatFormat.YELLOW + "" + slotIn.getItemStackLimit(itemstack);
                     itemstack.stackSize = slotIn.getItemStackLimit(itemstack);
                 }
             } else {

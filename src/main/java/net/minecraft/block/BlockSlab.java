@@ -10,7 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class BlockSlab extends Block {
-    public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
+    public static final PropertyEnum<BlockHalf> HALF = PropertyEnum.create("half", BlockHalf.class);
 
     public BlockSlab(Material materialIn) {
         super(materialIn);
@@ -48,7 +48,7 @@ public abstract class BlockSlab extends Block {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
             if (iblockstate.getBlock() == this) {
-                if (iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+                if (iblockstate.getValue(HALF) == BlockHalf.TOP) {
                     setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
                 } else {
                     setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
@@ -74,9 +74,9 @@ public abstract class BlockSlab extends Block {
         return isDouble();
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-        return isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockHalf.BOTTOM);
+        return isDouble() ? iblockstate : (facing != Direction.DOWN && (facing == Direction.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockHalf.TOP));
     }
 
     public int quantityDropped(Random random) {
@@ -87,18 +87,18 @@ public abstract class BlockSlab extends Block {
         return isDouble();
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         if (isDouble()) {
             return super.shouldSideBeRendered(worldIn, pos, side);
-        } else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(worldIn, pos, side)) {
+        } else if (side != Direction.UP && side != Direction.DOWN && !super.shouldSideBeRendered(worldIn, pos, side)) {
             return false;
         } else {
             BlockPos blockpos = pos.offset(side.getOpposite());
             IBlockState iblockstate = worldIn.getBlockState(pos);
             IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
-            boolean flag = isSlab(iblockstate.getBlock()) && iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
-            boolean flag1 = isSlab(iblockstate1.getBlock()) && iblockstate1.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
-            return flag1 ? (side == EnumFacing.DOWN || (side == EnumFacing.UP && super.shouldSideBeRendered(worldIn, pos, side) || !isSlab(iblockstate.getBlock()) || !flag)) : (side == EnumFacing.UP || (side == EnumFacing.DOWN && super.shouldSideBeRendered(worldIn, pos, side) || !isSlab(iblockstate.getBlock()) || flag));
+            boolean flag = isSlab(iblockstate.getBlock()) && iblockstate.getValue(HALF) == BlockHalf.TOP;
+            boolean flag1 = isSlab(iblockstate1.getBlock()) && iblockstate1.getValue(HALF) == BlockHalf.TOP;
+            return flag1 ? (side == Direction.DOWN || (side == Direction.UP && super.shouldSideBeRendered(worldIn, pos, side) || !isSlab(iblockstate.getBlock()) || !flag)) : (side == Direction.UP || (side == Direction.DOWN && super.shouldSideBeRendered(worldIn, pos, side) || !isSlab(iblockstate.getBlock()) || flag));
         }
     }
 
@@ -114,13 +114,13 @@ public abstract class BlockSlab extends Block {
 
     public abstract Object getVariant(ItemStack stack);
 
-    public enum EnumBlockHalf implements IStringSerializable {
+    public enum BlockHalf implements IStringSerializable {
         TOP("top"),
         BOTTOM("bottom");
 
         private final String name;
 
-        EnumBlockHalf(String name) {
+        BlockHalf(String name) {
             this.name = name;
         }
 

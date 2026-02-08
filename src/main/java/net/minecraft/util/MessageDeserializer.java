@@ -15,9 +15,9 @@ import java.util.List;
 public class MessageDeserializer extends ByteToMessageDecoder {
     private static final Logger logger = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED").setParents(NetworkManager.logMarkerPackets);
-    private final EnumPacketDirection direction;
+    private final PacketDirection direction;
 
-    public MessageDeserializer(EnumPacketDirection direction) {
+    public MessageDeserializer(PacketDirection direction) {
         this.direction = direction;
     }
 

@@ -154,7 +154,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
     public EntityItem dropOneItem(boolean dropAll) {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
-        sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
+        sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, Direction.DOWN));
         return null;
     }
 
@@ -171,7 +171,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void respawnPlayer() {
-        sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
+        sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.State.PERFORM_RESPAWN));
     }
 
     protected void damageEntity(DamageSource damageSrc, float damageAmount) {
@@ -408,11 +408,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void onCriticalHit(Entity entityHit) {
-        mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
+        mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT);
     }
 
     public void onEnchantmentCritical(Entity entityHit) {
-        mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
+        mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT_MAGIC);
     }
 
     public boolean isSneaking() {

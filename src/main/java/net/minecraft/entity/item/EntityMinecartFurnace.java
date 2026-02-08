@@ -23,8 +23,8 @@ public class EntityMinecartFurnace extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
-    public EntityMinecart.EnumMinecartType getMinecartType() {
-        return EntityMinecart.EnumMinecartType.FURNACE;
+    public MinecartType getMinecartType() {
+        return MinecartType.FURNACE;
     }
 
     protected void entityInit() {
@@ -46,7 +46,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         setMinecartPowered(fuel > 0);
 
         if (isMinecartPowered() && rand.nextInt(4) == 0) {
-            worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX, posY + 0.8D, posZ, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.SMOKE_LARGE, posX, posY + 0.8D, posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -147,6 +147,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return (isMinecartPowered() ? Blocks.lit_furnace : Blocks.furnace).getDefaultState().withProperty(BlockFurnace.FACING, EnumFacing.NORTH);
+        return (isMinecartPowered() ? Blocks.lit_furnace : Blocks.furnace).getDefaultState().withProperty(BlockFurnace.FACING, Direction.NORTH);
     }
 }

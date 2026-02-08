@@ -12,11 +12,11 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.optifine.*;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.KeyUtils;
@@ -67,7 +67,7 @@ public class GameSettings {
     private static final int[] OF_TREES_VALUES = new int[]{0, 1, 4, 2};
     private static final int[] OF_DYNAMIC_LIGHTS = new int[]{3, 1, 2};
     private static final String[] KEYS_DYNAMIC_LIGHTS = new String[]{"options.off", "options.graphics.fast", "options.graphics.fancy"};
-    private final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet(EnumPlayerModelParts.values());
+    private final Set<PlayerModelParts> setModelParts = Sets.newHashSet(PlayerModelParts.values());
     public float mouseSensitivity = 0.5F;
     public boolean invertMouse;
     public int renderDistanceChunks = -1;
@@ -80,7 +80,7 @@ public class GameSettings {
     public int ambientOcclusion = 2;
     public List<String> resourcePacks = new ArrayList<>();
     public List<String> incompatibleResourcePacks = new ArrayList<>();
-    public EntityPlayer.EnumChatVisibility chatVisibility = EntityPlayer.EnumChatVisibility.FULL;
+    public EntityPlayer.ChatVisibility chatVisibility = EntityPlayer.ChatVisibility.FULL;
     public boolean chatColours = true;
     public boolean chatLinks = true;
     public boolean chatLinksPrompt = true;
@@ -128,7 +128,7 @@ public class GameSettings {
     public KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", 0, "key.categories.misc");
     public KeyBinding[] keyBindsHotbar = new KeyBinding[]{new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"), new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"), new KeyBinding("key.hotbar.3", 4, "key.categories.inventory"), new KeyBinding("key.hotbar.4", 5, "key.categories.inventory"), new KeyBinding("key.hotbar.5", 6, "key.categories.inventory"), new KeyBinding("key.hotbar.6", 7, "key.categories.inventory"), new KeyBinding("key.hotbar.7", 8, "key.categories.inventory"), new KeyBinding("key.hotbar.8", 9, "key.categories.inventory"), new KeyBinding("key.hotbar.9", 10, "key.categories.inventory")};
     public KeyBinding[] keyBindings;
-    public EnumDifficulty difficulty;
+    public Difficulty difficulty;
     public boolean hideGUI;
     public int thirdPersonView;
     public boolean showDebugInfo;
@@ -223,7 +223,7 @@ public class GameSettings {
 
     public GameSettings(Minecraft mcIn, File optionsFileIn) {
         keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines}, keyBindsHotbar);
-        difficulty = EnumDifficulty.NORMAL;
+        difficulty = Difficulty.NORMAL;
         lastServer = "";
         fovSetting = 70.0F;
         language = "en_US";
@@ -259,7 +259,7 @@ public class GameSettings {
 
     public GameSettings() {
         keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines}, keyBindsHotbar);
-        difficulty = EnumDifficulty.NORMAL;
+        difficulty = Difficulty.NORMAL;
         lastServer = "";
         fovSetting = 70.0F;
         language = "en_US";
@@ -468,7 +468,7 @@ public class GameSettings {
         }
 
         if (settingsOption == GameSettings.Options.CHAT_VISIBILITY) {
-            chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
+            chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
         }
 
         if (settingsOption == GameSettings.Options.CHAT_COLOR) {
@@ -661,7 +661,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("difficulty")) {
-                                difficulty = EnumDifficulty.getDifficultyEnum(Integer.parseInt(astring[1]));
+                                difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(astring[1]));
                             }
 
                             if (astring[0].equals("fancyGraphics")) {
@@ -712,7 +712,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("chatVisibility")) {
-                                chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility(Integer.parseInt(astring[1]));
+                                chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(astring[1]));
                             }
 
                             if (astring[0].equals("chatColors")) {
@@ -837,7 +837,7 @@ public class GameSettings {
                                 }
                             }
 
-                            for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+                            for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
                                 if (astring[0].equals("modelPart_" + enumplayermodelparts.getPartName())) {
                                     setModelPartEnabled(enumplayermodelparts, astring[1].equals("true"));
                                 }
@@ -940,7 +940,7 @@ public class GameSettings {
                 printwriter.println("soundCategory_" + soundcategory.getCategoryName() + ":" + getSoundLevel(soundcategory));
             }
 
-            for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+            for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
                 printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + setModelParts.contains(enumplayermodelparts));
             }
 
@@ -966,7 +966,7 @@ public class GameSettings {
         if (mc.thePlayer != null) {
             int i = 0;
 
-            for (EnumPlayerModelParts enumplayermodelparts : setModelParts) {
+            for (PlayerModelParts enumplayermodelparts : setModelParts) {
                 i |= enumplayermodelparts.getPartMask();
             }
 
@@ -974,11 +974,11 @@ public class GameSettings {
         }
     }
 
-    public Set<EnumPlayerModelParts> getModelParts() {
+    public Set<PlayerModelParts> getModelParts() {
         return ImmutableSet.copyOf(setModelParts);
     }
 
-    public void setModelPartEnabled(EnumPlayerModelParts modelPart, boolean enable) {
+    public void setModelPartEnabled(PlayerModelParts modelPart, boolean enable) {
         if (enable) {
             setModelParts.add(modelPart);
         } else {
@@ -988,7 +988,7 @@ public class GameSettings {
         sendSettingsToServer();
     }
 
-    public void switchModelPartEnabled(EnumPlayerModelParts modelPart) {
+    public void switchModelPartEnabled(PlayerModelParts modelPart) {
         if (!getModelParts().contains(modelPart)) {
             setModelParts.add(modelPart);
         } else {

@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-public enum EnumCreatureAttribute {
+public enum CreatureAttribute {
     UNDEFINED,
     UNDEAD,
     ARTHROPOD

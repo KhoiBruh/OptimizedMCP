@@ -1,6 +1,6 @@
 package net.minecraft.client.multiplayer;
 
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.LongHashMap;
@@ -92,7 +92,7 @@ public class ChunkProviderClient implements IChunkProvider {
         return "MultiplayerChunkCache: " + chunkMapping.getNumHashElements() + ", " + chunkListing.size();
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos) {
         return null;
     }
 

@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenTaiga1 extends WorldGenAbstractTree {
-    private static final IBlockState field_181636_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
-    private static final IBlockState field_181637_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181636_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.SPRUCE);
+    private static final IBlockState field_181637_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenTaiga1() {
         super(false);

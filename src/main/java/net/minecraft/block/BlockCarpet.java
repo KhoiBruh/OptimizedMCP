@@ -6,22 +6,22 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 public class BlockCarpet extends Block {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+    public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
     protected BlockCarpet() {
         super(Material.carpet);
-        setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
         setTickRandomly(true);
         setCreativeTab(CreativeTabs.tabDecorations);
@@ -76,8 +76,8 @@ public class BlockCarpet extends Block {
         return !worldIn.isAirBlock(pos.down());
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-        return side == EnumFacing.UP || super.shouldSideBeRendered(worldIn, pos, side);
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
+        return side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public int damageDropped(IBlockState state) {
@@ -91,7 +91,7 @@ public class BlockCarpet extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

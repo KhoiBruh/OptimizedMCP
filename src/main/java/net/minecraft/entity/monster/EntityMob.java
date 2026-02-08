@@ -8,8 +8,8 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 
 public abstract class EntityMob extends EntityCreature implements IMob {
@@ -32,7 +32,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     public void onUpdate() {
         super.onUpdate();
 
-        if (!worldObj.isRemote && worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+        if (!worldObj.isRemote && worldObj.getDifficulty() == Difficulty.PEACEFUL) {
             setDead();
         }
     }
@@ -105,7 +105,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     protected boolean isValidLightLevel() {
         BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
-        if (worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
+        if (worldObj.getLightFor(SkyBlock.SKY, blockpos) > rand.nextInt(32)) {
             return false;
         } else {
             int i = worldObj.getLightFromNeighbors(blockpos);
@@ -122,7 +122,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     }
 
     public boolean getCanSpawnHere() {
-        return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+        return worldObj.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
     }
 
     protected void applyEntityAttributes() {

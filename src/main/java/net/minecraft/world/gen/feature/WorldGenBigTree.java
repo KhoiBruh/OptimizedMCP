@@ -133,7 +133,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 
         for (int j = 0; j <= i; ++j) {
             BlockPos blockpos1 = p_175937_1_.add(0.5F + (float) j * f, 0.5F + (float) j * f1, 0.5F + (float) j * f2);
-            BlockLog.EnumAxis blocklog$enumaxis = func_175938_b(p_175937_1_, blockpos1);
+            BlockLog.Axis blocklog$enumaxis = func_175938_b(p_175937_1_, blockpos1);
             setBlockAndNotifyAdequately(world, blockpos1, p_175937_3_.getDefaultState().withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
         }
     }
@@ -145,17 +145,17 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         return k > i && k > j ? k : (Math.max(j, i));
     }
 
-    private BlockLog.EnumAxis func_175938_b(BlockPos p_175938_1_, BlockPos p_175938_2_) {
-        BlockLog.EnumAxis blocklog$enumaxis = BlockLog.EnumAxis.Y;
+    private BlockLog.Axis func_175938_b(BlockPos p_175938_1_, BlockPos p_175938_2_) {
+        BlockLog.Axis blocklog$enumaxis = BlockLog.Axis.Y;
         int i = Math.abs(p_175938_2_.getX() - p_175938_1_.getX());
         int j = Math.abs(p_175938_2_.getZ() - p_175938_1_.getZ());
         int k = Math.max(i, j);
 
         if (k > 0) {
             if (i == k) {
-                blocklog$enumaxis = BlockLog.EnumAxis.X;
+                blocklog$enumaxis = BlockLog.Axis.X;
             } else {
-                blocklog$enumaxis = BlockLog.EnumAxis.Z;
+                blocklog$enumaxis = BlockLog.Axis.Z;
             }
         }
 

@@ -134,7 +134,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos up(int n) {
-        return offset(EnumFacing.UP, n);
+        return offset(Direction.UP, n);
     }
 
     public BlockPos down() {
@@ -142,7 +142,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos down(int n) {
-        return offset(EnumFacing.DOWN, n);
+        return offset(Direction.DOWN, n);
     }
 
     public BlockPos north() {
@@ -150,7 +150,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos north(int n) {
-        return offset(EnumFacing.NORTH, n);
+        return offset(Direction.NORTH, n);
     }
 
     public BlockPos south() {
@@ -158,7 +158,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos south(int n) {
-        return offset(EnumFacing.SOUTH, n);
+        return offset(Direction.SOUTH, n);
     }
 
     public BlockPos west() {
@@ -166,7 +166,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos west(int n) {
-        return offset(EnumFacing.WEST, n);
+        return offset(Direction.WEST, n);
     }
 
     public BlockPos east() {
@@ -174,14 +174,14 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos east(int n) {
-        return offset(EnumFacing.EAST, n);
+        return offset(Direction.EAST, n);
     }
 
-    public BlockPos offset(EnumFacing facing) {
+    public BlockPos offset(Direction facing) {
         return offset(facing, 1);
     }
 
-    public BlockPos offset(EnumFacing facing, int n) {
+    public BlockPos offset(Direction facing, int n) {
         return n == 0 ? this : new BlockPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n, getZ() + facing.getFrontOffsetZ() * n);
     }
 

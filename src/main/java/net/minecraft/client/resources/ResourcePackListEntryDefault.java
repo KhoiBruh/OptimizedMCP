@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiScreenResourcePacks;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.PackMetadataSection;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +46,7 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
             logger.error("Couldn't load metadata info", jsonparseexception);
         }
 
-        return EnumChatFormatting.RED + "Missing " + "pack.mcmeta" + " :(";
+        return ChatFormat.RED + "Missing " + "pack.mcmeta" + " :(";
     }
 
     protected boolean func_148309_e() {

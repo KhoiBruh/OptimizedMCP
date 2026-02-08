@@ -120,8 +120,8 @@ public class WorldServer extends World implements IThreadListener {
     public void tick() {
         super.tick();
 
-        if (getWorldInfo().isHardcoreModeEnabled() && getDifficulty() != EnumDifficulty.HARD) {
-            getWorldInfo().setDifficulty(EnumDifficulty.HARD);
+        if (getWorldInfo().isHardcoreModeEnabled() && getDifficulty() != Difficulty.HARD) {
+            getWorldInfo().setDifficulty(Difficulty.HARD);
         }
 
         provider.getWorldChunkManager().cleanupCache();
@@ -170,12 +170,12 @@ public class WorldServer extends World implements IThreadListener {
         sendQueuedBlockEvents();
     }
 
-    public BiomeGenBase.SpawnListEntry getSpawnListEntryForTypeAt(EnumCreatureType creatureType, BlockPos pos) {
+    public BiomeGenBase.SpawnListEntry getSpawnListEntryForTypeAt(CreatureType creatureType, BlockPos pos) {
         List<BiomeGenBase.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
         return list != null && !list.isEmpty() ? WeightedRandom.getRandomItem(rand, list) : null;
     }
 
-    public boolean canCreatureTypeSpawnHere(EnumCreatureType creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPos pos) {
+    public boolean canCreatureTypeSpawnHere(CreatureType creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPos pos) {
         List<BiomeGenBase.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
         return list != null && !list.isEmpty() && list.contains(spawnListEntry);
     }
@@ -600,7 +600,7 @@ public class WorldServer extends World implements IThreadListener {
         worldInfo.setWorldTime(6000L);
         worldInfo.setGameType(WorldSettings.GameType.SPECTATOR);
         worldInfo.setHardcore(false);
-        worldInfo.setDifficulty(EnumDifficulty.PEACEFUL);
+        worldInfo.setDifficulty(Difficulty.PEACEFUL);
         worldInfo.setDifficultyLocked(true);
         getGameRules().setOrCreateGameRule("doDaylightCycle", "false");
     }
@@ -846,11 +846,11 @@ public class WorldServer extends World implements IThreadListener {
         return worldTeleporter;
     }
 
-    public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
+    public void spawnParticle(ParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
         spawnParticle(particleType, false, xCoord, yCoord, zCoord, numberOfParticles, xOffset, yOffset, zOffset, particleSpeed, particleArguments);
     }
 
-    public void spawnParticle(EnumParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
+    public void spawnParticle(ParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
         Packet<INetHandlerPlayClient> packet = new S2APacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
 
         for (EntityPlayer playerEntity : playerEntities) {

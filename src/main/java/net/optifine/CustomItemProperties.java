@@ -11,7 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.*;
 import net.optifine.render.Blender;
@@ -320,7 +320,7 @@ public class CustomItemProperties {
                 .setTexture(textureatlassprite);
 
         for (BlockPart blockpart : modelBlockIn.getElements()) {
-            for (EnumFacing enumfacing : blockpart.mapFaces().keySet()) {
+            for (Direction enumfacing : blockpart.mapFaces().keySet()) {
                 BlockPartFace blockpartface = blockpart.mapFaces().get(enumfacing);
 
                 if (!useTint) {
@@ -346,11 +346,11 @@ public class CustomItemProperties {
     }
 
     private static BakedQuad makeBakedQuad(BlockPart blockPart, BlockPartFace blockPartFace,
-                                           TextureAtlasSprite textureAtlasSprite, EnumFacing enumFacing, ModelRotation modelRotation,
+                                           TextureAtlasSprite textureAtlasSprite, Direction direction, ModelRotation modelRotation,
                                            boolean uvLocked) {
         FaceBakery facebakery = new FaceBakery();
         return facebakery.makeBakedQuad(blockPart.positionFrom(), blockPart.positionTo(), blockPartFace, textureAtlasSprite,
-                enumFacing, modelRotation, blockPart.partRotation(), uvLocked, blockPart.shade());
+                direction, modelRotation, blockPart.partRotation(), uvLocked, blockPart.shade());
     }
 
     private static void loadItemModel(ModelBakery modelBakery, String model) {

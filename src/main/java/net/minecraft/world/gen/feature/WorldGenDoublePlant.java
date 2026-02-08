@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenDoublePlant extends WorldGenerator {
-    private BlockDoublePlant.EnumPlantType field_150549_a;
+    private BlockDoublePlant.PlantType field_150549_a;
 
-    public void setPlantType(BlockDoublePlant.EnumPlantType p_180710_1_) {
+    public void setPlantType(BlockDoublePlant.PlantType p_180710_1_) {
         field_150549_a = p_180710_1_;
     }
 

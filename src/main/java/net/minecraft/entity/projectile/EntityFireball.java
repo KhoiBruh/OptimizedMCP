@@ -162,7 +162,7 @@ public abstract class EntityFireball extends Entity {
             if (isInWater()) {
                 for (int j = 0; j < 4; ++j) {
                     float f3 = 0.25F;
-                    worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * (double) f3, posY - motionY * (double) f3, posZ - motionZ * (double) f3, motionX, motionY, motionZ);
+                    worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX - motionX * (double) f3, posY - motionY * (double) f3, posZ - motionZ * (double) f3, motionX, motionY, motionZ);
                 }
 
                 f2 = 0.8F;
@@ -174,7 +174,7 @@ public abstract class EntityFireball extends Entity {
             motionX *= f2;
             motionY *= f2;
             motionZ *= f2;
-            worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
             setPosition(posX, posY, posZ);
         } else {
             setDead();

@@ -75,7 +75,7 @@ public class BlockCactus extends Block {
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock().getMaterial().isSolid()) {
                 return false;
             }
@@ -89,8 +89,8 @@ public class BlockCactus extends Block {
         entityIn.attackEntityFrom(DamageSource.cactus, 1.0F);
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

@@ -15,7 +15,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -110,8 +110,8 @@ public class ItemPotion extends Item {
         return 32;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.DRINK;
+    public Action getItemUseAction(ItemStack stack) {
+        return Action.DRINK;
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
@@ -209,19 +209,19 @@ public class ItemPotion extends Item {
                     }
 
                     if (potion.isBadEffect()) {
-                        tooltip.add(EnumChatFormatting.RED + s1);
+                        tooltip.add(ChatFormat.RED + s1);
                     } else {
-                        tooltip.add(EnumChatFormatting.GRAY + s1);
+                        tooltip.add(ChatFormat.GRAY + s1);
                     }
                 }
             } else {
                 String s = StatCollector.translateToLocal("potion.empty").trim();
-                tooltip.add(EnumChatFormatting.GRAY + s);
+                tooltip.add(ChatFormat.GRAY + s);
             }
 
             if (!multimap.isEmpty()) {
                 tooltip.add("");
-                tooltip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+                tooltip.add(ChatFormat.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
 
                 for (Entry<String, AttributeModifier> entry1 : multimap.entries()) {
                     AttributeModifier attributemodifier2 = entry1.getValue();
@@ -235,10 +235,10 @@ public class ItemPotion extends Item {
                     }
 
                     if (d0 > 0.0D) {
-                        tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+                        tooltip.add(ChatFormat.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
                     } else if (d0 < 0.0D) {
                         d1 = d1 * -1.0D;
-                        tooltip.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+                        tooltip.add(ChatFormat.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
                     }
                 }
             }

@@ -13,7 +13,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 
 import java.util.*;
 
@@ -212,7 +212,7 @@ public class CommandScoreboard extends CommandBase {
                     list.add(s1);
                 } catch (CommandException commandexception) {
                     ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
-                    chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
+                    chatcomponenttranslation.getChatStyle().setColor(ChatFormat.RED);
                     p_175780_1_.addChatMessage(chatcomponenttranslation);
                 }
             }
@@ -332,12 +332,12 @@ public class CommandScoreboard extends CommandBase {
                 throw new WrongUsageException("commands.scoreboard.teams.option.usage");
             } else if (args.length == 4) {
                 if (s.equalsIgnoreCase("color")) {
-                    throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(EnumChatFormatting.getValidValues(true, false)));
+                    throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(ChatFormat.getValidValues(true, false)));
                 } else if (!s.equalsIgnoreCase("friendlyfire") && !s.equalsIgnoreCase("seeFriendlyInvisibles")) {
                     if (!s.equalsIgnoreCase("nametagVisibility") && !s.equalsIgnoreCase("deathMessageVisibility")) {
                         throw new WrongUsageException("commands.scoreboard.teams.option.usage");
                     } else {
-                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.EnumVisible.func_178825_a()));
+                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.Visible.func_178825_a()));
                     }
                 } else {
                     throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(Arrays.asList("true", "false")));
@@ -346,15 +346,15 @@ public class CommandScoreboard extends CommandBase {
                 String s1 = args[index];
 
                 if (s.equalsIgnoreCase("color")) {
-                    EnumChatFormatting enumchatformatting = EnumChatFormatting.getValueByName(s1);
+                    ChatFormat enumchatformatting = ChatFormat.getValueByName(s1);
 
                     if (enumchatformatting == null || enumchatformatting.isFancyStyling()) {
-                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(EnumChatFormatting.getValidValues(true, false)));
+                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(ChatFormat.getValidValues(true, false)));
                     }
 
                     scoreplayerteam.setChatFormat(enumchatformatting);
                     scoreplayerteam.setNamePrefix(enumchatformatting.toString());
-                    scoreplayerteam.setNameSuffix(EnumChatFormatting.RESET.toString());
+                    scoreplayerteam.setNameSuffix(ChatFormat.RESET.toString());
                 } else if (s.equalsIgnoreCase("friendlyfire")) {
                     if (!s1.equalsIgnoreCase("true") && !s1.equalsIgnoreCase("false")) {
                         throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(Arrays.asList("true", "false")));
@@ -368,18 +368,18 @@ public class CommandScoreboard extends CommandBase {
 
                     scoreplayerteam.setSeeFriendlyInvisiblesEnabled(s1.equalsIgnoreCase("true"));
                 } else if (s.equalsIgnoreCase("nametagVisibility")) {
-                    Team.EnumVisible team$enumvisible = Team.EnumVisible.func_178824_a(s1);
+                    Team.Visible team$enumvisible = Team.Visible.func_178824_a(s1);
 
                     if (team$enumvisible == null) {
-                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.EnumVisible.func_178825_a()));
+                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.Visible.func_178825_a()));
                     }
 
                     scoreplayerteam.setNameTagVisibility(team$enumvisible);
                 } else if (s.equalsIgnoreCase("deathMessageVisibility")) {
-                    Team.EnumVisible team$enumvisible1 = Team.EnumVisible.func_178824_a(s1);
+                    Team.Visible team$enumvisible1 = Team.Visible.func_178824_a(s1);
 
                     if (team$enumvisible1 == null) {
-                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.EnumVisible.func_178825_a()));
+                        throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.Visible.func_178825_a()));
                     }
 
                     scoreplayerteam.setDeathMessageVisibility(team$enumvisible1);
@@ -418,7 +418,7 @@ public class CommandScoreboard extends CommandBase {
             }
 
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.scoreboard.teams.list.player.count", collection.size(), scoreplayerteam.getRegisteredName());
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.DARK_GREEN);
+            chatcomponenttranslation.getChatStyle().setColor(ChatFormat.DARK_GREEN);
             p_147186_1_.addChatMessage(chatcomponenttranslation);
             p_147186_1_.addChatMessage(new ChatComponentText(joinNiceString(collection.toArray())));
         } else {
@@ -430,7 +430,7 @@ public class CommandScoreboard extends CommandBase {
             }
 
             ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation("commands.scoreboard.teams.list.count", collection1.size());
-            chatcomponenttranslation1.getChatStyle().setColor(EnumChatFormatting.DARK_GREEN);
+            chatcomponenttranslation1.getChatStyle().setColor(ChatFormat.DARK_GREEN);
             p_147186_1_.addChatMessage(chatcomponenttranslation1);
 
             for (ScorePlayerTeam scoreplayerteam1 : collection1) {
@@ -573,7 +573,7 @@ public class CommandScoreboard extends CommandBase {
             throw new CommandException("commands.scoreboard.objectives.list.empty");
         } else {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.scoreboard.objectives.list.count", collection.size());
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.DARK_GREEN);
+            chatcomponenttranslation.getChatStyle().setColor(ChatFormat.DARK_GREEN);
             p_147196_1_.addChatMessage(chatcomponenttranslation);
 
             for (ScoreObjective scoreobjective : collection) {
@@ -618,7 +618,7 @@ public class CommandScoreboard extends CommandBase {
             }
 
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.scoreboard.players.list.player.count", map.size(), s);
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.DARK_GREEN);
+            chatcomponenttranslation.getChatStyle().setColor(ChatFormat.DARK_GREEN);
             p_147195_1_.addChatMessage(chatcomponenttranslation);
 
             for (Score score : map.values()) {
@@ -633,7 +633,7 @@ public class CommandScoreboard extends CommandBase {
             }
 
             ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation("commands.scoreboard.players.list.count", collection.size());
-            chatcomponenttranslation1.getChatStyle().setColor(EnumChatFormatting.DARK_GREEN);
+            chatcomponenttranslation1.getChatStyle().setColor(ChatFormat.DARK_GREEN);
             p_147195_1_.addChatMessage(chatcomponenttranslation1);
             p_147195_1_.addChatMessage(new ChatComponentText(joinNiceString(collection.toArray())));
         }
@@ -902,11 +902,11 @@ public class CommandScoreboard extends CommandBase {
 
                             if (args.length == 5) {
                                 if (args[3].equalsIgnoreCase("color")) {
-                                    return getListOfStringsMatchingLastWord(args, EnumChatFormatting.getValidValues(true, false));
+                                    return getListOfStringsMatchingLastWord(args, ChatFormat.getValidValues(true, false));
                                 }
 
                                 if (args[3].equalsIgnoreCase("nametagVisibility") || args[3].equalsIgnoreCase("deathMessageVisibility")) {
-                                    return getListOfStringsMatchingLastWord(args, Team.EnumVisible.func_178825_a());
+                                    return getListOfStringsMatchingLastWord(args, Team.Visible.func_178825_a());
                                 }
 
                                 if (args[3].equalsIgnoreCase("friendlyfire") || args[3].equalsIgnoreCase("seeFriendlyInvisibles")) {

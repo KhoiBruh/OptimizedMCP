@@ -17,13 +17,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumAction;
+import net.minecraft.item.Action;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.MapData;
@@ -73,7 +73,7 @@ public class ItemRenderer {
     }
 
     private boolean isBlockTranslucent(Block blockIn) {
-        return blockIn != null && blockIn.getBlockLayer() == EnumWorldBlockLayer.TRANSLUCENT;
+        return blockIn != null && blockIn.getBlockLayer() == WorldBlockLayer.TRANSLUCENT;
     }
 
     private void rotateArroundXAndY(float angle, float angleY) {
@@ -294,7 +294,7 @@ public class ItemRenderer {
                 if (itemToRender.getItem() instanceof ItemMap) {
                     renderItemMap(abstractclientplayer, f2, f, f1);
                 } else if (abstractclientplayer.getItemInUseCount() > 0) {
-                    EnumAction enumaction = itemToRender.getItemUseAction();
+                    Action enumaction = itemToRender.getItemUseAction();
 
                     switch (enumaction) {
                         case NONE:

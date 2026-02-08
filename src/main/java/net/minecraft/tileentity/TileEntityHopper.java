@@ -25,7 +25,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     private String customName;
     private int transferCooldown = -1;
 
-    private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side) {
+    private static boolean isInventoryEmpty(IInventory inventoryIn, Direction side) {
         if (inventoryIn instanceof ISidedInventory isidedinventory) {
             int[] aint = isidedinventory.getSlotsForFace(side);
 
@@ -51,7 +51,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         IInventory iinventory = getHopperInventory(p_145891_0_);
 
         if (iinventory != null) {
-            EnumFacing enumfacing = EnumFacing.DOWN;
+            Direction enumfacing = Direction.DOWN;
 
             if (isInventoryEmpty(iinventory, enumfacing)) {
                 return false;
@@ -85,7 +85,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         return false;
     }
 
-    private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
+    private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, Direction direction) {
         ItemStack itemstack = inventoryIn.getStackInSlot(index);
 
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction)) {
@@ -123,7 +123,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
-    public static ItemStack putStackInInventoryAllSlots(IInventory inventoryIn, ItemStack stack, EnumFacing side) {
+    public static ItemStack putStackInInventoryAllSlots(IInventory inventoryIn, ItemStack stack, Direction side) {
         if (inventoryIn instanceof ISidedInventory isidedinventory && side != null) {
             int[] aint = isidedinventory.getSlotsForFace(side);
 
@@ -145,15 +145,15 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         return stack;
     }
 
-    private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+    private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, Direction side) {
         return inventoryIn.isItemValidForSlot(index, stack) && (!(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side));
     }
 
-    private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+    private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, Direction side) {
         return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canExtractItem(index, stack, side);
     }
 
-    private static ItemStack insertStack(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+    private static ItemStack insertStack(IInventory inventoryIn, ItemStack stack, int index, Direction side) {
         ItemStack itemstack = inventoryIn.getStackInSlot(index);
 
         if (canInsertItemInSlot(inventoryIn, stack, index, side)) {
@@ -416,7 +416,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         if (iinventory == null) {
             return false;
         } else {
-            EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata()).getOpposite();
+            Direction enumfacing = BlockHopper.getFacing(getBlockMetadata()).getOpposite();
 
             if (isInventoryFull(iinventory, enumfacing)) {
                 return false;
@@ -440,7 +440,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
-    private boolean isInventoryFull(IInventory inventoryIn, EnumFacing side) {
+    private boolean isInventoryFull(IInventory inventoryIn, Direction side) {
         if (inventoryIn instanceof ISidedInventory isidedinventory) {
             int[] aint = isidedinventory.getSlotsForFace(side);
 
@@ -467,7 +467,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     private IInventory getInventoryForHopperTransfer() {
-        EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata());
+        Direction enumfacing = BlockHopper.getFacing(getBlockMetadata());
         return getInventoryAtPosition(getWorld(), pos.getX() + enumfacing.getFrontOffsetX(), pos.getY() + enumfacing.getFrontOffsetY(), pos.getZ() + enumfacing.getFrontOffsetZ());
     }
 

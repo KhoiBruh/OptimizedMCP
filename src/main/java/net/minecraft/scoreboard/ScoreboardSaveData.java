@@ -3,7 +3,7 @@ package net.minecraft.scoreboard;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.world.WorldSavedData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,7 +65,7 @@ public class ScoreboardSaveData extends WorldSavedData {
             scoreplayerteam.setTeamName(s1);
 
             if (nbttagcompound.hasKey("TeamColor", 8)) {
-                scoreplayerteam.setChatFormat(EnumChatFormatting.getValueByName(nbttagcompound.getString("TeamColor")));
+                scoreplayerteam.setChatFormat(ChatFormat.getValueByName(nbttagcompound.getString("TeamColor")));
             }
 
             scoreplayerteam.setNamePrefix(nbttagcompound.getString("Prefix"));
@@ -80,7 +80,7 @@ public class ScoreboardSaveData extends WorldSavedData {
             }
 
             if (nbttagcompound.hasKey("NameTagVisibility", 8)) {
-                Team.EnumVisible team$enumvisible = Team.EnumVisible.func_178824_a(nbttagcompound.getString("NameTagVisibility"));
+                Team.Visible team$enumvisible = Team.Visible.func_178824_a(nbttagcompound.getString("NameTagVisibility"));
 
                 if (team$enumvisible != null) {
                     scoreplayerteam.setNameTagVisibility(team$enumvisible);
@@ -88,7 +88,7 @@ public class ScoreboardSaveData extends WorldSavedData {
             }
 
             if (nbttagcompound.hasKey("DeathMessageVisibility", 8)) {
-                Team.EnumVisible team$enumvisible1 = Team.EnumVisible.func_178824_a(nbttagcompound.getString("DeathMessageVisibility"));
+                Team.Visible team$enumvisible1 = Team.Visible.func_178824_a(nbttagcompound.getString("DeathMessageVisibility"));
 
                 if (team$enumvisible1 != null) {
                     scoreplayerteam.setDeathMessageVisibility(team$enumvisible1);
@@ -129,7 +129,7 @@ public class ScoreboardSaveData extends WorldSavedData {
 
                 ScoreObjective scoreobjective = theScoreboard.addScoreObjective(s, iscoreobjectivecriteria);
                 scoreobjective.setDisplayName(nbttagcompound.getString("DisplayName"));
-                scoreobjective.setRenderType(IScoreObjectiveCriteria.EnumRenderType.func_178795_a(nbttagcompound.getString("RenderType")));
+                scoreobjective.setRenderType(IScoreObjectiveCriteria.RenderType.func_178795_a(nbttagcompound.getString("RenderType")));
             }
         }
     }

@@ -1,15 +1,15 @@
 package net.minecraft.world;
 
-public enum EnumDifficulty {
+public enum Difficulty {
     PEACEFUL(0, "options.difficulty.peaceful"),
     EASY(1, "options.difficulty.easy"),
     NORMAL(2, "options.difficulty.normal"),
     HARD(3, "options.difficulty.hard");
 
-    private static final EnumDifficulty[] difficultyEnums = new EnumDifficulty[values().length];
+    private static final Difficulty[] difficultyEnums = new Difficulty[values().length];
 
     static {
-        for (EnumDifficulty enumdifficulty : values()) {
+        for (Difficulty enumdifficulty : values()) {
             difficultyEnums[enumdifficulty.difficultyId] = enumdifficulty;
         }
     }
@@ -17,12 +17,12 @@ public enum EnumDifficulty {
     private final int difficultyId;
     private final String difficultyResourceKey;
 
-    EnumDifficulty(int difficultyIdIn, String difficultyResourceKeyIn) {
+    Difficulty(int difficultyIdIn, String difficultyResourceKeyIn) {
         difficultyId = difficultyIdIn;
         difficultyResourceKey = difficultyResourceKeyIn;
     }
 
-    public static EnumDifficulty getDifficultyEnum(int p_151523_0_) {
+    public static Difficulty getDifficultyEnum(int p_151523_0_) {
         return difficultyEnums[p_151523_0_ % difficultyEnums.length];
     }
 

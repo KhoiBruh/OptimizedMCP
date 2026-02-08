@@ -11,7 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -21,7 +21,7 @@ import net.minecraft.network.status.client.C01PacketPing;
 import net.minecraft.network.status.server.S00PacketServerInfo;
 import net.minecraft.network.status.server.S01PacketPong;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.ArrayUtils;
@@ -75,7 +75,7 @@ public class OldServerPinger {
                     }
 
                     if (serverstatusresponse.getPlayerCountData() != null) {
-                        server.populationInfo = EnumChatFormatting.GRAY + "" + serverstatusresponse.getPlayerCountData().getOnlinePlayerCount() + EnumChatFormatting.DARK_GRAY + "/" + EnumChatFormatting.GRAY + serverstatusresponse.getPlayerCountData().getMaxPlayers();
+                        server.populationInfo = ChatFormat.GRAY + "" + serverstatusresponse.getPlayerCountData().getOnlinePlayerCount() + ChatFormat.DARK_GRAY + "/" + ChatFormat.GRAY + serverstatusresponse.getPlayerCountData().getMaxPlayers();
 
                         if (ArrayUtils.isNotEmpty(serverstatusresponse.getPlayerCountData().getPlayers())) {
                             StringBuilder stringbuilder = new StringBuilder();
@@ -99,7 +99,7 @@ public class OldServerPinger {
                             server.playerList = stringbuilder.toString();
                         }
                     } else {
-                        server.populationInfo = EnumChatFormatting.DARK_GRAY + "???";
+                        server.populationInfo = ChatFormat.DARK_GRAY + "???";
                     }
 
                     if (serverstatusresponse.getFavicon() != null) {
@@ -130,7 +130,7 @@ public class OldServerPinger {
             public void onDisconnect(IChatComponent reason) {
                 if (!field_147403_d) {
                     OldServerPinger.logger.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
-                    server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
+                    server.serverMOTD = ChatFormat.DARK_RED + "Can't connect to server.";
                     server.populationInfo = "";
                     tryCompatibilityPing(server);
                 }
@@ -138,7 +138,7 @@ public class OldServerPinger {
         });
 
         try {
-            networkmanager.sendPacket(new C00Handshake(47, serveraddress.getIP(), serveraddress.getPort(), EnumConnectionState.STATUS));
+            networkmanager.sendPacket(new C00Handshake(47, serveraddress.getIP(), serveraddress.getPort(), ConnectionState.STATUS));
             networkmanager.sendPacket(new C00PacketServerQuery());
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -202,7 +202,7 @@ public class OldServerPinger {
                                 server.version = -1;
                                 server.gameVersion = s1;
                                 server.serverMOTD = s2;
-                                server.populationInfo = EnumChatFormatting.GRAY + "" + j + EnumChatFormatting.DARK_GRAY + "/" + EnumChatFormatting.GRAY + k;
+                                server.populationInfo = ChatFormat.GRAY + "" + j + ChatFormat.DARK_GRAY + "/" + ChatFormat.GRAY + k;
                             }
                         }
 

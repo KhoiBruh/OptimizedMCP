@@ -310,7 +310,7 @@ public class EntityArrow extends Entity implements IProjectile {
 
             if (getIsCritical()) {
                 for (int k = 0; k < 4; ++k) {
-                    worldObj.spawnParticle(EnumParticleTypes.CRIT, posX + motionX * (double) k / 4.0D, posY + motionY * (double) k / 4.0D, posZ + motionZ * (double) k / 4.0D, -motionX, -motionY + 0.2D, -motionZ);
+                    worldObj.spawnParticle(ParticleTypes.CRIT, posX + motionX * (double) k / 4.0D, posY + motionY * (double) k / 4.0D, posZ + motionZ * (double) k / 4.0D, -motionX, -motionY + 0.2D, -motionZ);
                 }
             }
 
@@ -343,7 +343,7 @@ public class EntityArrow extends Entity implements IProjectile {
             if (isInWater()) {
                 for (int i1 = 0; i1 < 4; ++i1) {
                     float f8 = 0.25F;
-                    worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * (double) f8, posY - motionY * (double) f8, posZ - motionZ * (double) f8, motionX, motionY, motionZ);
+                    worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX - motionX * (double) f8, posY - motionY * (double) f8, posZ - motionZ * (double) f8, motionX, motionY, motionZ);
                 }
 
                 f4 = 0.6F;

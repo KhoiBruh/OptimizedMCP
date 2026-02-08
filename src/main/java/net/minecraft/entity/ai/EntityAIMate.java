@@ -7,7 +7,7 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -105,7 +105,7 @@ public class EntityAIMate extends EntityAIBase {
                 double d3 = random.nextDouble() * (double) theAnimal.width * 2.0D - (double) theAnimal.width;
                 double d4 = 0.5D + random.nextDouble() * (double) theAnimal.height;
                 double d5 = random.nextDouble() * (double) theAnimal.width * 2.0D - (double) theAnimal.width;
-                theWorld.spawnParticle(EnumParticleTypes.HEART, theAnimal.posX + d3, theAnimal.posY + d4, theAnimal.posZ + d5, d0, d1, d2);
+                theWorld.spawnParticle(ParticleTypes.HEART, theAnimal.posX + d3, theAnimal.posY + d4, theAnimal.posZ + d5, d0, d1, d2);
             }
 
             if (theWorld.getGameRules().getBoolean("doMobLoot")) {

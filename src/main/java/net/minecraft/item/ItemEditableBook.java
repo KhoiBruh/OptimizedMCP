@@ -52,10 +52,10 @@ public class ItemEditableBook extends Item {
             String s = nbttagcompound.getString("author");
 
             if (!StringUtils.isNullOrEmpty(s)) {
-                tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted("book.byAuthor", new Object[]{s}));
+                tooltip.add(ChatFormat.GRAY + StatCollector.translateToLocalFormatted("book.byAuthor", new Object[]{s}));
             }
 
-            tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("book.generation." + nbttagcompound.getInteger("generation")));
+            tooltip.add(ChatFormat.GRAY + StatCollector.translateToLocal("book.generation." + nbttagcompound.getInteger("generation")));
         }
     }
 

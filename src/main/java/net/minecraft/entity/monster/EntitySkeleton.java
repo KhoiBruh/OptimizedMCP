@@ -84,8 +84,8 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEAD;
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.UNDEAD;
     }
 
     public void onLivingUpdate() {

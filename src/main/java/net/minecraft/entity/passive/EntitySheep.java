@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -27,25 +27,25 @@ import java.util.Map;
 import java.util.Random;
 
 public class EntitySheep extends EntityAnimal {
-    private static final Map<EnumDyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(EnumDyeColor.class);
+    private static final Map<DyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(DyeColor.class);
 
     static {
-        DYE_TO_RGB.put(EnumDyeColor.WHITE, new float[]{1.0F, 1.0F, 1.0F});
-        DYE_TO_RGB.put(EnumDyeColor.ORANGE, new float[]{0.85F, 0.5F, 0.2F});
-        DYE_TO_RGB.put(EnumDyeColor.MAGENTA, new float[]{0.7F, 0.3F, 0.85F});
-        DYE_TO_RGB.put(EnumDyeColor.LIGHT_BLUE, new float[]{0.4F, 0.6F, 0.85F});
-        DYE_TO_RGB.put(EnumDyeColor.YELLOW, new float[]{0.9F, 0.9F, 0.2F});
-        DYE_TO_RGB.put(EnumDyeColor.LIME, new float[]{0.5F, 0.8F, 0.1F});
-        DYE_TO_RGB.put(EnumDyeColor.PINK, new float[]{0.95F, 0.5F, 0.65F});
-        DYE_TO_RGB.put(EnumDyeColor.GRAY, new float[]{0.3F, 0.3F, 0.3F});
-        DYE_TO_RGB.put(EnumDyeColor.SILVER, new float[]{0.6F, 0.6F, 0.6F});
-        DYE_TO_RGB.put(EnumDyeColor.CYAN, new float[]{0.3F, 0.5F, 0.6F});
-        DYE_TO_RGB.put(EnumDyeColor.PURPLE, new float[]{0.5F, 0.25F, 0.7F});
-        DYE_TO_RGB.put(EnumDyeColor.BLUE, new float[]{0.2F, 0.3F, 0.7F});
-        DYE_TO_RGB.put(EnumDyeColor.BROWN, new float[]{0.4F, 0.3F, 0.2F});
-        DYE_TO_RGB.put(EnumDyeColor.GREEN, new float[]{0.4F, 0.5F, 0.2F});
-        DYE_TO_RGB.put(EnumDyeColor.RED, new float[]{0.6F, 0.2F, 0.2F});
-        DYE_TO_RGB.put(EnumDyeColor.BLACK, new float[]{0.1F, 0.1F, 0.1F});
+        DYE_TO_RGB.put(DyeColor.WHITE, new float[]{1.0F, 1.0F, 1.0F});
+        DYE_TO_RGB.put(DyeColor.ORANGE, new float[]{0.85F, 0.5F, 0.2F});
+        DYE_TO_RGB.put(DyeColor.MAGENTA, new float[]{0.7F, 0.3F, 0.85F});
+        DYE_TO_RGB.put(DyeColor.LIGHT_BLUE, new float[]{0.4F, 0.6F, 0.85F});
+        DYE_TO_RGB.put(DyeColor.YELLOW, new float[]{0.9F, 0.9F, 0.2F});
+        DYE_TO_RGB.put(DyeColor.LIME, new float[]{0.5F, 0.8F, 0.1F});
+        DYE_TO_RGB.put(DyeColor.PINK, new float[]{0.95F, 0.5F, 0.65F});
+        DYE_TO_RGB.put(DyeColor.GRAY, new float[]{0.3F, 0.3F, 0.3F});
+        DYE_TO_RGB.put(DyeColor.SILVER, new float[]{0.6F, 0.6F, 0.6F});
+        DYE_TO_RGB.put(DyeColor.CYAN, new float[]{0.3F, 0.5F, 0.6F});
+        DYE_TO_RGB.put(DyeColor.PURPLE, new float[]{0.5F, 0.25F, 0.7F});
+        DYE_TO_RGB.put(DyeColor.BLUE, new float[]{0.2F, 0.3F, 0.7F});
+        DYE_TO_RGB.put(DyeColor.BROWN, new float[]{0.4F, 0.3F, 0.2F});
+        DYE_TO_RGB.put(DyeColor.GREEN, new float[]{0.4F, 0.5F, 0.2F});
+        DYE_TO_RGB.put(DyeColor.RED, new float[]{0.6F, 0.2F, 0.2F});
+        DYE_TO_RGB.put(DyeColor.BLACK, new float[]{0.1F, 0.1F, 0.1F});
     }
 
     private final InventoryCrafting inventoryCrafting = new InventoryCrafting(new Container() {
@@ -73,13 +73,13 @@ public class EntitySheep extends EntityAnimal {
         inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.dye, 1, 0));
     }
 
-    public static float[] getDyeRgb(EnumDyeColor dyeColor) {
+    public static float[] getDyeRgb(DyeColor dyeColor) {
         return DYE_TO_RGB.get(dyeColor);
     }
 
-    public static EnumDyeColor getRandomSheepColor(Random random) {
+    public static DyeColor getRandomSheepColor(Random random) {
         int i = random.nextInt(100);
-        return i < 5 ? EnumDyeColor.BLACK : (i < 10 ? EnumDyeColor.GRAY : (i < 15 ? EnumDyeColor.SILVER : (i < 18 ? EnumDyeColor.BROWN : (random.nextInt(500) == 0 ? EnumDyeColor.PINK : EnumDyeColor.WHITE))));
+        return i < 5 ? DyeColor.BLACK : (i < 10 ? DyeColor.GRAY : (i < 15 ? DyeColor.SILVER : (i < 18 ? DyeColor.BROWN : (random.nextInt(500) == 0 ? DyeColor.PINK : DyeColor.WHITE))));
     }
 
     protected void updateAITasks() {
@@ -179,7 +179,7 @@ public class EntitySheep extends EntityAnimal {
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         setSheared(tagCompund.getBoolean("Sheared"));
-        setFleeceColor(EnumDyeColor.byMetadata(tagCompund.getByte("Color")));
+        setFleeceColor(DyeColor.byMetadata(tagCompund.getByte("Color")));
     }
 
     protected String getLivingSound() {
@@ -198,11 +198,11 @@ public class EntitySheep extends EntityAnimal {
         playSound("mob.sheep.step", 0.15F, 1.0F);
     }
 
-    public EnumDyeColor getFleeceColor() {
-        return EnumDyeColor.byMetadata(dataWatcher.getWatchableObjectByte(16) & 15);
+    public DyeColor getFleeceColor() {
+        return DyeColor.byMetadata(dataWatcher.getWatchableObjectByte(16) & 15);
     }
 
-    public void setFleeceColor(EnumDyeColor color) {
+    public void setFleeceColor(DyeColor color) {
         byte b0 = dataWatcher.getWatchableObjectByte(16);
         dataWatcher.updateObject(16, (byte) (b0 & 240 | color.getMetadata() & 15));
     }
@@ -242,7 +242,7 @@ public class EntitySheep extends EntityAnimal {
         return livingdata;
     }
 
-    private EnumDyeColor getDyeColorMixFromParents(EntityAnimal father, EntityAnimal mother) {
+    private DyeColor getDyeColorMixFromParents(EntityAnimal father, EntityAnimal mother) {
         int i = ((EntitySheep) father).getFleeceColor().getDyeDamage();
         int j = ((EntitySheep) mother).getFleeceColor().getDyeDamage();
         inventoryCrafting.getStackInSlot(0).setItemDamage(i);
@@ -256,7 +256,7 @@ public class EntitySheep extends EntityAnimal {
             k = worldObj.rand.nextBoolean() ? i : j;
         }
 
-        return EnumDyeColor.byDyeDamage(k);
+        return DyeColor.byDyeDamage(k);
     }
 
     public float getEyeHeight() {

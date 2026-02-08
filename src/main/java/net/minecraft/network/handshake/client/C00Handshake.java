@@ -1,6 +1,6 @@
 package net.minecraft.network.handshake.client;
 
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.handshake.INetHandlerHandshakeServer;
@@ -9,12 +9,12 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
     private int protocolVersion;
     private String ip;
     private int port;
-    private EnumConnectionState requestedState;
+    private ConnectionState requestedState;
 
     public C00Handshake() {
     }
 
-    public C00Handshake(int version, String ip, int port, EnumConnectionState requestedState) {
+    public C00Handshake(int version, String ip, int port, ConnectionState requestedState) {
         protocolVersion = version;
         this.ip = ip;
         this.port = port;
@@ -25,7 +25,7 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
         protocolVersion = buf.readVarIntFromBuffer();
         ip = buf.readStringFromBuffer(255);
         port = buf.readUnsignedShort();
-        requestedState = EnumConnectionState.getById(buf.readVarIntFromBuffer());
+        requestedState = ConnectionState.getById(buf.readVarIntFromBuffer());
     }
 
     public void writePacketData(PacketBuffer buf) {
@@ -39,7 +39,7 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
         handler.processHandshake(this);
     }
 
-    public EnumConnectionState getRequestedState() {
+    public ConnectionState getRequestedState() {
         return requestedState;
     }
 

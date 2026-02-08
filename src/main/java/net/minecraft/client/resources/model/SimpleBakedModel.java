@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.block.model.BreakingFour;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class SimpleBakedModel implements IBakedModel {
         cameraTransforms = cameraTransformsIn;
     }
 
-    public List<BakedQuad> getFaceQuads(EnumFacing facing) {
+    public List<BakedQuad> getFaceQuads(Direction facing) {
         return faceQuads.get(facing.ordinal());
     }
 
@@ -72,7 +72,7 @@ public class SimpleBakedModel implements IBakedModel {
             this(bakedModel.isAmbientOcclusion(), bakedModel.isGui3d(), bakedModel.getItemCameraTransforms());
             builderTexture = bakedModel.getParticleTexture();
 
-            for (EnumFacing enumfacing : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
                 addFaceBreakingFours(bakedModel, texture, enumfacing);
             }
 
@@ -83,7 +83,7 @@ public class SimpleBakedModel implements IBakedModel {
             builderGeneralQuads = new ArrayList<>();
             builderFaceQuads = Lists.newArrayListWithCapacity(6);
 
-            for (EnumFacing enumfacing : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
                 builderFaceQuads.add(new ArrayList<>());
             }
 
@@ -92,7 +92,7 @@ public class SimpleBakedModel implements IBakedModel {
             builderCameraTransforms = cameraTransforms;
         }
 
-        private void addFaceBreakingFours(IBakedModel bakedModel, TextureAtlasSprite texture, EnumFacing facing) {
+        private void addFaceBreakingFours(IBakedModel bakedModel, TextureAtlasSprite texture, Direction facing) {
             for (BakedQuad bakedquad : bakedModel.getFaceQuads(facing)) {
                 addFaceQuad(facing, new BreakingFour(bakedquad, texture));
             }
@@ -104,7 +104,7 @@ public class SimpleBakedModel implements IBakedModel {
             }
         }
 
-        public SimpleBakedModel.Builder addFaceQuad(EnumFacing facing, BakedQuad quad) {
+        public SimpleBakedModel.Builder addFaceQuad(Direction facing, BakedQuad quad) {
             builderFaceQuads.get(facing.ordinal()).add(quad);
             return this;
         }

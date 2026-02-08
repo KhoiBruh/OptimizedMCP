@@ -137,7 +137,7 @@ public abstract class EntityLivingBase extends Entity {
                 }
 
                 int i = (int) (150.0D * d0);
-                ((WorldServer) worldObj).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY, posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(iblockstate));
+                ((WorldServer) worldObj).spawnParticle(ParticleTypes.BLOCK_DUST, posX, posY, posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(iblockstate));
             }
         }
 
@@ -184,7 +184,7 @@ public abstract class EntityLivingBase extends Entity {
                             float f = rand.nextFloat() - rand.nextFloat();
                             float f1 = rand.nextFloat() - rand.nextFloat();
                             float f2 = rand.nextFloat() - rand.nextFloat();
-                            worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (double) f, posY + (double) f1, posZ + (double) f2, motionX, motionY, motionZ);
+                            worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + (double) f, posY + (double) f1, posZ + (double) f2, motionX, motionY, motionZ);
                         }
 
                         attackEntityFrom(DamageSource.drown, 2.0F);
@@ -268,7 +268,7 @@ public abstract class EntityLivingBase extends Entity {
                 double d2 = rand.nextGaussian() * 0.02D;
                 double d0 = rand.nextGaussian() * 0.02D;
                 double d1 = rand.nextGaussian() * 0.02D;
-                worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d2, d0, d1);
+                worldObj.spawnParticle(ParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, d2, d0, d1);
             }
         }
     }
@@ -446,7 +446,7 @@ public abstract class EntityLivingBase extends Entity {
                 double d0 = (double) (i >> 16 & 255) / 255.0D;
                 double d1 = (double) (i >> 8 & 255) / 255.0D;
                 double d2 = (double) (i & 255) / 255.0D;
-                worldObj.spawnParticle(flag1 ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
+                worldObj.spawnParticle(flag1 ? ParticleTypes.SPELL_MOB_AMBIENT : ParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
             }
         }
     }
@@ -511,7 +511,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        if (getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
+        if (getCreatureAttribute() == CreatureAttribute.UNDEAD) {
             int i = potioneffectIn.getPotionID();
 
             return i != Potion.regeneration.id && i != Potion.poison.id;
@@ -521,7 +521,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public boolean isEntityUndead() {
-        return getCreatureAttribute() == EnumCreatureAttribute.UNDEAD;
+        return getCreatureAttribute() == CreatureAttribute.UNDEAD;
     }
 
     public void removePotionEffectClient(int potionId) {
@@ -688,7 +688,7 @@ public abstract class EntityLivingBase extends Entity {
             vec31 = vec31.rotatePitch(-rotationPitch * (float) Math.PI / 180.0F);
             vec31 = vec31.rotateYaw(-rotationYaw * (float) Math.PI / 180.0F);
             vec31 = vec31.addVector(posX, posY + (double) getEyeHeight(), posZ);
-            worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(stack.getItem()));
+            worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(stack.getItem()));
         }
     }
 
@@ -974,8 +974,8 @@ public abstract class EntityLivingBase extends Entity {
         return attributeMap;
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEFINED;
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.UNDEFINED;
     }
 
     public abstract ItemStack getHeldItem();

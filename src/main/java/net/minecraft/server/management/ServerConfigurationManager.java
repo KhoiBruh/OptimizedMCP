@@ -111,7 +111,7 @@ public abstract class ServerConfigurationManager {
             chatcomponenttranslation = new ChatComponentTranslation("multiplayer.player.joined", playerIn.getDisplayName());
         }
 
-        chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+        chatcomponenttranslation.getChatStyle().setColor(ChatFormat.YELLOW);
         sendChatMsg(chatcomponenttranslation);
         playerLoggedIn(playerIn);
         nethandlerplayserver.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.rotationYaw, playerIn.rotationPitch);

@@ -3,7 +3,7 @@ package net.minecraft.entity.projectile;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -32,7 +32,7 @@ public class EntitySnowball extends EntityThrowable {
         }
 
         for (int j = 0; j < 8; ++j) {
-            worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.SNOWBALL, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
         }
 
         if (!worldObj.isRemote) {

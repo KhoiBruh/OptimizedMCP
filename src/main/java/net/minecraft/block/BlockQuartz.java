@@ -10,47 +10,47 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 public class BlockQuartz extends Block {
-    public static final PropertyEnum<BlockQuartz.EnumType> VARIANT = PropertyEnum.create("variant", BlockQuartz.EnumType.class);
+    public static final PropertyEnum<Type> VARIANT = PropertyEnum.create("variant", Type.class);
 
     public BlockQuartz() {
         super(Material.rock);
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, Type.DEFAULT));
         setCreativeTab(CreativeTabs.tabBlock);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        if (meta == BlockQuartz.EnumType.LINES_Y.getMetadata()) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        if (meta == Type.LINES_Y.getMetadata()) {
             return switch (facing.getAxis()) {
-                case Z -> getDefaultState().withProperty(VARIANT, EnumType.LINES_Z);
-                case X -> getDefaultState().withProperty(VARIANT, EnumType.LINES_X);
-                default -> getDefaultState().withProperty(VARIANT, EnumType.LINES_Y);
+                case Z -> getDefaultState().withProperty(VARIANT, Type.LINES_Z);
+                case X -> getDefaultState().withProperty(VARIANT, Type.LINES_X);
+                default -> getDefaultState().withProperty(VARIANT, Type.LINES_Y);
             };
         } else {
-            return meta == BlockQuartz.EnumType.CHISELED.getMetadata() ? getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.CHISELED) : getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.DEFAULT);
+            return meta == Type.CHISELED.getMetadata() ? getDefaultState().withProperty(VARIANT, Type.CHISELED) : getDefaultState().withProperty(VARIANT, Type.DEFAULT);
         }
     }
 
     public int damageDropped(IBlockState state) {
-        BlockQuartz.EnumType blockquartz$enumtype = state.getValue(VARIANT);
-        return blockquartz$enumtype != BlockQuartz.EnumType.LINES_X && blockquartz$enumtype != BlockQuartz.EnumType.LINES_Z ? blockquartz$enumtype.getMetadata() : BlockQuartz.EnumType.LINES_Y.getMetadata();
+        Type blockquartz$enumtype = state.getValue(VARIANT);
+        return blockquartz$enumtype != Type.LINES_X && blockquartz$enumtype != Type.LINES_Z ? blockquartz$enumtype.getMetadata() : Type.LINES_Y.getMetadata();
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        BlockQuartz.EnumType blockquartz$enumtype = state.getValue(VARIANT);
-        return blockquartz$enumtype != BlockQuartz.EnumType.LINES_X && blockquartz$enumtype != BlockQuartz.EnumType.LINES_Z ? super.createStackedBlock(state) : new ItemStack(Item.getItemFromBlock(this), 1, BlockQuartz.EnumType.LINES_Y.getMetadata());
+        Type blockquartz$enumtype = state.getValue(VARIANT);
+        return blockquartz$enumtype != Type.LINES_X && blockquartz$enumtype != Type.LINES_Z ? super.createStackedBlock(state) : new ItemStack(Item.getItemFromBlock(this), 1, Type.LINES_Y.getMetadata());
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        list.add(new ItemStack(itemIn, 1, BlockQuartz.EnumType.DEFAULT.getMetadata()));
-        list.add(new ItemStack(itemIn, 1, BlockQuartz.EnumType.CHISELED.getMetadata()));
-        list.add(new ItemStack(itemIn, 1, BlockQuartz.EnumType.LINES_Y.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, Type.DEFAULT.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, Type.CHISELED.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, Type.LINES_Y.getMetadata()));
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -58,7 +58,7 @@ public class BlockQuartz extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT, BlockQuartz.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, Type.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -69,17 +69,17 @@ public class BlockQuartz extends Block {
         return new BlockState(this, VARIANT);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IStringSerializable {
         DEFAULT(0, "default", "default"),
         CHISELED(1, "chiseled", "chiseled"),
         LINES_Y(2, "lines_y", "lines"),
         LINES_X(3, "lines_x", "lines"),
         LINES_Z(4, "lines_z", "lines");
 
-        private static final BlockQuartz.EnumType[] META_LOOKUP = new BlockQuartz.EnumType[values().length];
+        private static final Type[] META_LOOKUP = new Type[values().length];
 
         static {
-            for (BlockQuartz.EnumType blockquartz$enumtype : values()) {
+            for (Type blockquartz$enumtype : values()) {
                 META_LOOKUP[blockquartz$enumtype.meta] = blockquartz$enumtype;
             }
         }
@@ -88,13 +88,13 @@ public class BlockQuartz extends Block {
         private final String field_176805_h;
         private final String unlocalizedName;
 
-        EnumType(int meta, String name, String unlocalizedName) {
+        Type(int meta, String name, String unlocalizedName) {
             this.meta = meta;
             field_176805_h = name;
             this.unlocalizedName = unlocalizedName;
         }
 
-        public static BlockQuartz.EnumType byMetadata(int meta) {
+        public static Type byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }

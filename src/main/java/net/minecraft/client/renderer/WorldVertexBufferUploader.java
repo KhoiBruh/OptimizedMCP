@@ -24,7 +24,7 @@ public class WorldVertexBufferUploader {
 
             for (int j = 0; j < list.size(); ++j) {
                 VertexFormatElement vertexformatelement = list.get(j);
-                VertexFormatElement.EnumUsage vertexformatelement$enumusage = vertexformatelement.getUsage();
+                VertexFormatElement.Usage vertexformatelement$enumusage = vertexformatelement.getUsage();
 
                 int k = vertexformatelement.getType().getGlConstant();
                 int l = vertexformatelement.getIndex();
@@ -66,7 +66,7 @@ public class WorldVertexBufferUploader {
 
             for (int k1 = list.size(); j1 < k1; ++j1) {
                 VertexFormatElement vertexformatelement1 = list.get(j1);
-                VertexFormatElement.EnumUsage vertexformatelement$enumusage1 = vertexformatelement1.getUsage();
+                VertexFormatElement.Usage vertexformatelement$enumusage1 = vertexformatelement1.getUsage();
 
                 int i1 = vertexformatelement1.getIndex();
 

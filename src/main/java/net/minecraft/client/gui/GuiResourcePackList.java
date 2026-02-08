@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.ResourcePackListEntry;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
     }
 
     protected void drawListHeader(int p_148129_1_, int p_148129_2_, Tessellator p_148129_3_) {
-        String s = EnumChatFormatting.UNDERLINE + "" + EnumChatFormatting.BOLD + getListHeader();
+        String s = ChatFormat.UNDERLINE + "" + ChatFormat.BOLD + getListHeader();
         mc.fontRendererObj.drawString(s, p_148129_1_ + width / 2 - mc.fontRendererObj.getStringWidth(s) / 2, Math.min(top + 3, p_148129_2_), 16777215);
     }
 

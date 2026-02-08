@@ -92,7 +92,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             float f11 = (rand.nextFloat() - 0.5F) * 8.0F;
             float f13 = (rand.nextFloat() - 0.5F) * 4.0F;
             float f14 = (rand.nextFloat() - 0.5F) * 8.0F;
-            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (double) f11, posY + 2.0D + (double) f13, posZ + (double) f14, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX + (double) f11, posY + 2.0D + (double) f13, posZ + (double) f14, 0.0D, 0.0D, 0.0D);
         } else {
             updateDragonEnderCrystal();
             float f10 = 0.2F / (MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ) * 10.0F + 1.0F);
@@ -404,7 +404,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             double d0 = p_70972_1_.minX + (p_70972_1_.maxX - p_70972_1_.minX) * (double) rand.nextFloat();
             double d1 = p_70972_1_.minY + (p_70972_1_.maxY - p_70972_1_.minY) * (double) rand.nextFloat();
             double d2 = p_70972_1_.minZ + (p_70972_1_.maxZ - p_70972_1_.minZ) * (double) rand.nextFloat();
-            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
 
         return flag;
@@ -453,7 +453,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             float f = (rand.nextFloat() - 0.5F) * 8.0F;
             float f1 = (rand.nextFloat() - 0.5F) * 4.0F;
             float f2 = (rand.nextFloat() - 0.5F) * 8.0F;
-            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX + (double) f, posY + 2.0D + (double) f1, posZ + (double) f2, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.EXPLOSION_HUGE, posX + (double) f, posY + 2.0D + (double) f1, posZ + (double) f2, 0.0D, 0.0D, 0.0D);
         }
 
         boolean flag = worldObj.getGameRules().getBoolean("doMobLoot");
@@ -526,10 +526,10 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         worldObj.setBlockState(pos.up(), Blocks.bedrock.getDefaultState());
         BlockPos blockpos1 = pos.up(2);
         worldObj.setBlockState(blockpos1, Blocks.bedrock.getDefaultState());
-        worldObj.setBlockState(blockpos1.west(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.EAST));
-        worldObj.setBlockState(blockpos1.east(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.WEST));
-        worldObj.setBlockState(blockpos1.north(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.SOUTH));
-        worldObj.setBlockState(blockpos1.south(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.NORTH));
+        worldObj.setBlockState(blockpos1.west(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.EAST));
+        worldObj.setBlockState(blockpos1.east(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.WEST));
+        worldObj.setBlockState(blockpos1.north(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.SOUTH));
+        worldObj.setBlockState(blockpos1.south(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.NORTH));
         worldObj.setBlockState(pos.up(3), Blocks.bedrock.getDefaultState());
         worldObj.setBlockState(pos.up(4), Blocks.dragon_egg.getDefaultState());
     }

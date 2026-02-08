@@ -52,26 +52,26 @@ public class CommandTeleport extends CommandBase {
                     CoordinateArg commandbase$coordinatearg4 = parseCoordinate(entity.rotationPitch, args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
 
                     if (entity instanceof EntityPlayerMP) {
-                        Set<S08PacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(S08PacketPlayerPosLook.EnumFlags.class);
+                        Set<S08PacketPlayerPosLook.Flags> set = EnumSet.noneOf(S08PacketPlayerPosLook.Flags.class);
 
                         if (commandbase$coordinatearg.func_179630_c()) {
-                            set.add(S08PacketPlayerPosLook.EnumFlags.X);
+                            set.add(S08PacketPlayerPosLook.Flags.X);
                         }
 
                         if (commandbase$coordinatearg1.func_179630_c()) {
-                            set.add(S08PacketPlayerPosLook.EnumFlags.Y);
+                            set.add(S08PacketPlayerPosLook.Flags.Y);
                         }
 
                         if (commandbase$coordinatearg2.func_179630_c()) {
-                            set.add(S08PacketPlayerPosLook.EnumFlags.Z);
+                            set.add(S08PacketPlayerPosLook.Flags.Z);
                         }
 
                         if (commandbase$coordinatearg4.func_179630_c()) {
-                            set.add(S08PacketPlayerPosLook.EnumFlags.X_ROT);
+                            set.add(S08PacketPlayerPosLook.Flags.X_ROT);
                         }
 
                         if (commandbase$coordinatearg3.func_179630_c()) {
-                            set.add(S08PacketPlayerPosLook.EnumFlags.Y_ROT);
+                            set.add(S08PacketPlayerPosLook.Flags.Y_ROT);
                         }
 
                         float f = (float) commandbase$coordinatearg3.func_179629_b();

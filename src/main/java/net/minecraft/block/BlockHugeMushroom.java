@@ -8,19 +8,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockHugeMushroom extends Block {
-    public static final PropertyEnum<BlockHugeMushroom.EnumType> VARIANT = PropertyEnum.create("variant", BlockHugeMushroom.EnumType.class);
+    public static final PropertyEnum<Type> VARIANT = PropertyEnum.create("variant", Type.class);
     private final Block smallBlock;
 
     public BlockHugeMushroom(Material p_i46392_1_, MapColor p_i46392_2_, Block p_i46392_3_) {
         super(p_i46392_1_, p_i46392_2_);
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockHugeMushroom.EnumType.ALL_OUTSIDE));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, Type.ALL_OUTSIDE));
         smallBlock = p_i46392_3_;
     }
 
@@ -44,12 +44,12 @@ public class BlockHugeMushroom extends Block {
         return Item.getItemFromBlock(smallBlock);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return getDefaultState();
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT, BlockHugeMushroom.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, Type.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -60,7 +60,7 @@ public class BlockHugeMushroom extends Block {
         return new BlockState(this, VARIANT);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IStringSerializable {
         NORTH_WEST(1, "north_west"),
         NORTH(2, "north"),
         NORTH_EAST(3, "north_east"),
@@ -75,10 +75,10 @@ public class BlockHugeMushroom extends Block {
         ALL_OUTSIDE(14, "all_outside"),
         ALL_STEM(15, "all_stem");
 
-        private static final BlockHugeMushroom.EnumType[] META_LOOKUP = new BlockHugeMushroom.EnumType[16];
+        private static final Type[] META_LOOKUP = new Type[16];
 
         static {
-            for (BlockHugeMushroom.EnumType blockhugemushroom$enumtype : values()) {
+            for (Type blockhugemushroom$enumtype : values()) {
                 META_LOOKUP[blockhugemushroom$enumtype.meta] = blockhugemushroom$enumtype;
             }
         }
@@ -86,17 +86,17 @@ public class BlockHugeMushroom extends Block {
         private final int meta;
         private final String name;
 
-        EnumType(int meta, String name) {
+        Type(int meta, String name) {
             this.meta = meta;
             this.name = name;
         }
 
-        public static BlockHugeMushroom.EnumType byMetadata(int meta) {
+        public static Type byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
 
-            BlockHugeMushroom.EnumType blockhugemushroom$enumtype = META_LOOKUP[meta];
+            Type blockhugemushroom$enumtype = META_LOOKUP[meta];
             return blockhugemushroom$enumtype == null ? META_LOOKUP[0] : blockhugemushroom$enumtype;
         }
 

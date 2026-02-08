@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -130,7 +130,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
                     new EntityVillager.EmeraldForItems(Items.gold_ingot, new EntityVillager.PriceInfo(8, 10))},
                     {new EntityVillager.ListItemForEmeralds(Items.redstone, new EntityVillager.PriceInfo(-4, -1)),
                             new EntityVillager.ListItemForEmeralds(
-                                    new ItemStack(Items.dye, 1, EnumDyeColor.BLUE.getDyeDamage()),
+                                    new ItemStack(Items.dye, 1, DyeColor.BLUE.getDyeDamage()),
                                     new EntityVillager.PriceInfo(-2, -1))},
                     {new EntityVillager.ListItemForEmeralds(Items.ender_eye, new EntityVillager.PriceInfo(7, 11)),
                             new EntityVillager.ListItemForEmeralds(Item.getItemFromBlock(Blocks.glowstone),
@@ -665,17 +665,17 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
 
     public void handleStatusUpdate(byte id) {
         if (id == 12) {
-            spawnParticles(EnumParticleTypes.HEART);
+            spawnParticles(ParticleTypes.HEART);
         } else if (id == 13) {
-            spawnParticles(EnumParticleTypes.VILLAGER_ANGRY);
+            spawnParticles(ParticleTypes.VILLAGER_ANGRY);
         } else if (id == 14) {
-            spawnParticles(EnumParticleTypes.VILLAGER_HAPPY);
+            spawnParticles(ParticleTypes.VILLAGER_HAPPY);
         } else {
             super.handleStatusUpdate(id);
         }
     }
 
-    private void spawnParticles(EnumParticleTypes particleType) {
+    private void spawnParticles(ParticleTypes particleType) {
         for (int i = 0; i < 5; ++i) {
             double d0 = rand.nextGaussian() * 0.02D;
             double d1 = rand.nextGaussian() * 0.02D;

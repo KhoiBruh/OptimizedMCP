@@ -7,24 +7,24 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityPainting extends EntityHanging {
-    public EntityPainting.EnumArt art;
+    public Art art;
 
     public EntityPainting(World worldIn) {
         super(worldIn);
     }
 
-    public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing) {
+    public EntityPainting(World worldIn, BlockPos pos, Direction facing) {
         super(worldIn, pos);
-        List<EntityPainting.EnumArt> list = new ArrayList<>();
+        List<Art> list = new ArrayList<>();
 
-        for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+        for (Art entitypainting$enumart : Art.values()) {
             art = entitypainting$enumart;
             updateFacingWithBoundingBox(facing);
 
@@ -40,10 +40,10 @@ public class EntityPainting extends EntityHanging {
         updateFacingWithBoundingBox(facing);
     }
 
-    public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing, String title) {
+    public EntityPainting(World worldIn, BlockPos pos, Direction facing, String title) {
         this(worldIn, pos, facing);
 
-        for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+        for (Art entitypainting$enumart : Art.values()) {
             if (entitypainting$enumart.title.equals(title)) {
                 art = entitypainting$enumart;
                 break;
@@ -61,14 +61,14 @@ public class EntityPainting extends EntityHanging {
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         String s = tagCompund.getString("Motive");
 
-        for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+        for (Art entitypainting$enumart : Art.values()) {
             if (entitypainting$enumart.title.equals(s)) {
                 art = entitypainting$enumart;
             }
         }
 
         if (art == null) {
-            art = EntityPainting.EnumArt.KEBAB;
+            art = Art.KEBAB;
         }
 
         super.readEntityFromNBT(tagCompund);
@@ -105,7 +105,7 @@ public class EntityPainting extends EntityHanging {
         setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());
     }
 
-    public enum EnumArt {
+    public enum Art {
         KEBAB("Kebab", 16, 16, 0, 0),
         AZTEC("Aztec", 16, 16, 16, 0),
         ALBAN("Alban", 16, 16, 32, 0),
@@ -140,7 +140,7 @@ public class EntityPainting extends EntityHanging {
         public final int offsetX;
         public final int offsetY;
 
-        EnumArt(String titleIn, int width, int height, int textureU, int textureV) {
+        Art(String titleIn, int width, int height, int textureU, int textureV) {
             title = titleIn;
             sizeX = width;
             sizeY = height;

@@ -12,7 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerBeacon;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
@@ -91,7 +91,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         beamSegments.clear();
         isComplete = true;
         TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = new TileEntityBeacon.BeamSegment(
-                EntitySheep.getDyeRgb(EnumDyeColor.WHITE));
+                EntitySheep.getDyeRgb(DyeColor.WHITE));
         beamSegments.add(tileentitybeacon$beamsegment);
         boolean flag = true;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();

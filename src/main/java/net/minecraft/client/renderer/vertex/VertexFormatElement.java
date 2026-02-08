@@ -5,15 +5,15 @@ import org.apache.logging.log4j.Logger;
 
 public class VertexFormatElement {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final VertexFormatElement.EnumType type;
-    private final VertexFormatElement.EnumUsage usage;
+    private final Type type;
+    private final Usage usage;
     private final int index;
     private final int elementCount;
 
-    public VertexFormatElement(int indexIn, VertexFormatElement.EnumType typeIn, VertexFormatElement.EnumUsage usageIn, int count) {
+    public VertexFormatElement(int indexIn, Type typeIn, Usage usageIn, int count) {
         if (!func_177372_a(indexIn, usageIn)) {
             LOGGER.warn("Multiple vertex elements of the same type other than UVs are not supported. Forcing type to UV.");
-            usage = VertexFormatElement.EnumUsage.UV;
+            usage = Usage.UV;
         } else {
             usage = usageIn;
         }
@@ -23,15 +23,15 @@ public class VertexFormatElement {
         elementCount = count;
     }
 
-    private boolean func_177372_a(int p_177372_1_, VertexFormatElement.EnumUsage p_177372_2_) {
-        return p_177372_1_ == 0 || p_177372_2_ == VertexFormatElement.EnumUsage.UV;
+    private boolean func_177372_a(int p_177372_1_, Usage p_177372_2_) {
+        return p_177372_1_ == 0 || p_177372_2_ == Usage.UV;
     }
 
-    public final VertexFormatElement.EnumType getType() {
+    public final Type getType() {
         return type;
     }
 
-    public final VertexFormatElement.EnumUsage getUsage() {
+    public final Usage getUsage() {
         return usage;
     }
 
@@ -52,7 +52,7 @@ public class VertexFormatElement {
     }
 
     public final boolean isPositionElement() {
-        return usage == VertexFormatElement.EnumUsage.POSITION;
+        return usage == Usage.POSITION;
     }
 
     public boolean equals(Object p_equals_1_) {
@@ -74,7 +74,7 @@ public class VertexFormatElement {
         return i;
     }
 
-    public enum EnumType {
+    public enum Type {
         FLOAT(4, "Float", 5126),
         UBYTE(1, "Unsigned Byte", 5121),
         BYTE(1, "Byte", 5120),
@@ -87,7 +87,7 @@ public class VertexFormatElement {
         private final String displayName;
         private final int glConstant;
 
-        EnumType(int sizeIn, String displayNameIn, int glConstantIn) {
+        Type(int sizeIn, String displayNameIn, int glConstantIn) {
             size = sizeIn;
             displayName = displayNameIn;
             glConstant = glConstantIn;
@@ -106,7 +106,7 @@ public class VertexFormatElement {
         }
     }
 
-    public enum EnumUsage {
+    public enum Usage {
         POSITION("Position"),
         NORMAL("Normal"),
         COLOR("Vertex Color"),
@@ -117,7 +117,7 @@ public class VertexFormatElement {
 
         private final String displayName;
 
-        EnumUsage(String displayNameIn) {
+        Usage(String displayNameIn) {
             displayName = displayNameIn;
         }
 

@@ -77,7 +77,7 @@ public class RegionRenderCache extends ChunkCache {
     public TileEntity getTileEntity(BlockPos pos) {
         int i = (pos.getX() >> 4) - chunkX;
         int j = (pos.getZ() >> 4) - chunkZ;
-        return chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.QUEUED);
+        return chunkArray[i][j].getTileEntity(pos, Chunk.CreateEntityType.QUEUED);
     }
 
     public int getCombinedLight(BlockPos pos, int lightValue) {

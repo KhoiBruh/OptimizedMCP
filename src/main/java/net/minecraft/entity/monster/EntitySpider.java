@@ -12,7 +12,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -95,8 +95,8 @@ public class EntitySpider extends EntityMob {
     public void setInWeb() {
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.ARTHROPOD;
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.ARTHROPOD;
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
@@ -133,7 +133,7 @@ public class EntitySpider extends EntityMob {
         if (livingdata == null) {
             livingdata = new EntitySpider.GroupData();
 
-            if (worldObj.getDifficulty() == EnumDifficulty.HARD && worldObj.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
+            if (worldObj.getDifficulty() == Difficulty.HARD && worldObj.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
                 ((EntitySpider.GroupData) livingdata).func_111104_a(worldObj.rand);
             }
         }

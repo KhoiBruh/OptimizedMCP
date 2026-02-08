@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.MathHelper;
 import net.optifine.EmissiveTextures;
 import net.optifine.entity.model.CustomEntityModels;
@@ -456,10 +456,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             GlStateManager.rotate(f * getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
         } else {
-            String s = EnumChatFormatting.getTextWithoutFormattingCodes(bat.getName());
+            String s = ChatFormat.getTextWithoutFormattingCodes(bat.getName());
 
             if (s != null && (s.equals("Dinnerbone") || s.equals("Grumm"))
-                    && (!(bat instanceof EntityPlayer) || ((EntityPlayer) bat).isWearing(EnumPlayerModelParts.CAPE))) {
+                    && (!(bat instanceof EntityPlayer) || ((EntityPlayer) bat).isWearing(PlayerModelParts.CAPE))) {
                 GlStateManager.translate(0.0F, bat.height + 0.1F, 0.0F);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             }
@@ -585,7 +585,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             Team team1 = entityplayersp.getTeam();
 
             if (team != null) {
-                Team.EnumVisible team$enumvisible = team.getNameTagVisibility();
+                Team.Visible team$enumvisible = team.getNameTagVisibility();
 
                 return switch (team$enumvisible) {
                     case ALWAYS -> true;

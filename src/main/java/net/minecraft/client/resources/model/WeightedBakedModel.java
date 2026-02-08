@@ -4,7 +4,7 @@ import com.google.common.collect.ComparisonChain;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandom;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class WeightedBakedModel implements IBakedModel {
         baseModel = p_i46073_1_.getFirst().model;
     }
 
-    public List<BakedQuad> getFaceQuads(EnumFacing facing) {
+    public List<BakedQuad> getFaceQuads(Direction facing) {
         return baseModel.getFaceQuads(facing);
     }
 
@@ -87,7 +87,7 @@ public class WeightedBakedModel implements IBakedModel {
         protected int getCountQuads() {
             int i = model.getGeneralQuads().size();
 
-            for (EnumFacing enumfacing : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
                 i += model.getFaceQuads(enumfacing).size();
             }
 

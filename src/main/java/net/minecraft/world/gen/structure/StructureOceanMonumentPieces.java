@@ -7,7 +7,7 @@ import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -30,31 +30,31 @@ public class StructureOceanMonumentPieces {
     interface MonumentRoomFitHelper {
         boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_);
 
-        StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_);
+        StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_);
     }
 
     public static class DoubleXRoom extends StructureOceanMonumentPieces.Piece {
         public DoubleXRoom() {
         }
 
-        public DoubleXRoom(EnumFacing p_i45597_1_, StructureOceanMonumentPieces.RoomDefinition p_i45597_2_, Random p_i45597_3_) {
+        public DoubleXRoom(Direction p_i45597_1_, StructureOceanMonumentPieces.RoomDefinition p_i45597_2_, Random p_i45597_3_) {
             super(1, p_i45597_1_, p_i45597_2_, 2, 1, 1);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[EnumFacing.EAST.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[Direction.EAST.getIndex()];
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = field_175830_k;
 
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 8, 0, structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.DOWN.getIndex()]);
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 8, 0, structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 4, 1, 7, 4, 6, field_175828_a);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 8, 4, 1, 14, 4, 6, field_175828_a);
             }
 
@@ -76,27 +76,27 @@ public class StructureOceanMonumentPieces {
             setBlockState(worldIn, field_175825_e, 6, 2, 3, structureBoundingBoxIn);
             setBlockState(worldIn, field_175825_e, 9, 2, 3, structureBoundingBoxIn);
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 7, 4, 2, 7, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 3, 0, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 11, 1, 0, 12, 2, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 11, 1, 7, 12, 2, 7, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 15, 1, 3, 15, 2, 4, false);
             }
 
@@ -108,26 +108,26 @@ public class StructureOceanMonumentPieces {
         public DoubleXYRoom() {
         }
 
-        public DoubleXYRoom(EnumFacing p_i45596_1_, StructureOceanMonumentPieces.RoomDefinition p_i45596_2_, Random p_i45596_3_) {
+        public DoubleXYRoom(Direction p_i45596_1_, StructureOceanMonumentPieces.RoomDefinition p_i45596_2_, Random p_i45596_3_) {
             super(1, p_i45596_1_, p_i45596_2_, 2, 2, 1);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[EnumFacing.EAST.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[Direction.EAST.getIndex()];
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = field_175830_k;
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2 = structureoceanmonumentpieces$roomdefinition1.field_175965_b[EnumFacing.UP.getIndex()];
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition3 = structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2 = structureoceanmonumentpieces$roomdefinition1.field_175965_b[Direction.UP.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition3 = structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()];
 
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 8, 0, structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.DOWN.getIndex()]);
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 8, 0, structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 8, 1, 7, 8, 6, field_175828_a);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 8, 8, 1, 14, 8, 6, field_175828_a);
             }
 
@@ -168,51 +168,51 @@ public class StructureOceanMonumentPieces {
             setBlockState(worldIn, field_175825_e, 10, 4, 2, structureBoundingBoxIn);
             setBlockState(worldIn, field_175825_e, 10, 4, 5, structureBoundingBoxIn);
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 7, 4, 2, 7, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 3, 0, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 11, 1, 0, 12, 2, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 11, 1, 7, 12, 2, 7, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 15, 1, 3, 15, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 5, 0, 4, 6, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 5, 7, 4, 6, 7, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 5, 3, 0, 6, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 11, 5, 0, 12, 6, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 11, 5, 7, 12, 6, 7, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 15, 5, 3, 15, 6, 4, false);
             }
 
@@ -224,18 +224,18 @@ public class StructureOceanMonumentPieces {
         public DoubleYRoom() {
         }
 
-        public DoubleYRoom(EnumFacing p_i45595_1_, StructureOceanMonumentPieces.RoomDefinition p_i45595_2_, Random p_i45595_3_) {
+        public DoubleYRoom(Direction p_i45595_1_, StructureOceanMonumentPieces.RoomDefinition p_i45595_2_, Random p_i45595_3_) {
             super(1, p_i45595_1_, p_i45595_2_, 1, 2, 1);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, field_175830_k.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, field_175830_k.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[EnumFacing.UP.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[Direction.UP.getIndex()];
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 8, 1, 6, 8, 6, field_175828_a);
             }
 
@@ -256,7 +256,7 @@ public class StructureOceanMonumentPieces {
             for (int i = 1; i <= 5; i += 4) {
                 int j = 0;
 
-                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.SOUTH.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 2, i, j, 2, i + 2, j, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 5, i, j, 5, i + 2, j, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, i + 2, j, 4, i + 2, j, field_175826_b, field_175826_b, false);
@@ -267,7 +267,7 @@ public class StructureOceanMonumentPieces {
 
                 j = 7;
 
-                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.NORTH.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 2, i, j, 2, i + 2, j, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 5, i, j, 5, i + 2, j, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, i + 2, j, 4, i + 2, j, field_175826_b, field_175826_b, false);
@@ -278,7 +278,7 @@ public class StructureOceanMonumentPieces {
 
                 int k = 0;
 
-                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.WEST.getIndex()]) {
+                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.WEST.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, k, i, 2, k, i + 2, 2, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, k, i, 5, k, i + 2, 5, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, k, i + 2, 3, k, i + 2, 4, field_175826_b, field_175826_b, false);
@@ -289,7 +289,7 @@ public class StructureOceanMonumentPieces {
 
                 k = 7;
 
-                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.EAST.getIndex()]) {
+                if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.EAST.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, k, i, 2, k, i + 2, 2, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, k, i, 5, k, i + 2, 5, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, k, i + 2, 3, k, i + 2, 4, field_175826_b, field_175826_b, false);
@@ -309,26 +309,26 @@ public class StructureOceanMonumentPieces {
         public DoubleYZRoom() {
         }
 
-        public DoubleYZRoom(EnumFacing p_i45594_1_, StructureOceanMonumentPieces.RoomDefinition p_i45594_2_, Random p_i45594_3_) {
+        public DoubleYZRoom(Direction p_i45594_1_, StructureOceanMonumentPieces.RoomDefinition p_i45594_2_, Random p_i45594_3_) {
             super(1, p_i45594_1_, p_i45594_2_, 1, 2, 2);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[EnumFacing.NORTH.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[Direction.NORTH.getIndex()];
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = field_175830_k;
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2 = structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()];
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition3 = structureoceanmonumentpieces$roomdefinition1.field_175965_b[EnumFacing.UP.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2 = structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition3 = structureoceanmonumentpieces$roomdefinition1.field_175965_b[Direction.UP.getIndex()];
 
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 8, structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.DOWN.getIndex()]);
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 8, structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 8, 1, 6, 8, 7, field_175828_a);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 8, 8, 6, 8, 14, field_175828_a);
             }
 
@@ -355,60 +355,60 @@ public class StructureOceanMonumentPieces {
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 3, j, 7, 4, j, 8, iblockstate1, iblockstate1, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 7, 1, 3, 7, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 3, 0, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 15, 4, 2, 15, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 11, 0, 2, 12, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 7, 1, 11, 7, 2, 12, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 5, 0, 4, 6, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 7, 5, 3, 7, 6, 4, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 4, 2, 6, 4, 5, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 1, 2, 6, 3, 2, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 1, 5, 6, 3, 5, field_175826_b, field_175826_b, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 5, 3, 0, 6, 4, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 2, 2, 4, 5, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 2, 1, 3, 2, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 5, 1, 3, 5, field_175826_b, field_175826_b, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 5, 15, 4, 6, 15, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 5, 11, 0, 6, 12, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 10, 2, 4, 13, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 10, 1, 3, 10, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 13, 1, 3, 13, field_175826_b, field_175826_b, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition2.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 7, 5, 11, 7, 6, 12, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 4, 10, 6, 4, 13, field_175826_b, field_175826_b, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 1, 10, 6, 3, 10, field_175826_b, field_175826_b, false);
@@ -423,24 +423,24 @@ public class StructureOceanMonumentPieces {
         public DoubleZRoom() {
         }
 
-        public DoubleZRoom(EnumFacing p_i45593_1_, StructureOceanMonumentPieces.RoomDefinition p_i45593_2_, Random p_i45593_3_) {
+        public DoubleZRoom(Direction p_i45593_1_, StructureOceanMonumentPieces.RoomDefinition p_i45593_2_, Random p_i45593_3_) {
             super(1, p_i45593_1_, p_i45593_2_, 1, 1, 2);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[EnumFacing.NORTH.getIndex()];
+            StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = field_175830_k.field_175965_b[Direction.NORTH.getIndex()];
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = field_175830_k;
 
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 8, structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.DOWN.getIndex()]);
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 8, structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 4, 1, 6, 4, 7, field_175828_a);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 4, 8, 6, 4, 14, field_175828_a);
             }
 
@@ -481,27 +481,27 @@ public class StructureOceanMonumentPieces {
             setBlockState(worldIn, field_175826_b, 2, 3, 10, structureBoundingBoxIn);
             setBlockState(worldIn, field_175826_b, 5, 3, 10, structureBoundingBoxIn);
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 7, 1, 3, 7, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition1.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 3, 0, 2, 4, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 15, 4, 2, 15, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 11, 0, 2, 12, false);
             }
 
-            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 7, 1, 11, 7, 2, 12, false);
             }
 
@@ -513,7 +513,7 @@ public class StructureOceanMonumentPieces {
         public EntryRoom() {
         }
 
-        public EntryRoom(EnumFacing p_i45592_1_, StructureOceanMonumentPieces.RoomDefinition p_i45592_2_) {
+        public EntryRoom(Direction p_i45592_1_, StructureOceanMonumentPieces.RoomDefinition p_i45592_2_) {
             super(1, p_i45592_1_, p_i45592_2_, 1, 1, 1);
         }
 
@@ -528,15 +528,15 @@ public class StructureOceanMonumentPieces {
             fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 0, 2, 3, 0, field_175826_b, field_175826_b, false);
             fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 1, 0, 6, 3, 0, field_175826_b, field_175826_b, false);
 
-            if (field_175830_k.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+            if (field_175830_k.field_175966_c[Direction.NORTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 7, 4, 2, 7, false);
             }
 
-            if (field_175830_k.field_175966_c[EnumFacing.WEST.getIndex()]) {
+            if (field_175830_k.field_175966_c[Direction.WEST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 3, 1, 2, 4, false);
             }
 
-            if (field_175830_k.field_175966_c[EnumFacing.EAST.getIndex()]) {
+            if (field_175830_k.field_175966_c[Direction.EAST.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 6, 1, 3, 7, 2, 4, false);
             }
 
@@ -552,7 +552,7 @@ public class StructureOceanMonumentPieces {
             return true;
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             return new StructureOceanMonumentPieces.SimpleRoom(p_175968_1_, p_175968_2_, p_175968_3_);
         }
@@ -563,10 +563,10 @@ public class StructureOceanMonumentPieces {
         }
 
         public boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_) {
-            return !p_175969_1_.field_175966_c[EnumFacing.WEST.getIndex()] && !p_175969_1_.field_175966_c[EnumFacing.EAST.getIndex()] && !p_175969_1_.field_175966_c[EnumFacing.NORTH.getIndex()] && !p_175969_1_.field_175966_c[EnumFacing.SOUTH.getIndex()] && !p_175969_1_.field_175966_c[EnumFacing.UP.getIndex()];
+            return !p_175969_1_.field_175966_c[Direction.WEST.getIndex()] && !p_175969_1_.field_175966_c[Direction.EAST.getIndex()] && !p_175969_1_.field_175966_c[Direction.NORTH.getIndex()] && !p_175969_1_.field_175966_c[Direction.SOUTH.getIndex()] && !p_175969_1_.field_175966_c[Direction.UP.getIndex()];
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             return new StructureOceanMonumentPieces.SimpleTopRoom(p_175968_1_, p_175968_2_, p_175968_3_);
         }
@@ -580,7 +580,7 @@ public class StructureOceanMonumentPieces {
         public MonumentBuilding() {
         }
 
-        public MonumentBuilding(Random p_i45599_1_, int p_i45599_2_, int p_i45599_3_, EnumFacing p_i45599_4_) {
+        public MonumentBuilding(Random p_i45599_1_, int p_i45599_2_, int p_i45599_3_, Direction p_i45599_4_) {
             super(0);
             coordBaseMode = p_i45599_4_;
 
@@ -673,7 +673,7 @@ public class StructureOceanMonumentPieces {
                         int l4 = func_175820_a(k2, i4, j3);
 
                         if (astructureoceanmonumentpieces$roomdefinition[l4] != null) {
-                            for (EnumFacing enumfacing : EnumFacing.values()) {
+                            for (Direction enumfacing : Direction.values()) {
                                 int i1 = k2 + enumfacing.getFrontOffsetX();
                                 int j1 = i4 + enumfacing.getFrontOffsetY();
                                 int k1 = j3 + enumfacing.getFrontOffsetZ();
@@ -696,24 +696,24 @@ public class StructureOceanMonumentPieces {
             }
 
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition;
-            astructureoceanmonumentpieces$roomdefinition[field_175831_h].func_175957_a(EnumFacing.UP, structureoceanmonumentpieces$roomdefinition = new StructureOceanMonumentPieces.RoomDefinition(1003));
+            astructureoceanmonumentpieces$roomdefinition[field_175831_h].func_175957_a(Direction.UP, structureoceanmonumentpieces$roomdefinition = new StructureOceanMonumentPieces.RoomDefinition(1003));
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1;
-            astructureoceanmonumentpieces$roomdefinition[field_175832_i].func_175957_a(EnumFacing.SOUTH, structureoceanmonumentpieces$roomdefinition1 = new StructureOceanMonumentPieces.RoomDefinition(1001));
+            astructureoceanmonumentpieces$roomdefinition[field_175832_i].func_175957_a(Direction.SOUTH, structureoceanmonumentpieces$roomdefinition1 = new StructureOceanMonumentPieces.RoomDefinition(1001));
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2;
-            astructureoceanmonumentpieces$roomdefinition[field_175829_j].func_175957_a(EnumFacing.SOUTH, structureoceanmonumentpieces$roomdefinition2 = new StructureOceanMonumentPieces.RoomDefinition(1002));
+            astructureoceanmonumentpieces$roomdefinition[field_175829_j].func_175957_a(Direction.SOUTH, structureoceanmonumentpieces$roomdefinition2 = new StructureOceanMonumentPieces.RoomDefinition(1002));
             structureoceanmonumentpieces$roomdefinition.field_175963_d = true;
             structureoceanmonumentpieces$roomdefinition1.field_175963_d = true;
             structureoceanmonumentpieces$roomdefinition2.field_175963_d = true;
             field_175845_o.field_175964_e = true;
             field_175844_p = astructureoceanmonumentpieces$roomdefinition[func_175820_a(p_175836_1_.nextInt(4), 0, 2)];
             field_175844_p.field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.EAST.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.NORTH.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.EAST.getIndex()].field_175965_b[Direction.NORTH.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.EAST.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.NORTH.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
+            field_175844_p.field_175965_b[Direction.EAST.getIndex()].field_175965_b[Direction.NORTH.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
             List<StructureOceanMonumentPieces.RoomDefinition> list = new ArrayList<>();
 
             for (StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition4 : astructureoceanmonumentpieces$roomdefinition) {
@@ -736,7 +736,7 @@ public class StructureOceanMonumentPieces {
                     int l5 = p_175836_1_.nextInt(6);
 
                     if (structureoceanmonumentpieces$roomdefinition3.field_175966_c[l5]) {
-                        int i6 = EnumFacing.getFront(l5).getOpposite().getIndex();
+                        int i6 = Direction.getFront(l5).getOpposite().getIndex();
                         structureoceanmonumentpieces$roomdefinition3.field_175966_c[l5] = false;
                         structureoceanmonumentpieces$roomdefinition3.field_175965_b[l5].field_175966_c[i6] = false;
 
@@ -1133,7 +1133,7 @@ public class StructureOceanMonumentPieces {
         public MonumentCoreRoom() {
         }
 
-        public MonumentCoreRoom(EnumFacing p_i45598_1_, StructureOceanMonumentPieces.RoomDefinition p_i45598_2_, Random p_i45598_3_) {
+        public MonumentCoreRoom(Direction p_i45598_1_, StructureOceanMonumentPieces.RoomDefinition p_i45598_2_, Random p_i45598_3_) {
             super(1, p_i45598_1_, p_i45598_2_, 2, 2, 2);
         }
 
@@ -1211,7 +1211,7 @@ public class StructureOceanMonumentPieces {
         public Penthouse() {
         }
 
-        public Penthouse(EnumFacing p_i45591_1_, StructureBoundingBox p_i45591_2_) {
+        public Penthouse(Direction p_i45591_1_, StructureBoundingBox p_i45591_2_) {
             super(p_i45591_1_, p_i45591_2_);
         }
 
@@ -1282,13 +1282,13 @@ public class StructureOceanMonumentPieces {
             super(p_i45588_1_);
         }
 
-        public Piece(EnumFacing p_i45589_1_, StructureBoundingBox p_i45589_2_) {
+        public Piece(Direction p_i45589_1_, StructureBoundingBox p_i45589_2_) {
             super(1);
             coordBaseMode = p_i45589_1_;
             boundingBox = p_i45589_2_;
         }
 
-        protected Piece(int p_i45590_1_, EnumFacing p_i45590_2_, StructureOceanMonumentPieces.RoomDefinition p_i45590_3_, int p_i45590_4_, int p_i45590_5_, int p_i45590_6_) {
+        protected Piece(int p_i45590_1_, Direction p_i45590_2_, StructureOceanMonumentPieces.RoomDefinition p_i45590_3_, int p_i45590_4_, int p_i45590_5_, int p_i45590_6_) {
             super(p_i45590_1_);
             coordBaseMode = p_i45590_2_;
             field_175830_k = p_i45590_3_;
@@ -1297,7 +1297,7 @@ public class StructureOceanMonumentPieces {
             int k = i / 5 % 5;
             int l = i / 25;
 
-            if (p_i45590_2_ != EnumFacing.NORTH && p_i45590_2_ != EnumFacing.SOUTH) {
+            if (p_i45590_2_ != Direction.NORTH && p_i45590_2_ != Direction.SOUTH) {
                 boundingBox = new StructureBoundingBox(0, 0, 0, p_i45590_6_ * 8 - 1, p_i45590_5_ * 4 - 1, p_i45590_4_ * 8 - 1);
             } else {
                 boundingBox = new StructureBoundingBox(0, 0, 0, p_i45590_4_ * 8 - 1, p_i45590_5_ * 4 - 1, p_i45590_6_ * 8 - 1);
@@ -1413,7 +1413,7 @@ public class StructureOceanMonumentPieces {
             field_175967_a = p_i45584_1_;
         }
 
-        public void func_175957_a(EnumFacing p_175957_1_, StructureOceanMonumentPieces.RoomDefinition p_175957_2_) {
+        public void func_175957_a(Direction p_175957_1_, StructureOceanMonumentPieces.RoomDefinition p_175957_2_) {
             field_175965_b[p_175957_1_.getIndex()] = p_175957_2_;
             p_175957_2_.field_175965_b[p_175957_1_.getOpposite().getIndex()] = this;
         }
@@ -1463,21 +1463,21 @@ public class StructureOceanMonumentPieces {
         public SimpleRoom() {
         }
 
-        public SimpleRoom(EnumFacing p_i45587_1_, StructureOceanMonumentPieces.RoomDefinition p_i45587_2_, Random p_i45587_3_) {
+        public SimpleRoom(Direction p_i45587_1_, StructureOceanMonumentPieces.RoomDefinition p_i45587_2_, Random p_i45587_3_) {
             super(1, p_i45587_1_, p_i45587_2_, 1, 1, 1);
             field_175833_o = p_i45587_3_.nextInt(3);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, field_175830_k.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, field_175830_k.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            if (field_175830_k.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (field_175830_k.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 4, 1, 6, 4, 6, field_175828_a);
             }
 
-            boolean flag = field_175833_o != 0 && randomIn.nextBoolean() && !field_175830_k.field_175966_c[EnumFacing.DOWN.getIndex()] && !field_175830_k.field_175966_c[EnumFacing.UP.getIndex()] && field_175830_k.func_175960_c() > 1;
+            boolean flag = field_175833_o != 0 && randomIn.nextBoolean() && !field_175830_k.field_175966_c[Direction.DOWN.getIndex()] && !field_175830_k.field_175966_c[Direction.UP.getIndex()] && field_175830_k.func_175960_c() > 1;
 
             if (field_175833_o == 0) {
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 2, 1, 2, field_175826_b, field_175826_b, false);
@@ -1501,7 +1501,7 @@ public class StructureOceanMonumentPieces {
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 2, 7, 6, 2, 7, field_175828_a, field_175828_a, false);
                 setBlockState(worldIn, field_175825_e, 6, 2, 6, structureBoundingBoxIn);
 
-                if (field_175830_k.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.SOUTH.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 3, 0, 4, 3, 0, field_175826_b, field_175826_b, false);
                 } else {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 3, 0, 4, 3, 1, field_175826_b, field_175826_b, false);
@@ -1509,7 +1509,7 @@ public class StructureOceanMonumentPieces {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 1, 1, field_175826_b, field_175826_b, false);
                 }
 
-                if (field_175830_k.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.NORTH.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 3, 7, 4, 3, 7, field_175826_b, field_175826_b, false);
                 } else {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 3, 6, 4, 3, 7, field_175826_b, field_175826_b, false);
@@ -1517,7 +1517,7 @@ public class StructureOceanMonumentPieces {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 1, 6, 4, 1, 7, field_175826_b, field_175826_b, false);
                 }
 
-                if (field_175830_k.field_175966_c[EnumFacing.WEST.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.WEST.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 3, 0, 3, 4, field_175826_b, field_175826_b, false);
                 } else {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 3, 1, 3, 4, field_175826_b, field_175826_b, false);
@@ -1525,7 +1525,7 @@ public class StructureOceanMonumentPieces {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 3, 1, 1, 4, field_175826_b, field_175826_b, false);
                 }
 
-                if (field_175830_k.field_175966_c[EnumFacing.EAST.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.EAST.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 3, 3, 7, 3, 4, field_175826_b, field_175826_b, false);
                 } else {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 3, 3, 7, 3, 4, field_175826_b, field_175826_b, false);
@@ -1558,25 +1558,25 @@ public class StructureOceanMonumentPieces {
                 setBlockState(worldIn, field_175828_a, 6, 2, 0, structureBoundingBoxIn);
                 setBlockState(worldIn, field_175828_a, 7, 2, 1, structureBoundingBoxIn);
 
-                if (!field_175830_k.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+                if (!field_175830_k.field_175966_c[Direction.SOUTH.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 3, 0, 6, 3, 0, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 0, 6, 2, 0, field_175828_a, field_175828_a, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 0, 6, 1, 0, field_175826_b, field_175826_b, false);
                 }
 
-                if (!field_175830_k.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+                if (!field_175830_k.field_175966_c[Direction.NORTH.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 3, 7, 6, 3, 7, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 7, 6, 2, 7, field_175828_a, field_175828_a, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 7, 6, 1, 7, field_175826_b, field_175826_b, false);
                 }
 
-                if (!field_175830_k.field_175966_c[EnumFacing.WEST.getIndex()]) {
+                if (!field_175830_k.field_175966_c[Direction.WEST.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 1, 0, 3, 6, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 1, 0, 2, 6, field_175828_a, field_175828_a, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 1, 0, 1, 6, field_175826_b, field_175826_b, false);
                 }
 
-                if (!field_175830_k.field_175966_c[EnumFacing.EAST.getIndex()]) {
+                if (!field_175830_k.field_175966_c[Direction.EAST.getIndex()]) {
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 3, 1, 7, 3, 6, field_175826_b, field_175826_b, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 2, 1, 7, 2, 6, field_175828_a, field_175828_a, false);
                     fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 1, 1, 7, 1, 6, field_175826_b, field_175826_b, false);
@@ -1599,19 +1599,19 @@ public class StructureOceanMonumentPieces {
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, field_175827_c, field_175827_c, false);
                 fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 1, 7, 4, 2, 7, field_175827_c, field_175827_c, false);
 
-                if (field_175830_k.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.SOUTH.getIndex()]) {
                     func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, false);
                 }
 
-                if (field_175830_k.field_175966_c[EnumFacing.NORTH.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.NORTH.getIndex()]) {
                     func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 7, 4, 2, 7, false);
                 }
 
-                if (field_175830_k.field_175966_c[EnumFacing.WEST.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.WEST.getIndex()]) {
                     func_181655_a(worldIn, structureBoundingBoxIn, 0, 1, 3, 0, 2, 4, false);
                 }
 
-                if (field_175830_k.field_175966_c[EnumFacing.EAST.getIndex()]) {
+                if (field_175830_k.field_175966_c[Direction.EAST.getIndex()]) {
                     func_181655_a(worldIn, structureBoundingBoxIn, 7, 1, 3, 7, 2, 4, false);
                 }
             }
@@ -1630,16 +1630,16 @@ public class StructureOceanMonumentPieces {
         public SimpleTopRoom() {
         }
 
-        public SimpleTopRoom(EnumFacing p_i45586_1_, StructureOceanMonumentPieces.RoomDefinition p_i45586_2_, Random p_i45586_3_) {
+        public SimpleTopRoom(Direction p_i45586_1_, StructureOceanMonumentPieces.RoomDefinition p_i45586_2_, Random p_i45586_3_) {
             super(1, p_i45586_1_, p_i45586_2_, 1, 1, 1);
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (field_175830_k.field_175967_a / 25 > 0) {
-                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, field_175830_k.field_175966_c[EnumFacing.DOWN.getIndex()]);
+                func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, field_175830_k.field_175966_c[Direction.DOWN.getIndex()]);
             }
 
-            if (field_175830_k.field_175965_b[EnumFacing.UP.getIndex()] == null) {
+            if (field_175830_k.field_175965_b[Direction.UP.getIndex()] == null) {
                 func_175819_a(worldIn, structureBoundingBoxIn, 1, 4, 1, 6, 4, 6, field_175828_a);
             }
 
@@ -1669,7 +1669,7 @@ public class StructureOceanMonumentPieces {
             fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, field_175827_c, field_175827_c, false);
             fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 1, 7, 4, 2, 7, field_175827_c, field_175827_c, false);
 
-            if (field_175830_k.field_175966_c[EnumFacing.SOUTH.getIndex()]) {
+            if (field_175830_k.field_175966_c[Direction.SOUTH.getIndex()]) {
                 func_181655_a(worldIn, structureBoundingBoxIn, 3, 1, 0, 4, 2, 0, false);
             }
 
@@ -1683,7 +1683,7 @@ public class StructureOceanMonumentPieces {
         public WingRoom() {
         }
 
-        public WingRoom(EnumFacing p_i45585_1_, StructureBoundingBox p_i45585_2_, int p_i45585_3_) {
+        public WingRoom(Direction p_i45585_1_, StructureBoundingBox p_i45585_2_, int p_i45585_3_) {
             super(p_i45585_1_, p_i45585_2_);
             field_175834_o = p_i45585_3_ & 1;
         }
@@ -1786,12 +1786,12 @@ public class StructureOceanMonumentPieces {
         }
 
         public boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_) {
-            return p_175969_1_.field_175966_c[EnumFacing.EAST.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.EAST.getIndex()].field_175963_d;
+            return p_175969_1_.field_175966_c[Direction.EAST.getIndex()] && !p_175969_1_.field_175965_b[Direction.EAST.getIndex()].field_175963_d;
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.EAST.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.EAST.getIndex()].field_175963_d = true;
             return new StructureOceanMonumentPieces.DoubleXRoom(p_175968_1_, p_175968_2_, p_175968_3_);
         }
     }
@@ -1801,19 +1801,19 @@ public class StructureOceanMonumentPieces {
         }
 
         public boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_) {
-            if (p_175969_1_.field_175966_c[EnumFacing.EAST.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.EAST.getIndex()].field_175963_d && p_175969_1_.field_175966_c[EnumFacing.UP.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d) {
-                StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175969_1_.field_175965_b[EnumFacing.EAST.getIndex()];
-                return structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.UP.getIndex()] && !structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d;
+            if (p_175969_1_.field_175966_c[Direction.EAST.getIndex()] && !p_175969_1_.field_175965_b[Direction.EAST.getIndex()].field_175963_d && p_175969_1_.field_175966_c[Direction.UP.getIndex()] && !p_175969_1_.field_175965_b[Direction.UP.getIndex()].field_175963_d) {
+                StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175969_1_.field_175965_b[Direction.EAST.getIndex()];
+                return structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.UP.getIndex()] && !structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()].field_175963_d;
             } else {
                 return false;
             }
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.EAST.getIndex()].field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.EAST.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.EAST.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
             return new StructureOceanMonumentPieces.DoubleXYRoom(p_175968_1_, p_175968_2_, p_175968_3_);
         }
     }
@@ -1823,12 +1823,12 @@ public class StructureOceanMonumentPieces {
         }
 
         public boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_) {
-            return p_175969_1_.field_175966_c[EnumFacing.UP.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d;
+            return p_175969_1_.field_175966_c[Direction.UP.getIndex()] && !p_175969_1_.field_175965_b[Direction.UP.getIndex()].field_175963_d;
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
             return new StructureOceanMonumentPieces.DoubleYRoom(p_175968_1_, p_175968_2_, p_175968_3_);
         }
     }
@@ -1838,19 +1838,19 @@ public class StructureOceanMonumentPieces {
         }
 
         public boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_) {
-            if (p_175969_1_.field_175966_c[EnumFacing.NORTH.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d && p_175969_1_.field_175966_c[EnumFacing.UP.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d) {
-                StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175969_1_.field_175965_b[EnumFacing.NORTH.getIndex()];
-                return structureoceanmonumentpieces$roomdefinition.field_175966_c[EnumFacing.UP.getIndex()] && !structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d;
+            if (p_175969_1_.field_175966_c[Direction.NORTH.getIndex()] && !p_175969_1_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d && p_175969_1_.field_175966_c[Direction.UP.getIndex()] && !p_175969_1_.field_175965_b[Direction.UP.getIndex()].field_175963_d) {
+                StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175969_1_.field_175965_b[Direction.NORTH.getIndex()];
+                return structureoceanmonumentpieces$roomdefinition.field_175966_c[Direction.UP.getIndex()] && !structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.UP.getIndex()].field_175963_d;
             } else {
                 return false;
             }
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            p_175968_2_.field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
+            p_175968_2_.field_175965_b[Direction.NORTH.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
             return new StructureOceanMonumentPieces.DoubleYZRoom(p_175968_1_, p_175968_2_, p_175968_3_);
         }
     }
@@ -1860,18 +1860,18 @@ public class StructureOceanMonumentPieces {
         }
 
         public boolean func_175969_a(StructureOceanMonumentPieces.RoomDefinition p_175969_1_) {
-            return p_175969_1_.field_175966_c[EnumFacing.NORTH.getIndex()] && !p_175969_1_.field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d;
+            return p_175969_1_.field_175966_c[Direction.NORTH.getIndex()] && !p_175969_1_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d;
         }
 
-        public StructureOceanMonumentPieces.Piece func_175968_a(EnumFacing p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
+        public StructureOceanMonumentPieces.Piece func_175968_a(Direction p_175968_1_, StructureOceanMonumentPieces.RoomDefinition p_175968_2_, Random p_175968_3_) {
             StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175968_2_;
 
-            if (!p_175968_2_.field_175966_c[EnumFacing.NORTH.getIndex()] || p_175968_2_.field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d) {
-                structureoceanmonumentpieces$roomdefinition = p_175968_2_.field_175965_b[EnumFacing.SOUTH.getIndex()];
+            if (!p_175968_2_.field_175966_c[Direction.NORTH.getIndex()] || p_175968_2_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d) {
+                structureoceanmonumentpieces$roomdefinition = p_175968_2_.field_175965_b[Direction.SOUTH.getIndex()];
             }
 
             structureoceanmonumentpieces$roomdefinition.field_175963_d = true;
-            structureoceanmonumentpieces$roomdefinition.field_175965_b[EnumFacing.NORTH.getIndex()].field_175963_d = true;
+            structureoceanmonumentpieces$roomdefinition.field_175965_b[Direction.NORTH.getIndex()].field_175963_d = true;
             return new StructureOceanMonumentPieces.DoubleZRoom(p_175968_1_, structureoceanmonumentpieces$roomdefinition, p_175968_3_);
         }
     }

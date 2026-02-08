@@ -1,6 +1,6 @@
 package net.minecraft.scoreboard;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,9 +15,9 @@ public class ScorePlayerTeam extends Team {
     private String colorSuffix = "";
     private boolean allowFriendlyFire = true;
     private boolean canSeeFriendlyInvisibles = true;
-    private Team.EnumVisible nameTagVisibility = Team.EnumVisible.ALWAYS;
-    private Team.EnumVisible deathMessageVisibility = Team.EnumVisible.ALWAYS;
-    private EnumChatFormatting chatFormat = EnumChatFormatting.RESET;
+    private Visible nameTagVisibility = Visible.ALWAYS;
+    private Visible deathMessageVisibility = Visible.ALWAYS;
+    private ChatFormat chatFormat = ChatFormat.RESET;
 
     public ScorePlayerTeam(Scoreboard theScoreboardIn, String name) {
         theScoreboard = theScoreboardIn;
@@ -94,20 +94,20 @@ public class ScorePlayerTeam extends Team {
         theScoreboard.sendTeamUpdate(this);
     }
 
-    public Team.EnumVisible getNameTagVisibility() {
+    public Visible getNameTagVisibility() {
         return nameTagVisibility;
     }
 
-    public void setNameTagVisibility(Team.EnumVisible p_178772_1_) {
+    public void setNameTagVisibility(Visible p_178772_1_) {
         nameTagVisibility = p_178772_1_;
         theScoreboard.sendTeamUpdate(this);
     }
 
-    public Team.EnumVisible getDeathMessageVisibility() {
+    public Visible getDeathMessageVisibility() {
         return deathMessageVisibility;
     }
 
-    public void setDeathMessageVisibility(Team.EnumVisible p_178773_1_) {
+    public void setDeathMessageVisibility(Visible p_178773_1_) {
         deathMessageVisibility = p_178773_1_;
         theScoreboard.sendTeamUpdate(this);
     }
@@ -131,11 +131,11 @@ public class ScorePlayerTeam extends Team {
         setSeeFriendlyInvisiblesEnabled((p_98298_1_ & 2) > 0);
     }
 
-    public EnumChatFormatting getChatFormat() {
+    public ChatFormat getChatFormat() {
         return chatFormat;
     }
 
-    public void setChatFormat(EnumChatFormatting p_178774_1_) {
+    public void setChatFormat(ChatFormat p_178774_1_) {
         chatFormat = p_178774_1_;
     }
 }

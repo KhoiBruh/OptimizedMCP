@@ -5,7 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -131,10 +131,10 @@ public class EntityEnderEye extends Entity {
 
         if (isInWater()) {
             for (int i = 0; i < 4; ++i) {
-                worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * (double) f3, posY - motionY * (double) f3, posZ - motionZ * (double) f3, motionX, motionY, motionZ);
+                worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX - motionX * (double) f3, posY - motionY * (double) f3, posZ - motionZ * (double) f3, motionX, motionY, motionZ);
             }
         } else {
-            worldObj.spawnParticle(EnumParticleTypes.PORTAL, posX - motionX * (double) f3 + rand.nextDouble() * 0.6D - 0.3D, posY - motionY * (double) f3 - 0.5D, posZ - motionZ * (double) f3 + rand.nextDouble() * 0.6D - 0.3D, motionX, motionY, motionZ);
+            worldObj.spawnParticle(ParticleTypes.PORTAL, posX - motionX * (double) f3 + rand.nextDouble() * 0.6D - 0.3D, posY - motionY * (double) f3 - 0.5D, posZ - motionZ * (double) f3 + rand.nextDouble() * 0.6D - 0.3D, motionX, motionY, motionZ);
         }
 
         if (!worldObj.isRemote) {

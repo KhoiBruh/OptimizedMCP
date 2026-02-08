@@ -19,7 +19,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.*;
-import net.minecraft.item.EnumAction;
+import net.minecraft.item.Action;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMapBase;
 import net.minecraft.item.ItemStack;
@@ -77,7 +77,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     private boolean wasHungry = true;
     private int lastExperience = -99999999;
     private int respawnInvulnerabilityTicks = 60;
-    private EntityPlayer.EnumChatVisibility chatVisibility;
+    private ChatVisibility chatVisibility;
     private boolean chatColours = true;
     private long playerLastActiveTime = System.currentTimeMillis();
     private Entity spectatingEntity = null;
@@ -320,10 +320,10 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         if (worldObj.getGameRules().getBoolean("showDeathMessages")) {
             Team team = getTeam();
 
-            if (team != null && team.getDeathMessageVisibility() != Team.EnumVisible.ALWAYS) {
-                if (team.getDeathMessageVisibility() == Team.EnumVisible.HIDE_FOR_OTHER_TEAMS) {
+            if (team != null && team.getDeathMessageVisibility() != Team.Visible.ALWAYS) {
+                if (team.getDeathMessageVisibility() == Team.Visible.HIDE_FOR_OTHER_TEAMS) {
                     mcServer.getConfigurationManager().sendMessageToAllTeamMembers(this, getCombatTracker().getDeathMessage());
-                } else if (team.getDeathMessageVisibility() == Team.EnumVisible.HIDE_FOR_OWN_TEAM) {
+                } else if (team.getDeathMessageVisibility() == Team.Visible.HIDE_FOR_OWN_TEAM) {
                     mcServer.getConfigurationManager().sendMessageToTeamOrEvryPlayer(this, getCombatTracker().getDeathMessage());
                 }
             } else {
@@ -440,10 +440,10 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         openContainer.detectAndSendChanges();
     }
 
-    public EntityPlayer.EnumStatus trySleep(BlockPos bedLocation) {
-        EntityPlayer.EnumStatus entityplayer$enumstatus = super.trySleep(bedLocation);
+    public Status trySleep(BlockPos bedLocation) {
+        Status entityplayer$enumstatus = super.trySleep(bedLocation);
 
-        if (entityplayer$enumstatus == EntityPlayer.EnumStatus.OK) {
+        if (entityplayer$enumstatus == Status.OK) {
             Packet<INetHandlerPlayClient> packet = new S0APacketUseBed(this, bedLocation);
             getServerForPlayer().getEntityTracker().sendToAllTrackingEntity(this, packet);
             playerNetServerHandler.setPlayerLocation(posX, posY, posZ, rotationYaw, rotationPitch);
@@ -692,7 +692,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public void setItemInUse(ItemStack stack, int duration) {
         super.setItemInUse(stack, duration);
 
-        if (stack != null && stack.getItem() != null && stack.getItem().getItemUseAction(stack) == EnumAction.EAT) {
+        if (stack != null && stack.getItem() != null && stack.getItem().getItemUseAction(stack) == Action.EAT) {
             getServerForPlayer().getEntityTracker().func_151248_b(this, new S0BPacketAnimation(this, 3));
         }
     }
@@ -794,7 +794,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         getDataWatcher().updateObject(10, (byte) packetIn.getModelPartFlags());
     }
 
-    public EntityPlayer.EnumChatVisibility getChatVisibility() {
+    public ChatVisibility getChatVisibility() {
         return chatVisibility;
     }
 

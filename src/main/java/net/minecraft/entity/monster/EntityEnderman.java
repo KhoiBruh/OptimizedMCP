@@ -118,7 +118,7 @@ public class EntityEnderman extends EntityMob {
     public void onLivingUpdate() {
         if (worldObj.isRemote) {
             for (int i = 0; i < 2; ++i) {
-                worldObj.spawnParticle(EnumParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+                worldObj.spawnParticle(ParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
             }
         }
 
@@ -214,7 +214,7 @@ public class EntityEnderman extends EntityMob {
                 double d3 = d0 + (posX - d0) * d6 + (rand.nextDouble() - 0.5D) * (double) width * 2.0D;
                 double d4 = d1 + (posY - d1) * d6 + rand.nextDouble() * (double) height;
                 double d5 = d2 + (posZ - d2) * d6 + (rand.nextDouble() - 0.5D) * (double) width * 2.0D;
-                worldObj.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, f, f1, f2);
+                worldObj.spawnParticle(ParticleTypes.PORTAL, d3, d4, d5, f, f1, f2);
             }
 
             worldObj.playSoundEffect(d0, d1, d2, "mob.endermen.portal", 1.0F, 1.0F);

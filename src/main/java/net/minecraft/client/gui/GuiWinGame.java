@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.network.play.client.C16PacketClientStatus;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,7 +55,7 @@ public class GuiWinGame extends GuiScreen {
     }
 
     private void sendRespawnPacket() {
-        mc.thePlayer.sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
+        mc.thePlayer.sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.State.PERFORM_RESPAWN));
         mc.displayGuiScreen(null);
     }
 
@@ -65,7 +65,7 @@ public class GuiWinGame extends GuiScreen {
 
             try {
                 String s;
-                String s1 = "" + EnumChatFormatting.WHITE + EnumChatFormatting.OBFUSCATED + EnumChatFormatting.GREEN + EnumChatFormatting.AQUA;
+                String s1 = "" + ChatFormat.WHITE + ChatFormat.OBFUSCATED + ChatFormat.GREEN + ChatFormat.AQUA;
                 int i = 274;
                 InputStream inputstream = mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt")).getInputStream();
                 BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
@@ -75,7 +75,7 @@ public class GuiWinGame extends GuiScreen {
                     String s2;
                     String s3;
 
-                    for (s = s.replaceAll("PLAYERNAME", mc.getSession().username()); s.contains(s1); s = s2 + EnumChatFormatting.WHITE + EnumChatFormatting.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
+                    for (s = s.replaceAll("PLAYERNAME", mc.getSession().username()); s.contains(s1); s = s2 + ChatFormat.WHITE + ChatFormat.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
                         int j = s.indexOf(s1);
                         s2 = s.substring(0, j);
                         s3 = s.substring(j + s1.length());

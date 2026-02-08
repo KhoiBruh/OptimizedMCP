@@ -68,11 +68,11 @@ public class BiomeGenForest extends BiomeGenBase {
         return field_150632_aF == 3 && rand.nextInt(3) > 0 ? field_150631_aE : (field_150632_aF != 2 && rand.nextInt(5) != 0 ? worldGeneratorTrees : field_150630_aD);
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
+    public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         if (field_150632_aF == 1) {
             double d0 = MathHelper.clamp_double((1.0D + GRASS_COLOR_NOISE.func_151601_a((double) pos.getX() / 48.0D, (double) pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
-            BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int) (d0 * (double) BlockFlower.EnumFlowerType.values().length)];
-            return blockflower$enumflowertype == BlockFlower.EnumFlowerType.BLUE_ORCHID ? BlockFlower.EnumFlowerType.POPPY : blockflower$enumflowertype;
+            BlockFlower.FlowerType blockflower$enumflowertype = BlockFlower.FlowerType.values()[(int) (d0 * (double) BlockFlower.FlowerType.values().length)];
+            return blockflower$enumflowertype == BlockFlower.FlowerType.BLUE_ORCHID ? BlockFlower.FlowerType.POPPY : blockflower$enumflowertype;
         } else {
             return super.pickRandomFlower(rand, pos);
         }
@@ -111,11 +111,11 @@ public class BiomeGenForest extends BiomeGenBase {
             int l1 = rand.nextInt(3);
 
             if (l1 == 0) {
-                DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.SYRINGA);
+                DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.SYRINGA);
             } else if (l1 == 1) {
-                DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.ROSE);
+                DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.ROSE);
             } else {
-                DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.PAEONIA);
+                DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.PAEONIA);
             }
 
             for (int i2 = 0; i2 < 5; ++i2) {

@@ -281,7 +281,7 @@ public class GuiScreenBook extends GuiScreen {
     private void pageInsertIntoCurrent(String p_146459_1_) {
         String s = pageGetCurrent();
         String s1 = s + p_146459_1_;
-        int i = fontRendererObj.splitStringWidth(s1 + EnumChatFormatting.BLACK + "_", 118);
+        int i = fontRendererObj.splitStringWidth(s1 + ChatFormat.BLACK + "_", 118);
 
         if (i <= 128 && s1.length() < 256) {
             pageSetCurrent(s1);
@@ -300,9 +300,9 @@ public class GuiScreenBook extends GuiScreen {
 
             if (bookIsUnsigned) {
                 if (updateCount / 6 % 2 == 0) {
-                    s = s + EnumChatFormatting.BLACK + "_";
+                    s = s + ChatFormat.BLACK + "_";
                 } else {
-                    s = s + EnumChatFormatting.GRAY + "_";
+                    s = s + ChatFormat.GRAY + "_";
                 }
             }
 
@@ -313,7 +313,7 @@ public class GuiScreenBook extends GuiScreen {
             fontRendererObj.drawString(s, i + 36 + (116 - l) / 2, j + 48, 0);
             String s2 = I18n.format("book.byAuthor", editingPlayer.getName());
             int i1 = fontRendererObj.getStringWidth(s2);
-            fontRendererObj.drawString(EnumChatFormatting.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, j + 48 + 10, 0);
+            fontRendererObj.drawString(ChatFormat.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, j + 48 + 10, 0);
             String s3 = I18n.format("book.finalizeWarning");
             fontRendererObj.drawSplitString(s3, i + 36, j + 80, 116, 0);
         } else {
@@ -328,9 +328,9 @@ public class GuiScreenBook extends GuiScreen {
                 if (fontRendererObj.getBidiFlag()) {
                     s5 = s5 + "_";
                 } else if (updateCount / 6 % 2 == 0) {
-                    s5 = s5 + EnumChatFormatting.BLACK + "_";
+                    s5 = s5 + ChatFormat.BLACK + "_";
                 } else {
-                    s5 = s5 + EnumChatFormatting.GRAY + "_";
+                    s5 = s5 + ChatFormat.GRAY + "_";
                 }
             } else if (field_175387_B != currPage) {
                 if (ItemEditableBook.validBookTagContents(bookObj.getTagCompound())) {
@@ -341,7 +341,7 @@ public class GuiScreenBook extends GuiScreen {
                         field_175386_A = null;
                     }
                 } else {
-                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED + "* Invalid book tag *");
+                    ChatComponentText chatcomponenttext = new ChatComponentText(ChatFormat.DARK_RED + "* Invalid book tag *");
                     field_175386_A = Lists.newArrayList(chatcomponenttext);
                 }
 

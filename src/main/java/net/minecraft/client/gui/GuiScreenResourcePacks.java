@@ -86,7 +86,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
                 File file1 = mc.getResourcePackRepository().getDirResourcepacks();
                 String s = file1.getAbsolutePath();
 
-                if (Util.getOSType() == Util.EnumOS.OSX) {
+                if (Util.getOSType() == Util.OS.OSX) {
                     try {
                         logger.info(s);
                         Runtime.getRuntime().exec(new String[]{"/usr/bin/open", s});
@@ -94,7 +94,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
                     } catch (IOException ioexception1) {
                         logger.error("Couldn't open file", ioexception1);
                     }
-                } else if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+                } else if (Util.getOSType() == Util.OS.WINDOWS) {
                     try {
                         new ProcessBuilder("cmd", "/c", "start", "Open file", s).start();
                         return;

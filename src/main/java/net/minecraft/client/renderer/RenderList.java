@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import net.minecraft.client.renderer.chunk.ListedRenderChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.IntBuffer;
@@ -14,7 +14,7 @@ public class RenderList extends ChunkRenderContainer {
     private double viewEntityY;
     private double viewEntityZ;
 
-    public void renderChunkLayer(EnumWorldBlockLayer layer) {
+    public void renderChunkLayer(WorldBlockLayer layer) {
         if (initialized) {
             if (!Config.isRenderRegions()) {
                 for (RenderChunk renderchunk1 : renderChunks) {

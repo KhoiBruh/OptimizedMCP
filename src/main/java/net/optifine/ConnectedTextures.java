@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -84,7 +84,7 @@ public class ConnectedTextures {
                 quad = getQuad(emptySprite, quad);
                 return renderEnv.getArrayQuadsCtm(quad);
             } else {
-                EnumFacing enumfacing = quad.getFace();
+                Direction enumfacing = quad.getFace();
                 return getConnectedTextureMultiPass(blockAccess, blockState, blockPos, enumfacing,
                         quad, renderEnv);
             }
@@ -105,9 +105,9 @@ public class ConnectedTextures {
         }
 
         if (block instanceof BlockPane) {
-            EnumFacing enumfacing = quad.getFace();
+            Direction enumfacing = quad.getFace();
 
-            if (enumfacing != EnumFacing.UP && enumfacing != EnumFacing.DOWN) {
+            if (enumfacing != Direction.UP && enumfacing != Direction.DOWN) {
                 return false;
             }
 
@@ -203,11 +203,11 @@ public class ConnectedTextures {
                 Map map = spriteQuadFullMaps[i];
 
                 if (map == null) {
-                    map = new EnumMap(EnumFacing.class);
+                    map = new EnumMap(Direction.class);
                     spriteQuadFullMaps[i] = map;
                 }
 
-                EnumFacing enumfacing = quadIn.getFace();
+                Direction enumfacing = quadIn.getFace();
                 BakedQuad bakedquad = (BakedQuad) map.get(enumfacing);
 
                 if (bakedquad == null) {
@@ -245,7 +245,7 @@ public class ConnectedTextures {
     }
 
     private static BakedQuad[] getConnectedTextureMultiPass(IBlockAccess blockAccess, IBlockState blockState,
-                                                            BlockPos blockPos, EnumFacing side, BakedQuad quad, RenderEnv renderEnv) {
+                                                            BlockPos blockPos, Direction side, BakedQuad quad, RenderEnv renderEnv) {
         BakedQuad[] abakedquad = getConnectedTextureSingle(blockAccess, blockState, blockPos, side, quad, true, 0,
                 renderEnv);
 
@@ -282,7 +282,7 @@ public class ConnectedTextures {
     }
 
     public static BakedQuad[] getConnectedTextureSingle(IBlockAccess blockAccess, IBlockState blockState,
-                                                        BlockPos blockPos, EnumFacing facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv) {
+                                                        BlockPos blockPos, Direction facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv) {
         Block block = blockState.getBlock();
 
         if (blockState instanceof BlockStateBase blockstatebase) {
@@ -339,7 +339,7 @@ public class ConnectedTextures {
         return renderEnv.getArrayQuadsCtm(quad);
     }
 
-    public static int getSide(EnumFacing facing) {
+    public static int getSide(Direction facing) {
         if (facing == null) {
             return -1;
         } else {
@@ -354,14 +354,14 @@ public class ConnectedTextures {
         }
     }
 
-    private static EnumFacing getFacing(int side) {
+    private static Direction getFacing(int side) {
         return switch (side) {
-            case 0 -> EnumFacing.DOWN;
-            case 2 -> EnumFacing.NORTH;
-            case 3 -> EnumFacing.SOUTH;
-            case 4 -> EnumFacing.WEST;
-            case 5 -> EnumFacing.EAST;
-            default -> EnumFacing.UP;
+            case 0 -> Direction.DOWN;
+            case 2 -> Direction.NORTH;
+            case 3 -> Direction.SOUTH;
+            case 4 -> Direction.WEST;
+            case 5 -> Direction.EAST;
+            default -> Direction.UP;
         };
     }
 
@@ -1419,7 +1419,7 @@ public class ConnectedTextures {
             return null;
         } else {
 
-            EnumFacing enumfacing = getFacing(side);
+            Direction enumfacing = getFacing(side);
             List<BakedQuad> list = ibakedmodel.getFaceQuads(enumfacing);
 
             if (list == null) {

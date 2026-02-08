@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.chunk;
 
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IntegerCache;
 
 import java.util.*;
@@ -62,12 +62,12 @@ public class VisGraph {
         return setvisibility;
     }
 
-    public Set<EnumFacing> func_178609_b(BlockPos pos) {
+    public Set<Direction> func_178609_b(BlockPos pos) {
         return func_178604_a(getIndex(pos));
     }
 
-    private Set<EnumFacing> func_178604_a(int p_178604_1_) {
-        Set<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
+    private Set<Direction> func_178604_a(int p_178604_1_) {
+        Set<Direction> set = EnumSet.noneOf(Direction.class);
         Queue<Integer> queue = new ArrayDeque<>(384);
         queue.add(IntegerCache.getInteger(p_178604_1_));
         field_178612_d.set(p_178604_1_, true);
@@ -76,7 +76,7 @@ public class VisGraph {
             int i = queue.poll();
             func_178610_a(i, set);
 
-            for (EnumFacing enumfacing : EnumFacing.VALUES) {
+            for (Direction enumfacing : Direction.VALUES) {
                 int j = func_178603_a(i, enumfacing);
 
                 if (j >= 0 && !field_178612_d.get(j)) {
@@ -89,33 +89,33 @@ public class VisGraph {
         return set;
     }
 
-    private void func_178610_a(int p_178610_1_, Set<EnumFacing> p_178610_2_) {
+    private void func_178610_a(int p_178610_1_, Set<Direction> p_178610_2_) {
         int i = p_178610_1_ & 15;
 
         if (i == 0) {
-            p_178610_2_.add(EnumFacing.WEST);
+            p_178610_2_.add(Direction.WEST);
         } else if (i == 15) {
-            p_178610_2_.add(EnumFacing.EAST);
+            p_178610_2_.add(Direction.EAST);
         }
 
         int j = p_178610_1_ >> 8 & 15;
 
         if (j == 0) {
-            p_178610_2_.add(EnumFacing.DOWN);
+            p_178610_2_.add(Direction.DOWN);
         } else if (j == 15) {
-            p_178610_2_.add(EnumFacing.UP);
+            p_178610_2_.add(Direction.UP);
         }
 
         int k = p_178610_1_ >> 4 & 15;
 
         if (k == 0) {
-            p_178610_2_.add(EnumFacing.NORTH);
+            p_178610_2_.add(Direction.NORTH);
         } else if (k == 15) {
-            p_178610_2_.add(EnumFacing.SOUTH);
+            p_178610_2_.add(Direction.SOUTH);
         }
     }
 
-    private int func_178603_a(int p_178603_1_, EnumFacing p_178603_2_) {
+    private int func_178603_a(int p_178603_1_, Direction p_178603_2_) {
         return switch (p_178603_2_) {
             case DOWN -> {
                 if ((p_178603_1_ >> 8 & 15) == 0) {

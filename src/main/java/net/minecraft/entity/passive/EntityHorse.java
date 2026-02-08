@@ -1302,7 +1302,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     protected void spawnHorseParticles(boolean p_110216_1_) {
-        EnumParticleTypes enumparticletypes = p_110216_1_ ? EnumParticleTypes.HEART : EnumParticleTypes.SMOKE_NORMAL;
+        ParticleTypes enumparticletypes = p_110216_1_ ? ParticleTypes.HEART : ParticleTypes.SMOKE_NORMAL;
 
         for (int i = 0; i < 7; ++i) {
             double d0 = rand.nextGaussian() * 0.02D;

@@ -12,7 +12,7 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.MathHelper;
 
@@ -300,16 +300,16 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         return index != 2 && (index != 1 || isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack));
     }
 
-    public int[] getSlotsForFace(EnumFacing side) {
-        return side == EnumFacing.DOWN ? slotsBottom : (side == EnumFacing.UP ? slotsTop : slotsSides);
+    public int[] getSlotsForFace(Direction side) {
+        return side == Direction.DOWN ? slotsBottom : (side == Direction.UP ? slotsTop : slotsSides);
     }
 
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         return isItemValidForSlot(index, itemStackIn);
     }
 
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        if (direction == EnumFacing.DOWN && index == 1) {
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+        if (direction == Direction.DOWN && index == 1) {
             Item item = stack.getItem();
 
             return item == Items.water_bucket || item == Items.bucket;

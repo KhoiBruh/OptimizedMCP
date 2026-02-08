@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.VboRenderList;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 import net.optifine.util.LinkedList;
 
 import java.nio.ByteBuffer;
@@ -23,7 +23,7 @@ public class VboRegion {
     private IntBuffer bufferCountVertex;
     private int drawMode;
 
-    public VboRegion(EnumWorldBlockLayer layer) {
+    public VboRegion(WorldBlockLayer layer) {
         bufferIndexVertex = Config.createDirectIntBuffer(capacity);
         bufferCountVertex = Config.createDirectIntBuffer(capacity);
         drawMode = 7;

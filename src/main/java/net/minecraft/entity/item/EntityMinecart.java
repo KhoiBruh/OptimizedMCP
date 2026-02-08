@@ -54,7 +54,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         prevPosZ = z;
     }
 
-    public static EntityMinecart getMinecart(World worldIn, double x, double y, double z, EntityMinecart.EnumMinecartType type) {
+    public static EntityMinecart getMinecart(World worldIn, double x, double y, double z, MinecartType type) {
         return switch (type) {
             case CHEST -> new EntityMinecartChest(worldIn, x, y, z);
             case FURNACE -> new EntityMinecartFurnace(worldIn, x, y, z);
@@ -325,7 +325,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
 
         double d0 = 0.0078125D;
-        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = p_180460_2_.getValue(blockrailbase.getShapeProperty());
+        BlockRailBase.RailDirection blockrailbase$enumraildirection = p_180460_2_.getValue(blockrailbase.getShapeProperty());
 
         switch (blockrailbase$enumraildirection) {
             case ASCENDING_EAST:
@@ -471,13 +471,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 double d16 = 0.06D;
                 motionX += motionX / d15 * d16;
                 motionZ += motionZ / d15 * d16;
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.EAST_WEST) {
+            } else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.EAST_WEST) {
                 if (worldObj.getBlockState(p_180460_1_.west()).getBlock().isNormalCube()) {
                     motionX = 0.02D;
                 } else if (worldObj.getBlockState(p_180460_1_.east()).getBlock().isNormalCube()) {
                     motionX = -0.02D;
                 }
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.NORTH_SOUTH) {
+            } else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.NORTH_SOUTH) {
                 if (worldObj.getBlockState(p_180460_1_.north()).getBlock().isNormalCube()) {
                     motionZ = 0.02D;
                 } else if (worldObj.getBlockState(p_180460_1_.south()).getBlock().isNormalCube()) {
@@ -511,7 +511,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         IBlockState iblockstate = worldObj.getBlockState(new BlockPos(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+            BlockRailBase.RailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
             p_70495_3_ = j;
 
             if (blockrailbase$enumraildirection.isAscending()) {
@@ -551,7 +551,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         IBlockState iblockstate = worldObj.getBlockState(new BlockPos(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+            BlockRailBase.RailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
             int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
             double d0;
             double d1 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
@@ -641,7 +641,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         if (!worldObj.isRemote) {
             if (!entityIn.noClip && !noClip) {
                 if (entityIn != riddenByEntity) {
-                    if (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityPlayer) && !(entityIn instanceof EntityIronGolem) && getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && motionX * motionX + motionZ * motionZ > 0.01D && riddenByEntity == null && entityIn.ridingEntity == null) {
+                    if (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityPlayer) && !(entityIn instanceof EntityIronGolem) && getMinecartType() == MinecartType.RIDEABLE && motionX * motionX + motionZ * motionZ > 0.01D && riddenByEntity == null && entityIn.ridingEntity == null) {
                         entityIn.mountEntity(this);
                     }
 
@@ -682,13 +682,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                             double d7 = entityIn.motionX + motionX;
                             double d8 = entityIn.motionZ + motionZ;
 
-                            if (((EntityMinecart) entityIn).getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE && getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE) {
+                            if (((EntityMinecart) entityIn).getMinecartType() == MinecartType.FURNACE && getMinecartType() != MinecartType.FURNACE) {
                                 motionX *= 0.20000000298023224D;
                                 motionZ *= 0.20000000298023224D;
                                 addVelocity(entityIn.motionX - d0, 0.0D, entityIn.motionZ - d1);
                                 entityIn.motionX *= 0.949999988079071D;
                                 entityIn.motionZ *= 0.949999988079071D;
-                            } else if (((EntityMinecart) entityIn).getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE && getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE) {
+                            } else if (((EntityMinecart) entityIn).getMinecartType() != MinecartType.FURNACE && getMinecartType() == MinecartType.FURNACE) {
                                 entityIn.motionX *= 0.20000000298023224D;
                                 entityIn.motionZ *= 0.20000000298023224D;
                                 entityIn.addVelocity(motionX + d0, 0.0D, motionZ + d1);
@@ -756,7 +756,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         dataWatcher.updateObject(18, p_70494_1_);
     }
 
-    public abstract EntityMinecart.EnumMinecartType getMinecartType();
+    public abstract MinecartType getMinecartType();
 
     public IBlockState getDisplayTile() {
         return !hasDisplayTile() ? getDefaultDisplayTile() : Block.getStateById(getDataWatcher().getWatchableObjectInt(20));
@@ -822,7 +822,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
-    public enum EnumMinecartType {
+    public enum MinecartType {
         RIDEABLE(0, "MinecartRideable"),
         CHEST(1, "MinecartChest"),
         FURNACE(2, "MinecartFurnace"),
@@ -831,10 +831,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         HOPPER(5, "MinecartHopper"),
         COMMAND_BLOCK(6, "MinecartCommandBlock");
 
-        private static final Map<Integer, EntityMinecart.EnumMinecartType> ID_LOOKUP = new HashMap<>();
+        private static final Map<Integer, MinecartType> ID_LOOKUP = new HashMap<>();
 
         static {
-            for (EntityMinecart.EnumMinecartType entityminecart$enumminecarttype : values()) {
+            for (MinecartType entityminecart$enumminecarttype : values()) {
                 ID_LOOKUP.put(entityminecart$enumminecarttype.networkID, entityminecart$enumminecarttype);
             }
         }
@@ -842,13 +842,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         private final int networkID;
         private final String name;
 
-        EnumMinecartType(int networkID, String name) {
+        MinecartType(int networkID, String name) {
             this.networkID = networkID;
             this.name = name;
         }
 
-        public static EntityMinecart.EnumMinecartType byNetworkID(int id) {
-            EntityMinecart.EnumMinecartType entityminecart$enumminecarttype = ID_LOOKUP.get(id);
+        public static MinecartType byNetworkID(int id) {
+            MinecartType entityminecart$enumminecarttype = ID_LOOKUP.get(id);
             return entityminecart$enumminecarttype == null ? RIDEABLE : entityminecart$enumminecarttype;
         }
 

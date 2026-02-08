@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -80,7 +80,7 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     public boolean getCanSpawnHere() {
-        return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return worldObj.getDifficulty() != Difficulty.PEACEFUL;
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {

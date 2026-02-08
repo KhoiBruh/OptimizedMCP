@@ -191,7 +191,7 @@ public class IntegratedServer extends MinecraftServer {
         getConfigurationManager().setGameType(gameMode);
     }
 
-    public EnumDifficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return mc.theWorld == null ? mc.gameSettings.difficulty : mc.theWorld.getWorldInfo().getDifficulty();
     }
 
@@ -254,7 +254,7 @@ public class IntegratedServer extends MinecraftServer {
         return report;
     }
 
-    public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+    public void setDifficultyForAllWorlds(Difficulty difficulty) {
         super.setDifficultyForAllWorlds(difficulty);
 
         if (mc.theWorld != null) {

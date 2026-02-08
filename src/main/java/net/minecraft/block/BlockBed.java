@@ -16,17 +16,17 @@ import net.minecraft.world.biome.BiomeGenBase;
 import java.util.Random;
 
 public class BlockBed extends BlockDirectional {
-    public static final PropertyEnum<BlockBed.EnumPartType> PART = PropertyEnum.create("part", BlockBed.EnumPartType.class);
+    public static final PropertyEnum<PartType> PART = PropertyEnum.create("part", PartType.class);
     public static final PropertyBool OCCUPIED = PropertyBool.create("occupied");
 
     public BlockBed() {
         super(Material.cloth);
-        setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
+        setDefaultState(blockState.getBaseState().withProperty(PART, PartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
         setBedBounds();
     }
 
     public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
-        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+        Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
@@ -59,11 +59,11 @@ public class BlockBed extends BlockDirectional {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !worldIn.getBlockState(pos).getBlock().getMaterial().isSolid() && !worldIn.getBlockState(pos.up()).getBlock().getMaterial().isSolid();
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else {
-            if (state.getValue(PART) != BlockBed.EnumPartType.HEAD) {
+            if (state.getValue(PART) != PartType.HEAD) {
                 pos = pos.offset(state.getValue(FACING));
                 state = worldIn.getBlockState(pos);
 
@@ -85,16 +85,16 @@ public class BlockBed extends BlockDirectional {
                     worldIn.setBlockState(pos, state, 4);
                 }
 
-                EntityPlayer.EnumStatus entityplayer$enumstatus = playerIn.trySleep(pos);
+                EntityPlayer.Status entityplayer$enumstatus = playerIn.trySleep(pos);
 
-                if (entityplayer$enumstatus == EntityPlayer.EnumStatus.OK) {
+                if (entityplayer$enumstatus == EntityPlayer.Status.OK) {
                     state = state.withProperty(OCCUPIED, Boolean.TRUE);
                     worldIn.setBlockState(pos, state, 4);
                     return true;
                 } else {
-                    if (entityplayer$enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
+                    if (entityplayer$enumstatus == EntityPlayer.Status.NOT_POSSIBLE_NOW) {
                         playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep"));
-                    } else if (entityplayer$enumstatus == EntityPlayer.EnumStatus.NOT_SAFE) {
+                    } else if (entityplayer$enumstatus == EntityPlayer.Status.NOT_SAFE) {
                         playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe"));
                     }
 
@@ -137,9 +137,9 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        EnumFacing enumfacing = state.getValue(FACING);
+        Direction enumfacing = state.getValue(FACING);
 
-        if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
+        if (state.getValue(PART) == PartType.HEAD) {
             if (worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock() != this) {
                 worldIn.setBlockToAir(pos);
             }
@@ -153,7 +153,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return state.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : Items.bed;
+        return state.getValue(PART) == PartType.HEAD ? null : Items.bed;
     }
 
     private void setBedBounds() {
@@ -161,7 +161,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-        if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+        if (state.getValue(PART) == PartType.FOOT) {
             super.dropBlockAsItemWithChance(worldIn, pos, state, chance, 0);
         }
     }
@@ -170,8 +170,8 @@ public class BlockBed extends BlockDirectional {
         return 1;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
@@ -179,7 +179,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-        if (player.capabilities.isCreativeMode && state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
+        if (player.capabilities.isCreativeMode && state.getValue(PART) == PartType.HEAD) {
             BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
 
             if (worldIn.getBlockState(blockpos).getBlock() == this) {
@@ -189,12 +189,12 @@ public class BlockBed extends BlockDirectional {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
-        return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
+        Direction enumfacing = Direction.getHorizontal(meta);
+        return (meta & 8) > 0 ? getDefaultState().withProperty(PART, PartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : getDefaultState().withProperty(PART, PartType.FOOT).withProperty(FACING, enumfacing);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+        if (state.getValue(PART) == PartType.FOOT) {
             IBlockState iblockstate = worldIn.getBlockState(pos.offset(state.getValue(FACING)));
 
             if (iblockstate.getBlock() == this) {
@@ -209,7 +209,7 @@ public class BlockBed extends BlockDirectional {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
 
-        if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
+        if (state.getValue(PART) == PartType.HEAD) {
             i |= 8;
 
             if (state.getValue(OCCUPIED)) {
@@ -224,13 +224,13 @@ public class BlockBed extends BlockDirectional {
         return new BlockState(this, FACING, PART, OCCUPIED);
     }
 
-    public enum EnumPartType implements IStringSerializable {
+    public enum PartType implements IStringSerializable {
         HEAD("head"),
         FOOT("foot");
 
         private final String name;
 
-        EnumPartType(String name) {
+        PartType(String name) {
             this.name = name;
         }
 

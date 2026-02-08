@@ -24,7 +24,7 @@ public class EntityRabbit extends EntityAnimal {
     private boolean field_175536_bo = false;
     private boolean field_175537_bp = false;
     private int currentMoveTypeDuration = 0;
-    private EntityRabbit.EnumMoveType moveType = EntityRabbit.EnumMoveType.HOP;
+    private MoveType moveType = MoveType.HOP;
     private int carrotTicks = 0;
     private final EntityPlayer field_175543_bt = null;
 
@@ -53,7 +53,7 @@ public class EntityRabbit extends EntityAnimal {
         return moveHelper.isUpdating() && moveHelper.getY() > posY + 0.5D ? 0.5F : moveType.func_180074_b();
     }
 
-    public void setMoveType(EntityRabbit.EnumMoveType type) {
+    public void setMoveType(MoveType type) {
         moveType = type;
     }
 
@@ -66,12 +66,12 @@ public class EntityRabbit extends EntityAnimal {
         moveHelper.setMoveTo(moveHelper.getX(), moveHelper.getY(), moveHelper.getZ(), newSpeed);
     }
 
-    public void setJumping(boolean jump, EntityRabbit.EnumMoveType moveTypeIn) {
+    public void setJumping(boolean jump, MoveType moveTypeIn) {
         super.setJumping(jump);
 
         if (!jump) {
-            if (moveType == EntityRabbit.EnumMoveType.ATTACK) {
-                moveType = EntityRabbit.EnumMoveType.HOP;
+            if (moveType == MoveType.ATTACK) {
+                moveType = MoveType.HOP;
             }
         } else {
             setMovementSpeed(1.5D * (double) moveTypeIn.getSpeed());
@@ -81,7 +81,7 @@ public class EntityRabbit extends EntityAnimal {
         field_175536_bo = jump;
     }
 
-    public void doMovementAction(EntityRabbit.EnumMoveType movetype) {
+    public void doMovementAction(MoveType movetype) {
         setJumping(true, movetype);
         field_175535_bn = movetype.func_180073_d();
         field_175540_bm = 0;
@@ -98,9 +98,9 @@ public class EntityRabbit extends EntityAnimal {
 
     public void updateAITasks() {
         if (moveHelper.getSpeed() > 0.8D) {
-            moveType = EnumMoveType.SPRINT;
-        } else if (moveType != EntityRabbit.EnumMoveType.ATTACK) {
-            moveType = EnumMoveType.HOP;
+            moveType = MoveType.SPRINT;
+        } else if (moveType != MoveType.ATTACK) {
+            moveType = MoveType.HOP;
         }
 
         if (currentMoveTypeDuration > 0) {
@@ -117,7 +117,7 @@ public class EntityRabbit extends EntityAnimal {
 
         if (onGround) {
             if (!field_175537_bp) {
-                setJumping(false, EntityRabbit.EnumMoveType.NONE);
+                setJumping(false, MoveType.NONE);
                 func_175517_cu();
             }
 
@@ -127,7 +127,7 @@ public class EntityRabbit extends EntityAnimal {
                 if (entitylivingbase != null && getDistanceSqToEntity(entitylivingbase) < 16.0D) {
                     calculateRotationYaw(entitylivingbase.posX, entitylivingbase.posZ);
                     moveHelper.setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, moveHelper.getSpeed());
-                    doMovementAction(EntityRabbit.EnumMoveType.ATTACK);
+                    doMovementAction(MoveType.ATTACK);
                     field_175537_bp = true;
                 }
             }
@@ -334,7 +334,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     protected void createEatingParticles() {
-        worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.carrots.getStateFromMeta(7)));
+        worldObj.spawnParticle(ParticleTypes.BLOCK_DUST, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.carrots.getStateFromMeta(7)));
         carrotTicks = 100;
     }
 
@@ -348,7 +348,7 @@ public class EntityRabbit extends EntityAnimal {
         }
     }
 
-    enum EnumMoveType {
+    enum MoveType {
         NONE(0.0F, 0.0F, 30, 1),
         HOP(0.8F, 0.2F, 20, 10),
         STEP(1.0F, 0.45F, 14, 14),
@@ -360,7 +360,7 @@ public class EntityRabbit extends EntityAnimal {
         private final int duration;
         private final int field_180085_i;
 
-        EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_) {
+        MoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_) {
             speed = typeSpeed;
             field_180077_g = p_i45866_4_;
             duration = typeDuration;
@@ -543,7 +543,7 @@ public class EntityRabbit extends EntityAnimal {
 
         public void doJump() {
             if (isJumping) {
-                theEntity.doMovementAction(EntityRabbit.EnumMoveType.STEP);
+                theEntity.doMovementAction(MoveType.STEP);
                 isJumping = false;
             }
         }

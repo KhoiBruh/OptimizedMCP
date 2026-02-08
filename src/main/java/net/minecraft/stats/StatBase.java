@@ -3,7 +3,7 @@ package net.minecraft.stats;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IJsonSerializable;
 
@@ -73,7 +73,7 @@ public class StatBase {
 
     public IChatComponent getStatName() {
         IChatComponent ichatcomponent = statName.createCopy();
-        ichatcomponent.getChatStyle().setColor(EnumChatFormatting.GRAY);
+        ichatcomponent.getChatStyle().setColor(ChatFormat.GRAY);
         ichatcomponent.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ACHIEVEMENT, new ChatComponentText(statId)));
         return ichatcomponent;
     }

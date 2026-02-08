@@ -1149,20 +1149,20 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (flag) ShadersRender.beginTerrainSolid();
 
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.SOLID, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(WorldBlockLayer.SOLID, partialTicks, pass, entity);
         GlStateManager.enableAlpha();
 
         if (flag) ShadersRender.beginTerrainCutoutMipped();
 
         mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false,
                 mc.gameSettings.mipmapLevels > 0);
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.CUTOUT_MIPPED, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(WorldBlockLayer.CUTOUT_MIPPED, partialTicks, pass, entity);
         mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
         mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
 
         if (flag) ShadersRender.beginTerrainCutout();
 
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.CUTOUT, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(WorldBlockLayer.CUTOUT, partialTicks, pass, entity);
         mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
 
         if (flag) ShadersRender.endTerrain();
@@ -1276,7 +1276,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (flag) Shaders.beginWater();
 
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.TRANSLUCENT, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(WorldBlockLayer.TRANSLUCENT, partialTicks, pass, entity);
 
         if (flag) Shaders.endWater();
 
@@ -1367,7 +1367,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     double d4 = random.nextDouble();
 
                     if (block.getMaterial() == Material.lava)
-                        mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) blockpos1.getX() + d3,
+                        mc.theWorld.spawnParticle(ParticleTypes.SMOKE_NORMAL, (double) blockpos1.getX() + d3,
                                 (double) ((float) blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(),
                                 (double) blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D);
                     else if (block.getMaterial() != Material.air) {
@@ -1380,7 +1380,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             d2 = (double) blockpos2.getZ() + d4;
                         }
 
-                        mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, (double) blockpos2.getX() + d3,
+                        mc.theWorld.spawnParticle(ParticleTypes.WATER_DROP, (double) blockpos2.getX() + d3,
                                 (double) ((float) blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(),
                                 (double) blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D);
                     }

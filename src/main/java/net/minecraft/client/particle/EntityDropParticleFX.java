@@ -4,7 +4,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -81,7 +81,7 @@ public class EntityDropParticleFX extends EntityFX {
         if (onGround) {
             if (materialType == Material.water) {
                 setDead();
-                worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+                worldObj.spawnParticle(ParticleTypes.WATER_SPLASH, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
             } else {
                 setParticleTextureIndex(114);
             }

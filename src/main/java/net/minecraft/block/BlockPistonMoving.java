@@ -18,15 +18,15 @@ import java.util.Random;
 
 public class BlockPistonMoving extends BlockContainer {
     public static final PropertyDirection FACING = BlockPistonExtension.FACING;
-    public static final PropertyEnum<BlockPistonExtension.EnumPistonType> TYPE = BlockPistonExtension.TYPE;
+    public static final PropertyEnum<BlockPistonExtension.PistonType> TYPE = BlockPistonExtension.TYPE;
 
     public BlockPistonMoving() {
         super(Material.piston);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
         setHardness(-1.0F);
     }
 
-    public static TileEntity newTileEntity(IBlockState state, EnumFacing facing, boolean extending, boolean renderHead) {
+    public static TileEntity newTileEntity(IBlockState state, Direction facing, boolean extending, boolean renderHead) {
         return new TileEntityPiston(state, facing, extending, renderHead);
     }
 
@@ -48,7 +48,7 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return false;
     }
 
@@ -69,7 +69,7 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null) {
             worldIn.setBlockToAir(pos);
             return true;
@@ -142,7 +142,7 @@ public class BlockPistonMoving extends BlockContainer {
                 f = 0.0F;
             }
 
-            EnumFacing enumfacing = tileentitypiston.getFacing();
+            Direction enumfacing = tileentitypiston.getFacing();
             minX = block.getBlockBoundsMinX() - (double) ((float) enumfacing.getFrontOffsetX() * f);
             minY = block.getBlockBoundsMinY() - (double) ((float) enumfacing.getFrontOffsetY() * f);
             minZ = block.getBlockBoundsMinZ() - (double) ((float) enumfacing.getFrontOffsetZ() * f);
@@ -152,7 +152,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
-    public AxisAlignedBB getBoundingBox(World worldIn, BlockPos pos, IBlockState extendingBlock, float progress, EnumFacing direction) {
+    public AxisAlignedBB getBoundingBox(World worldIn, BlockPos pos, IBlockState extendingBlock, float progress, Direction direction) {
         if (extendingBlock.getBlock() != this && extendingBlock.getBlock().getMaterial() != Material.air) {
             AxisAlignedBB axisalignedbb = extendingBlock.getBlock().getCollisionBoundingBox(worldIn, pos, extendingBlock);
 
@@ -201,14 +201,14 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
+        return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
     }
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
 
-        if (state.getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY) {
+        if (state.getValue(TYPE) == BlockPistonExtension.PistonType.STICKY) {
             i |= 8;
         }
 

@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 import net.optifine.SmartAnimations;
 
 import java.util.BitSet;
@@ -44,7 +44,7 @@ public abstract class ChunkRenderContainer {
         GlStateManager.translate((float) ((double) blockpos.getX() - viewEntityX), (float) ((double) blockpos.getY() - viewEntityY), (float) ((double) blockpos.getZ() - viewEntityZ));
     }
 
-    public void addRenderChunk(RenderChunk renderChunkIn, EnumWorldBlockLayer layer) {
+    public void addRenderChunk(RenderChunk renderChunkIn, WorldBlockLayer layer) {
         renderChunks.add(renderChunkIn);
 
         if (animatedSpritesRendered != null) {
@@ -56,5 +56,5 @@ public abstract class ChunkRenderContainer {
         }
     }
 
-    public abstract void renderChunkLayer(EnumWorldBlockLayer layer);
+    public abstract void renderChunkLayer(WorldBlockLayer layer);
 }

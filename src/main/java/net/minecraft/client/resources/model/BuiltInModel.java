@@ -3,7 +3,7 @@ package net.minecraft.client.resources.model;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class BuiltInModel implements IBakedModel {
         cameraTransforms = p_i46086_1_;
     }
 
-    public List<BakedQuad> getFaceQuads(EnumFacing facing) {
+    public List<BakedQuad> getFaceQuads(Direction facing) {
         return null;
     }
 

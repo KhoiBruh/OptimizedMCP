@@ -10,7 +10,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnchantmentNameParts;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IWorldNameable;
@@ -201,7 +201,7 @@ public class GuiEnchantment extends GuiContainer {
 
                 if (Enchantment.getEnchantmentById(l & 255) != null) {
                     String s = Enchantment.getEnchantmentById(l & 255).getTranslatedName((l & 65280) >> 8);
-                    list.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC
+                    list.add(ChatFormat.WHITE.toString() + ChatFormat.ITALIC
                             + I18n.format("container.enchant.clue", s));
                 }
 
@@ -209,7 +209,7 @@ public class GuiEnchantment extends GuiContainer {
                     list.add("");
 
                     if (mc.thePlayer.experienceLevel < k) {
-                        list.add(EnumChatFormatting.RED + "Level Requirement: "
+                        list.add(ChatFormat.RED + "Level Requirement: "
                                 + container.enchantLevels[j]);
                     } else {
                         String s1;
@@ -221,9 +221,9 @@ public class GuiEnchantment extends GuiContainer {
                         }
 
                         if (i >= i1) {
-                            list.add(EnumChatFormatting.GRAY + s1);
+                            list.add(ChatFormat.GRAY + s1);
                         } else {
-                            list.add(EnumChatFormatting.RED + s1);
+                            list.add(ChatFormat.RED + s1);
                         }
 
                         if (i1 == 1) {
@@ -232,7 +232,7 @@ public class GuiEnchantment extends GuiContainer {
                             s1 = I18n.format("container.enchant.level.many", i1);
                         }
 
-                        list.add(EnumChatFormatting.GRAY + s1);
+                        list.add(ChatFormat.GRAY + s1);
                     }
                 }
 

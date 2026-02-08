@@ -29,8 +29,8 @@ public class ItemBucketMilk extends Item {
         return 32;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.DRINK;
+    public Action getItemUseAction(ItemStack stack) {
+        return Action.DRINK;
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 
 public class ChatStyle {
     private static final ChatStyle rootStyle = new ChatStyle() {
-        public EnumChatFormatting getColor() {
+        public ChatFormat getColor() {
             return null;
         }
 
@@ -44,7 +44,7 @@ public class ChatStyle {
             return null;
         }
 
-        public ChatStyle setColor(EnumChatFormatting color) {
+        public ChatStyle setColor(ChatFormat color) {
             throw new UnsupportedOperationException();
         }
 
@@ -97,7 +97,7 @@ public class ChatStyle {
         }
     };
     private ChatStyle parentStyle;
-    private EnumChatFormatting color;
+    private ChatFormat color;
     private Boolean bold;
     private Boolean italic;
     private Boolean underlined;
@@ -107,11 +107,11 @@ public class ChatStyle {
     private HoverEvent chatHoverEvent;
     private String insertion;
 
-    public EnumChatFormatting getColor() {
+    public ChatFormat getColor() {
         return color == null ? getParent().getColor() : color;
     }
 
-    public ChatStyle setColor(EnumChatFormatting color) {
+    public ChatStyle setColor(ChatFormat color) {
         this.color = color;
         return this;
     }
@@ -208,23 +208,23 @@ public class ChatStyle {
             }
 
             if (getBold()) {
-                stringbuilder.append(EnumChatFormatting.BOLD);
+                stringbuilder.append(ChatFormat.BOLD);
             }
 
             if (getItalic()) {
-                stringbuilder.append(EnumChatFormatting.ITALIC);
+                stringbuilder.append(ChatFormat.ITALIC);
             }
 
             if (getUnderlined()) {
-                stringbuilder.append(EnumChatFormatting.UNDERLINE);
+                stringbuilder.append(ChatFormat.UNDERLINE);
             }
 
             if (getObfuscated()) {
-                stringbuilder.append(EnumChatFormatting.OBFUSCATED);
+                stringbuilder.append(ChatFormat.OBFUSCATED);
             }
 
             if (getStrikethrough()) {
-                stringbuilder.append(EnumChatFormatting.STRIKETHROUGH);
+                stringbuilder.append(ChatFormat.STRIKETHROUGH);
             }
 
             return stringbuilder.toString();
@@ -358,7 +358,7 @@ public class ChatStyle {
                     }
 
                     if (jsonobject.has("color")) {
-                        chatstyle.color = p_deserialize_3_.deserialize(jsonobject.get("color"), EnumChatFormatting.class);
+                        chatstyle.color = p_deserialize_3_.deserialize(jsonobject.get("color"), ChatFormat.class);
                     }
 
                     if (jsonobject.has("insertion")) {

@@ -77,8 +77,8 @@ public class ItemBow extends Item {
         return 72000;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.BOW;
+    public Action getItemUseAction(ItemStack stack) {
+        return Action.BOW;
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

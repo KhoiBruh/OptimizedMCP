@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.WorldBlockLayer;
 import net.minecraft.util.MathHelper;
 import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
@@ -39,7 +39,7 @@ public class WorldRenderer {
     private double zOffset;
     private VertexFormat vertexFormat;
     private boolean isDrawing;
-    private EnumWorldBlockLayer blockLayer = null;
+    private WorldBlockLayer blockLayer = null;
     private boolean[] drawnIcons = new boolean[256];
     private TextureAtlasSprite[] quadSprites = null;
     private TextureAtlasSprite[] quadSpritesPrev = null;
@@ -556,7 +556,7 @@ public class WorldRenderer {
         vertexFormatIndex %= vertexFormat.getElementCount();
         vertexFormatElement = vertexFormat.getElement(vertexFormatIndex);
 
-        if (vertexFormatElement.getUsage() == VertexFormatElement.EnumUsage.PADDING) {
+        if (vertexFormatElement.getUsage() == VertexFormatElement.Usage.PADDING) {
             nextVertexFormatIndex();
         }
     }
@@ -693,7 +693,7 @@ public class WorldRenderer {
                             i1 = drawForIcon(textureatlassprite, i1) - 1;
                             ++j;
 
-                            if (blockLayer != EnumWorldBlockLayer.TRANSLUCENT) {
+                            if (blockLayer != WorldBlockLayer.TRANSLUCENT) {
                                 drawnIcons[j1] = true;
                             }
                         }
@@ -727,7 +727,7 @@ public class WorldRenderer {
             } else if (j >= 0) {
                 draw(j, l);
 
-                if (blockLayer == EnumWorldBlockLayer.TRANSLUCENT) {
+                if (blockLayer == WorldBlockLayer.TRANSLUCENT) {
                     return l;
                 }
 
@@ -790,11 +790,11 @@ public class WorldRenderer {
         return zOffset;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
+    public WorldBlockLayer getBlockLayer() {
         return blockLayer;
     }
 
-    public void setBlockLayer(EnumWorldBlockLayer p_setBlockLayer_1_) {
+    public void setBlockLayer(WorldBlockLayer p_setBlockLayer_1_) {
         blockLayer = p_setBlockLayer_1_;
 
         if (p_setBlockLayer_1_ == null) {

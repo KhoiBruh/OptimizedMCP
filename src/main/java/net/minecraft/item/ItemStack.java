@@ -8,7 +8,7 @@ import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -123,7 +123,7 @@ public final class ItemStack {
         item = newItem;
     }
 
-    public boolean onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         boolean flag = item.onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
 
         if (flag) {
@@ -343,7 +343,7 @@ public final class ItemStack {
         return item.getMaxItemUseDuration(this);
     }
 
-    public EnumAction getItemUseAction() {
+    public Action getItemUseAction() {
         return item.getItemUseAction(this);
     }
 
@@ -432,10 +432,10 @@ public final class ItemStack {
         String s = getDisplayName();
 
         if (hasDisplayName()) {
-            s = EnumChatFormatting.ITALIC + s;
+            s = ChatFormat.ITALIC + s;
         }
 
-        s = s + EnumChatFormatting.RESET;
+        s = s + ChatFormat.RESET;
 
         if (advanced) {
             String s1 = "";
@@ -490,7 +490,7 @@ public final class ItemStack {
                     if (advanced) {
                         list.add("Color: #" + Integer.toHexString(nbttagcompound.getInteger("color")).toUpperCase());
                     } else {
-                        list.add(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("item.dyed"));
+                        list.add(ChatFormat.ITALIC + StatCollector.translateToLocal("item.dyed"));
                     }
                 }
 
@@ -499,7 +499,7 @@ public final class ItemStack {
 
                     if (nbttaglist1.tagCount() > 0) {
                         for (int j1 = 0; j1 < nbttaglist1.tagCount(); ++j1) {
-                            list.add(EnumChatFormatting.DARK_PURPLE + "" + EnumChatFormatting.ITALIC + nbttaglist1.getStringTagAt(j1));
+                            list.add(ChatFormat.DARK_PURPLE + "" + ChatFormat.ITALIC + nbttaglist1.getStringTagAt(j1));
                         }
                     }
                 }
@@ -516,7 +516,7 @@ public final class ItemStack {
                 double d0 = attributemodifier.getAmount();
 
                 if (attributemodifier.getID() == Item.itemModifierUUID) {
-                    d0 += EnchantmentHelper.getModifierForCreature(this, EnumCreatureAttribute.UNDEFINED);
+                    d0 += EnchantmentHelper.getModifierForCreature(this, CreatureAttribute.UNDEFINED);
                 }
 
                 double d1;
@@ -528,16 +528,16 @@ public final class ItemStack {
                 }
 
                 if (d0 > 0.0D) {
-                    list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), new Object[]{DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry.getKey())}));
+                    list.add(ChatFormat.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), new Object[]{DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry.getKey())}));
                 } else if (d0 < 0.0D) {
                     d1 = d1 * -1.0D;
-                    list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), new Object[]{DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry.getKey())}));
+                    list.add(ChatFormat.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), new Object[]{DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry.getKey())}));
                 }
             }
         }
 
         if (hasTagCompound() && stackTagCompound.getBoolean("Unbreakable") && (i1 & 4) == 0) {
-            list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal("item.unbreakable"));
+            list.add(ChatFormat.BLUE + StatCollector.translateToLocal("item.unbreakable"));
         }
 
         if (hasTagCompound() && stackTagCompound.hasKey("CanDestroy", 9) && (i1 & 8) == 0) {
@@ -545,15 +545,15 @@ public final class ItemStack {
 
             if (nbttaglist2.tagCount() > 0) {
                 list.add("");
-                list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("item.canBreak"));
+                list.add(ChatFormat.GRAY + StatCollector.translateToLocal("item.canBreak"));
 
                 for (int k1 = 0; k1 < nbttaglist2.tagCount(); ++k1) {
                     Block block = Block.getBlockFromName(nbttaglist2.getStringTagAt(k1));
 
                     if (block != null) {
-                        list.add(EnumChatFormatting.DARK_GRAY + block.getLocalizedName());
+                        list.add(ChatFormat.DARK_GRAY + block.getLocalizedName());
                     } else {
-                        list.add(EnumChatFormatting.DARK_GRAY + "missingno");
+                        list.add(ChatFormat.DARK_GRAY + "missingno");
                     }
                 }
             }
@@ -564,15 +564,15 @@ public final class ItemStack {
 
             if (nbttaglist3.tagCount() > 0) {
                 list.add("");
-                list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("item.canPlace"));
+                list.add(ChatFormat.GRAY + StatCollector.translateToLocal("item.canPlace"));
 
                 for (int l1 = 0; l1 < nbttaglist3.tagCount(); ++l1) {
                     Block block1 = Block.getBlockFromName(nbttaglist3.getStringTagAt(l1));
 
                     if (block1 != null) {
-                        list.add(EnumChatFormatting.DARK_GRAY + block1.getLocalizedName());
+                        list.add(ChatFormat.DARK_GRAY + block1.getLocalizedName());
                     } else {
-                        list.add(EnumChatFormatting.DARK_GRAY + "missingno");
+                        list.add(ChatFormat.DARK_GRAY + "missingno");
                     }
                 }
             }
@@ -583,10 +583,10 @@ public final class ItemStack {
                 list.add("Durability: " + (getMaxDamage() - itemDamage) + " / " + getMaxDamage());
             }
 
-            list.add(EnumChatFormatting.DARK_GRAY + Item.itemRegistry.getNameForObject(item).toString());
+            list.add(ChatFormat.DARK_GRAY + Item.itemRegistry.getNameForObject(item).toString());
 
             if (hasTagCompound()) {
-                list.add(EnumChatFormatting.DARK_GRAY + "NBT: " + stackTagCompound.getKeySet().size() + " tag(s)");
+                list.add(ChatFormat.DARK_GRAY + "NBT: " + stackTagCompound.getKeySet().size() + " tag(s)");
             }
         }
 
@@ -597,7 +597,7 @@ public final class ItemStack {
         return item.hasEffect(this);
     }
 
-    public EnumRarity getRarity() {
+    public Rarity getRarity() {
         return item.getRarity(this);
     }
 

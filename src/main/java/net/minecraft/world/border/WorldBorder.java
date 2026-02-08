@@ -58,8 +58,8 @@ public class WorldBorder {
         return Math.min(d4, d1);
     }
 
-    public EnumBorderStatus getStatus() {
-        return endDiameter < startDiameter ? EnumBorderStatus.SHRINKING : (endDiameter > startDiameter ? EnumBorderStatus.GROWING : EnumBorderStatus.STATIONARY);
+    public BorderStatus getStatus() {
+        return endDiameter < startDiameter ? BorderStatus.SHRINKING : (endDiameter > startDiameter ? BorderStatus.GROWING : BorderStatus.STATIONARY);
     }
 
     public double minX() {
@@ -120,7 +120,7 @@ public class WorldBorder {
     }
 
     public double getDiameter() {
-        if (getStatus() != EnumBorderStatus.STATIONARY) {
+        if (getStatus() != BorderStatus.STATIONARY) {
             double d0 = (float) (System.currentTimeMillis() - startTime) / (float) (endTime - startTime);
 
             if (d0 < 1.0D) {
@@ -134,7 +134,7 @@ public class WorldBorder {
     }
 
     public long getTimeUntilTarget() {
-        return getStatus() != EnumBorderStatus.STATIONARY ? endTime - System.currentTimeMillis() : 0L;
+        return getStatus() != BorderStatus.STATIONARY ? endTime - System.currentTimeMillis() : 0L;
     }
 
     public double getTargetSize() {

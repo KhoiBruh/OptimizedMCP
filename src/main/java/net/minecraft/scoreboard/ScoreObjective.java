@@ -4,7 +4,7 @@ public class ScoreObjective {
     private final Scoreboard theScoreboard;
     private final String name;
     private final IScoreObjectiveCriteria objectiveCriteria;
-    private IScoreObjectiveCriteria.EnumRenderType renderType;
+    private IScoreObjectiveCriteria.RenderType renderType;
     private String displayName;
 
     public ScoreObjective(Scoreboard theScoreboardIn, String nameIn, IScoreObjectiveCriteria objectiveCriteriaIn) {
@@ -36,11 +36,11 @@ public class ScoreObjective {
         theScoreboard.onObjectiveDisplayNameChanged(this);
     }
 
-    public IScoreObjectiveCriteria.EnumRenderType getRenderType() {
+    public IScoreObjectiveCriteria.RenderType getRenderType() {
         return renderType;
     }
 
-    public void setRenderType(IScoreObjectiveCriteria.EnumRenderType type) {
+    public void setRenderType(IScoreObjectiveCriteria.RenderType type) {
         renderType = type;
         theScoreboard.onObjectiveDisplayNameChanged(this);
     }

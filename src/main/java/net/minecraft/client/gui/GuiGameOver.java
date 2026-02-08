@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 
 public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
     private int enableButtonsTimer;
@@ -76,7 +76,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
             drawCenteredString(fontRendererObj, I18n.format("deathScreen.hardcoreInfo"), width / 2, 144, 16777215);
         }
 
-        drawCenteredString(fontRendererObj, I18n.format("deathScreen.score") + ": " + EnumChatFormatting.YELLOW + mc.thePlayer.getScore(), width / 2, 100, 16777215);
+        drawCenteredString(fontRendererObj, I18n.format("deathScreen.score") + ": " + ChatFormat.YELLOW + mc.thePlayer.getScore(), width / 2, 100, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

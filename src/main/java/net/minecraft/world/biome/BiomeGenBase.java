@@ -6,7 +6,7 @@ import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
@@ -238,11 +238,11 @@ public abstract class BiomeGenBase {
     }
 
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-        return new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        return new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
-        return rand.nextInt(3) > 0 ? BlockFlower.EnumFlowerType.DANDELION : BlockFlower.EnumFlowerType.POPPY;
+    public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
+        return rand.nextInt(3) > 0 ? BlockFlower.FlowerType.DANDELION : BlockFlower.FlowerType.POPPY;
     }
 
     protected BiomeGenBase setEnableSnow() {
@@ -288,7 +288,7 @@ public abstract class BiomeGenBase {
         return MathHelper.hsvToRGB(0.62222224F - p_76731_1_ * 0.05F, 0.5F + p_76731_1_ * 0.1F, 1.0F);
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getSpawnableList(EnumCreatureType creatureType) {
+    public List<BiomeGenBase.SpawnListEntry> getSpawnableList(CreatureType creatureType) {
         return switch (creatureType) {
             case MONSTER -> spawnableMonsterList;
             case CREATURE -> spawnableCreatureList;
@@ -407,7 +407,7 @@ public abstract class BiomeGenBase {
 
                         if (j == 0 && iblockstate1.getBlock() == Blocks.sand) {
                             j = rand.nextInt(4) + Math.max(0, j1 - 63);
-                            iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState();
+                            iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.Type.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState();
                         }
                     }
                 }

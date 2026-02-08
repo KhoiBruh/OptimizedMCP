@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -79,7 +79,7 @@ public final class SpawnerAnimals {
 
     public static void performWorldGenSpawning(World worldIn, BiomeGenBase biomeIn, int p_77191_2_, int p_77191_3_,
                                                int p_77191_4_, int p_77191_5_, Random randomIn) {
-        List<BiomeGenBase.SpawnListEntry> list = biomeIn.getSpawnableList(EnumCreatureType.CREATURE);
+        List<BiomeGenBase.SpawnListEntry> list = biomeIn.getSpawnableList(CreatureType.CREATURE);
 
         if (!list.isEmpty()) {
             while (randomIn.nextFloat() < biomeIn.getSpawningChance()) {
@@ -191,7 +191,7 @@ public final class SpawnerAnimals {
             BlockPos.MutableBlockPos blockposm = new BlockPos.MutableBlockPos(0, 0, 0);
             new BlockPos.MutableBlockPos();
 
-            for (EnumCreatureType enumcreaturetype : EnumCreatureType.values()) {
+            for (CreatureType enumcreaturetype : CreatureType.values()) {
                 if ((!enumcreaturetype.getPeacefulCreature() || spawnPeacefulMobs)
                         && (enumcreaturetype.getPeacefulCreature() || spawnHostileMobs)
                         && (!enumcreaturetype.getAnimal() || p_77192_4_)) {

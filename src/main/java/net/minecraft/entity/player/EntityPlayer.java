@@ -177,7 +177,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     public boolean isBlocking() {
-        return isUsingItem() && itemInUse.getItem().getItemUseAction(itemInUse) == EnumAction.BLOCK;
+        return isUsingItem() && itemInUse.getItem().getItemUseAction(itemInUse) == Action.BLOCK;
     }
 
     public void onUpdate() {
@@ -319,11 +319,11 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     protected void updateItemUse(ItemStack itemStackIn, int p_71010_2_) {
-        if (itemStackIn.getItemUseAction() == EnumAction.DRINK) {
+        if (itemStackIn.getItemUseAction() == Action.DRINK) {
             playSound("random.drink", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
 
-        if (itemStackIn.getItemUseAction() == EnumAction.EAT) {
+        if (itemStackIn.getItemUseAction() == Action.EAT) {
             for (int i = 0; i < p_71010_2_; ++i) {
                 Vec3 vec3 = new Vec3(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
                 vec3 = vec3.rotatePitch(-rotationPitch * (float) Math.PI / 180.0F);
@@ -335,9 +335,9 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 vec31 = vec31.addVector(posX, posY + (double) getEyeHeight(), posZ);
 
                 if (itemStackIn.getHasSubtypes()) {
-                    worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
+                    worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
                 } else {
-                    worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(itemStackIn.getItem()));
+                    worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(itemStackIn.getItem()));
                 }
             }
 
@@ -424,7 +424,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             --flyToggleTimer;
         }
 
-        if (worldObj.getDifficulty() == EnumDifficulty.PEACEFUL && worldObj.getGameRules().getBoolean("naturalRegeneration")) {
+        if (worldObj.getDifficulty() == Difficulty.PEACEFUL && worldObj.getGameRules().getBoolean("naturalRegeneration")) {
             if (getHealth() < getMaxHealth() && ticksExisted % 20 == 0) {
                 heal(1.0F);
             }
@@ -757,15 +757,15 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 }
 
                 if (source.isDifficultyScaled()) {
-                    if (worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+                    if (worldObj.getDifficulty() == Difficulty.PEACEFUL) {
                         amount = 0.0F;
                     }
 
-                    if (worldObj.getDifficulty() == EnumDifficulty.EASY) {
+                    if (worldObj.getDifficulty() == Difficulty.EASY) {
                         amount = amount / 2.0F + 1.0F;
                     }
 
-                    if (worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                    if (worldObj.getDifficulty() == Difficulty.HARD) {
                         amount = amount * 3.0F / 2.0F;
                     }
                 }
@@ -919,7 +919,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 if (targetEntity instanceof EntityLivingBase) {
                     f1 = EnchantmentHelper.getModifierForCreature(getHeldItem(), ((EntityLivingBase) targetEntity).getCreatureAttribute());
                 } else {
-                    f1 = EnchantmentHelper.getModifierForCreature(getHeldItem(), EnumCreatureAttribute.UNDEFINED);
+                    f1 = EnchantmentHelper.getModifierForCreature(getHeldItem(), CreatureAttribute.UNDEFINED);
                 }
 
                 i = i + EnchantmentHelper.getKnockbackModifier(this);
@@ -1050,22 +1050,22 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return gameProfile;
     }
 
-    public EntityPlayer.EnumStatus trySleep(BlockPos bedLocation) {
+    public Status trySleep(BlockPos bedLocation) {
         if (!worldObj.isRemote) {
             if (sleeping || !isEntityAlive()) {
-                return EntityPlayer.EnumStatus.OTHER_PROBLEM;
+                return Status.OTHER_PROBLEM;
             }
 
             if (!worldObj.provider.isSurfaceWorld()) {
-                return EntityPlayer.EnumStatus.NOT_POSSIBLE_HERE;
+                return Status.NOT_POSSIBLE_HERE;
             }
 
             if (worldObj.isDaytime()) {
-                return EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
+                return Status.NOT_POSSIBLE_NOW;
             }
 
             if (Math.abs(posX - (double) bedLocation.getX()) > 3.0D || Math.abs(posY - (double) bedLocation.getY()) > 2.0D || Math.abs(posZ - (double) bedLocation.getZ()) > 3.0D) {
-                return EntityPlayer.EnumStatus.TOO_FAR_AWAY;
+                return Status.TOO_FAR_AWAY;
             }
 
             double d0 = 8.0D;
@@ -1073,7 +1073,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             List<EntityMob> list = worldObj.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB((double) bedLocation.getX() - d0, (double) bedLocation.getY() - d1, (double) bedLocation.getZ() - d0, (double) bedLocation.getX() + d0, (double) bedLocation.getY() + d1, (double) bedLocation.getZ() + d0));
 
             if (!list.isEmpty()) {
-                return EntityPlayer.EnumStatus.NOT_SAFE;
+                return Status.NOT_SAFE;
             }
         }
 
@@ -1084,7 +1084,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         setSize(0.2F, 0.2F);
 
         if (worldObj.isBlockLoaded(bedLocation)) {
-            EnumFacing enumfacing = worldObj.getBlockState(bedLocation).getValue(BlockDirectional.FACING);
+            Direction enumfacing = worldObj.getBlockState(bedLocation).getValue(BlockDirectional.FACING);
             float f = 0.5F;
             float f1 = 0.5F;
 
@@ -1120,10 +1120,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
             worldObj.updateAllPlayersSleepingFlag();
         }
 
-        return EntityPlayer.EnumStatus.OK;
+        return Status.OK;
     }
 
-    private void func_175139_a(EnumFacing p_175139_1_) {
+    private void func_175139_a(Direction p_175139_1_) {
         renderOffsetX = 0.0F;
         renderOffsetZ = 0.0F;
 
@@ -1179,7 +1179,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public float getBedOrientationInDegrees() {
         if (playerLocation != null) {
-            EnumFacing enumfacing = worldObj.getBlockState(playerLocation).getValue(BlockDirectional.FACING);
+            Direction enumfacing = worldObj.getBlockState(playerLocation).getValue(BlockDirectional.FACING);
 
             switch (enumfacing) {
                 case SOUTH:
@@ -1477,7 +1477,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return capabilities.allowEdit;
     }
 
-    public boolean canPlayerEdit(BlockPos p_175151_1_, EnumFacing p_175151_2_, ItemStack p_175151_3_) {
+    public boolean canPlayerEdit(BlockPos p_175151_1_, Direction p_175151_2_, ItemStack p_175151_3_) {
         if (capabilities.allowEdit) {
             return true;
         } else if (p_175151_3_ == null) {
@@ -1633,7 +1633,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
-    public boolean isWearing(EnumPlayerModelParts p_175148_1_) {
+    public boolean isWearing(PlayerModelParts p_175148_1_) {
         return (getDataWatcher().getWatchableObjectByte(10) & p_175148_1_.getPartMask()) == p_175148_1_.getPartMask();
     }
 
@@ -1684,15 +1684,15 @@ public abstract class EntityPlayer extends EntityLivingBase {
         hasReducedDebug = reducedDebug;
     }
 
-    public enum EnumChatVisibility {
+    public enum ChatVisibility {
         FULL(0, "options.chat.visibility.full"),
         SYSTEM(1, "options.chat.visibility.system"),
         HIDDEN(2, "options.chat.visibility.hidden");
 
-        private static final EntityPlayer.EnumChatVisibility[] ID_LOOKUP = new EntityPlayer.EnumChatVisibility[values().length];
+        private static final ChatVisibility[] ID_LOOKUP = new ChatVisibility[values().length];
 
         static {
-            for (EntityPlayer.EnumChatVisibility entityplayer$enumchatvisibility : values()) {
+            for (ChatVisibility entityplayer$enumchatvisibility : values()) {
                 ID_LOOKUP[entityplayer$enumchatvisibility.chatVisibility] = entityplayer$enumchatvisibility;
             }
         }
@@ -1700,12 +1700,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
         private final int chatVisibility;
         private final String resourceKey;
 
-        EnumChatVisibility(int id, String resourceKey) {
+        ChatVisibility(int id, String resourceKey) {
             chatVisibility = id;
             this.resourceKey = resourceKey;
         }
 
-        public static EntityPlayer.EnumChatVisibility getEnumChatVisibility(int id) {
+        public static ChatVisibility getEnumChatVisibility(int id) {
             return ID_LOOKUP[id % ID_LOOKUP.length];
         }
 
@@ -1718,7 +1718,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
-    public enum EnumStatus {
+    public enum Status {
         OK,
         NOT_POSSIBLE_HERE,
         NOT_POSSIBLE_NOW,

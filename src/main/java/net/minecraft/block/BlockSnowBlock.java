@@ -6,7 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -27,7 +27,7 @@ public class BlockSnowBlock extends Block {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11) {
+        if (worldIn.getLightFor(SkyBlock.BLOCK, pos) > 11) {
             dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
             worldIn.setBlockToAir(pos);
         }

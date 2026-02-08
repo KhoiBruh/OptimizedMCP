@@ -9,7 +9,7 @@ public class ShaderMacros {
     private static ShaderMacro[] extensionMacros;
 
     public static String getOs() {
-        Util.EnumOS util$enumos = Util.getOSType();
+        Util.OS util$enumos = Util.getOSType();
 
         return switch (util$enumos) {
             case WINDOWS -> "MC_OS_WINDOWS";

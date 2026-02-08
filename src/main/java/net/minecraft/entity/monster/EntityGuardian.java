@@ -21,7 +21,7 @@ import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityGuardian extends EntityMob {
@@ -236,7 +236,7 @@ public class EntityGuardian extends EntityMob {
                 Vec3 vec3 = getLook(0.0F);
 
                 for (int i = 0; i < 2; ++i) {
-                    worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (rand.nextDouble() - 0.5D) * (double) width - vec3.xCoord() * 1.5D, posY + rand.nextDouble() * (double) height - vec3.yCoord() * 1.5D, posZ + (rand.nextDouble() - 0.5D) * (double) width - vec3.zCoord() * 1.5D, 0.0D, 0.0D, 0.0D);
+                    worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + (rand.nextDouble() - 0.5D) * (double) width - vec3.xCoord() * 1.5D, posY + rand.nextDouble() * (double) height - vec3.yCoord() * 1.5D, posZ + (rand.nextDouble() - 0.5D) * (double) width - vec3.zCoord() * 1.5D, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -262,7 +262,7 @@ public class EntityGuardian extends EntityMob {
 
                     while (d4 < d3) {
                         d4 += 1.8D - d5 + rand.nextDouble() * (1.7D - d5);
-                        worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + d0 * d4, posY + d1 * d4 + (double) getEyeHeight(), posZ + d2 * d4, 0.0D, 0.0D, 0.0D);
+                        worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + d0 * d4, posY + d1 * d4 + (double) getEyeHeight(), posZ + d2 * d4, 0.0D, 0.0D, 0.0D);
                     }
                 }
             }
@@ -443,7 +443,7 @@ public class EntityGuardian extends EntityMob {
                 } else if (tickCounter >= theEntity.func_175464_ck()) {
                     float f = 1.0F;
 
-                    if (theEntity.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                    if (theEntity.worldObj.getDifficulty() == Difficulty.HARD) {
                         f += 2.0F;
                     }
 

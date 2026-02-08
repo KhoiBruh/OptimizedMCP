@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 
 public class EntityAIBreakDoor extends EntityAIDoorInteract {
     private int breakingTime;
@@ -66,7 +66,7 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
             previousBreakProgress = i;
         }
 
-        if (breakingTime == 240 && theEntity.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+        if (breakingTime == 240 && theEntity.worldObj.getDifficulty() == Difficulty.HARD) {
             theEntity.worldObj.setBlockToAir(doorPosition);
             theEntity.worldObj.playAuxSFX(1012, doorPosition, 0);
             theEntity.worldObj.playAuxSFX(2001, doorPosition, Block.getIdFromBlock(doorBlock));

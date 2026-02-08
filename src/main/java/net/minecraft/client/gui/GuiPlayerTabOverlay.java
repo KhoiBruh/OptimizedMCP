@@ -8,12 +8,12 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldSettings;
@@ -57,7 +57,7 @@ public class GuiPlayerTabOverlay extends Gui {
             int k = mc.fontRendererObj.getStringWidth(getPlayerName(networkplayerinfo));
             i = Math.max(i, k);
 
-            if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+            if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.RenderType.HEARTS) {
                 k = mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
                 j = Math.max(j, k);
             }
@@ -76,7 +76,7 @@ public class GuiPlayerTabOverlay extends Gui {
         int l;
 
         if (scoreObjectiveIn != null) {
-            if (scoreObjectiveIn.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+            if (scoreObjectiveIn.getRenderType() == IScoreObjectiveCriteria.RenderType.HEARTS) {
                 l = 90;
             } else {
                 l = j;
@@ -140,13 +140,13 @@ public class GuiPlayerTabOverlay extends Gui {
 
                 if (flag) {
                     EntityPlayer entityplayer = mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
-                    boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
+                    boolean flag1 = entityplayer != null && entityplayer.isWearing(PlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
                     mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
                     int l2 = 8 + (flag1 ? 8 : 0);
                     int i3 = 8 * (flag1 ? -1 : 1);
                     Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
-                    if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
+                    if (entityplayer != null && entityplayer.isWearing(PlayerModelParts.HAT)) {
                         int j3 = 8 + (flag1 ? 8 : 0);
                         int k3 = 8 * (flag1 ? -1 : 1);
                         Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
@@ -156,7 +156,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 }
 
                 if (networkplayerinfo1.getGameType() == WorldSettings.GameType.SPECTATOR) {
-                    s1 = EnumChatFormatting.ITALIC + s1;
+                    s1 = ChatFormat.ITALIC + s1;
                     mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1862270977);
                 } else {
                     mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
@@ -215,7 +215,7 @@ public class GuiPlayerTabOverlay extends Gui {
     private void drawScoreboardValues(ScoreObjective p_175247_1_, int p_175247_2_, String p_175247_3_, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo p_175247_6_) {
         int i = p_175247_1_.getScoreboard().getValueFromObjective(p_175247_3_, p_175247_1_).getScorePoints();
 
-        if (p_175247_1_.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+        if (p_175247_1_.getRenderType() == IScoreObjectiveCriteria.RenderType.HEARTS) {
             mc.getTextureManager().bindTexture(icons);
 
             if (lastTimeOpened == p_175247_6_.func_178855_p()) {
@@ -282,7 +282,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 }
             }
         } else {
-            String s1 = EnumChatFormatting.YELLOW + "" + i;
+            String s1 = ChatFormat.YELLOW + "" + i;
             mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
         }
     }

@@ -18,26 +18,26 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.WorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 public class BlockHopper extends BlockContainer {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.UP);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Direction.UP);
     public static final PropertyBool ENABLED = PropertyBool.create("enabled");
 
     public BlockHopper() {
         super(Material.iron, MapColor.stoneColor);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, Boolean.TRUE));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, Direction.DOWN).withProperty(ENABLED, Boolean.TRUE));
         setCreativeTab(CreativeTabs.tabRedstone);
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public static EnumFacing getFacing(int meta) {
-        return EnumFacing.getFront(meta & 7);
+    public static Direction getFacing(int meta) {
+        return Direction.getFront(meta & 7);
     }
 
     public static boolean isEnabled(int meta) {
@@ -63,11 +63,11 @@ public class BlockHopper extends BlockContainer {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        EnumFacing enumfacing = facing.getOpposite();
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        Direction enumfacing = facing.getOpposite();
 
-        if (enumfacing == EnumFacing.UP) {
-            enumfacing = EnumFacing.DOWN;
+        if (enumfacing == Direction.UP) {
+            enumfacing = Direction.DOWN;
         }
 
         return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.TRUE);
@@ -93,7 +93,7 @@ public class BlockHopper extends BlockContainer {
         updateState(worldIn, pos, state);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else {
@@ -143,7 +143,7 @@ public class BlockHopper extends BlockContainer {
         return false;
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
 
@@ -155,8 +155,8 @@ public class BlockHopper extends BlockContainer {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT_MIPPED;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT_MIPPED;
     }
 
     public IBlockState getStateFromMeta(int meta) {

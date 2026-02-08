@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class TileEntityItemStackRenderer {
     public static TileEntityItemStackRenderer instance = new TileEntityItemStackRenderer();
@@ -47,7 +47,7 @@ public class TileEntityItemStackRenderer {
                 GlStateManager.translate(-0.5F, 0.0F, -0.5F);
                 GlStateManager.scale(2.0F, 2.0F, 2.0F);
                 GlStateManager.disableCull();
-                TileEntitySkullRenderer.instance.renderSkull(0.0F, 0.0F, 0.0F, EnumFacing.UP, 0.0F, itemStackIn.getMetadata(), gameprofile, -1);
+                TileEntitySkullRenderer.instance.renderSkull(0.0F, 0.0F, 0.0F, Direction.UP, 0.0F, itemStackIn.getMetadata(), gameprofile, -1);
                 GlStateManager.enableCull();
                 GlStateManager.popMatrix();
             }

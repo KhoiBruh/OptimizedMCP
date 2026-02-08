@@ -1,7 +1,7 @@
 package net.minecraft.scoreboard;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +15,8 @@ public interface IScoreObjectiveCriteria {
     IScoreObjectiveCriteria playerKillCount = new ScoreDummyCriteria("playerKillCount");
     IScoreObjectiveCriteria totalKillCount = new ScoreDummyCriteria("totalKillCount");
     IScoreObjectiveCriteria health = new ScoreHealthCriteria("health");
-    IScoreObjectiveCriteria[] field_178792_h = new IScoreObjectiveCriteria[]{new GoalColor("teamkill.", EnumChatFormatting.BLACK), new GoalColor("teamkill.", EnumChatFormatting.DARK_BLUE), new GoalColor("teamkill.", EnumChatFormatting.DARK_GREEN), new GoalColor("teamkill.", EnumChatFormatting.DARK_AQUA), new GoalColor("teamkill.", EnumChatFormatting.DARK_RED), new GoalColor("teamkill.", EnumChatFormatting.DARK_PURPLE), new GoalColor("teamkill.", EnumChatFormatting.GOLD), new GoalColor("teamkill.", EnumChatFormatting.GRAY), new GoalColor("teamkill.", EnumChatFormatting.DARK_GRAY), new GoalColor("teamkill.", EnumChatFormatting.BLUE), new GoalColor("teamkill.", EnumChatFormatting.GREEN), new GoalColor("teamkill.", EnumChatFormatting.AQUA), new GoalColor("teamkill.", EnumChatFormatting.RED), new GoalColor("teamkill.", EnumChatFormatting.LIGHT_PURPLE), new GoalColor("teamkill.", EnumChatFormatting.YELLOW), new GoalColor("teamkill.", EnumChatFormatting.WHITE)};
-    IScoreObjectiveCriteria[] field_178793_i = new IScoreObjectiveCriteria[]{new GoalColor("killedByTeam.", EnumChatFormatting.BLACK), new GoalColor("killedByTeam.", EnumChatFormatting.DARK_BLUE), new GoalColor("killedByTeam.", EnumChatFormatting.DARK_GREEN), new GoalColor("killedByTeam.", EnumChatFormatting.DARK_AQUA), new GoalColor("killedByTeam.", EnumChatFormatting.DARK_RED), new GoalColor("killedByTeam.", EnumChatFormatting.DARK_PURPLE), new GoalColor("killedByTeam.", EnumChatFormatting.GOLD), new GoalColor("killedByTeam.", EnumChatFormatting.GRAY), new GoalColor("killedByTeam.", EnumChatFormatting.DARK_GRAY), new GoalColor("killedByTeam.", EnumChatFormatting.BLUE), new GoalColor("killedByTeam.", EnumChatFormatting.GREEN), new GoalColor("killedByTeam.", EnumChatFormatting.AQUA), new GoalColor("killedByTeam.", EnumChatFormatting.RED), new GoalColor("killedByTeam.", EnumChatFormatting.LIGHT_PURPLE), new GoalColor("killedByTeam.", EnumChatFormatting.YELLOW), new GoalColor("killedByTeam.", EnumChatFormatting.WHITE)};
+    IScoreObjectiveCriteria[] field_178792_h = new IScoreObjectiveCriteria[]{new GoalColor("teamkill.", ChatFormat.BLACK), new GoalColor("teamkill.", ChatFormat.DARK_BLUE), new GoalColor("teamkill.", ChatFormat.DARK_GREEN), new GoalColor("teamkill.", ChatFormat.DARK_AQUA), new GoalColor("teamkill.", ChatFormat.DARK_RED), new GoalColor("teamkill.", ChatFormat.DARK_PURPLE), new GoalColor("teamkill.", ChatFormat.GOLD), new GoalColor("teamkill.", ChatFormat.GRAY), new GoalColor("teamkill.", ChatFormat.DARK_GRAY), new GoalColor("teamkill.", ChatFormat.BLUE), new GoalColor("teamkill.", ChatFormat.GREEN), new GoalColor("teamkill.", ChatFormat.AQUA), new GoalColor("teamkill.", ChatFormat.RED), new GoalColor("teamkill.", ChatFormat.LIGHT_PURPLE), new GoalColor("teamkill.", ChatFormat.YELLOW), new GoalColor("teamkill.", ChatFormat.WHITE)};
+    IScoreObjectiveCriteria[] field_178793_i = new IScoreObjectiveCriteria[]{new GoalColor("killedByTeam.", ChatFormat.BLACK), new GoalColor("killedByTeam.", ChatFormat.DARK_BLUE), new GoalColor("killedByTeam.", ChatFormat.DARK_GREEN), new GoalColor("killedByTeam.", ChatFormat.DARK_AQUA), new GoalColor("killedByTeam.", ChatFormat.DARK_RED), new GoalColor("killedByTeam.", ChatFormat.DARK_PURPLE), new GoalColor("killedByTeam.", ChatFormat.GOLD), new GoalColor("killedByTeam.", ChatFormat.GRAY), new GoalColor("killedByTeam.", ChatFormat.DARK_GRAY), new GoalColor("killedByTeam.", ChatFormat.BLUE), new GoalColor("killedByTeam.", ChatFormat.GREEN), new GoalColor("killedByTeam.", ChatFormat.AQUA), new GoalColor("killedByTeam.", ChatFormat.RED), new GoalColor("killedByTeam.", ChatFormat.LIGHT_PURPLE), new GoalColor("killedByTeam.", ChatFormat.YELLOW), new GoalColor("killedByTeam.", ChatFormat.WHITE)};
 
     String getName();
 
@@ -24,28 +24,28 @@ public interface IScoreObjectiveCriteria {
 
     boolean isReadOnly();
 
-    IScoreObjectiveCriteria.EnumRenderType getRenderType();
+    RenderType getRenderType();
 
-    enum EnumRenderType {
+    enum RenderType {
         INTEGER("integer"),
         HEARTS("hearts");
 
-        private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = new HashMap<>();
+        private static final Map<String, RenderType> field_178801_c = new HashMap<>();
 
         static {
-            for (IScoreObjectiveCriteria.EnumRenderType iscoreobjectivecriteria$enumrendertype : values()) {
+            for (RenderType iscoreobjectivecriteria$enumrendertype : values()) {
                 field_178801_c.put(iscoreobjectivecriteria$enumrendertype.func_178796_a(), iscoreobjectivecriteria$enumrendertype);
             }
         }
 
         private final String field_178798_d;
 
-        EnumRenderType(String p_i45548_3_) {
+        RenderType(String p_i45548_3_) {
             field_178798_d = p_i45548_3_;
         }
 
-        public static IScoreObjectiveCriteria.EnumRenderType func_178795_a(String p_178795_0_) {
-            IScoreObjectiveCriteria.EnumRenderType iscoreobjectivecriteria$enumrendertype = field_178801_c.get(p_178795_0_);
+        public static RenderType func_178795_a(String p_178795_0_) {
+            RenderType iscoreobjectivecriteria$enumrendertype = field_178801_c.get(p_178795_0_);
             return iscoreobjectivecriteria$enumrendertype == null ? INTEGER : iscoreobjectivecriteria$enumrendertype;
         }
 

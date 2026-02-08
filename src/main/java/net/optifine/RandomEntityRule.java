@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
@@ -31,7 +31,7 @@ public class RandomEntityRule {
     private boolean healthPercent = false;
     private NbtTagValue nbtName = null;
     private VillagerProfession[] professions = null;
-    private EnumDyeColor[] collarColors = null;
+    private DyeColor[] collarColors = null;
     private Boolean baby = null;
     private RangeListInt moonPhases = null;
     private RangeListInt dayTimes = null;
@@ -269,7 +269,7 @@ public class RandomEntityRule {
                         return false;
                     }
 
-                    EnumDyeColor enumdyecolor = entitywolf.getCollarColor();
+                    DyeColor enumdyecolor = entitywolf.getCollarColor();
 
                     if (!Config.equalsOne(enumdyecolor, collarColors)) {
                         return false;

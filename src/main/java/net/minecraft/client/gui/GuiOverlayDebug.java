@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.src.Config;
 import net.minecraft.util.*;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.SmartAnimations;
@@ -183,7 +183,7 @@ public class GuiOverlayDebug extends Gui {
                             blockpos.getZ() & 15));
         } else {
             Entity entity = mc.getRenderViewEntity();
-            EnumFacing enumfacing = entity.getHorizontalFacing();
+            Direction enumfacing = entity.getHorizontalFacing();
             String s = switch (enumfacing) {
                 case NORTH -> "Towards negative Z";
                 case SOUTH -> "Towards positive Z";
@@ -216,8 +216,8 @@ public class GuiOverlayDebug extends Gui {
                 Chunk chunk = mc.theWorld.getChunkFromBlockCoords(blockpos);
                 list.add("Biome: " + chunk.getBiome(blockpos, mc.theWorld.getWorldChunkManager()).biomeName);
                 list.add("Light: " + chunk.getLightSubtracted(blockpos, 0) + " ("
-                        + chunk.getLightFor(EnumSkyBlock.SKY, blockpos) + " sky, "
-                        + chunk.getLightFor(EnumSkyBlock.BLOCK, blockpos) + " block)");
+                        + chunk.getLightFor(SkyBlock.SKY, blockpos) + " sky, "
+                        + chunk.getLightFor(SkyBlock.BLOCK, blockpos) + " block)");
                 DifficultyInstance difficultyinstance = mc.theWorld.getDifficultyForLocation(blockpos);
 
                 if (mc.isIntegratedServerRunning() && mc.getIntegratedServer() != null) {
@@ -294,9 +294,9 @@ public class GuiOverlayDebug extends Gui {
                     String s1 = entry.getValue().toString();
 
                     if (entry.getValue() == Boolean.TRUE) {
-                        s1 = EnumChatFormatting.GREEN + s1;
+                        s1 = ChatFormat.GREEN + s1;
                     } else if (entry.getValue() == Boolean.FALSE) {
-                        s1 = EnumChatFormatting.RED + s1;
+                        s1 = ChatFormat.RED + s1;
                     }
 
                     list.add(entry.getKey().getName() + ": " + s1);

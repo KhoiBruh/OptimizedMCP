@@ -3,7 +3,7 @@ package net.minecraft.enchantment;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -143,7 +143,7 @@ public class EnchantmentHelper {
         return (enchantmentModifierDamage.damageModifier + 1 >> 1) + enchantmentRand.nextInt((enchantmentModifierDamage.damageModifier >> 1) + 1);
     }
 
-    public static float getModifierForCreature(ItemStack p_152377_0_, EnumCreatureAttribute p_152377_1_) {
+    public static float getModifierForCreature(ItemStack p_152377_0_, CreatureAttribute p_152377_1_) {
         enchantmentModifierLiving.livingModifier = 0.0F;
         enchantmentModifierLiving.entityLiving = p_152377_1_;
         applyEnchantmentModifier(enchantmentModifierLiving, p_152377_0_);
@@ -389,7 +389,7 @@ public class EnchantmentHelper {
 
     static final class ModifierLiving implements EnchantmentHelper.IModifier {
         public float livingModifier;
-        public EnumCreatureAttribute entityLiving;
+        public CreatureAttribute entityLiving;
 
         private ModifierLiving() {
         }

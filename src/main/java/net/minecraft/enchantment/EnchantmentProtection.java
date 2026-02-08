@@ -13,11 +13,11 @@ public class EnchantmentProtection extends Enchantment {
     public final int protectionType;
 
     public EnchantmentProtection(int p_i45765_1_, ResourceLocation p_i45765_2_, int p_i45765_3_, int p_i45765_4_) {
-        super(p_i45765_1_, p_i45765_2_, p_i45765_3_, EnumEnchantmentType.ARMOR);
+        super(p_i45765_1_, p_i45765_2_, p_i45765_3_, EnchantmentType.ARMOR);
         protectionType = p_i45765_4_;
 
         if (p_i45765_4_ == 2) {
-            type = EnumEnchantmentType.ARMOR_FEET;
+            type = EnchantmentType.ARMOR_FEET;
         }
     }
 

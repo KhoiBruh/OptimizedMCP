@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 
 import java.util.Arrays;
@@ -267,15 +267,15 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         return aboolean;
     }
 
-    public int[] getSlotsForFace(EnumFacing side) {
-        return side == EnumFacing.UP ? inputSlots : outputSlots;
+    public int[] getSlotsForFace(Direction side) {
+        return side == Direction.UP ? inputSlots : outputSlots;
     }
 
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         return isItemValidForSlot(index, itemStackIn);
     }
 
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         return true;
     }
 

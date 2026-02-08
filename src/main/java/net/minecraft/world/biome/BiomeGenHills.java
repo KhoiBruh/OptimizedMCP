@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 public class BiomeGenHills extends BiomeGenBase {
-    private final WorldGenerator theWorldGenerator = new WorldGenMinable(Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
+    private final WorldGenerator theWorldGenerator = new WorldGenMinable(Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.Type.STONE), 9);
     private final WorldGenTaiga2 field_150634_aD = new WorldGenTaiga2(false);
     private final int field_150635_aE = 0;
     private final int field_150636_aF = 1;

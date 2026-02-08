@@ -5,12 +5,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
     private int entityID;
     private BlockPos position;
-    private EnumFacing facing;
+    private Direction facing;
     private String title;
 
     public S10PacketSpawnPainting() {
@@ -25,9 +25,9 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 
     public void readPacketData(PacketBuffer buf) {
         entityID = buf.readVarIntFromBuffer();
-        title = buf.readStringFromBuffer(EntityPainting.EnumArt.field_180001_A);
+        title = buf.readStringFromBuffer(EntityPainting.Art.field_180001_A);
         position = buf.readBlockPos();
-        facing = EnumFacing.getHorizontal(buf.readUnsignedByte());
+        facing = Direction.getHorizontal(buf.readUnsignedByte());
     }
 
     public void writePacketData(PacketBuffer buf) {
@@ -49,7 +49,7 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
         return position;
     }
 
-    public EnumFacing getFacing() {
+    public Direction getFacing() {
         return facing;
     }
 

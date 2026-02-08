@@ -10,7 +10,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -55,10 +55,10 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
                     owner.getOldServerPinger().ping(server);
                 } catch (UnknownHostException var2) {
                     server.pingToServer = -1L;
-                    server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
+                    server.serverMOTD = ChatFormat.DARK_RED + "Can't resolve hostname";
                 } catch (Exception var3) {
                     server.pingToServer = -1L;
-                    server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
+                    server.serverMOTD = ChatFormat.DARK_RED + "Can't connect to server.";
                 }
             });
         }
@@ -73,7 +73,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             mc.fontRendererObj.drawString(list.get(i), x + 32 + 3, y + 12 + mc.fontRendererObj.FONT_HEIGHT * i, 8421504);
         }
 
-        String s2 = flag2 ? EnumChatFormatting.DARK_RED + server.gameVersion : server.populationInfo;
+        String s2 = flag2 ? ChatFormat.DARK_RED + server.gameVersion : server.populationInfo;
         int j = mc.fontRendererObj.getStringWidth(s2);
         mc.fontRendererObj.drawString(s2, x + listWidth - j - 15 - 2, y + 1, 8421504);
         int k = 0;

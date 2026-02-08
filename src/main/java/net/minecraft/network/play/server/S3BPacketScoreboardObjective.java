@@ -9,7 +9,7 @@ import net.minecraft.scoreboard.ScoreObjective;
 public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClient> {
     private String objectiveName;
     private String objectiveValue;
-    private IScoreObjectiveCriteria.EnumRenderType type;
+    private IScoreObjectiveCriteria.RenderType type;
     private int field_149342_c;
 
     public S3BPacketScoreboardObjective() {
@@ -28,7 +28,7 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
 
         if (field_149342_c == 0 || field_149342_c == 2) {
             objectiveValue = buf.readStringFromBuffer(32);
-            type = IScoreObjectiveCriteria.EnumRenderType.func_178795_a(buf.readStringFromBuffer(16));
+            type = IScoreObjectiveCriteria.RenderType.func_178795_a(buf.readStringFromBuffer(16));
         }
     }
 
@@ -58,7 +58,7 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
         return field_149342_c;
     }
 
-    public IScoreObjectiveCriteria.EnumRenderType func_179817_d() {
+    public IScoreObjectiveCriteria.RenderType func_179817_d() {
         return type;
     }
 }

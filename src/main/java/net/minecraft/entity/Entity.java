@@ -97,7 +97,7 @@ public abstract class Entity implements ICommandSender {
     protected int portalCounter;
     protected BlockPos lastPortalPos;
     protected Vec3 lastPortalVec;
-    protected EnumFacing teleportDirection;
+    protected Direction teleportDirection;
     protected UUID entityUniqueID;
     private int entityId;
     private AxisAlignedBB boundingBox;
@@ -766,13 +766,13 @@ public abstract class Entity implements ICommandSender {
         for (int i = 0; (float) i < 1.0F + width * 20.0F; ++i) {
             float f2 = (rand.nextFloat() * 2.0F - 1.0F) * width;
             float f3 = (rand.nextFloat() * 2.0F - 1.0F) * width;
-            worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (double) f2, f1 + 1.0F, posZ + (double) f3, motionX, motionY - (double) (rand.nextFloat() * 0.2F), motionZ);
+            worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + (double) f2, f1 + 1.0F, posZ + (double) f3, motionX, motionY - (double) (rand.nextFloat() * 0.2F), motionZ);
         }
 
         for (int j = 0; (float) j < 1.0F + width * 20.0F; ++j) {
             float f4 = (rand.nextFloat() * 2.0F - 1.0F) * width;
             float f5 = (rand.nextFloat() * 2.0F - 1.0F) * width;
-            worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX + (double) f4, f1 + 1.0F, posZ + (double) f5, motionX, motionY, motionZ);
+            worldObj.spawnParticle(ParticleTypes.WATER_SPLASH, posX + (double) f4, f1 + 1.0F, posZ + (double) f5, motionX, motionY, motionZ);
         }
     }
 
@@ -791,7 +791,7 @@ public abstract class Entity implements ICommandSender {
         Block block = iblockstate.getBlock();
 
         if (block.getRenderType() != -1) {
-            worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, boundingBox.minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, -motionX * 4.0D, 1.5D, -motionZ * 4.0D, Block.getStateId(iblockstate));
+            worldObj.spawnParticle(ParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, boundingBox.minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, -motionX * 4.0D, 1.5D, -motionZ * 4.0D, Block.getStateId(iblockstate));
         }
     }
 
@@ -1397,9 +1397,9 @@ public abstract class Entity implements ICommandSender {
             if (!worldObj.isRemote && !pos.equals(lastPortalPos)) {
                 lastPortalPos = pos;
                 BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(worldObj, pos);
-                double d0 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? (double) blockpattern$patternhelper.getPos().getZ() : (double) blockpattern$patternhelper.getPos().getX();
-                double d1 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? posZ : posX;
-                d1 = Math.abs(MathHelper.func_181160_c(d1 - (double) (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.func_181118_d()));
+                double d0 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? (double) blockpattern$patternhelper.getPos().getZ() : (double) blockpattern$patternhelper.getPos().getX();
+                double d1 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? posZ : posX;
+                d1 = Math.abs(MathHelper.func_181160_c(d1 - (double) (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.func_181118_d()));
                 double d2 = MathHelper.func_181160_c(posY - 1.0D, blockpattern$patternhelper.getPos().getY(), blockpattern$patternhelper.getPos().getY() - blockpattern$patternhelper.func_181119_e());
                 lastPortalVec = new Vec3(d1, d2, 0.0D);
                 teleportDirection = blockpattern$patternhelper.getFinger();
@@ -1697,7 +1697,7 @@ public abstract class Entity implements ICommandSender {
         return lastPortalVec;
     }
 
-    public EnumFacing getTeleportDirection() {
+    public Direction getTeleportDirection() {
         return teleportDirection;
     }
 
@@ -1766,8 +1766,8 @@ public abstract class Entity implements ICommandSender {
     public void onDataWatcherUpdate(int dataID) {
     }
 
-    public EnumFacing getHorizontalFacing() {
-        return EnumFacing.getHorizontal(MathHelper.floor_double((double) (rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
+    public Direction getHorizontalFacing() {
+        return Direction.getHorizontal(MathHelper.floor_double((double) (rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
     }
 
     protected HoverEvent getHoverEvent() {

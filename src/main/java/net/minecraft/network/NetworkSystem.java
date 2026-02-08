@@ -55,8 +55,8 @@ public class NetworkSystem {
             endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
                 protected void initChannel(Channel channel) {
                     channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
-                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(EnumPacketDirection.SERVERBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(EnumPacketDirection.CLIENTBOUND));
-                    NetworkManager manager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
+                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.SERVERBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.CLIENTBOUND));
+                    NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
                     networkManagers.add(manager);
                     channel.pipeline().addLast("packet_handler", manager);
                     manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
@@ -71,7 +71,7 @@ public class NetworkSystem {
         synchronized (endpoints) {
             channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<>() {
                 protected void initChannel(Channel p_initChannel_1_) {
-                    NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
+                    NetworkManager networkmanager = new NetworkManager(PacketDirection.SERVERBOUND);
                     networkmanager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, networkmanager));
                     networkManagers.add(networkmanager);
                     p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);

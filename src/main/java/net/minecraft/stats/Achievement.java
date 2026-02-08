@@ -70,7 +70,7 @@ public class Achievement extends StatBase {
 
     public IChatComponent getStatName() {
         IChatComponent ichatcomponent = super.getStatName();
-        ichatcomponent.getChatStyle().setColor(isSpecial ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.GREEN);
+        ichatcomponent.getChatStyle().setColor(isSpecial ? ChatFormat.DARK_PURPLE : ChatFormat.GREEN);
         return ichatcomponent;
     }
 

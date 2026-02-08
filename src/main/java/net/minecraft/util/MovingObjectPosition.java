@@ -4,16 +4,16 @@ import net.minecraft.entity.Entity;
 
 public class MovingObjectPosition {
     public MovingObjectPosition.MovingObjectType typeOfHit;
-    public EnumFacing sideHit;
+    public Direction sideHit;
     public Vec3 hitVec;
     public Entity entityHit;
     private BlockPos blockPos;
 
-    public MovingObjectPosition(Vec3 hitVecIn, EnumFacing facing, BlockPos blockPosIn) {
+    public MovingObjectPosition(Vec3 hitVecIn, Direction facing, BlockPos blockPosIn) {
         this(MovingObjectPosition.MovingObjectType.BLOCK, hitVecIn, facing, blockPosIn);
     }
 
-    public MovingObjectPosition(Vec3 p_i45552_1_, EnumFacing facing) {
+    public MovingObjectPosition(Vec3 p_i45552_1_, Direction facing) {
         this(MovingObjectPosition.MovingObjectType.BLOCK, p_i45552_1_, facing, BlockPos.ORIGIN);
     }
 
@@ -21,7 +21,7 @@ public class MovingObjectPosition {
         this(entityIn, new Vec3(entityIn.posX, entityIn.posY, entityIn.posZ));
     }
 
-    public MovingObjectPosition(MovingObjectPosition.MovingObjectType typeOfHitIn, Vec3 hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn) {
+    public MovingObjectPosition(MovingObjectPosition.MovingObjectType typeOfHitIn, Vec3 hitVecIn, Direction sideHitIn, BlockPos blockPosIn) {
         typeOfHit = typeOfHitIn;
         blockPos = blockPosIn;
         sideHit = sideHitIn;

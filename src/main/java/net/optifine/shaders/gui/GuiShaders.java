@@ -12,7 +12,7 @@ import net.optifine.gui.TooltipManager;
 import net.optifine.gui.TooltipProviderEnumShaderOptions;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersTex;
-import net.optifine.shaders.config.EnumShaderOption;
+import net.optifine.shaders.config.ShaderOptions;
 import org.lwjgl.Sys;
 
 import java.io.File;
@@ -92,14 +92,14 @@ public class GuiShaders extends GuiScreenOF {
         int j1 = width - i - 20;
         shaderList = new GuiSlotShaders(this, j1, height, l, height - 50, 16);
         shaderList.registerScrollButtons(7, 8);
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.ANTIALIASING, k, l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.NORMAL_MAP, k, i1 + l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.SPECULAR_MAP, k, 2 * i1 + l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.RENDER_RES_MUL, k, 3 * i1 + l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.SHADOW_RES_MUL, k, 4 * i1 + l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.HAND_DEPTH_MUL, k, 5 * i1 + l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.OLD_HAND_LIGHT, k, 6 * i1 + l, i, j));
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.OLD_LIGHTING, k, 7 * i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.ANTIALIASING, k, l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.NORMAL_MAP, k, i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.SPECULAR_MAP, k, 2 * i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.RENDER_RES_MUL, k, 3 * i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.SHADOW_RES_MUL, k, 4 * i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.HAND_DEPTH_MUL, k, 5 * i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.OLD_HAND_LIGHT, k, 6 * i1 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(ShaderOptions.OLD_LIGHTING, k, 7 * i1 + l, i, j));
         int k1 = Math.min(150, j1 / 2 - 10);
         int l1 = j1 / 4 - k1 / 2;
         int i2 = height - 25;
@@ -114,7 +114,7 @@ public class GuiShaders extends GuiScreenOF {
         boolean flag = Config.isShaders();
 
         for (GuiButton guibutton : buttonList) {
-            if (guibutton.id != 201 && guibutton.id != 202 && guibutton.id != 210 && guibutton.id != EnumShaderOption.ANTIALIASING.ordinal()) {
+            if (guibutton.id != 201 && guibutton.id != 202 && guibutton.id != 210 && guibutton.id != ShaderOptions.ANTIALIASING.ordinal()) {
                 guibutton.enabled = flag;
             }
         }

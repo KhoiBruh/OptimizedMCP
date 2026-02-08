@@ -18,13 +18,13 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.*;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 public class EntityWither extends EntityMob implements IBossDisplayData, IRangedAttackMob {
-    private static final Predicate<Entity> attackEntitySelector = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
+    private static final Predicate<Entity> attackEntitySelector = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != CreatureAttribute.UNDEAD;
     private final float[] field_82220_d = new float[2];
     private final float[] field_82221_e = new float[2];
     private final float[] field_82217_f = new float[2];
@@ -152,16 +152,16 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
             double d10 = func_82214_u(l);
             double d2 = func_82208_v(l);
             double d4 = func_82213_w(l);
-            worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 
             if (flag && worldObj.rand.nextInt(4) == 0) {
-                worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
+                worldObj.spawnParticle(ParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
             }
         }
 
         if (getInvulTime() > 0) {
             for (int i1 = 0; i1 < 3; ++i1) {
-                worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double) (rand.nextFloat() * 3.3F), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
+                worldObj.spawnParticle(ParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double) (rand.nextFloat() * 3.3F), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
             }
         }
     }
@@ -187,7 +187,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 if (ticksExisted >= field_82223_h[i - 1]) {
                     field_82223_h[i - 1] = ticksExisted + 10 + rand.nextInt(10);
 
-                    if (worldObj.getDifficulty() == EnumDifficulty.NORMAL || worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                    if (worldObj.getDifficulty() == Difficulty.NORMAL || worldObj.getDifficulty() == Difficulty.HARD) {
                         int j3 = i - 1;
                         int k3 = field_82224_i[i - 1];
                         field_82224_i[j3] = field_82224_i[i - 1] + 1;
@@ -463,8 +463,8 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         return getHealth() <= getMaxHealth() / 2.0F;
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEAD;
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.UNDEAD;
     }
 
     public void mountEntity(Entity entityIn) {

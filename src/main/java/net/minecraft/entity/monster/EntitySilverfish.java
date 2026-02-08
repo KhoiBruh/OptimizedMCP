@@ -3,7 +3,7 @@ package net.minecraft.entity.monster;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSilverfish;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -99,13 +99,13 @@ public class EntitySilverfish extends EntityMob {
         }
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.ARTHROPOD;
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.ARTHROPOD;
     }
 
     static class AIHideInStone extends EntityAIWander {
         private final EntitySilverfish silverfish;
-        private EnumFacing facing;
+        private Direction facing;
         private boolean field_179484_c;
 
         public AIHideInStone(EntitySilverfish silverfishIn) {
@@ -123,7 +123,7 @@ public class EntitySilverfish extends EntityMob {
                 Random random = silverfish.getRNG();
 
                 if (random.nextInt(10) == 0) {
-                    facing = EnumFacing.random(random);
+                    facing = Direction.random(random);
                     BlockPos blockpos = (new BlockPos(silverfish.posX, silverfish.posY + 0.5D, silverfish.posZ)).offset(facing);
                     IBlockState iblockstate = silverfish.worldObj.getBlockState(blockpos);
 
@@ -151,7 +151,7 @@ public class EntitySilverfish extends EntityMob {
                 IBlockState iblockstate = world.getBlockState(blockpos);
 
                 if (BlockSilverfish.canContainSilverfish(iblockstate)) {
-                    world.setBlockState(blockpos, Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.forModelBlock(iblockstate)), 3);
+                    world.setBlockState(blockpos, Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.Type.forModelBlock(iblockstate)), 3);
                     silverfish.spawnExplosionParticle();
                     silverfish.setDead();
                 }

@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityHugeExplodeFX extends EntityFX {
@@ -21,7 +21,7 @@ public class EntityHugeExplodeFX extends EntityFX {
             double d0 = posX + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
             double d1 = posY + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
             double d2 = posZ + (rand.nextDouble() - rand.nextDouble()) * 4.0D;
-            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) timeSinceStart / (float) maximumTime, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) timeSinceStart / (float) maximumTime, 0.0D, 0.0D);
         }
 
         ++timeSinceStart;

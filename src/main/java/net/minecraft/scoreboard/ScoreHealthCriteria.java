@@ -28,7 +28,7 @@ public class ScoreHealthCriteria extends ScoreDummyCriteria {
         return true;
     }
 
-    public IScoreObjectiveCriteria.EnumRenderType getRenderType() {
-        return IScoreObjectiveCriteria.EnumRenderType.HEARTS;
+    public RenderType getRenderType() {
+        return RenderType.HEARTS;
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapelessRecipes implements IRecipe {
@@ -35,7 +36,7 @@ public class ShapelessRecipes implements IRecipe {
     }
 
     public boolean matches(InventoryCrafting inv, World worldIn) {
-        List<ItemStack> list = Lists.newArrayList(recipeItems);
+        List<ItemStack> list = new ArrayList<>(recipeItems);
 
         for (int i = 0; i < inv.getHeight(); ++i) {
             for (int j = 0; j < inv.getWidth(); ++j) {

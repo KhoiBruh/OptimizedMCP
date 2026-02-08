@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.StringUtils;
 
 public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
@@ -86,7 +86,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
                     }
                 }
 
-                TileEntitySkullRenderer.instance.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), gameprofile, -1);
+                TileEntitySkullRenderer.instance.renderSkull(-0.5F, 0.0F, -0.5F, Direction.UP, 180.0F, itemstack.getMetadata(), gameprofile, -1);
             }
 
             GlStateManager.popMatrix();

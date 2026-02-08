@@ -12,10 +12,10 @@ import net.minecraft.util.IStringSerializable;
 import java.util.List;
 
 public class BlockSand extends BlockFalling {
-    public static final PropertyEnum<BlockSand.EnumType> VARIANT = PropertyEnum.create("variant", BlockSand.EnumType.class);
+    public static final PropertyEnum<Type> VARIANT = PropertyEnum.create("variant", Type.class);
 
     public BlockSand() {
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSand.EnumType.SAND));
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT, Type.SAND));
     }
 
     public int damageDropped(IBlockState state) {
@@ -23,7 +23,7 @@ public class BlockSand extends BlockFalling {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (BlockSand.EnumType blocksand$enumtype : BlockSand.EnumType.values()) {
+        for (Type blocksand$enumtype : Type.values()) {
             list.add(new ItemStack(itemIn, 1, blocksand$enumtype.getMetadata()));
         }
     }
@@ -33,7 +33,7 @@ public class BlockSand extends BlockFalling {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT, BlockSand.EnumType.byMetadata(meta));
+        return getDefaultState().withProperty(VARIANT, Type.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -44,14 +44,14 @@ public class BlockSand extends BlockFalling {
         return new BlockState(this, VARIANT);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IStringSerializable {
         SAND(0, "sand", "default", MapColor.sandColor),
         RED_SAND(1, "red_sand", "red", MapColor.adobeColor);
 
-        private static final BlockSand.EnumType[] META_LOOKUP = new BlockSand.EnumType[values().length];
+        private static final Type[] META_LOOKUP = new Type[values().length];
 
         static {
-            for (BlockSand.EnumType blocksand$enumtype : values()) {
+            for (Type blocksand$enumtype : values()) {
                 META_LOOKUP[blocksand$enumtype.meta] = blocksand$enumtype;
             }
         }
@@ -61,14 +61,14 @@ public class BlockSand extends BlockFalling {
         private final MapColor mapColor;
         private final String unlocalizedName;
 
-        EnumType(int meta, String name, String unlocalizedName, MapColor mapColor) {
+        Type(int meta, String name, String unlocalizedName, MapColor mapColor) {
             this.meta = meta;
             this.name = name;
             this.mapColor = mapColor;
             this.unlocalizedName = unlocalizedName;
         }
 
-        public static BlockSand.EnumType byMetadata(int meta) {
+        public static Type byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }

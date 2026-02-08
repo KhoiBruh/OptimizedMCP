@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.WorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.optifine.BetterGrass;
 import net.optifine.ConnectedTextures;
@@ -28,7 +28,7 @@ public class BlockModelCustomizer {
         return modelIn;
     }
 
-    public static List<BakedQuad> getRenderQuads(List<BakedQuad> quads, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, EnumFacing enumfacing, EnumWorldBlockLayer layer, long rand, RenderEnv renderEnv) {
+    public static List<BakedQuad> getRenderQuads(List<BakedQuad> quads, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, Direction enumfacing, WorldBlockLayer layer, long rand, RenderEnv renderEnv) {
         if (enumfacing != null) {
             if (renderEnv.isSmartLeaves() && SmartLeaves.isSameLeaves(worldIn.getBlockState(posIn.offset(enumfacing)), stateIn)) {
                 return NO_QUADS;
@@ -63,11 +63,11 @@ public class BlockModelCustomizer {
         return list;
     }
 
-    private static EnumWorldBlockLayer getEmissiveLayer(EnumWorldBlockLayer layer) {
-        return layer != null && layer != EnumWorldBlockLayer.SOLID ? layer : EnumWorldBlockLayer.CUTOUT_MIPPED;
+    private static WorldBlockLayer getEmissiveLayer(WorldBlockLayer layer) {
+        return layer != null && layer != WorldBlockLayer.SOLID ? layer : WorldBlockLayer.CUTOUT_MIPPED;
     }
 
-    private static BakedQuad[] getRenderQuads(BakedQuad quad, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, EnumFacing enumfacing, long rand, RenderEnv renderEnv) {
+    private static BakedQuad[] getRenderQuads(BakedQuad quad, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, Direction enumfacing, long rand, RenderEnv renderEnv) {
         if (renderEnv.isBreakingAnimation(quad)) {
             return renderEnv.getArrayQuadsCtm(quad);
         } else {

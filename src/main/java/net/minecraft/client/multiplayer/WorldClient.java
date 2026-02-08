@@ -19,7 +19,7 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.chunk.Chunk;
@@ -43,7 +43,7 @@ public class WorldClient extends World {
     private ChunkProviderClient clientChunkProvider;
     private boolean playerUpdate = false;
 
-    public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
+    public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, Difficulty difficulty, Profiler profilerIn) {
         super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), WorldProvider.getProviderForDimension(dimension), profilerIn, true);
         sendQueue = netHandler;
         getWorldInfo().setDifficulty(difficulty);
@@ -237,7 +237,7 @@ public class WorldClient extends World {
             iblockstate.getBlock().randomDisplayTick(this, blockpos$mutableblockpos, iblockstate, random);
 
             if (flag && iblockstate.getBlock() == Blocks.barrier) {
-                spawnParticle(EnumParticleTypes.BARRIER, (float) k + 0.5F, (float) l + 0.5F, (float) i1 + 0.5F, 0.0D, 0.0D, 0.0D);
+                spawnParticle(ParticleTypes.BARRIER, (float) k + 0.5F, (float) l + 0.5F, (float) i1 + 0.5F, 0.0D, 0.0D, 0.0D);
             }
         }
     }

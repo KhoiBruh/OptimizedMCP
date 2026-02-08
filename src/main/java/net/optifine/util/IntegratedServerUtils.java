@@ -66,7 +66,7 @@ public class IntegratedServerUtils {
             if (chunk == null) {
                 return null;
             } else {
-                return chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
+                return chunk.getTileEntity(pos, Chunk.CreateEntityType.CHECK);
             }
         }
     }

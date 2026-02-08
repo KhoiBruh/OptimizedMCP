@@ -5,17 +5,17 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
 public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
-    private C16PacketClientStatus.EnumState status;
+    private State status;
 
     public C16PacketClientStatus() {
     }
 
-    public C16PacketClientStatus(C16PacketClientStatus.EnumState statusIn) {
+    public C16PacketClientStatus(State statusIn) {
         status = statusIn;
     }
 
     public void readPacketData(PacketBuffer buf) {
-        status = buf.readEnumValue(EnumState.class);
+        status = buf.readEnumValue(State.class);
     }
 
     public void writePacketData(PacketBuffer buf) {
@@ -26,11 +26,11 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
         handler.processClientStatus(this);
     }
 
-    public C16PacketClientStatus.EnumState getStatus() {
+    public State getStatus() {
         return status;
     }
 
-    public enum EnumState {
+    public enum State {
         PERFORM_RESPAWN,
         REQUEST_STATS,
         OPEN_INVENTORY_ACHIEVEMENT

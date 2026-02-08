@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
@@ -118,9 +118,9 @@ public class GuiKeyBindingList extends GuiListExtended {
             }
 
             if (flag) {
-                btnChangeKeyBinding.displayString = EnumChatFormatting.WHITE + "> " + EnumChatFormatting.YELLOW + btnChangeKeyBinding.displayString + EnumChatFormatting.WHITE + " <";
+                btnChangeKeyBinding.displayString = ChatFormat.WHITE + "> " + ChatFormat.YELLOW + btnChangeKeyBinding.displayString + ChatFormat.WHITE + " <";
             } else if (flag1) {
-                btnChangeKeyBinding.displayString = EnumChatFormatting.RED + btnChangeKeyBinding.displayString;
+                btnChangeKeyBinding.displayString = ChatFormat.RED + btnChangeKeyBinding.displayString;
             }
 
             btnChangeKeyBinding.drawButton(mc, mouseX, mouseY);

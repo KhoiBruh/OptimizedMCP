@@ -3,7 +3,7 @@ package net.optifine.model;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 public class ModelUtils {
     public static IBakedModel duplicateModel(IBakedModel model) {
         List<BakedQuad> list = duplicateQuadList(model.getGeneralQuads());
-        EnumFacing[] aenumfacing = EnumFacing.VALUES;
+        Direction[] aenumfacing = Direction.VALUES;
         List<List<BakedQuad>> list1 = new ArrayList<>();
 
-        for (EnumFacing enumfacing : aenumfacing) {
+        for (Direction enumfacing : aenumfacing) {
             List<BakedQuad> list2 = model.getFaceQuads(enumfacing);
             List<BakedQuad> list3 = duplicateQuadList(list2);
             list1.add(list3);

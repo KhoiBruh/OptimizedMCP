@@ -22,10 +22,10 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.src.Config;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -248,7 +248,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                 double d1 = rand.nextGaussian() * 0.02D;
                 double d2 = rand.nextGaussian() * 0.02D;
                 double d3 = 10.0D;
-                worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width - d0 * d3, posY + (double) (rand.nextFloat() * height) - d1 * d3, posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width - d2 * d3, d0, d1, d2);
+                worldObj.spawnParticle(ParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width - d0 * d3, posY + (double) (rand.nextFloat() * height) - d1 * d3, posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width - d2 * d3, d0, d1, d2);
             }
         } else {
             worldObj.setEntityState(this, (byte) 20);
@@ -654,7 +654,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         if (rand.nextFloat() < 0.15F * difficulty.getClampedAdditionalDifficulty()) {
             int i = rand.nextInt(2);
-            float f = worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.1F : 0.25F;
+            float f = worldObj.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
 
             if (rand.nextFloat() < 0.095F) {
                 ++i;

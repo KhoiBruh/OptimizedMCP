@@ -109,7 +109,7 @@ public class PlayerSelector {
 
         if (s != null && !EntityList.isStringValidEntityName(s)) {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.generic.entity.invalidType", s);
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
+            chatcomponenttranslation.getChatStyle().setColor(ChatFormat.RED);
             commandSender.addChatMessage(chatcomponenttranslation);
             return false;
         } else {

@@ -1,12 +1,12 @@
 package net.minecraft.village;
 
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class VillageDoorInfo {
     private final BlockPos doorBlockPos;
     private final BlockPos insideBlock;
-    private final EnumFacing insideDirection;
+    private final Direction insideDirection;
     private int lastActivityTimestamp;
     private boolean isDetachedFromVillageFlag;
     private int doorOpeningRestrictionCounter;
@@ -15,15 +15,15 @@ public class VillageDoorInfo {
         this(pos, getFaceDirection(p_i45871_2_, p_i45871_3_), p_i45871_4_);
     }
 
-    public VillageDoorInfo(BlockPos pos, EnumFacing facing, int timestamp) {
+    public VillageDoorInfo(BlockPos pos, Direction facing, int timestamp) {
         doorBlockPos = pos;
         insideDirection = facing;
         insideBlock = pos.offset(facing, 2);
         lastActivityTimestamp = timestamp;
     }
 
-    private static EnumFacing getFaceDirection(int deltaX, int deltaZ) {
-        return deltaX < 0 ? EnumFacing.WEST : (deltaX > 0 ? EnumFacing.EAST : (deltaZ < 0 ? EnumFacing.NORTH : EnumFacing.SOUTH));
+    private static Direction getFaceDirection(int deltaX, int deltaZ) {
+        return deltaX < 0 ? Direction.WEST : (deltaX > 0 ? Direction.EAST : (deltaZ < 0 ? Direction.NORTH : Direction.SOUTH));
     }
 
     public int getDistanceSquared(int x, int y, int z) {

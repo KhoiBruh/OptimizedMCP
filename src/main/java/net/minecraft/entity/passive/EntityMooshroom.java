@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityMooshroom extends EntityCow {
@@ -33,7 +33,7 @@ public class EntityMooshroom extends EntityCow {
 
         if (itemstack != null && itemstack.getItem() == Items.shears && getGrowingAge() >= 0) {
             setDead();
-            worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY + (double) (height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX, posY + (double) (height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
 
             if (!worldObj.isRemote) {
                 EntityCow entitycow = new EntityCow(worldObj);

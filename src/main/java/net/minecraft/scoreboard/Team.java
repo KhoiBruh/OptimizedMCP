@@ -17,22 +17,22 @@ public abstract class Team {
 
     public abstract boolean getAllowFriendlyFire();
 
-    public abstract Team.EnumVisible getNameTagVisibility();
+    public abstract Visible getNameTagVisibility();
 
     public abstract Collection<String> getMembershipCollection();
 
-    public abstract Team.EnumVisible getDeathMessageVisibility();
+    public abstract Visible getDeathMessageVisibility();
 
-    public enum EnumVisible {
+    public enum Visible {
         ALWAYS("always", 0),
         NEVER("never", 1),
         HIDE_FOR_OTHER_TEAMS("hideForOtherTeams", 2),
         HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
 
-        private static final Map<String, Team.EnumVisible> field_178828_g = new HashMap<>();
+        private static final Map<String, Visible> field_178828_g = new HashMap<>();
 
         static {
-            for (Team.EnumVisible team$enumvisible : values()) {
+            for (Visible team$enumvisible : values()) {
                 field_178828_g.put(team$enumvisible.internalName, team$enumvisible);
             }
         }
@@ -40,7 +40,7 @@ public abstract class Team {
         public final String internalName;
         public final int id;
 
-        EnumVisible(String p_i45550_3_, int p_i45550_4_) {
+        Visible(String p_i45550_3_, int p_i45550_4_) {
             internalName = p_i45550_3_;
             id = p_i45550_4_;
         }
@@ -49,7 +49,7 @@ public abstract class Team {
             return field_178828_g.keySet().toArray(new String[0]);
         }
 
-        public static Team.EnumVisible func_178824_a(String p_178824_0_) {
+        public static Visible func_178824_a(String p_178824_0_) {
             return field_178828_g.get(p_178824_0_);
         }
     }

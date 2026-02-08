@@ -100,7 +100,7 @@ public class WorldGenBigMushroom extends WorldGenerator {
                                     j2 += 3;
                                 }
 
-                                BlockHugeMushroom.EnumType blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.byMetadata(j2);
+                                BlockHugeMushroom.Type blockhugemushroom$enumtype = BlockHugeMushroom.Type.byMetadata(j2);
 
                                 if (mushroomType == Blocks.brown_mushroom_block || l2 < position.getY() + i) {
                                     if ((l1 == k3 || l1 == l3) && (i2 == j1 || i2 == k1)) {
@@ -108,43 +108,43 @@ public class WorldGenBigMushroom extends WorldGenerator {
                                     }
 
                                     if (l1 == position.getX() - (j3 - 1) && i2 == j1) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.NORTH_WEST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.NORTH_WEST;
                                     }
 
                                     if (l1 == k3 && i2 == position.getZ() - (j3 - 1)) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.NORTH_WEST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.NORTH_WEST;
                                     }
 
                                     if (l1 == position.getX() + (j3 - 1) && i2 == j1) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.NORTH_EAST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.NORTH_EAST;
                                     }
 
                                     if (l1 == l3 && i2 == position.getZ() - (j3 - 1)) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.NORTH_EAST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.NORTH_EAST;
                                     }
 
                                     if (l1 == position.getX() - (j3 - 1) && i2 == k1) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.SOUTH_WEST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.SOUTH_WEST;
                                     }
 
                                     if (l1 == k3 && i2 == position.getZ() + (j3 - 1)) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.SOUTH_WEST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.SOUTH_WEST;
                                     }
 
                                     if (l1 == position.getX() + (j3 - 1) && i2 == k1) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.SOUTH_EAST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.SOUTH_EAST;
                                     }
 
                                     if (l1 == l3 && i2 == position.getZ() + (j3 - 1)) {
-                                        blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.SOUTH_EAST;
+                                        blockhugemushroom$enumtype = BlockHugeMushroom.Type.SOUTH_EAST;
                                     }
                                 }
 
-                                if (blockhugemushroom$enumtype == BlockHugeMushroom.EnumType.CENTER && l2 < position.getY() + i) {
-                                    blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.ALL_INSIDE;
+                                if (blockhugemushroom$enumtype == BlockHugeMushroom.Type.CENTER && l2 < position.getY() + i) {
+                                    blockhugemushroom$enumtype = BlockHugeMushroom.Type.ALL_INSIDE;
                                 }
 
-                                if (position.getY() >= position.getY() + i - 1 || blockhugemushroom$enumtype != BlockHugeMushroom.EnumType.ALL_INSIDE) {
+                                if (position.getY() >= position.getY() + i - 1 || blockhugemushroom$enumtype != BlockHugeMushroom.Type.ALL_INSIDE) {
                                     BlockPos blockpos = new BlockPos(l1, l2, i2);
 
                                     if (!worldIn.getBlockState(blockpos).getBlock().isFullBlock()) {
@@ -159,7 +159,7 @@ public class WorldGenBigMushroom extends WorldGenerator {
                         Block block2 = worldIn.getBlockState(position.up(i3)).getBlock();
 
                         if (!block2.isFullBlock()) {
-                            setBlockAndNotifyAdequately(worldIn, position.up(i3), mushroomType.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, BlockHugeMushroom.EnumType.STEM));
+                            setBlockAndNotifyAdequately(worldIn, position.up(i3), mushroomType.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, BlockHugeMushroom.Type.STEM));
                         }
                     }
 

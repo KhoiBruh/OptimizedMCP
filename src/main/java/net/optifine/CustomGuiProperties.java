@@ -7,7 +7,7 @@ import net.minecraft.client.gui.inventory.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.*;
@@ -25,13 +25,13 @@ import java.util.Map;
 import java.util.Properties;
 
 public class CustomGuiProperties {
-    private static final CustomGuiProperties.EnumVariant[] VARIANTS_HORSE = new CustomGuiProperties.EnumVariant[]{
-            CustomGuiProperties.EnumVariant.HORSE, CustomGuiProperties.EnumVariant.DONKEY,
-            CustomGuiProperties.EnumVariant.MULE, CustomGuiProperties.EnumVariant.LLAMA};
-    private static final CustomGuiProperties.EnumVariant[] VARIANTS_DISPENSER = new CustomGuiProperties.EnumVariant[]{
-            CustomGuiProperties.EnumVariant.DISPENSER, CustomGuiProperties.EnumVariant.DROPPER};
-    private static final CustomGuiProperties.EnumVariant[] VARIANTS_INVALID = new CustomGuiProperties.EnumVariant[0];
-    private static final EnumDyeColor[] COLORS_INVALID = new EnumDyeColor[0];
+    private static final Variant[] VARIANTS_HORSE = new Variant[]{
+            Variant.HORSE, Variant.DONKEY,
+            Variant.MULE, Variant.LLAMA};
+    private static final Variant[] VARIANTS_DISPENSER = new Variant[]{
+            Variant.DISPENSER, Variant.DROPPER};
+    private static final Variant[] VARIANTS_INVALID = new Variant[0];
+    private static final DyeColor[] COLORS_INVALID = new DyeColor[0];
     private static final ResourceLocation ANVIL_GUI_TEXTURE = new ResourceLocation("textures/gui/container/anvil.png");
     private static final ResourceLocation BEACON_GUI_TEXTURE = new ResourceLocation(
             "textures/gui/container/beacon.png");
@@ -58,7 +58,7 @@ public class CustomGuiProperties {
             "textures/gui/container/villager.png");
     private final String fileName;
     private final String basePath;
-    private final CustomGuiProperties.EnumContainer container;
+    private final Container container;
     private final Map<ResourceLocation, ResourceLocation> textureLocations;
     private final NbtTagValue nbtName;
     private final BiomeGenBase[] biomes;
@@ -69,15 +69,15 @@ public class CustomGuiProperties {
     private final Boolean ender;
     private final RangeListInt levels;
     private final VillagerProfession[] professions;
-    private final CustomGuiProperties.EnumVariant[] variants;
-    private final EnumDyeColor[] colors;
+    private final Variant[] variants;
+    private final DyeColor[] colors;
 
     public CustomGuiProperties(Properties props, String path) {
         ConnectedParser connectedparser = new ConnectedParser("CustomGuis");
         fileName = connectedparser.parseName(path);
         basePath = connectedparser.parseBasePath(path);
-        container = (CustomGuiProperties.EnumContainer) connectedparser.parseEnum(props.getProperty("container"),
-                CustomGuiProperties.EnumContainer.values(), "container");
+        container = (Container) connectedparser.parseEnum(props.getProperty("container"),
+                Container.values(), "container");
         textureLocations = parseTextureLocations(props, "texture", container, "textures/gui/", basePath);
         nbtName = connectedparser.parseNbtTagValue("name", props.getProperty("name"));
         biomes = connectedparser.parseBiomes(props.getProperty("biomes"));
@@ -88,29 +88,29 @@ public class CustomGuiProperties {
         ender = connectedparser.parseBooleanObject(props.getProperty("ender"));
         levels = connectedparser.parseRangeListInt(props.getProperty("levels"));
         professions = connectedparser.parseProfessions(props.getProperty("professions"));
-        CustomGuiProperties.EnumVariant[] acustomguiproperties$enumvariant = getContainerVariants(container);
-        variants = (CustomGuiProperties.EnumVariant[]) connectedparser.parseEnums(props.getProperty("variants"),
+        Variant[] acustomguiproperties$enumvariant = getContainerVariants(container);
+        variants = (Variant[]) connectedparser.parseEnums(props.getProperty("variants"),
                 acustomguiproperties$enumvariant, "variants", VARIANTS_INVALID);
         colors = parseEnumDyeColors(props.getProperty("colors"));
     }
 
-    private static CustomGuiProperties.EnumVariant[] getContainerVariants(CustomGuiProperties.EnumContainer cont) {
-        return cont == CustomGuiProperties.EnumContainer.HORSE ? VARIANTS_HORSE
-                : (cont == CustomGuiProperties.EnumContainer.DISPENSER ? VARIANTS_DISPENSER
-                : new CustomGuiProperties.EnumVariant[0]);
+    private static Variant[] getContainerVariants(Container cont) {
+        return cont == Container.HORSE ? VARIANTS_HORSE
+                : (cont == Container.DISPENSER ? VARIANTS_DISPENSER
+                : new Variant[0]);
     }
 
-    private static EnumDyeColor[] parseEnumDyeColors(String str) {
+    private static DyeColor[] parseEnumDyeColors(String str) {
         if (str == null) {
             return null;
         } else {
             str = str.toLowerCase();
             String[] astring = Config.tokenize(str, " ");
-            EnumDyeColor[] aenumdyecolor = new EnumDyeColor[astring.length];
+            DyeColor[] aenumdyecolor = new DyeColor[astring.length];
 
             for (int i = 0; i < astring.length; ++i) {
                 String s = astring[i];
-                EnumDyeColor enumdyecolor = parseEnumDyeColor(s);
+                DyeColor enumdyecolor = parseEnumDyeColor(s);
 
                 if (enumdyecolor == null) {
                     warn("Invalid color: " + s);
@@ -124,11 +124,11 @@ public class CustomGuiProperties {
         }
     }
 
-    private static EnumDyeColor parseEnumDyeColor(String str) {
+    private static DyeColor parseEnumDyeColor(String str) {
         if (str != null) {
-            EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
+            DyeColor[] aenumdyecolor = DyeColor.values();
 
-            for (EnumDyeColor enumdyecolor : aenumdyecolor) {
+            for (DyeColor enumdyecolor : aenumdyecolor) {
                 if (enumdyecolor.getName().equals(str)) {
                     return enumdyecolor;
                 }
@@ -158,7 +158,7 @@ public class CustomGuiProperties {
     }
 
     private static Map<ResourceLocation, ResourceLocation> parseTextureLocations(Properties props, String property,
-                                                                                 CustomGuiProperties.EnumContainer container, String pathPrefix, String basePath) {
+                                                                                 Container container, String pathPrefix, String basePath) {
         Map<ResourceLocation, ResourceLocation> map = new HashMap<>();
         String s = props.getProperty(property);
 
@@ -190,7 +190,7 @@ public class CustomGuiProperties {
         return map;
     }
 
-    private static ResourceLocation getGuiTextureLocation(CustomGuiProperties.EnumContainer container) {
+    private static ResourceLocation getGuiTextureLocation(Container container) {
         if (container == null) {
             return null;
         } else {
@@ -264,7 +264,7 @@ public class CustomGuiProperties {
         }
     }
 
-    private boolean matchesGeneral(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess) {
+    private boolean matchesGeneral(Container ec, BlockPos pos, IBlockAccess blockAccess) {
         if (container != ec) {
             return false;
         } else {
@@ -280,7 +280,7 @@ public class CustomGuiProperties {
         }
     }
 
-    public boolean matchesPos(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess,
+    public boolean matchesPos(Container ec, BlockPos pos, IBlockAccess blockAccess,
                               GuiScreen screen) {
         if (!matchesGeneral(ec, pos, blockAccess)) {
             return false;
@@ -358,7 +358,7 @@ public class CustomGuiProperties {
         } else {
 
             if (variants != null) {
-                CustomGuiProperties.EnumVariant customguiproperties$enumvariant = getDispenserVariant(tileentitydispenser);
+                Variant customguiproperties$enumvariant = getDispenserVariant(tileentitydispenser);
 
                 return Config.equalsOne(customguiproperties$enumvariant, variants);
             }
@@ -367,12 +367,12 @@ public class CustomGuiProperties {
         }
     }
 
-    private CustomGuiProperties.EnumVariant getDispenserVariant(TileEntityDispenser ted) {
-        return ted instanceof TileEntityDropper ? CustomGuiProperties.EnumVariant.DROPPER
-                : CustomGuiProperties.EnumVariant.DISPENSER;
+    private Variant getDispenserVariant(TileEntityDispenser ted) {
+        return ted instanceof TileEntityDropper ? Variant.DROPPER
+                : Variant.DISPENSER;
     }
 
-    public boolean matchesEntity(CustomGuiProperties.EnumContainer ec, Entity entity, IBlockAccess blockAccess) {
+    public boolean matchesEntity(Container ec, Entity entity, IBlockAccess blockAccess) {
         if (!matchesGeneral(ec, entity.getPosition(), blockAccess)) {
             return false;
         } else {
@@ -427,7 +427,7 @@ public class CustomGuiProperties {
         } else {
 
             if (variants != null) {
-                CustomGuiProperties.EnumVariant customguiproperties$enumvariant = getHorseVariant(entityhorse);
+                Variant customguiproperties$enumvariant = getHorseVariant(entityhorse);
 
                 return Config.equalsOne(customguiproperties$enumvariant, variants);
             }
@@ -436,18 +436,18 @@ public class CustomGuiProperties {
         }
     }
 
-    private CustomGuiProperties.EnumVariant getHorseVariant(EntityHorse entity) {
+    private Variant getHorseVariant(EntityHorse entity) {
         int i = entity.getHorseType();
 
         return switch (i) {
-            case 0 -> EnumVariant.HORSE;
-            case 1 -> EnumVariant.DONKEY;
-            case 2 -> EnumVariant.MULE;
+            case 0 -> Variant.HORSE;
+            case 1 -> Variant.DONKEY;
+            case 2 -> Variant.MULE;
             default -> null;
         };
     }
 
-    public CustomGuiProperties.EnumContainer getContainer() {
+    public Container getContainer() {
         return container;
     }
 
@@ -460,7 +460,7 @@ public class CustomGuiProperties {
         return "name: " + fileName + ", container: " + container + ", textures: " + textureLocations;
     }
 
-    public enum EnumContainer {
+    public enum Container {
         ANVIL,
         BEACON,
         BREWING_STAND,
@@ -476,10 +476,10 @@ public class CustomGuiProperties {
         CREATIVE,
         INVENTORY;
 
-        public static final CustomGuiProperties.EnumContainer[] VALUES = values();
+        public static final Container[] VALUES = values();
     }
 
-    private enum EnumVariant {
+    private enum Variant {
         HORSE,
         DONKEY,
         MULE,

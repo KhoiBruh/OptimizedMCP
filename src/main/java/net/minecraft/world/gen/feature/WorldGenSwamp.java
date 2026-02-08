@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenSwamp extends WorldGenAbstractTree {
-    private static final IBlockState field_181648_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
-    private static final IBlockState field_181649_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181648_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.OAK);
+    private static final IBlockState field_181649_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.OAK).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenSwamp() {
         super(false);

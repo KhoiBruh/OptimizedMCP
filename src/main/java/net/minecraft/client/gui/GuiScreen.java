@@ -22,7 +22,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ChatFormat;
 import net.minecraft.util.IChatComponent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -139,7 +139,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
             if (i == 0) {
                 list.set(i, stack.getRarity().rarityColor + list.get(i));
             } else {
-                list.set(i, EnumChatFormatting.GRAY + list.get(i));
+                list.set(i, ChatFormat.GRAY + list.get(i));
             }
         }
 
@@ -236,7 +236,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 if (itemstack != null) {
                     renderToolTip(itemstack, x, y);
                 } else {
-                    drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid Item!", x, y);
+                    drawCreativeTabHoveringText(ChatFormat.RED + "Invalid Item!", x, y);
                 }
             } else if (hoverevent.action() == HoverEvent.Action.SHOW_ENTITY) {
                 if (mc.gameSettings.advancedItemTooltips) {
@@ -255,10 +255,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                             list1.add(nbttagcompound.getString("id"));
                             drawHoveringText(list1, x, y);
                         } else {
-                            drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid Entity!", x, y);
+                            drawCreativeTabHoveringText(ChatFormat.RED + "Invalid Entity!", x, y);
                         }
                     } catch (NBTException var10) {
-                        drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid Entity!", x, y);
+                        drawCreativeTabHoveringText(ChatFormat.RED + "Invalid Entity!", x, y);
                     }
                 }
             } else if (hoverevent.action() == HoverEvent.Action.SHOW_TEXT) {
@@ -279,7 +279,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
                     drawHoveringText(list, x, y);
                 } else {
-                    drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid statistic/achievement!", x, y);
+                    drawCreativeTabHoveringText(ChatFormat.RED + "Invalid statistic/achievement!", x, y);
                 }
             }
 

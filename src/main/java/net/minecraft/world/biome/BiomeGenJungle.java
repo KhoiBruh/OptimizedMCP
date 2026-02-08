@@ -12,9 +12,9 @@ import net.minecraft.world.gen.feature.*;
 import java.util.Random;
 
 public class BiomeGenJungle extends BiomeGenBase {
-    private static final IBlockState field_181620_aE = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
-    private static final IBlockState field_181621_aF = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
-    private static final IBlockState field_181622_aG = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181620_aE = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.JUNGLE);
+    private static final IBlockState field_181621_aF = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181622_aG = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
     private final boolean field_150614_aC;
 
     public BiomeGenJungle(int id, boolean p_i45379_2_) {
@@ -42,7 +42,7 @@ public class BiomeGenJungle extends BiomeGenBase {
     }
 
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-        return rand.nextInt(4) == 0 ? new WorldGenTallGrass(BlockTallGrass.EnumType.FERN) : new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        return rand.nextInt(4) == 0 ? new WorldGenTallGrass(BlockTallGrass.Type.FERN) : new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos) {

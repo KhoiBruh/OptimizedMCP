@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.*;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -48,7 +48,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     public void onUpdate() {
         super.onUpdate();
 
-        if (!worldObj.isRemote && worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+        if (!worldObj.isRemote && worldObj.getDifficulty() == Difficulty.PEACEFUL) {
             setDead();
         }
     }
@@ -111,7 +111,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     public boolean getCanSpawnHere() {
-        return rand.nextInt(20) == 0 && super.getCanSpawnHere() && worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return rand.nextInt(20) == 0 && super.getCanSpawnHere() && worldObj.getDifficulty() != Difficulty.PEACEFUL;
     }
 
     public int getMaxSpawnedInChunk() {

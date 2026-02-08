@@ -369,7 +369,7 @@ public class GuiIngame extends Gui {
             String s = highlightingItemStack.getDisplayName();
 
             if (highlightingItemStack.hasDisplayName()) {
-                s = EnumChatFormatting.ITALIC + s;
+                s = ChatFormat.ITALIC + s;
             }
 
             int i = (scaledRes.getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
@@ -433,7 +433,7 @@ public class GuiIngame extends Gui {
 
         for (Score score : collection) {
             ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
-            String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + EnumChatFormatting.RED + score.getScorePoints();
+            String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + ChatFormat.RED + score.getScorePoints();
             i = Math.max(i, getFontRenderer().getStringWidth(s));
         }
 
@@ -447,7 +447,7 @@ public class GuiIngame extends Gui {
             ++j;
             ScorePlayerTeam scoreplayerteam1 = scoreboard.getPlayersTeam(score1.getPlayerName());
             String s1 = ScorePlayerTeam.formatPlayerName(scoreplayerteam1, score1.getPlayerName());
-            String s2 = EnumChatFormatting.RED + "" + score1.getScorePoints();
+            String s2 = ChatFormat.RED + "" + score1.getScorePoints();
             int k = j1 - j * getFontRenderer().FONT_HEIGHT;
             int l = scaledRes.getScaledWidth() - k1 + 2;
             drawRect(l1 - 2, k, l, k + getFontRenderer().FONT_HEIGHT, 1342177280);

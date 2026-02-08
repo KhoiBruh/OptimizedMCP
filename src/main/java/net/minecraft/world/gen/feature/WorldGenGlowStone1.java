@@ -3,7 +3,7 @@ package net.minecraft.world.gen.feature;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -23,7 +23,7 @@ public class WorldGenGlowStone1 extends WorldGenerator {
                 if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air) {
                     int j = 0;
 
-                    for (EnumFacing enumfacing : EnumFacing.values()) {
+                    for (Direction enumfacing : Direction.values()) {
                         if (worldIn.getBlockState(blockpos.offset(enumfacing)).getBlock() == Blocks.glowstone) {
                             ++j;
                         }

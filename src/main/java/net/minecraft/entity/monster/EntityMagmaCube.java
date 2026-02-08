@@ -3,8 +3,8 @@ package net.minecraft.entity.monster;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityMagmaCube extends EntitySlime {
@@ -19,7 +19,7 @@ public class EntityMagmaCube extends EntitySlime {
     }
 
     public boolean getCanSpawnHere() {
-        return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return worldObj.getDifficulty() != Difficulty.PEACEFUL;
     }
 
     public int getTotalArmorValue() {
@@ -34,8 +34,8 @@ public class EntityMagmaCube extends EntitySlime {
         return 1.0F;
     }
 
-    protected EnumParticleTypes getParticleType() {
-        return EnumParticleTypes.FLAME;
+    protected ParticleTypes getParticleType() {
+        return ParticleTypes.FLAME;
     }
 
     protected EntitySlime createInstance() {

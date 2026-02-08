@@ -36,7 +36,7 @@ public class PlayerControllerMP {
         netClientHandler = netHandler;
     }
 
-    public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPos pos, EnumFacing facing) {
+    public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPos pos, Direction facing) {
         if (!mcIn.theWorld.extinguishFire(mcIn.thePlayer, pos, facing)) {
             playerController.onPlayerDestroyBlock(pos, facing);
         }
@@ -63,7 +63,7 @@ public class PlayerControllerMP {
         return currentGameType.isSurvivalOrAdventure();
     }
 
-    public boolean onPlayerDestroyBlock(BlockPos pos, EnumFacing side) {
+    public boolean onPlayerDestroyBlock(BlockPos pos, Direction side) {
         if (currentGameType.isAdventure()) {
             if (currentGameType == WorldSettings.GameType.SPECTATOR) {
                 return false;
@@ -119,7 +119,7 @@ public class PlayerControllerMP {
         }
     }
 
-    public boolean clickBlock(BlockPos loc, EnumFacing face) {
+    public boolean clickBlock(BlockPos loc, Direction face) {
         if (currentGameType.isAdventure()) {
             if (currentGameType == WorldSettings.GameType.SPECTATOR) {
                 return false;
@@ -177,14 +177,14 @@ public class PlayerControllerMP {
 
     public void resetBlockRemoving() {
         if (isHittingBlock) {
-            netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, EnumFacing.DOWN));
+            netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, Direction.DOWN));
             isHittingBlock = false;
             curBlockDamageMP = 0.0F;
             mc.theWorld.sendBlockBreakProgress(mc.thePlayer.getEntityId(), currentBlock, -1);
         }
     }
 
-    public boolean onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing) {
+    public boolean onPlayerDamageBlock(BlockPos posBlock, Direction directionFacing) {
         syncCurrentPlayItem();
 
         if (blockHitDelay > 0) {
@@ -261,7 +261,7 @@ public class PlayerControllerMP {
         }
     }
 
-    public boolean onPlayerRightClick(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, EnumFacing side, Vec3 hitVec) {
+    public boolean onPlayerRightClick(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, Direction side, Vec3 hitVec) {
         syncCurrentPlayItem();
         float f = (float) (hitVec.xCoord() - (double) hitPos.getX());
         float f1 = (float) (hitVec.yCoord() - (double) hitPos.getY());
@@ -381,7 +381,7 @@ public class PlayerControllerMP {
 
     public void onStoppedUsingItem(EntityPlayer playerIn) {
         syncCurrentPlayItem();
-        netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+        netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
         playerIn.stopUsingItem();
     }
 

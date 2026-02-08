@@ -63,7 +63,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
                     return true;
                 }
 
-                return block == Blocks.bed && iblockstate.getValue(BlockBed.PART) != BlockBed.EnumPartType.HEAD;
+                return block == Blocks.bed && iblockstate.getValue(BlockBed.PART) != BlockBed.PartType.HEAD;
             }
         }
     }

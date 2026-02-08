@@ -145,7 +145,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         boolean flag = Config.isMultiTexture();
 
         if (flag) {
-            worldrenderer.setBlockLayer(EnumWorldBlockLayer.SOLID);
+            worldrenderer.setBlockLayer(WorldBlockLayer.SOLID);
         }
 
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);

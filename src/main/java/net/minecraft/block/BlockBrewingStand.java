@@ -60,7 +60,7 @@ public class BlockBrewingStand extends BlockContainer {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else {
@@ -89,7 +89,7 @@ public class BlockBrewingStand extends BlockContainer {
         double d0 = (float) pos.getX() + 0.4F + rand.nextFloat() * 0.2F;
         double d1 = (float) pos.getY() + 0.7F + rand.nextFloat() * 0.3F;
         double d2 = (float) pos.getZ() + 0.4F + rand.nextFloat() * 0.2F;
-        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
@@ -118,8 +118,8 @@ public class BlockBrewingStand extends BlockContainer {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public WorldBlockLayer getBlockLayer() {
+        return WorldBlockLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

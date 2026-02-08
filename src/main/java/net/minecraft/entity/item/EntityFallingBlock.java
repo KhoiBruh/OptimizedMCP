@@ -97,7 +97,7 @@ public class EntityFallingBlock extends Entity {
                         setDead();
 
                         if (!canSetAsBlock) {
-                            if (worldObj.canBlockBePlaced(block, blockpos1, true, EnumFacing.UP, null, null) && !BlockFalling.canFallInto(worldObj, blockpos1.down()) && worldObj.setBlockState(blockpos1, fallTile, 3)) {
+                            if (worldObj.canBlockBePlaced(block, blockpos1, true, Direction.UP, null, null) && !BlockFalling.canFallInto(worldObj, blockpos1.down()) && worldObj.setBlockState(blockpos1, fallTile, 3)) {
                                 if (block instanceof BlockFalling) {
                                     ((BlockFalling) block).onEndFalling(worldObj, blockpos1);
                                 }
