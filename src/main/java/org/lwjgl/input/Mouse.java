@@ -46,7 +46,7 @@ public class Mouse {
 
     private static Input input;
 
-    private static boolean clipMousePosToWindow = !getPrivilegedBoolean("org.org.lwjgl.input.Mouse.allowNegativeMouseCoords");
+    private static boolean clipMousePosToWindow = !Boolean.getBoolean("org.org.lwjgl.input.Mouse.allowNegativeMouseCoords");
 
     private Mouse() {
     }
@@ -131,22 +131,25 @@ public class Mouse {
         if (!created) throw new IllegalStateException("Mouse must be created before you can poll it");
         input.pollMouse(pos, buttons);
 
-        int poll_coord1 = pos.get(0);
-        int poll_coord2 = pos.get(1);
-        int poll_dwheel = pos.get(2);
+        int pollX = pos.get(0);
+        int pollY = pos.get(1);
+        int pollDwheel = pos.get(2);
 
         if (isGrabbed) {
-            dx += poll_coord1;
-            dy += poll_coord2;
-            x += poll_coord1;
-            y += poll_coord2;
-            absX += poll_coord1;
-            absY += poll_coord2;
+            dx += pollX;
+            dy += pollY;
+
+            x += pollX;
+            y += pollY;
+
+            absX += pollX;
+            absY += pollY;
         } else {
-            dx = poll_coord1 - absX;
-            dy = poll_coord2 - absY;
-            absX = x = poll_coord1;
-            absY = y = poll_coord2;
+            dx = pollX - absX;
+            dy = pollY - absY;
+
+            absX = x = pollX;
+            absY = y = pollY;
         }
 
         if (clipMousePosToWindow) {
@@ -154,7 +157,7 @@ public class Mouse {
             y = Math.min(Display.getHeight() - 1, Math.max(0, y));
         }
 
-        dwheel += poll_dwheel;
+        dwheel += pollDwheel;
         read();
     }
 
@@ -186,6 +189,7 @@ public class Mouse {
         if (readBuffer.hasRemaining()) {
             eventButton = readBuffer.get();
             eventState = 0 != readBuffer.get();
+
             if (isGrabbed) {
                 eventDx = readBuffer.getInt();
                 eventDy = readBuffer.getInt();
@@ -203,12 +207,15 @@ public class Mouse {
                 lastEventRawX = new_event_x;
                 lastEventRawY = new_event_y;
             }
+
             if (clipMousePosToWindow) {
                 eventX = Math.min(Display.getWidth() - 1, Math.max(0, eventX));
                 eventY = Math.min(Display.getHeight() - 1, Math.max(0, eventY));
             }
+
             eventDWheel = readBuffer.getInt();
             eventNanos = readBuffer.getLong();
+
             return true;
         } else return false;
     }
@@ -302,10 +309,6 @@ public class Mouse {
             lastEventRawY = y;
             resetMouse();
         }
-    }
-
-    public static boolean getPrivilegedBoolean(String property_name) {
-        return Boolean.getBoolean(property_name);
     }
 
     public static boolean isInsideWindow() {

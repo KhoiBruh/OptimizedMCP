@@ -334,7 +334,7 @@ public class Minecraft implements IThreadListener {
             displayHeight = gameSettings.overrideHeight;
         }
 
-        logger.info("LWJGL Version: {}", Sys.getVersion());
+        logger.info("LWJGL Version: {}", Sys.VERSION);
         setWindowIcon();
         setInitialDisplayMode();
         createDisplay();
@@ -1801,7 +1801,7 @@ public class Minecraft implements IThreadListener {
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
         theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> launchedVersion);
-        theCrash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
+        theCrash.getCategory().addCrashSectionCallable("LWJGL", () -> Sys.VERSION);
         theCrash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", "
                 + GL11.glGetString(GL11.GL_VENDOR));
         theCrash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);

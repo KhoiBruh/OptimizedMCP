@@ -7,31 +7,6 @@ import static org.lwjgl.opengl.GL12.GL_BGRA;
 import static org.lwjgl.opengl.GL30.GL_INVALID_FRAMEBUFFER_OPERATION;
 
 public class Util {
-
-    protected static int ceil(int a, int b) {
-        return (0 == a % b ? a / b : a / b + 1);
-    }
-
-    protected static float[] normalize(float[] v) {
-        float r = (float) Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-
-        if (0.0 == r) return v;
-
-        r = 1.0f / r;
-
-        v[0] *= r;
-        v[1] *= r;
-        v[2] *= r;
-
-        return v;
-    }
-
-    protected static void cross(float[] v1, float[] v2, float[] result) {
-        result[0] = v1[1] * v2[2] - v1[2] * v2[1];
-        result[1] = v1[2] * v2[0] - v1[0] * v2[2];
-        result[2] = v1[0] * v2[1] - v1[1] * v2[0];
-    }
-
     protected static int compPerPix(int format) {
         return switch (format) {
             case GL_COLOR_INDEX, GL_STENCIL_INDEX, GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_LUMINANCE -> 1;
@@ -50,11 +25,15 @@ public class Util {
         if (0 == value) return -1;
 
         for (; ; ) {
-            if (1 == value) {
-                return i;
-            } else if (3 == value) {
-                return i << 2;
+            switch (value) {
+                case 1 -> {
+                    return i;
+                }
+                case 3 -> {
+                    return i << 2;
+                }
             }
+
             value >>= 1;
             i <<= 1;
         }
@@ -79,8 +58,8 @@ public class Util {
         return n * m;
     }
 
-    public static String translateGLErrorString(int error_code) {
-        return switch (error_code) {
+    public static String translateGLErrorString(int errorCode) {
+        return switch (errorCode) {
             case GL_NO_ERROR -> "No error";
             case GL_INVALID_ENUM -> "Invalid enum";
             case GL_INVALID_VALUE -> "Invalid value";

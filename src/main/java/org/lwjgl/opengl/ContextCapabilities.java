@@ -1,59 +1,13 @@
-/*
- * Copyright (c) 2002-2008 LWJGL Project
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'LWJGL' nor the names of
- *   its contributors may be used to endorse or promote products derived
- *   from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package org.lwjgl.opengl;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.LWJGLUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.Set;
-import java.util.StringTokenizer;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.GL_NUM_EXTENSIONS;
-import static org.lwjgl.opengl.GL30.glGetStringi;
-import static org.lwjgl.opengl.GL32.GL_CONTEXT_PROFILE_MASK;
-
-/**
- * Created by gudenau on 5/30/2017.
- * <p>
- * LWJGL3
- */
 public class ContextCapabilities {
     static final boolean DEBUG = false;
-    //TODO?
-    //final StateTracker tracker = new StateTracker();
 
     public boolean GL_AMD_blend_minmax_factor;
     public boolean GL_AMD_conservative_depth;
@@ -2415,10 +2369,10 @@ public class ContextCapabilities {
     long glGetVideouivNV;
     long glGetVideoi64vNV;
     long glGetVideoui64vNV;
-    // NV_primitive_restart
+
     long glPrimitiveRestartNV;
     long glPrimitiveRestartIndexNV;
-    // NV_program
+
     long glLoadProgramNV;
     long glBindProgramNV;
     long glDeleteProgramsNV;
@@ -2428,7 +2382,7 @@ public class ContextCapabilities {
     long glIsProgramNV;
     long glAreProgramsResidentNV;
     long glRequestResidentProgramsNV;
-    // NV_register_combiners
+
     long glCombinerParameterfNV;
     long glCombinerParameterfvNV;
     long glCombinerParameteriNV;
@@ -2442,10 +2396,10 @@ public class ContextCapabilities {
     long glGetCombinerOutputParameterivNV;
     long glGetFinalCombinerInputParameterfvNV;
     long glGetFinalCombinerInputParameterivNV;
-    // NV_register_combiners2
+
     long glCombinerStageParameterfvNV;
     long glGetCombinerStageParameterfvNV;
-    // NV_shader_buffer_load
+
     long glMakeBufferResidentNV;
     long glMakeBufferNonResidentNV;
     long glIsBufferResidentNV;
@@ -2459,16 +2413,16 @@ public class ContextCapabilities {
     long glUniformui64vNV;
     long glProgramUniformui64NV;
     long glProgramUniformui64vNV;
-    // NV_texture_barrier
+
     long glTextureBarrierNV;
-    // NV_texture_multisample
+
     long glTexImage2DMultisampleCoverageNV;
     long glTexImage3DMultisampleCoverageNV;
     long glTextureImage2DMultisampleNV;
     long glTextureImage3DMultisampleNV;
     long glTextureImage2DMultisampleCoverageNV;
     long glTextureImage3DMultisampleCoverageNV;
-    // NV_transform_feedback
+
     long glBindBufferRangeNV;
     long glBindBufferOffsetNV;
     long glBindBufferBaseNV;
@@ -2480,7 +2434,7 @@ public class ContextCapabilities {
     long glGetActiveVaryingNV;
     long glActiveVaryingNV;
     long glGetTransformFeedbackVaryingNV;
-    // NV_transform_feedback2
+
     long glBindTransformFeedbackNV;
     long glDeleteTransformFeedbacksNV;
     long glGenTransformFeedbacksNV;
@@ -2488,12 +2442,12 @@ public class ContextCapabilities {
     long glPauseTransformFeedbackNV;
     long glResumeTransformFeedbackNV;
     long glDrawTransformFeedbackNV;
-    // NV_vertex_array_range
+
     long glVertexArrayRangeNV;
     long glFlushVertexArrayRangeNV;
     long glAllocateMemoryNV;
     long glFreeMemoryNV;
-    // NV_vertex_attrib_integer_64bit
+
     long glVertexAttribL1i64NV;
     long glVertexAttribL2i64NV;
     long glVertexAttribL3i64NV;
@@ -2513,7 +2467,7 @@ public class ContextCapabilities {
     long glGetVertexAttribLi64vNV;
     long glGetVertexAttribLui64vNV;
     long glVertexAttribLFormatNV;
-    // NV_vertex_buffer_unified_memory
+
     long glBufferAddressRangeNV;
     long glVertexFormatNV;
     long glNormalFormatNV;
@@ -2526,7 +2480,7 @@ public class ContextCapabilities {
     long glVertexAttribFormatNV;
     long glVertexAttribIFormatNV;
     long glGetIntegerui64i_vNV;
-    // NV_vertex_program
+
     long glExecuteProgramNV;
     long glGetProgramParameterfvNV;
     long glGetProgramParameterdvNV;
@@ -2566,7 +2520,7 @@ public class ContextCapabilities {
     long glVertexAttribs4svNV;
     long glVertexAttribs4fvNV;
     long glVertexAttribs4dvNV;
-    // NV_video_capture
+
     long glBeginVideoCaptureNV;
     long glBindVideoCaptureStreamBufferNV;
     long glBindVideoCaptureStreamTextureNV;
@@ -2580,400 +2534,7 @@ public class ContextCapabilities {
     long glVideoCaptureStreamParameterfvNV;
     long glVideoCaptureStreamParameterdvNV;
 
-    ContextCapabilities(boolean forwardCompatible) throws LWJGLException {
-        /*Set<String> supported_extensions = initAllStubs(forwardCompatible);
-        this.GL_AMD_blend_minmax_factor = supported_extensions.contains("GL_AMD_blend_minmax_factor");
-        this.GL_AMD_conservative_depth = supported_extensions.contains("GL_AMD_conservative_depth");
-        this.GL_AMD_debug_output = supported_extensions.contains("GL_AMD_debug_output")
-            || supported_extensions.contains("GL_AMDX_debug_output");
-        this.GL_AMD_depth_clamp_separate = supported_extensions.contains("GL_AMD_depth_clamp_separate");
-        this.GL_AMD_draw_buffers_blend = supported_extensions.contains("GL_AMD_draw_buffers_blend");
-        this.GL_AMD_interleaved_elements = supported_extensions.contains("GL_AMD_interleaved_elements");
-        this.GL_AMD_multi_draw_indirect = supported_extensions.contains("GL_AMD_multi_draw_indirect");
-        this.GL_AMD_name_gen_delete = supported_extensions.contains("GL_AMD_name_gen_delete");
-        this.GL_AMD_performance_monitor = supported_extensions.contains("GL_AMD_performance_monitor");
-        this.GL_AMD_pinned_memory = supported_extensions.contains("GL_AMD_pinned_memory");
-        this.GL_AMD_query_buffer_object = supported_extensions.contains("GL_AMD_query_buffer_object");
-        this.GL_AMD_sample_positions = supported_extensions.contains("GL_AMD_sample_positions");
-        this.GL_AMD_seamless_cubemap_per_texture = supported_extensions.contains("GL_AMD_seamless_cubemap_per_texture");
-        this.GL_AMD_shader_atomic_counter_ops = supported_extensions.contains("GL_AMD_shader_atomic_counter_ops");
-        this.GL_AMD_shader_stencil_export = supported_extensions.contains("GL_AMD_shader_stencil_export");
-        this.GL_AMD_shader_trinary_minmax = supported_extensions.contains("GL_AMD_shader_trinary_minmax");
-        this.GL_AMD_sparse_texture = supported_extensions.contains("GL_AMD_sparse_texture");
-        this.GL_AMD_stencil_operation_extended = supported_extensions.contains("GL_AMD_stencil_operation_extended");
-        this.GL_AMD_texture_texture4 = supported_extensions.contains("GL_AMD_texture_texture4");
-        this.GL_AMD_transform_feedback3_lines_triangles = supported_extensions.contains("GL_AMD_transform_feedback3_lines_triangles");
-        this.GL_AMD_vertex_shader_layer = supported_extensions.contains("GL_AMD_vertex_shader_layer");
-        this.GL_AMD_vertex_shader_tessellator = supported_extensions.contains("GL_AMD_vertex_shader_tessellator");
-        this.GL_AMD_vertex_shader_viewport_index = supported_extensions.contains("GL_AMD_vertex_shader_viewport_index");
-        this.GL_APPLE_aux_depth_stencil = supported_extensions.contains("GL_APPLE_aux_depth_stencil");
-        this.GL_APPLE_client_storage = supported_extensions.contains("GL_APPLE_client_storage");
-        this.GL_APPLE_element_array = supported_extensions.contains("GL_APPLE_element_array");
-        this.GL_APPLE_fence = supported_extensions.contains("GL_APPLE_fence");
-        this.GL_APPLE_float_pixels = supported_extensions.contains("GL_APPLE_float_pixels");
-        this.GL_APPLE_flush_buffer_range = supported_extensions.contains("GL_APPLE_flush_buffer_range");
-        this.GL_APPLE_object_purgeable = supported_extensions.contains("GL_APPLE_object_purgeable");
-        this.GL_APPLE_packed_pixels = supported_extensions.contains("GL_APPLE_packed_pixels");
-        this.GL_APPLE_rgb_422 = supported_extensions.contains("GL_APPLE_rgb_422");
-        this.GL_APPLE_row_bytes = supported_extensions.contains("GL_APPLE_row_bytes");
-        this.GL_APPLE_texture_range = supported_extensions.contains("GL_APPLE_texture_range");
-        this.GL_APPLE_vertex_array_object = supported_extensions.contains("GL_APPLE_vertex_array_object");
-        this.GL_APPLE_vertex_array_range = supported_extensions.contains("GL_APPLE_vertex_array_range");
-        this.GL_APPLE_vertex_program_evaluators = supported_extensions.contains("GL_APPLE_vertex_program_evaluators");
-        this.GL_APPLE_ycbcr_422 = supported_extensions.contains("GL_APPLE_ycbcr_422");
-        this.GL_ARB_ES2_compatibility = supported_extensions.contains("GL_ARB_ES2_compatibility");
-        this.GL_ARB_ES3_1_compatibility = supported_extensions.contains("GL_ARB_ES3_1_compatibility");
-        this.GL_ARB_ES3_compatibility = supported_extensions.contains("GL_ARB_ES3_compatibility");
-        this.GL_ARB_arrays_of_arrays = supported_extensions.contains("GL_ARB_arrays_of_arrays");
-        this.GL_ARB_base_instance = supported_extensions.contains("GL_ARB_base_instance");
-        this.GL_ARB_bindless_texture = supported_extensions.contains("GL_ARB_bindless_texture");
-        this.GL_ARB_blend_func_extended = supported_extensions.contains("GL_ARB_blend_func_extended");
-        this.GL_ARB_buffer_storage = supported_extensions.contains("GL_ARB_buffer_storage");
-        this.GL_ARB_cl_event = supported_extensions.contains("GL_ARB_cl_event");
-        this.GL_ARB_clear_buffer_object = supported_extensions.contains("GL_ARB_clear_buffer_object");
-        this.GL_ARB_clear_texture = supported_extensions.contains("GL_ARB_clear_texture");
-        this.GL_ARB_clip_control = supported_extensions.contains("GL_ARB_clip_control");
-        this.GL_ARB_color_buffer_float = supported_extensions.contains("GL_ARB_color_buffer_float");
-        this.GL_ARB_compatibility = supported_extensions.contains("GL_ARB_compatibility");
-        this.GL_ARB_compressed_texture_pixel_storage = supported_extensions.contains("GL_ARB_compressed_texture_pixel_storage");
-        this.GL_ARB_compute_shader = supported_extensions.contains("GL_ARB_compute_shader");
-        this.GL_ARB_compute_variable_group_size = supported_extensions.contains("GL_ARB_compute_variable_group_size");
-        this.GL_ARB_conditional_render_inverted = supported_extensions.contains("GL_ARB_conditional_render_inverted");
-        this.GL_ARB_conservative_depth = supported_extensions.contains("GL_ARB_conservative_depth");
-        this.GL_ARB_copy_buffer = supported_extensions.contains("GL_ARB_copy_buffer");
-        this.GL_ARB_copy_image = supported_extensions.contains("GL_ARB_copy_image");
-        this.GL_ARB_cull_distance = supported_extensions.contains("GL_ARB_cull_distance");
-        this.GL_ARB_debug_output = supported_extensions.contains("GL_ARB_debug_output");
-        this.GL_ARB_depth_buffer_float = supported_extensions.contains("GL_ARB_depth_buffer_float");
-        this.GL_ARB_depth_clamp = supported_extensions.contains("GL_ARB_depth_clamp");
-        this.GL_ARB_depth_texture = supported_extensions.contains("GL_ARB_depth_texture");
-        this.GL_ARB_derivative_control = supported_extensions.contains("GL_ARB_derivative_control");
-        this.GL_ARB_direct_state_access = supported_extensions.contains("GL_ARB_direct_state_access");
-        this.GL_ARB_draw_buffers = supported_extensions.contains("GL_ARB_draw_buffers");
-        this.GL_ARB_draw_buffers_blend = supported_extensions.contains("GL_ARB_draw_buffers_blend");
-        this.GL_ARB_draw_elements_base_vertex = supported_extensions.contains("GL_ARB_draw_elements_base_vertex");
-        this.GL_ARB_draw_indirect = supported_extensions.contains("GL_ARB_draw_indirect");
-        this.GL_ARB_draw_instanced = supported_extensions.contains("GL_ARB_draw_instanced");
-        this.GL_ARB_enhanced_layouts = supported_extensions.contains("GL_ARB_enhanced_layouts");
-        this.GL_ARB_explicit_attrib_location = supported_extensions.contains("GL_ARB_explicit_attrib_location");
-        this.GL_ARB_explicit_uniform_location = supported_extensions.contains("GL_ARB_explicit_uniform_location");
-        this.GL_ARB_fragment_coord_conventions = supported_extensions.contains("GL_ARB_fragment_coord_conventions");
-        this.GL_ARB_fragment_layer_viewport = supported_extensions.contains("GL_ARB_fragment_layer_viewport");
-        this.GL_ARB_fragment_program = supported_extensions.contains("GL_ARB_fragment_program")
-            && supported_extensions.contains("GL_ARB_program");
-        this.GL_ARB_fragment_program_shadow = supported_extensions.contains("GL_ARB_fragment_program_shadow");
-        this.GL_ARB_fragment_shader = supported_extensions.contains("GL_ARB_fragment_shader");
-        this.GL_ARB_framebuffer_no_attachments = supported_extensions.contains("GL_ARB_framebuffer_no_attachments");
-        this.GL_ARB_framebuffer_object = supported_extensions.contains("GL_ARB_framebuffer_object");
-        this.GL_ARB_framebuffer_sRGB = supported_extensions.contains("GL_ARB_framebuffer_sRGB");
-        this.GL_ARB_geometry_shader4 = supported_extensions.contains("GL_ARB_geometry_shader4");
-        this.GL_ARB_get_program_binary = supported_extensions.contains("GL_ARB_get_program_binary");
-        this.GL_ARB_get_texture_sub_image = supported_extensions.contains("GL_ARB_get_texture_sub_image");
-        this.GL_ARB_gpu_shader5 = supported_extensions.contains("GL_ARB_gpu_shader5");
-        this.GL_ARB_gpu_shader_fp64 = supported_extensions.contains("GL_ARB_gpu_shader_fp64");
-        this.GL_ARB_half_float_pixel = supported_extensions.contains("GL_ARB_half_float_pixel");
-        this.GL_ARB_half_float_vertex = supported_extensions.contains("GL_ARB_half_float_vertex");
-        this.GL_ARB_imaging = supported_extensions.contains("GL_ARB_imaging");
-        this.GL_ARB_indirect_parameters = supported_extensions.contains("GL_ARB_indirect_parameters");
-        this.GL_ARB_instanced_arrays = supported_extensions.contains("GL_ARB_instanced_arrays");
-        this.GL_ARB_internalformat_query = supported_extensions.contains("GL_ARB_internalformat_query");
-        this.GL_ARB_internalformat_query2 = supported_extensions.contains("GL_ARB_internalformat_query2");
-        this.GL_ARB_invalidate_subdata = supported_extensions.contains("GL_ARB_invalidate_subdata");
-        this.GL_ARB_map_buffer_alignment = supported_extensions.contains("GL_ARB_map_buffer_alignment");
-        this.GL_ARB_map_buffer_range = supported_extensions.contains("GL_ARB_map_buffer_range");
-        this.GL_ARB_matrix_palette = supported_extensions.contains("GL_ARB_matrix_palette");
-        this.GL_ARB_multi_bind = supported_extensions.contains("GL_ARB_multi_bind");
-        this.GL_ARB_multi_draw_indirect = supported_extensions.contains("GL_ARB_multi_draw_indirect");
-        this.GL_ARB_multisample = supported_extensions.contains("GL_ARB_multisample");
-        this.GL_ARB_multitexture = supported_extensions.contains("GL_ARB_multitexture");
-        this.GL_ARB_occlusion_query = supported_extensions.contains("GL_ARB_occlusion_query");
-        this.GL_ARB_occlusion_query2 = supported_extensions.contains("GL_ARB_occlusion_query2");
-        this.GL_ARB_pipeline_statistics_query = supported_extensions.contains("GL_ARB_pipeline_statistics_query");
-        this.GL_ARB_pixel_buffer_object = supported_extensions.contains("GL_ARB_pixel_buffer_object")
-            && supported_extensions.contains("GL_ARB_buffer_object");
-        this.GL_ARB_point_parameters = supported_extensions.contains("GL_ARB_point_parameters");
-        this.GL_ARB_point_sprite = supported_extensions.contains("GL_ARB_point_sprite");
-        this.GL_ARB_program_interface_query = supported_extensions.contains("GL_ARB_program_interface_query");
-        this.GL_ARB_provoking_vertex = supported_extensions.contains("GL_ARB_provoking_vertex");
-        this.GL_ARB_query_buffer_object = supported_extensions.contains("GL_ARB_query_buffer_object");
-        this.GL_ARB_robust_buffer_access_behavior = supported_extensions.contains("GL_ARB_robust_buffer_access_behavior");
-        this.GL_ARB_robustness = supported_extensions.contains("GL_ARB_robustness");
-        this.GL_ARB_robustness_isolation = supported_extensions.contains("GL_ARB_robustness_isolation");
-        this.GL_ARB_sample_shading = supported_extensions.contains("GL_ARB_sample_shading");
-        this.GL_ARB_sampler_objects = supported_extensions.contains("GL_ARB_sampler_objects");
-        this.GL_ARB_seamless_cube_map = supported_extensions.contains("GL_ARB_seamless_cube_map");
-        this.GL_ARB_seamless_cubemap_per_texture = supported_extensions.contains("GL_ARB_seamless_cubemap_per_texture");
-        this.GL_ARB_separate_shader_objects = supported_extensions.contains("GL_ARB_separate_shader_objects");
-        this.GL_ARB_shader_atomic_counters = supported_extensions.contains("GL_ARB_shader_atomic_counters");
-        this.GL_ARB_shader_bit_encoding = supported_extensions.contains("GL_ARB_shader_bit_encoding");
-        this.GL_ARB_shader_draw_parameters = supported_extensions.contains("GL_ARB_shader_draw_parameters");
-        this.GL_ARB_shader_group_vote = supported_extensions.contains("GL_ARB_shader_group_vote");
-        this.GL_ARB_shader_image_load_store = supported_extensions.contains("GL_ARB_shader_image_load_store");
-        this.GL_ARB_shader_image_size = supported_extensions.contains("GL_ARB_shader_image_size");
-        this.GL_ARB_shader_objects = supported_extensions.contains("GL_ARB_shader_objects");
-        this.GL_ARB_shader_precision = supported_extensions.contains("GL_ARB_shader_precision");
-        this.GL_ARB_shader_stencil_export = supported_extensions.contains("GL_ARB_shader_stencil_export");
-        this.GL_ARB_shader_storage_buffer_object = supported_extensions.contains("GL_ARB_shader_storage_buffer_object");
-        this.GL_ARB_shader_subroutine = supported_extensions.contains("GL_ARB_shader_subroutine");
-        this.GL_ARB_shader_texture_image_samples = supported_extensions.contains("GL_ARB_shader_texture_image_samples");
-        this.GL_ARB_shader_texture_lod = supported_extensions.contains("GL_ARB_shader_texture_lod");
-        this.GL_ARB_shading_language_100 = supported_extensions.contains("GL_ARB_shading_language_100");
-        this.GL_ARB_shading_language_420pack = supported_extensions.contains("GL_ARB_shading_language_420pack");
-        this.GL_ARB_shading_language_include = supported_extensions.contains("GL_ARB_shading_language_include");
-        this.GL_ARB_shading_language_packing = supported_extensions.contains("GL_ARB_shading_language_packing");
-        this.GL_ARB_shadow = supported_extensions.contains("GL_ARB_shadow");
-        this.GL_ARB_shadow_ambient = supported_extensions.contains("GL_ARB_shadow_ambient");
-        this.GL_ARB_sparse_buffer = supported_extensions.contains("GL_ARB_sparse_buffer");
-        this.GL_ARB_sparse_texture = supported_extensions.contains("GL_ARB_sparse_texture");
-        this.GL_ARB_stencil_texturing = supported_extensions.contains("GL_ARB_stencil_texturing");
-        this.GL_ARB_sync = supported_extensions.contains("GL_ARB_sync");
-        this.GL_ARB_tessellation_shader = supported_extensions.contains("GL_ARB_tessellation_shader");
-        this.GL_ARB_texture_barrier = supported_extensions.contains("GL_ARB_texture_barrier");
-        this.GL_ARB_texture_border_clamp = supported_extensions.contains("GL_ARB_texture_border_clamp");
-        this.GL_ARB_texture_buffer_object = supported_extensions.contains("GL_ARB_texture_buffer_object");
-        this.GL_ARB_texture_buffer_object_rgb32 = supported_extensions.contains("GL_ARB_texture_buffer_object_rgb32")
-            || supported_extensions.contains("GL_EXT_texture_buffer_object_rgb32");
-        this.GL_ARB_texture_buffer_range = supported_extensions.contains("GL_ARB_texture_buffer_range");
-        this.GL_ARB_texture_compression = supported_extensions.contains("GL_ARB_texture_compression");
-        this.GL_ARB_texture_compression_bptc = supported_extensions.contains("GL_ARB_texture_compression_bptc")
-            || supported_extensions.contains("GL_EXT_texture_compression_bptc");
-        this.GL_ARB_texture_compression_rgtc = supported_extensions.contains("GL_ARB_texture_compression_rgtc");
-        this.GL_ARB_texture_cube_map = supported_extensions.contains("GL_ARB_texture_cube_map");
-        this.GL_ARB_texture_cube_map_array = supported_extensions.contains("GL_ARB_texture_cube_map_array");
-        this.GL_ARB_texture_env_add = supported_extensions.contains("GL_ARB_texture_env_add");
-        this.GL_ARB_texture_env_combine = supported_extensions.contains("GL_ARB_texture_env_combine");
-        this.GL_ARB_texture_env_crossbar = supported_extensions.contains("GL_ARB_texture_env_crossbar");
-        this.GL_ARB_texture_env_dot3 = supported_extensions.contains("GL_ARB_texture_env_dot3");
-        this.GL_ARB_texture_float = supported_extensions.contains("GL_ARB_texture_float");
-        this.GL_ARB_texture_gather = supported_extensions.contains("GL_ARB_texture_gather");
-        this.GL_ARB_texture_mirror_clamp_to_edge = supported_extensions.contains("GL_ARB_texture_mirror_clamp_to_edge");
-        this.GL_ARB_texture_mirrored_repeat = supported_extensions.contains("GL_ARB_texture_mirrored_repeat");
-        this.GL_ARB_texture_multisample = supported_extensions.contains("GL_ARB_texture_multisample");
-        this.GL_ARB_texture_non_power_of_two = supported_extensions.contains("GL_ARB_texture_non_power_of_two");
-        this.GL_ARB_texture_query_levels = supported_extensions.contains("GL_ARB_texture_query_levels");
-        this.GL_ARB_texture_query_lod = supported_extensions.contains("GL_ARB_texture_query_lod");
-        this.GL_ARB_texture_rectangle = supported_extensions.contains("GL_ARB_texture_rectangle");
-        this.GL_ARB_texture_rg = supported_extensions.contains("GL_ARB_texture_rg");
-        this.GL_ARB_texture_rgb10_a2ui = supported_extensions.contains("GL_ARB_texture_rgb10_a2ui");
-        this.GL_ARB_texture_stencil8 = supported_extensions.contains("GL_ARB_texture_stencil8");
-        this.GL_ARB_texture_storage = supported_extensions.contains("GL_ARB_texture_storage")
-            || supported_extensions.contains("GL_EXT_texture_storage");
-        this.GL_ARB_texture_storage_multisample = supported_extensions.contains("GL_ARB_texture_storage_multisample");
-        this.GL_ARB_texture_swizzle = supported_extensions.contains("GL_ARB_texture_swizzle");
-        this.GL_ARB_texture_view = supported_extensions.contains("GL_ARB_texture_view");
-        this.GL_ARB_timer_query = supported_extensions.contains("GL_ARB_timer_query");
-        this.GL_ARB_transform_feedback2 = supported_extensions.contains("GL_ARB_transform_feedback2");
-        this.GL_ARB_transform_feedback3 = supported_extensions.contains("GL_ARB_transform_feedback3");
-        this.GL_ARB_transform_feedback_instanced = supported_extensions.contains("GL_ARB_transform_feedback_instanced");
-        this.GL_ARB_transform_feedback_overflow_query = supported_extensions.contains("GL_ARB_transform_feedback_overflow_query");
-        this.GL_ARB_transpose_matrix = supported_extensions.contains("GL_ARB_transpose_matrix");
-        this.GL_ARB_uniform_buffer_object = supported_extensions.contains("GL_ARB_uniform_buffer_object");
-        this.GL_ARB_vertex_array_bgra = supported_extensions.contains("GL_ARB_vertex_array_bgra");
-        this.GL_ARB_vertex_array_object = supported_extensions.contains("GL_ARB_vertex_array_object");
-        this.GL_ARB_vertex_attrib_64bit = supported_extensions.contains("GL_ARB_vertex_attrib_64bit");
-        this.GL_ARB_vertex_attrib_binding = supported_extensions.contains("GL_ARB_vertex_attrib_binding");
-        this.GL_ARB_vertex_blend = supported_extensions.contains("GL_ARB_vertex_blend");
-        this.GL_ARB_vertex_buffer_object = supported_extensions.contains("GL_ARB_vertex_buffer_object")
-            && supported_extensions.contains("GL_ARB_buffer_object");
-        this.GL_ARB_vertex_program = supported_extensions.contains("GL_ARB_vertex_program")
-            && supported_extensions.contains("GL_ARB_program");
-        this.GL_ARB_vertex_shader = supported_extensions.contains("GL_ARB_vertex_shader");
-        this.GL_ARB_vertex_type_10f_11f_11f_rev = supported_extensions.contains("GL_ARB_vertex_type_10f_11f_11f_rev");
-        this.GL_ARB_vertex_type_2_10_10_10_rev = supported_extensions.contains("GL_ARB_vertex_type_2_10_10_10_rev");
-        this.GL_ARB_viewport_array = supported_extensions.contains("GL_ARB_viewport_array");
-        this.GL_ARB_window_pos = supported_extensions.contains("GL_ARB_window_pos");
-        this.GL_ATI_draw_buffers = supported_extensions.contains("GL_ATI_draw_buffers");
-        this.GL_ATI_element_array = supported_extensions.contains("GL_ATI_element_array");
-        this.GL_ATI_envmap_bumpmap = supported_extensions.contains("GL_ATI_envmap_bumpmap");
-        this.GL_ATI_fragment_shader = supported_extensions.contains("GL_ATI_fragment_shader");
-        this.GL_ATI_map_object_buffer = supported_extensions.contains("GL_ATI_map_object_buffer");
-        this.GL_ATI_meminfo = supported_extensions.contains("GL_ATI_meminfo");
-        this.GL_ATI_pn_triangles = supported_extensions.contains("GL_ATI_pn_triangles");
-        this.GL_ATI_separate_stencil = supported_extensions.contains("GL_ATI_separate_stencil");
-        this.GL_ATI_shader_texture_lod = supported_extensions.contains("GL_ATI_shader_texture_lod");
-        this.GL_ATI_text_fragment_shader = supported_extensions.contains("GL_ATI_text_fragment_shader");
-        this.GL_ATI_texture_compression_3dc = supported_extensions.contains("GL_ATI_texture_compression_3dc");
-        this.GL_ATI_texture_env_combine3 = supported_extensions.contains("GL_ATI_texture_env_combine3");
-        this.GL_ATI_texture_float = supported_extensions.contains("GL_ATI_texture_float");
-        this.GL_ATI_texture_mirror_once = supported_extensions.contains("GL_ATI_texture_mirror_once");
-        this.GL_ATI_vertex_array_object = supported_extensions.contains("GL_ATI_vertex_array_object");
-        this.GL_ATI_vertex_attrib_array_object = supported_extensions.contains("GL_ATI_vertex_attrib_array_object");
-        this.GL_ATI_vertex_streams = supported_extensions.contains("GL_ATI_vertex_streams");
-        this.GL_EXT_Cg_shader = supported_extensions.contains("GL_EXT_Cg_shader");
-        this.GL_EXT_abgr = supported_extensions.contains("GL_EXT_abgr");
-        this.GL_EXT_bgra = supported_extensions.contains("GL_EXT_bgra");
-        this.GL_EXT_bindable_uniform = supported_extensions.contains("GL_EXT_bindable_uniform");
-        this.GL_EXT_blend_color = supported_extensions.contains("GL_EXT_blend_color");
-        this.GL_EXT_blend_equation_separate = supported_extensions.contains("GL_EXT_blend_equation_separate");
-        this.GL_EXT_blend_func_separate = supported_extensions.contains("GL_EXT_blend_func_separate");
-        this.GL_EXT_blend_minmax = supported_extensions.contains("GL_EXT_blend_minmax");
-        this.GL_EXT_blend_subtract = supported_extensions.contains("GL_EXT_blend_subtract");
-        this.GL_EXT_compiled_vertex_array = supported_extensions.contains("GL_EXT_compiled_vertex_array");
-        this.GL_EXT_depth_bounds_test = supported_extensions.contains("GL_EXT_depth_bounds_test");
-        this.GL_EXT_direct_state_access = supported_extensions.contains("GL_EXT_direct_state_access");
-        this.GL_EXT_draw_buffers2 = supported_extensions.contains("GL_EXT_draw_buffers2");
-        this.GL_EXT_draw_instanced = supported_extensions.contains("GL_EXT_draw_instanced");
-        this.GL_EXT_draw_range_elements = supported_extensions.contains("GL_EXT_draw_range_elements");
-        this.GL_EXT_fog_coord = supported_extensions.contains("GL_EXT_fog_coord");
-        this.GL_EXT_framebuffer_blit = supported_extensions.contains("GL_EXT_framebuffer_blit");
-        this.GL_EXT_framebuffer_multisample = supported_extensions.contains("GL_EXT_framebuffer_multisample");
-        this.GL_EXT_framebuffer_multisample_blit_scaled = supported_extensions.contains("GL_EXT_framebuffer_multisample_blit_scaled");
-        this.GL_EXT_framebuffer_object = supported_extensions.contains("GL_EXT_framebuffer_object");
-        this.GL_EXT_framebuffer_sRGB = supported_extensions.contains("GL_EXT_framebuffer_sRGB");
-        this.GL_EXT_geometry_shader4 = supported_extensions.contains("GL_EXT_geometry_shader4");
-        this.GL_EXT_gpu_program_parameters = supported_extensions.contains("GL_EXT_gpu_program_parameters");
-        this.GL_EXT_gpu_shader4 = supported_extensions.contains("GL_EXT_gpu_shader4");
-        this.GL_EXT_multi_draw_arrays = supported_extensions.contains("GL_EXT_multi_draw_arrays");
-        this.GL_EXT_packed_depth_stencil = supported_extensions.contains("GL_EXT_packed_depth_stencil");
-        this.GL_EXT_packed_float = supported_extensions.contains("GL_EXT_packed_float");
-        this.GL_EXT_packed_pixels = supported_extensions.contains("GL_EXT_packed_pixels");
-        this.GL_EXT_paletted_texture = supported_extensions.contains("GL_EXT_paletted_texture");
-        this.GL_EXT_pixel_buffer_object = supported_extensions.contains("GL_EXT_pixel_buffer_object")
-            && supported_extensions.contains("GL_ARB_buffer_object");
-        this.GL_EXT_point_parameters = supported_extensions.contains("GL_EXT_point_parameters");
-        this.GL_EXT_provoking_vertex = supported_extensions.contains("GL_EXT_provoking_vertex");
-        this.GL_EXT_rescale_normal = supported_extensions.contains("GL_EXT_rescale_normal");
-        this.GL_EXT_secondary_color = supported_extensions.contains("GL_EXT_secondary_color");
-        this.GL_EXT_separate_shader_objects = supported_extensions.contains("GL_EXT_separate_shader_objects");
-        this.GL_EXT_separate_specular_color = supported_extensions.contains("GL_EXT_separate_specular_color");
-        this.GL_EXT_shader_image_load_store = supported_extensions.contains("GL_EXT_shader_image_load_store");
-        this.GL_EXT_shadow_funcs = supported_extensions.contains("GL_EXT_shadow_funcs");
-        this.GL_EXT_shared_texture_palette = supported_extensions.contains("GL_EXT_shared_texture_palette");
-        this.GL_EXT_stencil_clear_tag = supported_extensions.contains("GL_EXT_stencil_clear_tag");
-        this.GL_EXT_stencil_two_side = supported_extensions.contains("GL_EXT_stencil_two_side");
-        this.GL_EXT_stencil_wrap = supported_extensions.contains("GL_EXT_stencil_wrap");
-        this.GL_EXT_texture_3d = supported_extensions.contains("GL_EXT_texture_3d");
-        this.GL_EXT_texture_array = supported_extensions.contains("GL_EXT_texture_array");
-        this.GL_EXT_texture_buffer_object = supported_extensions.contains("GL_EXT_texture_buffer_object");
-        this.GL_EXT_texture_compression_latc = supported_extensions.contains("GL_EXT_texture_compression_latc");
-        this.GL_EXT_texture_compression_rgtc = supported_extensions.contains("GL_EXT_texture_compression_rgtc");
-        this.GL_EXT_texture_compression_s3tc = supported_extensions.contains("GL_EXT_texture_compression_s3tc");
-        this.GL_EXT_texture_env_combine = supported_extensions.contains("GL_EXT_texture_env_combine");
-        this.GL_EXT_texture_env_dot3 = supported_extensions.contains("GL_EXT_texture_env_dot3");
-        this.GL_EXT_texture_filter_anisotropic = supported_extensions.contains("GL_EXT_texture_filter_anisotropic");
-        this.GL_EXT_texture_integer = supported_extensions.contains("GL_EXT_texture_integer");
-        this.GL_EXT_texture_lod_bias = supported_extensions.contains("GL_EXT_texture_lod_bias");
-        this.GL_EXT_texture_mirror_clamp = supported_extensions.contains("GL_EXT_texture_mirror_clamp");
-        this.GL_EXT_texture_rectangle = supported_extensions.contains("GL_EXT_texture_rectangle");
-        this.GL_EXT_texture_sRGB = supported_extensions.contains("GL_EXT_texture_sRGB");
-        this.GL_EXT_texture_sRGB_decode = supported_extensions.contains("GL_EXT_texture_sRGB_decode");
-        this.GL_EXT_texture_shared_exponent = supported_extensions.contains("GL_EXT_texture_shared_exponent");
-        this.GL_EXT_texture_snorm = supported_extensions.contains("GL_EXT_texture_snorm");
-        this.GL_EXT_texture_swizzle = supported_extensions.contains("GL_EXT_texture_swizzle");
-        this.GL_EXT_timer_query = supported_extensions.contains("GL_EXT_timer_query");
-        this.GL_EXT_transform_feedback = supported_extensions.contains("GL_EXT_transform_feedback");
-        this.GL_EXT_vertex_array_bgra = supported_extensions.contains("GL_EXT_vertex_array_bgra");
-        this.GL_EXT_vertex_attrib_64bit = supported_extensions.contains("GL_EXT_vertex_attrib_64bit");
-        this.GL_EXT_vertex_shader = supported_extensions.contains("GL_EXT_vertex_shader");
-        this.GL_EXT_vertex_weighting = supported_extensions.contains("GL_EXT_vertex_weighting");
-        this.OpenGL11 = supported_extensions.contains("OpenGL11");
-        this.OpenGL12 = supported_extensions.contains("OpenGL12");
-        this.OpenGL13 = supported_extensions.contains("OpenGL13");
-        this.OpenGL14 = supported_extensions.contains("OpenGL14");
-        this.OpenGL15 = supported_extensions.contains("OpenGL15");
-        this.OpenGL20 = supported_extensions.contains("OpenGL20");
-        this.OpenGL21 = supported_extensions.contains("OpenGL21");
-        this.OpenGL30 = supported_extensions.contains("OpenGL30");
-        this.OpenGL31 = supported_extensions.contains("OpenGL31");
-        this.OpenGL32 = supported_extensions.contains("OpenGL32");
-        this.OpenGL33 = supported_extensions.contains("OpenGL33");
-        this.OpenGL40 = supported_extensions.contains("OpenGL40");
-        this.OpenGL41 = supported_extensions.contains("OpenGL41");
-        this.OpenGL42 = supported_extensions.contains("OpenGL42");
-        this.OpenGL43 = supported_extensions.contains("OpenGL43");
-        this.OpenGL44 = supported_extensions.contains("OpenGL44");
-        this.OpenGL45 = supported_extensions.contains("OpenGL45");
-        this.GL_GREMEDY_frame_terminator = supported_extensions.contains("GL_GREMEDY_frame_terminator");
-        this.GL_GREMEDY_string_marker = supported_extensions.contains("GL_GREMEDY_string_marker");
-        this.GL_HP_occlusion_test = supported_extensions.contains("GL_HP_occlusion_test");
-        this.GL_IBM_rasterpos_clip = supported_extensions.contains("GL_IBM_rasterpos_clip");
-        this.GL_INTEL_map_texture = supported_extensions.contains("GL_INTEL_map_texture");
-        this.GL_KHR_context_flush_control = supported_extensions.contains("GL_KHR_context_flush_control");
-        this.GL_KHR_debug = supported_extensions.contains("GL_KHR_debug");
-        this.GL_KHR_robust_buffer_access_behavior = supported_extensions.contains("GL_KHR_robust_buffer_access_behavior");
-        this.GL_KHR_robustness = supported_extensions.contains("GL_KHR_robustness");
-        this.GL_KHR_texture_compression_astc_ldr = supported_extensions.contains("GL_KHR_texture_compression_astc_ldr");
-        this.GL_NVX_gpu_memory_info = supported_extensions.contains("GL_NVX_gpu_memory_info");
-        this.GL_NV_bindless_multi_draw_indirect = supported_extensions.contains("GL_NV_bindless_multi_draw_indirect");
-        this.GL_NV_bindless_texture = supported_extensions.contains("GL_NV_bindless_texture");
-        this.GL_NV_blend_equation_advanced = supported_extensions.contains("GL_NV_blend_equation_advanced");
-        this.GL_NV_blend_square = supported_extensions.contains("GL_NV_blend_square");
-        this.GL_NV_compute_program5 = supported_extensions.contains("GL_NV_compute_program5");
-        this.GL_NV_conditional_render = supported_extensions.contains("GL_NV_conditional_render");
-        this.GL_NV_copy_depth_to_color = supported_extensions.contains("GL_NV_copy_depth_to_color");
-        this.GL_NV_copy_image = supported_extensions.contains("GL_NV_copy_image");
-        this.GL_NV_deep_texture3D = supported_extensions.contains("GL_NV_deep_texture3D");
-        this.GL_NV_depth_buffer_float = supported_extensions.contains("GL_NV_depth_buffer_float");
-        this.GL_NV_depth_clamp = supported_extensions.contains("GL_NV_depth_clamp");
-        this.GL_NV_draw_texture = supported_extensions.contains("GL_NV_draw_texture");
-        this.GL_NV_evaluators = supported_extensions.contains("GL_NV_evaluators");
-        this.GL_NV_explicit_multisample = supported_extensions.contains("GL_NV_explicit_multisample");
-        this.GL_NV_fence = supported_extensions.contains("GL_NV_fence");
-        this.GL_NV_float_buffer = supported_extensions.contains("GL_NV_float_buffer");
-        this.GL_NV_fog_distance = supported_extensions.contains("GL_NV_fog_distance");
-        this.GL_NV_fragment_program = supported_extensions.contains("GL_NV_fragment_program")
-            && supported_extensions.contains("GL_NV_program");
-        this.GL_NV_fragment_program2 = supported_extensions.contains("GL_NV_fragment_program2");
-        this.GL_NV_fragment_program4 = supported_extensions.contains("GL_NV_fragment_program4");
-        this.GL_NV_fragment_program_option = supported_extensions.contains("GL_NV_fragment_program_option");
-        this.GL_NV_framebuffer_multisample_coverage = supported_extensions.contains("GL_NV_framebuffer_multisample_coverage");
-        this.GL_NV_geometry_program4 = supported_extensions.contains("GL_NV_geometry_program4");
-        this.GL_NV_geometry_shader4 = supported_extensions.contains("GL_NV_geometry_shader4");
-        this.GL_NV_gpu_program4 = supported_extensions.contains("GL_NV_gpu_program4");
-        this.GL_NV_gpu_program5 = supported_extensions.contains("GL_NV_gpu_program5");
-        this.GL_NV_gpu_program5_mem_extended = supported_extensions.contains("GL_NV_gpu_program5_mem_extended");
-        this.GL_NV_gpu_shader5 = supported_extensions.contains("GL_NV_gpu_shader5");
-        this.GL_NV_half_float = supported_extensions.contains("GL_NV_half_float");
-        this.GL_NV_light_max_exponent = supported_extensions.contains("GL_NV_light_max_exponent");
-        this.GL_NV_multisample_coverage = supported_extensions.contains("GL_NV_multisample_coverage");
-        this.GL_NV_multisample_filter_hint = supported_extensions.contains("GL_NV_multisample_filter_hint");
-        this.GL_NV_occlusion_query = supported_extensions.contains("GL_NV_occlusion_query");
-        this.GL_NV_packed_depth_stencil = supported_extensions.contains("GL_NV_packed_depth_stencil");
-        this.GL_NV_parameter_buffer_object = supported_extensions.contains("GL_NV_parameter_buffer_object");
-        this.GL_NV_parameter_buffer_object2 = supported_extensions.contains("GL_NV_parameter_buffer_object2");
-        this.GL_NV_path_rendering = supported_extensions.contains("GL_NV_path_rendering");
-        this.GL_NV_pixel_data_range = supported_extensions.contains("GL_NV_pixel_data_range");
-        this.GL_NV_point_sprite = supported_extensions.contains("GL_NV_point_sprite");
-        this.GL_NV_present_video = supported_extensions.contains("GL_NV_present_video");
-        this.GL_NV_primitive_restart = supported_extensions.contains("GL_NV_primitive_restart");
-        this.GL_NV_register_combiners = supported_extensions.contains("GL_NV_register_combiners");
-        this.GL_NV_register_combiners2 = supported_extensions.contains("GL_NV_register_combiners2");
-        this.GL_NV_shader_atomic_counters = supported_extensions.contains("GL_NV_shader_atomic_counters");
-        this.GL_NV_shader_atomic_float = supported_extensions.contains("GL_NV_shader_atomic_float");
-        this.GL_NV_shader_buffer_load = supported_extensions.contains("GL_NV_shader_buffer_load");
-        this.GL_NV_shader_buffer_store = supported_extensions.contains("GL_NV_shader_buffer_store");
-        this.GL_NV_shader_storage_buffer_object = supported_extensions.contains("GL_NV_shader_storage_buffer_object");
-        this.GL_NV_tessellation_program5 = supported_extensions.contains("GL_NV_tessellation_program5");
-        this.GL_NV_texgen_reflection = supported_extensions.contains("GL_NV_texgen_reflection");
-        this.GL_NV_texture_barrier = supported_extensions.contains("GL_NV_texture_barrier");
-        this.GL_NV_texture_compression_vtc = supported_extensions.contains("GL_NV_texture_compression_vtc");
-        this.GL_NV_texture_env_combine4 = supported_extensions.contains("GL_NV_texture_env_combine4");
-        this.GL_NV_texture_expand_normal = supported_extensions.contains("GL_NV_texture_expand_normal");
-        this.GL_NV_texture_multisample = supported_extensions.contains("GL_NV_texture_multisample");
-        this.GL_NV_texture_rectangle = supported_extensions.contains("GL_NV_texture_rectangle");
-        this.GL_NV_texture_shader = supported_extensions.contains("GL_NV_texture_shader");
-        this.GL_NV_texture_shader2 = supported_extensions.contains("GL_NV_texture_shader2");
-        this.GL_NV_texture_shader3 = supported_extensions.contains("GL_NV_texture_shader3");
-        this.GL_NV_transform_feedback = supported_extensions.contains("GL_NV_transform_feedback");
-        this.GL_NV_transform_feedback2 = supported_extensions.contains("GL_NV_transform_feedback2");
-        this.GL_NV_vertex_array_range = supported_extensions.contains("GL_NV_vertex_array_range");
-        this.GL_NV_vertex_array_range2 = supported_extensions.contains("GL_NV_vertex_array_range2");
-        this.GL_NV_vertex_attrib_integer_64bit = supported_extensions.contains("GL_NV_vertex_attrib_integer_64bit");
-        this.GL_NV_vertex_buffer_unified_memory = supported_extensions.contains("GL_NV_vertex_buffer_unified_memory");
-        this.GL_NV_vertex_program = supported_extensions.contains("GL_NV_vertex_program") && supported_extensions.contains("GL_NV_program");
-        this.GL_NV_vertex_program1_1 = supported_extensions.contains("GL_NV_vertex_program1_1");
-        this.GL_NV_vertex_program2 = supported_extensions.contains("GL_NV_vertex_program2");
-        this.GL_NV_vertex_program2_option = supported_extensions.contains("GL_NV_vertex_program2_option");
-        this.GL_NV_vertex_program3 = supported_extensions.contains("GL_NV_vertex_program3");
-        this.GL_NV_vertex_program4 = supported_extensions.contains("GL_NV_vertex_program4");
-        this.GL_NV_video_capture = supported_extensions.contains("GL_NV_video_capture");
-        this.GL_SGIS_generate_mipmap = supported_extensions.contains("GL_SGIS_generate_mipmap");
-        this.GL_SGIS_texture_lod = supported_extensions.contains("GL_SGIS_texture_lod");
-        this.GL_SUN_slice_accum = supported_extensions.contains("GL_SUN_slice_accum");*/
-        //FIXME?
-        //tracker.initGLFW();
-
-
+    ContextCapabilities() throws LWJGLException {
         try {
             GLCapabilities capabilities = GL.getCapabilities();
             Field[] theirFields = GLCapabilities.class.getDeclaredFields();
@@ -2995,77 +2556,5 @@ public class ContextCapabilities {
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    static int getSupportedExtensions(Set<String> supported_extensions) {
-        String version = glGetString(GL_VERSION);
-        if (null == version)
-            throw new IllegalStateException("glGetString(GL_VERSION) returned null - possibly caused by missing current context.");
-
-        StringTokenizer version_tokenizer = new StringTokenizer(version, ". ");
-        String major_string = version_tokenizer.nextToken();
-        String minor_string = version_tokenizer.nextToken();
-
-        int majorVersion = 0;
-        int minorVersion = 0;
-        try {
-            majorVersion = Integer.parseInt(major_string);
-            minorVersion = Integer.parseInt(minor_string);
-        } catch (NumberFormatException e) {
-            LWJGLUtil.log("The major and/or minor OpenGL version is malformed: " + e.getMessage());
-        }
-
-        int[][] GL_VERSIONS = {
-                {1, 2, 3, 4, 5},      // OpenGL 1
-                {0, 1},               // OpenGL 2
-                {0, 1, 2, 3},         // OpenGL 3
-                {0, 1, 2, 3, 4, 5},   // OpenGL 4
-        };
-
-        for (int major = 1; major <= GL_VERSIONS.length; major++) {
-            int[] minors = GL_VERSIONS[major - 1];
-            for (int minor : minors) {
-                if (major < majorVersion || (major == majorVersion && minor <= minorVersion))
-                    supported_extensions.add("OpenGL" + major + minor);
-            }
-        }
-
-        int profileMask = 0;
-
-        if (3 > majorVersion) {
-            // Parse EXTENSIONS string
-            String extensions_string = glGetString(GL_EXTENSIONS);
-            if (null == extensions_string)
-                throw new IllegalStateException("glGetString(GL_EXTENSIONS) returned null - is there a context current?");
-
-            StringTokenizer tokenizer = new StringTokenizer(extensions_string);
-            while (tokenizer.hasMoreTokens())
-                supported_extensions.add(tokenizer.nextToken());
-        } else {
-            // Use forward compatible indexed EXTENSIONS
-            int extensionCount = glGetInteger(GL_NUM_EXTENSIONS);
-
-            for (int i = 0; i < extensionCount; i++)
-                supported_extensions.add(glGetStringi(GL_EXTENSIONS, i));
-
-            // Get the context profile mask for versions >= 3.2
-            if (3 < majorVersion || 2 <= minorVersion) {
-                Util.checkGLError(); // Make sure we have no errors up to this point
-
-                try {
-                    profileMask = glGetInteger(GL_CONTEXT_PROFILE_MASK);
-                    // Retrieving GL_CONTEXT_PROFILE_MASK may generate an INVALID_OPERATION error on certain implementations, ignore.
-                    // Happens on pre10.1 ATI drivers, when ContextAttribs.withProfileCompatibility is not used
-                    Util.checkGLError();
-                } catch (OpenGLException e) {
-                    LWJGLUtil.log("Failed to retrieve CONTEXT_PROFILE_MASK");
-                }
-            }
-        }
-
-        return profileMask;
-    }
-
-    static void unloadAllStubs() {
     }
 }

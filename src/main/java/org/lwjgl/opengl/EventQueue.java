@@ -18,10 +18,12 @@ public class EventQueue {
 
     public synchronized void copyEvents(ByteBuffer dest) {
         queue.flip();
-        int old_limit = queue.limit();
+        int oldLimit = queue.limit();
+
         if (dest.remaining() < queue.remaining()) queue.limit(dest.remaining() + queue.position());
         dest.put(queue);
-        queue.limit(old_limit);
+
+        queue.limit(oldLimit);
         queue.compact();
     }
 

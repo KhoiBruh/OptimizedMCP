@@ -1,8 +1,3 @@
-/*
- * Copyright LWJGL. All rights reserved.
- * License terms: https://www.lwjgl.org/license
- * MACHINE GENERATED FILE, DO NOT EDIT
- */
 package org.lwjgl.opengl;
 
 import org.lwjgl.PointerBuffer;
@@ -20,28 +15,6 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.stackGet;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Native bindings to the <a target="_blank" href="https://www.khronos.org/registry/OpenGL/extensions/ARB/ARB_shader_objects.txt">ARB_shader_objects</a> extension.
- *
- * <p>This extension adds API calls that are necessary to manage shader objects and program objects as defined in the OpenGL 2.0 white papers by 3Dlabs.</p>
- *
- * <p>The generation of an executable that runs on one of OpenGL's programmable units is modeled to that of developing a typical C/C++ application. There are
- * one or more source files, each of which are stored by OpenGL in a shader object. Each shader object (source file) needs to be compiled and attached to a
- * program object. Once all shader objects are compiled successfully, the program object needs to be linked to produce an executable. This executable is
- * part of the program object, and can now be loaded onto the programmable units to make it part of the current OpenGL state. Both the compile and link
- * stages generate a text string that can be queried to get more information. This information could be, but is not limited to, compile errors, link errors,
- * optimization hints, etc. Values for uniform variables, declared in a shader, can be set by the application and used to control a shader's behavior.</p>
- *
- * <p>This extension defines functions for creating shader objects and program objects, for compiling shader objects, for linking program objects, for
- * attaching shader objects to program objects, and for using a program object as part of current state. Functions to load uniform values are also defined.
- * Some house keeping functions, like deleting an object and querying object state, are also provided.</p>
- *
- * <p>Although this extension defines the API for creating shader objects, it does not define any specific types of shader objects. It is assumed that this
- * extension will be implemented along with at least one such additional extension for creating a specific type of OpenGL 2.0 shader (e.g., the
- * {@link ARBFragmentShader ARB_fragment_shader} extension or the {@link ARBVertexShader ARB_vertex_shader} extension).</p>
- *
- * <p>Promoted to core in {@link GL20 OpenGL 2.0}.</p>
- */
 public class ARBShaderObjects {
 
     /**

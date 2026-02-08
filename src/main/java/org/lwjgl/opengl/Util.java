@@ -11,11 +11,11 @@ public final class Util {
 
         int err = glGetError();
 
-        if (GL_NO_ERROR != err) throw new OpenGLException(err);
+        if (err != GL_NO_ERROR) throw new OpenGLException(err);
     }
 
-    public static String translateGLErrorString(int error_code) {
-        return switch (error_code) {
+    public static String translateGLErrorString(int errorCode) {
+        return switch (errorCode) {
             case GL_NO_ERROR -> "No error";
             case GL_INVALID_ENUM -> "Invalid enum";
             case GL_INVALID_VALUE -> "Invalid value";

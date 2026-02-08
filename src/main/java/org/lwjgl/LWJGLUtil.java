@@ -6,9 +6,11 @@ public class LWJGLUtil {
     public static final int PLATFORM_LINUX = 1;
     public static final int PLATFORM_MACOSX = 2;
     public static final int PLATFORM_WINDOWS = 3;
+
     public static final String PLATFORM_LINUX_NAME = "linux";
     public static final String PLATFORM_MACOSX_NAME = "macosx";
     public static final String PLATFORM_WINDOWS_NAME = "windows";
+
     public static final boolean DEBUG = Boolean.getBoolean("org.org.lwjgl.util.Debug");
     private static final String LWJGL_ICON_DATA_16x16 = "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
             + "\377\377\377\377\377\377\377\377\376\377\377\377\302\327\350\377"
@@ -211,15 +213,12 @@ public class LWJGLUtil {
     static {
         String osName = System.getProperty("os.name");
 
-        if (osName.startsWith("Windows"))
-            PLATFORM = PLATFORM_WINDOWS;
-        else if (osName.startsWith("Linux") || osName.startsWith("FreeBSD") || osName.startsWith("OpenBSD")
-                || osName.startsWith("SunOS") || osName.startsWith("Unix"))
-            PLATFORM = PLATFORM_LINUX;
-        else if (osName.startsWith("Mac OS X") || osName.startsWith("Darwin"))
-            PLATFORM = PLATFORM_MACOSX;
-        else
-            throw new LinkageError("Unknown platform: " + osName);
+        PLATFORM = switch (osName) {
+            case String s when s.startsWith("Windows") -> PLATFORM_WINDOWS;
+            case String s when s.startsWith("Linux") || s.startsWith("Unix") -> PLATFORM_LINUX;
+            case String s when s.startsWith("Mac OS X") || s.startsWith("Darwin") -> PLATFORM_MACOSX;
+            default -> throw new LinkageError("Unknown platform: " + osName);
+        };
     }
 
     private LWJGLUtil() {
@@ -228,15 +227,9 @@ public class LWJGLUtil {
     private static ByteBuffer loadIcon(String data) {
         int len = data.length();
         ByteBuffer bb = BufferUtils.createByteBuffer(len);
+        for (int i = 0; i < len; i++) bb.put(i, (byte) data.charAt(i));
 
-        for (int i = 0; i < len; i++) {
-            bb.put(i, (byte) data.charAt(i));
-        }
         return bb.asReadOnlyBuffer();
-    }
-
-    public static int getPlatform() {
-        return PLATFORM;
     }
 
     public static String getPlatformName() {

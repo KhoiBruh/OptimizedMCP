@@ -199,14 +199,14 @@ public class GLU {
         return Project.gluProject(objx, objy, objz, modelMatrix, projMatrix, viewport, win_pos);
     }
 
-    public static boolean gluUnProject(
+    public static void gluUnProject(
             float winx, float winy, float winz,
             FloatBuffer modelMatrix,
             FloatBuffer projMatrix,
             IntBuffer viewport,
             FloatBuffer obj_pos
     ) {
-        return Project.gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, obj_pos);
+        Project.gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, obj_pos);
     }
 
     public static void gluPickMatrix(

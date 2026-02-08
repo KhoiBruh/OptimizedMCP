@@ -24,19 +24,13 @@ public class Sys {
         return (System.nanoTime() - timerOffset) & 0x7FFFFFFFFFFFFFFFL;
     }
 
-    public static String getVersion() {
-        return VERSION;
-    }
-
     public static void initialize() {
     }
 
-    public static boolean openURL(String url) {
+    public static void openURL(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));
-            return true;
-        } catch (IOException | URISyntaxException | UnsupportedOperationException e) {
-            return false;
+        } catch (IOException | URISyntaxException | UnsupportedOperationException ignored) {
         }
     }
 }

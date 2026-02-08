@@ -80,9 +80,8 @@ public class Sync {
 
         public long avg() {
             long sum = 0;
-            for (long slot : slots) {
-                sum += slot;
-            }
+            for (long slot : slots) sum += slot;
+
             return sum / slots.length;
         }
 

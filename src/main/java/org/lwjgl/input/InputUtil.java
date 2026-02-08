@@ -7,8 +7,7 @@ public class InputUtil {
     private static Input input;
 
     public static Input getOrCreateInput() {
-        if (null == input) input = createInput();
-
+        if (input == null) input = createInput();
         return input;
     }
 

@@ -14,11 +14,11 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class Display {
-    private static final DisplayMode desktop_mode;
+    private static final DisplayMode DESKTOP_MODE;
     private static String title = "Game";
     private static long handle = MemoryUtil.NULL;
     private static boolean resizable;
-    private static DisplayMode current_mode;
+    private static DisplayMode currentMode;
 
     private static final int x = -1;
     private static final int y = -1;
@@ -37,15 +37,15 @@ public class Display {
 
     static {
         GLFWErrorCallback.createPrint(System.err).set();
-        if (GLFW.glfwInit()) new ExceptionInInitializerError("Unable to initialize GLFW");
+        if (!GLFW.glfwInit()) throw new ExceptionInInitializerError("Unable to initialize GLFW");
         GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 
-        desktop_mode = new DisplayMode(vidMode.width(), vidMode.height(), vidMode.redBits() + vidMode.greenBits() + vidMode.blueBits(), vidMode.refreshRate());
-        current_mode = desktop_mode;
+        DESKTOP_MODE = new DisplayMode(vidMode.width(), vidMode.height(), vidMode.redBits() + vidMode.greenBits() + vidMode.blueBits(), vidMode.refreshRate());
+        currentMode = DESKTOP_MODE;
     }
 
     public static DisplayMode getDisplayMode() {
-        return current_mode;
+        return currentMode;
     }
 
     public static void setDisplayMode(DisplayMode mode) throws LWJGLException {
@@ -53,8 +53,9 @@ public class Display {
     }
 
     public static void setIcon(ByteBuffer[] icons) {
-        if (cachedIcons != icons) {
+        if (icons != cachedIcons) {
             cachedIcons = new ByteBuffer[icons.length];
+
             for (int i = 0; i < icons.length; i++) {
                 cachedIcons[i] = BufferUtils.createByteBuffer(icons[i].capacity());
                 int old_position = icons[i].position();
@@ -67,8 +68,8 @@ public class Display {
         if (windowCreated) GLFW.glfwSetWindowIcon(handle, iconsToGLFWBuffer(cachedIcons));
     }
 
-    public static org.lwjgl.opengl.DisplayMode getDesktopDisplayMode() {
-        return desktop_mode;
+    public static DisplayMode getDesktopDisplayMode() {
+        return DESKTOP_MODE;
     }
 
     private static GLFWImage.Buffer iconsToGLFWBuffer(ByteBuffer[] icons) {
@@ -76,6 +77,7 @@ public class Display {
         for (ByteBuffer icon : icons) {
             int size = icon.limit() / 4;
             int dimension = (int) Math.sqrt(size);
+
             try (GLFWImage image = GLFWImage.malloc()) {
                 buffer.put(image.set(dimension, dimension, icon));
             }
@@ -123,7 +125,8 @@ public class Display {
         GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, pixelFormat.getSamples());
         GLFW.glfwWindowHint(GLFW.GLFW_STENCIL_BITS, pixelFormat.getStencilBits());
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
-        handle = GLFW.glfwCreateWindow(current_mode.getWidth(), current_mode.getHeight(), title, MemoryUtil.NULL, MemoryUtil.NULL);
+
+        handle = GLFW.glfwCreateWindow(currentMode.getWidth(), currentMode.getHeight(), title, MemoryUtil.NULL, MemoryUtil.NULL);
 
         if (MemoryUtil.NULL == handle) throw new LWJGLException("Display could not be created");
 
@@ -134,17 +137,17 @@ public class Display {
         GL.createCapabilities();
     }
 
-    public static void setDisplayModeAndFullscreen(org.lwjgl.opengl.DisplayMode mode) {
+    public static void setDisplayModeAndFullscreen(DisplayMode mode) {
         setDisplayModeAndFullscreenInternal(mode.isFullscreenCapable(), mode);
     }
 
-    private static void setDisplayModeAndFullscreenInternal(boolean fullscreen, org.lwjgl.opengl.DisplayMode mode) {
-        org.lwjgl.opengl.DisplayMode old_mode = current_mode;
-        current_mode = mode;
-        boolean was_fullscreen = Display.fullscreen;
+    private static void setDisplayModeAndFullscreenInternal(boolean fullscreen, DisplayMode mode) {
+        DisplayMode old_mode = currentMode;
+        currentMode = mode;
+        boolean wasFullscreen = Display.fullscreen;
         Display.fullscreen = fullscreen;
 
-        if (was_fullscreen != Display.fullscreen || !mode.equals(old_mode)) {
+        if (Display.fullscreen != wasFullscreen || !mode.equals(old_mode)) {
             if (!windowCreated) return;
 
             destroyWindow();
@@ -160,11 +163,11 @@ public class Display {
 
         if (!fullscreen) {
             GLFW.glfwSetWindowAttrib(handle, GLFW.GLFW_DECORATED, 1);
-            GLFW.glfwSetWindowMonitor(handle, MemoryUtil.NULL, x, y, current_mode.getWidth(), current_mode.getHeight(), current_mode.getFrequency());
-        } else GLFW.glfwSetWindowMonitor(handle, GLFW.glfwGetPrimaryMonitor(), x, y, current_mode.getWidth(), current_mode.getHeight(), current_mode.getFrequency());
+            GLFW.glfwSetWindowMonitor(handle, MemoryUtil.NULL, x, y, currentMode.getWidth(), currentMode.getHeight(), currentMode.getFrequency());
+        } else GLFW.glfwSetWindowMonitor(handle, GLFW.glfwGetPrimaryMonitor(), x, y, currentMode.getWidth(), currentMode.getHeight(), currentMode.getFrequency());
 
-        width = current_mode.getWidth();
-        height = current_mode.getHeight();
+        width = currentMode.getWidth();
+        height = currentMode.getHeight();
 
         GLFW.glfwSetWindowPos(handle, getWindowX(), getWindowY());
         initControls();
@@ -174,14 +177,10 @@ public class Display {
         GLFW.glfwFocusWindow(handle);
     }
 
-    static boolean getPrivilegedBoolean(String property_name) {
-        return Boolean.getBoolean(property_name);
-    }
-
     private static void initControls() {
-        if (!getPrivilegedBoolean("org.org.lwjgl.opengl.Display.noinput")) {
+        if (!Boolean.getBoolean("org.org.lwjgl.opengl.Display.noinput")) {
 
-            if (!Mouse.isCreated() && !getPrivilegedBoolean("org.org.lwjgl.opengl.Display.nomouse")) {
+            if (!Mouse.isCreated() && !Boolean.getBoolean("org.org.lwjgl.opengl.Display.nomouse")) {
                 try {
                     Mouse.create();
                 } catch (LWJGLException e) {
@@ -189,7 +188,7 @@ public class Display {
                 }
             }
 
-            if (!Keyboard.isCreated() && !getPrivilegedBoolean("org.org.lwjgl.opengl.Display.nokeyboard")) {
+            if (!Keyboard.isCreated() && !Boolean.getBoolean("org.org.lwjgl.opengl.Display.nokeyboard")) {
                 try {
                     Keyboard.create();
                 } catch (LWJGLException e) {
@@ -199,7 +198,7 @@ public class Display {
         }
     }
 
-    public static org.lwjgl.opengl.DisplayMode[] getAvailableDisplayModes() {
+    public static DisplayMode[] getAvailableDisplayModes() {
         long primaryMonitor = GLFW.glfwGetPrimaryMonitor();
 
         if (primaryMonitor == MemoryUtil.NULL) return new DisplayMode[0];
@@ -225,7 +224,7 @@ public class Display {
     }
 
     private static void resizeCallback(long window, int width, int height) {
-        if (window == handle) {
+        if (handle == window) {
             windowResized = true;
             Display.width = width;
             Display.height = height;
@@ -245,7 +244,7 @@ public class Display {
         GLFW.glfwTerminate();
 
         try (GLFWErrorCallback callback = GLFW.glfwSetErrorCallback(null)) {
-            if (null != callback) callback.free();
+            if (callback != null) callback.free();
         }
     }
 
@@ -282,12 +281,12 @@ public class Display {
 
     private static int getWindowX() {
         if (fullscreen) return 0;
-        return Math.max(0, (desktop_mode.getWidth() - current_mode.getWidth()) / 2);
+        return Math.max(0, (DESKTOP_MODE.getWidth() - currentMode.getWidth()) / 2);
     }
 
     private static int getWindowY() {
         if (fullscreen) return 0;
-        return Math.max(0, (desktop_mode.getHeight() - current_mode.getHeight()) / 2);
+        return Math.max(0, (DESKTOP_MODE.getHeight() - currentMode.getHeight()) / 2);
     }
 
     public static int getX() {
@@ -301,7 +300,7 @@ public class Display {
     }
 
     public static void setFullscreen(boolean fullscreen) {
-        setDisplayModeAndFullscreenInternal(fullscreen, current_mode);
+        setDisplayModeAndFullscreenInternal(fullscreen, currentMode);
     }
 
     public static boolean wasResized() {

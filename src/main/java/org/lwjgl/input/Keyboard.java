@@ -15,9 +15,9 @@ public class Keyboard {
     public static final int KEYBOARD_SIZE = GLFW.GLFW_KEY_LAST + 1;
     public static final int CHAR_NONE = '\0';
     private static final int BUFFER_SIZE = 50;
-    private static final ByteBuffer keyDownBuffer = BufferUtils.createByteBuffer(KEYBOARD_SIZE);
-    private static final String[] keyNames = new String[KEYBOARD_SIZE];
-    private static final Map<String, Integer> keyMap = new HashMap<>(253);
+    private static final ByteBuffer KEY_DOWN_BUFFER = BufferUtils.createByteBuffer(KEYBOARD_SIZE);
+    private static final String[] KEY_NAMES = new String[KEYBOARD_SIZE];
+    private static final Map<String, Integer> KEYS = new HashMap<>(253);
 
     public static final int KEY_NONE = register("NONE", 0x00);
     public static final int KEY_SPACE = register("SPACE", 57);
@@ -145,10 +145,10 @@ public class Keyboard {
     private static boolean created;
     private static boolean repeat;
     private static ByteBuffer readBuffer;
-    private static final KeyEvent current_event = new KeyEvent();
-    private static final KeyEvent tmp_event = new KeyEvent();
+    private static final KeyEvent CURRENT_EVENT = new KeyEvent();
+    private static final KeyEvent TMP_EVENT = new KeyEvent();
     private static boolean initialized;
-    private static Input implementation;
+    private static Input input;
 
     private Keyboard() {
     }
@@ -159,12 +159,12 @@ public class Keyboard {
         initialized = true;
     }
 
-    private static void create(Input impl) {
+    private static void create(Input input) {
         if (created) return;
         if (!initialized) initialize();
 
-        implementation = impl;
-        implementation.createKeyboard();
+        Keyboard.input = input;
+        Keyboard.input.createKeyboard();
         created = true;
         readBuffer = ByteBuffer.allocate(EVENT_SIZE * BUFFER_SIZE);
         reset();
@@ -179,11 +179,9 @@ public class Keyboard {
     private static void reset() {
         readBuffer.limit(0);
 
-        for (int i = 0; i < keyDownBuffer.remaining(); i++) {
-            keyDownBuffer.put(i, (byte) 0);
-        }
+        for (int i = 0; i < KEY_DOWN_BUFFER.remaining(); i++) KEY_DOWN_BUFFER.put(i, (byte) 0);
 
-        current_event.reset();
+        CURRENT_EVENT.reset();
     }
 
     public static boolean isCreated() {
@@ -191,36 +189,35 @@ public class Keyboard {
     }
 
     public static void destroy() {
-        if (!created)
-            return;
+        if (!created) return;
         created = false;
-        implementation.destroyKeyboard();
+        input.destroyKeyboard();
         reset();
     }
 
     public static void poll() {
         if (!created) throw new IllegalStateException("Keyboard must be created before you can poll the device");
-        implementation.pollKeyboard(keyDownBuffer);
+        input.pollKeyboard(KEY_DOWN_BUFFER);
         read();
     }
 
     private static void read() {
         readBuffer.compact();
-        implementation.readKeyboard(readBuffer);
+        input.readKeyboard(readBuffer);
         readBuffer.flip();
     }
 
     public static boolean isKeyDown(int key) {
         if (!created) throw new IllegalStateException("Keyboard must be created before you can query key state");
-        return keyDownBuffer.get(key) != 0;
+        return KEY_DOWN_BUFFER.get(key) != 0;
     }
 
     public static synchronized String getKeyName(int key) {
-        return keyNames[key];
+        return KEY_NAMES[key];
     }
 
     public static synchronized int getKeyIndex(String keyName) {
-        return keyMap.getOrDefault(keyName, KEY_NONE);
+        return KEYS.getOrDefault(keyName, KEY_NONE);
     }
 
     public static int getNumKeyboardEvents() {
@@ -228,9 +225,7 @@ public class Keyboard {
         int old_position = readBuffer.position();
         int num_events = 0;
 
-        while (readNext(tmp_event) && (!tmp_event.repeat || repeat)) {
-            num_events++;
-        }
+        while (readNext(TMP_EVENT) && (!TMP_EVENT.repeat || repeat)) num_events++;
 
         readBuffer.position(old_position);
         return num_events;
@@ -240,7 +235,7 @@ public class Keyboard {
         if (!created) throw new IllegalStateException("Keyboard must be created before you can read events");
 
         boolean result;
-        while ((result = readNext(current_event)) && current_event.repeat && !repeat);
+        while ((result = readNext(CURRENT_EVENT)) && CURRENT_EVENT.repeat && !repeat);
 
         return result;
     }
@@ -256,50 +251,51 @@ public class Keyboard {
     private static boolean readNext(KeyEvent event) {
         if (readBuffer.hasRemaining()) {
             event.key = readBuffer.getInt();
-            event.state = 0 != readBuffer.get();
+            event.state = (readBuffer.get() != 0);
             event.character = readBuffer.getInt();
             event.nanos = readBuffer.getLong();
-            event.repeat = 1 == readBuffer.get();
+
+            event.repeat = (readBuffer.get() == 1);
             return true;
-        } else
-            return false;
+        } else return false;
     }
 
     public static int getKeyCount() {
-        return keyMap.size();
+        return KEYS.size();
     }
 
     public static char getEventCharacter() {
-        return (char) current_event.character;
+        return (char) CURRENT_EVENT.character;
     }
 
     public static int getEventKey() {
-        return current_event.key;
+        return CURRENT_EVENT.key;
     }
 
     public static boolean getEventKeyState() {
-        return current_event.state;
+        return CURRENT_EVENT.state;
     }
 
     public static long getEventNanoseconds() {
-        return current_event.nanos;
+        return CURRENT_EVENT.nanos;
     }
 
     public static boolean isRepeatEvent() {
-        return current_event.repeat;
+        return CURRENT_EVENT.repeat;
     }
 
-    private static int register(String name, int lwjglCode) {
-        keyNames[lwjglCode] = name;
-        keyMap.put(name, lwjglCode);
-        return lwjglCode;
+    private static int register(String name, int code) {
+        KEY_NAMES[code] = name;
+        KEYS.put(name, code);
+        return code;
     }
 
     private static final class KeyEvent {
         private int character;
         private int key;
-        private boolean state;
         private long nanos;
+
+        private boolean state;
         private boolean repeat;
 
         private void reset() {

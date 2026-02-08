@@ -1,19 +1,18 @@
 package org.lwjgl.opengl;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.ContextCapabilities;
 
 import javax.annotation.Nullable;
 
 public class GLContext {
-    private static final ThreadLocal<ContextCapabilities> current_capabilities = new ThreadLocal<>();
+    private static final ThreadLocal<ContextCapabilities> CURRENT_CAPABILITIES = new ThreadLocal<>();
 
     public static ContextCapabilities getCapabilities() {
         ContextCapabilities caps = getCapabilitiesImpl();
-        if (null == caps) {
-            //throw new RuntimeException("No OpenGL context found in the current thread.");
+
+        if (caps == null) {
             try {
-                ContextCapabilities created = new ContextCapabilities(false);
+                ContextCapabilities created = new ContextCapabilities();
                 setCapabilities(created);
                 return created;
             } catch (LWJGLException e) {
@@ -25,7 +24,7 @@ public class GLContext {
     }
 
     static void setCapabilities(ContextCapabilities capabilities) {
-        current_capabilities.set(capabilities);
+        CURRENT_CAPABILITIES.set(capabilities);
     }
 
     private static @Nullable ContextCapabilities getCapabilitiesImpl() {
@@ -33,6 +32,6 @@ public class GLContext {
     }
 
     private static @Nullable ContextCapabilities getThreadLocalCapabilities() {
-        return current_capabilities.get();
+        return CURRENT_CAPABILITIES.get();
     }
 }

@@ -19,18 +19,17 @@ public class Scoreboard {
     private final Map<String, ScorePlayerTeam> teams = Maps.newHashMap();
     private final Map<String, ScorePlayerTeam> teamMemberships = Maps.newHashMap();
 
-    public static String getObjectiveDisplaySlot(int p_96517_0_) {
-        return switch (p_96517_0_) {
+    public static String getObjectiveDisplaySlot(int slot) {
+        return switch (slot) {
             case 0 -> "list";
             case 1 -> "sidebar";
             case 2 -> "belowName";
             default -> {
-                if (p_96517_0_ >= 3 && p_96517_0_ <= 18) {
-                    EnumChatFormatting enumchatformatting = EnumChatFormatting.func_175744_a(p_96517_0_ - 3);
+                if (slot >= 3 && slot <= 18) {
+                    EnumChatFormatting chatFormat = EnumChatFormatting.func_175744_a(slot - 3);
 
-                    if (enumchatformatting != null && enumchatformatting != EnumChatFormatting.RESET) {
-                        yield "sidebar.team." + enumchatformatting.getFriendlyName();
-                    }
+                    if (chatFormat != null && chatFormat != EnumChatFormatting.RESET)
+                        yield "sidebar.team." + chatFormat.getFriendlyName();
                 }
 
                 yield null;
@@ -38,25 +37,22 @@ public class Scoreboard {
         };
     }
 
-    public static int getObjectiveDisplaySlotNumber(String p_96537_0_) {
-        if (p_96537_0_.equalsIgnoreCase("list")) {
-            return 0;
-        } else if (p_96537_0_.equalsIgnoreCase("sidebar")) {
-            return 1;
-        } else if (p_96537_0_.equalsIgnoreCase("belowName")) {
-            return 2;
-        } else {
-            if (p_96537_0_.startsWith("sidebar.team.")) {
-                String s = p_96537_0_.substring("sidebar.team.".length());
-                EnumChatFormatting enumchatformatting = EnumChatFormatting.getValueByName(s);
+    public static int getObjectiveDisplaySlotNumber(String objective) {
+        return switch (objective) {
+            case "list" -> 0;
+            case "sidebar" -> 1;
+            case "belowName" -> 2;
+            default -> {
+                if (objective.startsWith("sidebar.team.")) {
+                    String s = objective.substring("sidebar.team.".length());
+                    EnumChatFormatting chatFormat = EnumChatFormatting.getValueByName(s);
 
-                if (enumchatformatting != null && enumchatformatting.getColorIndex() >= 0) {
-                    return enumchatformatting.getColorIndex() + 3;
+                    if (chatFormat != null && chatFormat.getColorIndex() >= 0) yield chatFormat.getColorIndex() + 3;
                 }
-            }
 
-            return -1;
-        }
+                yield  -1;
+            }
+        };
     }
 
     public static String[] getDisplaySlotStrings() {
@@ -76,14 +72,10 @@ public class Scoreboard {
     }
 
     public ScoreObjective addScoreObjective(String name, IScoreObjectiveCriteria criteria) {
-        if (name.length() > 16) {
-            throw new IllegalArgumentException("The objective name '" + name + "' is too long!");
-        } else {
+        if (name.length() <= 16) {
             ScoreObjective scoreobjective = getObjective(name);
 
-            if (scoreobjective != null) {
-                throw new IllegalArgumentException("An objective with the name '" + name + "' already exists!");
-            } else {
+            if (scoreobjective == null) {
                 scoreobjective = new ScoreObjective(this, name, criteria);
                 List<ScoreObjective> list = scoreObjectiveCriterias.computeIfAbsent(criteria, k -> Lists.newArrayList());
 
@@ -91,8 +83,8 @@ public class Scoreboard {
                 scoreObjectives.put(name, scoreobjective);
                 onScoreObjectiveAdded(scoreobjective);
                 return scoreobjective;
-            }
-        }
+            } else throw new IllegalArgumentException("An objective with the name '" + name + "' already exists!");
+        } else throw new IllegalArgumentException("The objective name '" + name + "' is too long!");
     }
 
     public Collection<ScoreObjective> getObjectivesFromCriteria(IScoreObjectiveCriteria criteria) {
@@ -103,22 +95,18 @@ public class Scoreboard {
     public boolean entityHasObjective(String name, ScoreObjective p_178819_2_) {
         Map<ScoreObjective, Score> map = entitiesScoreObjectives.get(name);
 
-        if (map == null) {
-            return false;
-        } else {
+        if (map != null) {
             Score score = map.get(p_178819_2_);
             return score != null;
-        }
+        } else return false;
     }
 
     public Score getValueFromObjective(String name, ScoreObjective objective) {
-        if (name.length() > 40) {
-            throw new IllegalArgumentException("The player name '" + name + "' is too long!");
-        } else {
+        if (name.length() <= 40) {
             Map<ScoreObjective, Score> map = entitiesScoreObjectives.computeIfAbsent(name, k -> Maps.newHashMap());
 
             return map.computeIfAbsent(objective, o -> new Score(this, o, name));
-        }
+        } else throw new IllegalArgumentException("The player name '" + name + "' is too long!");
     }
 
     public Collection<Score> getSortedScores(ScoreObjective objective) {
@@ -184,9 +172,7 @@ public class Scoreboard {
     public Map<ScoreObjective, Score> getObjectivesForEntity(String name) {
         Map<ScoreObjective, Score> map = entitiesScoreObjectives.get(name);
 
-        if (map == null) {
-            map = Maps.newHashMap();
-        }
+        if (map == null) map = Maps.newHashMap();
 
         return map;
     }
@@ -195,16 +181,12 @@ public class Scoreboard {
         scoreObjectives.remove(p_96519_1_.getName());
 
         for (int i = 0; i < 19; ++i) {
-            if (getObjectiveInDisplaySlot(i) == p_96519_1_) {
-                setObjectiveInDisplaySlot(i, null);
-            }
+            if (getObjectiveInDisplaySlot(i) == p_96519_1_) setObjectiveInDisplaySlot(i, null);
         }
 
         List<ScoreObjective> list = scoreObjectiveCriterias.get(p_96519_1_.getCriteria());
 
-        if (list != null) {
-            list.remove(p_96519_1_);
-        }
+        if (list != null) list.remove(p_96519_1_);
 
         for (Map<ScoreObjective, Score> map : entitiesScoreObjectives.values()) {
             map.remove(p_96519_1_);
@@ -226,23 +208,20 @@ public class Scoreboard {
     }
 
     public ScorePlayerTeam createTeam(String name) {
-        if (name.length() > 16) {
-            throw new IllegalArgumentException("The team name '" + name + "' is too long!");
-        } else {
+        if (name.length() <= 16) {
             ScorePlayerTeam scoreplayerteam = getTeam(name);
 
-            if (scoreplayerteam != null) {
-                throw new IllegalArgumentException("A team with the name '" + name + "' already exists!");
-            } else {
+            if (scoreplayerteam == null) {
                 scoreplayerteam = new ScorePlayerTeam(this, name);
                 teams.put(name, scoreplayerteam);
                 broadcastTeamCreated(scoreplayerteam);
                 return scoreplayerteam;
-            }
-        }
+            } else throw new IllegalArgumentException("A team with the name '" + name + "' already exists!");
+        } else throw new IllegalArgumentException("The team name '" + name + "' is too long!");
     }
 
     public void removeTeam(ScorePlayerTeam p_96511_1_) {
+        if (p_96511_1_ == null) return;
         teams.remove(p_96511_1_.getRegisteredName());
 
         for (String s : p_96511_1_.getMembershipCollection()) {
@@ -260,9 +239,7 @@ public class Scoreboard {
         } else {
             ScorePlayerTeam scoreplayerteam = getTeam(newTeam);
 
-            if (getPlayersTeam(player) != null) {
-                removePlayerFromTeams(player);
-            }
+            if (getPlayersTeam(player) != null) removePlayerFromTeams(player);
 
             teamMemberships.put(player, scoreplayerteam);
             scoreplayerteam.getMembershipCollection().add(player);
@@ -276,18 +253,15 @@ public class Scoreboard {
         if (scoreplayerteam != null) {
             removePlayerFromTeam(p_96524_1_, scoreplayerteam);
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
     public void removePlayerFromTeam(String p_96512_1_, ScorePlayerTeam p_96512_2_) {
-        if (getPlayersTeam(p_96512_1_) != p_96512_2_) {
-            throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team '" + p_96512_2_.getRegisteredName() + "'.");
-        } else {
+        if (getPlayersTeam(p_96512_1_) == p_96512_2_) {
             teamMemberships.remove(p_96512_1_);
             p_96512_2_.getMembershipCollection().remove(p_96512_1_);
-        }
+        } else
+            throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team '" + p_96512_2_.getRegisteredName() + "'.");
     }
 
     public Collection<String> getTeamNames() {
