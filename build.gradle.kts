@@ -25,22 +25,6 @@ dependencies {
         exclude(group = "com.google.code.gson", module = "gson")
     }
 
-    implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023") {
-        exclude(group = "com.paulscode", module = "soundsystem")
-    }
-    implementation(group = "com.paulscode", name = "codecwav", version = "20101023") {
-        exclude(group = "com.paulscode", module = "soundsystem")
-    }
-    implementation(group = "com.paulscode", name = "libraryjavasound", version = "20101123") {
-        exclude(group = "com.paulscode", module = "soundsystem")
-    }
-    implementation(group = "com.paulscode", name = "librarylwjglopenal", version = "20100824") {
-        exclude(group = "com.paulscode", module = "soundsystem")
-        exclude(group = "org.lwjgl.lwjgl", module = "lwjgl")
-        exclude(group = "net.java.jinput", module = "jinput")
-    }
-    implementation(group = "com.paulscode", name = "soundsystem", version = "20120107")
-
     implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
 
