@@ -1074,10 +1074,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         ActiveRenderInfo.updateRenderInfo(mc.thePlayer, mc.gameSettings.thirdPersonView == 2);
         mc.mcProfiler.endStartSection("frustum");
-        ClippingHelper clippinghelper = ClippingHelperImpl.getInstance();
         mc.mcProfiler.endStartSection("culling");
-        clippinghelper.disabled = Config.isShaders() && !Shaders.isFrustumCulling();
-        ICamera icamera = new Frustum(clippinghelper);
+        ICamera icamera = new Frustum();
         Entity entity = mc.getRenderViewEntity();
         double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
         double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;

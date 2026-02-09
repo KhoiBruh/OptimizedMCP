@@ -3,6 +3,7 @@ package net.optifine.shaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.ClippingHelper;
+import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -174,9 +175,8 @@ public class ShadersRender {
                     : GL11.GL_DEPTH_BUFFER_BIT);
             Shaders.checkGLError("shadow clear");
             minecraft.mcProfiler.endStartSection("shadow frustum");
-            ClippingHelper clippinghelper = ClippingHelperShadow.getInstance();
             minecraft.mcProfiler.endStartSection("shadow culling");
-            Frustum frustum = new Frustum(clippinghelper);
+            Frustum frustum = new Frustum();
             Entity entity = minecraft.getRenderViewEntity();
             double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
             double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;

@@ -1,44 +1,33 @@
 package net.minecraft.client.renderer.culling;
 
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
-
-import java.nio.FloatBuffer;
+import org.lwjgl.system.MemoryStack;
 
 public class ClippingHelperImpl extends ClippingHelper {
     private static final ClippingHelperImpl instance = new ClippingHelperImpl();
-    private final FloatBuffer projectionMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
-    private final FloatBuffer modelviewMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
 
-    private final float[] projectionArray = new float[16];
-    private final float[] modelviewArray = new float[16];
-
-    /**
-     * Initialises the ClippingHelper object then returns an instance of it.
-     */
     public static ClippingHelper getInstance() {
         instance.init();
         return instance;
     }
 
     public void init() {
-        projectionMatrixBuffer.clear();
-        modelviewMatrixBuffer.clear();
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            var projectionBuffer = stack.mallocFloat(16);
+            var modelviewBuffer = stack.mallocFloat(16);
 
-        GlStateManager.getFloat(2983, projectionMatrixBuffer);
-        GlStateManager.getFloat(2982, modelviewMatrixBuffer);
+            GlStateManager.getFloat(2983, projectionBuffer);
+            GlStateManager.getFloat(2982, modelviewBuffer);
 
-        projectionMatrixBuffer.flip().limit(16);
-        projectionMatrixBuffer.get(projectionArray);
+            projectionBuffer.flip();
+            modelviewBuffer.flip();
 
-        modelviewMatrixBuffer.flip().limit(16);
-        modelviewMatrixBuffer.get(modelviewArray);
+            projection.set(projectionBuffer);
+            modelview.set(modelviewBuffer);
 
-        projectionMatrix.set(projectionArray);
-        modelviewMatrix.set(modelviewArray);
+            clipping.set(projection).mul(modelview);
 
-        clippingMatrix.set(projectionMatrix).mul(modelviewMatrix);
-
-        frustum.set(clippingMatrix);
+            frustum.set(clipping);
+        }
     }
 }

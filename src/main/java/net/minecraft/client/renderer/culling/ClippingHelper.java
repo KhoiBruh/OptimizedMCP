@@ -5,9 +5,9 @@ import org.joml.Matrix4f;
 
 public class ClippingHelper {
     public FrustumIntersection frustum = new FrustumIntersection();
-    public Matrix4f projectionMatrix = new Matrix4f();
-    public Matrix4f modelviewMatrix = new Matrix4f();
-    public Matrix4f clippingMatrix = new Matrix4f();
+    public Matrix4f projection = new Matrix4f();
+    public Matrix4f modelview = new Matrix4f();
+    public Matrix4f clipping = new Matrix4f();
     public boolean disabled;
 
     public boolean isBoxInFrustum(double x, double y, double z, double x2, double y2, double z2) {
