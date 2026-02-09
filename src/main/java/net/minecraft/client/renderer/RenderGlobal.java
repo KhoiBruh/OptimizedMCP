@@ -1114,9 +1114,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private void fixTerrainFrustum(double x, double y, double z) {
         debugFixedClippingHelper = new ClippingHelperImpl();
         ((ClippingHelperImpl) debugFixedClippingHelper).init();
-        Matrix4f matrix4f = new Matrix4f(FloatBuffer.wrap(debugFixedClippingHelper.modelviewMatrix));
+        Matrix4f matrix4f = new Matrix4f(debugFixedClippingHelper.modelviewMatrix);
         matrix4f.transpose();
-        Matrix4f matrix4f1 = new Matrix4f(FloatBuffer.wrap(debugFixedClippingHelper.projectionMatrix));
+        Matrix4f matrix4f1 = new Matrix4f(debugFixedClippingHelper.projectionMatrix);
         matrix4f1.transpose();
         Matrix4f matrix4f2 = new Matrix4f();
         matrix4f1.mul(matrix4f, matrix4f2);

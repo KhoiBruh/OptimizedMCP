@@ -42,6 +42,7 @@ dependencies {
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
 
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
+    implementation(group = "org.joml", name = "joml-primitives", version = "1.10.0")
 
     implementation(platform("org.lwjgl:lwjgl-bom:3.4.1"))
 

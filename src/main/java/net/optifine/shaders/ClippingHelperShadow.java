@@ -1,250 +1,183 @@
 package net.optifine.shaders;
 
 import net.minecraft.client.renderer.culling.ClippingHelper;
-import net.minecraft.util.MathHelper;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class ClippingHelperShadow extends ClippingHelper {
     private static final ClippingHelperShadow instance = new ClippingHelperShadow();
-    final float[][] shadowClipPlanes = new float[10][4];
-    final float[] vecIntersection = new float[4];
-    int shadowClipPlaneCount;
+    
+    // Own frustum planes for shadow calculations (not inherited from ClippingHelper anymore)
+    private final Vector4f[] frustumPlanes = new Vector4f[6];
+    private final Vector4f[] shadowClipPlanes = new Vector4f[10];
+    private final Vector3f vecIntersection = new Vector3f();
+    private int shadowClipPlaneCount;
+
+    public ClippingHelperShadow() {
+        for (int i = 0; i < frustumPlanes.length; ++i)
+            frustumPlanes[i] = new Vector4f();
+        for (int i = 0; i < shadowClipPlanes.length; ++i)
+            shadowClipPlanes[i] = new Vector4f();
+    }
 
     public static ClippingHelper getInstance() {
         instance.init();
         return instance;
     }
 
-    /**
-     * Returns true if the box is inside all 6 clipping planes, otherwise returns false.
-     */
+    @Override
     public boolean isBoxInFrustum(double x1, double y1, double z1, double x2, double y2, double z2) {
         for (int i = 0; i < shadowClipPlaneCount; ++i) {
-            float[] afloat = shadowClipPlanes[i];
-
-            if (dot4(afloat, x1, y1, z1) <= 0.0D && dot4(afloat, x2, y1, z1) <= 0.0D && dot4(afloat, x1, y2, z1) <= 0.0D && dot4(afloat, x2, y2, z1) <= 0.0D && dot4(afloat, x1, y1, z2) <= 0.0D && dot4(afloat, x2, y1, z2) <= 0.0D && dot4(afloat, x1, y2, z2) <= 0.0D && dot4(afloat, x2, y2, z2) <= 0.0D) {
+            Vector4f plane = shadowClipPlanes[i];
+            if (plane.dot((float) x1, (float) y1, (float) z1, 1.0f) <= 0.0F &&
+                    plane.dot((float) x2, (float) y1, (float) z1, 1.0f) <= 0.0F &&
+                    plane.dot((float) x1, (float) y2, (float) z1, 1.0f) <= 0.0F &&
+                    plane.dot((float) x2, (float) y2, (float) z1, 1.0f) <= 0.0F &&
+                    plane.dot((float) x1, (float) y1, (float) z2, 1.0f) <= 0.0F &&
+                    plane.dot((float) x2, (float) y1, (float) z2, 1.0f) <= 0.0F &&
+                    plane.dot((float) x1, (float) y2, (float) z2, 1.0f) <= 0.0F &&
+                    plane.dot((float) x2, (float) y2, (float) z2, 1.0f) <= 0.0F)
                 return false;
-            }
         }
-
         return true;
     }
 
-    private double dot4(float[] plane, double x, double y, double z) {
-        return (double) plane[0] * x + (double) plane[1] * y + (double) plane[2] * z + (double) plane[3];
+    private void normalizePlane(Vector4f plane) {
+        float length = (float) Math.sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z);
+        plane.mul(1.0f / length);
     }
 
-    private double dot3(float[] vecA, float[] vecB) {
-        return (double) vecA[0] * (double) vecB[0] + (double) vecA[1] * (double) vecB[1] + (double) vecA[2] * (double) vecB[2];
-    }
+    private void makeShadowPlane(Vector4f shadowPlane, Vector4f positivePlane, Vector4f negativePlane, Vector3f vecSun) {
+        vecIntersection.set(positivePlane.x, positivePlane.y, positivePlane.z)
+                .cross(negativePlane.x, negativePlane.y, negativePlane.z);
 
-    private void normalize3(float[] plane) {
-        float f = MathHelper.sqrt_float(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
+        Vector3f tempCross = new Vector3f(vecIntersection).cross(vecSun);
+        shadowPlane.set(tempCross.x, tempCross.y, tempCross.z, 0.0f);
 
-        if (f == 0.0F) {
-            f = 1.0F;
-        }
+        normalizePlane(shadowPlane);
 
-        plane[0] /= f;
-        plane[1] /= f;
-        plane[2] /= f;
-    }
-
-    private void assignPlane(float[] plane, float a, float b, float c, float d) {
-        float f = (float) Math.sqrt(a * a + b * b + c * c);
-        plane[0] = a / f;
-        plane[1] = b / f;
-        plane[2] = c / f;
-        plane[3] = d / f;
-    }
-
-    private void copyPlane(float[] dst, float[] src) {
-        dst[0] = src[0];
-        dst[1] = src[1];
-        dst[2] = src[2];
-        dst[3] = src[3];
-    }
-
-    private void cross3(float[] out, float[] a, float[] b) {
-        out[0] = a[1] * b[2] - a[2] * b[1];
-        out[1] = a[2] * b[0] - a[0] * b[2];
-        out[2] = a[0] * b[1] - a[1] * b[0];
-    }
-
-    private float length(float x, float y, float z) {
-        return (float) Math.sqrt(x * x + y * y + z * z);
+        float f = positivePlane.x * negativePlane.x + positivePlane.y * negativePlane.y + positivePlane.z * negativePlane.z;
+        float f1 = shadowPlane.x * negativePlane.x + shadowPlane.y * negativePlane.y + shadowPlane.z * negativePlane.z;
+        
+        float f2 = distance(shadowPlane.x, shadowPlane.y, shadowPlane.z, negativePlane.x * f1, negativePlane.y * f1, negativePlane.z * f1);
+        float f3 = distance(positivePlane.x, positivePlane.y, positivePlane.z, negativePlane.x * f, negativePlane.y * f, negativePlane.z * f);
+        float f4 = f2 / f3;
+        
+        float f5 = shadowPlane.x * positivePlane.x + shadowPlane.y * positivePlane.y + shadowPlane.z * positivePlane.z;
+        float f6 = distance(shadowPlane.x, shadowPlane.y, shadowPlane.z, positivePlane.x * f5, positivePlane.y * f5, positivePlane.z * f5);
+        float f7 = distance(negativePlane.x, negativePlane.y, negativePlane.z, positivePlane.x * f, positivePlane.y * f, positivePlane.z * f);
+        float f8 = f6 / f7;
+        
+        shadowPlane.w = positivePlane.w * f4 + negativePlane.w * f8;
     }
 
     private float distance(float x1, float y1, float z1, float x2, float y2, float z2) {
         return length(x1 - x2, y1 - y2, z1 - z2);
     }
-
-    private void makeShadowPlane(float[] shadowPlane, float[] positivePlane, float[] negativePlane, float[] vecSun) {
-        cross3(vecIntersection, positivePlane, negativePlane);
-        cross3(shadowPlane, vecIntersection, vecSun);
-        normalize3(shadowPlane);
-        float f = (float) dot3(positivePlane, negativePlane);
-        float f1 = (float) dot3(shadowPlane, negativePlane);
-        float f2 = distance(shadowPlane[0], shadowPlane[1], shadowPlane[2], negativePlane[0] * f1, negativePlane[1] * f1, negativePlane[2] * f1);
-        float f3 = distance(positivePlane[0], positivePlane[1], positivePlane[2], negativePlane[0] * f, negativePlane[1] * f, negativePlane[2] * f);
-        float f4 = f2 / f3;
-        float f5 = (float) dot3(shadowPlane, positivePlane);
-        float f6 = distance(shadowPlane[0], shadowPlane[1], shadowPlane[2], positivePlane[0] * f5, positivePlane[1] * f5, positivePlane[2] * f5);
-        float f7 = distance(negativePlane[0], negativePlane[1], negativePlane[2], positivePlane[0] * f, positivePlane[1] * f, positivePlane[2] * f);
-        float f8 = f6 / f7;
-        shadowPlane[3] = positivePlane[3] * f4 + negativePlane[3] * f8;
+    
+    private float length(float x, float y, float z) {
+        return (float) Math.sqrt(x * x + y * y + z * z);
     }
 
     public void init() {
-        float[] afloat = projectionMatrix;
-        float[] afloat1 = modelviewMatrix;
-        float[] afloat2 = clippingMatrix;
-        System.arraycopy(Shaders.faProjection, 0, afloat, 0, 16);
-        System.arraycopy(Shaders.faModelView, 0, afloat1, 0, 16);
-        SMath.multiplyMat4xMat4(afloat2, afloat1, afloat);
-        assignPlane(frustum[0], afloat2[3] - afloat2[0], afloat2[7] - afloat2[4], afloat2[11] - afloat2[8], afloat2[15] - afloat2[12]);
-        assignPlane(frustum[1], afloat2[3] + afloat2[0], afloat2[7] + afloat2[4], afloat2[11] + afloat2[8], afloat2[15] + afloat2[12]);
-        assignPlane(frustum[2], afloat2[3] + afloat2[1], afloat2[7] + afloat2[5], afloat2[11] + afloat2[9], afloat2[15] + afloat2[13]);
-        assignPlane(frustum[3], afloat2[3] - afloat2[1], afloat2[7] - afloat2[5], afloat2[11] - afloat2[9], afloat2[15] - afloat2[13]);
-        assignPlane(frustum[4], afloat2[3] - afloat2[2], afloat2[7] - afloat2[6], afloat2[11] - afloat2[10], afloat2[15] - afloat2[14]);
-        assignPlane(frustum[5], afloat2[3] + afloat2[2], afloat2[7] + afloat2[6], afloat2[11] + afloat2[10], afloat2[15] + afloat2[14]);
-        float[] afloat3 = Shaders.shadowLightPositionVector;
-        float f = (float) dot3(frustum[0], afloat3);
-        float f1 = (float) dot3(frustum[1], afloat3);
-        float f2 = (float) dot3(frustum[2], afloat3);
-        float f3 = (float) dot3(frustum[3], afloat3);
-        float f4 = (float) dot3(frustum[4], afloat3);
-        float f5 = (float) dot3(frustum[5], afloat3);
+        // Set matrices from Shaders float arrays
+        projectionMatrix.set(Shaders.faProjection);
+        modelviewMatrix.set(Shaders.faModelView);
+        
+        // clippingMatrix = projection * modelview
+        clippingMatrix.set(projectionMatrix).mul(modelviewMatrix);
+        
+        // Update FrustumIntersection (inherited from ClippingHelper)
+        frustum.set(clippingMatrix);
+        
+        // Extract planes locally for shadow calculations (OptiFine Order: Right, Left, Bottom, Top, Far, Near)
+        frustumPlanes[0].set(clippingMatrix.m03() - clippingMatrix.m00(), clippingMatrix.m13() - clippingMatrix.m10(), clippingMatrix.m23() - clippingMatrix.m20(), clippingMatrix.m33() - clippingMatrix.m30());
+        normalizePlane(frustumPlanes[0]);
+        
+        frustumPlanes[1].set(clippingMatrix.m03() + clippingMatrix.m00(), clippingMatrix.m13() + clippingMatrix.m10(), clippingMatrix.m23() + clippingMatrix.m20(), clippingMatrix.m33() + clippingMatrix.m30());
+        normalizePlane(frustumPlanes[1]);
+        
+        frustumPlanes[2].set(clippingMatrix.m03() + clippingMatrix.m01(), clippingMatrix.m13() + clippingMatrix.m11(), clippingMatrix.m23() + clippingMatrix.m21(), clippingMatrix.m33() + clippingMatrix.m31());
+        normalizePlane(frustumPlanes[2]);
+        
+        frustumPlanes[3].set(clippingMatrix.m03() - clippingMatrix.m01(), clippingMatrix.m13() - clippingMatrix.m11(), clippingMatrix.m23() - clippingMatrix.m21(), clippingMatrix.m33() - clippingMatrix.m31());
+        normalizePlane(frustumPlanes[3]);
+        
+        frustumPlanes[4].set(clippingMatrix.m03() - clippingMatrix.m02(), clippingMatrix.m13() - clippingMatrix.m12(), clippingMatrix.m23() - clippingMatrix.m22(), clippingMatrix.m33() - clippingMatrix.m32());
+        normalizePlane(frustumPlanes[4]);
+        
+        frustumPlanes[5].set(clippingMatrix.m03() + clippingMatrix.m02(), clippingMatrix.m13() + clippingMatrix.m12(), clippingMatrix.m23() + clippingMatrix.m22(), clippingMatrix.m33() + clippingMatrix.m32());
+        normalizePlane(frustumPlanes[5]);
+
+        float[] lightPos = Shaders.shadowLightPositionVector;
+        Vector3f vecSun = new Vector3f(lightPos[0], lightPos[1], lightPos[2]);
+
+        float f = frustumPlanes[0].x * vecSun.x + frustumPlanes[0].y * vecSun.y + frustumPlanes[0].z * vecSun.z;
+        float f1 = frustumPlanes[1].x * vecSun.x + frustumPlanes[1].y * vecSun.y + frustumPlanes[1].z * vecSun.z;
+        float f2 = frustumPlanes[2].x * vecSun.x + frustumPlanes[2].y * vecSun.y + frustumPlanes[2].z * vecSun.z;
+        float f3 = frustumPlanes[3].x * vecSun.x + frustumPlanes[3].y * vecSun.y + frustumPlanes[3].z * vecSun.z;
+        float f4 = frustumPlanes[4].x * vecSun.x + frustumPlanes[4].y * vecSun.y + frustumPlanes[4].z * vecSun.z;
+        float f5 = frustumPlanes[5].x * vecSun.x + frustumPlanes[5].y * vecSun.y + frustumPlanes[5].z * vecSun.z;
+        
         shadowClipPlaneCount = 0;
 
         if (f >= 0.0F) {
-            copyPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[0]);
-
+            shadowClipPlanes[shadowClipPlaneCount++].set(frustumPlanes[0]);
             if (f > 0.0F) {
-                if (f2 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[0], frustum[2], afloat3);
-                }
-
-                if (f3 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[0], frustum[3], afloat3);
-                }
-
-                if (f4 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[0], frustum[4], afloat3);
-                }
-
-                if (f5 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[0], frustum[5], afloat3);
-                }
+                if (f2 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[0], frustumPlanes[2], vecSun);
+                if (f3 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[0], frustumPlanes[3], vecSun);
+                if (f4 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[0], frustumPlanes[4], vecSun);
+                if (f5 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[0], frustumPlanes[5], vecSun);
             }
         }
-
+        
         if (f1 >= 0.0F) {
-            copyPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[1]);
-
+            shadowClipPlanes[shadowClipPlaneCount++].set(frustumPlanes[1]);
             if (f1 > 0.0F) {
-                if (f2 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[1], frustum[2], afloat3);
-                }
-
-                if (f3 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[1], frustum[3], afloat3);
-                }
-
-                if (f4 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[1], frustum[4], afloat3);
-                }
-
-                if (f5 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[1], frustum[5], afloat3);
-                }
+                if (f2 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[1], frustumPlanes[2], vecSun);
+                if (f3 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[1], frustumPlanes[3], vecSun);
+                if (f4 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[1], frustumPlanes[4], vecSun);
+                if (f5 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[1], frustumPlanes[5], vecSun);
             }
         }
-
+        
         if (f2 >= 0.0F) {
-            copyPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[2]);
-
+            shadowClipPlanes[shadowClipPlaneCount++].set(frustumPlanes[2]);
             if (f2 > 0.0F) {
-                if (f < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[2], frustum[0], afloat3);
-                }
-
-                if (f1 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[2], frustum[1], afloat3);
-                }
-
-                if (f4 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[2], frustum[4], afloat3);
-                }
-
-                if (f5 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[2], frustum[5], afloat3);
-                }
+                if (f < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[2], frustumPlanes[0], vecSun);
+                if (f1 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[2], frustumPlanes[1], vecSun);
+                if (f4 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[2], frustumPlanes[4], vecSun);
+                if (f5 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[2], frustumPlanes[5], vecSun);
             }
         }
 
         if (f3 >= 0.0F) {
-            copyPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[3]);
-
+            shadowClipPlanes[shadowClipPlaneCount++].set(frustumPlanes[3]);
             if (f3 > 0.0F) {
-                if (f < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[3], frustum[0], afloat3);
-                }
-
-                if (f1 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[3], frustum[1], afloat3);
-                }
-
-                if (f4 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[3], frustum[4], afloat3);
-                }
-
-                if (f5 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[3], frustum[5], afloat3);
-                }
+                if (f < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[3], frustumPlanes[0], vecSun);
+                if (f1 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[3], frustumPlanes[1], vecSun);
+                if (f4 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[3], frustumPlanes[4], vecSun);
+                if (f5 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[3], frustumPlanes[5], vecSun);
             }
         }
 
         if (f4 >= 0.0F) {
-            copyPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[4]);
-
+            shadowClipPlanes[shadowClipPlaneCount++].set(frustumPlanes[4]);
             if (f4 > 0.0F) {
-                if (f < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[4], frustum[0], afloat3);
-                }
-
-                if (f1 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[4], frustum[1], afloat3);
-                }
-
-                if (f2 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[4], frustum[2], afloat3);
-                }
-
-                if (f3 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[4], frustum[3], afloat3);
-                }
+                if (f < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[4], frustumPlanes[0], vecSun);
+                if (f1 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[4], frustumPlanes[1], vecSun);
+                if (f2 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[4], frustumPlanes[2], vecSun);
+                if (f3 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[4], frustumPlanes[3], vecSun);
             }
         }
 
         if (f5 >= 0.0F) {
-            copyPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[5]);
-
+            shadowClipPlanes[shadowClipPlaneCount++].set(frustumPlanes[5]);
             if (f5 > 0.0F) {
-                if (f < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[5], frustum[0], afloat3);
-                }
-
-                if (f1 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[5], frustum[1], afloat3);
-                }
-
-                if (f2 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[5], frustum[2], afloat3);
-                }
-
-                if (f3 < 0.0F) {
-                    makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustum[5], frustum[3], afloat3);
-                }
+                if (f < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[5], frustumPlanes[0], vecSun);
+                if (f1 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[5], frustumPlanes[1], vecSun);
+                if (f2 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[5], frustumPlanes[2], vecSun);
+                if (f3 < 0.0F) makeShadowPlane(shadowClipPlanes[shadowClipPlaneCount++], frustumPlanes[5], frustumPlanes[3], vecSun);
             }
         }
     }
