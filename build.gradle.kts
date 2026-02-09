@@ -25,38 +25,37 @@ dependencies {
         exclude(group = "com.google.code.gson", module = "gson")
     }
 
-    implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
+    implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
 
-    implementation(group = "io.netty", name = "netty-all", version = "4.2.1.Final")
+    implementation(group = "io.netty", name = "netty-buffer", version = "4.2.10.Final")
+    implementation(group = "io.netty", name = "netty-handler", version = "4.2.10.Final")
+    implementation(group = "io.netty", name = "netty-transport-native-epoll", version = "4.2.10.Final")
 
-    implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
-    implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
+    implementation(group = "commons-io", name = "commons-io", version = "2.21.0")
+    implementation(group = "commons-codec", name = "commons-codec", version = "1.21.0")
+    implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.20.0")
 
-    implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1") {
-        exclude(group = "commons-io", module = "commons-io")
-        exclude(group = "commons-codec", module = "commons-codec")
-        exclude(group = "org.apache.commons", module = "commons-lang3")
-    }
+    implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.25.3")
+    implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.25.3")
 
-    implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.1")
-
-    implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
+
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
 
-    implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
-    implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")
+    implementation(platform("org.lwjgl:lwjgl-bom:3.4.1"))
 
-    implementation(group = "org.lwjgl", name = "lwjgl", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-openal", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-stb", version = "3.3.6")
+    implementation(group = "org.lwjgl", name = "lwjgl")
+    implementation(group = "org.lwjgl", name = "lwjgl-stb")
+    implementation(group = "org.lwjgl", name = "lwjgl-glfw")
+    implementation(group = "org.lwjgl", name = "lwjgl-openal")
+    implementation(group = "org.lwjgl", name = "lwjgl-opengl")
+    implementation(group = "org.lwjgl", name = "lwjgl-rpmalloc")
 
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = "3.3.6", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = "3.3.6", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = "3.3.6", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = "3.3.6", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-stb", version = "3.3.6", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-stb", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-rpmalloc", classifier = "natives-windows")
 }

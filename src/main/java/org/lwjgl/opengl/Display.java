@@ -241,11 +241,11 @@ public class Display {
     public static void destroy() {
         destroyWindow();
         sizeCallback.free();
-        GLFW.glfwTerminate();
 
-        try (GLFWErrorCallback callback = GLFW.glfwSetErrorCallback(null)) {
-            if (callback != null) callback.free();
-        }
+        var callback = GLFW.glfwSetErrorCallback(null);
+        if (callback != null) callback.free();
+
+        GLFW.glfwTerminate();
     }
 
     public static boolean isCreated() {
