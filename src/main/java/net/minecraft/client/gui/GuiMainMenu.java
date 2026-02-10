@@ -218,7 +218,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             GlStateManager.colorMask(true, true, true, false);
         }
 
-        worldrenderer.setTranslation(0, 0, 0);
+        worldrenderer.setTranslation(0D, 0D, 0D);
         GlStateManager.colorMask(true, true, true, true);
         GlStateManager.matrixMode(5889);
         GlStateManager.popMatrix();

@@ -2044,7 +2044,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             tessellator.draw();
-            worldrenderer.setTranslation(0, 0, 0);
+            worldrenderer.setTranslation(0D, 0D, 0D);
             GlStateManager.enableCull();
             GlStateManager.disableAlpha();
             GlStateManager.doPolygonOffset(0.0F, 0.0F);
@@ -2130,7 +2130,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             tessellatorIn.draw();
-            worldRendererIn.setTranslation(0, 0, 0);
+            worldRendererIn.setTranslation(0D, 0D, 0D);
             postRenderDamagedBlocks();
         }
     }

@@ -1,37 +1,5 @@
-/*
- * Copyright (c) 2002-2008 LWJGL Project
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'LWJGL' nor the names of
- *   its contributors may be used to endorse or promote products derived
- *   from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package org.lwjgl.util.glu;
 
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -175,8 +143,8 @@ public class GLU {
             float left,
             float right,
             float bottom,
-            float top) {
-
+            float top
+    ) {
         glOrtho(left, right, bottom, top, -1.0, 1.0);
     }
 
@@ -184,8 +152,8 @@ public class GLU {
             float fovy,
             float aspect,
             float zNear,
-            float zFar) {
-
+            float zFar
+    ) {
         Project.gluPerspective(fovy, aspect, zNear, zFar);
     }
 
@@ -209,48 +177,12 @@ public class GLU {
         Project.gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, obj_pos);
     }
 
-    public static void gluPickMatrix(
-            float x,
-            float y,
-            float width,
-            float height,
-            IntBuffer viewport
-    ) {
-        Project.gluPickMatrix(x, y, width, height, viewport);
-    }
-
     public static String gluGetString(int name) {
         return Registry.gluGetString(name);
     }
 
     public static boolean gluCheckExtension(String extName, String extString) {
         return Registry.gluCheckExtension(extName, extString);
-    }
-
-    public static int gluBuild2DMipmaps(
-            int target,
-            int components,
-            int width,
-            int height,
-            int format,
-            int type,
-            ByteBuffer data
-    ) {
-        return MipMap.gluBuild2DMipmaps(target, components, width, height, format, type, data);
-    }
-
-    public static int gluScaleImage(
-            int format,
-            int widthIn,
-            int heightIn,
-            int typeIn,
-            ByteBuffer dataIn,
-            int widthOut,
-            int heightOut,
-            int typeOut,
-            ByteBuffer dataOut
-    ) {
-        return MipMap.gluScaleImage(format, widthIn, heightIn, typeIn, dataIn, widthOut, heightOut, typeOut, dataOut);
     }
 
     public static String gluErrorString(int error_code) {

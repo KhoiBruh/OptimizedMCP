@@ -56,7 +56,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
                 blockRenderer.getBlockModelRenderer().renderModel(world, blockRenderer.getModelFromBlockState(iblockstate, world, blockpos), iblockstate, blockpos, worldrenderer, false);
             }
 
-            worldrenderer.setTranslation(0, 0, 0);
+            worldrenderer.setTranslation(0D, 0D, 0D);
             tessellator.draw();
             RenderHelper.enableStandardItemLighting();
         }

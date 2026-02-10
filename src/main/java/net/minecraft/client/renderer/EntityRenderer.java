@@ -1416,9 +1416,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.alphaFunc(516, 0.1F);
-            float d0 = (float) (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks);
-            float d1 = (float) (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks);
-            float d2 = (float) (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks);
+            double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+            double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+            double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
             int l = MathHelper.floor_double(d1);
             int i1 = 5;
 
@@ -1529,7 +1529,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             if (j1 >= 0) tessellator.draw();
 
-            worldrenderer.setTranslation(0, 0, 0);
+            worldrenderer.setTranslation(0D, 0D, 0D);
             GlStateManager.enableCull();
             GlStateManager.disableBlend();
             GlStateManager.alphaFunc(516, 0.1F);

@@ -65,7 +65,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         worldrenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).normal(1.0F, 0.0F, 0.0F).endVertex();
         worldrenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(1.0F, 0.0F, 0.0F).endVertex();
         tessellator.draw();
-        worldrenderer.setTranslation(0, 0, 0);
+        worldrenderer.setTranslation(0D, 0D, 0D);
         GlStateManager.enableTexture2D();
     }
 

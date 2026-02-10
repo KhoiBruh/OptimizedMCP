@@ -202,7 +202,7 @@ public class ChunkRenderDispatcher {
                 uploadDisplayList(p_178503_2_, ((ListedRenderChunk) chunkRenderer).getDisplayList(player, compiledChunkIn), chunkRenderer);
             }
 
-            p_178503_2_.setTranslation(0, 0, 0);
+            p_178503_2_.setTranslation(0D, 0D, 0D);
             return Futures.immediateFuture(null);
         } else {
             ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn), null);
