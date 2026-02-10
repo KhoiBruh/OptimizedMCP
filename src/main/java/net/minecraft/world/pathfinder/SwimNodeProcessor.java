@@ -19,11 +19,11 @@ public class SwimNodeProcessor extends NodeProcessor {
     }
 
     public PathPoint getPathPointTo(Entity entityIn) {
-        return openPoint(MathHelper.floor_double(entityIn.getEntityBoundingBox().minX), MathHelper.floor_double(entityIn.getEntityBoundingBox().minY + 0.5D), MathHelper.floor_double(entityIn.getEntityBoundingBox().minZ));
+        return openPoint(MathHelper.floor(entityIn.getEntityBoundingBox().minX), MathHelper.floor(entityIn.getEntityBoundingBox().minY + 0.5D), MathHelper.floor(entityIn.getEntityBoundingBox().minZ));
     }
 
     public PathPoint getPathPointToCoords(Entity entityIn, double x, double y, double target) {
-        return openPoint(MathHelper.floor_double(x - (double) (entityIn.width / 2.0F)), MathHelper.floor_double(y + 0.5D), MathHelper.floor_double(target - (double) (entityIn.width / 2.0F)));
+        return openPoint(MathHelper.floor(x - (double) (entityIn.width / 2.0F)), MathHelper.floor(y + 0.5D), MathHelper.floor(target - (double) (entityIn.width / 2.0F)));
     }
 
     public int findPathOptions(PathPoint[] pathOptions, Entity entityIn, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {

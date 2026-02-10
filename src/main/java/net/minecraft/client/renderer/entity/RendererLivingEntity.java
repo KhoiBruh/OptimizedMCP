@@ -118,7 +118,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 f = interpolateRotation(entitylivingbase.prevRenderYawOffset, entitylivingbase.renderYawOffset,
                         partialTicks);
                 f2 = f1 - f;
-                float f3 = MathHelper.wrapAngleTo180_float(f2);
+                float f3 = MathHelper.wrapAngle(f2);
 
                 if (f3 < -85.0F) {
                     f3 = -85.0F;
@@ -448,7 +448,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
         if (bat.deathTime > 0) {
             float f = ((float) bat.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
-            f = MathHelper.sqrt_float(f);
+            f = MathHelper.sqrt(f);
 
             if (f > 1.0F) {
                 f = 1.0F;

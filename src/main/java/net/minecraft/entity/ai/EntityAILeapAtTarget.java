@@ -33,7 +33,7 @@ public class EntityAILeapAtTarget extends EntityAIBase {
     public void startExecuting() {
         double d0 = leapTarget.posX - leaper.posX;
         double d1 = leapTarget.posZ - leaper.posZ;
-        float f = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+        float f = MathHelper.sqrt(d0 * d0 + d1 * d1);
         leaper.motionX += d0 / (double) f * 0.5D * 0.800000011920929D + leaper.motionX * 0.20000000298023224D;
         leaper.motionZ += d1 / (double) f * 0.5D * 0.800000011920929D + leaper.motionZ * 0.20000000298023224D;
         leaper.motionY = leapMotionY;

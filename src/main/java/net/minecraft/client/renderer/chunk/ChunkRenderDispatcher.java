@@ -46,10 +46,10 @@ public class ChunkRenderDispatcher {
         queueChunkUploads = Queues.newArrayDeque();
         listPausedBuilders = new ArrayList<>();
         int i = Math.max(1, (int) ((double) Runtime.getRuntime().maxMemory() * 0.3D) / 10485760);
-        int j = Math.max(1, MathHelper.clamp_int(Runtime.getRuntime().availableProcessors() - 2, 1, i / 5));
+        int j = Math.max(1, MathHelper.clamp(Runtime.getRuntime().availableProcessors() - 2, 1, i / 5));
 
         if (p_i4_1_ < 0) {
-            countRenderBuilders = MathHelper.clamp_int(j * 8, 1, i);
+            countRenderBuilders = MathHelper.clamp(j * 8, 1, i);
         } else {
             countRenderBuilders = p_i4_1_;
         }

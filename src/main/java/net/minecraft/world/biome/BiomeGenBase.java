@@ -284,7 +284,7 @@ public abstract class BiomeGenBase {
 
     public int getSkyColorByTemp(float p_76731_1_) {
         p_76731_1_ = p_76731_1_ / 3.0F;
-        p_76731_1_ = MathHelper.clamp_float(p_76731_1_, -1.0F, 1.0F);
+        p_76731_1_ = MathHelper.clamp(p_76731_1_, -1.0F, 1.0F);
         return MathHelper.hsvToRGB(0.62222224F - p_76731_1_ * 0.05F, 0.5F + p_76731_1_ * 0.1F, 1.0F);
     }
 
@@ -335,14 +335,14 @@ public abstract class BiomeGenBase {
     }
 
     public int getGrassColorAtPos(BlockPos pos) {
-        double d0 = MathHelper.clamp_float(getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = MathHelper.clamp_float(rainfall, 0.0F, 1.0F);
+        double d0 = MathHelper.clamp(getFloatTemperature(pos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp(rainfall, 0.0F, 1.0F);
         return ColorizerGrass.getGrassColor(d0, d1);
     }
 
     public int getFoliageColorAtPos(BlockPos pos) {
-        double d0 = MathHelper.clamp_float(getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = MathHelper.clamp_float(rainfall, 0.0F, 1.0F);
+        double d0 = MathHelper.clamp(getFloatTemperature(pos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp(rainfall, 0.0F, 1.0F);
         return ColorizerFoliage.getFoliageColor(d0, d1);
     }
 

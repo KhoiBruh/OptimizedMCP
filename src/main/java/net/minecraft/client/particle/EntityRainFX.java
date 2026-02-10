@@ -61,7 +61,7 @@ public class EntityRainFX extends EntityFX {
                 d0 = block.getBlockBoundsMaxY();
             }
 
-            double d1 = (double) MathHelper.floor_double(posY) + d0;
+            double d1 = (double) MathHelper.floor(posY) + d0;
 
             if (posY < d1) {
                 setDead();

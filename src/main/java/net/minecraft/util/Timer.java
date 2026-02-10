@@ -47,7 +47,7 @@ public class Timer {
         lastSyncSysClock = i;
         double d2 = (d0 - lastHRTime) * timeSyncAdjustment;
         lastHRTime = d0;
-        d2 = MathHelper.clamp_double(d2, 0.0D, 1.0D);
+        d2 = MathHelper.clamp(d2, 0.0D, 1.0D);
         elapsedPartialTicks = (float) ((double) elapsedPartialTicks + d2 * (double) timerSpeed * (double) ticksPerSecond);
         elapsedTicks = (int) elapsedPartialTicks;
         elapsedPartialTicks -= (float) elapsedTicks;

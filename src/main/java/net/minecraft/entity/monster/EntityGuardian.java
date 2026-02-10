@@ -476,7 +476,7 @@ public class EntityGuardian extends EntityMob {
                 double d1 = posY - entityGuardian.posY;
                 double d2 = posZ - entityGuardian.posZ;
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                d3 = MathHelper.sqrt_double(d3);
+                d3 = MathHelper.sqrt(d3);
                 d1 = d1 / d3;
                 float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
                 entityGuardian.rotationYaw = limitAngle(entityGuardian.rotationYaw, f, 30.0F);

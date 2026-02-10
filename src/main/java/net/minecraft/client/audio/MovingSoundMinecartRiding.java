@@ -20,10 +20,10 @@ public class MovingSoundMinecartRiding extends MovingSound {
 
     public void update() {
         if (!minecart.isDead && player.isRiding() && player.ridingEntity == minecart) {
-            float f = MathHelper.sqrt_double(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
+            float f = MathHelper.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
             if ((double) f >= 0.01D) {
-                volume = 0.0F + MathHelper.clamp_float(f, 0.0F, 1.0F) * 0.75F;
+                volume = 0.0F + MathHelper.clamp(f, 0.0F, 1.0F) * 0.75F;
             } else {
                 volume = 0.0F;
             }

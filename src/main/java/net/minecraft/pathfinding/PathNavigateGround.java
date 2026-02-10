@@ -37,12 +37,12 @@ public class PathNavigateGround extends PathNavigate {
     private int getPathablePosY() {
         if (theEntity.isInWater() && getCanSwim()) {
             int i = (int) theEntity.getEntityBoundingBox().minY;
-            Block block = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(theEntity.posX), i, MathHelper.floor_double(theEntity.posZ))).getBlock();
+            Block block = worldObj.getBlockState(new BlockPos(MathHelper.floor(theEntity.posX), i, MathHelper.floor(theEntity.posZ))).getBlock();
             int j = 0;
 
             while (block == Blocks.flowing_water || block == Blocks.water) {
                 ++i;
-                block = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(theEntity.posX), i, MathHelper.floor_double(theEntity.posZ))).getBlock();
+                block = worldObj.getBlockState(new BlockPos(MathHelper.floor(theEntity.posX), i, MathHelper.floor(theEntity.posZ))).getBlock();
                 ++j;
 
                 if (j > 16) {
@@ -60,7 +60,7 @@ public class PathNavigateGround extends PathNavigate {
         super.removeSunnyPath();
 
         if (shouldAvoidSun) {
-            if (worldObj.canSeeSky(new BlockPos(MathHelper.floor_double(theEntity.posX), (int) (theEntity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor_double(theEntity.posZ)))) {
+            if (worldObj.canSeeSky(new BlockPos(MathHelper.floor(theEntity.posX), (int) (theEntity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor(theEntity.posZ)))) {
                 return;
             }
 
@@ -76,8 +76,8 @@ public class PathNavigateGround extends PathNavigate {
     }
 
     protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
-        int i = MathHelper.floor_double(posVec31.xCoord());
-        int j = MathHelper.floor_double(posVec31.zCoord());
+        int i = MathHelper.floor(posVec31.xCoord());
+        int j = MathHelper.floor(posVec31.zCoord());
         double d0 = posVec32.xCoord() - posVec31.xCoord();
         double d1 = posVec32.zCoord() - posVec31.zCoord();
         double d2 = d0 * d0 + d1 * d1;
@@ -113,8 +113,8 @@ public class PathNavigateGround extends PathNavigate {
                 d7 = d7 / d1;
                 int k = d0 < 0.0D ? -1 : 1;
                 int l = d1 < 0.0D ? -1 : 1;
-                int i1 = MathHelper.floor_double(posVec32.xCoord());
-                int j1 = MathHelper.floor_double(posVec32.zCoord());
+                int i1 = MathHelper.floor(posVec32.xCoord());
+                int j1 = MathHelper.floor(posVec32.zCoord());
                 int k1 = i1 - i;
                 int l1 = j1 - j;
 

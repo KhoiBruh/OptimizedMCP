@@ -209,8 +209,8 @@ public class GuiOverlayDebug extends Gui {
                                     blockpos.getZ() & 15, blockpos.getX() >> 4, blockpos.getY() >> 4,
                                     blockpos.getZ() >> 4),
                             String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, s,
-                                    MathHelper.wrapAngleTo180_float(entity.rotationYaw),
-                                    MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
+                                    MathHelper.wrapAngle(entity.rotationYaw),
+                                    MathHelper.wrapAngle(entity.rotationPitch)));
 
             if (mc.theWorld != null && mc.theWorld.isBlockLoaded(blockpos)) {
                 Chunk chunk = mc.theWorld.getChunkFromBlockCoords(blockpos);
@@ -325,10 +325,10 @@ public class GuiOverlayDebug extends Gui {
         int j1 = p_181553_2_ >> 16 & 255;
         int k1 = p_181553_2_ >> 8 & 255;
         int l1 = p_181553_2_ & 255;
-        int i2 = MathHelper.clamp_int((int) ((float) i + (float) (i1 - i) * p_181553_3_), 0, 255);
-        int j2 = MathHelper.clamp_int((int) ((float) j + (float) (j1 - j) * p_181553_3_), 0, 255);
-        int k2 = MathHelper.clamp_int((int) ((float) k + (float) (k1 - k) * p_181553_3_), 0, 255);
-        int l2 = MathHelper.clamp_int((int) ((float) l + (float) (l1 - l) * p_181553_3_), 0, 255);
+        int i2 = MathHelper.clamp((int) ((float) i + (float) (i1 - i) * p_181553_3_), 0, 255);
+        int j2 = MathHelper.clamp((int) ((float) j + (float) (j1 - j) * p_181553_3_), 0, 255);
+        int k2 = MathHelper.clamp((int) ((float) k + (float) (k1 - k) * p_181553_3_), 0, 255);
+        int l2 = MathHelper.clamp((int) ((float) l + (float) (l1 - l) * p_181553_3_), 0, 255);
         return i2 << 24 | j2 << 16 | k2 << 8 | l2;
     }
 }

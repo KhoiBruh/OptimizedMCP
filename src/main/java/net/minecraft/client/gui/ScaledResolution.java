@@ -31,8 +31,8 @@ public class ScaledResolution {
 
         scaledWidthD = (double) scaledWidth / (double) scaleFactor;
         scaledHeightD = (double) scaledHeight / (double) scaleFactor;
-        scaledWidth = MathHelper.ceiling_double_int(scaledWidthD);
-        scaledHeight = MathHelper.ceiling_double_int(scaledHeightD);
+        scaledWidth = MathHelper.ceil(scaledWidthD);
+        scaledHeight = MathHelper.ceil(scaledHeightD);
     }
 
     public int getScaledWidth() {

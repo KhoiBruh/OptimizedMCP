@@ -96,7 +96,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
         int i = Integer.MAX_VALUE;
 
         for (VillageDoorInfo villagedoorinfo1 : villageIn.getVillageDoorInfoList()) {
-            int j = villagedoorinfo1.getDistanceSquared(MathHelper.floor_double(theEntity.posX), MathHelper.floor_double(theEntity.posY), MathHelper.floor_double(theEntity.posZ));
+            int j = villagedoorinfo1.getDistanceSquared(MathHelper.floor(theEntity.posX), MathHelper.floor(theEntity.posY), MathHelper.floor(theEntity.posZ));
 
             if (j < i && !doesDoorListContain(villagedoorinfo1)) {
                 villagedoorinfo = villagedoorinfo1;

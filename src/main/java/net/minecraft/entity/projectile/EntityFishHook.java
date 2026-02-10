@@ -106,7 +106,7 @@ public class EntityFishHook extends Entity {
     }
 
     public void handleHookCasting(double p_146035_1_, double p_146035_3_, double p_146035_5_, float p_146035_7_, float p_146035_8_) {
-        float f = MathHelper.sqrt_double(p_146035_1_ * p_146035_1_ + p_146035_3_ * p_146035_3_ + p_146035_5_ * p_146035_5_);
+        float f = MathHelper.sqrt(p_146035_1_ * p_146035_1_ + p_146035_3_ * p_146035_3_ + p_146035_5_ * p_146035_5_);
         p_146035_1_ = p_146035_1_ / (double) f;
         p_146035_3_ = p_146035_3_ / (double) f;
         p_146035_5_ = p_146035_5_ / (double) f;
@@ -119,7 +119,7 @@ public class EntityFishHook extends Entity {
         motionX = p_146035_1_;
         motionY = p_146035_3_;
         motionZ = p_146035_5_;
-        float f1 = MathHelper.sqrt_double(p_146035_1_ * p_146035_1_ + p_146035_5_ * p_146035_5_);
+        float f1 = MathHelper.sqrt(p_146035_1_ * p_146035_1_ + p_146035_5_ * p_146035_5_);
         prevRotationYaw = rotationYaw = (float) (MathHelper.atan2(p_146035_1_, p_146035_5_) * 180.0D / Math.PI);
         prevRotationPitch = rotationPitch = (float) (MathHelper.atan2(p_146035_3_, f1) * 180.0D / Math.PI);
         ticksInGround = 0;
@@ -150,7 +150,7 @@ public class EntityFishHook extends Entity {
             double d7 = posX + (fishX - posX) / (double) fishPosRotationIncrements;
             double d8 = posY + (fishY - posY) / (double) fishPosRotationIncrements;
             double d9 = posZ + (fishZ - posZ) / (double) fishPosRotationIncrements;
-            double d1 = MathHelper.wrapAngleTo180_double(fishYaw - (double) rotationYaw);
+            double d1 = MathHelper.wrapAngle(fishYaw - (double) rotationYaw);
             rotationYaw = (float) ((double) rotationYaw + d1 / (double) fishPosRotationIncrements);
             rotationPitch = (float) ((double) rotationPitch + (fishPitch - (double) rotationPitch) / (double) fishPosRotationIncrements);
             --fishPosRotationIncrements;
@@ -251,7 +251,7 @@ public class EntityFishHook extends Entity {
 
             if (!inGround) {
                 moveEntity(motionX, motionY, motionZ);
-                float f5 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+                float f5 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
                 rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * 180.0D / Math.PI);
 
                 for (rotationPitch = (float) (MathHelper.atan2(motionY, f5) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {
@@ -318,17 +318,17 @@ public class EntityFishHook extends Entity {
                         if (ticksCatchableDelay <= 0) {
                             motionY -= 0.20000000298023224D;
                             playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
-                            float f8 = (float) MathHelper.floor_double(getEntityBoundingBox().minY);
+                            float f8 = (float) MathHelper.floor(getEntityBoundingBox().minY);
                             worldserver.spawnParticle(ParticleTypes.WATER_BUBBLE, posX, f8 + 1.0F, posZ, (int) (1.0F + width * 20.0F), width, 0.0D, width, 0.20000000298023224D);
                             worldserver.spawnParticle(ParticleTypes.WATER_WAKE, posX, f8 + 1.0F, posZ, (int) (1.0F + width * 20.0F), width, 0.0D, width, 0.20000000298023224D);
-                            ticksCatchable = MathHelper.getRandomIntegerInRange(rand, 10, 30);
+                            ticksCatchable = MathHelper.nextInt(rand, 10, 30);
                         } else {
                             fishApproachAngle = (float) ((double) fishApproachAngle + rand.nextGaussian() * 4.0D);
                             float f7 = fishApproachAngle * 0.017453292F;
                             float f10 = MathHelper.sin(f7);
                             float f11 = MathHelper.cos(f7);
                             double d13 = posX + (double) (f10 * (float) ticksCatchableDelay * 0.1F);
-                            double d15 = (float) MathHelper.floor_double(getEntityBoundingBox().minY) + 1.0F;
+                            double d15 = (float) MathHelper.floor(getEntityBoundingBox().minY) + 1.0F;
                             double d16 = posZ + (double) (f11 * (float) ticksCatchableDelay * 0.1F);
                             Block block1 = worldserver.getBlockState(new BlockPos((int) d13, (int) d15 - 1, (int) d16)).getBlock();
 
@@ -356,10 +356,10 @@ public class EntityFishHook extends Entity {
                         }
 
                         if (rand.nextFloat() < f1) {
-                            float f9 = MathHelper.randomFloatClamp(rand, 0.0F, 360.0F) * 0.017453292F;
-                            float f2 = MathHelper.randomFloatClamp(rand, 25.0F, 60.0F);
+                            float f9 = MathHelper.nextFloat(rand, 0.0F, 360.0F) * 0.017453292F;
+                            float f2 = MathHelper.nextFloat(rand, 25.0F, 60.0F);
                             double d12 = posX + (double) (MathHelper.sin(f9) * f2 * 0.1F);
-                            double d14 = (float) MathHelper.floor_double(getEntityBoundingBox().minY) + 1.0F;
+                            double d14 = (float) MathHelper.floor(getEntityBoundingBox().minY) + 1.0F;
                             double d6 = posZ + (double) (MathHelper.cos(f9) * f2 * 0.1F);
                             Block block = worldserver.getBlockState(new BlockPos((int) d12, (int) d14 - 1, (int) d6)).getBlock();
 
@@ -369,11 +369,11 @@ public class EntityFishHook extends Entity {
                         }
 
                         if (ticksCaughtDelay <= 0) {
-                            fishApproachAngle = MathHelper.randomFloatClamp(rand, 0.0F, 360.0F);
-                            ticksCatchableDelay = MathHelper.getRandomIntegerInRange(rand, 20, 80);
+                            fishApproachAngle = MathHelper.nextFloat(rand, 0.0F, 360.0F);
+                            ticksCatchableDelay = MathHelper.nextInt(rand, 20, 80);
                         }
                     } else {
-                        ticksCaughtDelay = MathHelper.getRandomIntegerInRange(rand, 100, 900);
+                        ticksCaughtDelay = MathHelper.nextInt(rand, 100, 900);
                         ticksCaughtDelay -= EnchantmentHelper.getLureModifier(angler) * 20 * 5;
                     }
 
@@ -433,10 +433,10 @@ public class EntityFishHook extends Entity {
                 double d0 = angler.posX - posX;
                 double d2 = angler.posY - posY;
                 double d4 = angler.posZ - posZ;
-                double d6 = MathHelper.sqrt_double(d0 * d0 + d2 * d2 + d4 * d4);
+                double d6 = MathHelper.sqrt(d0 * d0 + d2 * d2 + d4 * d4);
                 double d8 = 0.1D;
                 caughtEntity.motionX += d0 * d8;
-                caughtEntity.motionY += d2 * d8 + (double) MathHelper.sqrt_double(d6) * 0.08D;
+                caughtEntity.motionY += d2 * d8 + (double) MathHelper.sqrt(d6) * 0.08D;
                 caughtEntity.motionZ += d4 * d8;
                 i = 3;
             } else if (ticksCatchable > 0) {
@@ -444,10 +444,10 @@ public class EntityFishHook extends Entity {
                 double d1 = angler.posX - posX;
                 double d3 = angler.posY - posY;
                 double d5 = angler.posZ - posZ;
-                double d7 = MathHelper.sqrt_double(d1 * d1 + d3 * d3 + d5 * d5);
+                double d7 = MathHelper.sqrt(d1 * d1 + d3 * d3 + d5 * d5);
                 double d9 = 0.1D;
                 entityitem.motionX = d1 * d9;
-                entityitem.motionY = d3 * d9 + (double) MathHelper.sqrt_double(d7) * 0.08D;
+                entityitem.motionY = d3 * d9 + (double) MathHelper.sqrt(d7) * 0.08D;
                 entityitem.motionZ = d5 * d9;
                 worldObj.spawnEntityInWorld(entityitem);
                 angler.worldObj.spawnEntityInWorld(new EntityXPOrb(angler.worldObj, angler.posX, angler.posY + 0.5D, angler.posZ + 0.5D, rand.nextInt(6) + 1));
@@ -470,8 +470,8 @@ public class EntityFishHook extends Entity {
         int j = EnchantmentHelper.getLureModifier(angler);
         float f1 = 0.1F - (float) i * 0.025F - (float) j * 0.01F;
         float f2 = 0.05F + (float) i * 0.01F - (float) j * 0.01F;
-        f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
-        f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
+        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+        f2 = MathHelper.clamp(f2, 0.0F, 1.0F);
 
         if (f < f1) {
             angler.triggerAchievement(StatList.junkFishedStat);

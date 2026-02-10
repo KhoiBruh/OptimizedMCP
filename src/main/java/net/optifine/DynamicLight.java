@@ -62,7 +62,7 @@ public class DynamicLight {
             World world = renderGlobal.getWorld();
 
             if (world != null) {
-                blockPosMutable.set(MathHelper.floor_double(d6), MathHelper.floor_double(d0), MathHelper.floor_double(d1));
+                blockPosMutable.set(MathHelper.floor(d6), MathHelper.floor(d0), MathHelper.floor(d1));
                 IBlockState iblockstate = world.getBlockState(blockPosMutable);
                 Block block = iblockstate.getBlock();
                 underwater = block == Blocks.water;
@@ -71,9 +71,9 @@ public class DynamicLight {
             Set<BlockPos> set = new HashSet<>();
 
             if (j > 0) {
-                Direction enumfacing2 = (MathHelper.floor_double(d6) & 15) >= 8 ? Direction.EAST : Direction.WEST;
-                Direction enumfacing = (MathHelper.floor_double(d0) & 15) >= 8 ? Direction.UP : Direction.DOWN;
-                Direction enumfacing1 = (MathHelper.floor_double(d1) & 15) >= 8 ? Direction.SOUTH : Direction.NORTH;
+                Direction enumfacing2 = (MathHelper.floor(d6) & 15) >= 8 ? Direction.EAST : Direction.WEST;
+                Direction enumfacing = (MathHelper.floor(d0) & 15) >= 8 ? Direction.UP : Direction.DOWN;
+                Direction enumfacing1 = (MathHelper.floor(d1) & 15) >= 8 ? Direction.SOUTH : Direction.NORTH;
                 BlockPos blockpos = new BlockPos(d6, d0, d1);
                 RenderChunk renderchunk = renderGlobal.getRenderChunk(blockpos);
                 BlockPos blockpos1 = getChunkPos(renderchunk, blockpos, enumfacing2);

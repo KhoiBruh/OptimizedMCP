@@ -79,7 +79,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public void growStem(World worldIn, BlockPos pos, IBlockState state) {
-        int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+        int i = state.getValue(AGE) + MathHelper.nextInt(worldIn.rand, 2, 5);
         worldIn.setBlockState(pos, state.withProperty(AGE, Math.min(7, i)), 2);
     }
 

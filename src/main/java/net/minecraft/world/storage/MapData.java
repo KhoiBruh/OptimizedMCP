@@ -35,8 +35,8 @@ public class MapData extends WorldSavedData {
 
     public void calculateMapCenter(double x, double z, int mapScale) {
         int i = 128 * (1 << mapScale);
-        int j = MathHelper.floor_double((x + 64.0D) / (double) i);
-        int k = MathHelper.floor_double((z + 64.0D) / (double) i);
+        int j = MathHelper.floor((x + 64.0D) / (double) i);
+        int k = MathHelper.floor((z + 64.0D) / (double) i);
         xCenter = j * i + i / 2 - 64;
         zCenter = k * i + i / 2 - 64;
     }
@@ -46,7 +46,7 @@ public class MapData extends WorldSavedData {
         xCenter = nbt.getInteger("xCenter");
         zCenter = nbt.getInteger("zCenter");
         scale = nbt.getByte("scale");
-        scale = (byte) MathHelper.clamp_int(scale, 0, 4);
+        scale = (byte) MathHelper.clamp(scale, 0, 4);
         int i = nbt.getShort("width");
         int j = nbt.getShort("height");
 

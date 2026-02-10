@@ -52,7 +52,7 @@ public class EntityChicken extends EntityAnimal {
         field_70888_h = wingRotation;
         field_70884_g = destPos;
         destPos = (float) ((double) destPos + (double) (onGround ? -1 : 4) * 0.3D);
-        destPos = MathHelper.clamp_float(destPos, 0.0F, 1.0F);
+        destPos = MathHelper.clamp(destPos, 0.0F, 1.0F);
 
         if (!onGround && wingRotDelta < 1.0F) {
             wingRotDelta = 1.0F;

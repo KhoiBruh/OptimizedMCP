@@ -19,7 +19,7 @@ public class TileEntityNote extends TileEntity {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         note = compound.getByte("note");
-        note = (byte) MathHelper.clamp_int(note, 0, 24);
+        note = (byte) MathHelper.clamp(note, 0, 24);
     }
 
     public void changePitch() {

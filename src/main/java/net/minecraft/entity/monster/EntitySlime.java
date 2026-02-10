@@ -223,7 +223,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     public boolean getCanSpawnHere() {
-        BlockPos blockpos = new BlockPos(MathHelper.floor_double(posX), 0, MathHelper.floor_double(posZ));
+        BlockPos blockpos = new BlockPos(MathHelper.floor(posX), 0, MathHelper.floor(posZ));
         Chunk chunk = worldObj.getChunkFromBlockCoords(blockpos);
 
         if (worldObj.getWorldInfo().getTerrainType() == WorldType.FLAT && rand.nextInt(4) != 1) {

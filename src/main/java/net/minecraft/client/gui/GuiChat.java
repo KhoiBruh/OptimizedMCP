@@ -182,7 +182,7 @@ public class GuiChat extends GuiScreen {
     public void getSentHistory(int msgPos) {
         int i = sentHistoryCursor + msgPos;
         int j = mc.ingameGUI.getChatGUI().getSentMessages().size();
-        i = MathHelper.clamp_int(i, 0, j);
+        i = MathHelper.clamp(i, 0, j);
 
         if (i != sentHistoryCursor) {
             if (i == j) {

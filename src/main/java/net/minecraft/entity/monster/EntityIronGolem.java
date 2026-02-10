@@ -94,9 +94,9 @@ public class EntityIronGolem extends EntityGolem {
         }
 
         if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
-            int i = MathHelper.floor_double(posX);
-            int j = MathHelper.floor_double(posY - 0.20000000298023224D);
-            int k = MathHelper.floor_double(posZ);
+            int i = MathHelper.floor(posX);
+            int j = MathHelper.floor(posY - 0.20000000298023224D);
+            int k = MathHelper.floor(posZ);
             IBlockState iblockstate = worldObj.getBlockState(new BlockPos(i, j, k));
             Block block = iblockstate.getBlock();
 

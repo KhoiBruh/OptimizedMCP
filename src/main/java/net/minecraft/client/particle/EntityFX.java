@@ -48,7 +48,7 @@ public class EntityFX extends Entity {
         motionY = ySpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
         motionZ = zSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.4000000059604645D;
         float f = (float) (Math.random() + Math.random() + 1.0D) * 0.15F;
-        float f1 = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
+        float f1 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
         motionX = motionX / (double) f1 * (double) f * 0.4000000059604645D;
         motionY = motionY / (double) f1 * (double) f * 0.4000000059604645D + 0.10000000149011612D;
         motionZ = motionZ / (double) f1 * (double) f * 0.4000000059604645D;

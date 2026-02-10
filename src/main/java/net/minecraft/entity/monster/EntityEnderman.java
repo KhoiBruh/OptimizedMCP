@@ -401,9 +401,9 @@ public class EntityEnderman extends EntityMob {
         public void updateTask() {
             Random random = enderman.getRNG();
             World world = enderman.worldObj;
-            int i = MathHelper.floor_double(enderman.posX - 1.0D + random.nextDouble() * 2.0D);
-            int j = MathHelper.floor_double(enderman.posY + random.nextDouble() * 2.0D);
-            int k = MathHelper.floor_double(enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
+            int i = MathHelper.floor(enderman.posX - 1.0D + random.nextDouble() * 2.0D);
+            int j = MathHelper.floor(enderman.posY + random.nextDouble() * 2.0D);
+            int k = MathHelper.floor(enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
             BlockPos blockpos = new BlockPos(i, j, k);
             Block block = world.getBlockState(blockpos).getBlock();
             Block block1 = world.getBlockState(blockpos.down()).getBlock();
@@ -433,9 +433,9 @@ public class EntityEnderman extends EntityMob {
         public void updateTask() {
             Random random = enderman.getRNG();
             World world = enderman.worldObj;
-            int i = MathHelper.floor_double(enderman.posX - 2.0D + random.nextDouble() * 4.0D);
-            int j = MathHelper.floor_double(enderman.posY + random.nextDouble() * 3.0D);
-            int k = MathHelper.floor_double(enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
+            int i = MathHelper.floor(enderman.posX - 2.0D + random.nextDouble() * 4.0D);
+            int j = MathHelper.floor(enderman.posY + random.nextDouble() * 3.0D);
+            int k = MathHelper.floor(enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
             BlockPos blockpos = new BlockPos(i, j, k);
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();

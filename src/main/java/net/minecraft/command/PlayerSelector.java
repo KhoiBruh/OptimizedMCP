@@ -432,7 +432,7 @@ public class PlayerSelector {
     }
 
     private static int parseIntWithDefault(Map<String, String> p_179653_0_, String p_179653_1_, int p_179653_2_) {
-        return p_179653_0_.containsKey(p_179653_1_) ? MathHelper.parseIntWithDefault(p_179653_0_.get(p_179653_1_), p_179653_2_) : p_179653_2_;
+        return p_179653_0_.containsKey(p_179653_1_) ? MathHelper.parse(p_179653_0_.get(p_179653_1_), p_179653_2_) : p_179653_2_;
     }
 
     private static String func_179651_b(Map<String, String> p_179651_0_, String p_179651_1_) {
@@ -445,7 +445,7 @@ public class PlayerSelector {
         for (Entry<String, String> entry : p_96560_0_.entrySet()) {
             String s = entry.getKey();
             if (s.startsWith("score_") && s.length() > "score_".length()) {
-                map.put(s.substring("score_".length()), MathHelper.parseIntWithDefault(entry.getValue(), 1));
+                map.put(s.substring("score_".length()), MathHelper.parse(entry.getValue(), 1));
             }
         }
 

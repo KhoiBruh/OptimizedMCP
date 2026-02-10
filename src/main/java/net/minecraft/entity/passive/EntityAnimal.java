@@ -73,9 +73,9 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
     }
 
     public boolean getCanSpawnHere() {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
-        int k = MathHelper.floor_double(posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(getEntityBoundingBox().minY);
+        int k = MathHelper.floor(posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
         return worldObj.getBlockState(blockpos.down()).getBlock() == spawnableBlock && worldObj.getLight(blockpos) > 8 && super.getCanSpawnHere();
     }

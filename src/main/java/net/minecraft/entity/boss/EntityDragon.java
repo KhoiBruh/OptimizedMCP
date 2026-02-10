@@ -67,7 +67,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         int j = ringBufferIndex - p_70974_1_ - 1 & 63;
         double[] adouble = new double[3];
         double d0 = ringBuffer[i][0];
-        double d1 = MathHelper.wrapAngleTo180_double(ringBuffer[j][0] - d0);
+        double d1 = MathHelper.wrapAngle(ringBuffer[j][0] - d0);
         adouble[0] = d0 + d1 * (double) p_70974_2_;
         d0 = ringBuffer[i][1];
         d1 = ringBuffer[j][1] - d0;
@@ -95,7 +95,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             worldObj.spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX + (double) f11, posY + 2.0D + (double) f13, posZ + (double) f14, 0.0D, 0.0D, 0.0D);
         } else {
             updateDragonEnderCrystal();
-            float f10 = 0.2F / (MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ) * 10.0F + 1.0F);
+            float f10 = 0.2F / (MathHelper.sqrt(motionX * motionX + motionZ * motionZ) * 10.0F + 1.0F);
             f10 = f10 * (float) Math.pow(2.0D, motionY);
 
             if (slowed) {
@@ -104,7 +104,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 animTime += f10;
             }
 
-            rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
+            rotationYaw = MathHelper.wrapAngle(rotationYaw);
 
             if (isAIDisabled()) {
                 animTime = 0.5F;
@@ -128,7 +128,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                         double d10 = posX + (newPosX - posX) / (double) newPosRotationIncrements;
                         double d0 = posY + (newPosY - posY) / (double) newPosRotationIncrements;
                         double d1 = posZ + (newPosZ - posZ) / (double) newPosRotationIncrements;
-                        double d2 = MathHelper.wrapAngleTo180_double(newRotationYaw - (double) rotationYaw);
+                        double d2 = MathHelper.wrapAngle(newRotationYaw - (double) rotationYaw);
                         rotationYaw = (float) ((double) rotationYaw + d2 / (double) newPosRotationIncrements);
                         rotationPitch = (float) ((double) rotationPitch + (newRotationPitch - (double) rotationPitch) / (double) newPosRotationIncrements);
                         --newPosRotationIncrements;
@@ -163,13 +163,13 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                         setNewTarget();
                     }
 
-                    d12 = d12 / (double) MathHelper.sqrt_double(d11 * d11 + d13 * d13);
+                    d12 = d12 / (double) MathHelper.sqrt(d11 * d11 + d13 * d13);
                     float f17 = 0.6F;
-                    d12 = MathHelper.clamp_double(d12, -f17, f17);
+                    d12 = MathHelper.clamp(d12, -f17, f17);
                     motionY += d12 * 0.10000000149011612D;
-                    rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
+                    rotationYaw = MathHelper.wrapAngle(rotationYaw);
                     double d4 = 180.0D - MathHelper.atan2(d11, d13) * 180.0D / Math.PI;
-                    double d6 = MathHelper.wrapAngleTo180_double(d4 - (double) rotationYaw);
+                    double d6 = MathHelper.wrapAngle(d4 - (double) rotationYaw);
 
                     if (d6 > 50.0D) {
                         d6 = 50.0D;
@@ -189,7 +189,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     randomYawVelocity *= 0.8F;
-                    float f6 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ) + 1.0F;
+                    float f6 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ) + 1.0F;
                     double d9 = Math.sqrt(motionX * motionX + motionZ * motionZ) + 1.0D;
 
                     if (d9 > 40.0D) {
@@ -370,16 +370,16 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
     }
 
     private float simplifyAngle(double p_70973_1_) {
-        return (float) MathHelper.wrapAngleTo180_double(p_70973_1_);
+        return (float) MathHelper.wrapAngle(p_70973_1_);
     }
 
     private boolean destroyBlocksInAABB(AxisAlignedBB p_70972_1_) {
-        int i = MathHelper.floor_double(p_70972_1_.minX);
-        int j = MathHelper.floor_double(p_70972_1_.minY);
-        int k = MathHelper.floor_double(p_70972_1_.minZ);
-        int l = MathHelper.floor_double(p_70972_1_.maxX);
-        int i1 = MathHelper.floor_double(p_70972_1_.maxY);
-        int j1 = MathHelper.floor_double(p_70972_1_.maxZ);
+        int i = MathHelper.floor(p_70972_1_.minX);
+        int j = MathHelper.floor(p_70972_1_.minY);
+        int k = MathHelper.floor(p_70972_1_.minZ);
+        int l = MathHelper.floor(p_70972_1_.maxX);
+        int i1 = MathHelper.floor(p_70972_1_.maxY);
+        int j1 = MathHelper.floor(p_70972_1_.maxZ);
         boolean flag = false;
         boolean flag1 = false;
 

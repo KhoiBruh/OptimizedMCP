@@ -113,7 +113,7 @@ public class FaceBakery {
 
     private int getFaceShadeColor(Direction facing) {
         float f = getFaceBrightness(facing);
-        int i = MathHelper.clamp_int((int) (f * 255.0F), 0, 255);
+        int i = MathHelper.clamp((int) (f * 255.0F), 0, 255);
         return -16777216 | i << 16 | i << 8 | i;
     }
 
@@ -295,15 +295,15 @@ public class FaceBakery {
         float f2 = Float.intBitsToFloat(p_178401_2_[j + 2]);
 
         if (f < -0.1F || f >= 1.1F) {
-            f -= (float) MathHelper.floor_float(f);
+            f -= (float) MathHelper.floor(f);
         }
 
         if (f1 < -0.1F || f1 >= 1.1F) {
-            f1 -= (float) MathHelper.floor_float(f1);
+            f1 -= (float) MathHelper.floor(f1);
         }
 
         if (f2 < -0.1F || f2 >= 1.1F) {
-            f2 -= (float) MathHelper.floor_float(f2);
+            f2 -= (float) MathHelper.floor(f2);
         }
 
         float f3;

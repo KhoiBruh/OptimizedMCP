@@ -290,8 +290,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
 
         int i = 29999999;
-        double d3 = MathHelper.clamp_double(posX, -2.9999999E7D, 2.9999999E7D);
-        double d4 = MathHelper.clamp_double(posZ, -2.9999999E7D, 2.9999999E7D);
+        double d3 = MathHelper.clamp(posX, -2.9999999E7D, 2.9999999E7D);
+        double d4 = MathHelper.clamp(posZ, -2.9999999E7D, 2.9999999E7D);
 
         if (d3 != posX || d4 != posZ) {
             setPosition(d3, posY, d4);
@@ -450,7 +450,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
 
         setAIMoveSpeed((float) iattributeinstance.getAttributeValue());
-        float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+        float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
         float f1 = (float) (Math.atan(-motionY * 0.20000000298023224D) * 15.0D);
 
         if (f > 0.1F) {
@@ -1279,14 +1279,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public void addMovementStat(double p_71000_1_, double p_71000_3_, double p_71000_5_) {
         if (ridingEntity == null) {
             if (isInsideOfMaterial(Material.water)) {
-                int i = Math.round(MathHelper.sqrt_double(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100.0F);
+                int i = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100.0F);
 
                 if (i > 0) {
                     addStat(StatList.distanceDoveStat, i);
                     addExhaustion(0.015F * (float) i * 0.01F);
                 }
             } else if (isInWater()) {
-                int j = Math.round(MathHelper.sqrt_double(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100.0F);
+                int j = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100.0F);
 
                 if (j > 0) {
                     addStat(StatList.distanceSwumStat, j);
@@ -1297,7 +1297,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                     addStat(StatList.distanceClimbedStat, (int) Math.round(p_71000_3_ * 100.0D));
                 }
             } else if (onGround) {
-                int k = Math.round(MathHelper.sqrt_double(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100.0F);
+                int k = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100.0F);
 
                 if (k > 0) {
                     addStat(StatList.distanceWalkedStat, k);
@@ -1314,7 +1314,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                     }
                 }
             } else {
-                int l = Math.round(MathHelper.sqrt_double(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100.0F);
+                int l = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100.0F);
 
                 if (l > 25) {
                     addStat(StatList.distanceFlownStat, l);
@@ -1325,7 +1325,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     private void addMountedMovementStat(double p_71015_1_, double p_71015_3_, double p_71015_5_) {
         if (ridingEntity != null) {
-            int i = Math.round(MathHelper.sqrt_double(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100.0F);
+            int i = Math.round(MathHelper.sqrt(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100.0F);
 
             if (i > 0) {
                 switch (ridingEntity) {
@@ -1334,7 +1334,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
                         if (startMinecartRidingCoordinate == null) {
                             startMinecartRidingCoordinate = new BlockPos(this);
-                        } else if (startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) >= 1000000.0D) {
+                        } else if (startMinecartRidingCoordinate.distanceSq(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ)) >= 1000000.0D) {
                             triggerAchievement(AchievementList.onARail);
                         }
                     }

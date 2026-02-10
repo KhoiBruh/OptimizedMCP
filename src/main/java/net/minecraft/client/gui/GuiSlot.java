@@ -106,7 +106,7 @@ public abstract class GuiSlot {
     }
 
     protected void bindAmountScrolled() {
-        amountScrolled = MathHelper.clamp_float(amountScrolled, 0.0F, (float) func_148135_f());
+        amountScrolled = MathHelper.clamp(amountScrolled, 0.0F, (float) func_148135_f());
     }
 
     public int func_148135_f() {
@@ -187,7 +187,7 @@ public abstract class GuiSlot {
 
             if (j1 > 0) {
                 int k1 = (bottom - top) * (bottom - top) / getContentHeight();
-                k1 = MathHelper.clamp_int(k1, 32, bottom - top - 8);
+                k1 = MathHelper.clamp(k1, 32, bottom - top - 8);
                 int l1 = (int) amountScrolled * (bottom - top - k1) / j1 + top;
 
                 if (l1 < top) {
@@ -275,7 +275,7 @@ public abstract class GuiSlot {
                             }
 
                             int l1 = (int) ((float) ((bottom - top) * (bottom - top)) / (float) getContentHeight());
-                            l1 = MathHelper.clamp_int(l1, 32, bottom - top - 8);
+                            l1 = MathHelper.clamp(l1, 32, bottom - top - 8);
                             scrollMultiplier /= (float) (bottom - top - l1) / (float) k1;
                         } else {
                             scrollMultiplier = 1.0F;

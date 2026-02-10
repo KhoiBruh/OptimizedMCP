@@ -63,7 +63,7 @@ public enum Direction implements IStringSerializable {
     }
 
     public static Direction fromAngle(double angle) {
-        return getHorizontal(MathHelper.floor_double(angle / 90.0D + 0.5D) & 3);
+        return getHorizontal(MathHelper.floor(angle / 90.0D + 0.5D) & 3);
     }
 
     public static Direction random(Random rand) {

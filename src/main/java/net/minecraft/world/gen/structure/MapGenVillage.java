@@ -27,9 +27,9 @@ public class MapGenVillage extends MapGenStructure {
 
         for (Entry<String, String> entry : p_i2093_1_.entrySet()) {
             if (entry.getKey().equals("size")) {
-                terrainType = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), terrainType, 0);
+                terrainType = MathHelper.parseMax(entry.getValue(), terrainType, 0);
             } else if (entry.getKey().equals("distance")) {
-                field_82665_g = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_82665_g, field_82666_h + 1);
+                field_82665_g = MathHelper.parseMax(entry.getValue(), field_82665_g, field_82666_h + 1);
             }
         }
     }

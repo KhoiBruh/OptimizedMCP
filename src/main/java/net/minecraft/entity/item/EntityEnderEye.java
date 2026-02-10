@@ -48,7 +48,7 @@ public class EntityEnderEye extends Entity {
         double d1 = p_180465_1_.getZ();
         double d2 = d0 - posX;
         double d3 = d1 - posZ;
-        float f = MathHelper.sqrt_double(d2 * d2 + d3 * d3);
+        float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
 
         if (f > 12.0F) {
             targetX = posX + d2 / (double) f * 12.0D;
@@ -70,7 +70,7 @@ public class EntityEnderEye extends Entity {
         motionZ = z;
 
         if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
-            float f = MathHelper.sqrt_double(x * x + z * z);
+            float f = MathHelper.sqrt(x * x + z * z);
             prevRotationYaw = rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
             prevRotationPitch = rotationPitch = (float) (MathHelper.atan2(y, f) * 180.0D / Math.PI);
         }
@@ -84,7 +84,7 @@ public class EntityEnderEye extends Entity {
         posX += motionX;
         posY += motionY;
         posZ += motionZ;
-        float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+        float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
         rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * 180.0D / Math.PI);
 
         for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {

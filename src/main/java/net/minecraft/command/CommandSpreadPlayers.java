@@ -186,7 +186,7 @@ public class CommandSpreadPlayers extends CommandBase {
                 commandspreadplayers$position = p_110671_3_[i++];
             }
 
-            entity.setPositionAndUpdate((float) MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F, commandspreadplayers$position.func_111092_a(worldIn), (double) MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
+            entity.setPositionAndUpdate((float) MathHelper.floor(commandspreadplayers$position.field_111101_a) + 0.5F, commandspreadplayers$position.func_111092_a(worldIn), (double) MathHelper.floor(commandspreadplayers$position.field_111100_b) + 0.5D);
             double d2 = Double.MAX_VALUE;
 
             for (Position position : p_110671_3_) {
@@ -244,7 +244,7 @@ public class CommandSpreadPlayers extends CommandBase {
         }
 
         float func_111096_b() {
-            return MathHelper.sqrt_double(field_111101_a * field_111101_a + field_111100_b * field_111100_b);
+            return MathHelper.sqrt(field_111101_a * field_111101_a + field_111100_b * field_111100_b);
         }
 
         public void func_111094_b(CommandSpreadPlayers.Position p_111094_1_) {
@@ -304,8 +304,8 @@ public class CommandSpreadPlayers extends CommandBase {
         }
 
         public void func_111097_a(Random p_111097_1_, double p_111097_2_, double p_111097_4_, double p_111097_6_, double p_111097_8_) {
-            field_111101_a = MathHelper.getRandomDoubleInRange(p_111097_1_, p_111097_2_, p_111097_6_);
-            field_111100_b = MathHelper.getRandomDoubleInRange(p_111097_1_, p_111097_4_, p_111097_8_);
+            field_111101_a = MathHelper.nextDouble(p_111097_1_, p_111097_2_, p_111097_6_);
+            field_111100_b = MathHelper.nextDouble(p_111097_1_, p_111097_4_, p_111097_8_);
         }
     }
 }

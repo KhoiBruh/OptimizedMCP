@@ -213,7 +213,7 @@ public class EntityBoat extends Entity {
                 double d12 = posX + (boatX - posX) / (double) boatPosRotationIncrements;
                 double d16 = posY + (boatY - posY) / (double) boatPosRotationIncrements;
                 double d19 = posZ + (boatZ - posZ) / (double) boatPosRotationIncrements;
-                double d22 = MathHelper.wrapAngleTo180_double(boatYaw - (double) rotationYaw);
+                double d22 = MathHelper.wrapAngle(boatYaw - (double) rotationYaw);
                 rotationYaw = (float) ((double) rotationYaw + d22 / (double) boatPosRotationIncrements);
                 rotationPitch = (float) ((double) rotationPitch + (boatPitch - (double) rotationPitch) / (double) boatPosRotationIncrements);
                 --boatPosRotationIncrements;
@@ -277,11 +277,11 @@ public class EntityBoat extends Entity {
             }
 
             for (int i1 = 0; i1 < 4; ++i1) {
-                int l1 = MathHelper.floor_double(posX + ((double) (i1 % 2) - 0.5D) * 0.8D);
-                int i2 = MathHelper.floor_double(posZ + ((double) (i1 / 2) - 0.5D) * 0.8D);
+                int l1 = MathHelper.floor(posX + ((double) (i1 % 2) - 0.5D) * 0.8D);
+                int i2 = MathHelper.floor(posZ + ((double) (i1 / 2) - 0.5D) * 0.8D);
 
                 for (int j2 = 0; j2 < 2; ++j2) {
-                    int l = MathHelper.floor_double(posY) + j2;
+                    int l = MathHelper.floor(posY) + j2;
                     BlockPos blockpos = new BlockPos(l1, l, i2);
                     Block block = worldObj.getBlockState(blockpos).getBlock();
 
@@ -332,7 +332,7 @@ public class EntityBoat extends Entity {
                 d15 = (float) (MathHelper.atan2(d21, d18) * 180.0D / Math.PI);
             }
 
-            double d23 = MathHelper.wrapAngleTo180_double(d15 - (double) rotationYaw);
+            double d23 = MathHelper.wrapAngle(d15 - (double) rotationYaw);
 
             if (d23 > 20.0D) {
                 d23 = 20.0D;

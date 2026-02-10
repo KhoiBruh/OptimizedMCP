@@ -127,7 +127,7 @@ public abstract class EntityLivingBase extends Entity {
         if (!worldObj.isRemote && fallDistance > 3.0F && onGroundIn) {
             IBlockState iblockstate = worldObj.getBlockState(pos);
             Block block = iblockstate.getBlock();
-            float f = (float) MathHelper.ceiling_float_int(fallDistance - 3.0F);
+            float f = (float) MathHelper.ceil(fallDistance - 3.0F);
 
             if (block.getMaterial() != Material.air) {
                 double d0 = Math.min(0.2F + f / 15.0F, 10.0F);
@@ -161,7 +161,7 @@ public abstract class EntityLivingBase extends Entity {
                 double d0 = worldObj.getWorldBorder().getClosestDistance(this) + worldObj.getWorldBorder().getDamageBuffer();
 
                 if (d0 < 0.0D) {
-                    attackEntityFrom(DamageSource.inWall, (float) Math.max(1, MathHelper.floor_double(-d0 * worldObj.getWorldBorder().getDamageAmount())));
+                    attackEntityFrom(DamageSource.inWall, (float) Math.max(1, MathHelper.floor(-d0 * worldObj.getWorldBorder().getDamageAmount())));
                 }
             }
         }
@@ -574,7 +574,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public void setHealth(float health) {
-        dataWatcher.updateObject(6, MathHelper.clamp_float(health, 0.0F, getMaxHealth()));
+        dataWatcher.updateObject(6, MathHelper.clamp(health, 0.0F, getMaxHealth()));
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
@@ -733,7 +733,7 @@ public abstract class EntityLivingBase extends Entity {
     public void knockBack(Entity entityIn, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
         if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
             isAirBorne = true;
-            float f = MathHelper.sqrt_double(p_70653_3_ * p_70653_3_ + p_70653_5_ * p_70653_5_);
+            float f = MathHelper.sqrt(p_70653_3_ * p_70653_3_ + p_70653_5_ * p_70653_5_);
             float f1 = 0.4F;
             motionX /= 2.0D;
             motionY /= 2.0D;
@@ -763,9 +763,9 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public boolean isOnLadder() {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
-        int k = MathHelper.floor_double(posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(getEntityBoundingBox().minY);
+        int k = MathHelper.floor(posZ);
         Block block = worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
         return (block == Blocks.ladder || block == Blocks.vine) && (!(this instanceof EntityPlayer) || !((EntityPlayer) this).isSpectator());
     }
@@ -778,14 +778,14 @@ public abstract class EntityLivingBase extends Entity {
         super.fall(distance, damageMultiplier);
         PotionEffect potioneffect = getActivePotionEffect(Potion.jump);
         float f = potioneffect != null ? (float) (potioneffect.getAmplifier() + 1) : 0.0F;
-        int i = MathHelper.ceiling_float_int((distance - 3.0F - f) * damageMultiplier);
+        int i = MathHelper.ceil((distance - 3.0F - f) * damageMultiplier);
 
         if (i > 0) {
             playSound(getFallSoundString(i), 1.0F, 1.0F);
             attackEntityFrom(DamageSource.fall, (float) i);
-            int j = MathHelper.floor_double(posX);
-            int k = MathHelper.floor_double(posY - 0.20000000298023224D);
-            int l = MathHelper.floor_double(posZ);
+            int j = MathHelper.floor(posX);
+            int k = MathHelper.floor(posY - 0.20000000298023224D);
+            int l = MathHelper.floor(posZ);
             Block block = worldObj.getBlockState(new BlockPos(j, k, l)).getBlock();
 
             if (block.getMaterial() != Material.air) {
@@ -1084,7 +1084,7 @@ public abstract class EntityLivingBase extends Entity {
                     float f4 = 0.91F;
 
                     if (onGround) {
-                        f4 = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock().slipperiness * 0.91F;
+                        f4 = worldObj.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
                     }
 
                     float f = 0.16277136F / (f4 * f4 * f4);
@@ -1100,13 +1100,13 @@ public abstract class EntityLivingBase extends Entity {
                     f4 = 0.91F;
 
                     if (onGround) {
-                        f4 = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock().slipperiness * 0.91F;
+                        f4 = worldObj.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
                     }
 
                     if (isOnLadder()) {
                         float f6 = 0.15F;
-                        motionX = MathHelper.clamp_double(motionX, -f6, f6);
-                        motionZ = MathHelper.clamp_double(motionZ, -f6, f6);
+                        motionX = MathHelper.clamp(motionX, -f6, f6);
+                        motionZ = MathHelper.clamp(motionZ, -f6, f6);
                         fallDistance = 0.0F;
 
                         if (motionY < -0.15D) {
@@ -1187,7 +1187,7 @@ public abstract class EntityLivingBase extends Entity {
         prevLimbSwingAmount = limbSwingAmount;
         double d2 = posX - prevPosX;
         double d3 = posZ - prevPosZ;
-        float f7 = MathHelper.sqrt_double(d2 * d2 + d3 * d3) * 4.0F;
+        float f7 = MathHelper.sqrt(d2 * d2 + d3 * d3) * 4.0F;
 
         if (f7 > 1.0F) {
             f7 = 1.0F;
@@ -1322,9 +1322,9 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-        float f = MathHelper.wrapAngleTo180_float(p_110146_1_ - renderYawOffset);
+        float f = MathHelper.wrapAngle(p_110146_1_ - renderYawOffset);
         renderYawOffset += f * 0.3F;
-        float f1 = MathHelper.wrapAngleTo180_float(rotationYaw - renderYawOffset);
+        float f1 = MathHelper.wrapAngle(rotationYaw - renderYawOffset);
         boolean flag = f1 < -90.0F || f1 >= 90.0F;
 
         if (f1 < -75.0F) {
@@ -1357,7 +1357,7 @@ public abstract class EntityLivingBase extends Entity {
             double d0 = posX + (newPosX - posX) / (double) newPosRotationIncrements;
             double d1 = posY + (newPosY - posY) / (double) newPosRotationIncrements;
             double d2 = posZ + (newPosZ - posZ) / (double) newPosRotationIncrements;
-            double d3 = MathHelper.wrapAngleTo180_double(newRotationYaw - (double) rotationYaw);
+            double d3 = MathHelper.wrapAngle(newRotationYaw - (double) rotationYaw);
             rotationYaw = (float) ((double) rotationYaw + d3 / (double) newPosRotationIncrements);
             rotationPitch = (float) ((double) rotationPitch + (newRotationPitch - (double) rotationPitch) / (double) newPosRotationIncrements);
             --newPosRotationIncrements;

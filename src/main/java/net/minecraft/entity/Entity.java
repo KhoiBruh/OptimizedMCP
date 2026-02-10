@@ -215,7 +215,7 @@ public abstract class Entity implements ICommandSender {
         float f1 = rotationYaw;
         rotationYaw = (float) ((double) rotationYaw + (double) yaw * 0.15D);
         rotationPitch = (float) ((double) rotationPitch - (double) pitch * 0.15D);
-        rotationPitch = MathHelper.clamp_float(rotationPitch, -90.0F, 90.0F);
+        rotationPitch = MathHelper.clamp(rotationPitch, -90.0F, 90.0F);
         prevRotationPitch += rotationPitch - f;
         prevRotationYaw += rotationYaw - f1;
     }
@@ -533,9 +533,9 @@ public abstract class Entity implements ICommandSender {
             isCollidedVertically = d4 != y;
             onGround = isCollidedVertically && d4 < 0.0D;
             isCollided = isCollidedHorizontally || isCollidedVertically;
-            int i = MathHelper.floor_double(posX);
-            int j = MathHelper.floor_double(posY - 0.20000000298023224D);
-            int k = MathHelper.floor_double(posZ);
+            int i = MathHelper.floor(posX);
+            int j = MathHelper.floor(posY - 0.20000000298023224D);
+            int k = MathHelper.floor(posZ);
             BlockPos blockpos = new BlockPos(i, j, k);
             Block block1 = worldObj.getBlockState(blockpos).getBlock();
 
@@ -575,14 +575,14 @@ public abstract class Entity implements ICommandSender {
                     block1.onEntityCollidedWithBlock(worldObj, blockpos, this);
                 }
 
-                distanceWalkedModified = (float) ((double) distanceWalkedModified + (double) MathHelper.sqrt_double(d12 * d12 + d14 * d14) * 0.6D);
-                distanceWalkedOnStepModified = (float) ((double) distanceWalkedOnStepModified + (double) MathHelper.sqrt_double(d12 * d12 + d13 * d13 + d14 * d14) * 0.6D);
+                distanceWalkedModified = (float) ((double) distanceWalkedModified + (double) MathHelper.sqrt(d12 * d12 + d14 * d14) * 0.6D);
+                distanceWalkedOnStepModified = (float) ((double) distanceWalkedOnStepModified + (double) MathHelper.sqrt(d12 * d12 + d13 * d13 + d14 * d14) * 0.6D);
 
                 if (distanceWalkedOnStepModified > (float) nextStepDistance && block1.getMaterial() != Material.air) {
                     nextStepDistance = (int) distanceWalkedOnStepModified + 1;
 
                     if (isInWater()) {
-                        float f = MathHelper.sqrt_double(motionX * motionX * 0.20000000298023224D + motionY * motionY + motionZ * motionZ * 0.20000000298023224D) * 0.35F;
+                        float f = MathHelper.sqrt(motionX * motionX * 0.20000000298023224D + motionY * motionY + motionZ * motionZ * 0.20000000298023224D) * 0.35F;
 
                         if (f > 1.0F) {
                             f = 1.0F;
@@ -754,14 +754,14 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void resetHeight() {
-        float f = MathHelper.sqrt_double(motionX * motionX * 0.20000000298023224D + motionY * motionY + motionZ * motionZ * 0.20000000298023224D) * 0.2F;
+        float f = MathHelper.sqrt(motionX * motionX * 0.20000000298023224D + motionY * motionY + motionZ * motionZ * 0.20000000298023224D) * 0.2F;
 
         if (f > 1.0F) {
             f = 1.0F;
         }
 
         playSound(getSplashSound(), f, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
-        float f1 = (float) MathHelper.floor_double(boundingBox.minY);
+        float f1 = (float) MathHelper.floor(boundingBox.minY);
 
         for (int i = 0; (float) i < 1.0F + width * 20.0F; ++i) {
             float f2 = (rand.nextFloat() * 2.0F - 1.0F) * width;
@@ -783,9 +783,9 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void createRunningParticles() {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(posY - 0.20000000298023224D);
-        int k = MathHelper.floor_double(posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(posY - 0.20000000298023224D);
+        int k = MathHelper.floor(posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
         IBlockState iblockstate = worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
@@ -822,7 +822,7 @@ public abstract class Entity implements ICommandSender {
         float f = strafe * strafe + forward * forward;
 
         if (f >= 1.0E-4F) {
-            f = MathHelper.sqrt_float(f);
+            f = MathHelper.sqrt(f);
 
             if (f < 1.0F) {
                 f = 1.0F;
@@ -889,7 +889,7 @@ public abstract class Entity implements ICommandSender {
         float f = (float) (posX - entityIn.posX);
         float f1 = (float) (posY - entityIn.posY);
         float f2 = (float) (posZ - entityIn.posZ);
-        return MathHelper.sqrt_float(f * f + f1 * f1 + f2 * f2);
+        return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
     }
 
     public double getDistanceSq(double x, double y, double z) {
@@ -911,7 +911,7 @@ public abstract class Entity implements ICommandSender {
         double d0 = posX - x;
         double d1 = posY - y;
         double d2 = posZ - z;
-        return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+        return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
     public double getDistanceSqToEntity(Entity entityIn) {
@@ -929,10 +929,10 @@ public abstract class Entity implements ICommandSender {
             if (!entityIn.noClip && !noClip) {
                 double d0 = entityIn.posX - posX;
                 double d1 = entityIn.posZ - posZ;
-                double d2 = MathHelper.abs_max(d0, d1);
+                double d2 = MathHelper.absMax(d0, d1);
 
                 if (d2 >= 0.009999999776482582D) {
-                    d2 = MathHelper.sqrt_double(d2);
+                    d2 = MathHelper.sqrt(d2);
                     d0 = d0 / d2;
                     d1 = d1 / d2;
                     double d3 = 1.0D / d2;
@@ -1243,9 +1243,9 @@ public abstract class Entity implements ICommandSender {
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
-                int j = MathHelper.floor_double(posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
-                int k = MathHelper.floor_double(posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * width * 0.8F));
-                int l = MathHelper.floor_double(posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * width * 0.8F));
+                int j = MathHelper.floor(posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
+                int k = MathHelper.floor(posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * width * 0.8F));
+                int l = MathHelper.floor(posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * width * 0.8F));
 
                 if (blockpos$mutableblockpos.getX() != k || blockpos$mutableblockpos.getY() != j || blockpos$mutableblockpos.getZ() != l) {
                     blockpos$mutableblockpos.set(k, j, l);
@@ -1710,7 +1710,7 @@ public abstract class Entity implements ICommandSender {
         category.addCrashSection("Entity ID", entityId);
         category.addCrashSectionCallable("Entity Name", this::getName);
         category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));
-        category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)));
+        category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ)));
         category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", motionX, motionY, motionZ));
         category.addCrashSectionCallable("Entity's Rider", () -> riddenByEntity.toString());
         category.addCrashSectionCallable("Entity's Vehicle", () -> ridingEntity.toString());
@@ -1767,7 +1767,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public Direction getHorizontalFacing() {
-        return Direction.getHorizontal(MathHelper.floor_double((double) (rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
+        return Direction.getHorizontal(MathHelper.floor((double) (rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
     }
 
     protected HoverEvent getHoverEvent() {

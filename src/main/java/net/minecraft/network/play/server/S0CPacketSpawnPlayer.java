@@ -31,9 +31,9 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     public S0CPacketSpawnPlayer(EntityPlayer player) {
         entityId = player.getEntityId();
         playerId = player.getGameProfile().getId();
-        x = MathHelper.floor_double(player.posX * 32.0D);
-        y = MathHelper.floor_double(player.posY * 32.0D);
-        z = MathHelper.floor_double(player.posZ * 32.0D);
+        x = MathHelper.floor(player.posX * 32.0D);
+        y = MathHelper.floor(player.posY * 32.0D);
+        z = MathHelper.floor(player.posZ * 32.0D);
         yaw = (byte) ((int) (player.rotationYaw * 256.0F / 360.0F));
         pitch = (byte) ((int) (player.rotationPitch * 256.0F / 360.0F));
         ItemStack itemstack = player.inventory.getCurrentItem();

@@ -2585,16 +2585,16 @@ public class GameSettings {
         }
 
         public float normalizeValue(float value) {
-            return MathHelper.clamp_float((snapToStepClamp(value) - valueMin) / (valueMax - valueMin), 0.0F, 1.0F);
+            return MathHelper.clamp((snapToStepClamp(value) - valueMin) / (valueMax - valueMin), 0.0F, 1.0F);
         }
 
         public float denormalizeValue(float value) {
-            return snapToStepClamp(valueMin + (valueMax - valueMin) * MathHelper.clamp_float(value, 0.0F, 1.0F));
+            return snapToStepClamp(valueMin + (valueMax - valueMin) * MathHelper.clamp(value, 0.0F, 1.0F));
         }
 
         public float snapToStepClamp(float value) {
             value = snapToStep(value);
-            return MathHelper.clamp_float(value, valueMin, valueMax);
+            return MathHelper.clamp(value, valueMin, valueMax);
         }
 
         private float snapToStep(float value) {

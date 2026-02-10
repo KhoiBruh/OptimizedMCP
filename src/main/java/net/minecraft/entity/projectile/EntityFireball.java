@@ -33,7 +33,7 @@ public abstract class EntityFireball extends Entity {
         setSize(1.0F, 1.0F);
         setLocationAndAngles(x, y, z, rotationYaw, rotationPitch);
         setPosition(x, y, z);
-        double d0 = MathHelper.sqrt_double(accelX * accelX + accelY * accelY + accelZ * accelZ);
+        double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
         accelerationX = accelX / d0 * 0.1D;
         accelerationY = accelY / d0 * 0.1D;
         accelerationZ = accelZ / d0 * 0.1D;
@@ -49,7 +49,7 @@ public abstract class EntityFireball extends Entity {
         accelX = accelX + rand.nextGaussian() * 0.4D;
         accelY = accelY + rand.nextGaussian() * 0.4D;
         accelZ = accelZ + rand.nextGaussian() * 0.4D;
-        double d0 = MathHelper.sqrt_double(accelX * accelX + accelY * accelY + accelZ * accelZ);
+        double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
         accelerationX = accelX / d0 * 0.1D;
         accelerationY = accelY / d0 * 0.1D;
         accelerationZ = accelZ / d0 * 0.1D;
@@ -137,7 +137,7 @@ public abstract class EntityFireball extends Entity {
             posX += motionX;
             posY += motionY;
             posZ += motionZ;
-            float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+            float f1 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
             rotationYaw = (float) (MathHelper.atan2(motionZ, motionX) * 180.0D / Math.PI) + 90.0F;
 
             for (rotationPitch = (float) (MathHelper.atan2(f1, motionY) * 180.0D / Math.PI) - 90.0F; rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {

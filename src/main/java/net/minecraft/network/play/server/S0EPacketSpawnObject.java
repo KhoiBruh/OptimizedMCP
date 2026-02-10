@@ -28,11 +28,11 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 
     public S0EPacketSpawnObject(Entity entityIn, int typeIn, int p_i45166_3_) {
         entityId = entityIn.getEntityId();
-        x = MathHelper.floor_double(entityIn.posX * 32.0D);
-        y = MathHelper.floor_double(entityIn.posY * 32.0D);
-        z = MathHelper.floor_double(entityIn.posZ * 32.0D);
-        pitch = MathHelper.floor_float(entityIn.rotationPitch * 256.0F / 360.0F);
-        yaw = MathHelper.floor_float(entityIn.rotationYaw * 256.0F / 360.0F);
+        x = MathHelper.floor(entityIn.posX * 32.0D);
+        y = MathHelper.floor(entityIn.posY * 32.0D);
+        z = MathHelper.floor(entityIn.posZ * 32.0D);
+        pitch = MathHelper.floor(entityIn.rotationPitch * 256.0F / 360.0F);
+        yaw = MathHelper.floor(entityIn.rotationYaw * 256.0F / 360.0F);
         type = typeIn;
         field_149020_k = p_i45166_3_;
 

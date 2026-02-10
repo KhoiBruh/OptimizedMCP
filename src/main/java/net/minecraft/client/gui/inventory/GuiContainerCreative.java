@@ -409,7 +409,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             }
 
             currentScroll = (float) ((double) currentScroll - (double) i / (double) j);
-            currentScroll = MathHelper.clamp_float(currentScroll, 0.0F, 1.0F);
+            currentScroll = MathHelper.clamp(currentScroll, 0.0F, 1.0F);
             ((GuiContainerCreative.ContainerCreative) inventorySlots).scrollTo(currentScroll);
         }
     }
@@ -435,7 +435,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         if (isScrolling) {
             currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15.0F);
-            currentScroll = MathHelper.clamp_float(currentScroll, 0.0F, 1.0F);
+            currentScroll = MathHelper.clamp(currentScroll, 0.0F, 1.0F);
             ((GuiContainerCreative.ContainerCreative) inventorySlots).scrollTo(currentScroll);
         }
 

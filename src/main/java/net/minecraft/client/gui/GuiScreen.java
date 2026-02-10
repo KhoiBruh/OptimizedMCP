@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -52,7 +53,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     public boolean allowUserInput;
     protected Minecraft mc;
     protected RenderItem itemRender;
-    protected List<GuiButton> buttonList = new ArrayList<>();
+    protected List<GuiButton> buttonList = new CopyOnWriteArrayList<>();
     protected List<GuiLabel> labelList = new ArrayList<>();
     protected FontRenderer fontRendererObj;
     private GuiButton selectedButton;

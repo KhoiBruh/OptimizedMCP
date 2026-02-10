@@ -271,7 +271,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public int increaseTemper(int p_110198_1_) {
-        int i = MathHelper.clamp_int(temper + p_110198_1_, 0, getMaxTemper());
+        int i = MathHelper.clamp(temper + p_110198_1_, 0, getMaxTemper());
         temper = i;
         return i;
     }
@@ -290,8 +290,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public boolean prepareChunkForSpawn() {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(posZ);
+        int i = MathHelper.floor(posX);
+        int j = MathHelper.floor(posZ);
         worldObj.getBiomeGenForCoords(new BlockPos(i, 0, j));
         return true;
     }
@@ -317,7 +317,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             playSound("mob.horse.land", 0.4F, 1.0F);
         }
 
-        int i = MathHelper.ceiling_float_int((distance * 0.5F - 3.0F) * damageMultiplier);
+        int i = MathHelper.ceil((distance * 0.5F - 3.0F) * damageMultiplier);
 
         if (i > 0) {
             attackEntityFrom(DamageSource.fall, (float) i);
@@ -814,8 +814,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
             if (!isEatingHaystack() && riddenByEntity == null && rand.nextInt(300) == 0
                     && worldObj
-                    .getBlockState(new BlockPos(MathHelper.floor_double(posX),
-                            MathHelper.floor_double(posY) - 1, MathHelper.floor_double(posZ)))
+                    .getBlockState(new BlockPos(MathHelper.floor(posX),
+                            MathHelper.floor(posY) - 1, MathHelper.floor(posZ)))
                     .getBlock() == Blocks.grass) {
                 setEatingHaystack(true);
             }
@@ -1030,7 +1030,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             prevLimbSwingAmount = limbSwingAmount;
             double d1 = posX - prevPosX;
             double d0 = posZ - prevPosZ;
-            float f2 = MathHelper.sqrt_double(d1 * d1 + d0 * d0) * 4.0F;
+            float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
             if (f2 > 1.0F) {
                 f2 = 1.0F;

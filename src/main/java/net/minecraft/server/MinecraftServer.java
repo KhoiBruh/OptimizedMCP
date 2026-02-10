@@ -474,7 +474,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             nanoTimeSinceStatusRefresh = i;
             statusResponse.setPlayerCountData(new ServerStatusResponse.PlayerCountData(getMaxPlayers(), getCurrentPlayerCount()));
             GameProfile[] agameprofile = new GameProfile[Math.min(getCurrentPlayerCount(), 12)];
-            int j = MathHelper.getRandomIntegerInRange(random, 0, getCurrentPlayerCount() - agameprofile.length);
+            int j = MathHelper.nextInt(random, 0, getCurrentPlayerCount() - agameprofile.length);
 
             for (int k = 0; k < agameprofile.length; ++k) {
                 agameprofile[k] = serverConfigManager.getPlayerList().get(j + k).getGameProfile();

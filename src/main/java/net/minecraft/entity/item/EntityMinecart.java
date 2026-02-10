@@ -207,7 +207,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 double d4 = posX + (minecartX - posX) / (double) turnProgress;
                 double d5 = posY + (minecartY - posY) / (double) turnProgress;
                 double d6 = posZ + (minecartZ - posZ) / (double) turnProgress;
-                double d1 = MathHelper.wrapAngleTo180_double(minecartYaw - (double) rotationYaw);
+                double d1 = MathHelper.wrapAngle(minecartYaw - (double) rotationYaw);
                 rotationYaw = (float) ((double) rotationYaw + d1 / (double) turnProgress);
                 rotationPitch = (float) ((double) rotationPitch + (minecartPitch - (double) rotationPitch) / (double) turnProgress);
                 --turnProgress;
@@ -222,9 +222,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             prevPosY = posY;
             prevPosZ = posZ;
             motionY -= 0.03999999910593033D;
-            int k = MathHelper.floor_double(posX);
-            int l = MathHelper.floor_double(posY);
-            int i1 = MathHelper.floor_double(posZ);
+            int k = MathHelper.floor(posX);
+            int l = MathHelper.floor(posY);
+            int i1 = MathHelper.floor(posZ);
 
             if (BlockRailBase.isRailBlock(worldObj, new BlockPos(k, l - 1, i1))) {
                 --l;
@@ -256,7 +256,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 }
             }
 
-            double d3 = MathHelper.wrapAngleTo180_float(rotationYaw - prevRotationYaw);
+            double d3 = MathHelper.wrapAngle(rotationYaw - prevRotationYaw);
 
             if (d3 < -170.0D || d3 >= 170.0D) {
                 rotationYaw += 180.0F;
@@ -292,8 +292,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
     protected void moveDerailedMinecart() {
         double d0 = getMaximumSpeed();
-        motionX = MathHelper.clamp_double(motionX, -d0, d0);
-        motionZ = MathHelper.clamp_double(motionZ, -d0, d0);
+        motionX = MathHelper.clamp(motionX, -d0, d0);
+        motionZ = MathHelper.clamp(motionZ, -d0, d0);
 
         if (onGround) {
             motionX *= 0.5D;
@@ -430,13 +430,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
 
         double d13 = getMaximumSpeed();
-        d22 = MathHelper.clamp_double(d22, -d13, d13);
-        d23 = MathHelper.clamp_double(d23, -d13, d13);
+        d22 = MathHelper.clamp(d22, -d13, d13);
+        d23 = MathHelper.clamp(d23, -d13, d13);
         moveEntity(d22, 0.0D, d23);
 
-        if (aint[0][1] != 0 && MathHelper.floor_double(posX) - p_180460_1_.getX() == aint[0][0] && MathHelper.floor_double(posZ) - p_180460_1_.getZ() == aint[0][2]) {
+        if (aint[0][1] != 0 && MathHelper.floor(posX) - p_180460_1_.getX() == aint[0][0] && MathHelper.floor(posZ) - p_180460_1_.getZ() == aint[0][2]) {
             setPosition(posX, posY + (double) aint[0][1], posZ);
-        } else if (aint[1][1] != 0 && MathHelper.floor_double(posX) - p_180460_1_.getX() == aint[1][0] && MathHelper.floor_double(posZ) - p_180460_1_.getZ() == aint[1][2]) {
+        } else if (aint[1][1] != 0 && MathHelper.floor(posX) - p_180460_1_.getX() == aint[1][0] && MathHelper.floor(posZ) - p_180460_1_.getZ() == aint[1][2]) {
             setPosition(posX, posY + (double) aint[1][1], posZ);
         }
 
@@ -455,8 +455,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             setPosition(posX, vec31.yCoord(), posZ);
         }
 
-        int j = MathHelper.floor_double(posX);
-        int i = MathHelper.floor_double(posZ);
+        int j = MathHelper.floor(posX);
+        int i = MathHelper.floor(posZ);
 
         if (j != p_180460_1_.getX() || i != p_180460_1_.getZ()) {
             d5 = Math.sqrt(motionX * motionX + motionZ * motionZ);
@@ -500,9 +500,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     public Vec3 func_70495_a(double p_70495_1_, double p_70495_3_, double p_70495_5_, double p_70495_7_) {
-        int i = MathHelper.floor_double(p_70495_1_);
-        int j = MathHelper.floor_double(p_70495_3_);
-        int k = MathHelper.floor_double(p_70495_5_);
+        int i = MathHelper.floor(p_70495_1_);
+        int j = MathHelper.floor(p_70495_3_);
+        int k = MathHelper.floor(p_70495_5_);
 
         if (BlockRailBase.isRailBlock(worldObj, new BlockPos(i, j - 1, k))) {
             --j;
@@ -527,9 +527,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             p_70495_1_ = p_70495_1_ + d0 * p_70495_7_;
             p_70495_5_ = p_70495_5_ + d1 * p_70495_7_;
 
-            if (aint[0][1] != 0 && MathHelper.floor_double(p_70495_1_) - i == aint[0][0] && MathHelper.floor_double(p_70495_5_) - k == aint[0][2]) {
+            if (aint[0][1] != 0 && MathHelper.floor(p_70495_1_) - i == aint[0][0] && MathHelper.floor(p_70495_5_) - k == aint[0][2]) {
                 p_70495_3_ += aint[0][1];
-            } else if (aint[1][1] != 0 && MathHelper.floor_double(p_70495_1_) - i == aint[1][0] && MathHelper.floor_double(p_70495_5_) - k == aint[1][2]) {
+            } else if (aint[1][1] != 0 && MathHelper.floor(p_70495_1_) - i == aint[1][0] && MathHelper.floor(p_70495_5_) - k == aint[1][2]) {
                 p_70495_3_ += aint[1][1];
             }
 
@@ -540,9 +540,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     public Vec3 func_70489_a(double p_70489_1_, double p_70489_3_, double p_70489_5_) {
-        int i = MathHelper.floor_double(p_70489_1_);
-        int j = MathHelper.floor_double(p_70489_3_);
-        int k = MathHelper.floor_double(p_70489_5_);
+        int i = MathHelper.floor(p_70489_1_);
+        int j = MathHelper.floor(p_70489_3_);
+        int k = MathHelper.floor(p_70489_5_);
 
         if (BlockRailBase.isRailBlock(worldObj, new BlockPos(i, j - 1, k))) {
             --j;
@@ -650,7 +650,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                     double d2 = d0 * d0 + d1 * d1;
 
                     if (d2 >= 9.999999747378752E-5D) {
-                        d2 = MathHelper.sqrt_double(d2);
+                        d2 = MathHelper.sqrt(d2);
                         d0 = d0 / d2;
                         d1 = d1 / d2;
                         double d3 = 1.0D / d2;

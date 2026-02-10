@@ -69,7 +69,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         for (int i = -2; i <= 2; ++i) {
             for (int j = -2; j <= 2; ++j) {
-                float f = 10.0F / MathHelper.sqrt_float((float) (i * i + j * j) + 0.2F);
+                float f = 10.0F / MathHelper.sqrt((float) (i * i + j * j) + 0.2F);
                 parabolicField[i + 2 + (j + 2) * 5] = f;
             }
         }

@@ -864,7 +864,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         mc.mcProfiler.endStartSection("culling");
         BlockPos blockpos = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
         RenderChunk renderchunk = viewFrustum.getRenderChunk(blockpos);
-        new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
+        new BlockPos(MathHelper.floor(d3 / 16.0D) * 16, MathHelper.floor(d4 / 16.0D) * 16, MathHelper.floor(d5 / 16.0D) * 16);
         displayListEntitiesDirty = displayListEntitiesDirty || !chunksToUpdate.isEmpty() || viewEntity.posX != lastViewEntityX || viewEntity.posY != lastViewEntityY || viewEntity.posZ != lastViewEntityZ || (double) viewEntity.rotationPitch != lastViewEntityPitch || (double) viewEntity.rotationYaw != lastViewEntityYaw;
         lastViewEntityX = viewEntity.posX;
         lastViewEntityY = viewEntity.posY;
@@ -1690,8 +1690,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         double d2 = (float) cloudTickCounter + partialTicks;
                         double d0 = mc.getRenderViewEntity().prevPosX + (mc.getRenderViewEntity().posX - mc.getRenderViewEntity().prevPosX) * (double) partialTicks + d2 * 0.029999999329447746D;
                         double d1 = mc.getRenderViewEntity().prevPosZ + (mc.getRenderViewEntity().posZ - mc.getRenderViewEntity().prevPosZ) * (double) partialTicks;
-                        int k = MathHelper.floor_double(d0 / 2048.0D);
-                        int l = MathHelper.floor_double(d1 / 2048.0D);
+                        int k = MathHelper.floor(d0 / 2048.0D);
+                        int l = MathHelper.floor(d1 / 2048.0D);
                         d0 = d0 - (double) (k * 2048);
                         d1 = d1 - (double) (l * 2048);
                         float f6 = theWorld.provider.getCloudHeight() - f10 + 0.33F;
@@ -1742,8 +1742,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double d2 = (mc.getRenderViewEntity().prevPosZ + (mc.getRenderViewEntity().posZ - mc.getRenderViewEntity().prevPosZ) * (double) partialTicks) / 12.0D + 0.33000001311302185D;
         float f3 = theWorld.provider.getCloudHeight() - f + 0.33F;
         f3 = f3 + mc.gameSettings.ofCloudsHeight * 128.0F;
-        int i = MathHelper.floor_double(d1 / 2048.0D);
-        int j = MathHelper.floor_double(d2 / 2048.0D);
+        int i = MathHelper.floor(d1 / 2048.0D);
+        int j = MathHelper.floor(d2 / 2048.0D);
         d1 = d1 - (double) (i * 2048);
         d2 = d2 - (double) (j * 2048);
         renderEngine.bindTexture(locationCloudsPng);
@@ -1774,10 +1774,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         float f14 = f5 * 0.8F;
         float f15 = f6 * 0.8F;
         float f16 = 0.00390625F;
-        float f17 = (float) MathHelper.floor_double(d1) * 0.00390625F;
-        float f18 = (float) MathHelper.floor_double(d2) * 0.00390625F;
-        float f19 = (float) (d1 - (double) MathHelper.floor_double(d1));
-        float f20 = (float) (d2 - (double) MathHelper.floor_double(d2));
+        float f17 = (float) MathHelper.floor(d1) * 0.00390625F;
+        float f18 = (float) MathHelper.floor(d2) * 0.00390625F;
+        float f19 = (float) (d1 - (double) MathHelper.floor(d1));
+        float f20 = (float) (d2 - (double) MathHelper.floor(d2));
         int k = 8;
         int l = 4;
         float f21 = 9.765625E-4F;
@@ -1981,8 +1981,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             float f3 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.setTranslation(-d2, -d3, -d4);
-            double d5 = Math.max(MathHelper.floor_double(d4 - d0), worldborder.minZ());
-            double d6 = Math.min(MathHelper.ceiling_double_int(d4 + d0), worldborder.maxZ());
+            double d5 = Math.max(MathHelper.floor(d4 - d0), worldborder.minZ());
+            double d6 = Math.min(MathHelper.ceil(d4 + d0), worldborder.maxZ());
 
             if (d2 > worldborder.maxX() - d0) {
                 float f7 = 0.0F;
@@ -2012,8 +2012,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
-            d5 = Math.max(MathHelper.floor_double(d2 - d0), worldborder.minX());
-            d6 = Math.min(MathHelper.ceiling_double_int(d2 + d0), worldborder.maxX());
+            d5 = Math.max(MathHelper.floor(d2 - d0), worldborder.minX());
+            d6 = Math.min(MathHelper.ceil(d2 + d0), worldborder.maxX());
 
             if (d4 > worldborder.maxZ() - d0) {
                 float f10 = 0.0F;

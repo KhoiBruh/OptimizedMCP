@@ -28,7 +28,7 @@ public class WorldGenIceSpike extends WorldGenerator {
 
             for (int k = 0; k < i; ++k) {
                 float f = (1.0F - (float) k / (float) i) * (float) j;
-                int l = MathHelper.ceiling_float_int(f);
+                int l = MathHelper.ceil(f);
 
                 for (int i1 = -l; i1 <= l; ++i1) {
                     float f1 = (float) MathHelper.abs_int(i1) - 0.25F;

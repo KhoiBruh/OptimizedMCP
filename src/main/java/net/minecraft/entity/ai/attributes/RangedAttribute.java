@@ -31,7 +31,7 @@ public class RangedAttribute extends BaseAttribute {
     }
 
     public double clampValue(double p_111109_1_) {
-        p_111109_1_ = MathHelper.clamp_double(p_111109_1_, minimumValue, maximumValue);
+        p_111109_1_ = MathHelper.clamp(p_111109_1_, minimumValue, maximumValue);
         return p_111109_1_;
     }
 }

@@ -114,7 +114,7 @@ public abstract class GuiContainer extends GuiScreen {
 
             if (draggedStack != null && isRightMouseClick) {
                 itemstack = itemstack.copy();
-                itemstack.stackSize = MathHelper.ceiling_float_int((float) itemstack.stackSize / 2.0F);
+                itemstack.stackSize = MathHelper.ceil((float) itemstack.stackSize / 2.0F);
             } else if (dragSplitting && dragSplittingSlots.size() > 1) {
                 itemstack = itemstack.copy();
                 itemstack.stackSize = dragSplittingRemnant;

@@ -23,12 +23,12 @@ public class MusicTicker implements ITickable {
         if (currentMusic != null) {
             if (!musicticker$musictype.getMusicLocation().equals(currentMusic.getSoundLocation())) {
                 mc.getSoundHandler().stopSound(currentMusic);
-                timeUntilNextMusic = MathHelper.getRandomIntegerInRange(rand, 0, musicticker$musictype.getMinDelay() / 2);
+                timeUntilNextMusic = MathHelper.nextInt(rand, 0, musicticker$musictype.getMinDelay() / 2);
             }
 
             if (!mc.getSoundHandler().isSoundPlaying(currentMusic)) {
                 currentMusic = null;
-                timeUntilNextMusic = Math.min(MathHelper.getRandomIntegerInRange(rand, musicticker$musictype.getMinDelay(), musicticker$musictype.getMaxDelay()), timeUntilNextMusic);
+                timeUntilNextMusic = Math.min(MathHelper.nextInt(rand, musicticker$musictype.getMinDelay(), musicticker$musictype.getMaxDelay()), timeUntilNextMusic);
             }
         }
 

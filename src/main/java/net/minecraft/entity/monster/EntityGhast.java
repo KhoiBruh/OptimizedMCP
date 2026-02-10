@@ -271,7 +271,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
                 if (courseChangeCooldown-- <= 0) {
                     courseChangeCooldown += parentEntity.getRNG().nextInt(5) + 2;
-                    d3 = MathHelper.sqrt_double(d3);
+                    d3 = MathHelper.sqrt(d3);
 
                     if (isNotColliding(posX, posY, posZ, d3)) {
                         parentEntity.motionX += d0 / d3 * 0.1D;

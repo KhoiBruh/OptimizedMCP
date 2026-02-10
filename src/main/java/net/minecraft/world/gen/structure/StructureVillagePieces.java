@@ -45,15 +45,15 @@ public class StructureVillagePieces {
 
     public static List<StructureVillagePieces.PieceWeight> getStructureVillageWeightedPieceList(Random random, int size) {
         List<StructureVillagePieces.PieceWeight> list = new ArrayList<>();
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, MathHelper.getRandomIntegerInRange(random, 2 + size, 4 + size * 2)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getRandomIntegerInRange(random, size, 1 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getRandomIntegerInRange(random, size, 2 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.WoodHut.class, 3, MathHelper.getRandomIntegerInRange(random, 2 + size, 5 + size * 3)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.getRandomIntegerInRange(random, size, 2 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field1.class, 3, MathHelper.getRandomIntegerInRange(random, 1 + size, 4 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field2.class, 3, MathHelper.getRandomIntegerInRange(random, 2 + size, 4 + size * 2)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, MathHelper.getRandomIntegerInRange(random, 0, 1 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getRandomIntegerInRange(random, size, 3 + size * 2)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, MathHelper.nextInt(random, 2 + size, 4 + size * 2)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.nextInt(random, size, 1 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.nextInt(random, size, 2 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.WoodHut.class, 3, MathHelper.nextInt(random, 2 + size, 5 + size * 3)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.nextInt(random, size, 2 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field1.class, 3, MathHelper.nextInt(random, 1 + size, 4 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field2.class, 3, MathHelper.nextInt(random, 2 + size, 4 + size * 2)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, MathHelper.nextInt(random, 0, 1 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.nextInt(random, size, 3 + size * 2)));
 
         list.removeIf(pieceWeight -> pieceWeight.villagePiecesLimit == 0);
 
@@ -376,14 +376,14 @@ public class StructureVillagePieces {
             fillWithBlocks(worldIn, structureBoundingBoxIn, 9, 0, 1, 9, 0, 7, Blocks.water.getDefaultState(), Blocks.water.getDefaultState(), false);
 
             for (int i = 1; i <= 7; ++i) {
-                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 1, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 2, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 4, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 5, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeC.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 7, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeC.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 8, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeD.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 10, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeD.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 11, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 1, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 2, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 4, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 5, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeC.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 7, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeC.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 8, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeD.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 10, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeD.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 11, 1, i, structureBoundingBoxIn);
             }
 
             for (int k = 0; k < 9; ++k) {
@@ -458,10 +458,10 @@ public class StructureVillagePieces {
             fillWithBlocks(worldIn, structureBoundingBoxIn, 3, 0, 1, 3, 0, 7, Blocks.water.getDefaultState(), Blocks.water.getDefaultState(), false);
 
             for (int i = 1; i <= 7; ++i) {
-                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 1, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 2, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 4, 1, i, structureBoundingBoxIn);
-                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getRandomIntegerInRange(randomIn, 2, 7)), 5, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 1, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 2, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 4, 1, i, structureBoundingBoxIn);
+                setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.nextInt(randomIn, 2, 7)), 5, 1, i, structureBoundingBoxIn);
             }
 
             for (int k = 0; k < 9; ++k) {
@@ -1061,7 +1061,7 @@ public class StructureVillagePieces {
         }
 
         public static StructureBoundingBox func_175848_a(StructureVillagePieces.Start start, List<StructureComponent> p_175848_1_, Random rand, int p_175848_3_, int p_175848_4_, int p_175848_5_, Direction facing) {
-            for (int i = 7 * MathHelper.getRandomIntegerInRange(rand, 3, 5); i >= 7; i -= 7) {
+            for (int i = 7 * MathHelper.nextInt(rand, 3, 5); i >= 7; i -= 7) {
                 StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175848_3_, p_175848_4_, p_175848_5_, 0, 0, 0, 3, 3, i, facing);
 
                 if (StructureComponent.findIntersecting(p_175848_1_, structureboundingbox) == null) {

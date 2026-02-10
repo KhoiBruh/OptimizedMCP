@@ -194,11 +194,11 @@ public class OldServerPinger {
                             String[] astring = Iterables.toArray(OldServerPinger.PING_RESPONSE_SPLITTER.split(s), String.class);
 
                             if ("§1".equals(astring[0])) {
-                                int i = MathHelper.parseIntWithDefault(astring[1], 0);
+                                int i = MathHelper.parse(astring[1], 0);
                                 String s1 = astring[2];
                                 String s2 = astring[3];
-                                int j = MathHelper.parseIntWithDefault(astring[4], -1);
-                                int k = MathHelper.parseIntWithDefault(astring[5], -1);
+                                int j = MathHelper.parse(astring[4], -1);
+                                int k = MathHelper.parse(astring[5], -1);
                                 server.version = -1;
                                 server.gameVersion = s1;
                                 server.serverMOTD = s2;

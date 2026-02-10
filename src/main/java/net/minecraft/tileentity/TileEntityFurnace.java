@@ -231,7 +231,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                     cookTime = 0;
                 }
             } else if (!isBurning() && cookTime > 0) {
-                cookTime = MathHelper.clamp_int(cookTime - 2, 0, totalCookTime);
+                cookTime = MathHelper.clamp(cookTime - 2, 0, totalCookTime);
             }
 
             if (flag != isBurning()) {

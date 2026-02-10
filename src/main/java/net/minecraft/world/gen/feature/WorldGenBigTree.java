@@ -102,7 +102,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         } else {
             float f = (float) heightLimit / 2.0F;
             float f1 = f - (float) p_76490_1_;
-            float f2 = MathHelper.sqrt_float(f * f - f1 * f1);
+            float f2 = MathHelper.sqrt(f * f - f1 * f1);
 
             if (f1 == 0.0F) {
                 f2 = f;

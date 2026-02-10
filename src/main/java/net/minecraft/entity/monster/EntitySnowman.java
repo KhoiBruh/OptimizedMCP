@@ -39,9 +39,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         super.onLivingUpdate();
 
         if (!worldObj.isRemote) {
-            int i = MathHelper.floor_double(posX);
-            int j = MathHelper.floor_double(posY);
-            int k = MathHelper.floor_double(posZ);
+            int i = MathHelper.floor(posX);
+            int j = MathHelper.floor(posY);
+            int k = MathHelper.floor(posZ);
 
             if (isWet()) {
                 attackEntityFrom(DamageSource.drown, 1.0F);
@@ -52,9 +52,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
             }
 
             for (int l = 0; l < 4; ++l) {
-                i = MathHelper.floor_double(posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor_double(posY);
-                k = MathHelper.floor_double(posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+                i = MathHelper.floor(posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(posY);
+                k = MathHelper.floor(posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
 
                 if (worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.air && worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.snow_layer.canPlaceBlockAt(worldObj, blockpos)) {
@@ -82,7 +82,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         double d1 = target.posX - posX;
         double d2 = d0 - entitysnowball.posY;
         double d3 = target.posZ - posZ;
-        float f = MathHelper.sqrt_double(d1 * d1 + d3 * d3) * 0.2F;
+        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         entitysnowball.setThrowableHeading(d1, d2 + (double) f, d3, 1.6F, 12.0F);
         playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
         worldObj.spawnEntityInWorld(entitysnowball);

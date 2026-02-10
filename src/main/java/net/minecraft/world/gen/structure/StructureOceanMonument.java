@@ -34,9 +34,9 @@ public class StructureOceanMonument extends MapGenStructure {
 
         for (Entry<String, String> entry : p_i45608_1_.entrySet()) {
             if (entry.getKey().equals("spacing")) {
-                field_175800_f = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_175800_f, 1);
+                field_175800_f = MathHelper.parseMax(entry.getValue(), field_175800_f, 1);
             } else if (entry.getKey().equals("separation")) {
-                field_175801_g = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_175801_g, 1);
+                field_175801_g = MathHelper.parseMax(entry.getValue(), field_175801_g, 1);
             }
         }
     }

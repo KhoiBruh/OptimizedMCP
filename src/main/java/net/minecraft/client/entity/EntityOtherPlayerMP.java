@@ -45,7 +45,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         prevLimbSwingAmount = limbSwingAmount;
         double d0 = posX - prevPosX;
         double d1 = posZ - prevPosZ;
-        float f = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4.0F;
+        float f = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4.0F;
 
         if (f > 1.0F) {
             f = 1.0F;
@@ -87,7 +87,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
         prevCameraYaw = cameraYaw;
         updateArmSwingProgress();
-        float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+        float f1 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
         float f = (float) Math.atan(-motionY * 0.20000000298023224D) * 15.0F;
 
         if (f1 > 0.1F) {

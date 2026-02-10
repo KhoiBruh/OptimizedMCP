@@ -79,7 +79,7 @@ public class EntityBat extends EntityAmbientCreature {
 
         if (getIsBatHanging()) {
             motionX = motionY = motionZ = 0.0D;
-            posY = (double) MathHelper.floor_double(posY) + 1.0D - (double) height;
+            posY = (double) MathHelper.floor(posY) + 1.0D - (double) height;
         } else {
             motionY *= 0.6000000238418579D;
         }
@@ -120,7 +120,7 @@ public class EntityBat extends EntityAmbientCreature {
             motionY += (Math.signum(d1) * 0.699999988079071D - motionY) * 0.10000000149011612D;
             motionZ += (Math.signum(d2) * 0.5D - motionZ) * 0.10000000149011612D;
             float f = (float) (MathHelper.atan2(motionZ, motionX) * 180.0D / Math.PI) - 90.0F;
-            float f1 = MathHelper.wrapAngleTo180_float(f - rotationYaw);
+            float f1 = MathHelper.wrapAngle(f - rotationYaw);
             moveForward = 0.5F;
             rotationYaw += f1;
 

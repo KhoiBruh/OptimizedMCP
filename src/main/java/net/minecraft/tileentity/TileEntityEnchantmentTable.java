@@ -94,12 +94,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         }
 
         bookRotation += f2 * 0.4F;
-        bookSpread = MathHelper.clamp_float(bookSpread, 0.0F, 1.0F);
+        bookSpread = MathHelper.clamp(bookSpread, 0.0F, 1.0F);
         ++tickCount;
         pageFlipPrev = pageFlip;
         float f = (field_145932_k - pageFlip) * 0.4F;
         float f3 = 0.2F;
-        f = MathHelper.clamp_float(f, -f3, f3);
+        f = MathHelper.clamp(f, -f3, f3);
         field_145929_l += (f - field_145929_l) * 0.9F;
         pageFlip += field_145929_l;
     }

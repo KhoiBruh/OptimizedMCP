@@ -11,8 +11,6 @@ import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.client.renderer.culling.ClippingHelper;
-import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -177,7 +175,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             for (int j = 0; j < 32; ++j) {
                 float f = (float) (j - 16);
                 float f1 = (float) (i - 16);
-                float f2 = MathHelper.sqrt_float(f * f + f1 * f1);
+                float f2 = MathHelper.sqrt(f * f + f1 * f1);
                 rainXCoords[i << 5 | j] = -f1 / f2;
                 rainYCoords[i << 5 | j] = f / f2;
             }
@@ -267,7 +265,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         double d1 = entity.posZ;
         float f2 = mc.theWorld.getLightBrightness(new BlockPos(d2, d0, d1));
         float f3 = (float) mc.gameSettings.renderDistanceChunks / 16.0F;
-        f3 = MathHelper.clamp_float(f3, 0.0F, 1.0F);
+        f3 = MathHelper.clamp(f3, 0.0F, 1.0F);
         float f4 = f2 * (1.0F - f3) + f3;
         fogColor1 += (f4 - fogColor1) * 0.1F;
         ++rendererUpdateCount;
@@ -1389,7 +1387,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 rainSoundCounter = 0;
 
                 if (d1 > (double) (blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos).getY() > MathHelper
-                        .floor_float((float) blockpos.getY()))
+                        .floor((float) blockpos.getY()))
                     mc.theWorld.playSound(d0, d1, d2, "ambient.weather.rain", 0.1F, 0.5F, false);
                 else mc.theWorld.playSound(d0, d1, d2, "ambient.weather.rain", 0.2F, 1.0F, false);
             }
@@ -1406,9 +1404,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             enableLightmap();
             Entity entity = mc.getRenderViewEntity();
             World world = mc.theWorld;
-            int i = MathHelper.floor_double(entity.posX);
-            int j = MathHelper.floor_double(entity.posY);
-            int k = MathHelper.floor_double(entity.posZ);
+            int i = MathHelper.floor(entity.posX);
+            int j = MathHelper.floor(entity.posY);
+            int k = MathHelper.floor(entity.posZ);
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             GlStateManager.disableCull();
@@ -1419,7 +1417,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
             double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
             double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            int l = MathHelper.floor_double(d1);
+            int l = MathHelper.floor(d1);
             int i1 = 5;
 
             if (Config.isRainFancy()) i1 = 10;
@@ -1469,7 +1467,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                         * (3.0D + random.nextDouble());
                                 double d6 = (double) ((float) l1 + 0.5F) - entity.posX;
                                 double d7 = (double) ((float) k1 + 0.5F) - entity.posZ;
-                                float f2 = MathHelper.sqrt_double(d6 * d6 + d7 * d7) / (float) i1;
+                                float f2 = MathHelper.sqrt(d6 * d6 + d7 * d7) / (float) i1;
                                 float f3 = ((1.0F - f2 * f2) * 0.5F + 0.5F) * f5;
                                 blockpos$mutableblockpos.set(l1, i3, k1);
                                 int j3 = world.getCombinedLight(blockpos$mutableblockpos, 0);
@@ -1504,7 +1502,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                         + (double) (f * (float) random.nextGaussian()) * 0.001D;
                                 double d11 = (double) ((float) l1 + 0.5F) - entity.posX;
                                 double d12 = (double) ((float) k1 + 0.5F) - entity.posZ;
-                                float f6 = MathHelper.sqrt_double(d11 * d11 + d12 * d12) / (float) i1;
+                                float f6 = MathHelper.sqrt(d11 * d11 + d12 * d12) / (float) i1;
                                 float f4 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * f5;
                                 blockpos$mutableblockpos.set(l1, i3, k1);
                                 int i4 = (world.getCombinedLight(blockpos$mutableblockpos, 0) * 3 + 15728880) / 4;

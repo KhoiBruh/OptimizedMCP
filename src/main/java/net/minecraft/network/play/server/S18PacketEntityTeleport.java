@@ -20,9 +20,9 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
 
     public S18PacketEntityTeleport(Entity entityIn) {
         entityId = entityIn.getEntityId();
-        posX = MathHelper.floor_double(entityIn.posX * 32.0D);
-        posY = MathHelper.floor_double(entityIn.posY * 32.0D);
-        posZ = MathHelper.floor_double(entityIn.posZ * 32.0D);
+        posX = MathHelper.floor(entityIn.posX * 32.0D);
+        posY = MathHelper.floor(entityIn.posY * 32.0D);
+        posZ = MathHelper.floor(entityIn.posZ * 32.0D);
         yaw = (byte) ((int) (entityIn.rotationYaw * 256.0F / 360.0F));
         pitch = (byte) ((int) (entityIn.rotationPitch * 256.0F / 360.0F));
         onGround = entityIn.onGround;

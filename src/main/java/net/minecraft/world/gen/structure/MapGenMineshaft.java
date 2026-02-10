@@ -14,7 +14,7 @@ public class MapGenMineshaft extends MapGenStructure {
     public MapGenMineshaft(Map<String, String> p_i2034_1_) {
         for (Entry<String, String> entry : p_i2034_1_.entrySet()) {
             if (entry.getKey().equals("chance")) {
-                field_82673_e = MathHelper.parseDoubleWithDefault(entry.getValue(), field_82673_e);
+                field_82673_e = MathHelper.parse(entry.getValue(), field_82673_e);
             }
         }
     }

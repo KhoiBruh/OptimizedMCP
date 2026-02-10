@@ -43,7 +43,7 @@ public class CommandHelp extends CommandBase {
                 throw new WrongUsageException(icommand.getCommandUsage(sender));
             }
 
-            if (MathHelper.parseIntWithDefault(args[0], -1) != -1) {
+            if (MathHelper.parse(args[0], -1) != -1) {
                 throw numberinvalidexception;
             }
 

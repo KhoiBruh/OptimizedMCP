@@ -55,15 +55,15 @@ public class NBTTagFloat extends NBTBase.NBTPrimitive {
     }
 
     public int getInt() {
-        return MathHelper.floor_float(data);
+        return MathHelper.floor(data);
     }
 
     public short getShort() {
-        return (short) (MathHelper.floor_float(data) & 65535);
+        return (short) (MathHelper.floor(data) & 65535);
     }
 
     public byte getByte() {
-        return (byte) (MathHelper.floor_float(data) & 255);
+        return (byte) (MathHelper.floor(data) & 255);
     }
 
     public double getDouble() {

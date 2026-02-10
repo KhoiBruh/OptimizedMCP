@@ -26,7 +26,7 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
         if (visible) {
             if (dragging && !GuiScreen.isShiftKeyDown()) {
                 sliderValue = (float) (mouseX - (xPosition + 4)) / (float) (width - 8);
-                sliderValue = MathHelper.clamp_float(sliderValue, 0.0F, 1.0F);
+                sliderValue = MathHelper.clamp(sliderValue, 0.0F, 1.0F);
                 shaderOption.setIndexNormalized(sliderValue);
                 sliderValue = shaderOption.getIndexNormalized();
                 displayString = GuiShaderOptions.getButtonText(shaderOption, width);
@@ -42,7 +42,7 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
             sliderValue = (float) (mouseX - (xPosition + 4)) / (float) (width - 8);
-            sliderValue = MathHelper.clamp_float(sliderValue, 0.0F, 1.0F);
+            sliderValue = MathHelper.clamp(sliderValue, 0.0F, 1.0F);
             shaderOption.setIndexNormalized(sliderValue);
             displayString = GuiShaderOptions.getButtonText(shaderOption, width);
             dragging = true;

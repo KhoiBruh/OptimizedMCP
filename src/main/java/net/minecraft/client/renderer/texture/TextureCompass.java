@@ -53,7 +53,7 @@ public class TextureCompass extends TextureAtlasSprite {
                     d3 -= (Math.PI * 2D);
                 }
 
-                d3 = MathHelper.clamp_double(d3, -1.0D, 1.0D);
+                d3 = MathHelper.clamp(d3, -1.0D, 1.0D);
                 angleDelta += d3 * 0.1D;
                 angleDelta *= 0.8D;
                 currentAngle += angleDelta;

@@ -61,7 +61,7 @@ public class EntityArrow extends Entity implements IProjectile {
         double d0 = target.posX - shooter.posX;
         double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3.0F) - posY;
         double d2 = target.posZ - shooter.posZ;
-        double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+        double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
 
         if (d3 >= 1.0E-7D) {
             float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
@@ -100,7 +100,7 @@ public class EntityArrow extends Entity implements IProjectile {
     }
 
     public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy) {
-        float f = MathHelper.sqrt_double(x * x + y * y + z * z);
+        float f = MathHelper.sqrt(x * x + y * y + z * z);
         x = x / (double) f;
         y = y / (double) f;
         z = z / (double) f;
@@ -113,7 +113,7 @@ public class EntityArrow extends Entity implements IProjectile {
         motionX = x;
         motionY = y;
         motionZ = z;
-        float f1 = MathHelper.sqrt_double(x * x + z * z);
+        float f1 = MathHelper.sqrt(x * x + z * z);
         prevRotationYaw = rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
         prevRotationPitch = rotationPitch = (float) (MathHelper.atan2(y, f1) * 180.0D / Math.PI);
         ticksInGround = 0;
@@ -130,7 +130,7 @@ public class EntityArrow extends Entity implements IProjectile {
         motionZ = z;
 
         if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
-            float f = MathHelper.sqrt_double(x * x + z * z);
+            float f = MathHelper.sqrt(x * x + z * z);
             prevRotationYaw = rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
             rotationPitch = (float) (MathHelper.atan2(y, f) * 180.0D / Math.PI);
             prevRotationPitch = rotationPitch;
@@ -144,7 +144,7 @@ public class EntityArrow extends Entity implements IProjectile {
         super.onUpdate();
 
         if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F) {
-            float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+            float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
             prevRotationYaw = rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * 180.0D / Math.PI);
             prevRotationPitch = rotationPitch = (float) (MathHelper.atan2(motionY, f) * 180.0D / Math.PI);
         }
@@ -229,8 +229,8 @@ public class EntityArrow extends Entity implements IProjectile {
 
             if (movingobjectposition != null) {
                 if (movingobjectposition.entityHit != null) {
-                    float f2 = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
-                    int l = MathHelper.ceiling_double_int((double) f2 * damage);
+                    float f2 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+                    int l = MathHelper.ceil((double) f2 * damage);
 
                     if (getIsCritical()) {
                         l += rand.nextInt(l / 2 + 2);
@@ -252,7 +252,7 @@ public class EntityArrow extends Entity implements IProjectile {
                             }
 
                             if (knockbackStrength > 0) {
-                                float f7 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+                                float f7 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 
                                 if (f7 > 0.0F) {
                                     movingobjectposition.entityHit.addVelocity(motionX * (double) knockbackStrength * 0.6000000238418579D / (double) f7, 0.1D, motionZ * (double) knockbackStrength * 0.6000000238418579D / (double) f7);
@@ -293,7 +293,7 @@ public class EntityArrow extends Entity implements IProjectile {
                     motionX = (float) (movingobjectposition.hitVec.xCoord() - posX);
                     motionY = (float) (movingobjectposition.hitVec.yCoord() - posY);
                     motionZ = (float) (movingobjectposition.hitVec.zCoord() - posZ);
-                    float f5 = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
+                    float f5 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
                     posX -= motionX / (double) f5 * 0.05000000074505806D;
                     posY -= motionY / (double) f5 * 0.05000000074505806D;
                     posZ -= motionZ / (double) f5 * 0.05000000074505806D;
@@ -317,7 +317,7 @@ public class EntityArrow extends Entity implements IProjectile {
             posX += motionX;
             posY += motionY;
             posZ += motionZ;
-            float f3 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+            float f3 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
             rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * 180.0D / Math.PI);
 
             for (rotationPitch = (float) (MathHelper.atan2(motionY, f3) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F) {

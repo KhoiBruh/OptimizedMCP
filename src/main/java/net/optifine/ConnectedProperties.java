@@ -11,7 +11,7 @@ import net.minecraft.util.WorldBlockLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.optifine.util.MathUtils;
+import net.minecraft.util.MathHelper;
 import net.optifine.util.TextureUtils;
 
 import java.util.*;
@@ -694,7 +694,7 @@ public class ConnectedProperties {
                     Config.warn("Less weights defined than tiles, expanding weights: " + path);
                     int[] aint1 = new int[tiles.length];
                     System.arraycopy(weights, 0, aint1, 0, weights.length);
-                    int i = MathUtils.getAverage(weights);
+                    int i = MathHelper.avg(weights);
 
                     for (int j = weights.length; j < aint1.length; ++j) {
                         aint1[j] = i;

@@ -129,10 +129,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if (packetIn.getType() == 61) {
             entity = new EntitySnowball(clientWorldController, d0, d1, d2);
         } else if (packetIn.getType() == 71) {
-            entity = new EntityItemFrame(clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), Direction.getHorizontal(packetIn.func_149009_m()));
+            entity = new EntityItemFrame(clientWorldController, new BlockPos(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2)), Direction.getHorizontal(packetIn.func_149009_m()));
             packetIn.func_149002_g(0);
         } else if (packetIn.getType() == 77) {
-            entity = new EntityLeashKnot(clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)));
+            entity = new EntityLeashKnot(clientWorldController, new BlockPos(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2)));
             packetIn.func_149002_g(0);
         } else if (packetIn.getType() == 65) {
             entity = new EntityEnderPearl(clientWorldController, d0, d1, d2);
@@ -837,7 +837,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         EntityPlayer entityplayer = gameController.thePlayer;
         int i = packetIn.getGameState();
         float f = packetIn.func_149137_d();
-        int j = MathHelper.floor_float(f + 0.5F);
+        int j = MathHelper.floor(f + 0.5F);
 
         if (i >= 0 && i < S2BPacketChangeGameState.MESSAGE_NAMES.length && S2BPacketChangeGameState.MESSAGE_NAMES[i] != null) {
             entityplayer.addChatComponentMessage(new ChatComponentTranslation(S2BPacketChangeGameState.MESSAGE_NAMES[i]));

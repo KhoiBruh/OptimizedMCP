@@ -32,9 +32,9 @@ public class S0FPacketSpawnMob implements Packet<INetHandlerPlayClient> {
     public S0FPacketSpawnMob(EntityLivingBase entityIn) {
         entityId = entityIn.getEntityId();
         type = (byte) EntityList.getEntityID(entityIn);
-        x = MathHelper.floor_double(entityIn.posX * 32.0D);
-        y = MathHelper.floor_double(entityIn.posY * 32.0D);
-        z = MathHelper.floor_double(entityIn.posZ * 32.0D);
+        x = MathHelper.floor(entityIn.posX * 32.0D);
+        y = MathHelper.floor(entityIn.posY * 32.0D);
+        z = MathHelper.floor(entityIn.posZ * 32.0D);
         yaw = (byte) ((int) (entityIn.rotationYaw * 256.0F / 360.0F));
         pitch = (byte) ((int) (entityIn.rotationPitch * 256.0F / 360.0F));
         headPitch = (byte) ((int) (entityIn.rotationYawHead * 256.0F / 360.0F));

@@ -141,7 +141,7 @@ public class EntityFallingBlock extends Entity {
         Block block = fallTile.getBlock();
 
         if (hurtEntities) {
-            int i = MathHelper.ceiling_float_int(distance - 1.0F);
+            int i = MathHelper.ceil(distance - 1.0F);
 
             if (i > 0) {
                 List<Entity> list = Lists.newArrayList(worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox()));
@@ -149,7 +149,7 @@ public class EntityFallingBlock extends Entity {
                 DamageSource damagesource = flag ? DamageSource.anvil : DamageSource.fallingBlock;
 
                 for (Entity entity : list) {
-                    entity.attackEntityFrom(damagesource, (float) Math.min(MathHelper.floor_float((float) i * fallHurtAmount), fallHurtMax));
+                    entity.attackEntityFrom(damagesource, (float) Math.min(MathHelper.floor((float) i * fallHurtAmount), fallHurtMax));
                 }
 
                 if (flag && (double) rand.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {

@@ -38,11 +38,11 @@ public class MapGenStronghold extends MapGenStructure {
         for (Entry<String, String> entry : p_i2068_1_.entrySet()) {
             switch (entry.getKey()) {
                 case "distance" ->
-                        field_82671_h = MathHelper.parseDoubleWithDefaultAndMax(entry.getValue(), field_82671_h, 1.0D);
+                        field_82671_h = MathHelper.parseMax(entry.getValue(), field_82671_h, 1.0D);
                 case "count" ->
-                        structureCoords = new ChunkCoordIntPair[MathHelper.parseIntWithDefaultAndMax(entry.getValue(), structureCoords.length, 1)];
+                        structureCoords = new ChunkCoordIntPair[MathHelper.parseMax(entry.getValue(), structureCoords.length, 1)];
                 case "spread" ->
-                        field_82672_i = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), field_82672_i, 1);
+                        field_82672_i = MathHelper.parseMax(entry.getValue(), field_82672_i, 1);
             }
         }
     }

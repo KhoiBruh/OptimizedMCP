@@ -3450,11 +3450,11 @@ public class Shaders {
         cameraPositionY = d1;
         cameraPositionZ = d2 - (double) cameraOffsetZ;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, projection.position(0));
-        SMath.invertMat4FBFA(projectionInverse.position(0), projection.position(0), faProjectionInverse, faProjection);
+        MathHelper.invertMat4FBFA(projectionInverse.position(0), projection.position(0), faProjectionInverse, faProjection);
         projection.position(0);
         projectionInverse.position(0);
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, modelView.position(0));
-        SMath.invertMat4FBFA(modelViewInverse.position(0), modelView.position(0), faModelViewInverse, faModelView);
+        MathHelper.invertMat4FBFA(modelViewInverse.position(0), modelView.position(0), faModelViewInverse, faModelView);
         modelView.position(0);
         modelViewInverse.position(0);
         checkGLError("setCamera");
@@ -3491,11 +3491,11 @@ public class Shaders {
         cameraPositionY = d1;
         cameraPositionZ = d2 - (double) cameraOffsetZ;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, projection.position(0));
-        SMath.invertMat4FBFA(projectionInverse.position(0), projection.position(0), faProjectionInverse, faProjection);
+        MathHelper.invertMat4FBFA(projectionInverse.position(0), projection.position(0), faProjectionInverse, faProjection);
         projection.position(0);
         projectionInverse.position(0);
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, modelView.position(0));
-        SMath.invertMat4FBFA(modelViewInverse.position(0), modelView.position(0), faModelViewInverse, faModelView);
+        MathHelper.invertMat4FBFA(modelViewInverse.position(0), modelView.position(0), faModelViewInverse, faModelView);
         modelView.position(0);
         modelViewInverse.position(0);
         GL11.glViewport(0, 0, shadowMapWidth, shadowMapHeight);
@@ -3553,12 +3553,12 @@ public class Shaders {
         shadowLightPositionVector[2] = f8;
         shadowLightPositionVector[3] = 0.0F;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, shadowProjection.position(0));
-        SMath.invertMat4FBFA(shadowProjectionInverse.position(0), shadowProjection.position(0),
+        MathHelper.invertMat4FBFA(shadowProjectionInverse.position(0), shadowProjection.position(0),
                 faShadowProjectionInverse, faShadowProjection);
         shadowProjection.position(0);
         shadowProjectionInverse.position(0);
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, shadowModelView.position(0));
-        SMath.invertMat4FBFA(shadowModelViewInverse.position(0), shadowModelView.position(0), faShadowModelViewInverse,
+        MathHelper.invertMat4FBFA(shadowModelViewInverse.position(0), shadowModelView.position(0), faShadowModelViewInverse,
                 faShadowModelView);
         shadowModelView.position(0);
         shadowModelViewInverse.position(0);
@@ -3586,8 +3586,8 @@ public class Shaders {
         floatbuffer.clear();
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, floatbuffer);
         floatbuffer.get(tempMat, 0, 16);
-        SMath.multiplyMat4xVec4(sunPosition, tempMat, sunPosModelView);
-        SMath.multiplyMat4xVec4(moonPosition, tempMat, moonPosModelView);
+        MathHelper.multiplyMat4xVec4(sunPosition, tempMat, sunPosModelView);
+        MathHelper.multiplyMat4xVec4(moonPosition, tempMat, moonPosModelView);
         System.arraycopy(shadowAngle == sunAngle ? sunPosition : moonPosition, 0, shadowLightPosition, 0, 3);
         setProgramUniform3f(uniform_sunPosition, sunPosition[0], sunPosition[1], sunPosition[2]);
         setProgramUniform3f(uniform_moonPosition, moonPosition[0], moonPosition[1], moonPosition[2]);
@@ -3606,7 +3606,7 @@ public class Shaders {
         floatbuffer.clear();
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, floatbuffer);
         floatbuffer.get(tempMat, 0, 16);
-        SMath.multiplyMat4xVec4(upPosition, tempMat, upPosModelView);
+        MathHelper.multiplyMat4xVec4(upPosition, tempMat, upPosModelView);
         setProgramUniform3f(uniform_upPosition, upPosition[0], upPosition[1], upPosition[2]);
 
         if (customUniforms != null) {

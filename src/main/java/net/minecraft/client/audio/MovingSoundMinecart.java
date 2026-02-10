@@ -22,11 +22,11 @@ public class MovingSoundMinecart extends MovingSound {
             xPosF = (float) minecart.posX;
             yPosF = (float) minecart.posY;
             zPosF = (float) minecart.posZ;
-            float f = MathHelper.sqrt_double(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
+            float f = MathHelper.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
             if ((double) f >= 0.01D) {
-                distance = MathHelper.clamp_float(distance + 0.0025F, 0.0F, 1.0F);
-                volume = 0.0F + MathHelper.clamp_float(f, 0.0F, 0.5F) * 0.7F;
+                distance = MathHelper.clamp(distance + 0.0025F, 0.0F, 1.0F);
+                volume = 0.0F + MathHelper.clamp(f, 0.0F, 0.5F) * 0.7F;
             } else {
                 distance = 0.0F;
                 volume = 0.0F;

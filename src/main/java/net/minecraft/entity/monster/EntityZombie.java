@@ -183,15 +183,15 @@ public class EntityZombie extends EntityMob {
             }
 
             if (entitylivingbase != null && worldObj.getDifficulty() == Difficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(reinforcementChance).getAttributeValue()) {
-                int i = MathHelper.floor_double(posX);
-                int j = MathHelper.floor_double(posY);
-                int k = MathHelper.floor_double(posZ);
+                int i = MathHelper.floor(posX);
+                int j = MathHelper.floor(posY);
+                int k = MathHelper.floor(posZ);
                 EntityZombie entityzombie = new EntityZombie(worldObj);
 
                 for (int l = 0; l < 50; ++l) {
-                    int i1 = i + MathHelper.getRandomIntegerInRange(rand, 7, 40) * MathHelper.getRandomIntegerInRange(rand, -1, 1);
-                    int j1 = j + MathHelper.getRandomIntegerInRange(rand, 7, 40) * MathHelper.getRandomIntegerInRange(rand, -1, 1);
-                    int k1 = k + MathHelper.getRandomIntegerInRange(rand, 7, 40) * MathHelper.getRandomIntegerInRange(rand, -1, 1);
+                    int i1 = i + MathHelper.nextInt(rand, 7, 40) * MathHelper.nextInt(rand, -1, 1);
+                    int j1 = j + MathHelper.nextInt(rand, 7, 40) * MathHelper.nextInt(rand, -1, 1);
+                    int k1 = k + MathHelper.nextInt(rand, 7, 40) * MathHelper.nextInt(rand, -1, 1);
 
                     if (World.doesBlockHaveSolidTopSurface(worldObj, new BlockPos(i1, j1 - 1, k1)) && worldObj.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10) {
                         entityzombie.setPosition(i1, j1, k1);

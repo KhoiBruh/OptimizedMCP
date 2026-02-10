@@ -35,7 +35,7 @@ public class GuiOptionSlider extends GuiButton {
         if (visible) {
             if (dragging) {
                 sliderValue = (float) (mouseX - (xPosition + 4)) / (float) (width - 8);
-                sliderValue = MathHelper.clamp_float(sliderValue, 0.0F, 1.0F);
+                sliderValue = MathHelper.clamp(sliderValue, 0.0F, 1.0F);
                 float f = options.denormalizeValue(sliderValue);
                 mc.gameSettings.setOptionFloatValue(options, f);
                 sliderValue = options.normalizeValue(f);
@@ -52,7 +52,7 @@ public class GuiOptionSlider extends GuiButton {
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
             sliderValue = (float) (mouseX - (xPosition + 4)) / (float) (width - 8);
-            sliderValue = MathHelper.clamp_float(sliderValue, 0.0F, 1.0F);
+            sliderValue = MathHelper.clamp(sliderValue, 0.0F, 1.0F);
             mc.gameSettings.setOptionFloatValue(options, options.denormalizeValue(sliderValue));
             displayString = mc.gameSettings.getKeyBinding(options);
             dragging = true;

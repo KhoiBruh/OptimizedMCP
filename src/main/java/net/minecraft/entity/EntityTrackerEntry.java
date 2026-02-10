@@ -58,12 +58,12 @@ public class EntityTrackerEntry {
         trackingDistanceThreshold = trackingDistanceThresholdIn;
         updateFrequency = updateFrequencyIn;
         sendVelocityUpdates = sendVelocityUpdatesIn;
-        encodedPosX = MathHelper.floor_double(trackedEntityIn.posX * 32.0D);
-        encodedPosY = MathHelper.floor_double(trackedEntityIn.posY * 32.0D);
-        encodedPosZ = MathHelper.floor_double(trackedEntityIn.posZ * 32.0D);
-        encodedRotationYaw = MathHelper.floor_float(trackedEntityIn.rotationYaw * 256.0F / 360.0F);
-        encodedRotationPitch = MathHelper.floor_float(trackedEntityIn.rotationPitch * 256.0F / 360.0F);
-        lastHeadMotion = MathHelper.floor_float(trackedEntityIn.getRotationYawHead() * 256.0F / 360.0F);
+        encodedPosX = MathHelper.floor(trackedEntityIn.posX * 32.0D);
+        encodedPosY = MathHelper.floor(trackedEntityIn.posY * 32.0D);
+        encodedPosZ = MathHelper.floor(trackedEntityIn.posZ * 32.0D);
+        encodedRotationYaw = MathHelper.floor(trackedEntityIn.rotationYaw * 256.0F / 360.0F);
+        encodedRotationPitch = MathHelper.floor(trackedEntityIn.rotationPitch * 256.0F / 360.0F);
+        lastHeadMotion = MathHelper.floor(trackedEntityIn.getRotationYawHead() * 256.0F / 360.0F);
         onGround = trackedEntityIn.onGround;
     }
 
@@ -115,11 +115,11 @@ public class EntityTrackerEntry {
         if (updateCounter % updateFrequency == 0 || trackedEntity.isAirBorne || trackedEntity.getDataWatcher().hasObjectChanged()) {
             if (trackedEntity.ridingEntity == null) {
                 ++ticksSinceLastForcedTeleport;
-                int k = MathHelper.floor_double(trackedEntity.posX * 32.0D);
-                int j1 = MathHelper.floor_double(trackedEntity.posY * 32.0D);
-                int k1 = MathHelper.floor_double(trackedEntity.posZ * 32.0D);
-                int l1 = MathHelper.floor_float(trackedEntity.rotationYaw * 256.0F / 360.0F);
-                int i2 = MathHelper.floor_float(trackedEntity.rotationPitch * 256.0F / 360.0F);
+                int k = MathHelper.floor(trackedEntity.posX * 32.0D);
+                int j1 = MathHelper.floor(trackedEntity.posY * 32.0D);
+                int k1 = MathHelper.floor(trackedEntity.posZ * 32.0D);
+                int l1 = MathHelper.floor(trackedEntity.rotationYaw * 256.0F / 360.0F);
+                int i2 = MathHelper.floor(trackedEntity.rotationPitch * 256.0F / 360.0F);
                 int j2 = k - encodedPosX;
                 int k2 = j1 - encodedPosY;
                 int i = k1 - encodedPosZ;
@@ -179,8 +179,8 @@ public class EntityTrackerEntry {
 
                 ridingEntity = false;
             } else {
-                int j = MathHelper.floor_float(trackedEntity.rotationYaw * 256.0F / 360.0F);
-                int i1 = MathHelper.floor_float(trackedEntity.rotationPitch * 256.0F / 360.0F);
+                int j = MathHelper.floor(trackedEntity.rotationYaw * 256.0F / 360.0F);
+                int i1 = MathHelper.floor(trackedEntity.rotationPitch * 256.0F / 360.0F);
                 boolean flag2 = Math.abs(j - encodedRotationYaw) >= 4 || Math.abs(i1 - encodedRotationPitch) >= 4;
 
                 if (flag2) {
@@ -189,14 +189,14 @@ public class EntityTrackerEntry {
                     encodedRotationPitch = i1;
                 }
 
-                encodedPosX = MathHelper.floor_double(trackedEntity.posX * 32.0D);
-                encodedPosY = MathHelper.floor_double(trackedEntity.posY * 32.0D);
-                encodedPosZ = MathHelper.floor_double(trackedEntity.posZ * 32.0D);
+                encodedPosX = MathHelper.floor(trackedEntity.posX * 32.0D);
+                encodedPosY = MathHelper.floor(trackedEntity.posY * 32.0D);
+                encodedPosZ = MathHelper.floor(trackedEntity.posZ * 32.0D);
                 sendMetadataToAllAssociatedPlayers();
                 ridingEntity = true;
             }
 
-            int l = MathHelper.floor_float(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+            int l = MathHelper.floor(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
 
             if (Math.abs(l - lastHeadMotion) >= 4) {
                 sendPacketToTrackedPlayers(new S19PacketEntityHeadLook(trackedEntity, (byte) l));
@@ -362,7 +362,7 @@ public class EntityTrackerEntry {
                     new S0EPacketSpawnObject(trackedEntity, 10, entityminecart.getMinecartType().getNetworkID());
             case EntityBoat entityBoat -> new S0EPacketSpawnObject(trackedEntity, 1);
             case IAnimals iAnimals -> {
-                lastHeadMotion = MathHelper.floor_float(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+                lastHeadMotion = MathHelper.floor(trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
                 yield new S0FPacketSpawnMob((EntityLivingBase) trackedEntity);
             }
             case EntityFishHook entityFishHook -> {
@@ -411,17 +411,17 @@ public class EntityTrackerEntry {
             case EntityItemFrame entityitemframe -> {
                 S0EPacketSpawnObject s0epacketspawnobject1 = new S0EPacketSpawnObject(trackedEntity, 71, entityitemframe.facingDirection.getHorizontalIndex());
                 BlockPos blockpos1 = entityitemframe.getHangingPosition();
-                s0epacketspawnobject1.setX(MathHelper.floor_float((float) (blockpos1.getX() * 32)));
-                s0epacketspawnobject1.setY(MathHelper.floor_float((float) (blockpos1.getY() * 32)));
-                s0epacketspawnobject1.setZ(MathHelper.floor_float((float) (blockpos1.getZ() * 32)));
+                s0epacketspawnobject1.setX(MathHelper.floor((float) (blockpos1.getX() * 32)));
+                s0epacketspawnobject1.setY(MathHelper.floor((float) (blockpos1.getY() * 32)));
+                s0epacketspawnobject1.setZ(MathHelper.floor((float) (blockpos1.getZ() * 32)));
                 yield s0epacketspawnobject1;
             }
             case EntityLeashKnot entityleashknot -> {
                 S0EPacketSpawnObject s0epacketspawnobject = new S0EPacketSpawnObject(trackedEntity, 77);
                 BlockPos blockpos = entityleashknot.getHangingPosition();
-                s0epacketspawnobject.setX(MathHelper.floor_float((float) (blockpos.getX() * 32)));
-                s0epacketspawnobject.setY(MathHelper.floor_float((float) (blockpos.getY() * 32)));
-                s0epacketspawnobject.setZ(MathHelper.floor_float((float) (blockpos.getZ() * 32)));
+                s0epacketspawnobject.setX(MathHelper.floor((float) (blockpos.getX() * 32)));
+                s0epacketspawnobject.setY(MathHelper.floor((float) (blockpos.getY() * 32)));
+                s0epacketspawnobject.setZ(MathHelper.floor((float) (blockpos.getZ() * 32)));
                 yield s0epacketspawnobject;
             }
             case EntityXPOrb entityXPOrb -> new S11PacketSpawnExperienceOrb(entityXPOrb);

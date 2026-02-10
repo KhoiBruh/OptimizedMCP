@@ -124,22 +124,22 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
 
         float f1 = switch (p_175319_1_) {
-            case 132 -> field_175336_F.mainNoiseScaleX = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-            case 133 -> field_175336_F.mainNoiseScaleY = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-            case 134 -> field_175336_F.mainNoiseScaleZ = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-            case 135 -> field_175336_F.depthNoiseScaleX = MathHelper.clamp_float(f, 1.0F, 2000.0F);
-            case 136 -> field_175336_F.depthNoiseScaleZ = MathHelper.clamp_float(f, 1.0F, 2000.0F);
-            case 137 -> field_175336_F.depthNoiseScaleExponent = MathHelper.clamp_float(f, 0.01F, 20.0F);
-            case 138 -> field_175336_F.baseSize = MathHelper.clamp_float(f, 1.0F, 25.0F);
-            case 139 -> field_175336_F.coordinateScale = MathHelper.clamp_float(f, 1.0F, 6000.0F);
-            case 140 -> field_175336_F.heightScale = MathHelper.clamp_float(f, 1.0F, 6000.0F);
-            case 141 -> field_175336_F.stretchY = MathHelper.clamp_float(f, 0.01F, 50.0F);
-            case 142 -> field_175336_F.upperLimitScale = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-            case 143 -> field_175336_F.lowerLimitScale = MathHelper.clamp_float(f, 1.0F, 5000.0F);
-            case 144 -> field_175336_F.biomeDepthWeight = MathHelper.clamp_float(f, 1.0F, 20.0F);
-            case 145 -> field_175336_F.biomeDepthOffset = MathHelper.clamp_float(f, 0.0F, 20.0F);
-            case 146 -> field_175336_F.biomeScaleWeight = MathHelper.clamp_float(f, 1.0F, 20.0F);
-            case 147 -> field_175336_F.biomeScaleOffset = MathHelper.clamp_float(f, 0.0F, 20.0F);
+            case 132 -> field_175336_F.mainNoiseScaleX = MathHelper.clamp(f, 1.0F, 5000.0F);
+            case 133 -> field_175336_F.mainNoiseScaleY = MathHelper.clamp(f, 1.0F, 5000.0F);
+            case 134 -> field_175336_F.mainNoiseScaleZ = MathHelper.clamp(f, 1.0F, 5000.0F);
+            case 135 -> field_175336_F.depthNoiseScaleX = MathHelper.clamp(f, 1.0F, 2000.0F);
+            case 136 -> field_175336_F.depthNoiseScaleZ = MathHelper.clamp(f, 1.0F, 2000.0F);
+            case 137 -> field_175336_F.depthNoiseScaleExponent = MathHelper.clamp(f, 0.01F, 20.0F);
+            case 138 -> field_175336_F.baseSize = MathHelper.clamp(f, 1.0F, 25.0F);
+            case 139 -> field_175336_F.coordinateScale = MathHelper.clamp(f, 1.0F, 6000.0F);
+            case 140 -> field_175336_F.heightScale = MathHelper.clamp(f, 1.0F, 6000.0F);
+            case 141 -> field_175336_F.stretchY = MathHelper.clamp(f, 0.01F, 50.0F);
+            case 142 -> field_175336_F.upperLimitScale = MathHelper.clamp(f, 1.0F, 5000.0F);
+            case 143 -> field_175336_F.lowerLimitScale = MathHelper.clamp(f, 1.0F, 5000.0F);
+            case 144 -> field_175336_F.biomeDepthWeight = MathHelper.clamp(f, 1.0F, 20.0F);
+            case 145 -> field_175336_F.biomeDepthOffset = MathHelper.clamp(f, 0.0F, 20.0F);
+            case 146 -> field_175336_F.biomeScaleWeight = MathHelper.clamp(f, 1.0F, 20.0F);
+            case 147 -> field_175336_F.biomeScaleOffset = MathHelper.clamp(f, 0.0F, 20.0F);
             default -> 0.0F;
         };
 
@@ -643,7 +643,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
                             if (guibutton instanceof GuiSlider) {
                                 float f = ((GuiSlider) guibutton).func_175217_d() * (0.75F + random.nextFloat() * 0.5F) + (random.nextFloat() * 0.1F - 0.05F);
-                                ((GuiSlider) guibutton).func_175219_a(MathHelper.clamp_float(f, 0.0F, 1.0F));
+                                ((GuiSlider) guibutton).func_175219_a(MathHelper.clamp(f, 0.0F, 1.0F));
                             } else if (guibutton instanceof GuiListButton) {
                                 ((GuiListButton) guibutton).func_175212_b(random.nextBoolean());
                             }
@@ -655,7 +655,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
                             if (guibutton1 instanceof GuiSlider) {
                                 float f1 = ((GuiSlider) guibutton1).func_175217_d() * (0.75F + random.nextFloat() * 0.5F) + (random.nextFloat() * 0.1F - 0.05F);
-                                ((GuiSlider) guibutton1).func_175219_a(MathHelper.clamp_float(f1, 0.0F, 1.0F));
+                                ((GuiSlider) guibutton1).func_175219_a(MathHelper.clamp(f1, 0.0F, 1.0F));
                             } else if (guibutton1 instanceof GuiListButton) {
                                 ((GuiListButton) guibutton1).func_175212_b(random.nextBoolean());
                             }

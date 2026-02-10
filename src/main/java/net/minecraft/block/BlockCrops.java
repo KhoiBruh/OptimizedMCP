@@ -93,7 +93,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     public void grow(World worldIn, BlockPos pos, IBlockState state) {
-        int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+        int i = state.getValue(AGE) + MathHelper.nextInt(worldIn.rand, 2, 5);
 
         if (i > 7) {
             i = 7;

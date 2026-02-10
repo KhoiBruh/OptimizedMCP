@@ -113,7 +113,7 @@ public class FlatGeneratorInfo {
             return getDefaultFlatGenerator();
         } else {
             String[] astring = flatGeneratorSettings.split(";", -1);
-            int i = astring.length == 1 ? 0 : MathHelper.parseIntWithDefault(astring[0], 0);
+            int i = astring.length == 1 ? 0 : MathHelper.parse(astring[0], 0);
 
             if (i >= 0 && i <= 3) {
                 FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
@@ -126,7 +126,7 @@ public class FlatGeneratorInfo {
                     int k = BiomeGenBase.plains.biomeID;
 
                     if (i > 0 && astring.length > j) {
-                        k = MathHelper.parseIntWithDefault(astring[j++], k);
+                        k = MathHelper.parse(astring[j++], k);
                     }
 
                     flatgeneratorinfo.biomeToUse = k;

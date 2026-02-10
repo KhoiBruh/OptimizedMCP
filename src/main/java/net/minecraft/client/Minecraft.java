@@ -972,7 +972,7 @@ public class Minecraft implements IThreadListener {
             double d0 = 0.0D;
 
             for (Profiler.Result profiler$result1 : list) {
-                int i1 = MathHelper.floor_double(profiler$result1.field_76332_a / 4.0D) + 1;
+                int i1 = MathHelper.floor(profiler$result1.field_76332_a / 4.0D) + 1;
                 worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
                 int j1 = profiler$result1.getColor();
                 int k1 = j1 >> 16 & 255;
@@ -1307,7 +1307,7 @@ public class Minecraft implements IThreadListener {
                             j = j < 0 ? -1 : 1;
 
                             if (!ingameGUI.getSpectatorGui().func_175262_a()) {
-                                float f = MathHelper.clamp_float(thePlayer.capabilities.getFlySpeed() + (float) j * 0.005F, 0.0F, 0.2F);
+                                float f = MathHelper.clamp(thePlayer.capabilities.getFlySpeed() + (float) j * 0.005F, 0.0F, 0.2F);
                                 thePlayer.capabilities.setFlySpeed(f);
                             } else ingameGUI.getSpectatorGui().func_175259_b(-j);
                         } else thePlayer.inventory.changeCurrentItem(j);
@@ -1535,8 +1535,8 @@ public class Minecraft implements IThreadListener {
             mcProfiler.endStartSection("animateTick");
 
             if (!isGamePaused && theWorld != null) {
-                theWorld.doVoidFogParticles(MathHelper.floor_double(thePlayer.posX),
-                        MathHelper.floor_double(thePlayer.posY), MathHelper.floor_double(thePlayer.posZ));
+                theWorld.doVoidFogParticles(MathHelper.floor(thePlayer.posX),
+                        MathHelper.floor(thePlayer.posY), MathHelper.floor(thePlayer.posZ));
             }
 
             mcProfiler.endStartSection("particles");

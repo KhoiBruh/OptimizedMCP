@@ -86,9 +86,9 @@ public class EntityAIFollowOwner extends EntityAIBase {
                 if (!petPathfinder.tryMoveToEntityLiving(theOwner, followSpeed)) {
                     if (!thePet.getLeashed()) {
                         if (thePet.getDistanceSqToEntity(theOwner) >= 144.0D) {
-                            int i = MathHelper.floor_double(theOwner.posX) - 2;
-                            int j = MathHelper.floor_double(theOwner.posZ) - 2;
-                            int k = MathHelper.floor_double(theOwner.getEntityBoundingBox().minY);
+                            int i = MathHelper.floor(theOwner.posX) - 2;
+                            int j = MathHelper.floor(theOwner.posZ) - 2;
+                            int k = MathHelper.floor(theOwner.getEntityBoundingBox().minY);
 
                             for (int l = 0; l <= 4; ++l) {
                                 for (int i1 = 0; i1 <= 4; ++i1) {

@@ -62,8 +62,8 @@ public class ItemMap extends ItemMapBase {
             int i = 1 << data.scale;
             int j = data.xCenter;
             int k = data.zCenter;
-            int l = MathHelper.floor_double(viewer.posX - (double) j) / i + 64;
-            int i1 = MathHelper.floor_double(viewer.posZ - (double) k) / i + 64;
+            int l = MathHelper.floor(viewer.posX - (double) j) / i + 64;
+            int i1 = MathHelper.floor(viewer.posZ - (double) k) / i + 64;
             int j1 = 128 / i;
 
             if (worldIn.provider.getHasNoSky()) {

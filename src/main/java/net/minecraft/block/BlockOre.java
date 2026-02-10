@@ -53,15 +53,15 @@ public class BlockOre extends Block {
             int i = 0;
 
             if (this == Blocks.coal_ore) {
-                i = MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2);
+                i = MathHelper.nextInt(worldIn.rand, 0, 2);
             } else if (this == Blocks.diamond_ore) {
-                i = MathHelper.getRandomIntegerInRange(worldIn.rand, 3, 7);
+                i = MathHelper.nextInt(worldIn.rand, 3, 7);
             } else if (this == Blocks.emerald_ore) {
-                i = MathHelper.getRandomIntegerInRange(worldIn.rand, 3, 7);
+                i = MathHelper.nextInt(worldIn.rand, 3, 7);
             } else if (this == Blocks.lapis_ore) {
-                i = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+                i = MathHelper.nextInt(worldIn.rand, 2, 5);
             } else if (this == Blocks.quartz_ore) {
-                i = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
+                i = MathHelper.nextInt(worldIn.rand, 2, 5);
             }
 
             dropXpOnBlockBreak(worldIn, pos, i);

@@ -82,13 +82,13 @@ public class EntityAIArrowAttack extends EntityAIBase {
                 return;
             }
 
-            float f = MathHelper.sqrt_double(d0) / field_96562_i;
-            float lvt_5_1_ = MathHelper.clamp_float(f, 0.1F, 1.0F);
+            float f = MathHelper.sqrt(d0) / field_96562_i;
+            float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1.0F);
             rangedAttackEntityHost.attackEntityWithRangedAttack(attackTarget, lvt_5_1_);
-            rangedAttackTime = MathHelper.floor_float(f * (float) (maxRangedAttackTime - field_96561_g) + (float) field_96561_g);
+            rangedAttackTime = MathHelper.floor(f * (float) (maxRangedAttackTime - field_96561_g) + (float) field_96561_g);
         } else if (rangedAttackTime < 0) {
-            float f2 = MathHelper.sqrt_double(d0) / field_96562_i;
-            rangedAttackTime = MathHelper.floor_float(f2 * (float) (maxRangedAttackTime - field_96561_g) + (float) field_96561_g);
+            float f2 = MathHelper.sqrt(d0) / field_96562_i;
+            rangedAttackTime = MathHelper.floor(f2 * (float) (maxRangedAttackTime - field_96561_g) + (float) field_96561_g);
         }
     }
 }

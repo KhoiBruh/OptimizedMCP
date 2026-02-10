@@ -25,7 +25,7 @@ public record Vec3(double xCoord, double yCoord, double zCoord) {
     }
 
     public Vec3 normalize() {
-        double d0 = MathHelper.sqrt_double(xCoord * xCoord + yCoord * yCoord + zCoord * zCoord);
+        double d0 = MathHelper.sqrt(xCoord * xCoord + yCoord * yCoord + zCoord * zCoord);
         return d0 < 1.0E-4D ? new Vec3(0.0D, 0.0D, 0.0D) : new Vec3(xCoord / d0, yCoord / d0, zCoord / d0);
     }
 
@@ -57,7 +57,7 @@ public record Vec3(double xCoord, double yCoord, double zCoord) {
         double d0 = vec.xCoord - xCoord;
         double d1 = vec.yCoord - yCoord;
         double d2 = vec.zCoord - zCoord;
-        return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+        return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
     public double squareDistanceTo(Vec3 vec) {
@@ -68,7 +68,7 @@ public record Vec3(double xCoord, double yCoord, double zCoord) {
     }
 
     public double lengthVector() {
-        return MathHelper.sqrt_double(xCoord * xCoord + yCoord * yCoord + zCoord * zCoord);
+        return MathHelper.sqrt(xCoord * xCoord + yCoord * yCoord + zCoord * zCoord);
     }
 
     public Vec3 getIntermediateWithXValue(Vec3 vec, double x) {

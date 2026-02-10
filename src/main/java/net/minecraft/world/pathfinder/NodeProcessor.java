@@ -16,9 +16,9 @@ public abstract class NodeProcessor {
     public void initProcessor(IBlockAccess iblockaccessIn, Entity entityIn) {
         blockaccess = iblockaccessIn;
         pointMap.clearMap();
-        entitySizeX = MathHelper.floor_float(entityIn.width + 1.0F);
-        entitySizeY = MathHelper.floor_float(entityIn.height + 1.0F);
-        entitySizeZ = MathHelper.floor_float(entityIn.width + 1.0F);
+        entitySizeX = MathHelper.floor(entityIn.width + 1.0F);
+        entitySizeY = MathHelper.floor(entityIn.height + 1.0F);
+        entitySizeZ = MathHelper.floor(entityIn.width + 1.0F);
     }
 
     public void postProcess() {
