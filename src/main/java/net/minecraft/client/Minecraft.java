@@ -201,8 +201,7 @@ public class Minecraft implements IThreadListener {
                 (new ResourceIndex(gameConfig.folderInfo().assetsDir(), gameConfig.folderInfo().assetIndex()))
                         .getResourceMap());
         proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
-        sessionService = (new YggdrasilAuthenticationService(proxy,
-                UUID.randomUUID().toString())).createMinecraftSessionService();
+        sessionService = (new YggdrasilAuthenticationService(proxy, UUID.randomUUID().toString())).createMinecraftSessionService();
         session = gameConfig.userInfo().session();
         logger.info("Setting user: {}", session.username());
         logger.info("(Session ID is {})", session.getSessionID());
@@ -219,7 +218,7 @@ public class Minecraft implements IThreadListener {
             serverPort = gameConfig.serverInfo().serverPort();
         }
 
-        ImageIO.setUseCache(false);
+        //ImageIO.setUseCache(false);
         Bootstrap.register();
     }
 

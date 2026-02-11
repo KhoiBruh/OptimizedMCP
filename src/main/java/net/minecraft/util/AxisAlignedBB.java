@@ -76,13 +76,13 @@ public class AxisAlignedBB {
     }
 
     public AxisAlignedBB union(AxisAlignedBB other) {
-        double d0 = Math.min(minX, other.minX);
-        double d1 = Math.min(minY, other.minY);
-        double d2 = Math.min(minZ, other.minZ);
-        double d3 = Math.max(maxX, other.maxX);
-        double d4 = Math.max(maxY, other.maxY);
-        double d5 = Math.max(maxZ, other.maxZ);
-        return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
+        double minX = Math.min(this.minX, other.minX);
+        double minY = Math.min(this.minY, other.minY);
+        double minZ = Math.min(this.minZ, other.minZ);
+        double maxX = Math.max(this.maxX, other.maxX);
+        double maxY = Math.max(this.maxY, other.maxY);
+        double maxZ = Math.max(this.maxZ, other.maxZ);
+        return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     public AxisAlignedBB offset(double x, double y, double z) {
@@ -94,21 +94,15 @@ public class AxisAlignedBB {
             if (offsetX > 0.0D && other.maxX <= minX) {
                 double d1 = minX - other.maxX;
 
-                if (d1 < offsetX) {
-                    offsetX = d1;
-                }
+                if (d1 < offsetX) offsetX = d1;
             } else if (offsetX < 0.0D && other.minX >= maxX) {
                 double d0 = maxX - other.minX;
 
-                if (d0 > offsetX) {
-                    offsetX = d0;
-                }
+                if (d0 > offsetX) offsetX = d0;
             }
-
-            return offsetX;
-        } else {
-            return offsetX;
         }
+
+        return offsetX;
     }
 
     public double calculateYOffset(AxisAlignedBB other, double offsetY) {
@@ -116,21 +110,15 @@ public class AxisAlignedBB {
             if (offsetY > 0.0D && other.maxY <= minY) {
                 double d1 = minY - other.maxY;
 
-                if (d1 < offsetY) {
-                    offsetY = d1;
-                }
+                if (d1 < offsetY) offsetY = d1;
             } else if (offsetY < 0.0D && other.minY >= maxY) {
                 double d0 = maxY - other.minY;
 
-                if (d0 > offsetY) {
-                    offsetY = d0;
-                }
+                if (d0 > offsetY) offsetY = d0;
             }
-
-            return offsetY;
-        } else {
-            return offsetY;
         }
+
+        return offsetY;
     }
 
     public double calculateZOffset(AxisAlignedBB other, double offsetZ) {
@@ -138,21 +126,15 @@ public class AxisAlignedBB {
             if (offsetZ > 0.0D && other.maxZ <= minZ) {
                 double d1 = minZ - other.maxZ;
 
-                if (d1 < offsetZ) {
-                    offsetZ = d1;
-                }
+                if (d1 < offsetZ) offsetZ = d1;
             } else if (offsetZ < 0.0D && other.minZ >= maxZ) {
                 double d0 = maxZ - other.minZ;
 
-                if (d0 > offsetZ) {
-                    offsetZ = d0;
-                }
+                if (d0 > offsetZ) offsetZ = d0;
             }
-
-            return offsetZ;
-        } else {
-            return offsetZ;
         }
+
+        return offsetZ;
     }
 
     public boolean intersectsWith(AxisAlignedBB other) {
@@ -181,84 +163,50 @@ public class AxisAlignedBB {
     }
 
     public MovingObjectPosition calculateIntercept(Vec3 vecA, Vec3 vecB) {
-        Vec3 vec3 = vecA.getIntermediateWithXValue(vecB, minX);
-        Vec3 vec31 = vecA.getIntermediateWithXValue(vecB, maxX);
-        Vec3 vec32 = vecA.getIntermediateWithYValue(vecB, minY);
-        Vec3 vec33 = vecA.getIntermediateWithYValue(vecB, maxY);
-        Vec3 vec34 = vecA.getIntermediateWithZValue(vecB, minZ);
-        Vec3 vec35 = vecA.getIntermediateWithZValue(vecB, maxZ);
+        Vec3 minX = vecA.getIntermediateWithXValue(vecB, this.minX);
+        Vec3 maxX = vecA.getIntermediateWithXValue(vecB, this.maxX);
+        Vec3 minY = vecA.getIntermediateWithYValue(vecB, this.minY);
+        Vec3 maxY = vecA.getIntermediateWithYValue(vecB, this.maxY);
+        Vec3 minZ = vecA.getIntermediateWithZValue(vecB, this.minZ);
+        Vec3 maxZ = vecA.getIntermediateWithZValue(vecB, this.maxZ);
 
-        if (!isVecInYZ(vec3)) {
-            vec3 = null;
-        }
+        if (!isVecInYZ(minX)) minX = null;
+        if (!isVecInYZ(maxX)) maxX = null;
+        if (!isVecInXZ(minY)) minY = null;
+        if (!isVecInXZ(maxY)) maxY = null;
+        if (!isVecInXY(minZ)) minZ = null;
+        if (!isVecInXY(maxZ)) maxZ = null;
 
-        if (!isVecInYZ(vec31)) {
-            vec31 = null;
-        }
+        Vec3 dir = null;
 
-        if (!isVecInXZ(vec32)) {
-            vec32 = null;
-        }
+        if (minX != null) dir = minX;
+        if (maxX != null && (dir == null || vecA.squareDistanceTo(maxX) < vecA.squareDistanceTo(dir))) dir = maxX;
+        if (minY != null && (dir == null || vecA.squareDistanceTo(minY) < vecA.squareDistanceTo(dir))) dir = minY;
+        if (maxY != null && (dir == null || vecA.squareDistanceTo(maxY) < vecA.squareDistanceTo(dir))) dir = maxY;
+        if (minZ != null && (dir == null || vecA.squareDistanceTo(minZ) < vecA.squareDistanceTo(dir))) dir = minZ;
+        if (maxZ != null && (dir == null || vecA.squareDistanceTo(maxZ) < vecA.squareDistanceTo(dir))) dir = maxZ;
 
-        if (!isVecInXZ(vec33)) {
-            vec33 = null;
-        }
-
-        if (!isVecInXY(vec34)) {
-            vec34 = null;
-        }
-
-        if (!isVecInXY(vec35)) {
-            vec35 = null;
-        }
-
-        Vec3 vec36 = null;
-
-        if (vec3 != null) {
-            vec36 = vec3;
-        }
-
-        if (vec31 != null && (vec36 == null || vecA.squareDistanceTo(vec31) < vecA.squareDistanceTo(vec36))) {
-            vec36 = vec31;
-        }
-
-        if (vec32 != null && (vec36 == null || vecA.squareDistanceTo(vec32) < vecA.squareDistanceTo(vec36))) {
-            vec36 = vec32;
-        }
-
-        if (vec33 != null && (vec36 == null || vecA.squareDistanceTo(vec33) < vecA.squareDistanceTo(vec36))) {
-            vec36 = vec33;
-        }
-
-        if (vec34 != null && (vec36 == null || vecA.squareDistanceTo(vec34) < vecA.squareDistanceTo(vec36))) {
-            vec36 = vec34;
-        }
-
-        if (vec35 != null && (vec36 == null || vecA.squareDistanceTo(vec35) < vecA.squareDistanceTo(vec36))) {
-            vec36 = vec35;
-        }
-
-        if (vec36 == null) {
-            return null;
-        } else {
+        if (dir != null) {
             Direction enumfacing;
 
-            if (vec36 == vec3) {
+            if (dir == minX) {
                 enumfacing = Direction.WEST;
-            } else if (vec36 == vec31) {
+            } else if (dir == maxX) {
                 enumfacing = Direction.EAST;
-            } else if (vec36 == vec32) {
+            } else if (dir == minY) {
                 enumfacing = Direction.DOWN;
-            } else if (vec36 == vec33) {
+            } else if (dir == maxY) {
                 enumfacing = Direction.UP;
-            } else if (vec36 == vec34) {
+            } else if (dir == minZ) {
                 enumfacing = Direction.NORTH;
             } else {
                 enumfacing = Direction.SOUTH;
             }
 
-            return new MovingObjectPosition(vec36, enumfacing);
+            return new MovingObjectPosition(dir, enumfacing);
         }
+
+        return null;
     }
 
     private boolean isVecInYZ(Vec3 vec) {

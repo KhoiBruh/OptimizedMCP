@@ -23,29 +23,29 @@ public class ResourceIndex {
     private final Map<String, File> resourceMap = new HashMap<>();
 
     public ResourceIndex(File file, String resource) {
-        if (resource != null) {
-            File file1 = new File(file, "objects");
-            File file2 = new File(file, "indexes/" + resource + ".json");
-
-            try (var bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8)) {
-                JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
-                JsonObject objects = JsonUtils.getJsonObject(jsonobject, "objects", null);
-
-                if (objects != null) {
-                    for (Entry<String, JsonElement> entry : objects.entrySet()) {
-                        JsonObject jsonobject2 = (JsonObject) entry.getValue();
-                        String s = entry.getKey();
-                        String[] astring = s.split("/", 2);
-                        String s1 = astring.length == 1 ? astring[0] : astring[0] + ":" + astring[1];
-                        String s2 = JsonUtils.getString(jsonobject2, "hash");
-                        File file3 = new File(file1, s2.substring(0, 2) + "/" + s2);
-                        resourceMap.put(s1, file3);
-                    }
-                }
-            } catch (IOException e) {
-                logger.error("Can't find the resource index file: {}", file2, e);
-            }
-        }
+//        if (resource != null) {
+//            File file1 = new File(file, "objects");
+//            File file2 = new File(file, "indexes/" + resource + ".json");
+//
+//            try (var bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8)) {
+//                JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
+//                JsonObject objects = JsonUtils.getJsonObject(jsonobject, "objects", null);
+//
+//                if (objects != null) {
+//                    for (Entry<String, JsonElement> entry : objects.entrySet()) {
+//                        JsonObject jsonobject2 = (JsonObject) entry.getValue();
+//                        String s = entry.getKey();
+//                        String[] astring = s.split("/", 2);
+//                        String s1 = astring.length == 1 ? astring[0] : astring[0] + ":" + astring[1];
+//                        String s2 = JsonUtils.getString(jsonobject2, "hash");
+//                        File file3 = new File(file1, s2.substring(0, 2) + "/" + s2);
+//                        resourceMap.put(s1, file3);
+//                    }
+//                }
+//            } catch (IOException e) {
+//                logger.error("Can't find the resource index file: {}", file2, e);
+//            }
+//        }
     }
 
     public Map<String, File> getResourceMap() {

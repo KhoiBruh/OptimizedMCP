@@ -1,5 +1,6 @@
 plugins {
     java
+    id("org.graalvm.buildtools.native") version "0.11.1"
 }
 
 group = "net.minecraft"
@@ -39,7 +40,8 @@ dependencies {
     implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.25.3")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.25.3")
 
-    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
+    implementation(group = "info.picocli", name = "picocli", version = "4.7.7")
+    annotationProcessor(group = "info.picocli", name = "picocli-codegen", version = "4.7.7")
 
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
     implementation(group = "org.joml", name = "joml-primitives", version = "1.10.0")
@@ -59,4 +61,50 @@ dependencies {
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", classifier = "natives-windows")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-windows")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-rpmalloc", classifier = "natives-windows")
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-Aproject=${project.group}/${project.name}")
+}
+
+// Task to extract LWJGL natives from JARs so they can be shipped alongside the native image
+val extractLwjglNatives by tasks.registering {
+    val nativesDir = layout.buildDirectory.dir("lwjgl-natives")
+    outputs.dir(nativesDir)
+    doLast {
+        val outDir = nativesDir.get().asFile
+        outDir.mkdirs()
+        configurations.runtimeClasspath.get().files
+            .filter { it.name.contains("natives") && it.name.contains("lwjgl") }
+            .forEach { jar ->
+                zipTree(jar).matching {
+                    include("**/*.dll", "**/*.so", "**/*.dylib")
+                }.forEach { nativeFile ->
+                    nativeFile.copyTo(File(outDir, nativeFile.name), overwrite = true)
+                }
+            }
+    }
+}
+
+graalvmNative {
+    toolchainDetection.set(true)
+    binaries {
+        named("main") {
+            javaLauncher.set(javaToolchains.launcherFor {
+                languageVersion.set(JavaLanguageVersion.of(21))
+                mainClass = "Start"
+            })
+            buildArgs.addAll(
+                "--enable-url-protocols=https,http",
+                // Include LWJGL native libraries as resources so SharedLibraryLoader can extract them
+                "-H:IncludeResources=.*\\\\.dll$",
+                "-H:IncludeResources=.*\\\\.so$",
+                "-H:IncludeResources=.*\\\\.dylib$",
+                // LWJGL needs JNI
+                "-H:+JNI",
+                // Allow incomplete classpath
+                "--allow-incomplete-classpath"
+            )
+        }
+    }
 }
